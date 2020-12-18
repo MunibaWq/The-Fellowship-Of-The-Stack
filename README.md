@@ -1,5 +1,6 @@
 # The-Fellowship-Of-The-Stack
 
-Team Members: 
+Team Members:
 
 Muniba
+Nic
