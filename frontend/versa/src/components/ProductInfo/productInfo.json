@@ -1,0 +1,16 @@
+[
+  {
+    "id": 0,
+    "title": "title",
+    "price": 109.95,
+    "description": "description",
+    "image": "image.jpg",
+    "num_sales": 23,
+    "num_stars": 3,
+    "num_reviews": 20,
+    "variations": ["#ff4411", "#ff4433"],
+    "artist": "someone",
+    "size": "small fhdfhjfdjkffdkjfd",
+    "materials": "ghdsakjfahkfhds fdjfkdkj fdsljdsf"
+  }
+]
