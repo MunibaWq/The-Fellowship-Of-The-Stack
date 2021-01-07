@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Star } from "../../images/icons";
 
-const index = () => {
+const CustomerReviews = () => {
     return (
         <CustomerReviewsContainer>
             <TitleStarsNumReviews>
@@ -74,7 +74,7 @@ const index = () => {
     );
 };
 
-export default index;
+export default CustomerReviews;
 
 const CustomerReviewsContainer = styled.section`
     display: flex;

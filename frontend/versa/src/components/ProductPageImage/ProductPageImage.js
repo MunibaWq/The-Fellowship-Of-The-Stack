@@ -3,10 +3,10 @@ import styled from "styled-components";
 import { Circle } from "../../images/icons";
 import Image from "../../images/imageTest.png";
 
-const index = () => {
+const ProductPageImage = () => {
     return (
         <ImageButtonContainer>
-            <img src={Image} alt="pruduct-image" />
+            <img src={Image} alt="pruduct" />
             <BackToResults>
                 <h6>Back to results</h6>
             </BackToResults>
@@ -20,16 +20,15 @@ const index = () => {
     );
 };
 
-export default index;
+export default ProductPageImage;
 
 const ImageButtonContainer = styled.div`
     @media (max-width: 414px) {
-        position: relative;
         width: 414px;
         height: 550px;
         img {
-            height: 560px;
             width: 100%;
+            position: relative;
         }
     }
 `;
@@ -48,9 +47,10 @@ const Badge = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
+    padding: 5px;
     position: absolute;
-    left: calc (100% - 20px);
-    bottom: 20px;
+    left: 20px;
+    top: 510px;
     background: #ffffff;
     border-radius: 50px;
 `;

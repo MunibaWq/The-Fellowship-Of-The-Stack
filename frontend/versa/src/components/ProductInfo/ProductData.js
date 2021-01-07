@@ -1,7 +1,7 @@
 import React from "react";
 import productData from "./productData.json";
-import ProductSummary from "../ProductSummary";
-import ProductDetails from "../ProductDetails";
+import ProductSummary from "../ProductSummary/ProductSummary.js";
+import ProductDetails from "../ProductDetails/ProductDetails.js";
 
 const ProductData = () => {
     return (

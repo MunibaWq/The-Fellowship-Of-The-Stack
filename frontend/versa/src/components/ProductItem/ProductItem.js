@@ -1,7 +1,7 @@
 import React from "react";
-import ArtistDetails from "../ArtistDetails";
-import CustomerReviews from "../CustomerReviews3";
-import ProductPageImage from "../ProductPageImage";
+import ArtistDetails from "../ArtistDetails/ArtistDetails.js";
+import CustomerReviews from "../CustomerReviewsSection/CustomerReviewsSection.js";
+import ProductPageImage from "../ProductPageImage/ProductPageImage";
 
 import ProductData from "../ProductInfo/ProductData";
 

@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { ArrowRight } from "../../images/icons";
 import Image from "../../images/imageTest.png";
 
-const index = () => {
+const ArtistDetails = () => {
     return (
         <ArtistContainer>
             <ProfileName>
@@ -26,7 +26,7 @@ const index = () => {
     );
 };
 
-export default index;
+export default ArtistDetails;
 
 const ArtistContainer = styled.div`
     padding: 20px;
