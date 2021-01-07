@@ -61,7 +61,6 @@ module.exports = [
         artist_id: 1,
         size_and_fit: "slim fit",
         size: "20 20 20",
-        
         materials: "polyester",
     },
     {
@@ -109,7 +108,8 @@ module.exports = [
         num_reviews: 20,
         variations: "#bba58e",
         artist_id: 1,
-        size_and_fit: "size 7, can be resized but will take and extra day for shipping",
+        size_and_fit:
+            "size 7, can be resized but will take and extra day for shipping",
         size: "3 3 3",
         materials: "white gold",
     },
@@ -131,7 +131,7 @@ module.exports = [
         materials: "rose gold",
     },
     {
-        id: 15,
+        id: 9,
         title: "BIYLACLESEN Womens 3-in-1 Snowboard Jacket Winter Coats",
         price: 56.99,
         description:
@@ -148,7 +148,7 @@ module.exports = [
         materials: "polyester",
     },
     {
-        id: 16,
+        id: 10,
         title:
             "Lock and Love Womens Removable Hooded Faux Leather Moto Biker Jacket",
         price: 29.95,
@@ -165,7 +165,7 @@ module.exports = [
         materials: "polyurethane, polyester, cotton, faux leather",
     },
     {
-        id: 17,
+        id: 11,
         title: "Rain Jacket Women Windbreaker Striped Climbing Raincoats",
         price: 39.99,
         description:
@@ -181,7 +181,7 @@ module.exports = [
         materials: "polyester, cotton",
     },
     {
-        id: 18,
+        id: 12,
         title: "MBJ Womens Solid Short Sleeve Boat Neck V ",
         price: 9.85,
         description:
@@ -198,7 +198,7 @@ module.exports = [
         materials: "rayon, spandex",
     },
     {
-        id: 19,
+        id: 13,
         title: "Opna Womens Short Sleeve Moisture",
         price: 7.95,
         description:
@@ -214,11 +214,11 @@ module.exports = [
         materials: "polyester",
     },
     {
-        id: 20,
+        id: 14,
         title: "DANVOUY Womens T Shirt Casual Cotton Short",
         price: 12.99,
         description:
-            "95%Cotton,5%Spandex, Features: Casual, Short Sleeve, Letter Print,V-Neck,Fashion Tees, The fabric is soft and has some stretch., Occasion: Casual/Office/Beach/School/Home/Street. Season: Spring,Summer,Autumn,Winter.",
+            "95% Cotton,5% Spandex, Features: Casual, Short Sleeve, Letter Print,V-Neck,Fashion Tees, The fabric is soft and has some stretch., Occasion: Casual/Office/Beach/School/Home/Street. Season: Spring,Summer,Autumn,Winter.",
 
         image: "61pHAEJ4NML._AC_UX679_.jpg",
         num_sales: 23,
