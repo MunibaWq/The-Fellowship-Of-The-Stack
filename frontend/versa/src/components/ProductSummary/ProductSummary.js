@@ -43,6 +43,14 @@ const ProductSold = styled.div`
 const ReviewContainer = styled.div`
     display: flex;
 `;
+
+const StarsContainer = styled.div`
+    margin: 0 20px;
+
+    &:child {
+        margin: 0 5px;
+    }
+`;
 const NumReviews = styled.div`
     margin: 0 20px;
 `;
@@ -100,10 +108,13 @@ const ProductSummary = ({
                 </PriceSoldContainer>
                 <span>|</span>
                 <ReviewContainer>
-                    <Star />
-                    <Star />
-                    <Star />
-                    <Star />
+                    <StarsContainer>
+                        <Star />
+                        <Star />
+                        <Star />
+                        <Star />
+                    </StarsContainer>
+
                     <NumReviews>{num_reviews} reviews</NumReviews>
                 </ReviewContainer>
             </PriceReviewContainer>
