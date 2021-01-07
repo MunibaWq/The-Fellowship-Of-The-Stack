@@ -20,6 +20,7 @@ const loadTables = async () => {
       "num_stars" real,
       "num_reviews" int,
       "variations" varchar,
+      "size_and_fit" varchar,
       "size" varchar,
       "materials" varchar
     )`);
@@ -33,11 +34,11 @@ const loadTables = async () => {
     client.query("INSERT INTO artists (username) VALUES ('someone')");
 };
 const loadSampleData = async (product) => {
-    let columns = `'${product.title}', ${product.price}, '${product.description}', '${product.image}',${product.num_sales}, ${product.num_stars}, ${product.num_reviews}, '${product.variations}', ${product.artist_id}, '${product.size}', '${product.materials}'`;
+    let columns = `'${product.title}', ${product.price}, '${product.description}', '${product.image}',${product.num_sales}, ${product.num_stars}, ${product.num_reviews}, '${product.variations}', ${product.artist_id}, '${product.size}', '${product.size_and_fit}', '${product.materials}'`;
     let client = await pool.connect();
 
     let result = await client.query(
-        "INSERT INTO products (title,price,description,image,num_sales,num_stars,num_reviews, variations, artist_id, size, materials) VALUES (" +
+        "INSERT INTO products (title,price,description,image,num_sales,num_stars,num_reviews, variations, artist_id, size, size_and_fit, materials) VALUES (" +
             columns +
             ")"
     );
@@ -46,8 +47,10 @@ const loadSampleData = async (product) => {
     console.log(result.rows, result.rows.length);
 };
 
-loadTables();
-products.forEach((product) => {
-    loadSampleData(product);
-});
+loadTables().then(() => {
+    products.forEach((product) => {
+        loadSampleData(product);
+    });
+})
+
 
