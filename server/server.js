@@ -18,7 +18,20 @@ app.use(express.json());
 app.use("/", express.static(path.join(__dirname, "public")));
 
 app.listen(PORT, () => console.log(`Listening on ${PORT}`));
-
+app.get("/allProducts", async (req, res) => {
+  try {
+    const client = await pool.connect();
+    const result = await client.query("SELECT * FROM products")
+    const results = result.rows
+    results.forEach((product) => {
+      product["variations"] = product["variations"].split(" ")
+    })
+    res.json(results)
+  } catch (e) {
+    console.log(e)
+    res.send('error')
+  }
+})
 app.get("/db", async (req, res) => {
     try {
       const client = await pool.connect();
