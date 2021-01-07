@@ -1,0 +1,30 @@
+img {
+    width: 100%;
+}
+
+.imageDiv{
+    width: 200px;
+}
+
+.productDiv {
+    width: 300px;
+    max-height: 900px;
+    border-style: solid;
+    margin: 0 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+h3 {
+    margin: 20px;
+}
+p{
+    margin: 0 20px 20px;
+    align-self: end;
+}
+#outer_div {
+    display:flex;
+    flex-wrap: wrap;
+}
+
