@@ -24,7 +24,7 @@ export default ProductPageImage;
 
 const ImageButtonContainer = styled.div`
     @media (max-width: 414px) {
-        width: 414px;
+        width: 414px; /* Page works better without this, this only works if the page is exactly 414 px wide */
         height: 550px;
         img {
             width: 100%;
