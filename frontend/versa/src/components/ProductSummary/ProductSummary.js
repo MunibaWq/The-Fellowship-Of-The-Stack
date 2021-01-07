@@ -25,9 +25,14 @@ const PriceReviewContainer = styled.div`
     flex-direction: row;
     justify-content: center;
     align-items: center;
+
+    &:span {
+        margin: 0 20px;
+    }
 `;
 const PriceSoldContainer = styled.div`
     display: flex;
+    margin: 0 20px;
 `;
 const Price = styled.div`
     margin: 0 20px;
@@ -134,3 +139,5 @@ const ProductSummary = ({
 };
 
 export default ProductSummary;
+
+//map: stars, variations and dimensions
