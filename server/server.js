@@ -16,6 +16,31 @@ app.use(express.json());
 app.use("/", express.static(path.join(__dirname, "public")));
 
 app.listen(PORT, () => console.log(`Listening on ${PORT}`));
+
+app.get("/product/:id", async (req, res) => {
+    try {
+        const client = await pool.connect();
+        const result = await client.query(
+            `SELECT * FROM products WHERE id = ${req.params.id}`
+        );
+        console.log(result.rows[0]);
+        const productInfo = result.rows[0];
+        
+        productInfo["variations"] = productInfo["variations"].split(" ");
+
+        productInfo["size"] = productInfo["size"].split(" ").map((dim) => +dim);
+        const artistReq = await client.query(
+            "SELECT username FROM artists WHERE id = " +
+                productInfo["artist_id"]
+        );
+        const artist = artistReq.rows[0].username;
+        productInfo["artist"] = artist;
+        console.log("productInfo", productInfo);
+        res.json(productInfo);
+    } catch (e) {
+        res.send(e);
+    }
+});
 app.get("/allProducts", async (req, res) => {
     try {
         const client = await pool.connect();
@@ -24,7 +49,7 @@ app.get("/allProducts", async (req, res) => {
         const productsToSend = [];
         for (product of results) {
             product["variations"] = product["variations"].split(" ");
-            product["size"] = product["size"].split(" ").map((dim)=>+dim);
+            product["size"] = product["size"].split(" ").map((dim) => +dim);
             const artistReq = await client.query(
                 "SELECT username FROM artists WHERE id = " +
                     product["artist_id"]
