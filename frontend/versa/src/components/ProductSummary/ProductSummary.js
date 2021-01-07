@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { WishListIcon, Star, Circle } from "../../images/icons";
+import { WishListIcon, Circle } from "../../images/icons";
 import RenderSize from "./RenderSize";
 import RenderStars from "./RenderStars";
 
