@@ -1,15 +1,13 @@
 import React from "react";
-import { productImage, productInfo } from "./ProductItemStyle";
+
+import ProductData from "../ProductInfo/ProductData";
 
 const ProductItem = () => {
-  return (
-    <div>
-      <produtImage />
-      <productInfo>
-        <productName
-      </productInfo>
-    </div>
-  );
+    return (
+        <div>
+            <ProductData />
+        </div>
+    );
 };
 
 export default ProductItem;
