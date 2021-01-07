@@ -24,6 +24,9 @@ export default index;
 
 const ImageButtonContainer = styled.div`
     @media (max-width: 414px) {
+        position: relative;
+        width: 414px;
+        height: 550px;
         img {
             height: 560px;
             width: 100%;
@@ -31,31 +34,23 @@ const ImageButtonContainer = styled.div`
     }
 `;
 const BackToResults = styled.div`
-    @media (max-width: 414px) {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        padding: 5px;
-        position: absolute;
-        width: 174px;
-        height: 32px;
-        left: 21px;
-        top: 15px;
-        h6 {
-            border-bottom: 3px solid #444444;
-        }
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    position: absolute;
+    left: 20px;
+    top: 20px;
+    h6 {
+        border-bottom: 3px solid #444444;
     }
 `;
 const Badge = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding: 5px;
     position: absolute;
-    width: 49px;
-    height: 32px;
-    left: 8px;
-    top: 507px;
+    left: calc (100% - 20px);
+    bottom: 20px;
     background: #ffffff;
     border-radius: 50px;
 `;
@@ -63,12 +58,9 @@ const ImagePagination = styled.div`
     display: flex;
     flex-direction: row;
     align-items: flex-start;
-    padding: 0px;
     position: absolute;
-    width: 65px;
-    height: 15px;
-    left: 334px;
-    top: 523px;
+    right: 20px;
+    bottom: 20px;
 
     svg {
         padding-right: 5px;
