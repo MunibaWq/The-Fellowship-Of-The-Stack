@@ -34,19 +34,20 @@ const loadTables = async () => {
 };
 const loadSampleData = async (product) => {
     let columns = `'${product.title}', ${product.price}, '${product.description}', '${product.image}',${product.num_sales}, ${product.num_stars}, ${product.num_reviews}, '${product.variations}', ${product.artist_id}, '${product.size}', '${product.materials}'`;
-    const client = await pool.connect();
+    let client = await pool.connect();
 
-    const result = await client.query(
+    let result = await client.query(
         "INSERT INTO products (title,price,description,image,num_sales,num_stars,num_reviews, variations, artist_id, size, materials) VALUES (" +
             columns +
             ")"
     );
-    const client = await pool.connect();
-    const result = await client.query("SELECT title FROM products");
+    client = await pool.connect();
+    result = await client.query("SELECT title FROM products");
     console.log(result.rows, result.rows.length);
 };
 
-// products.forEach((product) => {
-//     loadSampleData(product);
-// });
-// loadDB();
+loadTables();
+products.forEach((product) => {
+    loadSampleData(product);
+});
+
