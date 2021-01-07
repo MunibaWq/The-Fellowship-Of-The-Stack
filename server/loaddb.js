@@ -9,7 +9,7 @@ const pool = new Pool({
 });
 const loadTables = async () => {
     const client = await pool.connect();
-    await client.query("DROP TABLE products; DROP TABLE artists");
+    await client.query("DROP TABLE IF EXISTS products; DROP TABLE IF EXISTS artists");
     let result = await client.query(`CREATE TABLE "products" (
       "id" SERIAL PRIMARY KEY,
       "title" varchar,
