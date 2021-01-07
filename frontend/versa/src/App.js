@@ -1,12 +1,13 @@
-import "./App.css";
 import ProductItem from "./components/ProductItem/ProductItem";
+import { ThemeProvider } from "styled-components";
+import Theme from "./toolbox/constants";
 
 function App() {
-  return (
-    <div className="App">
-      <ProductItem />
-    </div>
-  );
+    return (
+        <ThemeProvider theme={Theme}>
+            <ProductItem />
+        </ThemeProvider>
+    );
 }
 
 export default App;
