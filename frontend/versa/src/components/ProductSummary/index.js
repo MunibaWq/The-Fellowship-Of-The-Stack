@@ -15,6 +15,10 @@ const ProductSummary = ({
     size,
     materials,
 }) => {
+    const renderVariations = variations.map((variation) => {
+        return <Circle variation={variation} />;
+    });
+
     return (
         <ProductSummaryContainer>
             <NameAddWishContainer>
@@ -39,12 +43,7 @@ const ProductSummary = ({
             </PriceReviewContainer>
             <VariationsContainer>
                 <h5>Variations </h5>
-                <VariationsOptions>
-                    <Circle />
-                    <Circle />
-                    <Circle />
-                    <Circle />
-                </VariationsOptions>
+                <VariationsOptions>{renderVariations}</VariationsOptions>
             </VariationsContainer>
             <SizeContainer>
                 <h5>Size</h5>

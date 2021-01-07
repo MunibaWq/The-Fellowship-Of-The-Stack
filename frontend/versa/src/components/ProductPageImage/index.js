@@ -25,6 +25,8 @@ export default index;
 const ImageButtonContainer = styled.div`
     @media (max-width: 414px) {
         position: relative;
+        width: 414px;
+        height: 550px;
         img {
             height: 560px;
             width: 100%;
@@ -47,7 +49,7 @@ const Badge = styled.div`
     flex-direction: row;
     align-items: center;
     position: absolute;
-    left: 20px;
+    left: calc (100% - 20px);
     bottom: 20px;
     background: #ffffff;
     border-radius: 50px;
