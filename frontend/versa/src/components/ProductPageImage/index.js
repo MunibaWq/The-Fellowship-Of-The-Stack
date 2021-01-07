@@ -23,23 +23,27 @@ const index = () => {
 export default index;
 
 const ImageButtonContainer = styled.div`
-    img {
-        height: 560px;
-        width: 100%;
+    @media (max-width: 414px) {
+        img {
+            height: 560px;
+            width: 100%;
+        }
     }
 `;
 const BackToResults = styled.div`
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding: 5px;
-    position: absolute;
-    width: 174px;
-    height: 32px;
-    left: 21px;
-    top: 15px;
-    h6 {
-        border-bottom: 3px solid #444444;
+    @media (max-width: 414px) {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding: 5px;
+        position: absolute;
+        width: 174px;
+        height: 32px;
+        left: 21px;
+        top: 15px;
+        h6 {
+            border-bottom: 3px solid #444444;
+        }
     }
 `;
 const Badge = styled.div`
