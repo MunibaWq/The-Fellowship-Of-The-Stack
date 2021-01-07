@@ -63,8 +63,6 @@ const ProductSummary = ({
 
 export default ProductSummary;
 
-//map: stars, variations and dimensions
-
 const ProductSummaryContainer = styled.div`
     display: flex;
     flex-direction: column;
