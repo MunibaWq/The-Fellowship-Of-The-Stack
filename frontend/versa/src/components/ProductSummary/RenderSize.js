@@ -1,4 +1,4 @@
-import React from "react";
+// import React from "react";
 
 const RenderSize = ({ size }) => {
     const sizeArrLength = size.length - 1;

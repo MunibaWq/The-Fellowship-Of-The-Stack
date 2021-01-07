@@ -1,7 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import { WishListIcon, Star, Circle } from "../../images/icons";
+import { WishListIcon, Circle } from "../../images/icons";
 import RenderSize from "./RenderSize";
+import RenderStars from "./RenderStars";
 
 const ProductSummary = ({
     title,
@@ -34,10 +35,7 @@ const ProductSummary = ({
                 <span>|</span>
                 <ReviewContainer>
                     <StarsContainer>
-                        <Star />
-                        <Star />
-                        <Star />
-                        <Star />
+                        <RenderStars num_stars={num_stars} />
                     </StarsContainer>
                     <NumReviews>{num_reviews} reviews</NumReviews>
                 </ReviewContainer>

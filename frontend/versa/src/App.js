@@ -1,4 +1,4 @@
-import ProductItem from "./components/ProductItem/ProductItem";
+import ProductItem from "./pages/ProductItem/ProductItem";
 import { ThemeProvider } from "styled-components";
 import Theme from "./toolbox/constants";
 
