@@ -77,57 +77,78 @@ const ProductSummaryContainer = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    padding: 10px;
+    padding: 20px;
 `;
 const NameAddWishContainer = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    padding: 10px;
+    padding-bottom: 20px;
 `;
 const ProductName = styled.div`
-    font-size: 30px;
+    font-size: 36px;
     padding-right: 20px;
 `;
 const PriceReviewContainer = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: center;
-    align-items: flex-end;
-    padding: 10px;
+    align-items: center;
+    padding-bottom: 20px;
 
     span {
-        margin: 0 20px;
+        margin: 0 5px;
     }
 `;
 const PriceSoldContainer = styled.div`
     display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 `;
 const Price = styled.div`
-    padding-right: 20px;
+    padding-right: 10px;
+    p {
+        margin: 0;
+        padding: 0;
+    }
 `;
-const ProductSold = styled.div``;
+const ProductSold = styled.div`
+    margin: 0;
+    p {
+        margin: 0;
+    }
+`;
 const ReviewContainer = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: center;
-    align-items: flex-end;
+    align-items: center;
 `;
 
-const StarsContainer = styled.div``;
-
-const NumReviews = styled.div`
-    margin: 0 20px;
+const StarsContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding-right: 10px;
+    svg {
+        padding-right: 5px;
+    }
 `;
+
+const NumReviews = styled.div``;
 const VariationsContainer = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: center;
-    align-items: flex-end;
-    padding: 10px;
+    align-items: center;
+    padding-bottom: 20px;
     h5 {
         padding-right: 20px;
+    }
+    svg {
+        padding-right: 5px;
     }
 `;
 const VariationsOptions = styled.div`
@@ -137,7 +158,7 @@ const VariationsOptions = styled.div`
 `;
 const SizeContainer = styled.div`
     display: flex;
-    padding: 10px;
+    padding-bottom: 20px;
     h5 {
         padding-right: 20px;
     }
@@ -149,7 +170,7 @@ const Dimensions = styled.div`
     display: flex;
 `;
 const ShortDescriptionContainer = styled.div`
-    padding: 10px;
+    padding-bottom: 20px;
     p {
     }
 `;
@@ -157,12 +178,13 @@ const ShortDescription = styled.p``;
 const ButtonContainer = styled.div`
     display: flex;
     justify-content: space-between;
-    padding: 10px;
+    padding-bottom: 20px;
 `;
 const Buy = styled.button`
     padding: 10px 20px;
     background: #444444;
     border-radius: 50px;
+    border: none;
     color: white;
     text-transform: uppercase;
     font-weight: bold;
@@ -173,6 +195,7 @@ const Buy = styled.button`
 const AddToCart = styled.button`
     padding: 10px 20px;
     background: #444444;
+    border: none;
     border-radius: 50px;
     color: white;
     font-weight: bold;

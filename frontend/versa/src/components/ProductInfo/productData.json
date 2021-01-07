@@ -3,7 +3,7 @@
         "id": 0,
         "title": "Painting 1",
         "price": 109.95,
-        "description": "description",
+        "description": "A short description describing the product goes in here blah blah",
         "image": "image.jpg",
         "num_sales": 23,
         "num_stars": 3,

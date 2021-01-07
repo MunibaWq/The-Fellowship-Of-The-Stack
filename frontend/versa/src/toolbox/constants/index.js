@@ -1,3 +1,3 @@
-import Theme from "./Theme";
+// import { colour, breakpoints, device } from "./Theme";
 
-export default Theme;
+// export default { colour, breakpoints, device };
