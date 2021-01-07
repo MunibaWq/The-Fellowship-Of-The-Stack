@@ -15,9 +15,21 @@ const ProductSummary = ({
     size,
     materials,
 }) => {
-    const renderVariations = variations.map((variation) => {
-        return <Circle variation={variation} />;
+    const renderVariations = variations.map((variation, index) => {
+        return <Circle variation={variation} key={`${title}-${index}`} />;
     });
+
+    const renderSize = (size, index) => {
+        const sizeArrLength = size.length;
+        console.log(sizeArrLength);
+        if (size.length >> 0) {
+            size.length--;
+            index--;
+            return `${size[index]} x`;
+        } else if (size.length === 0) {
+            return size[index];
+        }
+    };
 
     return (
         <ProductSummaryContainer>
@@ -47,14 +59,7 @@ const ProductSummary = ({
             </VariationsContainer>
             <SizeContainer>
                 <h5>Size</h5>
-                <Dimensions>
-                    {size}
-                    <p>12</p>
-                    <p>x</p>
-                    <p>12</p>
-                    <p>x</p>
-                    <p>12</p>
-                </Dimensions>
+                <Dimensions>{renderSize}</Dimensions>
             </SizeContainer>
             <ShortDescriptionContainer>
                 <ShortDescription>{description}</ShortDescription>

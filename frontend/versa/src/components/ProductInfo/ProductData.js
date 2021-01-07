@@ -10,7 +10,7 @@ const ProductData = () => {
                 return (
                     <div>
                         <ProductSummary key={info.id} {...info} />
-                        <ProductDetails key={info.id} {...info} />
+                        <ProductDetails key={`${info.id}-1`} {...info} />
                     </div>
                 );
             })}
