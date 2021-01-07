@@ -65,16 +65,16 @@ const AddToCart = styled.button`
     margin: 0 20px;
 `;
 
-const ProductSummary = () => {
+const ProductSummary = ({ title, price }) => {
     return (
         <ProductSummaryContainer>
             <NameAddWishContainer>
-                <ProductName>Fake Name</ProductName>
+                <ProductName>Fake Name: {title}</ProductName>
                 <WishListIcon />
             </NameAddWishContainer>
             <PriceReviewContainer>
                 <PriceSoldContainer>
-                    <Price>$99.99</Price>
+                    <Price>${price}</Price>
                     <ProductSold>123 sold</ProductSold>
                 </PriceSoldContainer>
                 <span>|</span>

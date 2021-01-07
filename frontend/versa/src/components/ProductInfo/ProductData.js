@@ -1,19 +1,12 @@
 import React from "react";
 import productData from "./productData.json";
-import ProductDataRender from "./ProductDataRender";
+import ProductSummary from "../ProductSummary/ProductSummary";
 
 const ProductData = () => {
     return (
         <div>
             {productData.map((info) => {
-                // console.log({ info });
-                return (
-                    <ProductDataRender
-                        // {...info}
-                        title={info.title}
-                        price={info.price}
-                    />
-                );
+                return <ProductSummary key={info.id} {...info} />;
             })}
         </div>
     );
