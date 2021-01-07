@@ -17,10 +17,14 @@ const NameAddWishContainer = styled.div`
     padding: 0px;
 `;
 const ProductName = styled.div`
+    font-size: 30px;
     margin: 0 20px;
 `;
 const PriceReviewContainer = styled.div`
     display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 `;
 const PriceSoldContainer = styled.div`
     display: flex;
@@ -65,17 +69,29 @@ const AddToCart = styled.button`
     margin: 0 20px;
 `;
 
-const ProductSummary = ({ title, price }) => {
+const ProductSummary = ({
+    title,
+    price,
+    description,
+    image,
+    num_sales,
+    num_stars,
+    num_reviews,
+    variations,
+    artist,
+    size,
+    materials,
+}) => {
     return (
         <ProductSummaryContainer>
             <NameAddWishContainer>
-                <ProductName>Fake Name: {title}</ProductName>
+                <ProductName>{title}</ProductName>
                 <WishListIcon />
             </NameAddWishContainer>
             <PriceReviewContainer>
                 <PriceSoldContainer>
                     <Price>${price}</Price>
-                    <ProductSold>123 sold</ProductSold>
+                    <ProductSold>{num_sales} sold</ProductSold>
                 </PriceSoldContainer>
                 <span>|</span>
                 <ReviewContainer>
@@ -83,11 +99,11 @@ const ProductSummary = ({ title, price }) => {
                     <Star />
                     <Star />
                     <Star />
-                    <NumReviews>123 reviews</NumReviews>
+                    <NumReviews>{num_reviews} reviews</NumReviews>
                 </ReviewContainer>
             </PriceReviewContainer>
             <VariationsContainer>
-                <h5>Variations</h5>
+                <h5>Variations </h5>
                 <VariationsOptions>
                     <Circle />
                     <Circle />
@@ -98,6 +114,7 @@ const ProductSummary = ({ title, price }) => {
             <SizeContainer>
                 <h5>Size</h5>
                 <Dimensions>
+                    {size}
                     <p>12</p>
                     <p>x</p>
                     <p>12</p>
@@ -106,10 +123,7 @@ const ProductSummary = ({ title, price }) => {
                 </Dimensions>
             </SizeContainer>
             <ShortDescriptionContainer>
-                <ShortDescription>
-                    Short description that summarizes the extended details that
-                    can be seen below
-                </ShortDescription>
+                <ShortDescription>{description}</ShortDescription>
             </ShortDescriptionContainer>
             <ButtonContainer>
                 <Buy>Buy</Buy>

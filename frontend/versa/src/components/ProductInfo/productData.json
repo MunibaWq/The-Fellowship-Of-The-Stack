@@ -10,7 +10,7 @@
         "num_reviews": 20,
         "variations": ["#ff4411", "#ff4433"],
         "artist": "someone",
-        "size": "small fhdfhjfdjkffdkjfd",
+        "size": [12, 12, 12],
         "materials": "ghdsakjfahkfhds fdjfkdkj fdsljdsf"
     }
 ]
