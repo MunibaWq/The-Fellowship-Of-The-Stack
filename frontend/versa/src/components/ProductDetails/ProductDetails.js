@@ -33,12 +33,12 @@ const ProductDetails = ({ description, size, materials }) => {
 export default ProductDetails;
 
 const DetailsContainer = styled.div`
+    background-color: #c5c3ff;
     @media (max-width: 414px) {
         display: flex;
         flex-direction: column;
         align-items: flex-start;
         padding: 20px 10px;
-        background-color: #c5c3ff;
     }
 `;
 const Title = styled.h6`
