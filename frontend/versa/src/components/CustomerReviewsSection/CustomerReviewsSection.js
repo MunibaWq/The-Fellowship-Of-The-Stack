@@ -1,20 +1,21 @@
 import React from "react";
 import styled from "styled-components";
 import { Star } from "../../images/icons";
-import RenderStars from "../ProductSummary/RenderStars";
 
-const CustomerReviews = ({ num_stars, num_reviews }) => {
+const CustomerReviews = () => {
     return (
         <CustomerReviewsContainer>
             <TitleStarsNumReviews>
                 <TitleStars>
                     <h5>Customer Reviews</h5>
                     <StarsContainer>
-                        <RenderStars num_stars={num_stars} />
+                        <Star />
+                        <Star />
+                        <Star />
                     </StarsContainer>
                 </TitleStars>
                 <NumReviewsContainer>
-                    <NumIcon>{num_reviews}</NumIcon>
+                    <NumIcon>14</NumIcon>
                     <p>reviews</p>
                 </NumReviewsContainer>
             </TitleStarsNumReviews>
