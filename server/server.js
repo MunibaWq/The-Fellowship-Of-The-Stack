@@ -3,6 +3,7 @@ const path = require("path");
 const PORT = process.env.PORT || 5000;
 const { Pool } = require("pg");
 
+
 const pool = new Pool({
     user: 'me',
     host: 'localhost',
@@ -23,10 +24,15 @@ app.get("/allProducts", async (req, res) => {
     const client = await pool.connect();
     const result = await client.query("SELECT * FROM products")
     const results = result.rows
-    results.forEach((product) => {
+    const productsToSend = []
+    for (product of results) {
       product["variations"] = product["variations"].split(" ")
-    })
-    res.json(results)
+      const artistReq = await client.query("SELECT username FROM artists WHERE id = " + product['artist_id'])
+      const artist = artistReq.rows[0].username
+      product['artist'] = artist
+      productsToSend.push(product)
+    }
+    res.json(productsToSend)
   } catch (e) {
     console.log(e)
     res.send('error')
