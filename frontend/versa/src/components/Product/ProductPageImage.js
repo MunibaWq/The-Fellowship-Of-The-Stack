@@ -3,10 +3,11 @@ import styled from "styled-components";
 import { Circle } from "../../images/icons";
 import Image from "../../images/imageTest.png";
 
-const ProductPageImage = () => {
+const ProductPageImage = ({ productDataState }) => {
+    console.log(productDataState)
     return (
         <ImageButtonContainer>
-            <img src={'http://localhost:5000/images/'+product.image} alt="pruduct" />
+            <img src={'http://localhost:5000/images/'+productDataState.image} alt="pruduct" />
             <BackToResults>
                 <h6>Back to results</h6>
             </BackToResults>
