@@ -9,6 +9,7 @@ const pool = new Pool({
     database: "api",
     password: "password",
     port: 5432,
+    max: 50
 });
 
 let app = express();
@@ -16,11 +17,17 @@ app.use(express.json());
 app.use(cors());
 app.use("/", express.static(path.join(__dirname, "public")));
 
-app.listen(PORT, () => console.log(`Listening on ${PORT}`));
+// pool.connect().then((c) => {
+//     client = c;
+// });
+
+app.listen(PORT, () => {
+    console.log(`Listening on ${PORT}`);
+});
 
 app.get("/product/:id", async (req, res) => {
     try {
-        const client = await pool.connect();
+        const client = await pool.connect()
         const result = await client.query(
             `SELECT * FROM products WHERE id = ${req.params.id}`
         );
@@ -37,22 +44,25 @@ app.get("/product/:id", async (req, res) => {
         const artist = artistReq.rows[0].username;
         productInfo["artist"] = artist;
         console.log("productInfo", productInfo);
+        client.release(true)
         res.json(productInfo);
     } catch (e) {
         console.log("error", e);
+        
         res.send(e);
     }
 });
 app.get("/allProducts", async (req, res) => {
     try {
-        const client = await pool.connect();
+        const client = await pool.connect()
+        console.log(pool.totalCount)
         const result = await client.query("SELECT * FROM products");
         const results = result.rows;
         const productsToSend = [];
         for (product of results) {
             product["variations"] = product["variations"].split(" ");
             product["size"] = product["size"].split(" ").map((dim) => +dim);
-            const artistReq = await client.query(
+            const artistReq = await pool.query(
                 "SELECT username FROM artists WHERE id = " +
                     product["artist_id"]
             );
@@ -60,7 +70,7 @@ app.get("/allProducts", async (req, res) => {
             product["artist"] = artist;
             productsToSend.push(product);
         }
-        client.end();
+        client.release(true)
         res.json(productsToSend);
     } catch (e) {
         console.log(e);

@@ -4,7 +4,7 @@ import { fetchProduct } from "./actions";
 
 const Product = () => {
     const dispatch = useDispatch();
-    const product = useSelector((state) => state);
+    const product = useSelector((state) => state.productData);
 
     useEffect(() => {
         dispatch(fetchProduct());
