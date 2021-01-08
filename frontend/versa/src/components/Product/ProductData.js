@@ -1,31 +1,34 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import productData from "./productData.json";
 import ProductSummary from "./ProductSummary.js";
 import ProductDetails from "./ProductDetails";
 
-const ProductData = () => {
+const ProductData = ({currentProduct}) => {
     const [productDataState, setProductDataState] = useState([]);
-    const fetchProduct = async () => {
-        //add axios to fetch data from API
-        const response = await axios
-            .get("http://localhost:5000/product/1")
+    useEffect(() => {
+        const fetchProduct = async () => {
+            console.log('ProductData.js currentProduct', currentProduct)
+            //add axios to fetch data from API
+            const response = await axios
+                .get(`http://localhost:5000/product/${currentProduct}`)
 
-            .then((response) => console.log(response.data));
-
-        setProductDataState(response.data);
-    };
+            console.log(response.data)
+            setProductDataState(response.data);
+        };
+        fetchProduct()
+    },[])
 
     return (
         <div>
-            {productData.map((info) => {
+           
                 return (
-                    <div key={info.id}>
-                        <ProductSummary {...info} />
-                        <ProductDetails {...info} />
+                    <div key={productDataState.id}>
+                        <ProductSummary {...productDataState} />
+                        <ProductDetails {...productDataState} />
                     </div>
                 );
-            })}
+         
         </div>
     );
 };

@@ -6,7 +6,7 @@ import Image from "../../images/imageTest.png";
 const ProductPageImage = () => {
     return (
         <ImageButtonContainer>
-            <img src={Image} alt="pruduct" />
+            <img src={'http://localhost:5000/images/'+product.image} alt="pruduct" />
             <BackToResults>
                 <h6>Back to results</h6>
             </BackToResults>

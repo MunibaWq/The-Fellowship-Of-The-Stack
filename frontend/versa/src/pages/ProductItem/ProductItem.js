@@ -6,11 +6,12 @@ import ProductPageImage from "../../components/Product/ProductPageImage";
 
 import ProductData from "../../components/Product/ProductData";
 
-const ProductItem = () => {
+const ProductItem = ({ currentProduct }) => {
+    console.log('productItem.js', currentProduct)
     return (
         <ProductItemContainer>
             <ProductPageImage />
-            <ProductData />
+            <ProductData currentProduct={currentProduct}/>
             <ArtistDetails />
             <CustomerReviews />
         </ProductItemContainer>

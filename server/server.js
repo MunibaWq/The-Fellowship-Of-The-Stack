@@ -67,16 +67,3 @@ app.get("/allProducts", async (req, res) => {
         res.send("error");
     }
 });
-app.get("/db", async (req, res) => {
-    try {
-        const client = await pool.connect();
-        const result = await client.query("SELECT * FROM users");
-        const results = result.rows;
-
-        res.send(results.map((item) => item.name));
-        client.release();
-    } catch (err) {
-        console.error(err);
-        res.send("Error " + err);
-    }
-});

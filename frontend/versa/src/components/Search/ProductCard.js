@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setSelectedProduct, setPage } from "../../redux/actions";
 
 const ProductCard = ({ product }) => {
