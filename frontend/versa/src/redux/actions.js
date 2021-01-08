@@ -2,7 +2,7 @@ import Axios from "axios";
 
 export const fetchProduct = () => {
     return async (dispatch, getState) => {
-        const response = await Axios.get("http://localhost:5000/product/{id}");
+        const response = await Axios.get("http://localhost:5000/product/1);
         console.log(response.data);
 
         dispatch({
