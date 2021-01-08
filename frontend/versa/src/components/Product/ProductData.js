@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
 import productData from "./productData.json";
-import ProductSummary from "../ProductSummary/ProductSummary.js";
-import ProductDetails from "../ProductDetails/ProductDetails.js";
+import ProductSummary from "./ProductSummary.js";
+import ProductDetails from "./ProductDetails";
 
 const ProductData = () => {
     const [productDataState, setProductDataState] = useState([]);

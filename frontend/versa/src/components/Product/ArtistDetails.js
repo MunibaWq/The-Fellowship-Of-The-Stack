@@ -63,9 +63,7 @@ const StoreLink = styled.div`
     }
 `;
 
-const Arrow = styled.div`
-background-image: {svg};
-`;
+const Arrow = styled.div``;
 const InquiryCustomOrder = styled.div`
     padding-bottom: 20px;
     display: flex;
