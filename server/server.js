@@ -3,7 +3,7 @@ let cors = require("cors");
 const path = require("path");
 const PORT = process.env.PORT || 5000;
 const { Pool } = require("pg");
-const cors = require('cors')
+// const cors = require("cors");
 const pool = new Pool({
     user: "me",
     host: "localhost",
@@ -14,11 +14,7 @@ const pool = new Pool({
 
 let app = express();
 app.use(express.json());
-<<<<<<< HEAD
-app.use(cors())
-=======
 app.use(cors());
->>>>>>> e6e2dc873be804de8b685883f153c5cff29c7bb6
 app.use("/", express.static(path.join(__dirname, "public")));
 
 app.listen(PORT, () => console.log(`Listening on ${PORT}`));
