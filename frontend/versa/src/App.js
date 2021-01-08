@@ -8,7 +8,7 @@ function App() {
     return (
         <ThemeProvider theme={Theme}>
             <ProductItem />
-            <Product />
+            {/* <Product /> */}
         </ThemeProvider>
     );
 }
