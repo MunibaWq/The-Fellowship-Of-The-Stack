@@ -1,18 +1,22 @@
-import React, { useState } from 'react'
-import FiltersModal from './FiltersModal'
-import styled from 'styled-components'
-
+import React, { useState } from "react";
+import FiltersModal from "./FiltersModal";
+import { ModalButton, IconDiv } from "./styledComponents";
+import { FilterIcon } from '../../images/icons'
 const Filters = () => {
-    const [filterModal, setFilterModal] = useState(false)
+    const [filterModal, setFilterModal] = useState(false);
 
-    return(
-        <div>
-            <button onClick={()=>{setFilterModal(!filterModal)}}>
-                Filters
-            </button>
+    return (
+        <>
+            <ModalButton
+                onClick={() => {
+                    setFilterModal(!filterModal);
+                }}
+            >
+                Filters <IconDiv><FilterIcon /></IconDiv>
+            </ModalButton>
             {filterModal ? <FiltersModal /> : <></>}
-        </div>
-    )
-}
+        </>
+    );
+};
 
-export default Filters
+export default Filters;

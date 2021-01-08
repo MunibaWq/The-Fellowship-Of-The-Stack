@@ -1,15 +1,22 @@
 import React from "react";
 import { useState } from 'react'
 import CategoriesModal from './CategoriesModal'
+import { ModalButton, IconDiv}  from './styledComponents'
+import { CategoriesIcon } from '../../images/icons'
 
 const Categories = () => {
     const [modalVisible, setModalVisible] = useState(false)
     return (
-        <div>
-            <button onClick={() => { setModalVisible(!modalVisible) }}>Categories</button>
+        <>
+            
+            <ModalButton onClick={() => { setModalVisible(!modalVisible) }}>Categories<IconDiv><CategoriesIcon /></IconDiv></ModalButton>
             {modalVisible?<CategoriesModal />:<></>} 
-        </div>
+        </>
     );
 };
+
+      
+
+
 
 export default Categories;

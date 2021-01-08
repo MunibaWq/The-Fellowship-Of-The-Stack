@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from 'styled-components'
+import { Modal } from './styledComponents'
 
 
 const FilterModal = () => {
@@ -15,15 +15,6 @@ const FilterModal = () => {
     )
 }
 
-const Modal = styled.div`
 
-    right: 0;
-    position: absolute;
-    width: 80%;
-    height: auto;
-    z-index: 98;
-    background: white;
-    padding: 10px 20px;
-`;
 
 export default FilterModal
