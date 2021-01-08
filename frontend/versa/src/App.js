@@ -1,22 +1,15 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React from "react";
 import { ThemeProvider } from "styled-components";
 import ProductItem from "./pages/ProductItem/ProductItem";
+import Product from "./redux/Product";
 import Theme from "./toolbox/constants";
+import SearchResults from './pages/Search/SearchResults'
 
 function App() {
-    const [products, setProducts] = useState([]);
-
-    useEffect(() => {
-        axios.get("http://localhost:5000/product/{id}").then((res) => {
-            setProducts(res.data);
-            console.log(res.data);
-        });
-    });
-
     return (
         <ThemeProvider theme={Theme}>
             <ProductItem />
+            {/* <Product /> */}
         </ThemeProvider>
     );
 }

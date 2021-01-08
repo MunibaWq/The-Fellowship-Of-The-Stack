@@ -1,9 +1,10 @@
 let express = require("express");
+let cors = require("cors");
 const path = require("path");
 const cors = require('cors')
 const PORT = process.env.PORT || 5000;
 const { Pool } = require("pg");
-
+// const cors = require("cors");
 const pool = new Pool({
     user: "me",
     host: "localhost",
@@ -27,7 +28,7 @@ app.get("/product/:id", async (req, res) => {
         );
         console.log(result.rows[0]);
         const productInfo = result.rows[0];
-        
+
         productInfo["variations"] = productInfo["variations"].split(" ");
 
         productInfo["size"] = productInfo["size"].split(" ").map((dim) => +dim);

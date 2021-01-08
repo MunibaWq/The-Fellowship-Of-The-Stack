@@ -12,11 +12,10 @@ const CustomerReviews = () => {
                         <Star />
                         <Star />
                         <Star />
-                        <Star />
                     </StarsContainer>
                 </TitleStars>
                 <NumReviewsContainer>
-                    <NumIcon>12</NumIcon>
+                    <NumIcon>14</NumIcon>
                     <p>reviews</p>
                 </NumReviewsContainer>
             </TitleStarsNumReviews>
