@@ -17,7 +17,143 @@ export const WishListIcon = () => {
         </svg>
     );
 };
-
+export const FilterIcon = () => {
+    return (
+        <svg
+            width="32"
+            height="32"
+            viewBox="0 0 32 32"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+        >
+            <path
+                d="M5.2605 6H26.7394C26.9331 6 27.1227 6.05627 27.285 6.16198C27.4474 6.26769 27.5755 6.41828 27.6539 6.59545C27.7323 6.77262 27.7575 6.96874 27.7265 7.15997C27.6955 7.35121 27.6097 7.52932 27.4793 7.67267L19.26 16.7139C19.0927 16.898 18.9999 17.1378 18.9999 17.3866V24.4648C18.9999 24.6294 18.9593 24.7915 18.8816 24.9367C18.8039 25.0818 18.6916 25.2055 18.5546 25.2969L14.5546 27.9635C14.404 28.0639 14.229 28.1216 14.0482 28.1303C13.8674 28.1391 13.6877 28.0986 13.5281 28.0132C13.3685 27.9278 13.2351 27.8006 13.1421 27.6454C13.0491 27.4901 12.9999 27.3125 12.9999 27.1315V17.3866C12.9999 17.1378 12.9072 16.898 12.7399 16.7139L4.52056 7.67267C4.39024 7.52932 4.30437 7.35121 4.27338 7.15997C4.24239 6.96874 4.26761 6.77262 4.34598 6.59545C4.42436 6.41828 4.55251 6.26769 4.71486 6.16198C4.87721 6.05627 5.06677 6 5.2605 6V6Z"
+                stroke="black"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            />
+        </svg>
+    );
+};
+export const SortIcon = () => {
+    return (
+        <svg
+            width="32"
+            height="32"
+            viewBox="0 0 32 32"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+        >
+            <path
+                d="M18 20.9993L23 25.9993L27.9999 21"
+                stroke="black"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            />
+            <path
+                d="M23 13.9992V25.9992"
+                stroke="black"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            />
+            <path
+                d="M6 15.9992H14.9999"
+                stroke="black"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            />
+            <path
+                d="M6 7.99919H22.9999"
+                stroke="black"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            />
+            <path
+                d="M6 23.9992H13"
+                stroke="black"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            />
+        </svg>
+    );
+};
+export const CategoriesIcon = () => {
+    return (
+        <svg
+            width="32"
+            height="32"
+            viewBox="0 0 32 32"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+        >
+            <path
+                d="M11 8H27"
+                stroke="black"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            />
+            <path
+                d="M11.0007 16H27"
+                stroke="black"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            />
+            <path
+                d="M11.0007 24H27"
+                stroke="black"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            />
+            <path
+                d="M5.5 9.25C6.19036 9.25 6.75 8.69036 6.75 8C6.75 7.30964 6.19036 6.75 5.5 6.75C4.80964 6.75 4.25 7.30964 4.25 8C4.25 8.69036 4.80964 9.25 5.5 9.25Z"
+                fill="black"
+            />
+            <path
+                d="M5.5 17.25C6.19036 17.25 6.75 16.6904 6.75 16C6.75 15.3096 6.19036 14.75 5.5 14.75C4.80964 14.75 4.25 15.3096 4.25 16C4.25 16.6904 4.80964 17.25 5.5 17.25Z"
+                fill="black"
+            />
+            <path
+                d="M5.5 25.25C6.19036 25.25 6.75 24.6904 6.75 24C6.75 23.3096 6.19036 22.75 5.5 22.75C4.80964 22.75 4.25 23.3096 4.25 24C4.25 24.6904 4.80964 25.25 5.5 25.25Z"
+                fill="black"
+            />
+        </svg>
+    );
+};
+export const Magnifying = () => {
+    return (
+        <svg
+            width="32"
+            height="32"
+            viewBox="0 0 32 32"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+        >
+            <path
+                d="M14.4998 25C20.2987 25 24.9998 20.299 24.9998 14.5C24.9998 8.70101 20.2987 4 14.4998 4C8.70077 4 3.99976 8.70101 3.99976 14.5C3.99976 20.299 8.70077 25 14.4998 25Z"
+                stroke="black"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            />
+            <path
+                d="M21.924 21.925L27.999 28.0001"
+                stroke="black"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            />
+        </svg>
+    );
+};
 export const Star = () => {
     return (
         <svg
