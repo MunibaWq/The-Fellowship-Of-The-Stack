@@ -10,9 +10,9 @@ import Axios from "axios";
 //     });
 // };
 
-export const fetchProduct = () => {
+export const fetchProduct = (id) => {
     return async (dispatch, getState) => {
-        const response = await Axios.get("http://localhost:5000/product/1");
+        const response = await Axios.get("http://localhost:5000/product/" + id);
         console.log(response.data);
 
         dispatch({
@@ -21,6 +21,23 @@ export const fetchProduct = () => {
         });
     };
 };
+export const setSelectedProduct = (id) => {
+    return (dispatch, getState) => {
+        dispatch({
+            type: "SELECT_PRODUCT",
+            payload: id,
+        });
+    };
+};
+
+export const setPage = (page) => {
+    return (dispatch) => {
+        dispatch({
+            type: "SET_PAGE",
+            payload: page,
+        })
+    }
+}
 
 // const searchUsers = async (text) => {
 //     setLoading();
