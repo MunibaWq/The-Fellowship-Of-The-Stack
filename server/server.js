@@ -1,5 +1,6 @@
 let express = require("express");
 const path = require("path");
+const cors = require('cors')
 const PORT = process.env.PORT || 5000;
 const { Pool } = require("pg");
 
@@ -13,6 +14,7 @@ const pool = new Pool({
 
 let app = express();
 app.use(express.json());
+app.use(cors())
 app.use("/", express.static(path.join(__dirname, "public")));
 
 app.listen(PORT, () => console.log(`Listening on ${PORT}`));
@@ -38,6 +40,7 @@ app.get("/product/:id", async (req, res) => {
         console.log("productInfo", productInfo);
         res.json(productInfo);
     } catch (e) {
+        console.log('error', e)
         res.send(e);
     }
 });
@@ -58,6 +61,7 @@ app.get("/allProducts", async (req, res) => {
             product["artist"] = artist;
             productsToSend.push(product);
         }
+        client.end()
         res.json(productsToSend);
     } catch (e) {
         console.log(e);

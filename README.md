@@ -13,7 +13,7 @@ Messele
 
 To load data into database:
 
--Make sure you have created a database with psql with a user "me" with password "password", instructions found at https://blog.logrocket.com/nodejs-expressjs-postgresql-crud-rest-api-example/
+-Make sure you have created a database called "api" with psql with a user "me" with password "password", instructions found at https://blog.logrocket.com/nodejs-expressjs-postgresql-crud-rest-api-example/
 
 -in the terminal, change directories into the server folder
 
