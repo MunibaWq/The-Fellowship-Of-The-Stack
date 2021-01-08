@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from "styled-components";
+import { Modal } from './styledComponents'
 
 
 const CategoriesModal = () => {
@@ -13,13 +13,5 @@ const CategoriesModal = () => {
         </Modal>
     )
 }
-const Modal = styled.div`
-    position: absolute;
-    left: 0;
-    z-index: 99;
-    width: 80%;
-    background: white;
-    height: auto;
-    padding: 10px 20px;
-`
+
 export default CategoriesModal

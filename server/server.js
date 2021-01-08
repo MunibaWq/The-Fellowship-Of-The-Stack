@@ -3,7 +3,6 @@ let cors = require("cors");
 const path = require("path");
 const PORT = process.env.PORT || 5000;
 const { Pool } = require("pg");
-const cors = require('cors')
 const pool = new Pool({
     user: "me",
     host: "localhost",
@@ -40,6 +39,7 @@ app.get("/product/:id", async (req, res) => {
         console.log("productInfo", productInfo);
         res.json(productInfo);
     } catch (e) {
+        console.log("error", e);
         res.send(e);
     }
 });
@@ -60,6 +60,7 @@ app.get("/allProducts", async (req, res) => {
             product["artist"] = artist;
             productsToSend.push(product);
         }
+        client.end();
         res.json(productsToSend);
     } catch (e) {
         console.log(e);

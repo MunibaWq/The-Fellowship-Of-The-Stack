@@ -1,14 +1,20 @@
-import React from 'react'
-let sortOptions = ['price','rating', 'date']
+import React, {useState} from 'react'
+import SortModal from './SortModal'
+import { ModalButton, IconDiv } from './styledComponents'
+import { SortIcon } from '../../images/icons'
+
+
+ 
+
 const Sort = () => {
+    const [sortModal, setSortModal] = useState(false)
     return(
-        <div>
-            <select>
-                {sortOptions.map((option)=>{
-                    return <option value={option}>{option}</option>
-                })}
-            </select>
-        </div>
+        <>
+            <ModalButton onClick={()=>{setSortModal(!sortModal)}}>
+                Sort <IconDiv><SortIcon /></IconDiv>
+            </ModalButton>
+            {sortModal ? <SortModal /> : <></>}
+        </>
     )
 }
 

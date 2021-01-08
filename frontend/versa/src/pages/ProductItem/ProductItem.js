@@ -1,10 +1,10 @@
 import React from "react";
 import styled from "styled-components";
-import ArtistDetails from "../../components/ArtistDetails/ArtistDetails";
-import CustomerReviews from "../../components/CustomerReviewsSection/CustomerReviewsSection";
-import ProductPageImage from "../../components/ProductPageImage/ProductPageImage";
+import ArtistDetails from "../../components/Product/ArtistDetails";
+import CustomerReviews from "../../components/Product/CustomerReviewsSection";
+import ProductPageImage from "../../components/Product/ProductPageImage";
 
-import ProductData from "../../components/ProductInfo/ProductData";
+import ProductData from "../../components/Product/ProductData";
 
 const ProductItem = () => {
     return (

@@ -1,16 +1,27 @@
 import React from "react";
 import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
+import { setSelectedProduct, setPage } from "../../redux/actions";
+
 const ProductCard = ({ product }) => {
+    const dispatch = useDispatch();
+    const productSelected = (id) => {
+        dispatch(setSelectedProduct(id));
+        dispatch(setPage("ProductItem"));
+    };
     return (
         <ImageCard>
             <Image>
-                <img src={`http://localhost:5000/images/${product.image}`} />
+                <img onClick={() => {
+                    console.log('test')
+                    productSelected(product.id);
+                } }alt = "product"src={`http://localhost:5000/images/${product.image}`} />
             </Image>
             <ProductInfo>
                 <div>
                     <h6>{product.title}</h6>
                 </div>
-                <div>{product.price}</div>
+                <div><h6>${product.price}</h6></div>
             </ProductInfo>
         </ImageCard>
     );
@@ -22,6 +33,7 @@ const ImageCard = styled.div`
     width: 100%;
 `;
 const ProductInfo = styled.div`
+    
     height: 100%;
     background-color: white;
     border-style: solid;
@@ -30,7 +42,10 @@ const ProductInfo = styled.div`
     flex-direction: column;
     justify-content: space-between;
     div {
-        margin: 10px;
+        margin: 0 10px;
+    }
+    h6 {
+        font-size:smaller;
     }
 `;
 const Image = styled.div`
