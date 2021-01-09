@@ -7,11 +7,9 @@ import axios from "axios";
 import styled from "styled-components";
 import { Magnifying } from "../../images/icons";
 
-
 const SearchResults = () => {
-    
     const [products, setProducts] = useState([]);
-
+    const [query, setQuery] = useState();
     useEffect(() => {
         const getProducts = async () => {
             let res = await axios.get("http://localhost:5000/allProducts");
@@ -19,14 +17,34 @@ const SearchResults = () => {
         };
         getProducts();
     }, []);
+    const search = async () => {
+        let res = await axios.get("http://localhost:5000/search/" + query);
+        setProducts(res.data);
+    };
 
     return (
         <SearchPage>
             <SearchBarDiv>
-                <MagnifyIcon>
+                <MagnifyIcon
+                    onClick={() => {
+                        if (query) {
+                            search();
+                        }
+                    }}
+                    
+                >
                     <Magnifying />
                 </MagnifyIcon>
-                <SearchBar placeholder="Search" type="text" />
+                <SearchBar
+                    onKeyPress = {(e) => {
+                        if (e.key === 'Enter' && query) {
+                            search();
+                        }
+                    }}
+                    onChange={(e) => setQuery(e.target.value)}
+                    placeholder="Search"
+                    type="text"
+                />
             </SearchBarDiv>
             <div>
                 <SearchCriteria>
@@ -36,11 +54,10 @@ const SearchResults = () => {
                 </SearchCriteria>
             </div>
             <Products>
-                {products.map((product) => (
+                {products.length===0? <NoResultsMessage>Sorry, no results found</NoResultsMessage> : products.map((product) => (
                     <ProductCard
                         onClick={() => {
-                            console.log('clicked')
-                            
+                            console.log("clicked");
                         }}
                         product={product}
                     />
@@ -49,6 +66,9 @@ const SearchResults = () => {
         </SearchPage>
     );
 };
+const NoResultsMessage = styled.h1`
+    font-size: 25px;
+`
 const MagnifyIcon = styled.div`
     position: absolute;
     margin-top: 20px;

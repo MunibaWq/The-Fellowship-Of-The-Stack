@@ -35,11 +35,11 @@ app.get('/search/:searchQuery', async (req, res) => {
             queryString += ` AND (UPPER (title) LIKE '%${term}%' OR UPPER (description) LIKE '%${term}%')`
         } 
     })
-    console.log(queryString)
     const client = await pool.connect()
     const result = await client.query(
         `SELECT * FROM products WHERE ${queryString}`
     )
+    client.release(true)
     res.json(result.rows)
 })
 
