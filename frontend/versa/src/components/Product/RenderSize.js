@@ -1,16 +1,20 @@
 // import React from "react";
 
 const RenderSize = ({ size }) => {
-    const sizeArrLength = size.length - 1;
+    if (size) {
+        const sizeArrLength = size.length - 1;
 
-    const sizeArr = size.map((sizes, index) => {
-        if (sizeArrLength !== index) {
-            return sizes + "x";
-        } else {
-            return sizes;
-        }
-    });
-    return sizeArr;
+        const sizeArr = size.map((sizes, index) => {
+            if (sizeArrLength !== index) {
+                return sizes + "x";
+            } else {
+                return sizes;
+            }
+        });
+        return sizeArr;
+    } else {
+        return '0x0x0'
+    }
 };
 
 export default RenderSize;

@@ -17,9 +17,12 @@ const ProductSummary = ({
     size,
     materials,
 }) => {
-    const renderVariations = variations.map((variation, index) => {
-        return <Circle variation={variation} key={`${title}-${index}`} />;
-    });
+    let renderVariations;
+    if (variations) {
+        renderVariations = variations.map((variation, index) => {
+            return <Circle variation={variation} key={`${title}-${index}`} />;
+        });
+    }
 
     return (
         <ProductSummaryContainer>
