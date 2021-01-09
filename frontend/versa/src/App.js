@@ -5,11 +5,14 @@ import ProductItem from "./pages/ProductItem/ProductItem";
 import Theme from "./toolbox/constants";
 import SearchResults from "./pages/Search/SearchResults";
 import { useSelector } from "react-redux";
+import { BrowserRouter as Router } from "react-router-dom";
+import Navbar from "./components/Navbar/Navbar";
+
 function App() {
     const currentPage = useSelector((state) => state.currentPage);
     const currentProduct = useSelector((state) => state.selectedProduct);
     let pageToShow;
-    console.log('App.js currentProduct', currentProduct)
+    console.log("App.js currentProduct", currentProduct);
     switch (currentPage) {
         case "Search":
             pageToShow = <SearchResults />;
@@ -21,10 +24,15 @@ function App() {
             pageToShow = <></>;
     }
     return (
-        <ThemeProvider theme={Theme}>
-            {pageToShow}
-            {/* <Product /> */}
-        </ThemeProvider>
+        <>
+            <Router>
+                <Navbar />
+            </Router>
+            <ThemeProvider theme={Theme}>
+                {pageToShow}
+                {/* <Product /> */}
+            </ThemeProvider>
+        </>
     );
 }
 
