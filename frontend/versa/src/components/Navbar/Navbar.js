@@ -6,8 +6,8 @@ const Navbar = () => {
         <>
             <Nav>
                 <NavLink to="/">
-                    {/* <img src={} alt='logo' /> */}
-                    <h1>Logo</h1>
+                    <img src={"../../images/logo.svg"} alt="logo" />
+                    {/* <h1>Logo</h1> */}
                 </NavLink>
 
                 <NavMenu>
