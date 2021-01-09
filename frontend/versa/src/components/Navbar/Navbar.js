@@ -21,11 +21,11 @@ const Navbar = () => {
                         ACCOUNT
                     </NavLink>
                     <NavLink to="/wishlist" activeStyle>
-                        Wishlist - icon
+                        Wishlist
                         {/* <img src={} alt='heart' /> */}
                     </NavLink>
                     <NavLink to="/shopping-cart" activeStyle>
-                        Shopping Cart - icon
+                        ShoppingCart
                         {/* <img src={} alt='cart' /> */}
                     </NavLink>
                 </NavMenu>

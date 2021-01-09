@@ -27,9 +27,10 @@ export const NavLink = styled(Link)`
 export const NavMenu = styled.div`
     display: flex;
     align-items: center;
-    margin-right: -100px;
-
-    /* @media screen and (max-width: 768px) {
+    margin-right: -10px;
+    /* white-space: wrap; */
+    /* 
+    @media screen and (max-width: 768px) {
         display: none;
     } */
 `;
