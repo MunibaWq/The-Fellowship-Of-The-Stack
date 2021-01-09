@@ -25,6 +25,24 @@ app.listen(PORT, () => {
     console.log(`Listening on ${PORT}`);
 });
 
+app.get('/search/:searchQuery', async (req, res) => {
+    let query = req.params.searchQuery.toUpperCase().split(' ')
+    let queryString = ""
+    query.forEach((term, index) => {
+        if (index == 0) {
+            queryString = `(UPPER (title) LIKE '%${term}%' OR UPPER (description) LIKE '%${term}%')`
+        } else {
+            queryString += ` AND (UPPER (title) LIKE '%${term}%' OR UPPER (description) LIKE '%${term}%')`
+        } 
+    })
+    console.log(queryString)
+    const client = await pool.connect()
+    const result = await client.query(
+        `SELECT * FROM products WHERE ${queryString}`
+    )
+    res.json(result.rows)
+})
+
 app.get("/product/:id", async (req, res) => {
     try {
         const client = await pool.connect()
