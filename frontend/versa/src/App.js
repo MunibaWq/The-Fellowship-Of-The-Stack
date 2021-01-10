@@ -5,8 +5,9 @@ import ProductItem from "./pages/ProductItem/ProductItem";
 import Theme from "./toolbox/constants";
 import SearchResults from "./pages/Search/SearchResults";
 import { useSelector } from "react-redux";
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar";
+import Home from "./pages/Home/Home";
 
 function App() {
     const currentPage = useSelector((state) => state.currentPage);
@@ -27,6 +28,9 @@ function App() {
         <>
             <Router>
                 <Navbar />
+                <Switch>
+                    <Route path="/" exact component={Home} />
+                </Switch>
             </Router>
             <ThemeProvider theme={Theme}>
                 {pageToShow}
