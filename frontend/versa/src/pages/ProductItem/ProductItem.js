@@ -5,8 +5,9 @@ import CustomerReviews from "../../components/Product/CustomerReviewsSection";
 import ProductPageImage from "../../components/Product/ProductPageImage";
 import axios from 'axios'
 import ProductData from "../../components/Product/ProductData";
-
-const ProductItem = ({ currentProduct }) => {
+import { useSelector } from 'react-redux'
+const ProductItem = () => {
+    const currentProduct = useSelector((state) => state.selectedProduct)
     const [productDataState, setProductDataState] = useState([]);
     useEffect(() => {
         const fetchProduct = async () => {

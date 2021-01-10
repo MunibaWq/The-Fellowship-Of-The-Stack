@@ -1,32 +1,23 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
-import { setSelectedProduct, setPage } from "../../redux/actions";
-
-import { useSelector } from "react-redux";
-import ProductItem from "../../pages/ProductItem/ProductItem";
-import { Link, Route, Switch } from "react-router-dom";
+import { setSelectedProduct } from "../../redux/actions";
+import { Link } from "react-router-dom";
 
 const ProductCard = ({ product }) => {
-    const currentProduct = useSelector((state) => state.selectedProduct);
-
+    
+    console.log('loaded')
     const dispatch = useDispatch();
     const productSelected = (id) => {
+        console.log('here')
         dispatch(setSelectedProduct(id));
-        dispatch(setPage("ProductItem"));
-        // if (id) {
-        fetchCurrentProduct();
+        
     };
 
-    const fetchCurrentProduct = () => {
-        console.log(`go to current product`, currentProduct);
-        <Link to="/product-item">
-            <ProductItem currentProduct={currentProduct} />
-        </Link>;
-    };
+    
 
     return (
-        // <Link to={`/product-item/${product.id}`}>
+        <Link to={`/product-item`}>
         <ImageCard>
             <Image>
                 <img
@@ -48,14 +39,15 @@ const ProductCard = ({ product }) => {
                 </div>
             </ProductInfo>
         </ImageCard>
-        // </Link>
+    </Link>
     );
 };
 const ImageCard = styled.div`
-    margin-bottom: 30px;
+    margin-bottom: 10%;
     display: flex;
     flex-direction: column;
     width: 100%;
+    height:95%;
 `;
 const ProductInfo = styled.div`
     height: 100%;
