@@ -16,7 +16,7 @@ const ProductCard = ({ product }) => {
         dispatch(setPage("ProductItem"));
         fetchCurrentProduct();
     };
-    const fetchCurrentProduct = (currentProduct) => {
+    const fetchCurrentProduct = () => {
         console.log(`go to current product`, currentProduct);
 
         <Route path="product-item">
@@ -30,7 +30,7 @@ const ProductCard = ({ product }) => {
                 <img
                     onClick={() => {
                         console.log("test");
-                        // productSelected(product.id);
+                        productSelected(product.id);
                         fetchCurrentProduct(currentProduct);
                     }}
                     alt="product"
