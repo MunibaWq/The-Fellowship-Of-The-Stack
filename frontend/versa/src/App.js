@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar";
 import Home from "./pages/Home/Home";
+import Shop from "./pages/Shop/Shop";
 
 function App() {
     const currentPage = useSelector((state) => state.currentPage);
@@ -30,6 +31,7 @@ function App() {
                 <Navbar />
                 <Switch>
                     <Route path="/" exact component={Home} />
+                    <Route path="/shop" exact component={Shop} />
                 </Switch>
             </Router>
             <ThemeProvider theme={Theme}>
