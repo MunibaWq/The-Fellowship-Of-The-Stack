@@ -1,13 +1,8 @@
 import React from "react";
-import ProductItem from "./pages/ProductItem/ProductItem";
-// import Product from "./redux/Product";
-import Theme from "./toolbox/constants";
 import SearchResults from "./pages/Search/SearchResults";
-import { useSelector } from "react-redux";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar";
 import Home from "./pages/Home/Home";
-import Shop from "./pages/Shop/Shop";
 import Events from "./pages/Events/Events";
 import Account from "./pages/Account/Events";
 import Wishlist from "./pages/Wishlist/Wishlist";
