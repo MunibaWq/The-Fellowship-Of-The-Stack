@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import SearchResults from "./pages/Search/SearchResults";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar";
@@ -7,6 +8,7 @@ import Events from "./pages/Events/Events";
 import Account from "./pages/Account/Events";
 import Wishlist from "./pages/Wishlist/Wishlist";
 import ShoppingCart from "./pages/ShoppingCart/ShoppingCart";
+import ProductItem from "./pages/ProductItem/ProductItem";
 
 function App() {
     // const currentPage = useSelector((state) => state.currentPage);
@@ -37,6 +39,12 @@ function App() {
                         exact
                         component={ShoppingCart}
                     />
+                    {/* <Route
+                        path="/product-item"
+                        exact
+                        component={ProductItem}
+                        currentProduct={currentProduct}
+                    /> */}
                 </Switch>
             </div>
         </Router>

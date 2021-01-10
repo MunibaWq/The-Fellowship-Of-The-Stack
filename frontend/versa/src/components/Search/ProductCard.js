@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { setSelectedProduct, setPage } from "../../redux/actions";
@@ -14,40 +14,41 @@ const ProductCard = ({ product }) => {
     const productSelected = (id) => {
         dispatch(setSelectedProduct(id));
         dispatch(setPage("ProductItem"));
+        // if (id) {
         fetchCurrentProduct();
     };
+
     const fetchCurrentProduct = () => {
         console.log(`go to current product`, currentProduct);
-
         <Route path="product-item">
             <ProductItem currentProduct={currentProduct} />
         </Route>;
     };
 
     return (
-        <Link to={`/product/${product.id}`}>
-            <ImageCard>
-                <Image>
-                    <img
-                        onClick={() => {
-                            console.log("test");
-                            productSelected(product.id);
-                            fetchCurrentProduct(currentProduct);
-                        }}
-                        alt="product"
-                        src={`http://localhost:5000/images/${product.image}`}
-                    />
-                </Image>
-                <ProductInfo>
-                    <div>
-                        <h6>{product.title}</h6>
-                    </div>
-                    <div>
-                        <h6>${product.price}</h6>
-                    </div>
-                </ProductInfo>
-            </ImageCard>
-        </Link>
+        // <Link to={`/product-item/${product.id}`}>
+        <ImageCard>
+            <Image>
+                <img
+                    onClick={() => {
+                        console.log("test");
+                        productSelected(product.id);
+                        // fetchCurrentProduct(currentProduct);
+                    }}
+                    alt="product"
+                    src={`http://localhost:5000/images/${product.image}`}
+                />
+            </Image>
+            <ProductInfo>
+                <div>
+                    <h6>{product.title}</h6>
+                </div>
+                <div>
+                    <h6>${product.price}</h6>
+                </div>
+            </ProductInfo>
+        </ImageCard>
+        // </Link>
     );
 };
 const ImageCard = styled.div`

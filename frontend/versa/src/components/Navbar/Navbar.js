@@ -22,6 +22,7 @@ const Navbar = () => {
                     <NavLink to="/shopping-cart">
                         <ShoppingCart />
                     </NavLink>
+                    {/* <NavLink to="/product-item">PRODUCT ITEM</NavLink> */}
                 </NavMenu>
             </Nav>
         </>
