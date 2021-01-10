@@ -39,7 +39,7 @@ function App() {
                         exact
                         component={ShoppingCart}
                     />
-                    <Route path="/product-item" component={ProductItem} />
+                    <Route path="/product-item/:id" component={ProductItem} />
                 </Switch>
             </div>
         </Router>

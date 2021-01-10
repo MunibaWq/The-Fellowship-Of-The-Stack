@@ -6,8 +6,13 @@ import ProductPageImage from "../../components/Product/ProductPageImage";
 import axios from 'axios'
 import ProductData from "../../components/Product/ProductData";
 import { useSelector } from 'react-redux'
+import { useParams } from "react-router-dom";
 const ProductItem = () => {
-    const currentProduct = useSelector((state) => state.selectedProduct)
+    
+   
+    // const currentProduct = useSelector((state) => state.selectedProduct)
+    const params = useParams()
+    const currentProduct = params.id
     const [productDataState, setProductDataState] = useState([]);
     useEffect(() => {
         const fetchProduct = async () => {
