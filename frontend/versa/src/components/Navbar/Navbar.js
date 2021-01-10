@@ -24,11 +24,9 @@ const Navbar = () => {
                     </NavLink>
                     <NavLink to="/wishlist" activeStyle>
                         <WishListIcon />
-                        {/* <img src={} alt='heart' /> */}
                     </NavLink>
                     <NavLink to="/shopping-cart" activeStyle>
                         <ShoppingCart />
-                        {/* <img src={} alt='cart' /> */}
                     </NavLink>
                 </NavMenu>
             </Nav>
