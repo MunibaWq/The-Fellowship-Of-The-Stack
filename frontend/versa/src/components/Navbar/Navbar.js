@@ -1,17 +1,16 @@
 import React from "react";
-import { Nav, NavLink, NavMenu, LogoContainer } from "./NavbarElements";
-import Logo from "../../images/logo.svg";
+import { Nav, NavLink, NavMenu } from "./NavbarElements";
+import logo from "../../images/logo.svg";
 import { ShoppingCart, WishListIcon } from "../../images/icons";
+import styled from "styled-components";
 
 const Navbar = () => {
     return (
         <>
             <Nav>
-                <LogoContainer>
-                    <NavLink to="/">
-                        <img src={Logo} alt="logo" />
-                    </NavLink>
-                </LogoContainer>
+                <NavLink to="/">
+                    <Logo src={logo} alt="logo" />
+                </NavLink>
 
                 <NavMenu>
                     <NavLink to="/shop" activeStyle>
@@ -38,3 +37,10 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+const Logo = styled.img`
+    padding: 0;
+    margin: 0;
+    height: 100px;
+    width: 100px;
+`;

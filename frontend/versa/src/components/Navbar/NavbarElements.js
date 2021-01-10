@@ -6,7 +6,7 @@ export const Nav = styled.nav`
     height: 80px;
     display: flex;
     justify-content: space-between;
-    padding: 0.5rem calc((100vw - 1000px) / 2);
+    padding: 5px;
     z-index: 10;
 
     /* @media screen and (max-width: 768px) {
@@ -19,7 +19,7 @@ export const NavLink = styled(Link)`
     display: flex;
     align-items: center;
     text-decoration: none;
-    padding: 0 1rem;
+    padding: 5px;
     height: 100%;
     cursor: pointer;
 
@@ -38,12 +38,4 @@ export const NavMenu = styled.div`
     /* @media screen and (max-width: 768px) {
         margin: auto;
     } */
-`;
-
-export const LogoContainer = styled.div`
-    svg {
-        /* padding-right: -5px; */
-        height: 1rem;
-        width: 1rem;
-    }
 `;
