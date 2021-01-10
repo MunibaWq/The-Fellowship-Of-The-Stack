@@ -1,5 +1,5 @@
 import React from "react";
-import { Nav, NavLink, Bars, NavMenu } from "./NavbarElements";
+import { Nav, NavLink, NavMenu, LogoContainer } from "./NavbarElements";
 import Logo from "../../images/logo.svg";
 import { ShoppingCart, WishListIcon } from "../../images/icons";
 
@@ -7,9 +7,11 @@ const Navbar = () => {
     return (
         <>
             <Nav>
-                <NavLink to="/">
-                    <img src={Logo} alt="logo" />
-                </NavLink>
+                <LogoContainer>
+                    <NavLink to="/">
+                        <img src={Logo} alt="logo" />
+                    </NavLink>
+                </LogoContainer>
 
                 <NavMenu>
                     <NavLink to="/shop" activeStyle>
