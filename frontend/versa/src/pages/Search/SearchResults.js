@@ -6,6 +6,7 @@ import ProductCard from "../../components/Search/ProductCard.js";
 import axios from "axios";
 import styled from "styled-components";
 import { Magnifying } from "../../images/icons";
+import { Link } from "react-router-dom";
 
 const SearchResults = () => {
     const [products, setProducts] = useState([]);
@@ -59,7 +60,11 @@ const SearchResults = () => {
                     products.map((product) => (
                         <ProductCard
                             onClick={() => {
-                                console.log("clicked");
+                                {
+                                    <Link to="/product-item">
+                                        PRODUCT ITEM
+                                    </Link>;
+                                }
                             }}
                             product={product}
                         />
