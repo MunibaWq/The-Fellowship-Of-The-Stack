@@ -13,19 +13,13 @@ const Navbar = () => {
                 </NavLink>
 
                 <NavMenu>
-                    <NavLink to="/shop" activeStyle>
-                        SHOP
-                    </NavLink>
-                    <NavLink to="/events" activeStyle>
-                        EVENTS
-                    </NavLink>
-                    <NavLink to="/account" activeStyle>
-                        ACCOUNT
-                    </NavLink>
-                    <NavLink to="/wishlist" activeStyle>
+                    <NavLink to="/shop">SHOP</NavLink>
+                    <NavLink to="/events">EVENTS</NavLink>
+                    <NavLink to="/account">ACCOUNT</NavLink>
+                    <NavLink to="/wishlist">
                         <WishListIcon />
                     </NavLink>
-                    <NavLink to="/shopping-cart" activeStyle>
+                    <NavLink to="/shopping-cart">
                         <ShoppingCart />
                     </NavLink>
                 </NavMenu>
