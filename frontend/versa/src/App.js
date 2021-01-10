@@ -11,34 +11,29 @@ import Home from "./pages/Home/Home";
 import Shop from "./pages/Shop/Shop";
 
 function App() {
-    const currentPage = useSelector((state) => state.currentPage);
-    const currentProduct = useSelector((state) => state.selectedProduct);
-    let pageToShow;
-    console.log("App.js currentProduct", currentProduct);
-    switch (currentPage) {
-        case "Search":
-            pageToShow = <SearchResults />;
-            break;
-        case "ProductItem":
-            pageToShow = <ProductItem currentProduct={currentProduct} />;
-            break;
-        default:
-            pageToShow = <></>;
-    }
+    // const currentPage = useSelector((state) => state.currentPage);
+    // const currentProduct = useSelector((state) => state.selectedProduct);
+    // let pageToShow;
+    // console.log("App.js currentProduct", currentProduct);
+    // switch (currentPage) {
+    //     case "Search":
+    //         pageToShow = <SearchResults />;
+    //         break;
+    //     case "ProductItem":
+    //         pageToShow = <ProductItem currentProduct={currentProduct} />;
+    //         break;
+    //     default:
+    //         pageToShow = <></>;
     return (
-        <>
-            <Router>
+        <Router>
+            <div>
                 <Navbar />
                 <Switch>
                     <Route path="/" exact component={Home} />
-                    <Route path="/shop" exact component={Shop} />
+                    <Route path="/shop" exact component={SearchResults} />
                 </Switch>
-            </Router>
-            <ThemeProvider theme={Theme}>
-                {pageToShow}
-                {/* <Product /> */}
-            </ThemeProvider>
-        </>
+            </div>
+        </Router>
     );
 }
 
