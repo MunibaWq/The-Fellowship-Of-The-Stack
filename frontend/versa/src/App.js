@@ -10,7 +10,7 @@ import Navbar from "./components/Navbar/Navbar";
 import Home from "./pages/Home/Home";
 import Shop from "./pages/Shop/Shop";
 import Events from "./pages/Events/Events";
-import Account from "./pages/Account/Account";
+import Account from "./pages/Account/Events";
 import Wishlist from "./pages/Wishlist/Wishlist";
 import ShoppingCart from "./pages/ShoppingCart/ShoppingCart";
 

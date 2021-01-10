@@ -1,6 +1,7 @@
 import React from "react";
 import { Nav, NavLink, Bars, NavMenu } from "./NavbarElements";
 import Logo from "../../images/logo.svg";
+import { ShoppingCart, WishListIcon } from "../../images/icons";
 
 const Navbar = () => {
     return (
@@ -8,7 +9,6 @@ const Navbar = () => {
             <Nav>
                 <NavLink to="/">
                     <img src={Logo} alt="logo" />
-                    {/* <h1>Logo</h1> */}
                 </NavLink>
 
                 <NavMenu>
@@ -22,11 +22,11 @@ const Navbar = () => {
                         ACCOUNT
                     </NavLink>
                     <NavLink to="/wishlist" activeStyle>
-                        Wishlist
+                        <WishListIcon />
                         {/* <img src={} alt='heart' /> */}
                     </NavLink>
                     <NavLink to="/shopping-cart" activeStyle>
-                        ShoppingCart
+                        <ShoppingCart />
                         {/* <img src={} alt='cart' /> */}
                     </NavLink>
                 </NavMenu>
