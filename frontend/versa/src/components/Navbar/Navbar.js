@@ -1,6 +1,11 @@
 import React from "react";
 import { Nav, NavLink, Bars, NavMenu } from "./NavbarElements";
 import Logo from "../../images/logo.svg";
+import WishListIcon from "../../images/Heart.svg";
+import Cart from "../../images/Cart.svg";
+import Shop from "../../images/ShopSearch.svg";
+import Events from "../../images/Events.svg";
+import Home from "../../images/Home.svg";
 
 const Navbar = () => {
     return (
@@ -22,8 +27,7 @@ const Navbar = () => {
                         ACCOUNT
                     </NavLink>
                     <NavLink to="/wishlist" activeStyle>
-                        Wishlist
-                        {/* <img src={} alt='heart' /> */}
+                        <img src={WishListIcon} alt="heart" />
                     </NavLink>
                     <NavLink to="/shopping-cart" activeStyle>
                         ShoppingCart
