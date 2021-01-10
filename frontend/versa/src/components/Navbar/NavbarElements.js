@@ -2,11 +2,11 @@ import { NavLink as Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const Nav = styled.nav`
-    background: #ffb649;
+    background: #c5c3ff;
     height: 80px;
     display: flex;
     justify-content: space-between;
-    padding: 5px;
+    padding: 5px 20px;
     z-index: 10;
 
     /* @media screen and (max-width: 768px) {
@@ -31,7 +31,7 @@ export const NavLink = styled(Link)`
 export const NavMenu = styled.div`
     display: flex;
     align-items: center;
-    margin-right: -210px;
+    /* margin-right: -210px; */
     /* float: right; */
     /* white-space: wrap; */
 
