@@ -25,27 +25,29 @@ const ProductCard = ({ product }) => {
     };
 
     return (
-        <ImageCard>
-            <Image>
-                <img
-                    onClick={() => {
-                        console.log("test");
-                        productSelected(product.id);
-                        fetchCurrentProduct(currentProduct);
-                    }}
-                    alt="product"
-                    src={`http://localhost:5000/images/${product.image}`}
-                />
-            </Image>
-            <ProductInfo>
-                <div>
-                    <h6>{product.title}</h6>
-                </div>
-                <div>
-                    <h6>${product.price}</h6>
-                </div>
-            </ProductInfo>
-        </ImageCard>
+        <Link to={`/product/${product.id}`}>
+            <ImageCard>
+                <Image>
+                    <img
+                        onClick={() => {
+                            console.log("test");
+                            productSelected(product.id);
+                            fetchCurrentProduct(currentProduct);
+                        }}
+                        alt="product"
+                        src={`http://localhost:5000/images/${product.image}`}
+                    />
+                </Image>
+                <ProductInfo>
+                    <div>
+                        <h6>{product.title}</h6>
+                    </div>
+                    <div>
+                        <h6>${product.price}</h6>
+                    </div>
+                </ProductInfo>
+            </ImageCard>
+        </Link>
     );
 };
 const ImageCard = styled.div`

@@ -31,13 +31,12 @@ const SearchResults = () => {
                             search();
                         }
                     }}
-                    
                 >
                     <Magnifying />
                 </MagnifyIcon>
                 <SearchBar
-                    onKeyPress = {(e) => {
-                        if (e.key === 'Enter' && query) {
+                    onKeyPress={(e) => {
+                        if (e.key === "Enter" && query) {
                             search();
                         }
                     }}
@@ -54,21 +53,25 @@ const SearchResults = () => {
                 </SearchCriteria>
             </div>
             <Products>
-                {products.length===0? <NoResultsMessage>Sorry, no results found</NoResultsMessage> : products.map((product) => (
-                    <ProductCard
-                        onClick={() => {
-                            console.log("clicked");
-                        }}
-                        product={product}
-                    />
-                ))}
+                {products.length === 0 ? (
+                    <NoResultsMessage>Sorry, no results found</NoResultsMessage>
+                ) : (
+                    products.map((product) => (
+                        <ProductCard
+                            onClick={() => {
+                                console.log("clicked");
+                            }}
+                            product={product}
+                        />
+                    ))
+                )}
             </Products>
         </SearchPage>
     );
 };
 const NoResultsMessage = styled.h1`
     font-size: 25px;
-`
+`;
 const MagnifyIcon = styled.div`
     position: absolute;
     margin-top: 20px;
