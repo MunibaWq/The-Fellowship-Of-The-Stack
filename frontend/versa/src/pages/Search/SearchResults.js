@@ -6,7 +6,7 @@ import ProductCard from "../../components/Search/ProductCard.js";
 import axios from "axios";
 import styled from "styled-components";
 import { Magnifying } from "../../images/icons";
-import { Link } from "react-router-dom";
+import { Link, Route, Switch } from "react-router-dom";
 
 const SearchResults = () => {
     const [products, setProducts] = useState([]);
@@ -61,9 +61,7 @@ const SearchResults = () => {
                         <ProductCard
                             onClick={() => {
                                 {
-                                    <Link to="/product-item">
-                                        PRODUCT ITEM
-                                    </Link>;
+                                    console.log(`clicked`);
                                 }
                             }}
                             product={product}

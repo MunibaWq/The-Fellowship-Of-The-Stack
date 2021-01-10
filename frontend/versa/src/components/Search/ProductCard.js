@@ -20,9 +20,9 @@ const ProductCard = ({ product }) => {
 
     const fetchCurrentProduct = () => {
         console.log(`go to current product`, currentProduct);
-        <Route path="product-item">
+        <Link to="/product-item">
             <ProductItem currentProduct={currentProduct} />
-        </Route>;
+        </Link>;
     };
 
     return (
