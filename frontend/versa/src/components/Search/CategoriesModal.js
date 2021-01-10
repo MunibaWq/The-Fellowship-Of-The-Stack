@@ -1,17 +1,22 @@
-import React from 'react'
-import { Modal } from './styledComponents'
-
+import React from "react";
+import { Link } from "react-router-dom";
+import { Modal } from "./styledComponents";
 
 const CategoriesModal = () => {
     return (
         <Modal>
-            <a href="#">Furniture</a><br />
-            <a href="#">Decorations</a><br />
-            <a href="#">Artwork</a><br />
-            <a href="#">Gardening</a><br />
-            <a href="#">Games and hobbies</a><br />
+            <Link to="/">Furniture</Link>
+            <br />
+            <Link to="/">Decorations</Link>
+            <br />
+            <Link to="/">Artwork</Link>
+            <br />
+            <Link to="/">Gardening</Link>
+            <br />
+            <Link to="/">Games and Hobbies</Link>
+            <br />
         </Modal>
-    )
-}
+    );
+};
 
-export default CategoriesModal
+export default CategoriesModal;
