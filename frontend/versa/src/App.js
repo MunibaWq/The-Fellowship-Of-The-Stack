@@ -1,5 +1,4 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import SearchResults from "./pages/Search/SearchResults";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar";
@@ -11,19 +10,6 @@ import ShoppingCart from "./pages/ShoppingCart/ShoppingCart";
 import ProductItem from "./pages/ProductItem/ProductItem";
 
 function App() {
-    // const currentPage = useSelector((state) => state.currentPage);
-    // const currentProduct = useSelector((state) => state.selectedProduct);
-    // let pageToShow;
-    // console.log("App.js currentProduct", currentProduct);
-    // switch (currentPage) {
-    //     case "Search":
-    //         pageToShow = <SearchResults />;
-    //         break;
-    //     case "ProductItem":
-    //         pageToShow = <ProductItem currentProduct={currentProduct} />;
-    //         break;
-    //     default:
-    //         pageToShow = <></>;
     return (
         <Router>
             <div>
