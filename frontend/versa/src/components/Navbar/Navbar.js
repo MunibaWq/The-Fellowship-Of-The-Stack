@@ -14,14 +14,14 @@ const Navbar = () => {
 
                 <NavMenu>
                     <NavLink to="/shop">SHOP</NavLink>
-                    <NavLink to="/events">EVENTS</NavLink>
+                    {/* <NavLink to="/events">EVENTS</NavLink>
                     <NavLink to="/account">ACCOUNT</NavLink>
                     <NavLink to="/wishlist">
                         <WishListIcon />
                     </NavLink>
                     <NavLink to="/shopping-cart">
                         <ShoppingCart />
-                    </NavLink>
+                    </NavLink> */}
                     {/* <NavLink to="/product-item">PRODUCT ITEM</NavLink> */}
                 </NavMenu>
             </Nav>
