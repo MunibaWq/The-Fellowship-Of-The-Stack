@@ -38,6 +38,4 @@ const ProductItem = () => {
 
 export default ProductItem;
 
-const ProductItemContainer = styled.div`
-    margin-top: 80px;
-`;
+const ProductItemContainer = styled.div``;

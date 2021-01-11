@@ -1,5 +1,6 @@
 let express = require("express");
 let cors = require("cors");
+const crypto = require("crypto");
 const path = require("path");
 const PORT = process.env.PORT || 5000;
 const { Pool } = require("pg");
@@ -9,7 +10,7 @@ const pool = new Pool({
     database: "api",
     password: "password",
     port: 5432,
-    max: 50
+    max: 50,
 });
 
 let app = express();
@@ -25,27 +26,33 @@ app.listen(PORT, () => {
     console.log(`Listening on ${PORT}`);
 });
 
-app.get('/search/:searchQuery', async (req, res) => {
-    let query = req.params.searchQuery.toUpperCase().split(' ')
-    let queryString = ""
+//ROUTES
+
+//Get all products FOR SEARCH
+
+app.get("/search/:searchQuery", async (req, res) => {
+    let query = req.params.searchQuery.toUpperCase().split(" ");
+    let queryString = "";
     query.forEach((term, index) => {
         if (index == 0) {
-            queryString = `(UPPER (title) LIKE '%${term}%' OR UPPER (description) LIKE '%${term}%')`
+            queryString = `(UPPER (title) LIKE '%${term}%' OR UPPER (description) LIKE '%${term}%')`;
         } else {
-            queryString += ` AND (UPPER (title) LIKE '%${term}%' OR UPPER (description) LIKE '%${term}%')`
-        } 
-    })
-    const client = await pool.connect()
+            queryString += ` AND (UPPER (title) LIKE '%${term}%' OR UPPER (description) LIKE '%${term}%')`;
+        }
+    });
+    const client = await pool.connect();
     const result = await client.query(
         `SELECT * FROM products WHERE ${queryString}`
-    )
-    client.release(true)
-    res.json(result.rows)
-})
+    );
+    client.release(true);
+    res.json(result.rows);
+});
+
+// Get a product
 
 app.get("/product/:id", async (req, res) => {
     try {
-        const client = await pool.connect()
+        const client = await pool.connect();
         const result = await client.query(
             `SELECT * FROM products WHERE id = ${req.params.id}`
         );
@@ -62,18 +69,21 @@ app.get("/product/:id", async (req, res) => {
         const artist = artistReq.rows[0].username;
         productInfo["artist"] = artist;
         console.log("productInfo", productInfo);
-        client.release(true)
+        client.release(true);
         res.json(productInfo);
     } catch (e) {
         console.log("error", e);
-        
+
         res.send(e);
     }
 });
+
+//Get all products
+
 app.get("/allProducts", async (req, res) => {
     try {
-        const client = await pool.connect()
-        console.log(pool.totalCount)
+        const client = await pool.connect();
+        console.log(pool.totalCount);
         const result = await client.query("SELECT * FROM products");
         const results = result.rows;
         const productsToSend = [];
@@ -88,10 +98,46 @@ app.get("/allProducts", async (req, res) => {
             product["artist"] = artist;
             productsToSend.push(product);
         }
-        client.release(true)
+        client.release(true);
         res.json(productsToSend);
     } catch (e) {
         console.log(e);
         res.send("error");
     }
 });
+
+// Create a product
+
+app.post("/allProducts", async (req, res) => {
+    try {
+        const {
+            title,
+            price,
+            description,
+            variations,
+            artist_id,
+            size,
+            size_and_fit,
+            materials,
+        } = req.body;
+        const newProduct = await pool.query(
+            "INSERT INTO products (title, price, description, variations, artist_id, size, size_and_fit, materials) VALUES ($1, $2, $3,$4, $5,$6,$7,$8) RETURNING *",
+            [
+                title,
+                price,
+                description,
+                variations,
+                artist_id,
+                size,
+                size_and_fit,
+                materials,
+            ]
+        );
+    } catch (err) {
+        console.error(err.message);
+    }
+});
+
+// Update a product
+
+// Delete a product
