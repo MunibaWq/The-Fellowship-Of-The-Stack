@@ -1,5 +1,6 @@
 const express = require('express')
 const router = new express.Router()
+const pool = require('../db')
 //search products by keyword found in title and description
 router.get("/search/:searchQuery", async (req, res) => {
     let query = req.params.searchQuery.toUpperCase().split(" ");
