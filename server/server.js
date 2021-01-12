@@ -109,12 +109,11 @@ app.get("/allProducts", async (req, res) => {
 // Create a product
 
 app.post("/products/create", async (req, res) => {
-    // if (!req.body) {
-    //     res.status(400).send({
-    //         message: "Fields can not be empty!",
-    //     });
-    //     return;
-    // }
+    if (Object.keys(req.body).length === 0) {
+        res.send({
+            message: "Theres nobody!",
+        });
+    }
     try {
         const {
             title,
@@ -126,6 +125,7 @@ app.post("/products/create", async (req, res) => {
             size_and_fit,
             materials,
         } = req.body;
+        // const client = await pool.connect(); DANIELLE DO WE NEED THIS
         const newProduct = await pool.query(
             "INSERT INTO products (title, price, description, variations, artist_id, size, size_and_fit, materials) VALUES ($1, $2, $3,$4, $5,$6,$7,$8) RETURNING *",
             [
@@ -139,25 +139,75 @@ app.post("/products/create", async (req, res) => {
                 materials,
             ]
         );
+        res.json({ msg: "success" });
     } catch (err) {
         console.error(err.message);
+        res.send("error");
     }
 });
 
 // Update a product
 
-app.put("/products/:id", async (req, res) => {
+app.put("/products/edit/:id", async (req, res) => {
+    if (Object.keys(req.body).length === 0) {
+        res.send({
+            message: "Theres nobody!",
+        });
+    }
     try {
         const { id } = req.params; // For use in where
-        const { product } = req.body; //For use in set
+        const {
+            title,
+            price,
+            description,
+            variations,
+            artist_id,
+            size,
+            size_and_fit,
+            materials,
+        } = req.body; //For use in set
 
         const updateProduct = await pool.query(
-            "UPDATE todo SET product = $1 WHERE product_id = $2",
-            []
+            "UPDATE products SET title = $1, price = $2, description = $3, variations = $4, artist_id = $5, size = $6, size_and_fit = $7, materials = $8 WHERE id = $9",
+            [
+                title,
+                price,
+                description,
+                variations,
+                artist_id,
+                size,
+                size_and_fit,
+                materials,
+                id,
+            ]
         );
+        res.json({ msg: "success" });
     } catch (err) {
         console.error(err.message);
+        res.send({
+            message: "error",
+        });
     }
 });
 
-// Delete a product
+// Delete a product DO USER AUTH BEFORE THEY CAN DELETE for now it just deletes
+
+app.delete("/products/delete/:id", async (req, res) => {
+    const id = req.params.id;
+
+    if (Object.keys(req.params).length === 0) {
+        console.log("no id");
+    }
+    try {
+        const deleteProduct = await pool.query(
+            "DELETE FROM products WHERE id = $1",
+            [id]
+        );
+        res.json({ msg: "Product Deleted!" });
+    } catch (err) {
+        console.error(err.message);
+        res.send({
+            message: "error",
+        });
+    }
+});
