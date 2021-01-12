@@ -68,9 +68,8 @@ const Arrow = styled.div``;
 const InquiryCustomOrder = styled.div`
     padding-bottom: 20px;
     display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
+    justify-content: flex-start;
 `;
 const ProductInquiry = styled.button`
     padding: 10px 20px;
@@ -81,6 +80,7 @@ const ProductInquiry = styled.button`
     font-weight: bold;
     text-transform: uppercase;
     letter-spacing: 0.1em;
+    margin-bottom: 10px;
 `;
 const CustomOrder = styled.button`
     padding: 10px 20px;
