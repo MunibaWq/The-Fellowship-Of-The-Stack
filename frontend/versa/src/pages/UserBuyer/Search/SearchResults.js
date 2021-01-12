@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import Categories from "../../components/Search/Categories";
-import Sort from "../../components/Search/Sort";
-import Filters from "../../components/Search/Filters";
-import ProductCard from "../../components/Search/ProductCard.js";
-import axios from "axios";
+import Categories from "../../../components/Search/Categories";
+import Sort from "../../../components/Search/Sort";
+import Filters from "../../../components/Search/Filters";
+import ProductCard from "../../../components/Search/ProductCard.js";
+import { searchProducts, getAllProducts } from '../../../axios/gets'
 import styled from "styled-components";
-import { Magnifying } from "../../images/icons";
+import { Magnifying } from "../../../images/icons";
 import { Link, Route, Switch } from "react-router-dom";
 import ImageTest from "./ImageTest";
 const SearchResults = () => {
@@ -13,14 +13,15 @@ const SearchResults = () => {
     const [query, setQuery] = useState();
     useEffect(() => {
         const getProducts = async () => {
-            let res = await axios.get("http://localhost:5000/allProducts");
-            setProducts(res.data);
+            const data = getAllProducts()
+            
+            setProducts(data);
         };
         getProducts();
     }, []);
     const search = async () => {
-        let res = await axios.get("http://localhost:5000/search/" + query);
-        setProducts(res.data);
+        let data = await searchProducts(query)
+        setProducts(data);
     };
 
     return (

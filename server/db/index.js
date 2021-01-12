@@ -1,6 +1,5 @@
 const { Pool } = require("pg");
-
-export default pool = new Pool({
+const pool = new Pool({
     user: "me",
     host: "localhost",
     database: "api",
@@ -8,3 +7,4 @@ export default pool = new Pool({
     port: 5432,
     max: 50,
 });
+module.exports = pool
