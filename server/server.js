@@ -214,5 +214,13 @@ app.delete("/products/delete/:id", async (req, res) => {
 
 //Load mulitple filed per image and convert to string
 //will need to determine when last string has been recieved to execute
-
-table;
+app.post("/images/add", (req, res) => {
+    //the body will have a boolean to hold to determine if the last string is coming = lastString
+    if (req.body.lastString) {
+        //make a query to insert the image into the db
+        pool.query(
+            "INSERT INTO images (image, label, img_size, product_id,) VALUES ($1, $2, $3,$4, $5,$6,$7,$8) RETURNING *",
+            [image, label, img_size, product_id]
+        );
+    }
+});
