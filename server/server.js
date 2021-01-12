@@ -245,3 +245,22 @@ app.post("/images/add", async (req, res) => {
         res.send("testing img to db");
     }
 });
+
+//delete image
+
+app.delete("/images/delete/:id", async (req, res) => {
+    const id = req.params.id;
+
+    if (Object.keys(req.params).length === 0) {
+        console.log("no id");
+    }
+    try {
+        pool.query("DELETE FROM images WHERE id = $1", [id]);
+        res.json({ msg: "Image Deleted!" });
+    } catch (err) {
+        console.error(err.message);
+        res.send({
+            message: "error",
+        });
+    }
+});
