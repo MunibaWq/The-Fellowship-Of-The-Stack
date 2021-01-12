@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Circle } from "../../images/icons";
-import Image from "../../images/imageTest.png";
+import { Link } from "react-router-dom";
 
 const ProductPageImage = ({ productDataState }) => {
     console.log(productDataState);
@@ -11,7 +11,7 @@ const ProductPageImage = ({ productDataState }) => {
                 src={"http://localhost:5000/images/" + productDataState.image}
                 alt="product"
             />
-            <BackToResults>
+            <BackToResults to="/">
                 <h6>Back to results</h6>
             </BackToResults>
             <Badge>New</Badge>
@@ -43,7 +43,7 @@ const ProductImage = styled.img`
     height: 110%;
 `;
 
-const BackToResults = styled.div`
+const BackToResults = styled(Link)`
     display: flex;
     align-items: center;
     padding: 5px 10px;
@@ -52,6 +52,7 @@ const BackToResults = styled.div`
     border-radius: 50px;
     margin: 20px 0 0 20px;
     position: absolute;
+    text-decoration: none;
     h6 {
         font-weight: bold;
         letter-spacing: 2px;
