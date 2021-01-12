@@ -59,9 +59,11 @@ app.get("/product/:id", async (req, res) => {
         console.log(result.rows[0]);
         const productInfo = result.rows[0];
 
-        productInfo["variations"] = productInfo["variations"].split(" ");
+        productInfo["colours"] = productInfo["colours"].split(" ");
 
-        productInfo["size"] = productInfo["size"].split(" ").map((dim) => +dim);
+        productInfo["sizes"] = productInfo["sizes"]
+            .split(" ")
+            .map((dim) => +dim);
         const artistReq = await client.query(
             "SELECT username FROM artists WHERE id = " +
                 productInfo["artist_id"]
@@ -88,8 +90,8 @@ app.get("/allProducts", async (req, res) => {
         const results = result.rows;
         const productsToSend = [];
         for (product of results) {
-            product["variations"] = product["variations"].split(" ");
-            product["size"] = product["size"].split(" ").map((dim) => +dim);
+            product["colours"] = product["colours"].split(" ");
+            product["sizes"] = product["sizes"].split(" ").map((dim) => +dim);
             const artistReq = await pool.query(
                 "SELECT username FROM artists WHERE id = " +
                     product["artist_id"]
@@ -106,9 +108,9 @@ app.get("/allProducts", async (req, res) => {
     }
 });
 
-// Create a product
+// Create a product ON FRONT END - NEED TO SEND sizes AS OBJECT-> sizes:PRICE
 
-app.post("/products/create", async (req, res) => {
+app.post("/products/create", (req, res) => {
     if (Object.keys(req.body).length === 0) {
         res.send({
             message: "Theres nobody!",
@@ -119,22 +121,22 @@ app.post("/products/create", async (req, res) => {
             title,
             price,
             description,
-            variations,
+            colours,
             artist_id,
-            size,
+            sizes,
             size_and_fit,
             materials,
         } = req.body;
-        // const client = await pool.connect(); DANIELLE DO WE NEED THIS
-        const newProduct = await pool.query(
-            "INSERT INTO products (title, price, description, variations, artist_id, size, size_and_fit, materials) VALUES ($1, $2, $3,$4, $5,$6,$7,$8) RETURNING *",
+
+        pool.query(
+            "INSERT INTO products (title, price, description, colours, artist_id, sizes, size_and_fit, materials) VALUES ($1, $2, $3,$4, $5,$6,$7,$8) RETURNING *",
             [
                 title,
                 price,
                 description,
-                variations,
+                colours,
                 artist_id,
-                size,
+                JSON.stringify(sizes),
                 size_and_fit,
                 materials,
             ]
@@ -148,7 +150,7 @@ app.post("/products/create", async (req, res) => {
 
 // Update a product
 
-app.put("/products/edit/:id", async (req, res) => {
+app.put("/products/edit/:id", (req, res) => {
     if (Object.keys(req.body).length === 0) {
         res.send({
             message: "Theres nobody!",
@@ -160,22 +162,22 @@ app.put("/products/edit/:id", async (req, res) => {
             title,
             price,
             description,
-            variations,
+            colours,
             artist_id,
-            size,
+            sizes,
             size_and_fit,
             materials,
         } = req.body; //For use in set
 
-        const updateProduct = await pool.query(
-            "UPDATE products SET title = $1, price = $2, description = $3, variations = $4, artist_id = $5, size = $6, size_and_fit = $7, materials = $8 WHERE id = $9",
+        pool.query(
+            "UPDATE products SET title = $1, price = $2, description = $3, colours = $4, artist_id = $5, sizes = $6, size_and_fit = $7, materials = $8 WHERE id = $9",
             [
                 title,
                 price,
                 description,
-                variations,
+                colours,
                 artist_id,
-                size,
+                sizes,
                 size_and_fit,
                 materials,
                 id,
@@ -190,7 +192,7 @@ app.put("/products/edit/:id", async (req, res) => {
     }
 });
 
-// Delete a product DO USER AUTH BEFORE THEY CAN DELETE for now it just deletes
+// Delete a product PLEASE ADD AUTH
 
 app.delete("/products/delete/:id", async (req, res) => {
     const id = req.params.id;
@@ -199,10 +201,7 @@ app.delete("/products/delete/:id", async (req, res) => {
         console.log("no id");
     }
     try {
-        const deleteProduct = await pool.query(
-            "DELETE FROM products WHERE id = $1",
-            [id]
-        );
+        pool.query("DELETE FROM products WHERE id = $1", [id]);
         res.json({ msg: "Product Deleted!" });
     } catch (err) {
         console.error(err.message);

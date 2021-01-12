@@ -9,7 +9,9 @@ const pool = new Pool({
 });
 const loadTables = async () => {
     const client = await pool.connect();
-    await client.query("DROP TABLE IF EXISTS products; DROP TABLE IF EXISTS artists");
+    await client.query(
+        "DROP TABLE IF EXISTS products; DROP TABLE IF EXISTS artists"
+    );
     let result = await client.query(`CREATE TABLE "products" (
       "id" SERIAL PRIMARY KEY,
       "title" varchar,
@@ -20,9 +22,9 @@ const loadTables = async () => {
       "num_sales" int,
       "num_stars" real,
       "num_reviews" int,
-      "variations" varchar,
+      "colours" varchar,
       "size_and_fit" varchar,
-      "size" varchar,
+      "sizes" varchar,
       "materials" varchar
     )`);
 
@@ -38,18 +40,17 @@ const loadTables = async () => {
 const runQuery = async (query) => {
     let client = await pool.connect();
     await client.query(query);
-    client.end()
+    client.end();
 };
 
 loadTables().then(() => {
-    let query = ''
+    let query = "";
     for (product of products) {
         let columns = `'${product.title}', ${product.price}, '${product.description}', '${product.image}',${product.num_sales}, ${product.num_stars}, ${product.num_reviews}, '${product.variations}', ${product.artist_id}, '${product.size}', '${product.size_and_fit}', '${product.materials}'`;
         query +=
-            "INSERT INTO products (title,price,description,image,num_sales,num_stars,num_reviews, variations, artist_id, size, size_and_fit, materials) VALUES (" +
+            "INSERT INTO products (title,price,description,image,num_sales,num_stars,num_reviews, colours, artist_id, sizes, size_and_fit, materials) VALUES (" +
             columns +
             "); ";
-        
     }
     runQuery(query);
 });
