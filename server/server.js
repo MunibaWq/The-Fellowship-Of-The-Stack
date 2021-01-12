@@ -86,13 +86,13 @@ app.get("/product/:id", async (req, res) => {
 app.get("/allProducts", async (req, res) => {
     try {
         const client = await pool.connect();
-        console.log(pool.totalCount);
         const result = await client.query("SELECT * FROM products");
         const results = result.rows;
         const productsToSend = [];
         for (product of results) {
             product["colours"] = product["colours"].split(" ");
             product["sizes"] = product["sizes"].split(" ").map((dim) => +dim);
+            const artists = await pool.query("SELECT * FROM artists");
             const artistReq = await pool.query(
                 "SELECT username FROM artists WHERE id = " +
                     product["artist_id"]

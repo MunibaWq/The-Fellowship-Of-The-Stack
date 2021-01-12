@@ -10,7 +10,7 @@ const pool = new Pool({
 const loadTables = async () => {
     const client = await pool.connect();
     await client.query(
-        "DROP TABLE IF EXISTS products; DROP TABLE IF EXISTS artists"
+        "DROP TABLE IF EXISTS images; DROP TABLE IF EXISTS products; DROP TABLE IF EXISTS artists"
     );
     let result = await client.query(`CREATE TABLE "products" (
       "id" SERIAL PRIMARY KEY,
@@ -36,14 +36,16 @@ const loadTables = async () => {
         'CREATE TABLE "images" ( "id" SERIAL PRIMARY KEY, "image" varchar, "label" varchar, "img_size" varchar NOT NULL, "product_id" int)'
     );
     //create product id in images table and refers to the product
-    client.query(
+    result = await client.query(
         'ALTER TABLE "images" ADD FOREIGN KEY ("product_id") REFERENCES "products" ("id")'
     );
-    client.query(
+    result = await client.query(
         'ALTER TABLE "products" ADD FOREIGN KEY ("artist_id") REFERENCES "artists" ("id")'
     );
 
-    client.query("INSERT INTO artists (username) VALUES ('someone')");
+    result = await client.query(
+        "INSERT INTO artists (username) VALUES ('someone')"
+    );
 };
 const runQuery = async (query) => {
     let client = await pool.connect();
