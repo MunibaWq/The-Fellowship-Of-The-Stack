@@ -20,5 +20,5 @@ app.listen(PORT, () => {
 
 //ROUTES
 
-app.use('/images', imageRouter)
+// app.use('/images', imageRouter)
 app.use('/products', productRouter)

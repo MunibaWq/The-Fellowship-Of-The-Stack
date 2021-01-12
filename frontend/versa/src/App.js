@@ -1,13 +1,12 @@
 import React from "react";
-import SearchResults from "./pages/Search/SearchResults";
+import SearchResults from './pages/UserBuyer/Search/SearchResults'
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar";
-import Home from "./pages/Home/Home";
 import Events from "./pages/Events/Events";
-import Account from "./pages/Account/Events";
-import Wishlist from "./pages/Wishlist/Wishlist";
-import ShoppingCart from "./pages/ShoppingCart/ShoppingCart";
-import ProductItem from "./pages/ProductItem/ProductItem";
+import Account from "./pages/Account/Account";
+import Wishlist from "./pages/UserBuyer/Wishlist/Wishlist";
+import ShoppingCart from "./pages/UserBuyer/ShoppingCart/ShoppingCart";
+import ProductItem from "./pages/UserBuyer/ProductItem/ProductItem";
 
 function App() {
     return (
