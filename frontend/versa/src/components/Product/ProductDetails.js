@@ -34,6 +34,7 @@ export default ProductDetails;
 
 const DetailsContainer = styled.div`
     background-color: #c5c3ff;
+    max-width: 425px;
     @media (max-width: 414px) {
         display: flex;
         flex-direction: column;

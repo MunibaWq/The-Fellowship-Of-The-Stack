@@ -72,6 +72,7 @@ const ProductSummaryContainer = styled.div`
     justify-content: center;
     align-items: flex-start;
     padding: 20px;
+    max-width: 425px;
 `;
 const NameAddWishContainer = styled.div`
     display: flex;

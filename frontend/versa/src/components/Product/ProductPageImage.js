@@ -29,7 +29,7 @@ export default ProductPageImage;
 const CarouselContainer = styled.section`
     display: grid;
     grid-template-rows: 1fr 1fr;
-    max-width: 414px;
+    max-width: 425px;
     height: 550px;
     overflow: hidden;
     border-radius: 50px;
@@ -37,7 +37,7 @@ const CarouselContainer = styled.section`
 `;
 
 const ProductImage = styled.img`
-    max-width: 414px;
+    max-width: 425px;
     position: absolute;
     z-index: -1;
     height: 110%;

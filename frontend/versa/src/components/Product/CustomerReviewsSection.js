@@ -81,6 +81,7 @@ const CustomerReviewsContainer = styled.section`
     align-items: flex-start;
     padding: 20px;
     background-color: #c5c3ff;
+    max-width: 425px;
 `;
 
 const TitleStarsNumReviews = styled.div`

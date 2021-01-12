@@ -33,6 +33,7 @@ const ArtistContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    max-width: 425px;
 `;
 
 const ProfileName = styled.div`
