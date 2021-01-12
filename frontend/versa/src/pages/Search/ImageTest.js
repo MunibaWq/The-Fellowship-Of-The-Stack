@@ -31,9 +31,10 @@ const ImageTest = () => {
             <button
                 onClick={async () => {
                     let res = await sendImage(
-                        "http://localhost:5000/pictures",
+                        "http://localhost:5000/images/add",
                         images[0]
                     );
+                    console.log(res);
                     let imageArray = [];
                     for (let i of res.data) {
                         imageArray.push(i.image);
