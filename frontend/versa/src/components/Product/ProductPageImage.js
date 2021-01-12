@@ -6,10 +6,10 @@ import Image from "../../images/imageTest.png";
 const ProductPageImage = ({ productDataState }) => {
     console.log(productDataState);
     return (
-        <ImageButtonContainer>
-            <img
+        <CarouselContainer>
+            <ProductImage
                 src={"http://localhost:5000/images/" + productDataState.image}
-                alt="pruduct"
+                alt="product"
             />
             <BackToResults>
                 <h6>Back to results</h6>
@@ -20,42 +20,55 @@ const ProductPageImage = ({ productDataState }) => {
                 <Circle />
                 <Circle />
             </ImagePagination>
-        </ImageButtonContainer>
+        </CarouselContainer>
     );
 };
 
 export default ProductPageImage;
 
-const ImageButtonContainer = styled.div`
-    @media (max-width: 414px) {
-        height: 550px;
-        img {
-            width: 100%;
-            position: relative;
-        }
-    }
+const CarouselContainer = styled.section`
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    max-width: 414px;
+    height: 550px;
+    overflow: hidden;
+    border-radius: 50px;
+    position: relative;
 `;
+
+const ProductImage = styled.img`
+    max-width: 414px;
+    position: absolute;
+    z-index: -1;
+    height: 110%;
+`;
+
 const BackToResults = styled.div`
     display: flex;
-    flex-direction: row;
     align-items: center;
+    padding: 5px 10px;
+    border: 3px solid #ff5c00;
+    box-sizing: border-box;
+    border-radius: 50px;
+    margin: 20px 0 0 20px;
     position: absolute;
-    left: 20px;
-    top: 20px;
     h6 {
-        border-bottom: 3px solid #444444;
+        font-weight: bold;
+        letter-spacing: 2px;
+        font-size: 16px;
     }
 `;
-const Badge = styled.div`
+const Badge = styled.p`
+    padding: 5px 10px;
+    margin: 0 0 20px 20px;
+    background: #ffb649;
+    border-radius: 50px;
+    align-self: end;
+    width: 60px;
     display: flex;
     flex-direction: row;
-    align-items: center;
-    padding: 5px;
+    align-items: flex-start;
     position: absolute;
-    left: 20px;
-    top: 510px;
-    background: #ffffff;
-    border-radius: 50px;
 `;
 const ImagePagination = styled.div`
     display: flex;
