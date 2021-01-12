@@ -4,10 +4,13 @@ import { Circle } from "../../images/icons";
 import Image from "../../images/imageTest.png";
 
 const ProductPageImage = ({ productDataState }) => {
-    console.log(productDataState)
+    console.log(productDataState);
     return (
         <ImageButtonContainer>
-            <img src={'http://localhost:5000/images/'+productDataState.image} alt="pruduct" />
+            <img
+                src={"http://localhost:5000/images/" + productDataState.image}
+                alt="pruduct"
+            />
             <BackToResults>
                 <h6>Back to results</h6>
             </BackToResults>
@@ -25,7 +28,6 @@ export default ProductPageImage;
 
 const ImageButtonContainer = styled.div`
     @media (max-width: 414px) {
-        width: 414px; /* Page works better without this, this only works if the page is exactly 414 px wide */
         height: 550px;
         img {
             width: 100%;
