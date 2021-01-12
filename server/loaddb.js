@@ -14,9 +14,9 @@ const loadTables = async () => {
     );
     let result = await client.query(`CREATE TABLE "products" (
       "id" SERIAL PRIMARY KEY,
-      "title" varchar,
+      "title" varchar NOT NULL,
       "artist_id" int,
-      "price" real,
+      "price" real NOT NULL,
       "description" varchar,
       "image" varchar,
       "num_sales" int,
@@ -29,7 +29,15 @@ const loadTables = async () => {
     )`);
 
     result = await client.query(
-        'CREATE TABLE "artists" ( "id" SERIAL PRIMARY KEY, "username" varchar)'
+        'CREATE TABLE "artists" ( "id" SERIAL PRIMARY KEY, "username" varchar NOT NULL)'
+    );
+    //create a table for the images
+    result = await client.query(
+        'CREATE TABLE "images" ( "id" SERIAL PRIMARY KEY, "image" varchar, "label" varchar, "img_size" varchar NOT NULL)'
+    );
+    //create product id in images table and refers to the product
+    client.query(
+        'ALTER TABLE "images" ADD FOREIGN KEY ("product_id") REFERENCES "products" ("id")'
     );
     client.query(
         'ALTER TABLE "products" ADD FOREIGN KEY ("artist_id") REFERENCES "artists" ("id")'

@@ -4,6 +4,7 @@ const crypto = require("crypto");
 const path = require("path");
 const PORT = process.env.PORT || 5000;
 const { Pool } = require("pg");
+const { table } = require("console");
 const pool = new Pool({
     user: "me",
     host: "localhost",
@@ -210,3 +211,8 @@ app.delete("/products/delete/:id", async (req, res) => {
         });
     }
 });
+
+//Load mulitple filed per image and convert to string
+//will need to determine when last string has been recieved to execute
+
+table;
