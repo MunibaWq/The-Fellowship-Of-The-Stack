@@ -214,7 +214,11 @@ app.delete("/products/delete/:id", async (req, res) => {
 
 //Load mulitple filed per image and convert to string
 //will need to determine when last string has been recieved to execute
+
+//need to define variable outside of post, b/c it will reset if inside post
+let image = "";
 app.post("/images/add", (req, res) => {
+    //
     //the body will have a boolean to hold to determine if the last string is coming = lastString
     if (req.body.lastString) {
         //assign query variables
@@ -227,4 +231,6 @@ app.post("/images/add", (req, res) => {
             [image, label, img_size, product_id]
         );
     }
+
+    //now we can do the stuff that happens when req.body.lastString is NOT TRUE
 });
