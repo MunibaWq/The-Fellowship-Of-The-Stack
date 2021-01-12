@@ -2,7 +2,7 @@ import Axios from 'axios'
 //add axios to fetch data from API
 export const getProductByID = async (currentProduct) => {
     const response = await Axios.get(
-        `http://localhost:5000/products/${currentProduct}`
+        `http://localhost:5000/products/get/${currentProduct}`
     );
     return response.data
 }

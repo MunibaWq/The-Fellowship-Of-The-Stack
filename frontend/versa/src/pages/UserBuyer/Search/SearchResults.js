@@ -13,7 +13,7 @@ const SearchResults = () => {
     const [query, setQuery] = useState();
     useEffect(() => {
         const getProducts = async () => {
-            const data = getAllProducts()
+            const data = await getAllProducts()
             
             setProducts(data);
         };

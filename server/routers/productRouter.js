@@ -1,6 +1,6 @@
-const express = require('express')
-const router = new express.Router()
-const pool = require('../db')
+const express = require("express");
+const router = new express.Router();
+const pool = require("../db");
 //search products by keyword found in title and description
 router.get("/search/:searchQuery", async (req, res) => {
     let query = req.params.searchQuery.toUpperCase().split(" ");
@@ -20,7 +20,7 @@ router.get("/search/:searchQuery", async (req, res) => {
     res.json(result.rows);
 });
 // Get a product
-router.get("/:id", async (req, res) => {
+router.get("/get/:id", async (req, res) => {
     try {
         const client = await pool.connect();
         const result = await client.query(
@@ -61,7 +61,6 @@ router.get("/allProducts", async (req, res) => {
         for (product of results) {
             product["colours"] = product["colours"].split(" ");
             product["sizes"] = product["sizes"].split(" ").map((dim) => +dim);
-            const artists = await pool.query("SELECT * FROM artists");
             const artistReq = await pool.query(
                 "SELECT username FROM artists WHERE id = " +
                     product["artist_id"]
@@ -180,5 +179,4 @@ router.delete("/delete/:id", async (req, res) => {
         });
     }
 });
-
-module.exports = router
+module.exports = router;
