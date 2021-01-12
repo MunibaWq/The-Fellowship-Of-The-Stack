@@ -218,8 +218,13 @@ app.delete("/products/delete/:id", async (req, res) => {
 //need to define variable outside of post, b/c it will reset if inside post
 let image = "";
 app.post("/images/add", (req, res) => {
-    //
-    //the body will have a boolean to hold to determine if the last string is coming = lastString
+    //2.now we can do the stuff that happens when req.body.lastString is NOT TRUE
+    // if not true we will take req.body.part and add it to the image
+    //basically building the string until it is complete and lastString is true and then we will add it to the db
+
+    image += req.body.part;
+
+    //1.the body will have a boolean to hold to determine if the last string is coming = lastString
     if (req.body.lastString) {
         //assign query variables
         //not getting image from the body because only part of it is coming in with each request
@@ -230,7 +235,7 @@ app.post("/images/add", (req, res) => {
             "INSERT INTO images (image, label, img_size, product_id,) VALUES ($1, $2, $3,$4, $5,$6,$7,$8) RETURNING *",
             [image, label, img_size, product_id]
         );
+        //reset the image to empty string, that resets it so that next time the image comes in it will start off as an empty string again, so it clears the first image sent in from image
+        image = "";
     }
-
-    //now we can do the stuff that happens when req.body.lastString is NOT TRUE
 });
