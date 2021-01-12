@@ -217,6 +217,10 @@ app.delete("/products/delete/:id", async (req, res) => {
 app.post("/images/add", (req, res) => {
     //the body will have a boolean to hold to determine if the last string is coming = lastString
     if (req.body.lastString) {
+        //assign query variables
+        //not getting image from the body because only part of it is coming in with each request
+        let { label, img_size, product_id } = req.body;
+
         //make a query to insert the image into the db
         pool.query(
             "INSERT INTO images (image, label, img_size, product_id,) VALUES ($1, $2, $3,$4, $5,$6,$7,$8) RETURNING *",
