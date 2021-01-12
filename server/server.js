@@ -108,7 +108,13 @@ app.get("/allProducts", async (req, res) => {
 
 // Create a product
 
-app.post("/allProducts", async (req, res) => {
+app.post("/products/create", async (req, res) => {
+    // if (!req.body) {
+    //     res.status(400).send({
+    //         message: "Fields can not be empty!",
+    //     });
+    //     return;
+    // }
     try {
         const {
             title,
@@ -139,5 +145,19 @@ app.post("/allProducts", async (req, res) => {
 });
 
 // Update a product
+
+app.put("/products/:id", async (req, res) => {
+    try {
+        const { id } = req.params; // For use in where
+        const { product } = req.body; //For use in set
+
+        const updateProduct = await pool.query(
+            "UPDATE todo SET product = $1 WHERE product_id = $2",
+            []
+        );
+    } catch (err) {
+        console.error(err.message);
+    }
+});
 
 // Delete a product
