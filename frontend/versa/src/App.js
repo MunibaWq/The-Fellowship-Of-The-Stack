@@ -10,13 +10,11 @@ import ShoppingCart from "./pages/ShoppingCart/ShoppingCart";
 import ProductItem from "./pages/ProductItem/ProductItem";
 import AddProduct from './pages/AddProduct/AddProduct'
 
-
 function App() {
     return (
         <Router>
             <div>
                 <Navbar />
-                <AddProduct />
                 <Switch>
                     <Route path="/" exact component={SearchResults} />
                     <Route path="/shop" exact component={SearchResults} />

@@ -1,13 +1,13 @@
-import Axios from "axios";
+import { getProductByID } from '../axios/gets'
 
 export const fetchProduct = (id) => {
     return async (dispatch, getState) => {
-        const response = await Axios.get("http://localhost:5000/product/" + id);
-        console.log(response.data);
+        const data = getProductByID(id);
+        console.log(data);
 
         dispatch({
             type: "FETCH_PRODUCT",
-            payload: response.data,
+            payload: data,
         });
     };
 };
