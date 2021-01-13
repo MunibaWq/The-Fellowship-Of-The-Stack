@@ -7,7 +7,8 @@ import axios from "axios";
 import styled from "styled-components";
 import { Magnifying } from "../../images/icons";
 import { Link, Route, Switch } from "react-router-dom";
-import ImageTest from "./ImageTest";
+
+
 const SearchResults = () => {
     const [products, setProducts] = useState([]);
     const [query, setQuery] = useState();
@@ -25,7 +26,6 @@ const SearchResults = () => {
 
     return (
         <SearchPage>
-            <ImageTest />
             <SearchBarDiv>
                 <MagnifyIcon
                     onClick={() => {

@@ -8,12 +8,15 @@ import Account from "./pages/Account/Events";
 import Wishlist from "./pages/Wishlist/Wishlist";
 import ShoppingCart from "./pages/ShoppingCart/ShoppingCart";
 import ProductItem from "./pages/ProductItem/ProductItem";
+import AddProduct from './pages/AddProduct/AddProduct'
+
 
 function App() {
     return (
         <Router>
             <div>
                 <Navbar />
+                <AddProduct />
                 <Switch>
                     <Route path="/" exact component={SearchResults} />
                     <Route path="/shop" exact component={SearchResults} />
@@ -26,6 +29,7 @@ function App() {
                         component={ShoppingCart}
                     />
                     <Route path="/product-item/:id" component={ProductItem} />
+                    <Route path="/products/create" component={AddProduct} />
                 </Switch>
             </div>
         </Router>
