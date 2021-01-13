@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { addImage } from "../../../axios/posts";
+import { deleteImage } from "../../../axios/delete";
 import sendImage from "./helper";
-
-const ImageTest = () => {
+const ImageDelete = () => {
     const [images, setImages] = useState([]);
     function encodeImageFileAsURL(element) {
         console.log(element);
@@ -19,19 +18,19 @@ const ImageTest = () => {
         <>
             <input
                 onChange={(e) => {
-                    addImage(e.target.files[0], "test", "full", 1);
+                    deleteImage(e.target.files[0], "test", "full", 1);
                 }}
                 type={"file"}
                 accept={"image/png, image/jpeg"}
             ></input>
 
-            {images.map((image) => {
+            {/* {images.map((image) => {
                 return (
                     <>
                         <img style={{ width: "200px" }} src={image} />
                     </>
                 );
-            })}
+            })} */}
             <button
                 onClick={async () => {
                     let res = await sendImage(
@@ -52,4 +51,4 @@ const ImageTest = () => {
     );
 };
 
-export default ImageTest;
+export default ImageDelete;
