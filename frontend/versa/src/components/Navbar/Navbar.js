@@ -12,6 +12,7 @@ const Navbar = () => {
 
             <NavMenu>
                 <NavLink to="/shop">SHOP</NavLink>
+                <NavLink to="/products/create">Add product</NavLink>
                 {/* <NavLink to="/events">EVENTS</NavLink>
                 <NavLink to="/account">ACCOUNT</NavLink>
                 <NavLink to="/wishlist">
@@ -53,10 +54,11 @@ const NavLink = styled(Link)`
     display: flex;
     align-items: center;
     text-decoration: none;
-    padding: 0;
     cursor: pointer;
     font-weight: bold;
-    letter-spacing: 2px;
+    letter-spacing: 1px;
+    padding-right: 20px;
+    text-transform: uppercase;
 
     &.active {
         color: #038db2;

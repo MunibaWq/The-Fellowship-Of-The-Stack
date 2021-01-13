@@ -395,3 +395,9 @@ export const CartIcon = () => {
         </svg>
     );
 };
+
+export const DeleteIcon = () => {
+    return(
+        <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12.5 3.5l-9 9M12.5 12.5l-9-9" stroke="#444" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+    )
+}
