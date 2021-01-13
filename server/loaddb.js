@@ -33,7 +33,7 @@ const loadTables = async () => {
     );
     //create a table for the images
     result = await client.query(
-        'CREATE TABLE "images" ( "id" SERIAL PRIMARY KEY, "image" varchar, "label" varchar, "img_size" varchar NOT NULL, "product_id" int)'
+        'CREATE TABLE "images" ( "id" SERIAL PRIMARY KEY, "filename" varchar, "label" varchar, "img_size" varchar NOT NULL, "product_id" int)'
     );
     //create product id in images table and refers to the product
     result = await client.query(

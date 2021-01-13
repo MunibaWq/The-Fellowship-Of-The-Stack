@@ -12,7 +12,7 @@ let app = express();
 app.use(express.json());
 app.use(cors());
 app.use("/", express.static(path.join(__dirname, "public")));
-
+console.log(process.env)
 
 app.listen(PORT, () => {
     console.log(`Listening on ${PORT}`);
@@ -20,5 +20,5 @@ app.listen(PORT, () => {
 
 //ROUTES
 
-// app.use('/images', imageRouter)
+app.use('/images', imageRouter)
 app.use('/products', productRouter)
