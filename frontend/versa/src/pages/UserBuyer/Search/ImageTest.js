@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { addImage } from "../../../axios/posts";
 import sendImage from "./helper";
+
 const ImageTest = () => {
     const [images, setImages] = useState([]);
     function encodeImageFileAsURL(element) {
@@ -11,16 +12,17 @@ const ImageTest = () => {
             setImages([...images, reader.result]); //this converts the image to a long string
             /* here you need to put code to send this to your server and then just save it in mongo like you would some other data.  then when you get it back out, you can just use it by putting the string into the src of an image tag */
         };
-        
+
         reader.readAsDataURL(file);
     }
     return (
         <>
             <input
                 onChange={(e) => {
-                    addImage(e.target.files[0], 'test', 'full', 1);
+                    addImage(e.target.files[0], "test", "full", 1);
                 }}
-                type={"file"} accept={"image/png, image/jpeg"}
+                type={"file"}
+                accept={"image/png, image/jpeg"}
             ></input>
 
             {images.map((image) => {
