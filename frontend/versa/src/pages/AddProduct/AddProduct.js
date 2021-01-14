@@ -3,20 +3,39 @@ import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import { DeleteIcon } from "../../images/icons";
 import imageTest from "../../images/imageTest.png";
+import { addImage } from "../../axios/posts";
 
 const AddProduct = () => {
     const { register, handleSubmit, errors } = useForm();
     const [colors, setColors] = useState([]);
     const [sizes, setSizes] = useState([]);
-    const [image, setImage] = useState(null);
-
+    const [images, setImages] = useState([]);
+    
     const colorValue = useRef();
     const colorPick = useRef();
     const sizeLabel = useRef();
     const sizePrice = useRef();
 
     function onSubmit(data) {
+        /* when sending the product data to the server to be inserted in the database
+           you should return the id given to the product and save it in a variable called
+           productID
+        */
+
+        setTimeout(() => {
+            
+        },10000)
+        let productID = 1 // put the add product function here in place of 1
         console.log(data);
+        
+        //this will send the images to AWS S3
+        images.forEach(async (image) => {
+            let res = await addImage(image.imageFile, '', image.size, productID)
+            console.log(res)
+            if (!res) alert(JSON.stringify(image.imageFile) + ' failed to upload, go to edit product to try to add picture again')
+        
+        })
+        
     }
     function setColorLabelAndValue() {
         let temp = {
@@ -34,19 +53,21 @@ const AddProduct = () => {
         let appendedSizes = sizes.concat([temp]);
         setSizes(appendedSizes);
     }
-    function imageHandler(e) {
-        const reader = new FileReader();
-        reader.onload = () => {
-            if (reader.readyState === 2) {
-                setImage(reader.result);
-            }
-        };
-        reader.readAsDataURL(e.target.files[0]);
-    }
+    // function imageHandler(e) {
+    //     const reader = new FileReader();
+    //     reader.onload = () => {
+    //         if (reader.readyState === 2) {
+    //             setImage(reader.result);
+    //         }
+    //     };
+    //     reader.readAsDataURL(e.target.files[0]);
+    // }
     return (
         <AddProductContainer>
             <Title>Create a new product</Title>
-            <CreateProductForm onSubmit={handleSubmit(onSubmit)}>
+            <CreateProductForm onSubmit={
+                handleSubmit(onSubmit)
+            }>
                 <section>
                     <StyledFieldSet>
                         <h2>Product Details</h2>
@@ -159,15 +180,31 @@ const AddProduct = () => {
                 <section>
                     <StyledFieldSet>
                         <h2>Images</h2>
-                        <label htmlFor="product-image">Product Image:</label>
+                        <label htmlFor="product-image">Product Images:</label>
                         <input
-                            name="product-image"
-                            type="file"
-                            ref={register}
-                            onChange={imageHandler}
-                            accept="image/*"
-                        />
-                        <img src={image} width="300px" height="160px" />
+                            onChange={(e) => {
+                                let image = URL.createObjectURL(
+                                    e.target.files[0]
+                                );
+                                setImages([...images, { image: image, imageFile:e.target.files[0],size:"full" }]);
+                                
+                            }}
+                            type={"file"}
+                            accept={"image/png, image/jpeg"}
+                        ></input>
+
+                        {images.map((image, index) => {
+                            return (
+                                <>
+                                    <img
+                                        key={index}
+                                        alt="product"
+                                        style={{ width: "200px" }}
+                                        src={image.image}
+                                    />
+                                </>
+                            );
+                        })}
                         <ImageCardsContainer>
                             <ImageCard>
                                 <UploadedImage src={imageTest} />

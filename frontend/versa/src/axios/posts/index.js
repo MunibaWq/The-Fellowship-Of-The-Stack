@@ -6,13 +6,9 @@ import { accessKeyId, secretKey } from './secret'
 
 console.log(accessKeyId,secretKey)
 export const addImage = async (image, label, imageSize, productID) => {
-    let extension
-    if (image.type === "image/jpeg") {
-        extension = '.jpg'
-    } else if (image.type === "image/png") {
-        extension = '.png'
-    }
-    const filename = uuid() + extension
+
+    console.log(image.type,imageSize)
+    const filename = uuid() 
    
     
     const config = {
@@ -26,28 +22,30 @@ export const addImage = async (image, label, imageSize, productID) => {
     const ReactS3Client = new S3(config);
     
 
+    try {
+        const data = await ReactS3Client.uploadFile(image, filename)
 
-    ReactS3Client.uploadFile(image, filename)
-        .then((data) => {
-            console.log(data);
-            Axios.post("http://localhost:5000/images/add", {
-                filename: filename,
-                label: label,
-                imageSize: imageSize,
-                productID: productID,
-            }).then((response) => {
-                console.log(response)
-                if (response.status === 201 ) {
-                    return true;
-                }
-                return false;
-            });
+        console.log('here is the data', data);
+        const response = await Axios.post("http://localhost:5000/images/add", {
+            filename: filename,
+            label: label,
+            imageSize: imageSize,
+            productID: productID,
         })
-        .catch((err) => {
-            console.error(err);
-            return false
-        })
-
+        console.log(response.status)
+        if (response.status === 201) {
+                    
+            return true;
+        }
+        return false;
+            
+    }
+    catch (err)  {
+        console.error(err);
+        return false
+    }
+};
+    
     /**
      * {
      *   Response: {
@@ -104,4 +102,3 @@ export const addImage = async (image, label, imageSize, productID) => {
     //     fs.writeFileSync("./sample1.txt", data.Body);
     //     console.log("file downloaded successfully");
     // });
-};
