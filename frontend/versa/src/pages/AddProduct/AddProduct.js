@@ -1,31 +1,73 @@
-<<<<<<< HEAD
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import styled from "styled-components"
 import { useForm } from 'react-hook-form'
 import { DeleteIcon } from "../../images/icons";
+import Button from "../../components/Reusable/Button"
 import imageTest from "../../images/imageTest.png"
 import axios from 'axios';
-=======
-import React, { useRef, useState } from "react";
-import styled from "styled-components";
-import { useForm } from "react-hook-form";
-import { DeleteIcon } from "../../images/icons";
-import imageTest from "../../images/imageTest.png";
->>>>>>> 11a4a294915598d47229c867a9692400666d1c6a
 
 const AddProduct = () => {
-    const { register, handleSubmit, errors } = useForm();
-    const [colors, setColors] = useState([]);
-    const [sizes, setSizes] = useState([]);
+    const setDefault = (fieldName) => {
+        if (localStorage.getItem(`${fieldName}`)) {
+            return localStorage.getItem(`${fieldName}`)
+        } else {
+            return ""
+        }
+    }
+    const setDefault2 = (arrName) => {
+        if (localStorage.getItem(`${arrName}`)) {
+            return JSON.parse(localStorage.getItem(`${arrName}`))
+        } else {
+            return []
+        }
+    }
+    
+    const { register, handleSubmit, errors, reset } = useForm();
+    const [colors, setColors] = useState(setDefault2('productColors'))
+    const [sizes, setSizes] = useState(setDefault2('productSizes'))
     const [images, setImages] = useState([]);
+    const [inputName, setInputName] = useState(setDefault('productName'))
+    const [inputPrice, setInputPrice] = useState(setDefault('productPrice'))
+    const [inputDesc, setInputDesc] = useState(setDefault('productDesc'))
+    const [inputFit, setInputFit] = useState(setDefault('productFit'))
+    const [inputMaterials, setInputMaterials] = useState(setDefault('productMaterials'))
+    
+    function clearField() {
+        window.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: 'smooth'
+        })
+        setColors([])
+        setSizes([])
+        setImages([]);
+        setInputName("")
+        setInputPrice("")
+        setInputDesc("")
+        setInputFit("")
+        setInputMaterials("")
+        colorPick.current.value = ""
+        colorValue.current.value = "#000000"
+        sizePrice.current.value = ""
+    }
+
+    useEffect(() => {
+        localStorage.setItem('productName', inputName)
+        localStorage.setItem('productPrice', inputPrice)
+        localStorage.setItem('productDesc', inputDesc)
+        localStorage.setItem('productFit', inputFit)
+        localStorage.setItem('productMaterials', inputMaterials)
+        localStorage.setItem('productColors', JSON.stringify(colors))
+        localStorage.setItem('productSizes', JSON.stringify(sizes))
+    }, [inputName, inputPrice, inputDesc, inputFit, inputMaterials, colors, sizes]) 
 
     const colorValue = useRef();
     const colorPick = useRef();
     const sizeLabel = useRef();
     const sizePrice = useRef();
 
+    
     function onSubmit(data) {
-<<<<<<< HEAD
         const productInfo = {
                     title: data.product_name,
                     price: data.product_price,
@@ -40,6 +82,7 @@ const AddProduct = () => {
             const response = await axios.post('http://localhost:5000/products/create', {
                 data: productInfo
             })
+            clearField()
         }
         sendData()
     }
@@ -52,17 +95,6 @@ const AddProduct = () => {
             let appendedColors = colors.concat([temp])
             setColors(appendedColors)
         }
-=======
-        console.log(data);
-    }
-    function setColorLabelAndValue() {
-        let temp = {
-            label: colorPick.current.value,
-            value: colorValue.current.value,
-        };
-        let appendedColors = colors.concat([temp]);
-        setColors(appendedColors);
->>>>>>> 11a4a294915598d47229c867a9692400666d1c6a
     }
     function setSizeLabelAndPrice() {
         let temp = {
@@ -75,38 +107,57 @@ const AddProduct = () => {
     function imageHandler(e) {
         setImages([...images, e.target.files[0]]);
     }
-
     function removeImg(e) {
         console.log({ images });
     }
     return (
         <AddProductContainer>
-<<<<<<< HEAD
         <FormContainer>
             <Title>Create a new product</Title>
-            <CreateProductForm onSubmit={handleSubmit(onSubmit)}>
+            <CreateProductForm  onSubmit={handleSubmit(onSubmit)}>
             <section>
             <StyledFieldSet>
             <h2>Product Details</h2>
             <label htmlFor="product_name">Name</label>
-                <input name="product_name" type="text" ref={register({required: true, minLength: 2})}/>
+                <input 
+                name="product_name" 
+                type="text" 
+                ref={register({required: true, minLength: 2})}
+                value={inputName}
+                onChange={(e)=>{setInputName(e.target.value)}}    
+                />
                 {errors.product_name?.type === "required" && "Input is required."}
                 {errors.product_name?.type === "minLength" && "Must be at least 2 characters."}
                 <br/>
                 <label htmlFor="product_price">Price $</label>
-                <input name="product_price" type="number" step="0.01" ref={register({required: true, valueAsNumber: true})}/>
+                <input 
+                name="product_price" 
+                type="number" 
+                step="0.01" 
+                ref={register({required: true, valueAsNumber: true})}
+                value={inputPrice}
+                onChange={(e)=>{setInputPrice(e.target.value)}}    
+                />
                 {errors.product_price?.type === "required" && "Input is required."}
                 <br/>
                 <label htmlFor="product_description">Description</label>
-                <textarea name="product_description" type="text" ref={register({required: true, minLength: 2})} />
+                <textarea name="product_description" type="text" ref={register({required: true, minLength: 2})} value={inputDesc}
+                onChange={(e)=>{setInputDesc(e.target.value)}}
+                />
                 {errors.product_description?.type === "required" && "Input is required."}
                 {errors.product_description?.type === "minLength" && "Must be at least 2 characters."}
                 <br/>
                 <label htmlFor="product_sizes_fit">Sizes and fit</label>
-                <textarea name="product_sizes_fit" type="text" ref={register}/>
+                <textarea name="product_sizes_fit" type="text" ref={register} value={inputFit}
+                onChange={(e)=>{setInputFit(e.target.value)}}
+
+                />
                 <br />
                 <label htmlFor="product_materials">Materials</label>
-                <textarea name="product_materials" type="text" ref={register({required: true, minLength: 2})}/>
+                <textarea name="product_materials" type="text" ref={register({required: true, minLength: 2})} value={inputMaterials}
+                onChange={(e)=>{setInputMaterials(e.target.value)}}
+
+                />
                 {errors.product_materials?.type === "required" && <error>Input is required.</error>}
                 {errors.product_materials?.type === "minLength" && "Must be at least 2 characters."}
                 <br/>
@@ -118,13 +169,13 @@ const AddProduct = () => {
                 <label htmlFor="product_color_label">Color Name</label>
                     <input name="product_color_label" type="text" ref={register} ref={colorPick}/>
                     <label htmlFor="product_color">Color</label>
-                    <input name="product_color" type="color" ref={register} ref={colorValue}/>
+                    <input name="product_color"  type="color" ref={register} ref={colorValue}/>
                     <NewColourContainer>
                     {colors.length > 0 ? colors.map(label=>{
                         return (
                             <CurrentColour>
                             {label.label}{label.value}
-                            <ColourPreview colour={label.value}/>
+                            <ColourPreview colour={label.value === "" ? "#ffffff" : label.value}/>
                             <Delete src={DeleteIcon} alt="delete-icon"/> 
                             </CurrentColour>)
                     }):""}
@@ -166,7 +217,7 @@ const AddProduct = () => {
                     <input name="product_image" type="file" ref={register}
                         onChange={imageHandler} accept="image/*"
                         />
-                    <PreviewImg src={image} />
+                    <PreviewImg  />
                     </ChooseImage>
                     
                     <ImageCardsContainer>
@@ -182,7 +233,13 @@ const AddProduct = () => {
                     <button>Add</button>
                     </StyledFieldSet>
                     </section>
+                    <ButtonContainer>
+                    {/* I added func to clear whole form when cancel pressed */}
+                    <CancelButton onClick={clearField} type="button">Cancel</CancelButton>
                     <SubmitButton type="submit">Submit</SubmitButton>
+
+                    </ButtonContainer>
+                    
                 </CreateProductForm>
             </FormContainer>
         </AddProductContainer>
@@ -216,177 +273,10 @@ font-size:  48px;
 @media (max-width: 768px) {
     font-size: 30px;
 }
-=======
-            <Title>Create a new product</Title>
-            <CreateProductForm onSubmit={handleSubmit(onSubmit)}>
-                <section>
-                    <StyledFieldSet>
-                        <h2>Product Details</h2>
-                        <label htmlFor="product-name">Name:</label>
-                        <input name="product-name" type="text" ref={register} />
-                        <label htmlFor="product-price">Price:</label>
-                        <input
-                            name="product-price"
-                            type="number"
-                            ref={register}
-                        />
-                        <label htmlFor="product-description">
-                            Description:
-                        </label>
-                        <input
-                            name="product-description"
-                            type="text"
-                            ref={register}
-                        />
-                        <label htmlFor="product-sizes&fit">
-                            Sizes and fit:
-                        </label>
-                        <input
-                            name="product-sizes&fit"
-                            type="text"
-                            ref={register}
-                        />
-                        <label htmlFor="product-materials">Materials:</label>
-                        <input
-                            name="product-materials"
-                            type="text"
-                            ref={register}
-                        />
-                    </StyledFieldSet>
-                </section>
-                <section>
-                    <StyledFieldSet>
-                        <h2>Colors</h2>
-                        <label htmlFor="product-color-label">
-                            Color Label:
-                        </label>
-                        <input
-                            name="product-color-label"
-                            type="text"
-                            ref={(register, colorPick)}
-                        />
-                        <label htmlFor="product-color">Color:</label>
-                        <input
-                            name="product-color"
-                            type="color"
-                            ref={(register, colorValue)}
-                        />
-                        <NewColourContainer>
-                            {colors.length > 0
-                                ? colors.map((label) => {
-                                      return (
-                                          <CurrentColour>
-                                              {label.label}
-                                              {label.value}
-                                              <ColourPreview />
-                                              <Delete src={DeleteIcon} />
-                                          </CurrentColour>
-                                      );
-                                  })
-                                : ""}
-                        </NewColourContainer>
 
-                        <button type="button" onClick={setColorLabelAndValue}>
-                            Add
-                        </button>
-                    </StyledFieldSet>
-                    <StyledFieldSet>
-                        <h2>Sizes</h2>
-                        <label htmlFor="product-size">Size:</label>
-                        <select name="product-size" ref={(register, sizeLabel)}>
-                            <option value="small">Small</option>
-                            <option value="medium">Medium</option>
-                            <option value="large">Large</option>
-                            <option value="x-large">X-Large</option>
-                        </select>
-                        <label htmlFor="product-size-price">
-                            New Size Price:
-                        </label>
-                        <input
-                            name="product-size-price"
-                            defaultValue="0"
-                            type="number"
-                            ref={(register, sizePrice)}
-                        />
-                        <NewSizeContainer>
-                            {sizes.length > 0
-                                ? sizes.map((size) => {
-                                      return (
-                                          <NewSize>
-                                              {size.label}
-                                              {size.price}
-                                              <NewSizePrice />
-                                              <Delete src={DeleteIcon} />
-                                          </NewSize>
-                                      );
-                                  })
-                                : ""}
-                        </NewSizeContainer>
-
-                        <button type="button" onClick={setSizeLabelAndPrice}>
-                            Add
-                        </button>
-                    </StyledFieldSet>
-                </section>
-                <section>
-                    <StyledFieldSet>
-                        <h2>Images</h2>
-                        <label htmlFor="product-image">Product Image:</label>
-                        <input
-                            name="product-image"
-                            type="file"
-                            ref={register}
-                            onChange={(e) => {
-                                imageHandler(e);
-                            }}
-                            accept="image/*"
-                        />
-                        {images.map((image) => (
-                            <img src={image} width="300px" height="160px" />
-                        ))}
-
-                        <button onClick={removeImg()}>Delete Image</button>
-                        {/* <button onClick={updateImg}>Update Image</button> */}
-                        <ImageCardsContainer>
-                            <ImageCard>
-                                <UploadedImage src={imageTest} />
-                                <File>
-                                    <ImgFileName>1234.jpg</ImgFileName>
-                                    <Delete src={DeleteIcon} />{" "}
-                                </File>
-                                <ChooseAsThumbnail>
-                                    <input
-                                        type="radio"
-                                        id="assdd"
-                                        name="ChooseThumbnail"
-                                        value="{FileName}"
-                                    />
-                                    <label for="{FileName}">
-                                        Choose as thumbnail
-                                    </label>
-                                </ChooseAsThumbnail>
-                            </ImageCard>
-                        </ImageCardsContainer>
-                        <button>Add</button>
-                    </StyledFieldSet>
-                </section>
-                <SubmitButton type="submit">Submit</SubmitButton>
-            </CreateProductForm>
-        </AddProductContainer>
-    );
-};
-
-export default AddProduct;
-
-const AddProductContainer = styled.div``;
->>>>>>> 11a4a294915598d47229c867a9692400666d1c6a
-
-const Title = styled.h1`
-    font-size: 48px;
 `;
 
 const CreateProductForm = styled.form`
-<<<<<<< HEAD
 input {
     
     font: inherit;
@@ -435,23 +325,6 @@ button{
     background: #FFB649;
     border-radius: 50px;
     padding: 5px 10px;
-=======
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: center;
-    padding: 100px;
-    margin: 30px 0;
-    input {
-        label {
-            font-size: 18px;
-        }
-    }
-`;
-
-const StyledFieldSet = styled.section`
-    background-color: inherit;
->>>>>>> 11a4a294915598d47229c867a9692400666d1c6a
     border: none;
     margin: 30px 0;
     h2 {
@@ -465,7 +338,6 @@ const StyledFieldSet = styled.section`
         border: none;
     }
 
-<<<<<<< HEAD
 
 
 
@@ -474,13 +346,6 @@ const StyledFieldSet = styled.section`
         font-size: 20px;
     }
 }
-=======
-    input {
-        padding: 5px;
-        margin-bottom: 10px;
-        border: none;
-    }
->>>>>>> 11a4a294915598d47229c867a9692400666d1c6a
 `;
 
 const error = styled.p`
@@ -493,13 +358,7 @@ width: 200px;
     height: 250px;
 `;
 
-const SubmitButton = styled.button`
-    padding: 10px 40px;
-    background: #038d82;
-    border-radius: 50px;
-    border: none;
-    color: white;
-`;
+
 
 const NewColourContainer = styled.div`
     display: flex;
@@ -590,4 +449,32 @@ const ChooseAsThumbnail = styled.div`
     justify-content: center;
     align-items: center;
     padding: 0px;
+`;
+
+const ButtonContainer = styled.div`
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 0px;
+`;
+
+
+
+const CancelButton = styled(Button)`
+background: #FFB649;
+border: 3px solid #FFB649;
+
+
+`;
+
+const SaveButton = styled(Button)`
+    border: 3px solid #038d82;
+    color: #038d82;
+`;
+
+const SubmitButton = styled(Button)`
+    padding: 10px 40px;
+    background: #038d82;
+    border: 3px solid #038d82;
+    color: white;
 `;
