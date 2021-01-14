@@ -80,11 +80,11 @@ router.get("/allProducts", async (req, res) => {
 // Create a product ON FRONT END - NEED TO SEND sizes AS OBJECT-> sizes:PRICE
 
 router.post("/create", (req, res) => {
-    if (Object.keys(req.body).length === 0) {
-        res.send({
-            message: "Theres nobody!",
-        });
-    }
+    // if (Object.keys(req.body.data).length === 0) {
+    //     res.send({
+    //         message: "Theres nobody!"
+    //     })
+    // } 
     try {
         const {
             title,
@@ -95,7 +95,7 @@ router.post("/create", (req, res) => {
             sizes,
             size_and_fit,
             materials,
-        } = req.body;
+        } = req.body.data;
 
         pool.query(
             "INSERT INTO products (title, price, description, colours, artist_id, sizes, size_and_fit, materials) VALUES ($1, $2, $3,$4, $5,$6,$7,$8) RETURNING *",
@@ -103,7 +103,7 @@ router.post("/create", (req, res) => {
                 title,
                 price,
                 description,
-                colours,
+                JSON.stringify(colours),
                 artist_id,
                 JSON.stringify(sizes),
                 size_and_fit,
