@@ -8,7 +8,7 @@ const AddProduct = () => {
     const { register, handleSubmit, errors } = useForm();
     const [colors, setColors] = useState([]);
     const [sizes, setSizes] = useState([]);
-    const [image, setImage] = useState(null);
+    const [images, setImages] = useState([]);
 
     const colorValue = useRef();
     const colorPick = useRef();
@@ -35,13 +35,11 @@ const AddProduct = () => {
         setSizes(appendedSizes);
     }
     function imageHandler(e) {
-        const reader = new FileReader();
-        reader.onload = () => {
-            if (reader.readyState === 2) {
-                setImage(reader.result);
-            }
-        };
-        reader.readAsDataURL(e.target.files[0]);
+        setImages([...images, e.target.files[0]]);
+    }
+
+    function removeImg(e) {
+        console.log({ images });
     }
     return (
         <AddProductContainer>
@@ -164,10 +162,17 @@ const AddProduct = () => {
                             name="product-image"
                             type="file"
                             ref={register}
-                            onChange={imageHandler}
+                            onChange={(e) => {
+                                imageHandler(e);
+                            }}
                             accept="image/*"
                         />
-                        <img src={image} width="300px" height="160px" />
+                        {images.map((image) => (
+                            <img src={image} width="300px" height="160px" />
+                        ))}
+
+                        <button onClick={removeImg()}>Delete Image</button>
+                        {/* <button onClick={updateImg}>Update Image</button> */}
                         <ImageCardsContainer>
                             <ImageCard>
                                 <UploadedImage src={imageTest} />
