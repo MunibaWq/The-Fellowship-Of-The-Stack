@@ -10,11 +10,6 @@ const AddProduct = () => {
     const [colors, setColors] = useState([]);
     const [sizes, setSizes] = useState([]);
     const [images, setImages] = useState([]);
-<<<<<<< HEAD
-    
-=======
-
->>>>>>> 11a4a294915598d47229c867a9692400666d1c6a
     const colorValue = useRef();
     const colorPick = useRef();
     const sizeLabel = useRef();
@@ -57,7 +52,6 @@ const AddProduct = () => {
         let appendedSizes = sizes.concat([temp]);
         setSizes(appendedSizes);
     }
-<<<<<<< HEAD
     // function imageHandler(e) {
     //     const reader = new FileReader();
     //     reader.onload = () => {
@@ -67,15 +61,6 @@ const AddProduct = () => {
     //     };
     //     reader.readAsDataURL(e.target.files[0]);
     // }
-=======
-    function imageHandler(e) {
-        setImages([...images, e.target.files[0]]);
-    }
-
-    function removeImg(e) {
-        console.log({ images });
-    }
->>>>>>> 11a4a294915598d47229c867a9692400666d1c6a
     return (
         <AddProductContainer>
             <Title>Create a new product</Title>
@@ -196,7 +181,6 @@ const AddProduct = () => {
                         <h2>Images</h2>
                         <label htmlFor="product-image">Product Images:</label>
                         <input
-<<<<<<< HEAD
                             onChange={(e) => {
                                 let image = URL.createObjectURL(
                                     e.target.files[0]
@@ -220,22 +204,6 @@ const AddProduct = () => {
                                 </>
                             );
                         })}
-=======
-                            name="product-image"
-                            type="file"
-                            ref={register}
-                            onChange={(e) => {
-                                imageHandler(e);
-                            }}
-                            accept="image/*"
-                        />
-                        {images.map((image) => (
-                            <img src={image} width="300px" height="160px" />
-                        ))}
-
-                        <button onClick={removeImg()}>Delete Image</button>
-                        {/* <button onClick={updateImg}>Update Image</button> */}
->>>>>>> 11a4a294915598d47229c867a9692400666d1c6a
                         <ImageCardsContainer>
                             <ImageCard>
                                 <UploadedImage src={imageTest} />
