@@ -5,6 +5,7 @@ import { DeleteIcon } from "../../images/icons";
 import Button from "../../components/Reusable/Button"
 import imageTest from "../../images/imageTest.png"
 import axios from 'axios';
+import { addImage } from "../../axios/posts";
 
 const AddProduct = () => {
     const setDefault = (fieldName) => {
@@ -78,13 +79,25 @@ const AddProduct = () => {
                     size_and_fit: data.product_size_fit,
                     materials: data.product_materials
         }
+        let productID;
         const sendData = async () => {
             const response = await axios.post('http://localhost:5000/products/create', {
                 data: productInfo
             })
+            productID = response.data
             clearField()
         }
         sendData()
+        console.log(data);
+        
+        //this will send the images to AWS S3
+        images.forEach(async (image) => {
+            let res = await addImage(image.imageFile, '', image.size, productID)
+            console.log(res)
+            if (!res) alert(JSON.stringify(image.imageFile) + ' failed to upload, go to edit product to try to add picture again')
+        
+        })
+        
     }
     function setColorLabelAndValue() {
         if (colors.length < 3) {
@@ -103,12 +116,6 @@ const AddProduct = () => {
         };
         let appendedSizes = sizes.concat([temp]);
         setSizes(appendedSizes);
-    }
-    function imageHandler(e) {
-        setImages([...images, e.target.files[0]]);
-    }
-    function removeImg(e) {
-        console.log({ images });
     }
     return (
         <AddProductContainer>
@@ -211,26 +218,53 @@ const AddProduct = () => {
                 </section>  
                     <section>
                     <StyledFieldSet>
-                    <h2>Images</h2>
-                    <ChooseImage>
-                    <label htmlFor="product_image">Upload Image</label>
-                    <input name="product_image" type="file" ref={register}
-                        onChange={imageHandler} accept="image/*"
-                        />
-                    <PreviewImg  />
-                    </ChooseImage>
-                    
-                    <ImageCardsContainer>
-                    <ImageCard>
-                    <UploadedImage src={imageTest} />
-                    <File><ImgFileName>1234.jpg</ImgFileName><Delete src={DeleteIcon}/> </File>
-                    <ChooseAsThumbnail>
-                    <input type="radio" id="assdd" name="ChooseThumbnail" value="{FileName}"/>
-                    <label for="{FileName}">Choose as thumbnail</label>
-                    </ChooseAsThumbnail>
-                    </ImageCard>
-                    </ImageCardsContainer>
-                    <button>Add</button>
+                        <h2>Images</h2>
+                        <label htmlFor="product-image">Product Images:</label>
+                        <input
+                            onChange={(e) => {
+                                let image = URL.createObjectURL(
+                                    e.target.files[0]
+                                );
+                                setImages([...images, { image: image, imageFile:e.target.files[0],size:"full" }]);
+                                
+                            }}
+                            type={"file"}
+                            accept={"image/png, image/jpeg"}
+                        ></input>
+
+                        {images.map((image, index) => {
+                            return (
+                                <>
+                                    <img
+                                        key={index}
+                                        alt="product"
+                                        style={{ width: "200px" }}
+                                        src={image.image}
+                                    />
+                                </>
+                            );
+                        })}
+                        <ImageCardsContainer>
+                            <ImageCard>
+                                <UploadedImage src={imageTest} />
+                                <File>
+                                    <ImgFileName>1234.jpg</ImgFileName>
+                                    <Delete src={DeleteIcon} />{" "}
+                                </File>
+                                <ChooseAsThumbnail>
+                                    <input
+                                        type="radio"
+                                        id="assdd"
+                                        name="ChooseThumbnail"
+                                        value="{FileName}"
+                                    />
+                                    <label for="{FileName}">
+                                        Choose as thumbnail
+                                    </label>
+                                </ChooseAsThumbnail>
+                            </ImageCard>
+                        </ImageCardsContainer>
+                        <button>Add</button>
                     </StyledFieldSet>
                     </section>
                     <ButtonContainer>

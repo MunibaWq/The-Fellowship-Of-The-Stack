@@ -1,36 +1,28 @@
 import React, { useState } from "react";
 import { deleteImage } from "../../../axios/delete";
-import removeImage from "./deletehelper";
-
 const ImageDelete = () => {
-    const [images, setImages] = useState([]);
+    const [filename, setFilename] = useState("");
+    const [imageID, setImageID] = useState("");
 
     return (
         <>
             <input
                 onChange={(e) => {
-                    deleteImage(e.target.files[0], "test", "full", 1);
+                    setFilename(e.target.value);
                 }}
-                type={"file"}
-                accept={"image/png, image/jpeg"}
-            ></input>
-
+            />
+            <input
+                onChange={(e) => {
+                    setImageID(e.target.value);
+                }}
+            />
             <button
-                onClick={async () => {
-                    let res = await removeImage(
-                        "http://localhost:5000/images/delete/:id",
-                        images[0]
-                    );
-                    console.log(res);
-                    let imageArray = [];
-                    for (let i of res.data) {
-                        imageArray.pop(i.image);
-                    }
-                    setImages([...images, ...imageArray]);
+                onClick={async() => {
+                    let res = await deleteImage(filename, imageID);
+                    if (res) console.log('success') 
+                    else console.log('fail')
                 }}
-            >
-                Send
-            </button>
+            ></button>
         </>
     );
 };

@@ -1,49 +1,39 @@
 import React, { useState } from "react";
 import { addImage } from "../../../axios/posts";
-import sendImage from "./helper";
+// import sendImage from "./helper";
 
 const ImageTest = () => {
     const [images, setImages] = useState([]);
-    function encodeImageFileAsURL(element) {
-        console.log(element);
-        var file = element.target.files[0];
-        var reader = new FileReader();
-        reader.onloadend = () => {
-            setImages([...images, reader.result]); //this converts the image to a long string
-            /* here you need to put code to send this to your server and then just save it in mongo like you would some other data.  then when you get it back out, you can just use it by putting the string into the src of an image tag */
-        };
-
-        reader.readAsDataURL(file);
-    }
+    const [imageFiles, setImageFiles] = useState([])
     return (
         <>
             <input
                 onChange={(e) => {
-                    addImage(e.target.files[0], "test", "full", 1);
+                    let image = URL.createObjectURL(e.target.files[0])
+                    setImages([...images, image]);
+                    setImageFiles([...imageFiles,e.target.files[0]])
+                    console.log(image)
                 }}
                 type={"file"}
                 accept={"image/png, image/jpeg"}
             ></input>
 
-            {images.map((image) => {
+            {images.map((image,index) => {
                 return (
                     <>
-                        <img style={{ width: "200px" }} src={image} />
+                        <img key={index} alt='product' style={{ width: "200px" }} src={image} />
                     </>
                 );
             })}
             <button
-                onClick={async () => {
-                    let res = await sendImage(
-                        "http://localhost:5000/images/add",
-                        images[0]
-                    );
-                    console.log(res);
-                    let imageArray = [];
-                    for (let i of res.data) {
-                        imageArray.push(i.image);
-                    }
-                    setImages([...images, ...imageArray]);
+                onClick={ () => {
+                    imageFiles.forEach(async (image) => {
+                        let res = await addImage(imageFiles[0], 'britney', 'full', 1)
+                        if (res) console.log('success')
+                        else console.log('failed')
+                    })
+                   
+                    
                 }}
             >
                 Send
