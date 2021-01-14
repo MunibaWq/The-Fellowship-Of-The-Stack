@@ -1,18 +1,10 @@
 import Axios from "axios";
 import { v4 as uuid } from "uuid";
 import S3 from "react-aws-s3";
-import { accessKeyId, secretKey } from "./secret";
+import { accessKeyId, secretKey } from "../posts/secret";
 
 console.log(accessKeyId, secretKey);
-export const deleteImage = async (image, label, imageSize, productID) => {
-    let extension;
-    if (image.type === "image/jpeg") {
-        extension = ".jpg";
-    } else if (image.type === "image/png") {
-        extension = ".png";
-    }
-    const filename = uuid() + extension;
-
+export const deleteImage = async (filename, id) => {
     const config = {
         bucketName: "versabucket",
         dirName: "images",
@@ -23,21 +15,18 @@ export const deleteImage = async (image, label, imageSize, productID) => {
 
     const ReactS3Client = new S3(config);
 
-    ReactS3Client.deleteFile(image, filename)
+    ReactS3Client.deleteFile(filename)
         .then((data) => {
             console.log(data);
-            Axios.delete("http://localhost:5000/images/delete", {
-                filename: filename,
-                label: label,
-                imageSize: imageSize,
-                productID: productID,
-            }).then((response) => {
-                console.log(response);
-                if (response.status === 201) {
-                    return true;
+            Axios.delete("http://localhost:5000/images/delete/:id").then(
+                (response) => {
+                    console.log(response);
+                    if (response.status === 201) {
+                        return true;
+                    }
+                    return false;
                 }
-                return false;
-            });
+            );
         })
         .catch((err) => {
             console.error(err);
