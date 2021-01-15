@@ -486,13 +486,13 @@ const CreateProductForm = styled.form`
 
     label {
         font: inherit;
-        font-size: 32px;
+        font-size: 24px;
         margin-right: 30px;
         @media (max-width: 760px) {
-            font-size: 24px;
+            font-size: 18px;
         }
         @media (max-width: 380px) {
-            font-size: 18px;
+            font-size: 16px;
         }
     }
 
