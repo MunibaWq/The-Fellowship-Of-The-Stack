@@ -79,12 +79,12 @@ router.get("/allProducts", async (req, res) => {
 
 // Create a product ON FRONT END - NEED TO SEND sizes AS OBJECT-> sizes:PRICE
 
-router.post("/create", (req, res) => {
+router.post("/create", async (req, res) => {
     // if (Object.keys(req.body.data).length === 0) {
     //     res.send({
     //         message: "Theres nobody!"
     //     })
-    // } 
+    // }
     try {
         const {
             title,
@@ -97,8 +97,8 @@ router.post("/create", (req, res) => {
             materials,
         } = req.body.data;
 
-        pool.query(
-            "INSERT INTO products (title, price, description, colours, artist_id, sizes, size_and_fit, materials) VALUES ($1, $2, $3,$4, $5,$6,$7,$8) RETURNING *",
+        let productInfo = await pool.query(
+            "INSERT INTO products (title, price, description, colours, artist_id, sizes, size_and_fit, materials) VALUES ($1, $2, $3,$4, $5,$6,$7,$8) RETURNING id",
             [
                 title,
                 price,
@@ -110,7 +110,8 @@ router.post("/create", (req, res) => {
                 materials,
             ]
         );
-        res.json({ msg: "success" });
+        console.log(productInfo.rows[0]);
+        res.json(productInfo.rows[0]);
     } catch (err) {
         console.error(err.message);
         res.send("error");
