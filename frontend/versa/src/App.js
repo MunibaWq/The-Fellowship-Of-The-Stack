@@ -27,6 +27,7 @@ function App() {
                     />
                     <Route path="/product-item/:id" component={ProductItem} />
                     <Route path="/products/create" component={AddProduct} />
+                    <Route path="/products/edit/:id" component={EditProduct} />
                 </Switch>
             </div>
         </Router>
