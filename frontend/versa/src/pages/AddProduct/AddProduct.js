@@ -148,8 +148,8 @@ const AddProduct = () => {
         <FormContainer>
             <Title>Create a new product</Title>
             <CreateProductForm onSubmit={handleSubmit(onSubmit)}>
+                <h2>Product Details</h2>
                 <section>
-                    <h2>Product Details</h2>
                     <label htmlFor="product_name">Name</label>
                     <input
                         name="product_name"
@@ -168,7 +168,9 @@ const AddProduct = () => {
                         {errors.product_name?.type === "minLength" &&
                             "Must be at least 2 characters."}
                     </Error>
-                    <br />
+                </section>
+                <br />
+                <section>
                     <label htmlFor="product_price">Price $</label>
                     <input
                         name="product_price"
@@ -188,7 +190,9 @@ const AddProduct = () => {
                         {errors.product_price?.type === "required" &&
                             "Input is required."}
                     </Error>
-                    <br />
+                </section>
+                <br />
+                <section>
                     <label htmlFor="product_description">Description</label>
                     <textarea
                         name="product_description"
@@ -207,7 +211,9 @@ const AddProduct = () => {
                         {errors.product_description?.type === "minLength" &&
                             "Must be at least 2 characters."}
                     </Error>
-                    <br />
+                </section>
+                <br />
+                <section>
                     <label htmlFor="product_sizes_fit">Sizes and fit</label>
                     <textarea
                         name="product_sizes_fit"
@@ -218,7 +224,9 @@ const AddProduct = () => {
                             setInputFit(e.target.value);
                         }}
                     />
-                    <br />
+                </section>
+                <br />
+                <section>
                     <label htmlFor="product_materials">Materials</label>
                     <textarea
                         name="product_materials"
@@ -238,10 +246,11 @@ const AddProduct = () => {
                         {errors.product_materials?.type === "minLength" &&
                             "Must be at least 2 characters."}
                     </Error>
-                    <br />
                 </section>
+                <br />
+
+                <h2>Colors</h2>
                 <section>
-                    <h2>Colors</h2>
                     <label htmlFor="product_color_label">Color Name</label>
                     <input
                         name="product_color_label"
@@ -256,6 +265,8 @@ const AddProduct = () => {
                             }
                         }}
                     />
+                </section>
+                <section>
                     <label htmlFor="product_color">Color</label>
                     <input
                         name="product_color"
@@ -263,39 +274,40 @@ const AddProduct = () => {
                         ref={register}
                         ref={colorValue}
                     />
-                    <NewColourContainer>
-                        {colors.length > 0
-                            ? colors.map((label, index) => {
-                                  return (
-                                      <CurrentColour>
-                                          <ColourPreview colour={label.value} />
-                                          <p>{label.label}</p>
-                                          <div
-                                              onClick={() =>
-                                                  deleteItem(index, colors)
-                                              }
-                                          >
-                                              <Delete
-                                                  src={DeleteIcon}
-                                                  alt="delete-icon"
-                                              />
-                                          </div>
-                                      </CurrentColour>
-                                  );
-                              })
-                            : ""}
-                    </NewColourContainer>
-
-                    <FormButton
-                        type="button"
-                        onClick={setColorLabelAndValue}
-                        ref={addColor}
-                    >
-                        Add
-                    </FormButton>
                 </section>
+                <NewColourContainer>
+                    {colors.length > 0
+                        ? colors.map((label, index) => {
+                              return (
+                                  <CurrentColour>
+                                      <ColourPreview colour={label.value} />
+                                      <p>{label.label}</p>
+                                      <div
+                                          onClick={() =>
+                                              deleteItem(index, colors)
+                                          }
+                                      >
+                                          <Delete
+                                              src={DeleteIcon}
+                                              alt="delete-icon"
+                                          />
+                                      </div>
+                                  </CurrentColour>
+                              );
+                          })
+                        : ""}
+                </NewColourContainer>
+
+                <FormButton
+                    type="button"
+                    onClick={setColorLabelAndValue}
+                    ref={addColor}
+                >
+                    Add
+                </FormButton>
+
+                <h2>Sizes</h2>
                 <section>
-                    <h2>Sizes</h2>
                     <label htmlFor="product_size">Size</label>
                     <select name="product_size" ref={register} ref={sizeLabel}>
                         <option value="small">Small</option>
@@ -303,6 +315,8 @@ const AddProduct = () => {
                         <option value="large">Large</option>
                         <option value="x-large">X-Large</option>
                     </select>
+                </section>
+                <section>
                     <label htmlFor="product_size_price">Additional Price</label>
                     <input
                         name="product_size_price"
@@ -313,42 +327,44 @@ const AddProduct = () => {
                         ref={register({ min: 0, valueAsNumber: true })}
                         ref={sizePrice}
                     />
+
                     <Error>
                         {errors.product_size_price?.type === "min" &&
                             "Value must be greater than "}
                     </Error>
-                    <NewSizeContainer>
-                        {sizes.length > 0
-                            ? sizes.map((size, index) => {
-                                  return (
-                                      <NewSize>
-                                          <p>{size.label}</p>
-
-                                          <NewSizePrice>
-                                              $ {size.price}
-                                          </NewSizePrice>
-                                          <div
-                                              onClick={() =>
-                                                  deleteItem(index, sizes)
-                                              }
-                                          >
-                                              <Delete
-                                                  src={DeleteIcon}
-                                                  alt="delete-icon"
-                                              />
-                                          </div>
-                                      </NewSize>
-                                  );
-                              })
-                            : ""}
-                    </NewSizeContainer>
-
-                    <FormButton type="button" onClick={setSizeLabelAndPrice}>
-                        Add
-                    </FormButton>
                 </section>
+                <NewSizeContainer>
+                    {sizes.length > 0
+                        ? sizes.map((size, index) => {
+                              return (
+                                  <NewSize>
+                                      <p>{size.label}</p>
+
+                                      <NewSizePrice>
+                                          $ {size.price}
+                                      </NewSizePrice>
+                                      <div
+                                          onClick={() =>
+                                              deleteItem(index, sizes)
+                                          }
+                                      >
+                                          <Delete
+                                              src={DeleteIcon}
+                                              alt="delete-icon"
+                                          />
+                                      </div>
+                                  </NewSize>
+                              );
+                          })
+                        : ""}
+                </NewSizeContainer>
+
+                <FormButton type="button" onClick={setSizeLabelAndPrice}>
+                    Add
+                </FormButton>
+
+                <h2>Images</h2>
                 <section>
-                    <h2>Images</h2>
                     <label htmlFor="product-image">Upload Images</label>
                     <input
                         onChange={(e) => {
@@ -365,21 +381,22 @@ const AddProduct = () => {
                         type={"file"}
                         accept={"image/png, image/jpeg"}
                     ></input>
-                    <div style={{ display: "flex", flexWrap: "wrap" }}>
-                        {images.map((image, index) => {
-                            return (
-                                <>
-                                    <UploadedImage
-                                        key={index}
-                                        alt="product"
-                                        src={image.image}
-                                    />
-                                </>
-                            );
-                        })}
-                    </div>
-                    {/* going to refactor this code */}
-                    {/* <ImageCardsContainer>
+                </section>
+                <div style={{ display: "flex", flexWrap: "wrap" }}>
+                    {images.map((image, index) => {
+                        return (
+                            <>
+                                <UploadedImage
+                                    key={index}
+                                    alt="product"
+                                    src={image.image}
+                                />
+                            </>
+                        );
+                    })}
+                </div>
+                {/* going to refactor this code */}
+                {/* <ImageCardsContainer>
                             <ImageCard>
                                 <UploadedImage src={imageTest} />
                                 <File>
@@ -399,8 +416,8 @@ const AddProduct = () => {
                                 </ChooseAsThumbnail>
                             </ImageCard>
                         </ImageCardsContainer> */}
-                    <FormButton>Add</FormButton>
-                </section>
+                <FormButton>Add</FormButton>
+
                 <ButtonContainer>
                     {/* I added func to clear whole form when cancel pressed */}
                     <CancelButton onClick={clearField} type="button">
@@ -416,90 +433,95 @@ const AddProduct = () => {
 export default AddProduct;
 
 const FormContainer = styled.div`
-    padding: 100px;
-    width: 100%;
     display: grid;
-    grid-template-columns: 1fr;
-    justify-items: start;
-    grid-gap: 30px;
-    @media (max-device-width: 760px) {
-        padding: 40px;
-    }
-    @media (max-device-width: 400px) {
-        padding: 20px;
-    }
+    grid-template-columns: auto;
 `;
 
 const Title = styled.h1`
-    justify-self: center;
-    font-size: 48px;
-    @media (max-device-width: 400px) {
-        font-size: 24px;
+    margin-top: 30px;
+    font-size: 72px;
+    text-align: center;
+
+    @media (max-width: 760px) {
+        font-size: 50px;
+    }
+    @media (max-width: 380px) {
+        font-size: 40px;
     }
 `;
 const SubmitButton = styled(Button)`
-    padding: 10px 40px;
-    background: #038d82;
-    border: 3px solid #038d82;
+    background: #038db2;
     color: white;
+    border: 3px solid #038db2;
+    padding: 10px 20px;
+    transform: scale(1.2);
 `;
 
 const CreateProductForm = styled.form`
-    display: grid;
-    place-items: center;
-    width: 90%;
+    place-self: center;
+    display: flex;
+    flex-direction: column;
+
+    section {
+        display: grid;
+        grid-template-columns: auto auto;
+        padding: 20px;
+
+        @media (mex-width: 360px) {
+            grid-template-columns: auto;
+        }
+    }
+
+    h2 {
+        place-self: center;
+        margin-top: 30px;
+        font-size: 48px;
+        @media (max-width: 760px) {
+            font-size: 30px;
+        }
+        @media (max-width: 380px) {
+            font-size: 24px;
+        }
+    }
+
+    label {
+        font: inherit;
+        font-size: 32px;
+        margin-right: 30px;
+        @media (max-width: 760px) {
+            font-size: 24px;
+        }
+        @media (max-width: 380px) {
+            font-size: 18px;
+        }
+    }
 
     input {
         font: inherit;
         border: none;
-        height: 30px;
-        width: 800px;
-        display: flex;
-        flex-direction: column;
-        margin-bottom: 30px;
-        position: relative;
     }
 
-    label {
-        font-size: 18px;
-        display: flex;
-        justify-content: space-between;
-        padding: 5px;
+    input[type="color" i] {
+        font: inherit;
+        border: none;
     }
-
     textarea {
         font: inherit;
         border: none;
-        height: 90px;
-        width: 800px;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        margin-bottom: 30px;
-    }
-
-    @media (max-width: 768px) {
-        margin: 15px 0;
-    }
-    @media (max-width: 320px) {
-        input {
-        }
     }
 `;
 
 const FormButton = styled(Button)`
     background: #ffb649;
-    border-radius: 50px;
-    padding: 5px 10px;
     border: none;
-    margin: 30px 0;
-    h2 {
-        margin-bottom: 10px;
-        font-size: 24px;
-    }
+    padding: 10px 20px;
+    max-width: 100px;
+    align-self: end;
+    margin: 20px;
 `;
 
 const Error = styled.p`
+    grid-area: error;
     font: inherit;
     color: red;
     position: absolute;
@@ -627,13 +649,17 @@ const ChooseAsThumbnail = styled.div`
 const ButtonContainer = styled.div`
     display: flex;
     flex-direction: row;
-    align-items: flex-start;
+    align-items: center;
+    justify-content: center;
     padding: 0px;
+    margin: 60px 30px 30px 30px;
 `;
 
 const CancelButton = styled(Button)`
     background: #ffb649;
     border: 3px solid #ffb649;
+    transform: scale(1.2);
+    margin-right: 30px;
 `;
 
 const SaveButton = styled(Button)`
