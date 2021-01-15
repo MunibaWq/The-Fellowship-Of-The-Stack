@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import DeleteIcon from "../../images/deleteIcon.png";
 import Button from "../../components/Reusable/Button";
-import imageTest from "../../images/imageTest.png";
 import axios from "axios";
 import { addImage } from "../../axios/posts";
 
@@ -660,9 +659,4 @@ const CancelButton = styled(Button)`
     border: 3px solid #ffb649;
     transform: scale(1.2);
     margin-right: 30px;
-`;
-
-const SaveButton = styled(Button)`
-    border: 3px solid #038d82;
-    color: #038d82;
 `;
