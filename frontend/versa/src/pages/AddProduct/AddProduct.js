@@ -348,6 +348,7 @@ const AddProduct = () => {
                                 accept={"image/png, image/jpeg"}
                             ></input>
 
+<<<<<<< HEAD
                             {images.map((image, index) => {
                                 return (
                                     <>
@@ -380,6 +381,42 @@ const AddProduct = () => {
                                     </ChooseAsThumbnail>
                                 </ImageCard>
                             </ImageCardsContainer>
+=======
+                            <div style={{ display: "flex", flexWrap: "wrap" }}>
+                                {images.map((image, index) => {
+                                    return (
+                                        <>
+                                            <UploadedImage
+                                                key={index}
+                                                alt="product"
+                                                src={image.image}
+                                            />
+                                        </>
+                                    );
+                                })}
+                            </div>
+                            {/* going to refactor this code */}
+                            {/* <ImageCardsContainer>
+                            <ImageCard>
+                                <UploadedImage src={imageTest} />
+                                <File>
+                                    <ImgFileName>1234.jpg</ImgFileName>
+                                    <Delete src={DeleteIcon} />{" "}
+                                </File>
+                                <ChooseAsThumbnail>
+                                    <input
+                                        type="radio"
+                                        id="assdd"
+                                        name="ChooseThumbnail"
+                                        value="{FileName}"
+                                    />
+                                    <label for="{FileName}">
+                                        Choose as thumbnail
+                                    </label>
+                                </ChooseAsThumbnail>
+                            </ImageCard>
+                        </ImageCardsContainer> */}
+>>>>>>> 798109ce599eec264b15228dbcb1d3d65801bc66
                             <button>Add</button>
                         </StyledFieldSet>
                     </section>
@@ -565,7 +602,8 @@ const ImageCard = styled.div`
 
 const UploadedImage = styled.img`
     width: 200px;
-    height: 250px;
+    /* height: 250px; */
+    height: 200px;
 `;
 
 const ImgFileName = styled.p`
