@@ -8,6 +8,7 @@ import Wishlist from "./pages/UserBuyer/Wishlist/Wishlist";
 import ShoppingCart from "./pages/UserBuyer/ShoppingCart/ShoppingCart";
 import ProductItem from "./pages/UserBuyer/ProductItem/ProductItem";
 import AddProduct from "./pages/AddProduct/AddProduct";
+import EditProduct from "./pages/AddProduct/EditProduct";
 
 function App() {
     return (
