@@ -17,6 +17,7 @@ const loadTables = async () => {
       "title" varchar NOT NULL,
       "artist_id" int,
       "price" real NOT NULL,
+      "quantity" real DEFAULT 0,
       "description" varchar,
       "image" varchar,
       "num_sales" int,
