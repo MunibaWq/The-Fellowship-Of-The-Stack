@@ -25,8 +25,8 @@ function App() {
                         exact
                         component={ShoppingCart}
                     />
-                    <Route path="/product-item/:id" component={ProductItem} />
-                    <Route path="/products/create" component={AddProduct} />
+                    <Route exact path="/product-item/:id" component={ProductItem} />
+                    <Route exact path="/products/create" component={AddProduct} />
                 </Switch>
             </div>
         </Router>
