@@ -1,12 +1,7 @@
 const { Pool } = require("pg");
 const products = require("./products");
-const pool = new Pool({
-    user: "me",
-    host: "localhost",
-    database: "api",
-    password: "password",
-    port: 5432,
-});
+const pool = require("./db");
+
 const loadTables = async () => {
     const client = await pool.connect();
     await client.query(
