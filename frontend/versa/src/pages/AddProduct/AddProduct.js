@@ -5,7 +5,7 @@ import DeleteIcon from "../../images/deleteIcon.png";
 import Button from "../../components/Reusable/Button";
 import axios from "axios";
 import { addImage } from "../../axios/posts";
-
+let host = process.env.NODE_ENV === "production" ? "" : "http://localhost:5000";
 const AddProduct = () => {
     const setDefault = (fieldName) => {
         if (localStorage.getItem(`${fieldName}`)) {
@@ -91,12 +91,9 @@ const AddProduct = () => {
         };
         let productID;
         const sendData = async () => {
-            const response = await axios.post(
-                "http://localhost:5000/products/create",
-                {
-                    data: productInfo,
-                }
-            );
+            const response = await axios.post(host + "/products/create", {
+                data: productInfo,
+            });
             productID = response.data["id"];
             clearField();
         };

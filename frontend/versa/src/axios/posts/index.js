@@ -4,7 +4,7 @@ import S3 from "react-aws-s3";
 import { accessKeyId, secretKey } from './secret'
 
 
-console.log(accessKeyId,secretKey)
+let host = process.env.NODE_ENV==='production'? "" : "http://localhost:5000"
 export const addImage = async (image, label, imageSize, productID) => {
 
     console.log(image.type,imageSize)
@@ -26,7 +26,7 @@ export const addImage = async (image, label, imageSize, productID) => {
         const data = await ReactS3Client.uploadFile(image, filename)
 
         console.log('here is the data', data);
-        const response = await Axios.post("http://localhost:5000/images/add", {
+        const response = await Axios.post(host+"/images/add", {
             filename: filename,
             label: label,
             imageSize: imageSize,
