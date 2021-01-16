@@ -2,7 +2,9 @@ require("dotenv").config();
 
 const pg = require("pg");
 pg.defaults.ssl = true;
-connectionString = `postgres://bzwlnqvswwqfqg:${process.env.DB_PASSWORD}@ec2-34-192-72-159.compute-1.amazonaws.com:5432/d40vu6ijteqrv2`;
+connectionString =
+    process.env.DATABASE_URL ||
+    `postgres://bzwlnqvswwqfqg:${process.env.DB_PASSWORD}@ec2-34-192-72-159.compute-1.amazonaws.com:5432/d40vu6ijteqrv2`;
 console.log(connectionString);
 console.log(process.env.DB_PASSWORD);
 const pool = new pg.Pool({
