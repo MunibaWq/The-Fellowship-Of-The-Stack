@@ -2,13 +2,13 @@ import React from "react";
 import styled from "styled-components";
 import { Circle } from "../../images/icons";
 import { Link } from "react-router-dom";
-
+let host = process.env.NODE_ENV==='production'? "" : "http://localhost:5000"
 const ProductPageImage = ({ productDataState }) => {
     console.log(productDataState);
     return (
         <CarouselContainer>
             <ProductImage
-                src={"http://localhost:5000/images/" + productDataState.image}
+                src={host+"/images/" + productDataState.image}
                 alt="product"
             />
             <BackToResults to="/">

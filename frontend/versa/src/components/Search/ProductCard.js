@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { setSelectedProduct } from "../../redux/actions";
 import { Link } from "react-router-dom";
-
+let host = process.env.NODE_ENV==='production'? "" : "http://localhost:5000"
 const ProductCard = ({ product }) => {
     
     console.log('loaded')
@@ -27,7 +27,7 @@ const ProductCard = ({ product }) => {
                         // fetchCurrentProduct(currentProduct);
                     }}
                     alt="product"
-                    src={`http://localhost:5000/images/${product.image}`}
+                    src={`${host}/images/${product.image}`}
                 />
             </Image>
             <ProductInfo>

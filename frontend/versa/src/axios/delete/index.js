@@ -3,7 +3,8 @@ import { v4 as uuid } from "uuid";
 import S3 from "react-aws-s3";
 import { accessKeyId, secretKey } from "../posts/secret";
 
-console.log(accessKeyId, secretKey);
+
+let host = process.env.NODE_ENV==='production'? "" : "http://localhost:5000"
 export const deleteImage = async (filename, id) => {
     const config = {
         bucketName: "versabucket",
@@ -18,7 +19,7 @@ export const deleteImage = async (filename, id) => {
     ReactS3Client.deleteFile(filename)
         .then((data) => {
             console.log(data);
-            Axios.delete("http://localhost:5000/images/delete/:id").then(
+            Axios.delete(host+"/images/delete/:id").then(
                 (response) => {
                     console.log(response);
                     if (response.status === 201) {
