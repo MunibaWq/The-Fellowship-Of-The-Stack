@@ -7,11 +7,10 @@ import Account from "./pages/Account/Account";
 import Wishlist from "./pages/UserBuyer/Wishlist/Wishlist";
 import ShoppingCart from "./pages/UserBuyer/ShoppingCart/ShoppingCart";
 import ProductItem from "./pages/UserBuyer/ProductItem/ProductItem";
-import AddProduct from "./pages/AddProduct/AddProduct";
-import EditProduct from "./pages/AddProduct/EditProduct";
+import AddProduct from "./pages/Artist/AddProduct";
+import EditProduct from "./pages/Artist/EditProduct";
 
 function App() {
-   
     return (
         <Router>
             <div>
