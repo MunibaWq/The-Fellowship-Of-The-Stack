@@ -1,7 +1,8 @@
 import Axios from "axios";
 import { v4 as uuid } from "uuid";
 import S3 from "react-aws-s3";
-import { accessKeyId, secretKey } from './secret'
+const accessKeyId = process.env.REACT_AWS_ACCESS_KEY_ID
+const secretKey = process.env.REACT_AWS_SECRET_ACCESS_KEY
 
 
 let host = process.env.NODE_ENV==='production'? "" : "http://localhost:5000"
