@@ -33,7 +33,6 @@ const ProductSummary = ({
             <PriceReviewContainer>
                 <PriceSoldContainer>
                     <Price>${price}</Price>
-                    <ProductSold>{num_sales} sold</ProductSold>
                 </PriceSoldContainer>
                 <span>|</span>
                 <ReviewContainer>
@@ -109,12 +108,7 @@ const Price = styled.div`
         padding: 0;
     }
 `;
-const ProductSold = styled.div`
-    margin: 0;
-    p {
-        margin: 0;
-    }
-`;
+
 const ReviewContainer = styled.div`
     display: flex;
     flex-direction: row;
