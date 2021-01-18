@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-
-import ArtistDetails from "../../../components/Product/ArtistDetails"
-import CustomerReviews from "../../../components/Product/CustomerReviewsSection";
 import ProductPageImage from "../../../components/Product/ProductPageImage";
-import { getProductByID } from '../../../axios/gets'
+import { getProductByID } from "../../../axios/gets";
 import ProductData from "../../../components/Product/ProductData";
 import { useParams } from "react-router-dom";
 const ProductItem = () => {
@@ -14,8 +11,7 @@ const ProductItem = () => {
     useEffect(() => {
         const fetchProduct = async () => {
             console.log("ProductData.js currentProduct", currentProduct);
-            const data = await getProductByID(currentProduct)
-            
+            const data = await getProductByID(currentProduct);
 
             console.log(data);
             setProductDataState(data);
@@ -27,8 +23,6 @@ const ProductItem = () => {
         <ProductItemContainer>
             <ProductPageImage productDataState={productDataState} />
             <ProductData productDataState={productDataState} />
-            <ArtistDetails />
-            <CustomerReviews />
         </ProductItemContainer>
     );
 };
