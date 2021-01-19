@@ -1,16 +1,14 @@
 import Axios from "axios";
 import { v4 as uuid } from "uuid";
 import S3 from "react-aws-s3";
-const accessKeyId = process.env.REACT_AWS_ACCESS_KEY_ID
-const secretKey = process.env.REACT_AWS_SECRET_ACCESS_KEY
+const accessKeyId = process.env.REACT_APP_AWS_ACCESS_KEY_ID
+const secretKey = process.env.REACT_APP_AWS_SECRET_ACCESS_KEY
 
 
 let host = process.env.NODE_ENV==='production'? "" : "http://localhost:5000"
 export const addImage = async (image, label, imageSize, productID) => {
 
     const filename = uuid() 
-   
-    
     const config = {
         bucketName: "versabucket",
         dirName: "images",

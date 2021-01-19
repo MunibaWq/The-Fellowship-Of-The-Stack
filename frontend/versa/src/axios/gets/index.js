@@ -5,7 +5,8 @@ export const getImagesByPID = async (currentProduct) => {
     const response = await Axios.get(
         `${host}/images/byPID/${currentProduct}`
     )
-    return response.data
+    let images = await response.data
+    return images
 }
 export const getProductByID = async (currentProduct) => {
     const response = await Axios.get(

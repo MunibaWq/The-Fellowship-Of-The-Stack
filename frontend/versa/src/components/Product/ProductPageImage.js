@@ -10,8 +10,8 @@ const ProductPageImage = ({ images, productDataState }) => {
                 src={
                     productDataState.image
                         ? host + "/images/" + productDataState.image
-                        : images
-                            ? `https://versabucket.s3.us-east-2.amazonaws.com/images/${images[0].filename}`
+                        : images.length>0
+                            ? `https://versabucket.s3.us-east-2.amazonaws.com/images/${images[0].filename}.jpeg`
                             : ""
                 }
                 alt={""}
