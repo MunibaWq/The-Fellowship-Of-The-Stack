@@ -16,7 +16,9 @@ const EditProduct = () => {
             <InputTextArea name="pFit" label="Size and fit:" />
             <InputTextArea name="pMaterials" label="Materials:" />
             <Title subHeading>Colours</Title>
-            <Button>Add </Button>
+            <Button>
+                Add <Icon type="left" />
+            </Button>
             <Title subHeading>Sizes</Title>
             <Button>Add</Button>
             <Title subHeading>Images</Title>

@@ -1,9 +1,12 @@
 import styled, { css } from "styled-components";
 
 const Button = styled.button`
+    display: flex;
+    align-items: center;
     color: #6495ed;
     border: none;
     background-color: #fff;
+    border-bottom: 3px solid #ffffff;
     padding: 20px 40px;
     font-weight: 700;
     letter-spacing: 5%;
@@ -14,10 +17,15 @@ const Button = styled.button`
     svg {
         width: 32px;
         height: 32px;
+        margin-left: 8px;
+        path{
+            fill: #6495ed;
+        }
+        }
     }
 
     &:hover {
-        transform: scale(1.1);
+        border-bottom: 3px solid #6495ed;
     }
 
     ${(props) =>

@@ -13,8 +13,8 @@ import EditProduct from "./pages/Artist/EditProduct";
 function App() {
     return (
         <Router>
+            <Navbar />
             <div>
-                <Navbar />
                 <Switch>
                     <Route path="/" exact component={SearchResults} />
                     <Route path="/shop" exact component={SearchResults} />
