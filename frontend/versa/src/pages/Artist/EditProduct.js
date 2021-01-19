@@ -3,6 +3,7 @@ import { Title } from "../../components/Reusable/Title";
 import InputText from "../../components/ProductFormDetail/InputText";
 import InputTextArea from "../../components/ProductFormDetail/InputTextArea";
 import Button from "../../components/Reusable/Button";
+import Icon from "../../components/Reusable/Icons";
 
 const EditProduct = () => {
     return (
@@ -15,7 +16,9 @@ const EditProduct = () => {
             <InputTextArea name="pFit" label="Size and fit:" />
             <InputTextArea name="pMaterials" label="Materials:" />
             <Title subHeading>Colours</Title>
-            <Button>Add </Button>
+            <Button>
+                Add <Icon type="left" />
+            </Button>
             <Title subHeading>Sizes</Title>
             <Button>Add</Button>
             <Title subHeading>Images</Title>

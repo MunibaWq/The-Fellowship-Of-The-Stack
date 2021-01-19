@@ -6,6 +6,7 @@ import { TextField } from "../../components/Reusable/Input";
 import Button from "../../components/Reusable/Button";
 import axios from "axios";
 import { addImage } from "../../axios/posts";
+import { Modal } from "../../components/Reusable/Modal";
 let host = process.env.NODE_ENV === "production" ? "" : "http://localhost:5000";
 const AddProduct = () => {
     const setDefault = (fieldName) => {
@@ -147,8 +148,25 @@ const AddProduct = () => {
             <CreateProductForm onSubmit={handleSubmit(onSubmit)}>
                 <h2>Product Details</h2>
                 <section>
+                    
+                    <TextField
+                        multi={true}
+                        tests={[
+                            {
+                                test: (input) => isNaN(input),
+                                error: "Only numbers",
+                            },
+                            {
+                                test: (input) => input.length < 1,
+                                error: "Required",
+                            },
+                        ]}
+                        label="Label"
+                    ></TextField>
+                </section>
+                <section>
                     <label htmlFor="product_name">Name</label>
-                    <TextField info={"Error"}></TextField>
+
                     <input
                         name="product_name"
                         type="text"
@@ -180,6 +198,9 @@ const AddProduct = () => {
                             valueAsNumber: true,
                         })}
                         value={inputPrice}
+                        onWheel={(e) => {
+                            e.preventDefault();
+                        }}
                         onChange={(e) => {
                             setInputPrice(e.target.value);
                         }}
@@ -249,6 +270,8 @@ const AddProduct = () => {
 
                 <h2>Colors</h2>
                 <section>
+                    <Modal><h5>Hello</h5>
+                        <TextField label="Hello"></TextField></Modal>
                     <label htmlFor="product_color_label">Color Name</label>
                     <input
                         name="product_color_label"
@@ -456,7 +479,6 @@ const SubmitButton = styled(Button)`
 `;
 
 const CreateProductForm = styled.form`
-    place-self: center;
     display: flex;
     flex-direction: column;
 
@@ -465,7 +487,7 @@ const CreateProductForm = styled.form`
         grid-template-columns: auto auto;
         padding: 20px;
 
-        @media (mex-width: 360px) {
+        @media (max-width: 360px) {
             grid-template-columns: auto;
         }
     }
