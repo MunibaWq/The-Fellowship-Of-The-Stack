@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect, forceUpdate } from "react";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import DeleteIcon from "../../images/deleteIcon.png";
+import { TextField } from "../../components/Reusable/Input";
 import Button from "../../components/Reusable/Button";
 import axios from "axios";
 import { addImage } from "../../axios/posts";
@@ -102,7 +103,7 @@ const AddProduct = () => {
                     image.size,
                     productID
                 );
-                
+
                 if (!res)
                     alert(
                         JSON.stringify(image.imageFile) +
@@ -110,11 +111,9 @@ const AddProduct = () => {
                     );
             });
             clearField();
-
         };
         sendData();
         //this will send the images to AWS S3
-        
     }
     function setColorLabelAndValue(e) {
         if (!colorPick.current.value) {
@@ -149,6 +148,7 @@ const AddProduct = () => {
                 <h2>Product Details</h2>
                 <section>
                     <label htmlFor="product_name">Name</label>
+                    <TextField info={"Error"}></TextField>
                     <input
                         name="product_name"
                         type="text"
@@ -253,7 +253,7 @@ const AddProduct = () => {
                     <input
                         name="product_color_label"
                         type="text"
-                        ref={register}
+                        // ref={register} cant have 2 refs, this is only reading the second ref
                         ref={colorPick}
                         onChange={(e) => {
                             if (e.target.value) {
@@ -414,7 +414,7 @@ const AddProduct = () => {
                                 </ChooseAsThumbnail>
                             </ImageCard>
                         </ImageCardsContainer> */}
-                {/* <FormButton>Add</FormButton> */}
+                {/* <FormButton type="button">Add</FormButton> */}
 
                 <ButtonContainer>
                     {/* I added func to clear whole form when cancel pressed */}
