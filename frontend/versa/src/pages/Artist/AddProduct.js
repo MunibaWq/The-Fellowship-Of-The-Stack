@@ -456,7 +456,6 @@ const SubmitButton = styled(Button)`
 `;
 
 const CreateProductForm = styled.form`
-    place-self: center;
     display: flex;
     flex-direction: column;
 
@@ -465,7 +464,7 @@ const CreateProductForm = styled.form`
         grid-template-columns: auto auto;
         padding: 20px;
 
-        @media (mex-width: 360px) {
+        @media (mx-width: 360px) {
             grid-template-columns: auto;
         }
     }

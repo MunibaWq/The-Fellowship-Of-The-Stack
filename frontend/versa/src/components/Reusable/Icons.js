@@ -197,7 +197,7 @@ const Icon = (props) => {
                         fillRule="evenodd"
                         clipRule="evenodd"
                         d="M17 3H7C5.9 3 5 3.9 5 5V21L12 18L19 21V5C19 3.9 18.1 3 17 3Z"
-                        fill="black"
+                        fill="#444444"
                         fillOpacity="0.87"
                     />
                 </svg>
@@ -216,7 +216,7 @@ const Icon = (props) => {
                         fillRule="evenodd"
                         clipRule="evenodd"
                         d="M17 3H7C5.9 3 5 3.9 5 5V21L12 18L19 21V5C19 3.9 18.1 3 17 3ZM17 18L12 15.82L7 18V5H17V18Z"
-                        fill="black"
+                        fill="#444444"
                         fillOpacity="0.87"
                     />
                 </svg>
@@ -235,7 +235,7 @@ const Icon = (props) => {
                         fillRule="evenodd"
                         clipRule="evenodd"
                         d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM13 17H11V15H13V17ZM13 13H11V7H13V13Z"
-                        fill="black"
+                        fill="#FF3535"
                         fillOpacity="0.87"
                     />
                 </svg>
@@ -254,7 +254,7 @@ const Icon = (props) => {
                         fillRule="evenodd"
                         clipRule="evenodd"
                         d="M11 15H13V17H11V15ZM11 7H13V13H11V7ZM11.99 2C6.47 2 2 6.48 2 12C2 17.52 6.47 22 11.99 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 11.99 2ZM12 20C7.58 20 4 16.42 4 12C4 7.58 7.58 4 12 4C16.42 4 20 7.58 20 12C20 16.42 16.42 20 12 20Z"
-                        fill="black"
+                        fill="#FF3535"
                         fillOpacity="0.87"
                     />
                 </svg>
@@ -266,14 +266,14 @@ const Icon = (props) => {
                     width="24"
                     height="24"
                     viewBox="0 0 24 24"
-                    fill="none"
+                    fill="#444444"
                     xmlns="http://www.w3.org/2000/svg"
                 >
                     <path
                         fill-rule="evenodd"
                         clipRule="evenodd"
                         d="M12 23C13.1 23 13.99 22.11 13.99 21.01H10.01C10.01 22.11 10.9 23 12 23ZM19 17V11C19 7.65 16.64 4.85 13.5 4.17V3C13.5 2.17 12.83 1.5 12 1.5C11.17 1.5 10.5 2.17 10.5 3V4.17C7.36 4.85 5 7.65 5 11V17L3 19V20H21V19L19 17ZM13 16H11V14H13V16ZM13 12H11V8H13V12Z"
-                        fill="#444444"
+                        fill="#FFD704"
                         fillOpacity="0.87"
                     />
                 </svg>
@@ -365,7 +365,7 @@ const Icon = (props) => {
                         fillRule="evenodd"
                         clipRule="evenodd"
                         d="M10 18H14V16H10V18ZM3 6V8H21V6H3ZM6 13H18V11H6V13Z"
-                        fill="black"
+                        fill="#444444"
                         fillOpacity="0.87"
                     />
                 </svg>
@@ -422,7 +422,7 @@ const Icon = (props) => {
                         fillRule="evenodd"
                         clipRule="evenodd"
                         d="M3 18H21V16H3V18ZM3 13H21V11H3V13ZM3 6V8H21V6H3Z"
-                        fill="black"
+                        fill="#444444"
                         fillOpacity="0.87"
                     />
                 </svg>
@@ -460,7 +460,7 @@ const Icon = (props) => {
                         fillRule="evenodd"
                         clipRule="evenodd"
                         d="M12 8C13.1 8 14 7.1 14 6C14 4.9 13.1 4 12 4C10.9 4 10 4.9 10 6C10 7.1 10.9 8 12 8ZM12 10C10.9 10 10 10.9 10 12C10 13.1 10.9 14 12 14C13.1 14 14 13.1 14 12C14 10.9 13.1 10 12 10ZM12 16C10.9 16 10 16.9 10 18C10 19.1 10.9 20 12 20C13.1 20 14 19.1 14 18C14 16.9 13.1 16 12 16Z"
-                        fill="#4444"
+                        fill="#444444"
                         fillOpacity="0.87"
                     />
                 </svg>
@@ -572,7 +572,7 @@ const Icon = (props) => {
                         fillRule="evenodd"
                         clipRule="evenodd"
                         d="M4 8H8V4H4V8ZM10 20H14V16H10V20ZM4 20H8V16H4V20ZM4 14H8V10H4V14ZM10 14H14V10H10V14ZM16 4V8H20V4H16ZM10 8H14V4H10V8ZM16 14H20V10H16V14ZM16 20H20V16H16V20Z"
-                        fill="black"
+                        fill="#444444"
                         fillOpacity="0.87"
                     />
                 </svg>
@@ -590,7 +590,60 @@ const Icon = (props) => {
                         fillRule="evenodd"
                         clipRule="evenodd"
                         d="M7 14H5V19H10V17H7V14ZM5 10H7V7H10V5H5V10ZM17 17H14V19H19V14H17V17ZM14 5V7H17V10H19V5H14Z"
-                        fill="black"
+                        fill="#444444"
+                        fillOpacity="0.87"
+                    />
+                </svg>
+            );
+        case "exitFullscreen":
+            return (
+                <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <path
+                        fillRule="evenodd"
+                        clipRule="evenodd"
+                        d="M5 16H8V19H10V14H5V16ZM8 8H5V10H10V5H8V8ZM14 19H16V16H19V14H14V19ZM16 8V5H14V10H19V8H16Z"
+                        fill="#444444"
+                        fillOpacity="0.87"
+                    />
+                    <mask
+                        id="mask0"
+                        maskType="alpha"
+                        maskUnits="userSpaceOnUse"
+                        x="5"
+                        y="5"
+                        width="14"
+                        height="14"
+                    >
+                        <path
+                            fillRule="evenodd"
+                            clipRule="evenodd"
+                            d="M5 16H8V19H10V14H5V16ZM8 8H5V10H10V5H8V8ZM14 19H16V16H19V14H14V19ZM16 8V5H14V10H19V8H16Z"
+                            fill="white"
+                        />
+                    </mask>
+                    <g mask="url(#mask0)"></g>
+                </svg>
+            );
+        case "outlineLeft":
+            return (
+                <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <path
+                        fillRule="evenodd"
+                        clipRule="evenodd"
+                        d="M15.41 7.41L14 6L8 12L14 18L15.41 16.59L10.83 12L15.41 7.41Z"
+                        fill="#444444"
                         fillOpacity="0.87"
                     />
                 </svg>
