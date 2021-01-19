@@ -14,7 +14,7 @@ function App() {
     return (
         <Router>
             <Navbar />
-            <div>
+            <div style={{ overflowX: "hidden" }}>
                 <Switch>
                     <Route path="/" exact component={SearchResults} />
                     <Route path="/shop" exact component={SearchResults} />

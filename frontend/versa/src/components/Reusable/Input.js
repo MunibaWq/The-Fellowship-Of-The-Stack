@@ -1,27 +1,71 @@
 import styled from "styled-components";
-export const TextField = ({ label, error }) => {
+import { useState } from "react";
+export const TextField = ({ multi, label, tests=[] }) => {
+    const [showError, setShowError] = useState([]);
     return (
         <>
-            <Label></Label>
-            <Input></Input>
-            <Error></Error>
+            <Label>{label}</Label>
+            <br />
+            {multi ? (
+                <TextArea
+                     onChange={(e) => {
+                        let error = "";
+                        for (let test of tests) {
+                            console.log(test);
+                            if (test.test(e.target.value)) {
+                                error = test.error;
+                            }
+                        }
+                        if (error) {
+                            setShowError(error);
+                        } else {
+                            setShowError(false)
+                        }
+                    }}
+                ></TextArea>
+            ) : (
+                <Input
+                    onChange={(e) => {
+                        let error = "";
+                        for (let test of tests) {
+                            console.log(test);
+                            if (test.test(e.target.value)) {
+                                error = test.error;
+                            }
+                        }
+                        if (error) setShowError(error);
+                    }}
+                ></Input>
+            )}
+            <br />
+            <Error>{showError}</Error>
         </>
     );
 };
-export const Label = styled.p``;
-export const Error = styled.p``;
+export const TextArea = styled.textarea`
+    resize: none;
+    border-radius: 5px;
+    border-style: none;
+    height: 100px;
+
+    background-color: rgba(80, 80, 80, 15%);
+    @media screen and (max-width: 450px) {
+        width: 100%;
+    }
+`;
+export const Label = styled.label``;
+export const Error = styled.p`
+    color: red;
+`;
 
 export const Input = styled.input`
     border-radius: 5px;
     border-style: none;
     height: 35px;
+
     background-color: rgba(80, 80, 80, 15%);
 `;
 
-export const TextArea = styled.textarea`
-    border-radius: 5px;
-    background-color: rgba(80, 80, 80, 75%);
-`;
 export const ColorInput = styled.input.attrs((props) => ({
     type: "color",
 }))`
