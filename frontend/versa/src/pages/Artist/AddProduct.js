@@ -94,25 +94,27 @@ const AddProduct = () => {
             const response = await axios.post(host + "/products/create", {
                 data: productInfo,
             });
-            productID = response.data["id"];
+            productID = response.data.id;
+            images.forEach(async (image) => {
+                let res = await addImage(
+                    image.imageFile,
+                    "",
+                    image.size,
+                    productID
+                );
+                
+                if (!res)
+                    alert(
+                        JSON.stringify(image.imageFile) +
+                            " failed to upload, go to edit product to try to add picture again"
+                    );
+            });
             clearField();
+
         };
         sendData();
         //this will send the images to AWS S3
-        images.forEach(async (image) => {
-            let res = await addImage(
-                image.imageFile,
-                "",
-                image.size,
-                productID
-            );
-            
-            if (!res)
-                alert(
-                    JSON.stringify(image.imageFile) +
-                        " failed to upload, go to edit product to try to add picture again"
-                );
-        });
+        
     }
     function setColorLabelAndValue(e) {
         if (!colorPick.current.value) {
@@ -412,7 +414,7 @@ const AddProduct = () => {
                                 </ChooseAsThumbnail>
                             </ImageCard>
                         </ImageCardsContainer> */}
-                <FormButton>Add</FormButton>
+                {/* <FormButton>Add</FormButton> */}
 
                 <ButtonContainer>
                     {/* I added func to clear whole form when cancel pressed */}
