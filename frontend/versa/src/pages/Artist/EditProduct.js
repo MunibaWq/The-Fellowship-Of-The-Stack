@@ -3,6 +3,7 @@ import { Title } from "../../components/Reusable/Title";
 import InputText from "../../components/ProductFormDetail/InputText";
 import InputTextArea from "../../components/ProductFormDetail/InputTextArea";
 import Button from "../../components/Reusable/Button";
+import Icon from "../../components/Reusable/Icons";
 
 const EditProduct = () => {
     return (

@@ -479,7 +479,6 @@ const SubmitButton = styled(Button)`
 `;
 
 const CreateProductForm = styled.form`
-    place-self: center;
     display: flex;
     flex-direction: column;
 
@@ -488,7 +487,11 @@ const CreateProductForm = styled.form`
         grid-template-columns: auto auto;
         padding: 20px;
 
+<<<<<<< HEAD
         @media (max-width: 360px) {
+=======
+        @media (mx-width: 360px) {
+>>>>>>> bae50f3d03362c1c4a3e4d5fdc0d6445fa69dd55
             grid-template-columns: auto;
         }
     }
