@@ -2,13 +2,17 @@ import React from "react";
 import styled from "styled-components";
 import { Circle } from "../../images/icons";
 import { Link } from "react-router-dom";
-let host = process.env.NODE_ENV==='production'? "" : "http://localhost:5000"
-const ProductPageImage = ({ productDataState }) => {
+let host = process.env.NODE_ENV === "production" ? "" : "http://localhost:5000";
+const ProductPageImage = ({ images, productDataState }) => {
     console.log(productDataState);
     return (
         <CarouselContainer>
             <ProductImage
-                src={host+"/images/" + productDataState.image}
+                src={
+                    productDataState.image
+                        ? host + "/images/" + productDataState.image
+                        : `https://versabucket.s3.us-east-2.amazonaws.com/images/${images[0].filename}`
+                }
                 alt="product"
             />
             <BackToResults to="/">

@@ -6,12 +6,14 @@ import ProductPageImage from "../../components/Product/ProductPageImage";
 import axios from "axios";
 import ProductData from "../../components/Product/ProductData";
 import { useParams } from "react-router-dom";
+import { getImagesByPID } from "../../axios/gets";
 let host = process.env.NODE_ENV==='production'? "" : "http://localhost:5000"
 const ProductItem = () => {
     // const currentProduct = useSelector((state) => state.selectedProduct)
     const params = useParams();
     const currentProduct = params.id;
     const [productDataState, setProductDataState] = useState([]);
+    const [images, setImages]= useState([])
     useEffect(() => {
         const fetchProduct = async () => {
             console.log("ProductData.js currentProduct", currentProduct);
@@ -23,12 +25,16 @@ const ProductItem = () => {
             console.log(response.data);
             setProductDataState(response.data);
         };
+        const fetchImages = async () => {
+            setImages(getImagesByPID(currentProduct))
+        }
         fetchProduct();
+        fetchImages();
     }, []);
     console.log("productItem.js", currentProduct);
     return (
         <ProductItemContainer>
-            <ProductPageImage productDataState={productDataState} />
+            <ProductPageImage images={images} productDataState={productDataState} />
             <ProductData productDataState={productDataState} />
             <ArtistDetails />
             <CustomerReviews />
