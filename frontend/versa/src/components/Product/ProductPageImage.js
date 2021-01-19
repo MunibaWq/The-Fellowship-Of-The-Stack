@@ -11,9 +11,11 @@ const ProductPageImage = ({ images, productDataState }) => {
                 src={
                     productDataState.image
                         ? host + "/images/" + productDataState.image
-                        : `https://versabucket.s3.us-east-2.amazonaws.com/images/${images[0].filename}`
+                        : images
+                            ? `https://versabucket.s3.us-east-2.amazonaws.com/images/${images[0].filename}`
+                            : ""
                 }
-                alt="product"
+                alt={""}
             />
             <BackToResults to="/">
                 <h6>Back to results</h6>
