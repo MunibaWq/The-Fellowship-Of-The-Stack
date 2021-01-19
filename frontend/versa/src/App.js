@@ -13,8 +13,9 @@ import EditProduct from "./pages/Artist/EditProduct";
 function App() {
     return (
         <Router>
-            <div>
-                <Navbar />
+            <Navbar />
+            <div style={{overflowX:"hidden"}}>
+                
                 <Switch>
                     <Route path="/" exact component={SearchResults} />
                     <Route path="/shop" exact component={SearchResults} />
