@@ -3,37 +3,49 @@ import Button from "./Button";
 // import { H1, H2, H3, H4, H5, H6 } from "./Text";
 
 const CardWrapper = styled.div`
-    position: relative;
+    /* position: relative;
     overflow: hidden;
     width: 500px;
     padding: 3rem 0 2rem;
     border-radius: 20px 20px 0 0;
-    color: white;
-    @media (max-width: 376px) {
+    color: white; */
+    margin-bottom: 10%;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 95%;
+    @media (max-width: 600px) {
         /* @media (max-width: 375px screen) { */
-        /* font-family: "Inter", sans-serif;
+        font-family: "Inter", sans-serif;
         font-style: normal;
         font-weight: 800;
         font-size: 23.51px;
         line-height: 106%;
-        or 25px */
+        /*or 25px 
         padding: 0;
         margin: 0;
         width: 100%;
-        height: 100%;
+        height: 100%;*/
         border-radius: 10px 10px 0 0;
     }
 `;
 
-const ImageCard = styled.img`
-    width: 100%;
+const ImageCard = styled.div`
+    /* width: 100%;
     height: 100px;
-    background-color: chartreuse;
+    background-color: chartreuse; */
 
     /* letter-spacing: -0.2px; */
+    @media (max-width: 414px) {
+   
+    img {
+        width: 100%;
+        position: relative;
+    }
+
 `;
 
-export const CardTextMain = styled.h6`
+const CardTextMain = styled.h6`
     font-family: "Inter", sans-serif;
     font-style: normal;
     font-weight: 500;
@@ -54,7 +66,7 @@ export const CardTextMain = styled.h6`
         letter-spacing: -0.2px;
     }
 `;
-export const CardTextSub = styled.h6`
+const CardTextSub = styled.h6`
     font-family: "Inter", sans-serif;
     font-style: normal;
     font-weight: 500;
@@ -77,17 +89,49 @@ export const CardTextSub = styled.h6`
     }
 `;
 
-const Card = () => {
+const Card = ({ children, title, price }) => {
     return (
         <CardWrapper>
-            <img src={process.env.PUBLIC_URL + "imageTest.png"} />
+            <ImageCard>{children}</ImageCard>
 
             <div>
-                <CardTextMain>Title</CardTextMain>
-                <CardTextSub>$14.00</CardTextSub>
+                <CardTextMain>{title}</CardTextMain>
+                <CardTextSub>{price}</CardTextSub>
             </div>
         </CardWrapper>
     );
 };
 
 export default Card;
+
+/* const ImageCard = styled.div`
+    margin-bottom: 10%;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 95%;
+`; */
+const ProductInfo = styled.div`
+    height: 100%;
+    background-color: white;
+    border-style: solid;
+    border-top: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    div {
+        margin: 0 10px;
+    }
+    h6 {
+        font-size: smaller;
+    }
+`;
+const Image = styled.div`
+    @media (max-width: 414px) {
+        border-style: solid;
+        img {
+            width: 100%;
+            position: relative;
+        }
+    }
+`;
