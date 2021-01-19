@@ -8,14 +8,10 @@ const ProductSummary = ({
     title,
     price,
     description,
-    image,
-    num_sales,
     num_stars,
     num_reviews,
     variations,
-    artist,
     size,
-    materials,
 }) => {
     let renderVariations;
     if (variations) {
@@ -42,10 +38,10 @@ const ProductSummary = ({
                     <NumReviews>{num_reviews} reviews</NumReviews>
                 </ReviewContainer>
             </PriceReviewContainer>
-            <VariationsContainer>
-                <h5>Variations </h5>
-                <VariationsOptions>{renderVariations}</VariationsOptions>
-            </VariationsContainer>
+            <SizeOptionsContainer>
+                <h5>Sizes </h5>
+                <SizeOption>{renderVariations}</SizeOption>
+            </SizeOptionsContainer>
             <SizeContainer>
                 <h5>Size</h5>
                 <Dimensions>
@@ -127,7 +123,7 @@ const StarsContainer = styled.div`
 `;
 
 const NumReviews = styled.div``;
-const VariationsContainer = styled.div`
+const SizeOptionsContainer = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -140,7 +136,7 @@ const VariationsContainer = styled.div`
         padding-right: 5px;
     }
 `;
-const VariationsOptions = styled.div`
+const SizeOption = styled.div`
     .circle {
         padding-right: 5px;
     }
