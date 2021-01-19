@@ -4,7 +4,6 @@ import { Circle } from "../../images/icons";
 import { Link } from "react-router-dom";
 let host = process.env.NODE_ENV === "production" ? "" : "http://localhost:5000";
 const ProductPageImage = ({ images, productDataState }) => {
-    console.log(productDataState);
     return (
         <CarouselContainer>
             <ProductImage

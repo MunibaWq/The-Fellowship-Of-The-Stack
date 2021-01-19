@@ -16,13 +16,11 @@ const ProductItem = () => {
     const [images, setImages]= useState([])
     useEffect(() => {
         const fetchProduct = async () => {
-            console.log("ProductData.js currentProduct", currentProduct);
             //add axios to fetch data from API
             const response = await axios.get(
                 `${host}+/product/${currentProduct}`
             );
 
-            console.log(response.data);
             setProductDataState(response.data);
         };
         const fetchImages = async () => {
@@ -30,8 +28,7 @@ const ProductItem = () => {
         }
         fetchProduct();
         fetchImages();
-    }, []);
-    console.log("productItem.js", currentProduct);
+    }, [currentProduct]);
     return (
         <ProductItemContainer>
             <ProductPageImage images={images} productDataState={productDataState} />

@@ -18,9 +18,8 @@ const ImageDelete = () => {
             />
             <button
                 onClick={async() => {
-                    let res = await deleteImage(filename, imageID);
-                    if (res) console.log('success') 
-                    else console.log('fail')
+                    deleteImage(filename, imageID);
+                    
                 }}
             ></button>
         </>

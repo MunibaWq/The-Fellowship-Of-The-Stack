@@ -106,7 +106,7 @@ const AddProduct = () => {
                 image.size,
                 productID
             );
-            console.log(res);
+            
             if (!res)
                 alert(
                     JSON.stringify(image.imageFile) +

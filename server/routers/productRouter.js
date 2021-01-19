@@ -26,7 +26,7 @@ router.get("/get/:id", async (req, res) => {
         const result = await client.query(
             `SELECT * FROM products WHERE id = ${req.params.id}`
         );
-        console.log(result.rows[0]);
+       
         const productInfo = result.rows[0];
 
         productInfo["colours"] = productInfo["colours"].split(" ");
@@ -40,7 +40,6 @@ router.get("/get/:id", async (req, res) => {
         );
         const artist = artistReq.rows[0].username;
         productInfo["artist"] = artist;
-        console.log("productInfo", productInfo);
         client.release(true);
         res.json(productInfo);
     } catch (e) {
@@ -110,7 +109,7 @@ router.post("/create", async (req, res) => {
                 materials,
             ]
         );
-        console.log(productInfo.rows[0]);
+     
         res.json(productInfo.rows[0]);
     } catch (err) {
         console.error(err.message);

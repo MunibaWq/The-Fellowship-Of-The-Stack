@@ -8,7 +8,6 @@ const secretKey = process.env.REACT_AWS_SECRET_ACCESS_KEY
 let host = process.env.NODE_ENV==='production'? "" : "http://localhost:5000"
 export const addImage = async (image, label, imageSize, productID) => {
 
-    console.log(image.type,imageSize)
     const filename = uuid() 
    
     
@@ -26,14 +25,12 @@ export const addImage = async (image, label, imageSize, productID) => {
     try {
         const data = await ReactS3Client.uploadFile(image, filename)
 
-        console.log('here is the data', data);
         const response = await Axios.post(host+"/images/add", {
             filename: filename,
             label: label,
             imageSize: imageSize,
             productID: productID,
         })
-        console.log(response.status)
         if (response.status === 201) {
                     
             return true;

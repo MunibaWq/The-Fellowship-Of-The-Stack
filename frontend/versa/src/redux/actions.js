@@ -3,7 +3,6 @@ import { getProductByID } from '../axios/gets'
 export const fetchProduct = (id) => {
     return async (dispatch, getState) => {
         const data = getProductByID(id);
-        console.log(data);
 
         dispatch({
             type: "FETCH_PRODUCT",

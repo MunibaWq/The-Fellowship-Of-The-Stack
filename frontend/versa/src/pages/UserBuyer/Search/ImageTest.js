@@ -12,7 +12,6 @@ const ImageTest = () => {
                     let image = URL.createObjectURL(e.target.files[0])
                     setImages([...images, image]);
                     setImageFiles([...imageFiles,e.target.files[0]])
-                    console.log(image)
                 }}
                 type={"file"}
                 accept={"image/png, image/jpeg"}

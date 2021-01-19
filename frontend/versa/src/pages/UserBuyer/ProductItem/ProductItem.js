@@ -10,15 +10,12 @@ const ProductItem = () => {
     const [productDataState, setProductDataState] = useState([]);
     useEffect(() => {
         const fetchProduct = async () => {
-            console.log("ProductData.js currentProduct", currentProduct);
             const data = await getProductByID(currentProduct);
 
-            console.log(data);
             setProductDataState(data);
         };
         fetchProduct();
     }, []);
-    console.log("productItem.js", currentProduct);
     return (
         <ProductItemContainer>
             <ProductPageImage productDataState={productDataState} />

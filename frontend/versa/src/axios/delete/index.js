@@ -18,10 +18,8 @@ export const deleteImage = async (filename, id) => {
 
     ReactS3Client.deleteFile(filename)
         .then((data) => {
-            console.log(data);
             Axios.delete(host+"/images/delete/:id").then(
                 (response) => {
-                    console.log(response);
                     if (response.status === 201) {
                         return true;
                     }

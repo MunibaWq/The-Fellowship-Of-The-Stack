@@ -60,11 +60,6 @@ const SearchResults = () => {
                 ) : (
                     products.map((product) => (
                         <ProductCard
-                            onClick={() => {
-                                {
-                                    console.log(`clicked`);
-                                }
-                            }}
                             product={product}
                         />
                     ))
