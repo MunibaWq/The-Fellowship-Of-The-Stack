@@ -5,7 +5,9 @@ import colors from "./Colors";
 // To make it look like PRIMARY or SECONDARY style, add the primary or secondary as props eg:
 //<Button primary>Text<Icon right/></Button>
 
-const Button = styled.button`
+const Button = styled.button.attrs((props) => ({
+    type: props.type || "button",
+}))`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -20,35 +22,33 @@ const Button = styled.button`
     margin: 5px;
     transition: 0.3s ease;
     cursor: pointer;
-    max-width:fit-content;
+    max-width: fit-content;
 
     svg {
         width: 28px;
         height: 28px;
         margin-left: 16px;
-        
-        path{
+
+        path {
             transition: 0.3s ease;
             fill: ${colors.primary};
         }
-        
-        }
-    
+    }
 
     &:hover {
         color: ${colors.primaryHover};
-        svg{
-            path{
+        svg {
+            path {
                 fill: ${colors.primaryHover};
             }
         }
     }
 
-    &:focus{
+    &:focus {
         outline: none;
         color: ${colors.primaryHover};
-        svg{
-            path{
+        svg {
+            path {
                 fill: ${colors.primaryHover};
             }
         }
@@ -86,7 +86,7 @@ const Button = styled.button`
             border: 6px solid ${colors.primary};
             padding: 10px 20px;
             border-radius: 50px;
-            color:${colors.secondary};
+            color: ${colors.secondary};
             svg {
                 path {
                     fill: ${colors.secondary};

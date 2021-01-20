@@ -78,7 +78,9 @@ const ProductForm = (props) => {
                     Cancel
                     <Icon type="lineClose" />
                 </Button>
-                <Button primary>Submit</Button>
+                <Button primary type="submit">
+                    Submit
+                </Button>
             </Container>
         </Form>
     );
