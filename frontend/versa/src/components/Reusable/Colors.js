@@ -1,6 +1,10 @@
- const colors={
+const colors = {
     primary: "rgba(100,149,237,100%)",
     secondary: "#eee",
-    tertiary: "#444"
-}
-export default colors
+    tertiary: "#444",
+    logoText: "#444",
+    logoTriangle: "lightgreen",
+    logoCircle: "lightblue",
+    logoRect: "orange",
+};
+export default colors;
