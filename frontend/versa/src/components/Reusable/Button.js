@@ -13,9 +13,10 @@ const Button = styled.button`
     border: none;
     background-color: #fff;
     border-bottom: 3px solid #ffffff;
-    padding: 10px 20px;
+    padding: 5px 10px;
     font-weight: 700;
     letter-spacing: 5%;
+    margin: 5px;
     transition: 0.3s ease;
     cursor: pointer;
 
@@ -80,6 +81,7 @@ const Button = styled.button`
         props.primary &&
         css`
             background: #6495ed;
+            padding: 10px 20px;
             border: 6px solid #6495ed;
             border-radius: 50px;
             color: #ffffff;

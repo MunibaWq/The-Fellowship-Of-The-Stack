@@ -47,7 +47,6 @@ export const TextArea = styled.textarea`
     border-radius: 5px;
     border-style: none;
     height: 100px;
-    margin-bottom: 30px;
 
     background-color: rgba(80, 80, 80, 15%);
     @media screen and (max-width: 450px) {
@@ -68,7 +67,6 @@ export const Input = styled.input`
     border-radius: 5px;
     border-style: none;
     height: 35px;
-    margin-bottom: 30px;
     background-color: rgba(80, 80, 80, 15%);
 
     &:focus{

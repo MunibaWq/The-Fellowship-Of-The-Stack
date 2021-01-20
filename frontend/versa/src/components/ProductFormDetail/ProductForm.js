@@ -61,16 +61,16 @@ const ProductForm = (props) => {
                 label="Materials"
             ></TextField>
             <h2>Colours</h2>
-            <Button>
+            <Button secondary>
                 Add
                 <Icon type="add" />
             </Button>
             <h2>Sizes</h2>
-            <Button>
+            <Button secondary>
                 Add <Icon type="add" />
             </Button>
             <h2>Images</h2>
-            <Button>
+            <Button secondary>
                 Add <Icon type="add" />
             </Button>
             <Container>
@@ -86,7 +86,11 @@ const ProductForm = (props) => {
 
 export default ProductForm;
 
-const Form = styled.form``;
+const Form = styled.form`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+`;
 const Container = styled.div`
     display: flex;
 `;
