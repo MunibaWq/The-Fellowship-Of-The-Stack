@@ -46,7 +46,7 @@ const ProductForm = (props) => {
                 tests={[
                     {
                         test: (input) => input.length < 10,
-                        error: "Product description is required.  Minimum 10 characters",
+                        error: "Product description is required.",
                     },
                 ]}
                 label="Description"
