@@ -1,13 +1,10 @@
 import styled from "styled-components";
-import { H6 } from "./Text";
 import { useState } from "react";
 export const TextField = ({ multi, label, tests = [] }) => {
     const [showError, setShowError] = useState([]);
     return (
         <>
-            <Label>
-                <H6>{label}</H6>
-            </Label>
+            <Label>{label}</Label>
             <br />
             {multi ? (
                 <TextArea

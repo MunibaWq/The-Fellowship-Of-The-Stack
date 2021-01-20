@@ -65,11 +65,11 @@ const ProductForm = (props) => {
                 Add
                 <Icon type="add" />
             </Button>
-            <h2 subHeading>Sizes</h2>
+            <h2>Sizes</h2>
             <Button>
                 Add <Icon type="add" />
             </Button>
-            <h2 subHeading>Images</h2>
+            <h2>Images</h2>
             <Button>
                 Add <Icon type="add" />
             </Button>
