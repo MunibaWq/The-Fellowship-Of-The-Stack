@@ -17,14 +17,19 @@ const EditProduct = () => {
             <InputTextArea name="pMaterials" label="Materials:" />
             <Title subHeading>Colours</Title>
             <Button>
-                Add <Icon type="left" />
+                Add
+                <Icon type="add" />
             </Button>
             <Title subHeading>Sizes</Title>
-            <Button>Add</Button>
+            <Button>
+                Add <Icon type="add" />
+            </Button>
             <Title subHeading>Images</Title>
-            <Button>Add</Button>
-            <Button cancel>Cancel</Button>
-            <Button submit>Submit</Button>
+            <Button>
+                Add <Icon type="add" />
+            </Button>
+            <Button>Cancel</Button>
+            <Button primary>Submit</Button>
         </div>
     );
 };
