@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import { useState } from "react";
+import colors from "./Colors";
+
 export const TextField = ({ multi, label, tests = [] }) => {
     const [showError, setShowError] = useState([]);
     return (
@@ -54,8 +56,8 @@ export const TextArea = styled.textarea`
     }
     &:focus {
         outline: none !important;
-        border: 3px solid #6495ed;
-        box-shadow: 0 0 10px #6495ed;
+        border: 3px solid ${colors.primary};
+        box-shadow: 0 0 10px ${colors.primary};
     }
 `;
 export const Label = styled.label``;
@@ -66,16 +68,15 @@ export const Error = styled.p`
 export const Input = styled.input`
     border-radius: 5px;
     border-style: none;
-    padding-left:10px;
+    padding-left: 10px;
     height: 35px;
-    margin:10px;
+    margin: 10px;
     background-color: rgba(80, 80, 80, 15%);
 
-    &:focus{
-            outline: none !important;
-            border:3px solid #6495ed;
-            box-shadow: 0 0 10px #6495ed;
-        }
+    &:focus {
+        outline: none !important;
+        border: 3px solid ${colors.primary};
+        box-shadow: 0 0 10px ${colors.primary};
     }
 `;
 
