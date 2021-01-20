@@ -54,7 +54,7 @@ export const TextArea = styled.textarea`
     }
     &:focus {
         outline: none !important;
-        border: 1px solid #6495ed;
+        border: 3px solid #6495ed;
         box-shadow: 0 0 10px #6495ed;
     }
 `;
@@ -71,7 +71,7 @@ export const Input = styled.input`
 
     &:focus{
             outline: none !important;
-            border:1px solid #6495ed;
+            border:3px solid #6495ed;
             box-shadow: 0 0 10px #6495ed;
         }
     }
