@@ -47,7 +47,7 @@ export const TextArea = styled.textarea`
     border-radius: 5px;
     border-style: none;
     height: 100px;
-
+    padding-left:10px;
     background-color: rgba(80, 80, 80, 15%);
     @media screen and (max-width: 450px) {
         width: 100%;
@@ -66,7 +66,9 @@ export const Error = styled.p`
 export const Input = styled.input`
     border-radius: 5px;
     border-style: none;
+    padding-left:10px;
     height: 35px;
+    margin:10px;
     background-color: rgba(80, 80, 80, 15%);
 
     &:focus{
@@ -81,8 +83,9 @@ export const ColorInput = styled.input.attrs((props) => ({
     type: "color",
 }))`
     border-radius: 100%;
-    height: 60px;
-    width: 60px;
+    height: 35px;
+    width: auto;
+    margin:10px;
     border: none;
     outline: none;
     -webkit-appearance: none;
