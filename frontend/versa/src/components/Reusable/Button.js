@@ -1,9 +1,11 @@
 import styled, { css } from "styled-components";
 import colors from "./Colors";
 
-// The button styling is the TERTIARY button style
-// To make it look like PRIMARY or SECONDARY style, add the primary or secondary as props eg:
-//<Button primary>Text<Icon right/></Button>
+// The style is TERTIARY. Add primary or secondary as props if you'd like those styles
+//eg <Button primary>Click me</Button>
+
+// The type is "button". If you need it to submit, add type="submit"
+//eg <Button type="submit">Submit Form</Button>
 
 const Button = styled.button.attrs((props) => ({
     type: props.type || "button",
