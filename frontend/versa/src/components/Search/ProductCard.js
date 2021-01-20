@@ -42,6 +42,9 @@ const ProductCard = ({ product }) => {
             </ImageCard> */}
             <Card title={product.title} price={product.price}>
                 <img
+                    style={{
+                        width: "100%",
+                    }}
                     onClick={() => {
                         productSelected(product.id);
                     }}

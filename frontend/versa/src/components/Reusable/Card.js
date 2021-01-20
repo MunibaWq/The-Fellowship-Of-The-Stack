@@ -7,12 +7,13 @@ const CardWrapper = styled.div`
     overflow: hidden;
     width: 500px;
     padding: 3rem 0 2rem;
-    border-radius: 20px 20px 0 0;
+  
     color: white; */
     margin-bottom: 10%;
     display: flex;
     flex-direction: column;
-    width: 100%;
+    border-radius: 20px 20px 0 0;
+    width: 50%;
     height: 95%;
     @media (max-width: 600px) {
         /* @media (max-width: 375px screen) { */
@@ -31,8 +32,10 @@ const CardWrapper = styled.div`
 `;
 
 const ImageCard = styled.div`
-    /* width: 100%;
-    height: 100px;
+width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* 
     background-color: chartreuse; */
 
     /* letter-spacing: -0.2px; */
@@ -53,7 +56,7 @@ const CardTextMain = styled.h6`
     line-height: 112%;
     /* or 13px */
     letter-spacing: 1.6px;
-    text-transform: uppercase;
+    /* text-transform: uppercase; */
     margin-bottom: 8px;
     @media (max-width: 990px) {
         font-family: "Inter", sans-serif;
@@ -94,10 +97,8 @@ const Card = ({ children, title, price }) => {
         <CardWrapper>
             <ImageCard>{children}</ImageCard>
 
-            <div>
-                <CardTextMain>{title}</CardTextMain>
-                <CardTextSub>{price}</CardTextSub>
-            </div>
+            <CardTextMain>{title}</CardTextMain>
+            <CardTextSub>${price}</CardTextSub>
         </CardWrapper>
     );
 };
@@ -111,7 +112,7 @@ export default Card;
     width: 100%;
     height: 95%;
 `; */
-const ProductInfo = styled.div`
+/* const ProductInfo = styled.div`
     height: 100%;
     background-color: white;
     border-style: solid;
@@ -134,4 +135,4 @@ const Image = styled.div`
             position: relative;
         }
     }
-`;
+`; */
