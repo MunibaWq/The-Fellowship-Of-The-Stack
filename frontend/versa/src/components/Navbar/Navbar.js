@@ -17,7 +17,7 @@ const Navbar = () => {
         <Nav colors={colors}>
             <NavLink color={colors.secondary} to="/">
                 {/* <Logo src={logo} alt="logo" /> */}
-                <VersaIcon
+                <VersaIcon width="70px" height="70px"
                     triangleFill={colors.logoTriangle}
                     circleFill={colors.logoCircle}
                     rectFill={colors.logoRect}
@@ -59,12 +59,12 @@ const Navbar = () => {
 
 export default Navbar;
 
-const Logo = styled.img`
-    padding: 0;
-    margin: 0;
-    height: 50px;
-    width: 50px;
-`;
+// const Logo = styled.img`
+//     padding: 0;
+//     margin: 0;
+//     height: 50px;
+//     width: 50px;
+// `;
 
 export const Nav = styled.nav`
     background: ${(props) => props.colors.primary};
