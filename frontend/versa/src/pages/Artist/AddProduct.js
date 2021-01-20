@@ -35,7 +35,6 @@ const AddProduct = () => {
     const [inputMaterials, setInputMaterials] = useState(
         setDefault("productMaterials")
     );
-    const [checkDelete, setCheckDelete] = useState(false);
 
     function clearField() {
         window.scrollTo({
@@ -137,11 +136,7 @@ const AddProduct = () => {
         let appendedSizes = sizes.concat([temp]);
         setSizes(appendedSizes);
     }
-    function deleteItem(index, arr) {
-        arr.splice(index, 1);
-        localStorage.setItem(`product${arr}`, JSON.stringify(arr));
-        setCheckDelete(!checkDelete);
-    }
+
     return (
         <FormContainer>
             <Title>Create a new product</Title>
@@ -541,27 +536,6 @@ const NewSizeContainer = styled.div`
     padding: 0px;
 `;
 
-const NewSize = styled.div`
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    padding: 5px 10px;
-    background: #c5c3ff;
-    margin: 8px;
-
-    p {
-        margin-right: 10px;
-        text-transform: uppercase;
-        font-weight: 700;
-        letter-spacing: 0.05em;
-    }
-`;
-
-const NewSizePrice = styled.p`
-    margin-right: 10px;
-`;
-
 const ChooseImage = styled.div`
     display: flex;
     flex-direction: column;
@@ -581,12 +555,6 @@ const ImageCard = styled.div`
     align-items: center;
     background: #c5c3ff;
     margin: 10px 0px;
-`;
-
-const UploadedImage = styled.img`
-    width: 200px;
-    /* height: 250px; */
-    height: 200px;
 `;
 
 const ImgFileName = styled.p`
