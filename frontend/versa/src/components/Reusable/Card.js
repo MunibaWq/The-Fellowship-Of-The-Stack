@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import Button from "./Button";
-// import { H1, H2, H3, H4, H5, H6 } from "./Text";
+// import { H1, H2, H3, H4, H5, H6 } from "./Text";  You can just use h1-6 directly eg <h1></h1> Ive edited the css - nic
 
 const CardWrapper = styled.div`
     /* position: relative;

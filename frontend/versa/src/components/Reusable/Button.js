@@ -14,9 +14,10 @@ const Button = styled.button`
     border: none;
     background-color: ${colors.secondary};
     border-bottom: 3px solid ${colors.secondary};
-    padding: 10px 20px;
+    padding: 5px 10px;
     font-weight: 700;
     letter-spacing: 5%;
+    margin: 5px;
     transition: 0.3s ease;
     cursor: pointer;
     max-width:fit-content;
@@ -83,6 +84,7 @@ const Button = styled.button`
         css`
             background: ${colors.primary};
             border: 6px solid ${colors.primary};
+            padding: 10px 20px;
             border-radius: 50px;
             color:${colors.secondary};
             svg {

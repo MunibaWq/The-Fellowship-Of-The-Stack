@@ -52,6 +52,11 @@ export const TextArea = styled.textarea`
     @media screen and (max-width: 450px) {
         width: 100%;
     }
+    &:focus {
+        outline: none !important;
+        border: 1px solid #6495ed;
+        box-shadow: 0 0 10px #6495ed;
+    }
 `;
 export const Label = styled.label``;
 export const Error = styled.p`
@@ -65,6 +70,13 @@ export const Input = styled.input`
     height: 35px;
     margin:10px;
     background-color: rgba(80, 80, 80, 15%);
+
+    &:focus{
+            outline: none !important;
+            border:1px solid #6495ed;
+            box-shadow: 0 0 10px #6495ed;
+        }
+    }
 `;
 
 export const ColorInput = styled.input.attrs((props) => ({
