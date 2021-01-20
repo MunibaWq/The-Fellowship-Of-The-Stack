@@ -1,6 +1,6 @@
 import React from "react";
 
-const Icons = (props) => {
+const Icon = (props) => {
     switch (props.type) {
         case "tool":
             return (
@@ -69,7 +69,7 @@ const Icons = (props) => {
                         fillRule="evenodd"
                         clipRule="evenodd"
                         d="M12 21.35L10.55 20.03C5.4 15.36 2 12.28 2 8.5C2 5.42 4.42 3 7.5 3C9.24 3 10.91 3.81 12 5.09C13.09 3.81 14.76 3 16.5 3C19.58 3 22 5.42 22 8.5C22 12.28 18.6 15.36 13.45 20.04L12 21.35Z"
-                        fill="#444"
+                        fill="#FF3535"
                         fillOpacity="0.87"
                     />
                 </svg>
@@ -88,7 +88,7 @@ const Icons = (props) => {
                         fillRule="evenodd"
                         clipRule="evenodd"
                         d="M19.1235 12.936C19.1595 12.636 19.1835 12.324 19.1835 12C19.1835 11.676 19.1595 11.364 19.1115 11.064L21.1395 9.47999C21.3195 9.33599 21.3675 9.07199 21.2595 8.86799L19.3395 5.54399C19.2195 5.32799 18.9675 5.25599 18.7515 5.32799L16.3635 6.28799C15.8595 5.90399 15.3315 5.59199 14.7435 5.35199L14.3835 2.80799C14.3475 2.56799 14.1435 2.39999 13.9035 2.39999H10.0635C9.82351 2.39999 9.63151 2.56799 9.59551 2.80799L9.23551 5.35199C8.64751 5.59199 8.10751 5.91599 7.61551 6.28799L5.2275 5.32799C5.0115 5.24399 4.75951 5.32799 4.63951 5.54399L2.71951 8.86799C2.59951 9.08399 2.64751 9.33599 2.83951 9.47999L4.86751 11.064C4.81951 11.364 4.7835 11.688 4.7835 12C4.7835 12.312 4.8075 12.636 4.8555 12.936L2.82751 14.52C2.64751 14.664 2.59951 14.928 2.70751 15.132L4.62751 18.456C4.74751 18.672 4.99951 18.744 5.21551 18.672L7.60351 17.712C8.10751 18.096 8.63551 18.408 9.22351 18.648L9.58351 21.192C9.63151 21.432 9.82351 21.6 10.0635 21.6H13.9035C14.1435 21.6 14.3475 21.432 14.3715 21.192L14.7315 18.648C15.3195 18.408 15.8595 18.084 16.3515 17.712L18.7395 18.672C18.9555 18.756 19.2075 18.672 19.3275 18.456L21.2475 15.132C21.3675 14.916 21.3195 14.664 21.1275 14.52L19.1235 12.936V12.936ZM11.9835 15.6C10.0035 15.6 8.3835 13.98 8.3835 12C8.3835 10.02 10.0035 8.39999 11.9835 8.39999C13.9635 8.39999 15.5835 10.02 15.5835 12C15.5835 13.98 13.9635 15.6 11.9835 15.6Z"
-                        fill="black"
+                        fill="#444444"
                         fillOpacity="0.87"
                     />
                 </svg>
@@ -106,7 +106,7 @@ const Icons = (props) => {
                         fillRule="evenodd"
                         clipRule="evenodd"
                         d="M12 5C7 5 2.73 8.11 1 12.5C2.73 16.89 7 20 12 20C17 20 21.27 16.89 23 12.5C21.27 8.11 17 5 12 5ZM12 17.5C9.24 17.5 7 15.26 7 12.5C7 9.74 9.24 7.5 12 7.5C14.76 7.5 17 9.74 17 12.5C17 15.26 14.76 17.5 12 17.5ZM12 9.5C10.34 9.5 9 10.84 9 12.5C9 14.16 10.34 15.5 12 15.5C13.66 15.5 15 14.16 15 12.5C15 10.84 13.66 9.5 12 9.5Z"
-                        fill="#444"
+                        fill="#444444"
                         fillOpacity="0.87"
                     />
                 </svg>
@@ -124,7 +124,7 @@ const Icons = (props) => {
                         fillRule="evenodd"
                         clipRule="evenodd"
                         d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM10 17L5 12L6.41 10.59L10 14.17L17.59 6.58L19 8L10 17Z"
-                        fill="black"
+                        fill="#00FF75"
                         fillOpacity="0.87"
                     />
                 </svg>
@@ -142,7 +142,7 @@ const Icons = (props) => {
                         fillRule="evenodd"
                         clipRule="evenodd"
                         d="M16.59 7.58L10 14.17L6.41 10.59L5 12L10 17L18 9L16.59 7.58ZM12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 20C7.58 20 4 16.42 4 12C4 7.58 7.58 4 12 4C16.42 4 20 7.58 20 12C20 16.42 16.42 20 12 20Z"
-                        fill="black"
+                        fill="#00FF75"
                         fillOpacity="0.87"
                     />
                 </svg>
@@ -160,7 +160,7 @@ const Icons = (props) => {
                         fillRule="evenodd"
                         clipRule="evenodd"
                         d="M9.00039 16.2L4.80039 12L3.40039 13.4L9.00039 19L21.0004 7.00001L19.6004 5.60001L9.00039 16.2Z"
-                        fill="black"
+                        fill="#00FF75"
                         fillOpacity="0.87"
                     />
                 </svg>
@@ -197,7 +197,7 @@ const Icons = (props) => {
                         fillRule="evenodd"
                         clipRule="evenodd"
                         d="M17 3H7C5.9 3 5 3.9 5 5V21L12 18L19 21V5C19 3.9 18.1 3 17 3Z"
-                        fill="black"
+                        fill="#444444"
                         fillOpacity="0.87"
                     />
                 </svg>
@@ -216,7 +216,7 @@ const Icons = (props) => {
                         fillRule="evenodd"
                         clipRule="evenodd"
                         d="M17 3H7C5.9 3 5 3.9 5 5V21L12 18L19 21V5C19 3.9 18.1 3 17 3ZM17 18L12 15.82L7 18V5H17V18Z"
-                        fill="black"
+                        fill="#444444"
                         fillOpacity="0.87"
                     />
                 </svg>
@@ -235,7 +235,7 @@ const Icons = (props) => {
                         fillRule="evenodd"
                         clipRule="evenodd"
                         d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM13 17H11V15H13V17ZM13 13H11V7H13V13Z"
-                        fill="black"
+                        fill="#FF3535"
                         fillOpacity="0.87"
                     />
                 </svg>
@@ -254,7 +254,7 @@ const Icons = (props) => {
                         fillRule="evenodd"
                         clipRule="evenodd"
                         d="M11 15H13V17H11V15ZM11 7H13V13H11V7ZM11.99 2C6.47 2 2 6.48 2 12C2 17.52 6.47 22 11.99 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 11.99 2ZM12 20C7.58 20 4 16.42 4 12C4 7.58 7.58 4 12 4C16.42 4 20 7.58 20 12C20 16.42 16.42 20 12 20Z"
-                        fill="black"
+                        fill="#FF3535"
                         fillOpacity="0.87"
                     />
                 </svg>
@@ -266,14 +266,14 @@ const Icons = (props) => {
                     width="24"
                     height="24"
                     viewBox="0 0 24 24"
-                    fill="none"
+                    fill="#444444"
                     xmlns="http://www.w3.org/2000/svg"
                 >
                     <path
                         fill-rule="evenodd"
                         clipRule="evenodd"
                         d="M12 23C13.1 23 13.99 22.11 13.99 21.01H10.01C10.01 22.11 10.9 23 12 23ZM19 17V11C19 7.65 16.64 4.85 13.5 4.17V3C13.5 2.17 12.83 1.5 12 1.5C11.17 1.5 10.5 2.17 10.5 3V4.17C7.36 4.85 5 7.65 5 11V17L3 19V20H21V19L19 17ZM13 16H11V14H13V16ZM13 12H11V8H13V12Z"
-                        fill="#444444"
+                        fill="#FFD704"
                         fillOpacity="0.87"
                     />
                 </svg>
@@ -365,7 +365,7 @@ const Icons = (props) => {
                         fillRule="evenodd"
                         clipRule="evenodd"
                         d="M10 18H14V16H10V18ZM3 6V8H21V6H3ZM6 13H18V11H6V13Z"
-                        fill="black"
+                        fill="#444444"
                         fillOpacity="0.87"
                     />
                 </svg>
@@ -422,7 +422,7 @@ const Icons = (props) => {
                         fillRule="evenodd"
                         clipRule="evenodd"
                         d="M3 18H21V16H3V18ZM3 13H21V11H3V13ZM3 6V8H21V6H3Z"
-                        fill="black"
+                        fill="#444444"
                         fillOpacity="0.87"
                     />
                 </svg>
@@ -460,7 +460,7 @@ const Icons = (props) => {
                         fillRule="evenodd"
                         clipRule="evenodd"
                         d="M12 8C13.1 8 14 7.1 14 6C14 4.9 13.1 4 12 4C10.9 4 10 4.9 10 6C10 7.1 10.9 8 12 8ZM12 10C10.9 10 10 10.9 10 12C10 13.1 10.9 14 12 14C13.1 14 14 13.1 14 12C14 10.9 13.1 10 12 10ZM12 16C10.9 16 10 16.9 10 18C10 19.1 10.9 20 12 20C13.1 20 14 19.1 14 18C14 16.9 13.1 16 12 16Z"
-                        fill="#4444"
+                        fill="#444444"
                         fillOpacity="0.87"
                     />
                 </svg>
@@ -540,9 +540,434 @@ const Icons = (props) => {
                     />
                 </svg>
             );
+        case "close":
+            return (
+                <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <path
+                        fillRule="evenodd"
+                        clipRule="evenodd"
+                        d="M12 2C6.47 2 2 6.47 2 12C2 17.53 6.47 22 12 22C17.53 22 22 17.53 22 12C22 6.47 17.53 2 12 2ZM17 15.59L15.59 17L12 13.41L8.41 17L7 15.59L10.59 12L7 8.41L8.41 7L12 10.59L15.59 7L17 8.41L13.41 12L17 15.59Z"
+                        fill="#444444"
+                        fillOpacity="0.87"
+                    />
+                </svg>
+            );
+
+        case "apps":
+            return (
+                <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <path
+                        fillRule="evenodd"
+                        clipRule="evenodd"
+                        d="M4 8H8V4H4V8ZM10 20H14V16H10V20ZM4 20H8V16H4V20ZM4 14H8V10H4V14ZM10 14H14V10H10V14ZM16 4V8H20V4H16ZM10 8H14V4H10V8ZM16 14H20V10H16V14ZM16 20H20V16H16V20Z"
+                        fill="#444444"
+                        fillOpacity="0.87"
+                    />
+                </svg>
+            );
+        case "fullscreen":
+            return (
+                <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <path
+                        fillRule="evenodd"
+                        clipRule="evenodd"
+                        d="M7 14H5V19H10V17H7V14ZM5 10H7V7H10V5H5V10ZM17 17H14V19H19V14H17V17ZM14 5V7H17V10H19V5H14Z"
+                        fill="#444444"
+                        fillOpacity="0.87"
+                    />
+                </svg>
+            );
+        case "exitFullscreen":
+            return (
+                <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <path
+                        fillRule="evenodd"
+                        clipRule="evenodd"
+                        d="M5 16H8V19H10V14H5V16ZM8 8H5V10H10V5H8V8ZM14 19H16V16H19V14H14V19ZM16 8V5H14V10H19V8H16Z"
+                        fill="#444444"
+                        fillOpacity="0.87"
+                    />
+                    <mask
+                        id="mask0"
+                        maskType="alpha"
+                        maskUnits="userSpaceOnUse"
+                        x="5"
+                        y="5"
+                        width="14"
+                        height="14"
+                    >
+                        <path
+                            fillRule="evenodd"
+                            clipRule="evenodd"
+                            d="M5 16H8V19H10V14H5V16ZM8 8H5V10H10V5H8V8ZM14 19H16V16H19V14H14V19ZM16 8V5H14V10H19V8H16Z"
+                            fill="white"
+                        />
+                    </mask>
+                    <g mask="url(#mask0)"></g>
+                </svg>
+            );
+        case "left":
+            return (
+                <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <path
+                        fillRule="evenodd"
+                        clipRule="evenodd"
+                        d="M15.41 7.41L14 6L8 12L14 18L15.41 16.59L10.83 12L15.41 7.41Z"
+                        fill="#444444"
+                        fillOpacity="0.87"
+                    />
+                </svg>
+            );
+        case "right":
+            return (
+                <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <path
+                        fillRule="evenodd"
+                        clipRule="evenodd"
+                        d="M9.99984 6L8.58984 7.41L13.1698 12L8.58984 16.59L9.99984 18L15.9998 12L9.99984 6Z"
+                        fill="#6495ed"
+                        fillOpacity="0.87"
+                    />
+                </svg>
+            );
+        case "up":
+            return (
+                <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <path
+                        fillRule="evenodd"
+                        clipRule="evenodd"
+                        d="M12 8L6 14L7.41 15.41L12 10.83L16.59 15.41L18 14L12 8Z"
+                        fill="#444444"
+                        fillOpacity="0.87"
+                    />
+                </svg>
+            );
+
+        case "down":
+            return (
+                <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <path
+                        fillRule="evenodd"
+                        clipRule="evenodd"
+                        d="M16.59 8.59L12 13.17L7.41 8.59L6 10L12 16L18 10L16.59 8.59Z"
+                        fill="#444444"
+                        fillOpacity="0.87"
+                    />
+                </svg>
+            );
+        case "lineClose":
+            return (
+                <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <path
+                        fillRule="evenodd"
+                        clipRule="evenodd"
+                        d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z"
+                        fill="#444444"
+                        fillOpacity="0.87"
+                    />
+                </svg>
+            );
+
+        case "filledDropdown":
+            return (
+                <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <path
+                        fillRule="evenodd"
+                        clipRule="evenodd"
+                        d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 15L8 11H16L12 15Z"
+                        fill="#444444"
+                        fillOpacity="0.87"
+                    />
+                </svg>
+            );
+
+        case "filledNotify":
+            return (
+                <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <path
+                        fillRule="evenodd"
+                        clipRule="evenodd"
+                        d="M12 22C13.1 22 14 21.1 14 20H10C10 21.1 10.89 22 12 22ZM18 16V11C18 7.93 16.36 5.36 13.5 4.68V4C13.5 3.17 12.83 2.5 12 2.5C11.17 2.5 10.5 3.17 10.5 4V4.68C7.63 5.36 6 7.92 6 11V16L4 18V19H20V18L18 16Z"
+                        fill="#444444"
+                        fillOpacity="0.87"
+                    />
+                </svg>
+            );
+        case "lineNotify":
+            return (
+                <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <path
+                        fillRule="evenodd"
+                        clipRule="evenodd"
+                        d="M12 22C13.1 22 14 21.1 14 20H10C10 21.1 10.9 22 12 22ZM18 16V11C18 7.93 16.37 5.36 13.5 4.68V4C13.5 3.17 12.83 2.5 12 2.5C11.17 2.5 10.5 3.17 10.5 4V4.68C7.64 5.36 6 7.92 6 11V16L4 18V19H20V18L18 16ZM16 17H8V11C8 8.52 9.51 6.5 12 6.5C14.49 6.5 16 8.52 16 11V17Z"
+                        fill="#444444"
+                        fillOpacity="0.87"
+                    />
+                </svg>
+            );
+        case "share":
+            return (
+                <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <path
+                        fillRule="evenodd"
+                        clipRule="evenodd"
+                        d="M18 16.08C17.24 16.08 16.56 16.38 16.04 16.85L8.91 12.7C8.96 12.47 9 12.24 9 12C9 11.76 8.96 11.53 8.91 11.3L15.96 7.19C16.5 7.69 17.21 8 18 8C19.66 8 21 6.66 21 5C21 3.34 19.66 2 18 2C16.34 2 15 3.34 15 5C15 5.24 15.04 5.47 15.09 5.7L8.04 9.81C7.5 9.31 6.79 9 6 9C4.34 9 3 10.34 3 12C3 13.66 4.34 15 6 15C6.79 15 7.5 14.69 8.04 14.19L15.16 18.35C15.11 18.56 15.08 18.78 15.08 19C15.08 20.61 16.39 21.92 18 21.92C19.61 21.92 20.92 20.61 20.92 19C20.92 17.39 19.61 16.08 18 16.08Z"
+                        fill="#444444"
+                        fillOpacity="0.87"
+                    />
+                </svg>
+            );
+
+        case "checkedBox":
+            return (
+                <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <path
+                        fillRule="evenodd"
+                        clipRule="evenodd"
+                        d="M19 3H5C3.89 3 3 3.9 3 5V19C3 20.1 3.89 21 5 21H19C20.11 21 21 20.1 21 19V5C21 3.9 20.11 3 19 3ZM10 17L5 12L6.41 10.59L10 14.17L17.59 6.58L19 8L10 17Z"
+                        fill="#444444"
+                        fillOpacity="0.87"
+                    />
+                </svg>
+            );
+        case "remove":
+            return (
+                <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <path
+                        fillRule="evenodd"
+                        clipRule="evenodd"
+                        d="M19 3H5C3.9 3 3 3.9 3 5V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.9 20.1 3 19 3ZM17 13H7V11H17V13Z"
+                        fill="#444444"
+                        fillOpacity="0.87"
+                    />
+                </svg>
+            );
+        case "filledRadio":
+            return (
+                <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <path
+                        fill-rule="evenodd"
+                        clipRule="evenodd"
+                        d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 20C7.58 20 4 16.42 4 12C4 7.58 7.58 4 12 4C16.42 4 20 7.58 20 12C20 16.42 16.42 20 12 20ZM12 17C14.7614 17 17 14.7614 17 12C17 9.23858 14.7614 7 12 7C9.23858 7 7 9.23858 7 12C7 14.7614 9.23858 17 12 17Z"
+                        fill="#444444"
+                        fillOpacity="0.87"
+                    />
+                </svg>
+            );
+
+        case "radio":
+            return (
+                <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <path
+                        fillRule="evenodd"
+                        clipRule="evenodd"
+                        d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 20C7.58 20 4 16.42 4 12C4 7.58 7.58 4 12 4C16.42 4 20 7.58 20 12C20 16.42 16.42 20 12 20Z"
+                        fill="#444444"
+                        fillOpacity="0.87"
+                    />
+                </svg>
+            );
+
+        case "filledStar":
+            return (
+                <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <path
+                        fillRule="evenodd"
+                        clipRule="evenodd"
+                        d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z"
+                        fill="#FFD704"
+                        fillOpacity="0.87"
+                    />
+                </svg>
+            );
+
+        case "star":
+            return (
+                <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <path
+                        fillRule="evenodd"
+                        clipRule="evenodd"
+                        d="M22 9.24L14.81 8.62L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27L18.18 21L16.55 13.97L22 9.24ZM12 15.4L8.24 17.67L9.24 13.39L5.92 10.51L10.3 10.13L12 6.1L13.71 10.14L18.09 10.52L14.77 13.4L15.77 17.68L12 15.4Z"
+                        fill="#444444"
+                        fillOpacity="0.87"
+                    />
+                </svg>
+            );
+        case "halfStar":
+            return (
+                <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <path
+                        fillRule="evenodd"
+                        clipRule="evenodd"
+                        d="M22 9.24L14.81 8.62L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27L18.18 21L16.55 13.97L22 9.24ZM12 15.4V6.1L13.71 10.14L18.09 10.52L14.77 13.4L15.77 17.68L12 15.4Z"
+                        fill="#FFD704"
+                        fillOpacity="0.87"
+                    />
+                </svg>
+            );
+
+        case "cart":
+            return (
+                <svg
+                    width="32"
+                    height="32"
+                    viewBox="0 0 32 32"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <path
+                        d="M22 21.25H10.4214C10.2457 21.25 10.0757 21.1884 9.94082 21.0758C9.80597 20.9633 9.7149 20.807 9.68348 20.6342L7.18015 6.86584C7.14873 6.69303 7.05766 6.53673 6.92281 6.42419C6.78796 6.31164 6.61789 6.25 6.44225 6.25H4.75"
+                        stroke="#444444"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                    />
+                    <path
+                        d="M10.75 25C11.7855 25 12.625 24.1605 12.625 23.125C12.625 22.0895 11.7855 21.25 10.75 21.25C9.71447 21.25 8.875 22.0895 8.875 23.125C8.875 24.1605 9.71447 25 10.75 25Z"
+                        stroke="#444444"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                    />
+                    <path
+                        d="M22 25C23.0355 25 23.875 24.1605 23.875 23.125C23.875 22.0895 23.0355 21.25 22 21.25C20.9645 21.25 20.125 22.0895 20.125 23.125C20.125 24.1605 20.9645 25 22 25Z"
+                        stroke="#444444"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                    />
+                    <path
+                        d="M7.75 10H24.1013C24.2112 10 24.3197 10.0241 24.4192 10.0707C24.5187 10.1172 24.6068 10.1851 24.6772 10.2694C24.7475 10.3538 24.7986 10.4526 24.8266 10.5588C24.8546 10.665 24.8589 10.7761 24.8392 10.8842L23.612 17.6342C23.5806 17.807 23.4895 17.9633 23.3546 18.0758C23.2198 18.1884 23.0497 18.25 22.8741 18.25H9.25"
+                        stroke="#444444"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                    />
+                </svg>
+            );
         default:
             return <></>;
     }
 };
 
-export default Icons;
+export default Icon;

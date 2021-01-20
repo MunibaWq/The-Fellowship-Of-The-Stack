@@ -3,24 +3,23 @@ import Categories from "../../../components/Search/Categories";
 import Sort from "../../../components/Search/Sort";
 import Filters from "../../../components/Search/Filters";
 import ProductCard from "../../../components/Search/ProductCard.js";
-import { searchProducts, getAllProducts } from '../../../axios/gets'
+import { searchProducts, getAllProducts } from "../../../axios/gets";
 import styled from "styled-components";
 import { Magnifying } from "../../../images/icons";
-
 
 const SearchResults = () => {
     const [products, setProducts] = useState([]);
     const [query, setQuery] = useState();
     useEffect(() => {
         const getProducts = async () => {
-            const data = await getAllProducts()
-            
+            const data = await getAllProducts();
+
             setProducts(data);
         };
         getProducts();
     }, []);
     const search = async () => {
-        let data = await searchProducts(query)
+        let data = await searchProducts(query);
         setProducts(data);
     };
 
@@ -58,11 +57,7 @@ const SearchResults = () => {
                 {products.length === 0 ? (
                     <NoResultsMessage>Sorry, no results found</NoResultsMessage>
                 ) : (
-                    products.map((product) => (
-                        <ProductCard
-                            product={product}
-                        />
-                    ))
+                    products.map((product) => <ProductCard product={product} />)
                 )}
             </Products>
         </SearchPage>
@@ -98,7 +93,13 @@ const SearchPage = styled.div`
 const Products = styled.div`
     margin-top: 20px;
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-gap: 0 6%;
+    grid-template-columns: repeat(4, 1fr);
+    /* grid-gap: 0 6%; */
+    @media (max-width: 600px) {
+        margin-top: 20px;
+        display: grid;
+        grid-template-columns: repeat(4, 4fr);
+        grid-gap: 0 6%;
+    }
 `;
 export default SearchResults;
