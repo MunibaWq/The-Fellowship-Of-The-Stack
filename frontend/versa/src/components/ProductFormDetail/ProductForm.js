@@ -1,12 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 import { TextField } from "../Reusable/Input";
-import { Title } from "../Reusable/Title";
+import Button from "../Reusable/Button";
+import Icon from "../Reusable/Icons";
 
 const ProductForm = (props) => {
     return (
         <Form>
-            <Title>Product Details</Title>
+            <h2>Product Details</h2>
             <TextField
                 multi={false}
                 tests={[
@@ -59,6 +60,26 @@ const ProductForm = (props) => {
                 ]}
                 label="Materials"
             ></TextField>
+            <h2>Colours</h2>
+            <Button>
+                Add
+                <Icon type="add" />
+            </Button>
+            <h2 subHeading>Sizes</h2>
+            <Button>
+                Add <Icon type="add" />
+            </Button>
+            <h2 subHeading>Images</h2>
+            <Button>
+                Add <Icon type="add" />
+            </Button>
+            <Container>
+                <Button>
+                    Cancel
+                    <Icon type="lineClose" />
+                </Button>
+                <Button primary>Submit</Button>
+            </Container>
         </Form>
     );
 };
@@ -66,3 +87,6 @@ const ProductForm = (props) => {
 export default ProductForm;
 
 const Form = styled.form``;
+const Container = styled.div`
+    display: flex;
+`;

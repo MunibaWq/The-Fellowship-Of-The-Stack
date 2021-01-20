@@ -22,9 +22,131 @@
     color: #444444;
 }
 
+h1 {
+    font-family: "Inter", sans-serif;
+    font-weight: 800;
+    font-size: 28.83px;
+    line-height: 112%;
+    /* or 32px */
+    margin-bottom: 16px;
+    letter-spacing: -0.2px;
+    /* identical to box height */
+    letter-spacing: -1.5px;
+}
+
+h2 {
+    font-family: "Inter", sans-serif;
+    font-weight: 500;
+    font-size: 22.78px;
+    line-height: 112%;
+    /* or 26px */
+    margin-bottom: 16px;
+}
+
+h3 {
+    font-family: "Inter", sans-serif;
+    font-weight: 500;
+    font-size: 20.25px;
+    line-height: 112%;
+    /* or 23px */
+}
+h4 {
+    font-family: "Inter", sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 112%;
+    /* or 20px */
+}
+h5 {
+    font-family: "Inter", sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 112%;
+    /* or 18px */
+}
+h6 {
+    font-family: "Inter", sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 112%;
+    /* or 13px */
+    letter-spacing: 1.6px;
+    text-transform: uppercase;
+}
+
+p {
+    font-family: "Inter", sans-serif;
+    font-size: 16px;
+    margin-bottom: 16px;
+    max-width: 75ch;
+}
+
 body {
     font-family: "Inter", sans-serif;
-    margin: 0;
+    font-size: 16px;
+    margin-bottom: 16px;
+}
+
+label {
+    font-family: "Inter", sans-serif;
+    margin-bottom: 8px;
+}
+
+caption {
+    font-family: "Inter", sans-serif;
+    margin-bottom: 8px;
+}
+
+@media (max-width: 990px) {
+    h1 {
+        font-size: 23.51px;
+        line-height: 106%;
+        /* or 25px */
+        margin-bottom: 20px;
+        letter-spacing: -0.2px;
+    }
+    h2 {
+        font-size: 20.65px;
+        line-height: 106%;
+        /* or 22px */
+        margin-bottom: 14px;
+    }
+    h3 {
+        font-size: 19.35px;
+        line-height: 106%;
+        /* or 21px */
+    }
+    h4 {
+        font-size: 18.14px;
+        line-height: 106%;
+        /* or 19px */
+    }
+    h5 {
+        font-size: 17px;
+        line-height: 106%;
+        /* or 18px */
+    }
+    h6 {
+        font-size: 14.93px;
+        line-height: 106%;
+        /* or 16px */
+        letter-spacing: 1.8px;
+    }
+    body {
+        font-size: 17px;
+        margin-bottom: 20px;
+    }
+
+    label {
+        margin-bottom: 20px;
+    }
+
+    caption {
+        margin-bottom: 14px;
+    }
 }
 
 code {

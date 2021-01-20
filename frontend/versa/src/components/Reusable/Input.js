@@ -1,14 +1,17 @@
 import styled from "styled-components";
+import { H6 } from "./Text";
 import { useState } from "react";
-export const TextField = ({ multi, label, tests=[] }) => {
+export const TextField = ({ multi, label, tests = [] }) => {
     const [showError, setShowError] = useState([]);
     return (
         <>
-            <Label>{label}</Label>
+            <Label>
+                <H6>{label}</H6>
+            </Label>
             <br />
             {multi ? (
                 <TextArea
-                     onChange={(e) => {
+                    onChange={(e) => {
                         let error = "";
                         for (let test of tests) {
                             console.log(test);
@@ -19,7 +22,7 @@ export const TextField = ({ multi, label, tests=[] }) => {
                         if (error) {
                             setShowError(error);
                         } else {
-                            setShowError(false)
+                            setShowError(false);
                         }
                     }}
                 ></TextArea>
@@ -47,6 +50,7 @@ export const TextArea = styled.textarea`
     border-radius: 5px;
     border-style: none;
     height: 100px;
+    margin-bottom: 30px;
 
     background-color: rgba(80, 80, 80, 15%);
     @media screen and (max-width: 450px) {
@@ -62,6 +66,7 @@ export const Input = styled.input`
     border-radius: 5px;
     border-style: none;
     height: 35px;
+    margin-bottom: 30px;
 
     background-color: rgba(80, 80, 80, 15%);
 `;
