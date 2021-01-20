@@ -50,7 +50,7 @@ const ImageCard = styled.div`
 const ProductInfo = styled.div`
     height: 100%;
     background-color: white;
-    border-style: solid;
+    /* border-style: solid; */
     border-top: none;
     display: flex;
     flex-direction: column;
@@ -64,7 +64,7 @@ const ProductInfo = styled.div`
 `;
 const Image = styled.div`
     @media (max-width: 414px) {
-        border-style: solid;
+        /* border-style: solid; */
         img {
             width: 100%;
             position: relative;

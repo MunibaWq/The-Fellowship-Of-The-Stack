@@ -355,8 +355,8 @@ const AddProduct = () => {
                     </Error>
                 </section>
                 <NewSizeContainer>
-                    {sizes.length > 0
-                        ? sizes.map((size, index) => {
+                    {sizes.length > 0 &&
+                         sizes.map((size, index) => {
                               return (
                                   <NewSize>
                                       <p>{size.label}</p>
@@ -377,7 +377,7 @@ const AddProduct = () => {
                                   </NewSize>
                               );
                           })
-                        : ""}
+                        }
                 </NewSizeContainer>
 
                 <FormButton type="button" onClick={setSizeLabelAndPrice}>

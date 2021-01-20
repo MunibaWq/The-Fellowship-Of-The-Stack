@@ -11,7 +11,7 @@ export const Modal = styled.div`
     height: 40vh;
     z-index: 3;
     background-color: white;
-    box-shadow: 0 11px 15px rgba(0,0,0,35%);
+    box-shadow: 5px 5px 20px 5px rgba(0,0,0,35%);
     border-radius: 20px;
     padding: 50px;
 `;
