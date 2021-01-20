@@ -4,17 +4,14 @@ import InputText from "../../components/ProductFormDetail/InputText";
 import InputTextArea from "../../components/ProductFormDetail/InputTextArea";
 import Button from "../../components/Reusable/Button";
 import Icon from "../../components/Reusable/Icons";
+import { TextField } from "../../components/Reusable/Input";
+import ProductForm from "../../components/ProductFormDetail/ProductForm";
 
 const EditProduct = () => {
     return (
         <div>
             <Title>Edit Product</Title>
-            <Title subHeading>Product Details</Title>
-            <InputText name="pName" label="Name:" />
-            <InputText name="pPrice" type="number" label="Price: " />
-            <InputTextArea name="pDescription" label="Description:" />
-            <InputTextArea name="pFit" label="Size and fit:" />
-            <InputTextArea name="pMaterials" label="Materials:" />
+            <ProductForm />
             <Title subHeading>Colours</Title>
             <Button>
                 Add
