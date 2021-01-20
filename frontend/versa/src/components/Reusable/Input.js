@@ -5,7 +5,7 @@ import colors from "./Colors";
 export const TextField = ({ multi, label, tests = [] }) => {
     const [showError, setShowError] = useState([]);
     return (
-        <>
+        <div>
             <Label>{label}</Label>
             <br />
             {multi ? (
@@ -41,15 +41,15 @@ export const TextField = ({ multi, label, tests = [] }) => {
             )}
             <br />
             <Error>{showError}</Error>
-        </>
+        </div>
     );
 };
 export const TextArea = styled.textarea`
     resize: none;
+    box-sizing: border-box;
     border-radius: 5px;
     border-style: none;
     height: 100px;
-    padding-left: 10px;
     background-color: rgba(80, 80, 80, 15%);
     @media screen and (max-width: 450px) {
         width: 100%;
@@ -68,9 +68,8 @@ export const Error = styled.p`
 export const Input = styled.input`
     border-radius: 5px;
     border-style: none;
-    padding-left: 10px;
+    box-sizing: border-box;
     height: 35px;
-    margin: 10px;
     background-color: rgba(80, 80, 80, 15%);
 
     &:focus {
