@@ -18,14 +18,14 @@ const Navbar = () => {
             <NavLink color={colors.secondary} to="/">
                 {/* <Logo src={logo} alt="logo" /> */}
                 <VersaIcon
-                    triangleFill="lightgreen"
-                    circleFill="yellow"
-                    rectFill="orange"
-                    textFill="black"
+                    triangleFill={colors.logoTriangle}
+                    circleFill={colors.logoCircle}
+                    rectFill={colors.logoRect}
+                    textFill={colors.logoText}
                     triangleStroke="none"
                     circleStroke="none"
                     rectStroke="none"
-                    textStroke="black"
+                    textStroke={colors.logoText}
                 />
             </NavLink>
 
@@ -48,7 +48,7 @@ const Navbar = () => {
                 <NavLink color={colors.secondary} to="/wishlist">
                     <WishListIcon stroke={colors.secondary} />
                 </NavLink>
-                <NavLink color={colors.styled} to="/shopping-cart">
+                <NavLink color={colors.secondary} to="/shopping-cart">
                     <CartIcon stroke={colors.secondary} />
                 </NavLink>
                 {/* <NavLink colors={colors} to="/product-item">PRODUCT ITEM</NavLink> */}
