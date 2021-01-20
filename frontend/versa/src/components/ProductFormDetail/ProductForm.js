@@ -138,8 +138,8 @@ const ProductForm = (props) => {
                         error: "Required",
                     },
                     {
-                        test: (input) => input === 0,
-                        error: "Product price cannot be $0.",
+                        test: (input) => input &&+input <= 0,
+                        error: "Product must be greater than $0.",
                     },
                 ]}
                 label="Price"
