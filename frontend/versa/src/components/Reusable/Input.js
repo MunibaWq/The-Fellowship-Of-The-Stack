@@ -5,7 +5,7 @@ import colors from "./Colors";
 export const TextField = ({ multi, label, tests = [] }) => {
     const [showError, setShowError] = useState([]);
     return (
-        <div>
+        <FieldContainer>
             <Label>{label}</Label>
             <br />
             {multi ? (
@@ -35,13 +35,17 @@ export const TextField = ({ multi, label, tests = [] }) => {
                                 error = test.error;
                             }
                         }
-                        if (error) setShowError(error);
+                        if (error) {
+                            setShowError(error);
+                        } else {
+                            setShowError(false);
+                        }
                     }}
                 ></Input>
             )}
             <br />
             <Error>{showError}</Error>
-        </div>
+        </FieldContainer>
     );
 };
 export const TextArea = styled.textarea`
@@ -63,6 +67,7 @@ export const TextArea = styled.textarea`
 export const Label = styled.label``;
 export const Error = styled.p`
     color: red;
+    position: absolute;
 `;
 
 export const Input = styled.input`
@@ -70,6 +75,7 @@ export const Input = styled.input`
     border-style: none;
     box-sizing: border-box;
     height: 35px;
+    
     background-color: rgba(80, 80, 80, 15%);
 
     &:focus {
@@ -78,7 +84,7 @@ export const Input = styled.input`
         box-shadow: 0 0 10px ${colors.primary};
     }
 `;
-
+export const FieldContainer = styled.div`margin: 0 0 25px 0;`
 export const ColorInput = styled.input.attrs((props) => ({
     type: "color",
 }))`
