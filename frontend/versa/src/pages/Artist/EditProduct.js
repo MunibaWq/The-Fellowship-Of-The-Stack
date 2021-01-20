@@ -21,15 +21,15 @@ const EditProduct = () => {
                 <Icon type="add" />
             </Button>
             <Title subHeading>Sizes</Title>
-            <Button primary>
+            <Button>
                 Add <Icon type="add" />
             </Button>
             <Title subHeading>Images</Title>
-            <Button secondary>
+            <Button>
                 Add <Icon type="add" />
             </Button>
-            <Button cancel>Cancel</Button>
-            <Button submit>Submit</Button>
+            <Button>Cancel</Button>
+            <Button primary>Submit</Button>
         </div>
     );
 };

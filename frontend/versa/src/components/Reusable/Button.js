@@ -1,7 +1,8 @@
 import styled, { css } from "styled-components";
 
 // The button styling is the TERTIARY button style
-// To make it look like PRIMARY or SECONDARY style, add the primary or secondary as props eg <button primary>Text<Icon right/></button>
+// To make it look like PRIMARY or SECONDARY style, add the primary or secondary as props eg:
+//<Button primary>Text<Icon right/></Button>
 
 const Button = styled.button`
     display: flex;
@@ -15,7 +16,6 @@ const Button = styled.button`
     padding: 10px 20px;
     font-weight: 700;
     letter-spacing: 5%;
-    margin-right: 20px;
     transition: 0.3s ease;
     cursor: pointer;
 
@@ -33,10 +33,20 @@ const Button = styled.button`
     }
 
     &:hover {
-        color: #317AFC;
+        color: #005BFF;
         svg{
             path{
-                fill: #317AFC;
+                fill: #005BFF;
+            }
+        }
+    }
+
+    &:focus{
+        outline: none;
+        color: #005BFF;
+        svg{
+            path{
+                fill: #005BFF;
             }
         }
     }
@@ -49,13 +59,22 @@ const Button = styled.button`
             color: #6495ed;
             border-radius: 50px;
             &:hover {
-        color: #317AFC;
-        border: 6px solid #317AFC;
-        svg{
-            path{
-                fill: #317AFC;
+            color: #005BFF;
+            border: 6px solid #005BFF;
+            svg{
+                path{
+                    fill: #005BFF;
+                }
             }
-        }
+            &:focus{
+                outline: none;
+                color: #005BFF;
+            border: 6px solid #005BFF;
+            svg{
+                path{
+                    fill: #317AFC;
+                }
+            }
         `}
     ${(props) =>
         props.primary &&
@@ -70,8 +89,20 @@ const Button = styled.button`
                 }
             }
             &:hover {
-                background-color: #317afc;
-                border: 6px solid #317afc;
+                background-color: #005bff;
+                border: 6px solid #005bff;
+                color: white;
+                svg {
+                    path {
+                        fill: #ffffff;
+                    }
+                }
+            }
+
+            &:focus {
+                outline: none;
+                background-color: #005bff;
+                border: 6px solid #005bff;
                 color: white;
                 svg {
                     path {
