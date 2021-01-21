@@ -5,47 +5,49 @@ import colors from "./Colors";
 export const TextField = ({ multi, label, tests = [] }) => {
     const [showError, setShowError] = useState([]);
     return (
-        <FieldContainer>
-            <Label>{label}</Label>
-            <br />
-            {multi ? (
-                <TextArea
-                    onChange={(e) => {
-                        let error = "";
-                        for (let test of tests) {
-                            console.log(test);
-                            if (test.test(e.target.value)) {
-                                error = test.error;
+        <div>
+            <FieldContainer>
+                <Label>{label}</Label>
+                <br />
+                {multi ? (
+                    <TextArea
+                        onChange={(e) => {
+                            let error = "";
+                            for (let test of tests) {
+                                console.log(test);
+                                if (test.test(e.target.value)) {
+                                    error = test.error;
+                                }
                             }
-                        }
-                        if (error) {
-                            setShowError(error);
-                        } else {
-                            setShowError(false);
-                        }
-                    }}
-                ></TextArea>
-            ) : (
-                <Input
-                    onChange={(e) => {
-                        let error = "";
-                        for (let test of tests) {
-                            console.log(test);
-                            if (test.test(e.target.value)) {
-                                error = test.error;
+                            if (error) {
+                                setShowError(error);
+                            } else {
+                                setShowError(false);
                             }
-                        }
-                        if (error) {
-                            setShowError(error);
-                        } else {
-                            setShowError(false);
-                        }
-                    }}
-                ></Input>
-            )}
-            <br />
-            <Error>{showError}</Error>
-        </FieldContainer>
+                        }}
+                    ></TextArea>
+                ) : (
+                    <Input
+                        onChange={(e) => {
+                            let error = "";
+                            for (let test of tests) {
+                                console.log(test);
+                                if (test.test(e.target.value)) {
+                                    error = test.error;
+                                }
+                            }
+                            if (error) {
+                                setShowError(error);
+                            } else {
+                                setShowError(false);
+                            }
+                        }}
+                    ></Input>
+                )}
+                <br />
+                <Error>{showError}</Error>
+            </FieldContainer>
+        </div>
     );
 };
 export const TextArea = styled.textarea`
@@ -73,9 +75,9 @@ export const Error = styled.p`
 export const Input = styled.input`
     border-radius: 5px;
     border-style: none;
-    box-sizing: border-box;
+    margin: 10px;
     height: 35px;
-    
+
     background-color: rgba(80, 80, 80, 15%);
 
     &:focus {
@@ -84,7 +86,9 @@ export const Input = styled.input`
         box-shadow: 0 0 10px ${colors.primary};
     }
 `;
-export const FieldContainer = styled.div`margin: 0 0 25px 0;`
+export const FieldContainer = styled.div`
+    margin: 0 0 25px 0;
+`;
 export const ColorInput = styled.input.attrs((props) => ({
     type: "color",
 }))`

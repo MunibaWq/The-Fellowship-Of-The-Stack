@@ -1,10 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
+import Icons from "../Reusable/Icons";
 import { TextField } from "../Reusable/Input";
 import Button from "../Reusable/Button";
 import Icon from "../Reusable/Icons";
-import VariationsList from "./VariationsList";
+import { ColorInput, Input } from "../../components/Reusable/Input";
+import { Modal, ModalTitle } from "../../components/Reusable/Modal";
+
 const ProductForm = (props) => {
     const setDefault = (fieldName) => {
         if (localStorage.getItem(`${fieldName}`)) {
@@ -21,6 +24,7 @@ const ProductForm = (props) => {
         }
     };
 
+    const [colorModalVisible, setColorModalVisible] = useState(false);
     const { register, errors } = useForm();
     const [colors, setColors] = useState(setDefault2("productColors"));
     const [sizes, setSizes] = useState(setDefault2("productSizes"));
@@ -76,18 +80,18 @@ const ProductForm = (props) => {
     const sizeLabel = useRef();
     const sizePrice = useRef();
     const addColor = useRef();
+    console.log(colors);
+    function setColorLabelAndValue() {
+        let colorToAdd = document.querySelector("#colorToAdd").value;
+        let colorLabelToAdd = document.querySelector("#colorLabelToAdd").value;
+        console.log("colorLabelToAdd", colorLabelToAdd);
 
-    function setColorLabelAndValue(e) {
-        if (!colorPick.current.value) {
-            return;
-        }
-        if (colors.length < 3) {
+        if (colors.length < 6) {
             let temp = {
-                label: colorPick.current.value,
-                value: colorValue.current.value,
+                label: colorLabelToAdd,
+                value: colorToAdd,
             };
-            let appendedColors = colors.concat([temp]);
-            setColors(appendedColors);
+            setColors([...colors, temp]);
         }
     }
     function setSizeLabelAndPrice() {
@@ -98,6 +102,14 @@ const ProductForm = (props) => {
         let appendedSizes = sizes.concat([temp]);
         setSizes(appendedSizes);
     }
+    function deleteItem(index, arr) {
+        arr.splice(index, 1);
+        localStorage.setItem(`product${arr}`, JSON.stringify(arr));
+        setCheckDelete(!checkDelete);
+    }
+
+    const [checkDelete, setCheckDelete] = useState(false);
+
     function deleteItem(index, arr) {
         arr.splice(index, 1);
         localStorage.setItem(`product${arr}`, JSON.stringify(arr));
@@ -138,7 +150,7 @@ const ProductForm = (props) => {
                         error: "Required",
                     },
                     {
-                        test: (input) => input &&+input <= 0,
+                        test: (input) => input && +input <= 0,
                         error: "Product must be greater than $0.",
                     },
                 ]}
@@ -186,19 +198,66 @@ const ProductForm = (props) => {
                 }}
             ></TextField>
             <h2>Colours</h2>
-            <Button secondary>
+            {colorModalVisible && (
+                <Modal width="330px">
+                    <ModalTitle>Add A Color Option</ModalTitle>
+                    <label htmlFor="colorToAdd">Click To Choose Color</label>
+                    <ColorInput id="colorToAdd" />
+                    <label>Color Name</label>
+                    <Input label="Color Name" id="colorLabelToAdd" />
+                    <Button
+                        primary
+                        onClick={() => {
+                            setColorLabelAndValue();
+                            setColorModalVisible(false);
+                        }}
+                    >
+                        Add Option
+                    </Button>
+                </Modal>
+            )}
+            <Button
+                secondary
+                onClick={() => {
+                    setColorModalVisible(true);
+                }}
+            >
                 Add
                 <Icon type="add" />
             </Button>
-            <VariationsList variation="colour" colors images sizes />
+
             <h2>Sizes</h2>
             <Button secondary>
                 Add <Icon type="add" />
             </Button>
+            {sizes.length > 0 &&
+                sizes.map((size, index) => {
+                    return (
+                        <NewSize>
+                            <p>{size.label}</p>
+
+                            <NewSizePrice>$ {size.price}</NewSizePrice>
+                            <div onClick={() => deleteItem(index, sizes)}>
+                                <Icons lineClose />
+                            </div>
+                        </NewSize>
+                    );
+                })}
             <h2>Images</h2>
             <Button secondary>
                 Add <Icon type="add" />
             </Button>
+            {images.map((image, index) => {
+                return (
+                    <>
+                        <UploadedImage
+                            key={index}
+                            alt="product"
+                            src={image.image}
+                        />
+                    </>
+                );
+            })}
             <Container>
                 <Button onClick={clearField}>
                     Cancel
@@ -250,4 +309,53 @@ const Container = styled.div`
 
 const Error = styled.p`
     color: red;
+`;
+const NewSize = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 10px;
+    background: #c5c3ff;
+    margin: 8px;
+
+    p {
+        margin-right: 10px;
+        text-transform: uppercase;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+    }
+`;
+
+const NewSizePrice = styled.p`
+    margin-right: 10px;
+`;
+
+const UploadedImage = styled.img`
+    width: 200px;
+    height: 200px;
+`;
+
+const CurrentColour = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 10px;
+    background: #c5c3ff;
+    margin: 8px;
+    p {
+        margin-right: 10px;
+        text-transform: uppercase;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+    }
+`;
+
+const ColourPreview = styled.div`
+    width: 20px;
+    height: 20px;
+    margin-right: 20px;
+    border-radius: 50%;
+    background-color: ${(props) => props.colour};
 `;
