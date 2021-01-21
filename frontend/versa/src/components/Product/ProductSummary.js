@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { WishListIcon } from "../../images/icons";
 import colors from "../Reusable/Colors";
 import RenderStars from "./RenderStars";
+import Button from "../Reusable/Button";
 
 const ProductSummary = ({
     title,
@@ -68,13 +69,10 @@ const ProductSummary = ({
                         );
                     })}
             </ColourOptions>
-            <ShortDescriptionContainer>
-                <ShortDescription>{description}</ShortDescription>
-            </ShortDescriptionContainer>
-            <ButtonContainer>
-                <Buy>Buy</Buy>
-                <AddToCart>Add To Cart</AddToCart>
-            </ButtonContainer>
+            <Container>
+                <Button primary>Buy Now</Button>
+                <Button primary>Add To Cart</Button>
+            </Container>
         </ProductSummaryContainer>
     );
 };
@@ -154,7 +152,7 @@ const SizeOptionsContainer = styled.div`
     }
 `;
 const SizeOption = styled.div`
-    background-color: ${colors.primary};
+    border: 2px solid ${colors.primary};
 
     height: 32px;
     border-radius: 30px;
@@ -163,10 +161,10 @@ const SizeOption = styled.div`
     align-items: center;
     margin: 0 8px 0 0;
     padding: 5px 10px;
+    cursor: pointer;
     p {
         text-transform: uppercase;
         margin: 0px;
-        color: ${colors.secondary};
     }
 `;
 
@@ -184,10 +182,13 @@ const ColourOptions = styled.div`
 `;
 
 const ColourOption = styled.div`
+    border: 2px solid ${colors.primary};
+    border-radius: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 10px;
+    cursor: pointer;
 `;
 
 const ColourPreview = styled.div`
@@ -199,36 +200,8 @@ const ColourPreview = styled.div`
     margin-bottom: 5px;
 `;
 
-const ShortDescriptionContainer = styled.div`
-    padding-bottom: 20px;
-    p {
-    }
-`;
-const ShortDescription = styled.p``;
-const ButtonContainer = styled.div`
+const Container = styled.div`
     display: flex;
-    justify-content: space-between;
-    padding-bottom: 20px;
-`;
-const Buy = styled.button`
-    padding: 10px 20px;
-    background: #444444;
-    border-radius: 50px;
-    border: none;
-    color: white;
-    text-transform: uppercase;
-    font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    margin-right: 20px;
-`;
-const AddToCart = styled.button`
-    padding: 10px 20px;
-    background: #444444;
-    border: none;
-    border-radius: 50px;
-    color: white;
-    font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
+    flex-direction: row;
+    padding: 1em;
 `;

@@ -38,6 +38,7 @@ const BackToSearch = styled(Button)`
 `;
 
 const CarouselContainer = styled.section`
+    grid-column: 1 / 2;
     display: grid;
     height: 550px;
     overflow: hidden;
@@ -56,7 +57,7 @@ const ProductImage = styled.img`
 const Badge = styled.p`
     padding: 5px 10px;
     margin: 0 0 20px 20px;
-    background: ${colors.secondary};
+    background: ${colors.primary};
     border: 2px solid ${colors.primary};
     border-radius: 50px;
     align-self: end;
@@ -65,4 +66,5 @@ const Badge = styled.p`
     flex-direction: row;
     align-items: flex-start;
     position: absolute;
+    color: white;
 `;
