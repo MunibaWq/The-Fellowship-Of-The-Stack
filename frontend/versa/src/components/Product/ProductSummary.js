@@ -40,7 +40,7 @@ const ProductSummary = ({
             </PriceReviewContainer>
 
             <SizeOptionsContainer>
-                <h5>Sizes</h5>
+                <h6>Sizes</h6>
                 {sizes &&
                     sizes.map((size, index) => {
                         return (
@@ -57,7 +57,7 @@ const ProductSummary = ({
                     })}
             </SizeOptionsContainer>
             <ColourOptions>
-                <h5>Colours</h5>
+                <h6>Colours</h6>
                 {colours &&
                     colours.map((colour, index) => {
                         return (
@@ -118,6 +118,7 @@ const PriceSoldContainer = styled.div`
 `;
 const Price = styled.div`
     padding-right: 10px;
+    width: 80px;
     p {
         margin: 0;
         padding: 0;
@@ -148,7 +149,7 @@ const SizeOptionsContainer = styled.div`
     justify-content: center;
     align-items: center;
     padding-bottom: 20px;
-    h5 {
+    h6 {
         padding-right: 20px;
     }
 `;
@@ -176,6 +177,9 @@ const ColourOptions = styled.div`
     p {
         text-transform: uppercase;
         margin: 0px;
+    }
+    h6 {
+        padding-right: 20px;
     }
 `;
 
