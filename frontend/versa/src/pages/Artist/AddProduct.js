@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect, forceUpdate } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import DeleteIcon from "../../images/deleteIcon.png";
@@ -24,7 +24,7 @@ const AddProduct = () => {
         }
     };
 
-    const { register, handleSubmit, errors, reset } = useForm();
+    const { register, handleSubmit, errors } = useForm();
     const [colors, setColors] = useState(setDefault2("productColors"));
     const [sizes, setSizes] = useState(setDefault2("productSizes"));
     const [images, setImages] = useState([]);
@@ -77,7 +77,7 @@ const AddProduct = () => {
     const colorPick = useRef();
     const sizeLabel = useRef();
     const sizePrice = useRef();
-    const addColor = useRef();
+    // const addColor = useRef();
 
     function onSubmit(data) {
         const productInfo = {

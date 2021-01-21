@@ -74,9 +74,9 @@ const ProductForm = (props) => {
 
     const colorValue = useRef();
     const colorPick = useRef();
-    const sizeLabel = useRef();
+    // const sizeLabel = useRef();
     const sizePrice = useRef();
-    const addColor = useRef();
+    // const addColor = useRef();
     console.log(colors);
     function setColorLabelAndValue() {
         let colorToAdd = document.querySelector("#colorToAdd").value;
@@ -91,14 +91,14 @@ const ProductForm = (props) => {
             setColors([...colors, temp]);
         }
     }
-    function setSizeLabelAndPrice() {
-        let temp = {
-            label: sizeLabel.current.value,
-            price: sizePrice.current.value,
-        };
-        let appendedSizes = sizes.concat([temp]);
-        setSizes(appendedSizes);
-    }
+    // function setSizeLabelAndPrice() {
+    //     let temp = {
+    //         label: sizeLabel.current.value,
+    //         price: sizePrice.current.value,
+    //     };
+    //     let appendedSizes = sizes.concat([temp]);
+    //     setSizes(appendedSizes);
+    // }
     function deleteItem(index, arr) {
         arr.splice(index, 1);
         localStorage.setItem(`product${arr}`, JSON.stringify(arr));
