@@ -19,7 +19,7 @@ const ProductSummary = ({
     //         return <Circle variation={variation} key={`${title}-${index}`} />;
     //     });
     // }
-    const [priceDiff,setPriceDiff] = useState(0)
+    const [priceDiff, setPriceDiff] = useState(0);
     return (
         <ProductSummaryContainer>
             <NameAddWishContainer>
@@ -28,7 +28,7 @@ const ProductSummary = ({
             </NameAddWishContainer>
             <PriceReviewContainer>
                 <PriceSoldContainer>
-                    <Price>${price+priceDiff}</Price>
+                    <Price>${price + priceDiff}</Price>
                 </PriceSoldContainer>
                 <span>|</span>
                 <ReviewContainer>
@@ -40,25 +40,30 @@ const ProductSummary = ({
             </PriceReviewContainer>
 
             <SizeOptionsContainer>
-                <h5>Sizes</h5>
+                <h6>Sizes</h6>
                 {sizes &&
                     sizes.map((size, index) => {
-
-                        return size && (
-                            <SizeOption onClick={() => {setPriceDiff(+size.price) } }>
-                                <p>{size.label}</p>
-                            </SizeOption>
+                        return (
+                            size && (
+                                <SizeOption
+                                    onClick={() => {
+                                        setPriceDiff(+size.price);
+                                    }}
+                                >
+                                    <p>{size.label}</p>
+                                </SizeOption>
+                            )
                         );
                     })}
             </SizeOptionsContainer>
             <ColourOptions>
-                <h5>Colours</h5>
+                <h6>Colours</h6>
                 {colours &&
                     colours.map((colour, index) => {
                         return (
                             <ColourOption>
-                                <p>{colour.label}</p>
                                 <ColourPreview colour={colour.value} />
+                                <p>{colour.label}</p>
                             </ColourOption>
                         );
                     })}
@@ -113,6 +118,7 @@ const PriceSoldContainer = styled.div`
 `;
 const Price = styled.div`
     padding-right: 10px;
+    width: 80px;
     p {
         margin: 0;
         padding: 0;
@@ -143,7 +149,7 @@ const SizeOptionsContainer = styled.div`
     justify-content: center;
     align-items: center;
     padding-bottom: 20px;
-    h5 {
+    h6 {
         padding-right: 20px;
     }
 `;
@@ -168,12 +174,20 @@ const ColourOptions = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
+    p {
+        text-transform: uppercase;
+        margin: 0px;
+    }
+    h6 {
+        padding-right: 20px;
+    }
 `;
 
 const ColourOption = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 10px;
 `;
 
 const ColourPreview = styled.div`
@@ -182,6 +196,7 @@ const ColourPreview = styled.div`
     margin: 0 10px;
     border-radius: 50px;
     background-color: ${(props) => props.colour};
+    margin-bottom: 5px;
 `;
 
 const ShortDescriptionContainer = styled.div`

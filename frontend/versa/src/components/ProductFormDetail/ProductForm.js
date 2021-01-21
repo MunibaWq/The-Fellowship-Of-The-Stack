@@ -105,13 +105,8 @@ const ProductForm = (props) => {
         setCheckDelete(!checkDelete);
     }
 
-
-    
-          
-
-  
     return (
-        <Form >
+        <Form>
             <h2>Product Details</h2>
             <TextField
                 multi={false}
@@ -192,82 +187,98 @@ const ProductForm = (props) => {
                     setInputMaterials(e.target.value);
                 }}
             ></TextField>
-            <div style={{display: "flex",
-    flexDirection: "column",
-    alignItems: "center"}}>
-                <h2>Colours</h2>
-                <div style={{
-                    display: "flex", flexWrap: "wrap", width: "75%", justifyContent: "space-between"
-                }}>
-                {colors && colors.map(color => {
-                    return <div style={{color:color.value}}>{color.label}</div>
-                })}
-                </div>
-
-            {colorModalVisible && (
-                <Modal width="fit-content">
-                    <ModalTitle>Add A Color Option</ModalTitle>
-                    <label htmlFor="colorToAdd">Click To Choose Color</label>
-                    <ColorInput id="colorToAdd" />
-                    <label>Color Name</label>
-                    <Input label="Color Name" id="colorLabelToAdd" />
-                    <Button
-                        primary
-                        onClick={() => {
-                            setColorLabelAndValue();
-                            setColorModalVisible(false);
-                        }}
-                    >
-                        Add Option
-                    </Button>
-                </Modal>
-            )}
-            <Button
-                secondary
-                onClick={() => {
-                    setColorModalVisible(true);
+            <div
+                style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
                 }}
             >
-                Add
-                <Icon type="add" />
-            </Button>
+                <h2>Colours</h2>
+                <div
+                    style={{
+                        display: "flex",
+                        flexWrap: "wrap",
+                        width: "75%",
+                        justifyContent: "space-between",
+                    }}
+                >
+                    {colors &&
+                        colors.map((color) => {
+                            return (
+                                <div style={{ color: color.value }}>
+                                    {color.label}
+                                </div>
+                            );
+                        })}
+                </div>
+
+                {colorModalVisible && (
+                    <Modal width="fit-content">
+                        <ModalTitle>Add A Color Option</ModalTitle>
+                        <label htmlFor="colorToAdd">
+                            Click To Choose Color
+                        </label>
+                        <ColorInput id="colorToAdd" />
+                        <label>Color Name</label>
+                        <Input label="Color Name" id="colorLabelToAdd" />
+                        <Button
+                            primary
+                            onClick={() => {
+                                setColorLabelAndValue();
+                                setColorModalVisible(false);
+                            }}
+                        >
+                            Add Option
+                        </Button>
+                    </Modal>
+                )}
+                <Button
+                    secondary
+                    onClick={() => {
+                        setColorModalVisible(true);
+                    }}
+                >
+                    Add
+                    <Icon type="add" />
+                </Button>
             </div>
             <div>
-            <h2>Sizes</h2>
-            <Button secondary>
-                Add <Icon type="add" />
-            </Button>
-            {sizes.length > 0 &&
-                sizes.map((size, index) => {
-                    return (
-                        <NewSize>
-                            <p>{size.label}</p>
+                <h2>Sizes</h2>
+                <Button secondary>
+                    Add <Icon type="add" />
+                </Button>
+                {sizes.length > 0 &&
+                    sizes.map((size, index) => {
+                        return (
+                            <NewSize>
+                                <p>{size.label}</p>
 
-                            <NewSizePrice>$ {size.price}</NewSizePrice>
-                            <div onClick={() => deleteItem(index, sizes)}>
-                                <Icons lineClose />
-                            </div>
-                        </NewSize>
-                    );
-                })}
+                                <NewSizePrice>$ {size.price}</NewSizePrice>
+                                <div onClick={() => deleteItem(index, sizes)}>
+                                    <Icons lineClose />
+                                </div>
+                            </NewSize>
+                        );
+                    })}
             </div>
             <ImagesDiv>
-            <h2>Images</h2>
-            <Button secondary>
-                Add <Icon type="add" />
-            </Button>
-            {images.map((image, index) => {
-                return (
-                    <>
-                        <UploadedImage
-                            key={index}
-                            alt="product"
-                            src={image.image}
-                        />
-                    </>
-                );
-            })}
-                </ImagesDiv>
+                <h2>Images</h2>
+                <Button secondary>
+                    Add <Icon type="add" />
+                </Button>
+                {images.map((image, index) => {
+                    return (
+                        <>
+                            <UploadedImage
+                                key={index}
+                                alt="product"
+                                src={image.image}
+                            />
+                        </>
+                    );
+                })}
+            </ImagesDiv>
             <Container>
                 <Button onClick={clearField}>
                     Cancel
@@ -313,22 +324,22 @@ const ProductForm = (props) => {
 export default ProductForm;
 
 const Form = styled.form`
-flex-wrap: wrap;
+    flex-wrap: wrap;
     display: flex;
     flex-direction: column;
     align-items: center;
-position:relative;
-@media only screen and (min-width: 800px){
-    height: 95%;
-
-}`;
+    position: relative;
+    @media only screen and (min-width: 800px) {
+        height: 95%;
+    }
+`;
 
 const Container = styled.div`
     display: flex;
-@media only screen and (min-width: 800px){
+    @media only screen and (min-width: 800px) {
         position: absolute;
-    bottom: 0px;
-}
+        bottom: 0px;
+    }
 `;
 
 const Error = styled.p`
@@ -360,10 +371,10 @@ const UploadedImage = styled.img`
     height: 200px;
 `;
 const ImagesDiv = styled.div`
-@media only screen and (min-width:800px){
-    height:75%;
-}
-`
+    @media only screen and (min-width: 800px) {
+        height: 75%;
+    }
+`;
 const CurrentColour = styled.div`
     display: flex;
     flex-direction: row;
