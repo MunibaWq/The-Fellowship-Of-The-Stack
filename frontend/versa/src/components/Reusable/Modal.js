@@ -1,10 +1,7 @@
 import styled from "styled-components";
 
 export const Modal = styled.div`
-    margin-left: auto;
-    margin-right: auto;
-    left: 0;
-    right: 0;
+   
     text-align: center;
     position: absolute;
     width: ${(props) => props.width || "90vw"};

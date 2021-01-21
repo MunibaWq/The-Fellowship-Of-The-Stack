@@ -52,9 +52,6 @@ const ProductForm = (props) => {
         setInputDesc("");
         setInputFit("");
         setInputMaterials("");
-        colorPick.current.value = "";
-        colorValue.current.value = "#000000";
-        sizePrice.current.value = "";
     }
 
     useEffect(() => {
@@ -121,11 +118,11 @@ const ProductForm = (props) => {
                 tests={[
                     {
                         test: (input) => input.length < 1,
-                        error: "A name for your product is required",
+                        error: "Required",
                     },
                     {
                         test: (input) => input.length < 3,
-                        error: "Product name must be longer than 3 letters.",
+                        error: "Minimum 3 characters.",
                     },
                 ]}
                 label="Product Name"
@@ -141,7 +138,7 @@ const ProductForm = (props) => {
                 tests={[
                     {
                         test: (input) => isNaN(input),
-                        error: "Product price must be numbers only.",
+                        error: "Numerical values only",
                     },
                     {
                         test: (input) => input.length < 1,
@@ -149,7 +146,7 @@ const ProductForm = (props) => {
                     },
                     {
                         test: (input) => input && +input <= 0,
-                        error: "Product must be greater than $0.",
+                        error: "Minimum 0.01",
                     },
                 ]}
                 label="Price"
@@ -170,7 +167,7 @@ const ProductForm = (props) => {
                 tests={[
                     {
                         test: (input) => input.length < 10,
-                        error: "Product description is required.",
+                        error: "Minimum 10 characters",
                     },
                 ]}
                 label="Description"
@@ -185,7 +182,7 @@ const ProductForm = (props) => {
                 tests={[
                     {
                         test: (input) => input.length < 10,
-                        error: "Materials description is required.",
+                        error: "Minimum 10 characters",
                     },
                 ]}
                 label="Materials"
@@ -195,9 +192,20 @@ const ProductForm = (props) => {
                     setInputMaterials(e.target.value);
                 }}
             ></TextField>
-            <h2>Colours</h2>
+            <div style={{display: "flex",
+    flexDirection: "column",
+    alignItems: "center"}}>
+                <h2>Colours</h2>
+                <div style={{
+                    display: "flex", flexWrap: "wrap", width: "75%", justifyContent: "space-between"
+                }}>
+                {colors && colors.map(color => {
+                    return <div style={{color:color.value}}>{color.label}</div>
+                })}
+                </div>
+
             {colorModalVisible && (
-                <Modal width="330px">
+                <Modal width="fit-content">
                     <ModalTitle>Add A Color Option</ModalTitle>
                     <label htmlFor="colorToAdd">Click To Choose Color</label>
                     <ColorInput id="colorToAdd" />
@@ -223,7 +231,8 @@ const ProductForm = (props) => {
                 Add
                 <Icon type="add" />
             </Button>
-
+            </div>
+            <div>
             <h2>Sizes</h2>
             <Button secondary>
                 Add <Icon type="add" />
@@ -241,6 +250,8 @@ const ProductForm = (props) => {
                         </NewSize>
                     );
                 })}
+            </div>
+            <ImagesDiv>
             <h2>Images</h2>
             <Button secondary>
                 Add <Icon type="add" />
@@ -256,6 +267,7 @@ const ProductForm = (props) => {
                     </>
                 );
             })}
+                </ImagesDiv>
             <Container>
                 <Button onClick={clearField}>
                     Cancel
@@ -300,9 +312,23 @@ const ProductForm = (props) => {
 
 export default ProductForm;
 
-const Form = styled.form``;
+const Form = styled.form`
+flex-wrap: wrap;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+position:relative;
+@media only screen and (min-width: 800px){
+    height: 95%;
+
+}`;
+
 const Container = styled.div`
     display: flex;
+@media only screen and (min-width: 800px){
+        position: absolute;
+    bottom: 0px;
+}
 `;
 
 const Error = styled.p`
@@ -333,7 +359,11 @@ const UploadedImage = styled.img`
     width: 200px;
     height: 200px;
 `;
-
+const ImagesDiv = styled.div`
+@media only screen and (min-width:800px){
+    height:75%;
+}
+`
 const CurrentColour = styled.div`
     display: flex;
     flex-direction: row;

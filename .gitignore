@@ -3,3 +3,6 @@
 **/.eslintcache
 .env*
 secret.js
+/.vs/The-Fellowship-Of-The-Stack/config
+/.vs/The-Fellowship-Of-The-Stack/v16/.suo
+/.vs

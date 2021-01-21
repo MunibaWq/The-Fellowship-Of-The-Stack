@@ -42,9 +42,10 @@ const ProductSummary = ({
 
             <SizeOptionsContainer>
                 <h5>Sizes</h5>
-                {sizes.length > 0 &&
+                {sizes &&
                     sizes.map((size, index) => {
-                        return (
+
+                        return size && (
                             <SizeOption>
                                 <p>{size.label}</p>
 
@@ -55,7 +56,7 @@ const ProductSummary = ({
             </SizeOptionsContainer>
             <ColourOptions>
                 <h5>Colours</h5>
-                {colours.length > 0 &&
+                {colours &&
                     colours.map((colour, index) => {
                         return (
                             <ColourOption>

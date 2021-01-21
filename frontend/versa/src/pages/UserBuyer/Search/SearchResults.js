@@ -69,9 +69,12 @@ const NoResultsMessage = styled.h1`
 const MagnifyIcon = styled.div`
     position: absolute;
     margin-top: 20px;
-    right: 30px;
+    right: 10px;
 `;
-const SearchBarDiv = styled.div``;
+const SearchBarDiv = styled.div`
+    position:relative;
+
+`;
 const SearchBar = styled.input`
     padding: 5px;
     font-size: 26px;
@@ -82,7 +85,7 @@ const SearchBar = styled.input`
 
 const SearchCriteria = styled.div`
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     margin: 10px 0;
 `;
 
@@ -100,6 +103,7 @@ const Products = styled.div`
     display: grid;
     grid-template-columns: repeat(auto-fit, 230px);
     grid-gap: 0 3%;
+    justify-content: space-around;
     @media (max-width: 600px) {
         margin-top: 10px;
         display: grid;
