@@ -57,9 +57,9 @@ export const TextArea = styled.textarea`
     border-style: none;
     height: 100px;
     background-color: rgba(80, 80, 80, 15%);
-    @media screen and (max-width: 450px) {
-        width: 100%;
-    }
+    
+
+   
     &:focus {
         outline: none !important;
         border: 3px solid ${colors.primary};
@@ -69,15 +69,14 @@ export const TextArea = styled.textarea`
 export const Label = styled.label``;
 export const Error = styled.p`
     color: red;
-    position: absolute;
+height:10px;
 `;
 
 export const Input = styled.input`
     border-radius: 5px;
     border-style: none;
-    margin: 10px;
     height: 35px;
-
+    
     background-color: rgba(80, 80, 80, 15%);
 
     &:focus {
@@ -85,9 +84,10 @@ export const Input = styled.input`
         border: 3px solid ${colors.primary};
         box-shadow: 0 0 10px ${colors.primary};
     }
+  
 `;
 export const FieldContainer = styled.div`
-    margin: 0 0 25px 0;
+   
 `;
 export const ColorInput = styled.input.attrs((props) => ({
     type: "color",
@@ -95,7 +95,7 @@ export const ColorInput = styled.input.attrs((props) => ({
     border-radius: 100%;
     height: 35px;
     width: auto;
-    margin: 10px;
+  
     border: none;
     outline: none;
     -webkit-appearance: none;

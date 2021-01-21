@@ -7,7 +7,7 @@ import Button from "../Reusable/Button";
 import Icon from "../Reusable/Icons";
 import { ColorInput, Input } from "../../components/Reusable/Input";
 import { Modal, ModalTitle } from "../../components/Reusable/Modal";
-
+import { addImage } from "../../axios/posts";
 const ProductForm = (props) => {
     const setDefault = (fieldName) => {
         if (localStorage.getItem(`${fieldName}`)) {
@@ -54,30 +54,6 @@ const ProductForm = (props) => {
         setInputMaterials("");
     }
 
-    useEffect(() => {
-        localStorage.setItem("productName", inputName);
-        localStorage.setItem("productPrice", inputPrice);
-        localStorage.setItem("productDesc", inputDesc);
-        localStorage.setItem("productFit", inputFit);
-        localStorage.setItem("productMaterials", inputMaterials);
-        localStorage.setItem("productColors", JSON.stringify(colors));
-        localStorage.setItem("productSizes", JSON.stringify(sizes));
-    }, [
-        inputName,
-        inputPrice,
-        inputDesc,
-        inputFit,
-        inputMaterials,
-        colors,
-        sizes,
-    ]);
-
-    const colorValue = useRef();
-    const colorPick = useRef();
-    // const sizeLabel = useRef();
-    const sizePrice = useRef();
-    // const addColor = useRef();
-    console.log(colors);
     function setColorLabelAndValue() {
         let colorToAdd = document.querySelector("#colorToAdd").value;
         let colorLabelToAdd = document.querySelector("#colorLabelToAdd").value;
@@ -91,22 +67,27 @@ const ProductForm = (props) => {
             setColors([...colors, temp]);
         }
     }
-    // function setSizeLabelAndPrice() {
-    //     let temp = {
-    //         label: sizeLabel.current.value,
-    //         price: sizePrice.current.value,
-    //     };
-    //     let appendedSizes = sizes.concat([temp]);
-    //     setSizes(appendedSizes);
-    // }
-    function deleteItem(index, arr) {
-        arr.splice(index, 1);
-        localStorage.setItem(`product${arr}`, JSON.stringify(arr));
-        setCheckDelete(!checkDelete);
-    }
 
+    const onSubmit = () => {
+        let productID = 15;
+        images.forEach(async (image) => {
+            let res = await addImage(
+                image.imageFile,
+                image.label,
+                image.size,
+                productID
+            );
+
+            if (!res)
+                alert(
+                    JSON.stringify(image.imageFile) +
+                        " failed to upload, go to edit product to try to add picture again"
+                );
+        });
+    };
+    console.log(images)
     return (
-        <Form>
+        <Form onSubmit={onSubmit}>
             <h2>Product Details</h2>
             <TextField
                 multi={false}
@@ -255,18 +236,35 @@ const ProductForm = (props) => {
                                 <p>{size.label}</p>
 
                                 <NewSizePrice>$ {size.price}</NewSizePrice>
-                                <div onClick={() => deleteItem(index, sizes)}>
+                                <div>
                                     <Icons lineClose />
                                 </div>
                             </NewSize>
                         );
                     })}
             </div>
+                        
+            
             <ImagesDiv>
                 <h2>Images</h2>
-                <Button secondary>
-                    Add <Icon type="add" />
-                </Button>
+                <ImageUpload>
+                  <input
+                        onChange={(e) => {
+                            let image = URL.createObjectURL(e.target.files[0]);
+                            setImages([
+                                ...images,
+                                {
+                                    image: image,
+                                    imageFile: e.target.files[0],
+                                    size: "full",
+                                },
+                            ]);
+                        }}
+                       type={"file"}
+                        accept={"image/jpeg"}
+                    ></input>
+                </ImageUpload>
+                <ImageList>
                 {images.map((image, index) => {
                     return (
                         <>
@@ -278,51 +276,31 @@ const ProductForm = (props) => {
                         </>
                     );
                 })}
+                </ImageList>
             </ImagesDiv>
             <Container>
-                <Button onClick={clearField}>
-                    Cancel
-                    <Icon type="lineClose" />
-                </Button>
                 <Button primary type="submit">
                     Submit
                 </Button>
             </Container>
-            <Error>
-                {errors.product_name?.type === "required" &&
-                    "Input is required."}
-            </Error>
-            <Error>
-                {errors.product_name?.type === "minLength" &&
-                    "Must be at least 2 characters."}
-            </Error>
-            <Error>
-                {errors.product_price?.type === "required" &&
-                    "Input is required."}
-            </Error>
-            <Error>
-                {errors.product_description?.type === "required" &&
-                    "Input is required."}
-            </Error>
-            <Error>
-                {errors.product_description?.type === "minLength" &&
-                    "Must be at least 2 characters."}
-            </Error>
-            <Error>
-                {errors.product_materials?.type === "required" &&
-                    "Input is required."}
-            </Error>
-
-            <Error>
-                {errors.product_materials?.type === "minLength" &&
-                    "Must be at least 2 characters."}
-            </Error>
         </Form>
     );
 };
 
 export default ProductForm;
+const ImageUpload = styled.section`
+  @media only screen and (min-width: 800px) {
+        width:220px;
+    }
+`
+const ImageList = styled.div`
+display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: auto;
+    height: 50vh;
 
+`
 const Form = styled.form`
     flex-wrap: wrap;
     display: flex;
@@ -371,30 +349,9 @@ const UploadedImage = styled.img`
     height: 200px;
 `;
 const ImagesDiv = styled.div`
+    
     @media only screen and (min-width: 800px) {
         height: 75%;
+        width:220px;
     }
-`;
-const CurrentColour = styled.div`
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    padding: 5px 10px;
-    background: #c5c3ff;
-    margin: 8px;
-    p {
-        margin-right: 10px;
-        text-transform: uppercase;
-        font-weight: 700;
-        letter-spacing: 0.05em;
-    }
-`;
-
-const ColourPreview = styled.div`
-    width: 20px;
-    height: 20px;
-    margin-right: 20px;
-    border-radius: 50%;
-    background-color: ${(props) => props.colour};
 `;

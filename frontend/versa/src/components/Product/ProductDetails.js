@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import colors from "../Reusable/Colors";
 
 const ProductDetails = ({ description, size, materials }) => {
     return (
@@ -8,24 +9,10 @@ const ProductDetails = ({ description, size, materials }) => {
             <ProductDetailsP>
                 <p>{description}</p>
             </ProductDetailsP>
-            <SizeFit>
-                <h5>Size & Fit</h5>
-                <p>
-                    Description of size and fit or whatever else info they might
-                    need.
-                </p>
-            </SizeFit>
             <Materials>
                 <h5>Materials</h5>
                 <p>{materials}</p>
             </Materials>
-            <Collection>
-                <h5>Collection</h5>
-                <p>
-                    Description of inspiration behind collection or whatever
-                    else info they might need.
-                </p>
-            </Collection>
         </DetailsContainer>
     );
 };
@@ -33,8 +20,8 @@ const ProductDetails = ({ description, size, materials }) => {
 export default ProductDetails;
 
 const DetailsContainer = styled.div`
-    background-color: #c5c3ff;
-    max-width: 425px;
+    background-color: ${colors.primary};
+    * {color: ${colors.secondary};}
     @media (max-width: 414px) {
         display: flex;
         flex-direction: column;
@@ -48,23 +35,8 @@ const Title = styled.h6`
 const ProductDetailsP = styled.div`
     padding: 10px 20px;
 `;
-const SizeFit = styled.div`
-    padding: 10px 20px;
-    h5 {
-        margin-bottom: 10px;
-    }
-    p {
-    }
-`;
+
 const Materials = styled.div`
-    padding: 10px 20px;
-    h5 {
-        margin-bottom: 10px;
-    }
-    p {
-    }
-`;
-const Collection = styled.div`
     padding: 10px 20px;
     h5 {
         margin-bottom: 10px;

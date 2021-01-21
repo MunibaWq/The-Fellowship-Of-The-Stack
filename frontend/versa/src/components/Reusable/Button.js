@@ -23,6 +23,7 @@ const Button = styled.button.attrs((props) => ({
     letter-spacing: 5%;
     margin: 5px;
     transition: 0.3s ease;
+    min-width: fit-content;
     cursor: pointer;
     max-width: fit-content;
 

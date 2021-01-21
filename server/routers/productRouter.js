@@ -29,11 +29,8 @@ router.get("/get/:id", async (req, res) => {
        
         const productInfo = result.rows[0];
 
-        productInfo["colours"] = productInfo["colours"].split(" ");
-
-        productInfo["sizes"] = productInfo["sizes"]
-            .split(" ")
-            .map((dim) => +dim);
+        productInfo["colours"] = JSON.parse(productInfo["colours"]);
+        productInfo["sizes"] = JSON.parse(productInfo["sizes"])    
         const artistReq = await client.query(
             "SELECT username FROM artists WHERE id = " +
                 productInfo["artist_id"]

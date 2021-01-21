@@ -6,7 +6,7 @@ const EditProduct = () => {
     return (
         <Container>
             <h1>Edit Product</h1>
-            <ProductForm />
+            <ProductForm type={"Edit"}/>
         </Container>
     );
 };
@@ -14,8 +14,9 @@ const EditProduct = () => {
 export default EditProduct;
 
 const Container = styled.div`
-    margin: 5em;
+margin:2em;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    height: calc(84vh - 4em);
+text-align:center;
 `;
