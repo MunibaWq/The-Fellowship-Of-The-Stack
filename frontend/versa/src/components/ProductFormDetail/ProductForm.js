@@ -110,8 +110,44 @@ const ProductForm = (props) => {
         localStorage.setItem(`product${arr}`, JSON.stringify(arr));
         setCheckDelete(!checkDelete);
     }
+    function onSubmit(data) {
+        const productInfo = {
+            title: data.product_name,
+            price: data.product_price,
+            description: data.product_description,
+            colours: colors,
+            artist_id: "1",
+            sizes: sizes,
+            size_and_fit: data.product_size_fit,
+            materials: data.product_materials,
+        };
+        let productID;
+        const sendData = async () => {
+            const response = await axios.post(host + "/products/create", {
+                data: productInfo,
+            });
+            productID = response.data.id;
+            images.forEach(async (image) => {
+                let res = await addImage(
+                    image.imageFile,
+                    "",
+                    image.size,
+                    productID
+                );
+
+                if (!res)
+                    alert(
+                        JSON.stringify(image.imageFile) +
+                            " failed to upload, go to edit product to try to add picture again"
+                    );
+            });
+            clearField();
+        };
+        sendData();
+        //this will send the images to AWS S3
+    }
     return (
-        <Form>
+        <Form onSubmit={handleSubmit(onSubmit)}>
             <h2>Product Details</h2>
             <TextField
                 multi={false}

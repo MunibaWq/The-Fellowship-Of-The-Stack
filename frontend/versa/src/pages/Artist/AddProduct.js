@@ -6,7 +6,7 @@ const AddProduct = () => {
     return (
         <Container>
             <h1>Add Product</h1>
-            <ProductForm />
+            <ProductForm type={"Add"}/>
         </Container>
     );
 };

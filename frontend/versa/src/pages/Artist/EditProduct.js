@@ -6,7 +6,7 @@ const EditProduct = () => {
     return (
         <Container>
             <h1>Edit Product</h1>
-            <ProductForm />
+            <ProductForm type={"Edit"}/>
         </Container>
     );
 };
