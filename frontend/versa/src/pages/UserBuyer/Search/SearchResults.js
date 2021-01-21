@@ -87,19 +87,24 @@ const SearchCriteria = styled.div`
 `;
 
 const SearchPage = styled.div`
-    padding: 6%;
+    padding: 4%;
+    @media (max-width: 600px) {
+        padding: 6%;
+        /* display: flex;
+    justify-content: center; */
+    }
 `;
 
 const Products = styled.div`
-    margin-top: 20px;
+    margin-top: 10px;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    /* grid-gap: 0 6%; */
+    grid-template-columns: repeat(auto-fit, 230px);
+    grid-gap: 0 3%;
     @media (max-width: 600px) {
-        margin-top: 20px;
+        margin-top: 10px;
         display: grid;
-        grid-template-columns: repeat(4, 4fr);
-        grid-gap: 0 6%;
+        grid-template-columns: repeat(2, 4fr);
+        grid-gap: 0 3%;
     }
 `;
 export default SearchResults;
