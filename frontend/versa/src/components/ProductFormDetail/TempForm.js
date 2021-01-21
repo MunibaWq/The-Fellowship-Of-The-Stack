@@ -248,7 +248,6 @@ const ProductForm = (props) => {
             <ImagesDiv>
                 <h2>Images</h2>
                 <ImageUpload>
-                <label htmlFor="product-image">Upload Images</label>
                   <input
                         onChange={(e) => {
                             let image = URL.createObjectURL(e.target.files[0]);
@@ -290,13 +289,15 @@ const ProductForm = (props) => {
 
 export default ProductForm;
 const ImageUpload = styled.section`
-    width:30vw;
+  @media only screen and (min-width: 800px) {
+        width:220px;
+    }
 `
 const ImageList = styled.div`
 display: flex;
     flex-direction: column;
     align-items: center;
-    overflow-y: scroll;
+    overflow-y: auto;
     height: 50vh;
 
 `
@@ -348,7 +349,9 @@ const UploadedImage = styled.img`
     height: 200px;
 `;
 const ImagesDiv = styled.div`
+    
     @media only screen and (min-width: 800px) {
         height: 75%;
+        width:220px;
     }
 `;
