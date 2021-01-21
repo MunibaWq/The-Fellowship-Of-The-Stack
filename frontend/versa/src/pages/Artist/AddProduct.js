@@ -136,6 +136,12 @@ const AddProduct = () => {
         let appendedSizes = sizes.concat([temp]);
         setSizes(appendedSizes);
     }
+    const [checkDelete, setCheckDelete] = useState(false);
+    function deleteItem(index, arr) {
+        arr.splice(index, 1);
+        localStorage.setItem(`product${arr}`, JSON.stringify(arr));
+        setCheckDelete(!checkDelete);
+    }
 
     return (
         <FormContainer>
@@ -591,4 +597,30 @@ const CancelButton = styled(Button)`
     border: 3px solid #ffb649;
     transform: scale(1.2);
     margin-right: 30px;
+`;
+
+const NewSize = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 10px;
+    background: #c5c3ff;
+    margin: 8px;
+
+    p {
+        margin-right: 10px;
+        text-transform: uppercase;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+    }
+`;
+
+const NewSizePrice = styled.p`
+    margin-right: 10px;
+`;
+
+const UploadedImage = styled.img`
+    width: 200px;
+    height: 200px;
 `;

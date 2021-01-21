@@ -108,8 +108,6 @@ const ProductForm = (props) => {
         setCheckDelete(!checkDelete);
     }
 
-    const [checkDelete, setCheckDelete] = useState(false);
-
     function deleteItem(index, arr) {
         arr.splice(index, 1);
         localStorage.setItem(`product${arr}`, JSON.stringify(arr));

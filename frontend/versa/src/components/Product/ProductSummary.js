@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { WishListIcon, Circle } from "../../images/icons";
-import RenderSize from "./RenderSize";
+import { WishListIcon } from "../../images/icons";
+import colors from "../Reusable/Colors";
 import RenderStars from "./RenderStars";
 
 const ProductSummary = ({
@@ -11,14 +11,15 @@ const ProductSummary = ({
     num_stars,
     num_reviews,
     variations,
-    size,
+    sizes,
+    colours,
 }) => {
-    let renderVariations;
-    if (variations) {
-        renderVariations = variations.map((variation, index) => {
-            return <Circle variation={variation} key={`${title}-${index}`} />;
-        });
-    }
+    // let renderVariations;
+    // if (variations) {
+    //     renderVariations = variations.map((variation, index) => {
+    //         return <Circle variation={variation} key={`${title}-${index}`} />;
+    //     });
+    // }
 
     return (
         <ProductSummaryContainer>
@@ -38,16 +39,32 @@ const ProductSummary = ({
                     <NumReviews>{num_reviews} reviews</NumReviews>
                 </ReviewContainer>
             </PriceReviewContainer>
+
             <SizeOptionsContainer>
-                <h5>Sizes </h5>
-                <SizeOption>{renderVariations}</SizeOption>
+                <h5>Sizes</h5>
+                {sizes.length > 0 &&
+                    sizes.map((size, index) => {
+                        return (
+                            <SizeOption>
+                                <p>{size.label}</p>
+
+                                {size.price}
+                            </SizeOption>
+                        );
+                    })}
             </SizeOptionsContainer>
-            <SizeContainer>
-                <h5>Size</h5>
-                <Dimensions>
-                    <RenderSize size={size} />
-                </Dimensions>
-            </SizeContainer>
+            <ColourOptions>
+                <h5>Colours</h5>
+                {colours.length > 0 &&
+                    colours.map((colour, index) => {
+                        return (
+                            <ColourOption>
+                                <p>{colour.label}</p>
+                                <ColourPreview colour={colour.value} />
+                            </ColourOption>
+                        );
+                    })}
+            </ColourOptions>
             <ShortDescriptionContainer>
                 <ShortDescription>{description}</ShortDescription>
             </ShortDescriptionContainer>
@@ -132,28 +149,42 @@ const SizeOptionsContainer = styled.div`
     h5 {
         padding-right: 20px;
     }
-    svg {
-        padding-right: 5px;
-    }
 `;
 const SizeOption = styled.div`
-    .circle {
-        padding-right: 5px;
-    }
-`;
-const SizeContainer = styled.div`
+    background-color: ${colors.primary};
+    width: 32px;
+    height: 32px;
+    border-radius: 30px;
     display: flex;
-    padding-bottom: 20px;
-    h5 {
-        padding-right: 20px;
-    }
-`;
-const Dimensions = styled.div`
+    justify-content: center;
+    align-items: center;
+    margin: 0 8px 0 0;
+
     p {
-        margin: 0 5px;
+        text-transform: uppercase;
     }
-    display: flex;
 `;
+
+const ColourOptions = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+`;
+
+const ColourOption = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+`;
+
+const ColourPreview = styled.div`
+    width: 1em;
+    height: 1em;
+    margin: 0 10px;
+    border-radius: 50px;
+    background-color: ${(props) => props.colour};
+`;
+
 const ShortDescriptionContainer = styled.div`
     padding-bottom: 20px;
     p {
