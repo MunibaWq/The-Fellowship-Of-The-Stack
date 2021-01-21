@@ -19,7 +19,7 @@ const ProductSummary = ({
     //         return <Circle variation={variation} key={`${title}-${index}`} />;
     //     });
     // }
-    const [priceDiff,setPriceDiff] = useState(0)
+    const [priceDiff, setPriceDiff] = useState(0);
     return (
         <ProductSummaryContainer>
             <NameAddWishContainer>
@@ -28,7 +28,7 @@ const ProductSummary = ({
             </NameAddWishContainer>
             <PriceReviewContainer>
                 <PriceSoldContainer>
-                    <Price>${price+priceDiff}</Price>
+                    <Price>${price + priceDiff}</Price>
                 </PriceSoldContainer>
                 <span>|</span>
                 <ReviewContainer>
@@ -43,11 +43,16 @@ const ProductSummary = ({
                 <h5>Sizes</h5>
                 {sizes &&
                     sizes.map((size, index) => {
-
-                        return size && (
-                            <SizeOption onClick={() => {setPriceDiff(+size.price) } }>
-                                <p>{size.label}</p>
-                            </SizeOption>
+                        return (
+                            size && (
+                                <SizeOption
+                                    onClick={() => {
+                                        setPriceDiff(+size.price);
+                                    }}
+                                >
+                                    <p>{size.label}</p>
+                                </SizeOption>
+                            )
                         );
                     })}
             </SizeOptionsContainer>
@@ -57,8 +62,8 @@ const ProductSummary = ({
                     colours.map((colour, index) => {
                         return (
                             <ColourOption>
-                                <p>{colour.label}</p>
                                 <ColourPreview colour={colour.value} />
+                                <p>{colour.label}</p>
                             </ColourOption>
                         );
                     })}
@@ -168,12 +173,17 @@ const ColourOptions = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
+    p {
+        text-transform: uppercase;
+        margin: 0px;
+    }
 `;
 
 const ColourOption = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 10px;
 `;
 
 const ColourPreview = styled.div`
@@ -182,6 +192,7 @@ const ColourPreview = styled.div`
     margin: 0 10px;
     border-radius: 50px;
     background-color: ${(props) => props.colour};
+    margin-bottom: 5px;
 `;
 
 const ShortDescriptionContainer = styled.div`
