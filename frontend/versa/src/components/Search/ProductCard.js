@@ -54,7 +54,7 @@ const ProductCard = ({ product }) => {
                         product.image
                             ? `${host}/images/${product.image}`
                             : product.thumbnail
-                            ? `https://versabucket.s3.us-east-2.amazonaws.com/images/${product.thumbnail}`
+                            ? `https://versabucket.s3.us-east-2.amazonaws.com/images/${product.thumbnail}.jpeg`
                             : ""
                     }
                 />

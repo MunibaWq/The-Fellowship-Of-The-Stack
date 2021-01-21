@@ -262,7 +262,7 @@ const ProductForm = (props) => {
                             ]);
                         }}
                        type={"file"}
-                        accept={"image/png, image/jpeg"}
+                        accept={"image/jpeg"}
                     ></input>
                 </ImageUpload>
                 <ImageList>
