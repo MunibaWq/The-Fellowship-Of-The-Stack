@@ -34,5 +34,5 @@ const ProductItem = () => {
 export default ProductItem;
 
 const ProductItemContainer = styled.div`
-    max-width: 425px;
+    
 `;

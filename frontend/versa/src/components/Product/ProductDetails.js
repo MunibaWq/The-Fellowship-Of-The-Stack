@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import colors from "../Reusable/Colors";
 
 const ProductDetails = ({ description, size, materials }) => {
     return (
@@ -19,8 +20,8 @@ const ProductDetails = ({ description, size, materials }) => {
 export default ProductDetails;
 
 const DetailsContainer = styled.div`
-    background-color: #c5c3ff;
-    max-width: 425px;
+    background-color: ${colors.primary};
+    * {color: ${colors.secondary};}
     @media (max-width: 414px) {
         display: flex;
         flex-direction: column;

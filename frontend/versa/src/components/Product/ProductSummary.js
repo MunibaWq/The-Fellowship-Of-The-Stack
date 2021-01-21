@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { WishListIcon } from "../../images/icons";
 import colors from "../Reusable/Colors";
@@ -19,7 +19,7 @@ const ProductSummary = ({
     //         return <Circle variation={variation} key={`${title}-${index}`} />;
     //     });
     // }
-
+    const [priceDiff,setPriceDiff] = useState(0)
     return (
         <ProductSummaryContainer>
             <NameAddWishContainer>
@@ -28,7 +28,7 @@ const ProductSummary = ({
             </NameAddWishContainer>
             <PriceReviewContainer>
                 <PriceSoldContainer>
-                    <Price>${price}</Price>
+                    <Price>${price+priceDiff}</Price>
                 </PriceSoldContainer>
                 <span>|</span>
                 <ReviewContainer>
@@ -45,10 +45,8 @@ const ProductSummary = ({
                     sizes.map((size, index) => {
 
                         return size && (
-                            <SizeOption>
+                            <SizeOption onClick={() => {setPriceDiff(+size.price) } }>
                                 <p>{size.label}</p>
-
-                                {size.price}
                             </SizeOption>
                         );
                     })}
@@ -84,7 +82,6 @@ const ProductSummaryContainer = styled.div`
     justify-content: center;
     align-items: flex-start;
     padding: 20px;
-    max-width: 425px;
 `;
 const NameAddWishContainer = styled.div`
     display: flex;
@@ -152,16 +149,18 @@ const SizeOptionsContainer = styled.div`
 `;
 const SizeOption = styled.div`
     background-color: ${colors.primary};
-    width: 32px;
+
     height: 32px;
     border-radius: 30px;
     display: flex;
     justify-content: center;
     align-items: center;
     margin: 0 8px 0 0;
-
+    padding: 5px 10px;
     p {
         text-transform: uppercase;
+        margin: 0px;
+        color: ${colors.secondary};
     }
 `;
 

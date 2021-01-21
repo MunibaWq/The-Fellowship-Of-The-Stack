@@ -33,19 +33,19 @@ export default ProductPageImage;
 
 const CarouselContainer = styled.section`
     display: grid;
-    grid-template-rows: 1fr 1fr;
-    max-width: 425px;
     height: 550px;
     overflow: hidden;
     border-radius: 50px;
     position: relative;
+    justify-content:center;
 `;
 
 const ProductImage = styled.img`
-    max-width: 425px;
-    position: absolute;
+   
     z-index: -1;
-    height: 110%;
+    
+height: inherit;
+padding-top:50px;
 `;
 
 const BackToResults = styled(Link)`
