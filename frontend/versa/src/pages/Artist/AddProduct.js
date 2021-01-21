@@ -35,7 +35,6 @@ const AddProduct = () => {
     const [inputMaterials, setInputMaterials] = useState(
         setDefault("productMaterials")
     );
-    const [checkDelete, setCheckDelete] = useState(false);
 
     function clearField() {
         window.scrollTo({
@@ -137,18 +136,13 @@ const AddProduct = () => {
         let appendedSizes = sizes.concat([temp]);
         setSizes(appendedSizes);
     }
-    function deleteItem(index, arr) {
-        arr.splice(index, 1);
-        localStorage.setItem(`product${arr}`, JSON.stringify(arr));
-        setCheckDelete(!checkDelete);
-    }
+
     return (
         <FormContainer>
             <Title>Create a new product</Title>
             <CreateProductForm onSubmit={handleSubmit(onSubmit)}>
                 <h2>Product Details</h2>
                 <section>
-                    
                     <TextField
                         multi={true}
                         tests={[
@@ -270,8 +264,10 @@ const AddProduct = () => {
 
                 <h2>Colors</h2>
                 <section>
-                    <Modal><h5>Hello</h5>
-                        <TextField label="Hello"></TextField></Modal>
+                    <Modal>
+                        <h5>Hello</h5>
+                        <TextField label="Hello"></TextField>
+                    </Modal>
                     <label htmlFor="product_color_label">Color Name</label>
                     <input
                         name="product_color_label"
@@ -296,28 +292,6 @@ const AddProduct = () => {
                         ref={colorValue}
                     />
                 </section>
-                <NewColourContainer>
-                    {colors.length > 0
-                        ? colors.map((label, index) => {
-                              return (
-                                  <CurrentColour>
-                                      <ColourPreview colour={label.value} />
-                                      <p>{label.label}</p>
-                                      <div
-                                          onClick={() =>
-                                              deleteItem(index, colors)
-                                          }
-                                      >
-                                          <Delete
-                                              src={DeleteIcon}
-                                              alt="delete-icon"
-                                          />
-                                      </div>
-                                  </CurrentColour>
-                              );
-                          })
-                        : ""}
-                </NewColourContainer>
 
                 <FormButton
                     type="button"
@@ -355,29 +329,24 @@ const AddProduct = () => {
                     </Error>
                 </section>
                 <NewSizeContainer>
-                    {sizes.length > 0
-                        ? sizes.map((size, index) => {
-                              return (
-                                  <NewSize>
-                                      <p>{size.label}</p>
+                    {sizes.length > 0 &&
+                        sizes.map((size, index) => {
+                            return (
+                                <NewSize>
+                                    <p>{size.label}</p>
 
-                                      <NewSizePrice>
-                                          $ {size.price}
-                                      </NewSizePrice>
-                                      <div
-                                          onClick={() =>
-                                              deleteItem(index, sizes)
-                                          }
-                                      >
-                                          <Delete
-                                              src={DeleteIcon}
-                                              alt="delete-icon"
-                                          />
-                                      </div>
-                                  </NewSize>
-                              );
-                          })
-                        : ""}
+                                    <NewSizePrice>$ {size.price}</NewSizePrice>
+                                    <div
+                                        onClick={() => deleteItem(index, sizes)}
+                                    >
+                                        <Delete
+                                            src={DeleteIcon}
+                                            alt="delete-icon"
+                                        />
+                                    </div>
+                                </NewSize>
+                            );
+                        })}
                 </NewSizeContainer>
 
                 <FormButton type="button" onClick={setSizeLabelAndPrice}>
@@ -548,37 +517,6 @@ const Error = styled.p`
     transform: translateY(-100%);
 `;
 
-const NewColourContainer = styled.div`
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    padding: 0px;
-`;
-
-const CurrentColour = styled.div`
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    padding: 5px 10px;
-    background: #c5c3ff;
-    margin: 8px;
-    p {
-        margin-right: 10px;
-        text-transform: uppercase;
-        font-weight: 700;
-        letter-spacing: 0.05em;
-    }
-`;
-
-const ColourPreview = styled.div`
-    width: 20px;
-    height: 20px;
-    margin-right: 20px;
-    border-radius: 50%;
-    background-color: ${(props) => props.colour};
-`;
-
 const Delete = styled.img`
     width: 15px;
     height: 15px;
@@ -596,27 +534,6 @@ const NewSizeContainer = styled.div`
     flex-wrap: wrap;
     justify-content: flex-start;
     padding: 0px;
-`;
-
-const NewSize = styled.div`
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    padding: 5px 10px;
-    background: #c5c3ff;
-    margin: 8px;
-
-    p {
-        margin-right: 10px;
-        text-transform: uppercase;
-        font-weight: 700;
-        letter-spacing: 0.05em;
-    }
-`;
-
-const NewSizePrice = styled.p`
-    margin-right: 10px;
 `;
 
 const ChooseImage = styled.div`
@@ -638,12 +555,6 @@ const ImageCard = styled.div`
     align-items: center;
     background: #c5c3ff;
     margin: 10px 0px;
-`;
-
-const UploadedImage = styled.img`
-    width: 200px;
-    /* height: 250px; */
-    height: 200px;
 `;
 
 const ImgFileName = styled.p`

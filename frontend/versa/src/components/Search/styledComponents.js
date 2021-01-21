@@ -7,7 +7,7 @@ export const ModalButton = styled.button`
     font-size: 13px;
     font-weight:400;
     padding: 5px;
-    background-color: white;
+    background-color: ${props=>props.colors?props.colors.primary:"white"};
 `
 export const Modal = styled.div`
     border-style:solid;

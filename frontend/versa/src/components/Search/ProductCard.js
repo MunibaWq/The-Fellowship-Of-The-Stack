@@ -4,7 +4,8 @@ import { useDispatch } from "react-redux";
 import { setSelectedProduct } from "../../redux/actions";
 import { Link } from "react-router-dom";
 // import { Image, ImageCard, ProductInfo } from "../Reusable/Card";
-import Card from "../Reusable/Card";
+// import Card from "../Reusable/Card";
+import ItemCard from "../Reusable/ItemCard";
 
 let host = process.env.NODE_ENV === "production" ? "" : "http://localhost:5000";
 const ProductCard = ({ product }) => {
@@ -40,7 +41,7 @@ const ProductCard = ({ product }) => {
                     </div>
                 </ProductInfo>
             </ImageCard> */}
-            <Card title={product.title} price={product.price}>
+            <ItemCard title={product.title} price={product.price}>
                 <img
                     style={{
                         width: "100%",
@@ -57,7 +58,7 @@ const ProductCard = ({ product }) => {
                             : ""
                     }
                 />
-            </Card>
+            </ItemCard>
         </Link>
     );
 };
