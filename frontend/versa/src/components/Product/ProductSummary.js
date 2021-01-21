@@ -10,7 +10,6 @@ const ProductSummary = ({
     description,
     num_stars,
     num_reviews,
-    variations,
     sizes,
     colours,
 }) => {
