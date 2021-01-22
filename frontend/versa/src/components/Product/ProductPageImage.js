@@ -20,8 +20,8 @@ const ProductPageImage = ({ images, productDataState }) => {
                 }
                 alt={""}
             />
-            <BackToSearch as="Link" to="/">
-                <LeftIcon stroke={colors.primary }/>
+            <BackToSearch to="/">
+                <LeftIcon stroke={colors.primary} />
                 Back to results
             </BackToSearch>
 
@@ -32,10 +32,56 @@ const ProductPageImage = ({ images, productDataState }) => {
 
 export default ProductPageImage;
 
-const BackToSearch = styled(Button)`
+const BackToSearch = styled(Link)`
     color: ${colors.primary};
     position: absolute;
     margin: 20px 0 0 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    color: ${colors.primary};
+    border: none;
+    background-color: ${colors.secondary};
+    border-bottom: 3px solid ${colors.secondary};
+    padding: 5px 10px;
+    font-weight: 700;
+    letter-spacing: 5%;
+    margin: 5px;
+    transition: 0.3s ease;
+    min-width: fit-content;
+    cursor: pointer;
+    max-width: fit-content;
+
+    svg {
+        width: 28px;
+        height: 28px;
+        margin-left: 16px;
+
+        path {
+            transition: 0.3s ease;
+            fill: ${colors.primary};
+        }
+    }
+
+    &:hover {
+        color: ${colors.primaryHover};
+        svg {
+            path {
+                fill: ${colors.primaryHover};
+            }
+        }
+    }
+
+    &:focus {
+        outline: none;
+        color: ${colors.primaryHover};
+        svg {
+            path {
+                fill: ${colors.primaryHover};
+            }
+        }
+    }
 `;
 
 const CarouselContainer = styled.section`
