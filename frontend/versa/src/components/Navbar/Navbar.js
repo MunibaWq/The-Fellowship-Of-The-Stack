@@ -36,9 +36,9 @@ const Navbar = () => {
                 <NavLink color={colors.secondary} to="/products/create">
                     Create
                 </NavLink>
-                <NavLink color={colors.secondary} to="/products/edit/1">
+                {/* <NavLink color={colors.secondary} to="/products/edit/1">
                     Edit
-                </NavLink>
+                </NavLink> */}
                 <NavLink color={colors.secondary} to="/events">
                     <EventsIcon stroke={colors.secondary} />
                 </NavLink>

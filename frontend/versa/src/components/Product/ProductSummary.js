@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { WishListIcon } from "../../images/icons";
+import { EditIcon, WishListIcon } from "../../images/icons";
 import colors from "../Reusable/Colors";
 import RenderStars from "./RenderStars";
 import Button from "../Reusable/Button";
+import { Link, useParams } from "react-router-dom";
 
 const ProductSummary = ({
     title,
@@ -21,10 +22,17 @@ const ProductSummary = ({
     //     });
     // }
     const [priceDiff, setPriceDiff] = useState(0);
+    let params = useParams();
     return (
         <ProductSummaryContainer>
             <NameAddWishContainer>
-                <ProductName>{title}</ProductName>
+                <ProductName>
+                    {title + " "}
+                    <Link to={"/products/edit/" + params.id}>
+                        <EditIcon stroke={"red"} />
+                    </Link>
+                </ProductName>
+
                 <WishListIcon />
             </NameAddWishContainer>
             <PriceReviewContainer>
@@ -40,26 +48,29 @@ const ProductSummary = ({
                 </ReviewContainer>
             </PriceReviewContainer>
 
-            {sizes && sizes.length>0 && <SizeOptionsContainer>
-                <h6>Sizes</h6>
-                
-                {sizes.map((size) => {
-                    return (
-                        size && (
-                            <SizeOption
-                                onClick={() => {
-                                    setPriceDiff(+size.price);
-                                }}
-                            >
-                                <p>{size.label}</p>
-                            </SizeOption>
-                        )
-                    );
-                })}
-            </SizeOptionsContainer>}
-            {colors && colors.length > 0 && <ColourOptions>
-                <h6>Colours</h6>
-                {colours.map((colour, index) => {
+            {sizes && sizes.length > 0 && (
+                <SizeOptionsContainer>
+                    <h6>Sizes</h6>
+
+                    {sizes.map((size) => {
+                        return (
+                            size && (
+                                <SizeOption
+                                    onClick={() => {
+                                        setPriceDiff(+size.price);
+                                    }}
+                                >
+                                    <p>{size.label}</p>
+                                </SizeOption>
+                            )
+                        );
+                    })}
+                </SizeOptionsContainer>
+            )}
+            {colors && colors.length > 0 && (
+                <ColourOptions>
+                    <h6>Colours</h6>
+                    {colours.map((colour, index) => {
                         return (
                             <ColourOption>
                                 <ColourPreview colour={colour.value} />
@@ -67,7 +78,8 @@ const ProductSummary = ({
                             </ColourOption>
                         );
                     })}
-            </ColourOptions>}
+                </ColourOptions>
+            )}
             <Container>
                 <Button primary>Buy Now</Button>
                 <Button primary>Add To Cart</Button>
