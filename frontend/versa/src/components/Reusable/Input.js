@@ -15,7 +15,6 @@ export const TextField = ({ value, setValue, multi, label, tests = [] }) => {
                         onChange={(e) => {
                             let error = "";
                             for (let test of tests) {
-                                console.log(test);
                                 if (test.test(e.target.value)) {
                                     error = test.error;
                                 }
@@ -34,7 +33,6 @@ export const TextField = ({ value, setValue, multi, label, tests = [] }) => {
                         onChange={(e) => {
                             let error = "";
                             for (let test of tests) {
-                                console.log(test);
                                 if (test.test(e.target.value)) {
                                     error = test.error;
                                 }

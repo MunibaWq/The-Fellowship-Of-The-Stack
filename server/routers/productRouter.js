@@ -131,7 +131,6 @@ router.put("/edit/:id", async (req, res) => {
             sizes,
             materials,
         } = req.body.data; //For use in set
-        console.log(req.body.data)
         let response = await pool.query(
             "UPDATE products SET title = $1, price = $2, description = $3, colours = $4, artist_id = $5, sizes = $6, materials = $7 WHERE id = $8 RETURNING id",
             [

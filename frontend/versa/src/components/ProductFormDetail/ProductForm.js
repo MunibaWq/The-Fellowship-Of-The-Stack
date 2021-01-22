@@ -17,9 +17,7 @@ function deleteItem(index, arr, set) {
     newArray.splice(index, 1);
     set(newArray);
 }
-const validInput = {title:false,price:false, description:false}
 const ProductForm = (props) => {
-    console.log("props", props);
     const [colorModalVisible, setColorModalVisible] = useState(false);
     const [sizeModalVisible, setSizeModalVisible] = useState(false);
     const [colors, setColors] = useState([]);
@@ -78,7 +76,6 @@ const ProductForm = (props) => {
     function setColorLabelAndValue() {
         let colorToAdd = document.querySelector("#colorToAdd").value;
         let colorLabelToAdd = document.querySelector("#colorLabelToAdd").value;
-        console.log("colorLabelToAdd", colorLabelToAdd);
 
         if (colors.length < 6) {
             let temp = {
@@ -91,8 +88,6 @@ const ProductForm = (props) => {
     function setSizeValue() {
         let sizeLabelToAdd = document.querySelector("#sizeLabelToAdd").value;
         let priceToAdd = document.querySelector("#priceToAdd").value;
-        console.log("sizeLabelToAdd", sizeLabelToAdd);
-        console.log("priceToAdd", priceToAdd);
 
         if (sizes.length < 25) {
             let temp = {
@@ -134,7 +129,6 @@ const ProductForm = (props) => {
             }
         };
         let error = document.getElementById('error')
-        console.log(error)
         if (!error) {
            
             sendData();
@@ -236,7 +230,6 @@ const ProductForm = (props) => {
                                     {color.label}
                                     <RemoveIcon
                                         onClick={() => {
-                                            console.log("clicked");
                                             deleteItem(
                                                 index,
                                                 colors,
