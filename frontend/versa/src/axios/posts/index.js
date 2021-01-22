@@ -1,14 +1,12 @@
 import Axios from "axios";
 import { v4 as uuid } from "uuid";
 import S3 from "react-aws-s3";
-const accessKeyId = process.env.REACT_APP_AWS_ACCESS_KEY_ID
-const secretKey = process.env.REACT_APP_AWS_SECRET_ACCESS_KEY
+const accessKeyId = process.env.REACT_APP_AWS_ACCESS_KEY_ID;
+const secretKey = process.env.REACT_APP_AWS_SECRET_ACCESS_KEY;
 
-
-let host = process.env.NODE_ENV==='production'? "" : "http://localhost:5000"
+let host = process.env.NODE_ENV === "production" ? "" : "http://localhost:5000";
 export const addImage = async (image, label, imageSize, productID) => {
-
-    const filename = uuid() 
+    const filename = uuid();
     const config = {
         bucketName: "versabucket",
         dirName: "images",
@@ -18,83 +16,78 @@ export const addImage = async (image, label, imageSize, productID) => {
     };
 
     const ReactS3Client = new S3(config);
-    
 
     try {
-        const data = await ReactS3Client.uploadFile(image, filename)
-
-        const response = await Axios.post(host+"/images/add", {
+        ReactS3Client.uploadFile(image, filename);
+        const response = await Axios.post(host + "/images/add", {
             filename: filename,
             label: label,
             imageSize: imageSize,
             productID: productID,
-        })
+        });
         if (response.status === 201) {
-                    
             return true;
         }
         return false;
-            
-    }
-    catch (err)  {
+    } catch (err) {
         console.error(err);
-        return false
+        return false;
     }
 };
-    
-    /**
-     * {
-     *   Response: {
-     *     bucket: "myBucket",
-     *     key: "image/test-image.jpg",
-     *     location: "https://myBucket.s3.amazonaws.com/media/test-file.jpg"
-     *   }
-     * }
-     */
 
-    // var s3 = new AWS.S3({
-    //     aws_access_key_id: accessKeyId,
-    //     aws_secret_access_key: secretKey,
-    // });
+/**
+ * {
+ *   Response: {
+ *     bucket: "myBucket",
+ *     key: "image/test-image.jpg",
+ *     location: "https://myBucket.s3.amazonaws.com/media/test-file.jpg"
+ *   }
+ * }
+ */
 
-    // // configuring parameters
-    // var params = {
-    //     Bucket: BUCKET_NAME,
-    //     Body: image,
-    //     Key: "images/" + filename,
-    // };
+// var s3 = new AWS.S3({
+//     aws_access_key_id: accessKeyId,
+//     aws_secret_access_key: secretKey,
+// });
 
-    // s3.upload(params, async function (err, data) {
-    //     //handle error
-    //     if (err) {
-    //         console.log("Error", err);
-    //         return false;
-    //     }
+// // configuring parameters
+// var params = {
+//     Bucket: BUCKET_NAME,
+//     Body: image,
+//     Key: "images/" + filename,
+// };
 
-    //     //success
-    //     if (data) {
-    //         console.log("Uploaded in:", data.Location);
-    //         let response = await Axios.post("/images/add", {
-    //             filename: filename,
-    //             label: label,
-    //             image_size: imageSize,
-    //             productID: productID,
-    //         });
-    //         if (response.status(201)) {
-    //             return true;
-    //         }
-    //         return false;
-    //     }
-    // });
+// s3.upload(params, async function (err, data) {
+//     //handle error
+//     if (err) {
+//         console.log("Error", err);
+//         return false;
+//     }
 
-    // var params = {
-    //     Key: "folder/1610482949524_sample.txt",
-    //     Bucket: BUCKET_NAME,
-    // };
-    // s3.getObject(params, function (err, data) {
-    //     if (err) {
-    //         throw err;
-    //     }
-    //     fs.writeFileSync("./sample1.txt", data.Body);
-    //     console.log("file downloaded successfully");
-    // });
+//     //success
+//     if (data) {
+//         console.log("Uploaded in:", data.Location);
+//         let response = await Axios.post("/images/add", {
+//             filename: filename,
+//             label: label,
+//             image_size: imageSize,
+//             productID: productID,
+//         });
+//         if (response.status(201)) {
+//             return true;
+//         }
+//         return false;
+//     }
+// });
+
+// var params = {
+//     Key: "folder/1610482949524_sample.txt",
+//     Bucket: BUCKET_NAME,
+// };
+// s3.getObject(params, function (err, data) {
+//     if (err) {
+//         throw err;
+//     }
+//     fs.writeFileSync("./sample1.txt", data.Body);
+//     console.log("file downloaded successfully");
+// });

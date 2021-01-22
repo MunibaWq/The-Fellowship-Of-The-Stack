@@ -67,8 +67,7 @@ const ProductForm = (props) => {
             setColors([...colors, temp]);
         }
     }
-
-    const onSubmit = () => {
+    const onSubmit = (e) => {
         let productID = 15;
         images.forEach(async (image) => {
             let res = await addImage(
@@ -85,7 +84,6 @@ const ProductForm = (props) => {
                 );
         });
     };
-    console.log(images)
     return (
         <Form onSubmit={onSubmit}>
             <h2>Product Details</h2>
@@ -243,12 +241,11 @@ const ProductForm = (props) => {
                         );
                     })}
             </div>
-                        
-            
+
             <ImagesDiv>
                 <h2>Images</h2>
                 <ImageUpload>
-                  <input
+                    <input
                         onChange={(e) => {
                             let image = URL.createObjectURL(e.target.files[0]);
                             setImages([
@@ -260,22 +257,22 @@ const ProductForm = (props) => {
                                 },
                             ]);
                         }}
-                       type={"file"}
+                        type={"file"}
                         accept={"image/jpeg"}
                     ></input>
                 </ImageUpload>
                 <ImageList>
-                {images.map((image, index) => {
-                    return (
-                        <>
-                            <UploadedImage
-                                key={index}
-                                alt="product"
-                                src={image.image}
-                            />
-                        </>
-                    );
-                })}
+                    {images.map((image, index) => {
+                        return (
+                            <>
+                                <UploadedImage
+                                    key={index}
+                                    alt="product"
+                                    src={image.image}
+                                />
+                            </>
+                        );
+                    })}
                 </ImageList>
             </ImagesDiv>
             <Container>
@@ -289,18 +286,17 @@ const ProductForm = (props) => {
 
 export default ProductForm;
 const ImageUpload = styled.section`
-  @media only screen and (min-width: 800px) {
-        width:220px;
+    @media only screen and (min-width: 800px) {
+        width: 220px;
     }
-`
+`;
 const ImageList = styled.div`
-display: flex;
+    display: flex;
     flex-direction: column;
     align-items: center;
     overflow-y: auto;
     height: 50vh;
-
-`
+`;
 const Form = styled.form`
     flex-wrap: wrap;
     display: flex;
@@ -349,9 +345,8 @@ const UploadedImage = styled.img`
     height: 200px;
 `;
 const ImagesDiv = styled.div`
-    
     @media only screen and (min-width: 800px) {
         height: 75%;
-        width:220px;
+        width: 220px;
     }
 `;
