@@ -1,5 +1,3 @@
-
-
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { TextField } from "../Reusable/Input";
@@ -12,13 +10,14 @@ import { addImage } from "../../axios/posts";
 import { useParams } from "react-router";
 import { getProductByID } from "../../axios/gets";
 import theme from "../Reusable/Colors";
-import { AddIcon, LineCloseIcon} from "../../images/icons";
+import { AddIcon, LineCloseIcon } from "../../images/icons";
 let host = process.env.NODE_ENV === "production" ? "" : "http://localhost:5000";
 function deleteItem(index, arr, set) {
     let newArray = [...arr];
     newArray.splice(index, 1);
     set(newArray);
 }
+const validInput = {title:false,price:false, description:false}
 const ProductForm = (props) => {
     console.log("props", props);
     const [colorModalVisible, setColorModalVisible] = useState(false);
@@ -30,6 +29,7 @@ const ProductForm = (props) => {
     const [inputPrice, setInputPrice] = useState();
     const [inputDesc, setInputDesc] = useState();
     const [inputMaterials, setInputMaterials] = useState();
+    const [formError, setFormError]=useState(false)
     const params = useParams();
     const id = params.id;
     function clearField() {
@@ -49,7 +49,6 @@ const ProductForm = (props) => {
     useEffect(() => {
         const getProductData = async () => {
             let data = await getProductByID(id);
-            console.log(data);
             setInputName(data.title);
             setColors(data.colours);
             setSizes(data.sizes);
@@ -61,15 +60,19 @@ const ProductForm = (props) => {
             getProductData();
         }
     }, [id, props.type]);
+
     useEffect(() => {
-        localStorage.setItem("data", {
-            inputName: inputName,
-            inputPrice: inputPrice,
-            inputDesc: inputDesc,
-            inputMaterials: inputMaterials,
-            colors: colors,
-            sizes: sizes,
-        });
+        localStorage.setItem(
+            "data",
+            JSON.stringify({
+                inputName: inputName,
+                inputPrice: inputPrice,
+                inputDesc: inputDesc,
+                inputMaterials: inputMaterials,
+                colors: colors,
+                sizes: sizes,
+            })
+        );
     }, [inputName, inputPrice, inputDesc, inputMaterials, colors, sizes]);
 
     function setColorLabelAndValue() {
@@ -122,8 +125,22 @@ const ProductForm = (props) => {
             }
 
             clearField();
+            if (props.type === "Edit") {
+                window.location.href = window.location.href.replace('products/edit', 'product-item')
+            } else {
+                let productID = 1
+                window.location.href = window.location.href.replace('products/create', 'product-item/'+productID)
+
+            }
         };
-        sendData();
+        let error = document.getElementById('error')
+        console.log(error)
+        if (!error) {
+           
+            sendData();
+        } else {
+            setFormError(true)
+        }
     };
 
     return (
@@ -140,6 +157,10 @@ const ProductForm = (props) => {
                         test: (input) => input.length < 3,
                         error: "Minimum 3 characters.",
                     },
+                    {
+                        test: (input) => input.length > 45,
+                        error: "Title too long"
+                    }
                 ]}
                 label="Product Name"
                 value={inputName}
@@ -164,6 +185,7 @@ const ProductForm = (props) => {
                 ]}
                 label="Price"
                 value={inputPrice}
+           
                 setValue={setInputPrice}
             ></TextField>
             <TextField
@@ -220,7 +242,6 @@ const ProductForm = (props) => {
                                                 colors,
                                                 setColors
                                             );
-                                            setInputDesc((curr) => curr);
                                         }}
                                     >
                                         <LineCloseIcon stroke="black" />
@@ -283,9 +304,13 @@ const ProductForm = (props) => {
                                     <p>{size.label}</p>
 
                                     <NewSizePrice>$ {size.price}</NewSizePrice>
-                                    {/* <div onClick={() => deleteItem(index, sizes)}>
-                                    <Icons lineClose />
-                                </div> */}
+                                    <RemoveIcon
+                                        onClick={() => {
+                                            deleteItem(index, sizes, setSizes);
+                                        }}
+                                    >
+                                        <LineCloseIcon stroke="black" />
+                                    </RemoveIcon>
                                 </NewSize>
                             );
                         })}
@@ -316,13 +341,12 @@ const ProductForm = (props) => {
                     }}
                 >
                     Add
-                     <AddIcon/>
+                    <AddIcon />
                 </Button>
             </SizeDiv>
             <ImagesDiv>
                 <h2>Images</h2>
                 <Button secondary>
-                
                     Add <AddIcon />
                 </Button>
                 {images.map((image, index) => {
@@ -342,10 +366,11 @@ const ProductForm = (props) => {
                     Cancel
                     <Icon type="lineClose" />
                 </Button>
-                <Button primary type="submit">
+                <Button primary onClick={submitData}>
                     Submit
                 </Button>
             </Container>
+            {formError && <Error >Please check all input is valid</Error>}
         </Form>
     );
 };
@@ -353,6 +378,7 @@ const ProductForm = (props) => {
 export default ProductForm;
 const RemoveIcon = styled.div`
     display: flex;
+    cursor: pointer;
 `;
 const Form = styled.form`
     flex-wrap: wrap;

@@ -40,27 +40,26 @@ const ProductSummary = ({
                 </ReviewContainer>
             </PriceReviewContainer>
 
-            <SizeOptionsContainer>
+            {sizes && sizes.length>0 && <SizeOptionsContainer>
                 <h6>Sizes</h6>
-                {sizes &&
-                    sizes.map((size, index) => {
-                        return (
-                            size && (
-                                <SizeOption
-                                    onClick={() => {
-                                        setPriceDiff(+size.price);
-                                    }}
-                                >
-                                    <p>{size.label}</p>
-                                </SizeOption>
-                            )
-                        );
-                    })}
-            </SizeOptionsContainer>
-            <ColourOptions>
+                
+                {sizes.map((size) => {
+                    return (
+                        size && (
+                            <SizeOption
+                                onClick={() => {
+                                    setPriceDiff(+size.price);
+                                }}
+                            >
+                                <p>{size.label}</p>
+                            </SizeOption>
+                        )
+                    );
+                })}
+            </SizeOptionsContainer>}
+            {colors && colors.length > 0 && <ColourOptions>
                 <h6>Colours</h6>
-                {colours &&
-                    colours.map((colour, index) => {
+                {colours.map((colour, index) => {
                         return (
                             <ColourOption>
                                 <ColourPreview colour={colour.value} />
@@ -68,7 +67,7 @@ const ProductSummary = ({
                             </ColourOption>
                         );
                     })}
-            </ColourOptions>
+            </ColourOptions>}
             <Container>
                 <Button primary>Buy Now</Button>
                 <Button primary>Add To Cart</Button>
