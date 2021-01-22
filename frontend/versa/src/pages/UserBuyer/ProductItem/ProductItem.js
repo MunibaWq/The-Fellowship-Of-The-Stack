@@ -9,7 +9,7 @@ const ProductItem = () => {
     const params = useParams();
     const currentProduct = params.id;
     const [productDataState, setProductDataState] = useState([]);
-    const [images, setImages] = useState([])
+    const [images, setImages] = useState([]);
     useEffect(() => {
         const fetchProduct = async () => {
             const data = await getProductByID(currentProduct);
@@ -17,22 +17,31 @@ const ProductItem = () => {
             setProductDataState(data);
         };
         const fetchImages = async () => {
-            let response = await(getImagesByPID(currentProduct))
-            setImages(response)
-        }
+            let response = await getImagesByPID(currentProduct);
+            setImages(response);
+        };
         fetchProduct();
         fetchImages();
     }, [currentProduct]);
     return (
         <ProductItemContainer>
-            <ProductPageImage images={images} productDataState={productDataState} />
-            <ProductData productDataState={productDataState} />
+            <ProductPageImage
+                images={images}
+                productDataState={productDataState}
+            />
+            <Container>
+                <ProductData productDataState={productDataState} />
+            </Container>
         </ProductItemContainer>
     );
 };
 
 export default ProductItem;
 
-const ProductItemContainer = styled.div`
-    
+const ProductItemContainer = styled.div``;
+const Container = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 `;

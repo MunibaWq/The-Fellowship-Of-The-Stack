@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { WishListIcon } from "../../images/icons";
 import colors from "../Reusable/Colors";
 import RenderStars from "./RenderStars";
+import Button from "../Reusable/Button";
 
 const ProductSummary = ({
     title,
@@ -19,7 +20,7 @@ const ProductSummary = ({
     //         return <Circle variation={variation} key={`${title}-${index}`} />;
     //     });
     // }
-    const [priceDiff,setPriceDiff] = useState(0)
+    const [priceDiff, setPriceDiff] = useState(0);
     return (
         <ProductSummaryContainer>
             <NameAddWishContainer>
@@ -28,7 +29,7 @@ const ProductSummary = ({
             </NameAddWishContainer>
             <PriceReviewContainer>
                 <PriceSoldContainer>
-                    <Price>${price+priceDiff}</Price>
+                    <Price>${price + priceDiff}</Price>
                 </PriceSoldContainer>
                 <span>|</span>
                 <ReviewContainer>
@@ -40,36 +41,38 @@ const ProductSummary = ({
             </PriceReviewContainer>
 
             <SizeOptionsContainer>
-                <h5>Sizes</h5>
+                <h6>Sizes</h6>
                 {sizes &&
                     sizes.map((size, index) => {
-
-                        return size && (
-                            <SizeOption onClick={() => {setPriceDiff(+size.price) } }>
-                                <p>{size.label}</p>
-                            </SizeOption>
+                        return (
+                            size && (
+                                <SizeOption
+                                    onClick={() => {
+                                        setPriceDiff(+size.price);
+                                    }}
+                                >
+                                    <p>{size.label}</p>
+                                </SizeOption>
+                            )
                         );
                     })}
             </SizeOptionsContainer>
             <ColourOptions>
-                <h5>Colours</h5>
+                <h6>Colours</h6>
                 {colours &&
                     colours.map((colour, index) => {
                         return (
                             <ColourOption>
-                                <p>{colour.label}</p>
                                 <ColourPreview colour={colour.value} />
+                                <p>{colour.label}</p>
                             </ColourOption>
                         );
                     })}
             </ColourOptions>
-            <ShortDescriptionContainer>
-                <ShortDescription>{description}</ShortDescription>
-            </ShortDescriptionContainer>
-            <ButtonContainer>
-                <Buy>Buy</Buy>
-                <AddToCart>Add To Cart</AddToCart>
-            </ButtonContainer>
+            <Container>
+                <Button primary>Buy Now</Button>
+                <Button primary>Add To Cart</Button>
+            </Container>
         </ProductSummaryContainer>
     );
 };
@@ -113,6 +116,7 @@ const PriceSoldContainer = styled.div`
 `;
 const Price = styled.div`
     padding-right: 10px;
+    width: 80px;
     p {
         margin: 0;
         padding: 0;
@@ -143,12 +147,12 @@ const SizeOptionsContainer = styled.div`
     justify-content: center;
     align-items: center;
     padding-bottom: 20px;
-    h5 {
+    h6 {
         padding-right: 20px;
     }
 `;
 const SizeOption = styled.div`
-    background-color: ${colors.primary};
+    border: 2px solid ${colors.primary};
 
     height: 32px;
     border-radius: 30px;
@@ -157,10 +161,10 @@ const SizeOption = styled.div`
     align-items: center;
     margin: 0 8px 0 0;
     padding: 5px 10px;
+    cursor: pointer;
     p {
         text-transform: uppercase;
         margin: 0px;
-        color: ${colors.secondary};
     }
 `;
 
@@ -168,12 +172,23 @@ const ColourOptions = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
+    p {
+        text-transform: uppercase;
+        margin: 0px;
+    }
+    h6 {
+        padding-right: 20px;
+    }
 `;
 
 const ColourOption = styled.div`
+    border: 2px solid ${colors.primary};
+    border-radius: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 10px;
+    cursor: pointer;
 `;
 
 const ColourPreview = styled.div`
@@ -182,38 +197,11 @@ const ColourPreview = styled.div`
     margin: 0 10px;
     border-radius: 50px;
     background-color: ${(props) => props.colour};
+    margin-bottom: 5px;
 `;
 
-const ShortDescriptionContainer = styled.div`
-    padding-bottom: 20px;
-    p {
-    }
-`;
-const ShortDescription = styled.p``;
-const ButtonContainer = styled.div`
+const Container = styled.div`
     display: flex;
-    justify-content: space-between;
-    padding-bottom: 20px;
-`;
-const Buy = styled.button`
-    padding: 10px 20px;
-    background: #444444;
-    border-radius: 50px;
-    border: none;
-    color: white;
-    text-transform: uppercase;
-    font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    margin-right: 20px;
-`;
-const AddToCart = styled.button`
-    padding: 10px 20px;
-    background: #444444;
-    border: none;
-    border-radius: 50px;
-    color: white;
-    font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
+    flex-direction: row;
+    padding: 1em;
 `;

@@ -4,11 +4,10 @@ import ProductForm from "../../components/ProductFormDetail/ProductForm";
 import TempForm from "../../components/ProductFormDetail/TempForm";
 
 const AddProduct = () => {
-
     return (
         <Container>
             <h1>Add Product</h1>
-            <TempForm type={"Add"}/>
+            <TempForm type={"Add"} />
         </Container>
     );
 };
@@ -16,23 +15,12 @@ const AddProduct = () => {
 export default AddProduct;
 
 const Container = styled.div`
-margin:2em;
+    margin: 2em;
     display: flex;
     flex-direction: column;
     height: calc(84vh - 4em);
-text-align:center;
+    text-align: center;
 `;
-
-
-
-
-
-
-
-
-
-
-
 
 //import React, { useRef, useState, useEffect } from "react";
 //import styled from "styled-components";
