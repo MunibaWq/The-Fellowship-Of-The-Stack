@@ -43,7 +43,7 @@ export function crop(url, aspectRatio) {
         inputImage.src = url;
     });
 }
-export function base64ToBlob(base64, mime) {
+function base64ToBlob(base64, mime) {
     mime = mime || "";
     var sliceSize = 1024;
     var byteChars = window.atob(base64);
@@ -67,4 +67,20 @@ export function base64ToBlob(base64, mime) {
     }
 
     return new Blob(byteArrays, { type: mime });
+}
+
+export function convertCanvasToBlob(img) {
+    // convert canvas image back to a base64 image
+    let jpegFile = img.toDataURL();
+    // change base64 image to plain base 64 data
+    let jpegFile64 = jpegFile.replace(
+        /^data:image\/(png|jpeg);base64,/,
+        ""
+    );
+    // convert base64 data into an jpeg image that AWS can handle
+    let jpegBlob = base64ToBlob(
+        jpegFile64,
+        "image/jpeg"
+    );
+    return jpegBlob
 }
