@@ -3,7 +3,7 @@ import { useState } from "react";
 import colors from "./Colors";
 
 export const TextField = ({ value, setValue, multi, label, tests = [] }) => {
-    const [showError, setShowError] = useState([]);
+    const [showError, setShowError] = useState(false);
     return (
         <div>
             <FieldContainer>
@@ -49,7 +49,7 @@ export const TextField = ({ value, setValue, multi, label, tests = [] }) => {
                     ></Input>
                 )}
                 <br />
-                <Error>{showError}</Error>
+                <Error id={showError && "error"}>{showError}</Error>
             </FieldContainer>
         </div>
     );
