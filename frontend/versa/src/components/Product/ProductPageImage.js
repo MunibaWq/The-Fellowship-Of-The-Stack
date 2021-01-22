@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import colors from "../Reusable/Colors";
 import Icon from "../Reusable/Icons";
 import Button from "../Reusable/Button";
+import { LeftIcon } from "../../images/icons";
 
 let host = process.env.NODE_ENV === "production" ? "" : "http://localhost:5000";
 const ProductPageImage = ({ images, productDataState }) => {
@@ -20,7 +21,7 @@ const ProductPageImage = ({ images, productDataState }) => {
                 alt={""}
             />
             <BackToSearch as="Link" to="/">
-                <Icon type="left" />
+                <LeftIcon stroke={colors.primary }/>
                 Back to results
             </BackToSearch>
 

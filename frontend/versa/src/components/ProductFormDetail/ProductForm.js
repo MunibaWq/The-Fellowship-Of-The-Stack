@@ -12,7 +12,7 @@ import { addImage } from "../../axios/posts";
 import { useParams } from "react-router";
 import { getProductByID } from "../../axios/gets";
 import theme from "../Reusable/Colors";
-import { LineCloseIcon} from "../../images/icons";
+import { AddIcon, LineCloseIcon} from "../../images/icons";
 let host = process.env.NODE_ENV === "production" ? "" : "http://localhost:5000";
 function deleteItem(index, arr, set) {
     let newArray = [...arr];
@@ -257,7 +257,7 @@ const ProductForm = (props) => {
                     }}
                 >
                     Add
-                    <Icon type="add" />
+                    <AddIcon />
                 </Button>
             </ColorDiv>
             <SizeDiv
@@ -316,13 +316,14 @@ const ProductForm = (props) => {
                     }}
                 >
                     Add
-                    <Icon type="add" />
+                     <AddIcon/>
                 </Button>
             </SizeDiv>
             <ImagesDiv>
                 <h2>Images</h2>
                 <Button secondary>
-                    Add <Icon type="add" />
+                
+                    Add <AddIcon />
                 </Button>
                 {images.map((image, index) => {
                     return (
