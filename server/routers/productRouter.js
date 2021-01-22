@@ -89,12 +89,11 @@ router.post("/create", async (req, res) => {
             colours,
             artist_id,
             sizes,
-            size_and_fit,
             materials,
         } = req.body.data;
 
         let productInfo = await pool.query(
-            "INSERT INTO products (title, price, description, colours, artist_id, sizes, size_and_fit, materials) VALUES ($1, $2, $3,$4, $5,$6,$7,$8) RETURNING id",
+            "INSERT INTO products (title, price, description, colours, artist_id, sizes, materials) VALUES ($1, $2, $3,$4, $5,$6,$7) RETURNING id",
             [
                 title,
                 price,
@@ -102,7 +101,6 @@ router.post("/create", async (req, res) => {
                 JSON.stringify(colours),
                 artist_id,
                 JSON.stringify(sizes),
-                size_and_fit,
                 materials,
             ]
         );
@@ -116,7 +114,7 @@ router.post("/create", async (req, res) => {
 
 // Update a product
 
-router.put("/edit/:id", (req, res) => {
+router.put("/edit/:id", async (req, res) => {
     if (Object.keys(req.body).length === 0) {
         res.send({
             message: "Theres nobody!",
@@ -131,25 +129,23 @@ router.put("/edit/:id", (req, res) => {
             colours,
             artist_id,
             sizes,
-            size_and_fit,
             materials,
-        } = req.body; //For use in set
-
-        pool.query(
-            "UPDATE products SET title = $1, price = $2, description = $3, colours = $4, artist_id = $5, sizes = $6, size_and_fit = $7, materials = $8 WHERE id = $9",
+        } = req.body.data; //For use in set
+        console.log(req.body.data)
+        let response = await pool.query(
+            "UPDATE products SET title = $1, price = $2, description = $3, colours = $4, artist_id = $5, sizes = $6, materials = $7 WHERE id = $8 RETURNING id",
             [
                 title,
                 price,
                 description,
-                colours,
+                JSON.stringify(colours),
                 artist_id,
-                sizes,
-                size_and_fit,
+                JSON.stringify(sizes),
                 materials,
                 id,
             ]
         );
-        res.json({ msg: "success" });
+        res.json(response.rows[0].id);
     } catch (err) {
         console.error(err.message);
         res.send({

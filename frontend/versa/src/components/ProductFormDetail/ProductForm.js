@@ -1,43 +1,37 @@
-import React, { useState, useEffect, useRef } from "react";
-import { useForm } from "react-hook-form";
+
+
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import Icons from "../Reusable/Icons";
 import { TextField } from "../Reusable/Input";
 import Button from "../Reusable/Button";
 import Icon from "../Reusable/Icons";
 import { ColorInput, Input } from "../../components/Reusable/Input";
 import { Modal, ModalTitle } from "../../components/Reusable/Modal";
-
+import axios from "axios";
+import { addImage } from "../../axios/posts";
+import { useParams } from "react-router";
+import { getProductByID } from "../../axios/gets";
+import theme from "../Reusable/Colors";
+import { LineCloseIcon} from "../../images/icons";
+let host = process.env.NODE_ENV === "production" ? "" : "http://localhost:5000";
+function deleteItem(index, arr, set) {
+    let newArray = [...arr];
+    newArray.splice(index, 1);
+    set(newArray);
+}
 const ProductForm = (props) => {
-    const setDefault = (fieldName) => {
-        if (localStorage.getItem(`${fieldName}`)) {
-            return localStorage.getItem(`${fieldName}`);
-        } else {
-            return "";
-        }
-    };
-    const setDefault2 = (arrName) => {
-        if (localStorage.getItem(`${arrName}`)) {
-            return JSON.parse(localStorage.getItem(`${arrName}`));
-        } else {
-            return [];
-        }
-    };
-
+    console.log("props", props);
     const [colorModalVisible, setColorModalVisible] = useState(false);
-    const { register, errors } = useForm();
-    const [colors, setColors] = useState(setDefault2("productColors"));
-    const [sizes, setSizes] = useState(setDefault2("productSizes"));
+    const [sizeModalVisible, setSizeModalVisible] = useState(false);
+    const [colors, setColors] = useState([]);
+    const [sizes, setSizes] = useState([]);
     const [images, setImages] = useState([]);
-    const [inputName, setInputName] = useState(setDefault("productName"));
-    const [inputPrice, setInputPrice] = useState(setDefault("productPrice"));
-    const [inputDesc, setInputDesc] = useState(setDefault("productDesc"));
-    const [inputFit, setInputFit] = useState(setDefault("productFit"));
-    const [inputMaterials, setInputMaterials] = useState(
-        setDefault("productMaterials")
-    );
-    const [checkDelete, setCheckDelete] = useState(false);
-
+    const [inputName, setInputName] = useState();
+    const [inputPrice, setInputPrice] = useState();
+    const [inputDesc, setInputDesc] = useState();
+    const [inputMaterials, setInputMaterials] = useState();
+    const params = useParams();
+    const id = params.id;
     function clearField() {
         window.scrollTo({
             top: 0,
@@ -50,34 +44,34 @@ const ProductForm = (props) => {
         setInputName("");
         setInputPrice("");
         setInputDesc("");
-        setInputFit("");
         setInputMaterials("");
     }
-
     useEffect(() => {
-        localStorage.setItem("productName", inputName);
-        localStorage.setItem("productPrice", inputPrice);
-        localStorage.setItem("productDesc", inputDesc);
-        localStorage.setItem("productFit", inputFit);
-        localStorage.setItem("productMaterials", inputMaterials);
-        localStorage.setItem("productColors", JSON.stringify(colors));
-        localStorage.setItem("productSizes", JSON.stringify(sizes));
-    }, [
-        inputName,
-        inputPrice,
-        inputDesc,
-        inputFit,
-        inputMaterials,
-        colors,
-        sizes,
-    ]);
+        const getProductData = async () => {
+            let data = await getProductByID(id);
+            console.log(data);
+            setInputName(data.title);
+            setColors(data.colours);
+            setSizes(data.sizes);
+            setInputPrice(data.price);
+            setInputDesc(data.description);
+            setInputMaterials(data.materials);
+        };
+        if (props.type === "Edit") {
+            getProductData();
+        }
+    }, [id, props.type]);
+    useEffect(() => {
+        localStorage.setItem("data", {
+            inputName: inputName,
+            inputPrice: inputPrice,
+            inputDesc: inputDesc,
+            inputMaterials: inputMaterials,
+            colors: colors,
+            sizes: sizes,
+        });
+    }, [inputName, inputPrice, inputDesc, inputMaterials, colors, sizes]);
 
-    const colorValue = useRef();
-    const colorPick = useRef();
-    // const sizeLabel = useRef();
-    const sizePrice = useRef();
-    // const addColor = useRef();
-    console.log(colors);
     function setColorLabelAndValue() {
         let colorToAdd = document.querySelector("#colorToAdd").value;
         let colorLabelToAdd = document.querySelector("#colorLabelToAdd").value;
@@ -91,27 +85,49 @@ const ProductForm = (props) => {
             setColors([...colors, temp]);
         }
     }
-    // function setSizeLabelAndPrice() {
-    //     let temp = {
-    //         label: sizeLabel.current.value,
-    //         price: sizePrice.current.value,
-    //     };
-    //     let appendedSizes = sizes.concat([temp]);
-    //     setSizes(appendedSizes);
-    // }
-    function deleteItem(index, arr) {
-        arr.splice(index, 1);
-        localStorage.setItem(`product${arr}`, JSON.stringify(arr));
-        setCheckDelete(!checkDelete);
+    function setSizeValue() {
+        let sizeLabelToAdd = document.querySelector("#sizeLabelToAdd").value;
+        let priceToAdd = document.querySelector("#priceToAdd").value;
+        console.log("sizeLabelToAdd", sizeLabelToAdd);
+        console.log("priceToAdd", priceToAdd);
+
+        if (sizes.length < 25) {
+            let temp = {
+                label: sizeLabelToAdd,
+                price: priceToAdd,
+            };
+            setSizes([...sizes, temp]);
+        }
     }
 
+    const submitData = () => {
+        const productInfo = {
+            title: inputName,
+            price: inputPrice,
+            description: inputDesc,
+            colours: colors,
+            artist_id: "1",
+            sizes: sizes,
+            materials: inputMaterials,
+        };
+        const sendData = () => {
+            if (props.type === "Add") {
+                axios.post(host + "/products/create", {
+                    data: productInfo,
+                });
+            } else {
+                axios.put(host + "/products/edit/" + id, {
+                    data: productInfo,
+                });
+            }
 
-    
-          
+            clearField();
+        };
+        sendData();
+    };
 
-  
     return (
-        <Form >
+        <Form onSubmit={submitData}>
             <h2>Product Details</h2>
             <TextField
                 multi={false}
@@ -126,11 +142,8 @@ const ProductForm = (props) => {
                     },
                 ]}
                 label="Product Name"
-                ref={register({ required: true, minLength: 2 })}
                 value={inputName}
-                onChange={(e) => {
-                    setInputName(e.target.value);
-                }}
+                setValue={setInputName}
             ></TextField>
 
             <TextField
@@ -150,17 +163,8 @@ const ProductForm = (props) => {
                     },
                 ]}
                 label="Price"
-                ref={register({
-                    required: true,
-                    valueAsNumber: true,
-                })}
                 value={inputPrice}
-                onWheel={(e) => {
-                    e.preventDefault();
-                }}
-                onChange={(e) => {
-                    setInputPrice(e.target.value);
-                }}
+                setValue={setInputPrice}
             ></TextField>
             <TextField
                 multi={true}
@@ -171,11 +175,8 @@ const ProductForm = (props) => {
                     },
                 ]}
                 label="Description"
-                ref={register({ required: true, minLength: 2 })}
                 value={inputDesc}
-                onChange={(e) => {
-                    setInputDesc(e.target.value);
-                }}
+                setValue={setInputDesc}
             ></TextField>
             <TextField
                 multi={true}
@@ -186,88 +187,155 @@ const ProductForm = (props) => {
                     },
                 ]}
                 label="Materials"
-                ref={register({ required: true, minLength: 2 })}
                 value={inputMaterials}
-                onChange={(e) => {
-                    setInputMaterials(e.target.value);
-                }}
+                setValue={setInputMaterials}
             ></TextField>
-            <div style={{display: "flex",
-    flexDirection: "column",
-    alignItems: "center"}}>
-                <h2>Colours</h2>
-                <div style={{
-                    display: "flex", flexWrap: "wrap", width: "75%", justifyContent: "space-between"
-                }}>
-                {colors && colors.map(color => {
-                    return <div style={{color:color.value}}>{color.label}</div>
-                })}
-                </div>
-
-            {colorModalVisible && (
-                <Modal width="fit-content">
-                    <ModalTitle>Add A Color Option</ModalTitle>
-                    <label htmlFor="colorToAdd">Click To Choose Color</label>
-                    <ColorInput id="colorToAdd" />
-                    <label>Color Name</label>
-                    <Input label="Color Name" id="colorLabelToAdd" />
-                    <Button
-                        primary
-                        onClick={() => {
-                            setColorLabelAndValue();
-                            setColorModalVisible(false);
-                        }}
-                    >
-                        Add Option
-                    </Button>
-                </Modal>
-            )}
-            <Button
-                secondary
-                onClick={() => {
-                    setColorModalVisible(true);
+            <ColorDiv
+                style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
                 }}
             >
-                Add
-                <Icon type="add" />
-            </Button>
-            </div>
-            <div>
-            <h2>Sizes</h2>
-            <Button secondary>
-                Add <Icon type="add" />
-            </Button>
-            {sizes.length > 0 &&
-                sizes.map((size, index) => {
-                    return (
-                        <NewSize>
-                            <p>{size.label}</p>
+                <h2>Colours</h2>
+                <div
+                    style={{
+                        display: "flex",
+                        flexWrap: "wrap",
+                        width: "75%",
+                        justifyContent: "space-between",
+                    }}
+                >
+                    {colors &&
+                        colors.map((color, index) => {
+                            return (
+                                <ColorOption>
+                                    <ColorPreview color={color.value} />
+                                    {color.label}
+                                    <RemoveIcon
+                                        onClick={() => {
+                                            console.log("clicked");
+                                            deleteItem(
+                                                index,
+                                                colors,
+                                                setColors
+                                            );
+                                            setInputDesc((curr) => curr);
+                                        }}
+                                    >
+                                        <LineCloseIcon stroke="black" />
+                                    </RemoveIcon>
+                                </ColorOption>
+                            );
+                        })}
+                </div>
 
-                            <NewSizePrice>$ {size.price}</NewSizePrice>
-                            <div onClick={() => deleteItem(index, sizes)}>
-                                <Icons lineClose />
-                            </div>
-                        </NewSize>
+                {colorModalVisible && (
+                    <Modal width="fit-content">
+                        <ModalTitle>Add A Color Option</ModalTitle>
+                        <label htmlFor="colorToAdd">
+                            Click To Choose Color
+                        </label>
+                        <ColorInput id="colorToAdd" />
+                        <label>Color Name</label>
+                        <Input label="Color Name" id="colorLabelToAdd" />
+                        <Button
+                            primary
+                            onClick={() => {
+                                setColorLabelAndValue();
+                                setColorModalVisible(false);
+                            }}
+                        >
+                            Add Option
+                        </Button>
+                    </Modal>
+                )}
+                <Button
+                    secondary
+                    onClick={() => {
+                        setColorModalVisible(true);
+                    }}
+                >
+                    Add
+                    <Icon type="add" />
+                </Button>
+            </ColorDiv>
+            <SizeDiv
+                style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                }}
+            >
+                <h2>Sizes</h2>
+                <div
+                    style={{
+                        display: "flex",
+                        flexWrap: "wrap",
+                        width: "75%",
+                        justifyContent: "space-between",
+                    }}
+                >
+                    {sizes.length > 0 &&
+                        sizes.map((size, index) => {
+                            return (
+                                <NewSize>
+                                    <p>{size.label}</p>
+
+                                    <NewSizePrice>$ {size.price}</NewSizePrice>
+                                    {/* <div onClick={() => deleteItem(index, sizes)}>
+                                    <Icons lineClose />
+                                </div> */}
+                                </NewSize>
+                            );
+                        })}
+                </div>
+                {sizeModalVisible && (
+                    <Modal width="fit-content">
+                        <ModalTitle>Add A Size Option</ModalTitle>
+
+                        <label>Size Label</label>
+                        <Input label="Size Label" id="sizeLabelToAdd" />
+                        <label>Additional cost for size</label>
+                        <Input label="Size Label" id="priceToAdd" />
+                        <Button
+                            primary
+                            onClick={() => {
+                                setSizeValue();
+                                setSizeModalVisible(false);
+                            }}
+                        >
+                            Add Option
+                        </Button>
+                    </Modal>
+                )}
+                <Button
+                    secondary
+                    onClick={() => {
+                        setSizeModalVisible(true);
+                    }}
+                >
+                    Add
+                    <Icon type="add" />
+                </Button>
+            </SizeDiv>
+            <ImagesDiv>
+                <h2>Images</h2>
+                <Button secondary>
+                    Add <Icon type="add" />
+                </Button>
+                {images.map((image, index) => {
+                    return (
+                        <>
+                            <UploadedImage
+                                key={index}
+                                alt="product"
+                                src={image.image}
+                            />
+                        </>
                     );
                 })}
-            </div>
-            <ImagesDiv>
-            <h2>Images</h2>
-            <Button secondary>
-                Add <Icon type="add" />
-            </Button>
-            {images.map((image, index) => {
-                return (
-                    <>
-                        <UploadedImage
-                            key={index}
-                            alt="product"
-                            src={image.image}
-                        />
-                    </>
-                );
-            })}
-                </ImagesDiv>
+            </ImagesDiv>
             <Container>
                 <Button onClick={clearField}>
                     Cancel
@@ -277,58 +345,40 @@ const ProductForm = (props) => {
                     Submit
                 </Button>
             </Container>
-            <Error>
-                {errors.product_name?.type === "required" &&
-                    "Input is required."}
-            </Error>
-            <Error>
-                {errors.product_name?.type === "minLength" &&
-                    "Must be at least 2 characters."}
-            </Error>
-            <Error>
-                {errors.product_price?.type === "required" &&
-                    "Input is required."}
-            </Error>
-            <Error>
-                {errors.product_description?.type === "required" &&
-                    "Input is required."}
-            </Error>
-            <Error>
-                {errors.product_description?.type === "minLength" &&
-                    "Must be at least 2 characters."}
-            </Error>
-            <Error>
-                {errors.product_materials?.type === "required" &&
-                    "Input is required."}
-            </Error>
-
-            <Error>
-                {errors.product_materials?.type === "minLength" &&
-                    "Must be at least 2 characters."}
-            </Error>
         </Form>
     );
 };
 
 export default ProductForm;
-
+const RemoveIcon = styled.div`
+    display: flex;
+`;
 const Form = styled.form`
-flex-wrap: wrap;
+    flex-wrap: wrap;
     display: flex;
     flex-direction: column;
     align-items: center;
-position:relative;
-@media only screen and (min-width: 800px){
-    height: 95%;
-
-}`;
-
+    position: relative;
+    @media only screen and (min-width: 800px) {
+        height: 95%;
+    }
+`;
+const ColorDiv = styled.div`
+    @media only screen and (max-width: 800px) {
+        position: relative;
+    }
+`;
+const SizeDiv = styled.div`
+    @media only screen and (max-width: 800px) {
+        position: relative;
+    }
+`;
 const Container = styled.div`
     display: flex;
-@media only screen and (min-width: 800px){
+    @media only screen and (min-width: 800px) {
         position: absolute;
-    bottom: 0px;
-}
+        bottom: 0px;
+    }
 `;
 
 const Error = styled.p`
@@ -360,17 +410,18 @@ const UploadedImage = styled.img`
     height: 200px;
 `;
 const ImagesDiv = styled.div`
-@media only screen and (min-width:800px){
-    height:75%;
-}
-`
-const CurrentColour = styled.div`
+    @media only screen and (min-width: 800px) {
+        height: 75%;
+    }
+`;
+const ColorOption = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
     padding: 5px 10px;
-    background: #c5c3ff;
+    border: 2px solid ${theme.primary};
+    border-radius: 20px;
     margin: 8px;
     p {
         margin-right: 10px;
@@ -380,10 +431,10 @@ const CurrentColour = styled.div`
     }
 `;
 
-const ColourPreview = styled.div`
+const ColorPreview = styled.div`
     width: 20px;
     height: 20px;
     margin-right: 20px;
     border-radius: 50%;
-    background-color: ${(props) => props.colour};
+    background-color: ${(props) => props.color};
 `;

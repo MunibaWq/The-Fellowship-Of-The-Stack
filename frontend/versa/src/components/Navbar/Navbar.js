@@ -36,7 +36,7 @@ const Navbar = () => {
                 <NavLink color={colors.secondary} to="/products/create">
                     Create
                 </NavLink>
-                <NavLink color={colors.secondary} to="/products/edit/:id">
+                <NavLink color={colors.secondary} to="/products/edit/1">
                     Edit
                 </NavLink>
                 <NavLink color={colors.secondary} to="/events">
