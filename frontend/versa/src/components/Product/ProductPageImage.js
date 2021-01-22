@@ -87,7 +87,7 @@ const BackToSearch = styled(Link)`
 const CarouselContainer = styled.section`
     grid-column: 1 / 2;
     display: grid;
-    height: 550px;
+    height: calc(100vw + 50px);
     overflow: hidden;
     border-radius: 50px;
     position: relative;
@@ -96,9 +96,10 @@ const CarouselContainer = styled.section`
 
 const ProductImage = styled.img`
     z-index: -1;
-
-    height: inherit;
-    padding-top: 50px;
+    height: 100vw;
+    margin-top: 50px;
+    width: 100vw;
+    object-fit: cover;
 `;
 
 const Badge = styled.p`
