@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+import colors from "./Colors";
+
 export const Modal = styled.div`
    
     text-align: center;
@@ -8,7 +10,7 @@ export const Modal = styled.div`
     width: ${(props) => props.width || "90vw"};
     /* height: 40vh; */
     z-index: 3;
-    background-color: white;
+    background-color: ${colors.secondary};
     box-shadow: 5px 5px 20px 5px rgba(0, 0, 0, 35%);
     border-radius: 20px;
     padding: 30px;
