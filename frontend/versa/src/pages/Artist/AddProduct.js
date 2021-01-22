@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import ProductForm from "../../components/ProductFormDetail/ProductForm";
 import TempForm from "../../components/ProductFormDetail/TempForm";
 
 const AddProduct = () => {

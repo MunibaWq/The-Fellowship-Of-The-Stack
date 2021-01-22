@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const Modal = styled.div`
    
     text-align: center;
+    top:0;
     position: absolute;
     width: ${(props) => props.width || "90vw"};
     /* height: 40vh; */

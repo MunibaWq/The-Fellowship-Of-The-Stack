@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { useState } from "react";
 import colors from "./Colors";
 
-export const TextField = ({ multi, label, tests = [] }) => {
+export const TextField = ({ value, setValue, multi, label, tests = [] }) => {
     const [showError, setShowError] = useState([]);
     return (
         <div>
@@ -11,6 +11,7 @@ export const TextField = ({ multi, label, tests = [] }) => {
                 <br />
                 {multi ? (
                     <TextArea
+                        value={value}
                         onChange={(e) => {
                             let error = "";
                             for (let test of tests) {
@@ -24,10 +25,12 @@ export const TextField = ({ multi, label, tests = [] }) => {
                             } else {
                                 setShowError(false);
                             }
+                            setValue(e.target.value)
                         }}
                     ></TextArea>
                 ) : (
-                    <Input
+                        <Input
+                            value={value}
                         onChange={(e) => {
                             let error = "";
                             for (let test of tests) {
@@ -40,7 +43,8 @@ export const TextField = ({ multi, label, tests = [] }) => {
                                 setShowError(error);
                             } else {
                                 setShowError(false);
-                            }
+                                }
+                                setValue(e.target.value)
                         }}
                     ></Input>
                 )}
