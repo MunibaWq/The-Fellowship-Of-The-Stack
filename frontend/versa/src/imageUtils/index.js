@@ -36,7 +36,8 @@ export function crop(url, aspectRatio) {
             // draw our image at position 0, 0 on the canvas
             const ctx = outputImage.getContext("2d");
             ctx.drawImage(inputImage, outputX, outputY);
-            resolve(outputImage);
+            let jpegBlob = convertCanvasToBlob(outputImage)
+            resolve(jpegBlob);
         };
 
         // start loading our image
@@ -69,17 +70,18 @@ function base64ToBlob(base64, mime) {
     return new Blob(byteArrays, { type: mime });
 }
 
-export function convertCanvasToBlob(img) {
+function convertCanvasToBlob(img) {
+
     // convert canvas image back to a base64 image
     let jpegFile = img.toDataURL();
-    // change base64 image to plain base 64 data
-    let jpegFile64 = jpegFile.replace(
+    // change base64 image to plain base64 data
+    let base64 = jpegFile.replace(
         /^data:image\/(png|jpeg);base64,/,
         ""
     );
     // convert base64 data into an jpeg image that AWS can handle
     let jpegBlob = base64ToBlob(
-        jpegFile64,
+        base64,
         "image/jpeg"
     );
     return jpegBlob
