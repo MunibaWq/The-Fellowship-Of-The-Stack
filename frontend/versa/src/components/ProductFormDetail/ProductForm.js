@@ -11,6 +11,7 @@ import { useParams } from "react-router";
 import { getProductByID } from "../../axios/gets";
 import theme from "../Reusable/Colors";
 import { AddIcon, LineCloseIcon } from "../../images/icons";
+import colors from "../Reusable/Colors";
 let host = process.env.NODE_ENV === "production" ? "" : "http://localhost:5000";
 function deleteItem(index, arr, set) {
     let newArray = [...arr];
@@ -170,9 +171,14 @@ const ProductForm = (props) => {
 
     return (
         <Form onSubmit={submitData}>
-            <Instruction1>Add your products name and price!</Instruction1>
+            <Instruction1>
+                Add your products name!
+                <br />
+                <br />
+                Set a base price, you can add an additional cost for different
+                sizes later on.
+            </Instruction1>
             <RowContainer1>
-                <h2>Product Details</h2>
                 <TextField
                     multi={false}
                     tests={[
@@ -215,8 +221,10 @@ const ProductForm = (props) => {
                 ></TextField>
             </RowContainer1>
             <Instruction2>
-                Add the description of your product, keep it simple!! <br /> Add
-                the materials list of your products!{" "}
+                Add a description of your product, let your customers know all
+                the great things about it! <br />
+                <br /> Let them know what materials you use to make your
+                product!
             </Instruction2>
             <RowContainer2>
                 <TextField
@@ -245,7 +253,9 @@ const ProductForm = (props) => {
                 ></TextField>
             </RowContainer2>
             <Instruction3>
-                Choose the colour of your product and size
+                Choose the colour and size options that you want to offer for
+                your product. <br /> <br /> You can add an additional cost for
+                each different size.
             </Instruction3>
             <RowContainer3>
                 <ColorDiv
@@ -261,7 +271,6 @@ const ProductForm = (props) => {
                             display: "flex",
                             flexWrap: "wrap",
                             width: "75%",
-                            justifyContent: "space-between",
                         }}
                     >
                         {colors &&
@@ -329,7 +338,6 @@ const ProductForm = (props) => {
                             display: "flex",
                             flexWrap: "wrap",
                             width: "75%",
-                            justifyContent: "space-between",
                         }}
                     >
                         {sizes.length > 0 &&
@@ -350,7 +358,7 @@ const ProductForm = (props) => {
                                                 );
                                             }}
                                         >
-                                            <LineCloseIcon stroke="black" />
+                                            <LineCloseIcon stroke="white" />
                                         </RemoveIcon>
                                     </NewSize>
                                 );
@@ -386,12 +394,19 @@ const ProductForm = (props) => {
                     </Button>
                 </SizeDiv>
             </RowContainer3>
-            <Instruction4>Choose your images</Instruction4>
+            <Instruction4>
+                Add some images of your product to be shown on your product
+                page.
+                <br /> <br /> Choose one image to be the thumbnail to show up in
+                search results. <br />
+                <br /> Images will be cropped to be 1:1{" "}
+            </Instruction4>
             <RowContainer4>
                 <ImagesDiv>
                     <h2>Images</h2>
                     <ImageUpload>
                         <input
+                            style={{ width: "115px" }}
                             onChange={(e) => {
                                 let image = URL.createObjectURL(
                                     e.target.files[0]
@@ -430,8 +445,8 @@ const ProductForm = (props) => {
                                                     );
                                                     console.log(image.image);
                                                 }}
-                                            />
-                                            Choose your thumbnail
+                                            />{" "}
+                                            Use as thumbnail image
                                         </label>
                                     </Radio>
                                 </>
@@ -440,7 +455,11 @@ const ProductForm = (props) => {
                     </ImageList>
                 </ImagesDiv>
             </RowContainer4>
-            <Instruction5>Submit or Cancel your new product!</Instruction5>
+            <Instruction5>
+                Add your new product to the store! <br />
+                <br />
+                Or cancel if you've changed your mind
+            </Instruction5>
             <RowContainer5>
                 <Container>
                     <Button onClick={clearField}>
@@ -463,17 +482,14 @@ const Radio = styled.div`
     padding-top: 10px;
 `;
 
-const ImageUpload = styled.section`
-    @media only screen and (min-width: 800px) {
-        width: 220px;
-    }
-`;
+const ImageUpload = styled.section``;
 const ImageList = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
     overflow-y: auto;
     height: 50vh;
+    margin-top: 20px;
 `;
 
 const RemoveIcon = styled.div`
@@ -481,6 +497,7 @@ const RemoveIcon = styled.div`
     cursor: pointer;
 `;
 const Form = styled.form`
+    margin-top: 40px;
     grid-template-columns: 30% 70%;
     grid-template-rows: auto;
     display: grid;
@@ -491,82 +508,102 @@ const Form = styled.form`
 `;
 
 const RowContainer1 = styled.div`
-    margin-bottom: 25px;
+    padding: 20px 0 20px 0;
     border-bottom: 2px dashed #ccc;
     grid-row: 1;
     grid-column: 2;
 `;
 
 const Instruction1 = styled.div`
-    margin-bottom: 25px;
+    padding: 20px 20px 20px 0;
     grid-row: 1;
     grid-column: 1;
     border-bottom: 2px dashed #ccc;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 `;
 
 const RowContainer2 = styled.div`
-    margin-bottom: 25px;
+    padding: 20px 0 20px 0;
     border-bottom: 2px dashed #ccc;
     grid-row: 2;
     grid-column: 2;
 `;
 const Instruction2 = styled.div`
-    margin-bottom: 25px;
+    padding: 20px 0 20px 0;
     border-bottom: 2px dashed #ccc;
     grid-row: 2;
     grid-column: 1;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 `;
 const RowContainer3 = styled.div`
-    margin-bottom: 25px;
+    padding: 20px 0 20px 0;
     border-bottom: 2px dashed #ccc;
     grid-row: 3;
     grid-column: 2;
 `;
 const Instruction3 = styled.div`
-    margin-bottom: 25px;
+    padding: 20px 0 20px 0;
     border-bottom: 2px dashed #ccc;
     grid-row: 3;
     grid-column: 1;
+    text-align: left;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 `;
 const RowContainer4 = styled.div`
-    margin-bottom: 25px;
+    padding: 20px 0 20px 0;
     border-bottom: 2px dashed #ccc;
     grid-row: 4;
     grid-column: 2;
     align-items: center;
 `;
 const Instruction4 = styled.div`
-    margin-bottom: 25px;
+    padding: 20px 0 20px 0;
     border-bottom: 2px dashed #ccc;
     grid-row: 4;
     grid-column: 1;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 `;
 const RowContainer5 = styled.div`
-    margin-bottom: 25px;
+    padding: 20px 0 20px 0;
     border-bottom: 2px dashed #ccc;
     grid-row: 5;
     grid-column: 2;
     align-items: center;
 `;
 const Instruction5 = styled.div`
-    margin-bottom: 25px;
+    padding: 20px 0 20px 0;
     border-bottom: 2px dashed #ccc;
     grid-row: 5;
     grid-column: 1;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 `;
 
 const ColorDiv = styled.div`
-    @media only screen and (max-width: 800px) {
-        position: relative;
-    }
+    position: relative;
+    margin: 20px 0;
 `;
 const SizeDiv = styled.div`
-    @media only screen and (max-width: 800px) {
-        position: relative;
-    }
+    position: relative;
+    margin: 20px 0;
 `;
 const Container = styled.div`
     display: flex;
+    justify-content: center;
 `;
 
 const Error = styled.p`
@@ -577,12 +614,15 @@ const NewSize = styled.div`
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    padding: 5px 10px;
-    background: #c5c3ff;
+    padding: 7px 15px;
+    background: ${colors.primary};
+    color: ${colors.secondary};
     margin: 8px;
+    border-radius: 20px;
 
     p {
         margin-right: 10px;
+        color: ${colors.secondary};
         text-transform: uppercase;
         font-weight: 700;
         letter-spacing: 0.05em;
@@ -596,11 +636,12 @@ const NewSizePrice = styled.p`
 const UploadedImage = styled.img`
     width: 200px;
     height: 200px;
+    object-fit: cover;
 `;
 const ImagesDiv = styled.div`
-    @media only screen and (min-width: 800px) {
-        height: 75%;
-    }
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 `;
 const ColorOption = styled.div`
     display: flex;
