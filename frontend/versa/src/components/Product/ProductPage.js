@@ -5,8 +5,6 @@ import left from "../../images/left.svg";
 import { Link } from "react-router-dom";
 import colors from "../Reusable/Colors";
 
-let host = process.env.NODE_ENV === "production" ? "" : "http://localhost:5000";
-
 const ProductPage = ({
     images,
     title,
@@ -177,10 +175,9 @@ const ColourOptions = styled.div`
 const ColourPreview = styled.div`
     width: 1em;
     height: 1em;
-    margin: 0 10px;
+    margin: 0 10px 5px 10px;
     border-radius: 50px;
     background-color: ${(props) => props.colour};
-    margin-bottom: 5px;
 `;
 
 const Sizes = styled.div`

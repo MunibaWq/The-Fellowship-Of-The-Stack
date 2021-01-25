@@ -190,7 +190,7 @@ const ColourOption = styled.div`
     border: 2px solid ${colors.primary};
     border-radius: 20px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     padding: 10px;
     cursor: pointer;
