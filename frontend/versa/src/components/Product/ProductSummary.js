@@ -60,7 +60,7 @@ const ProductSummary = ({
                     })}
                 </SizeOptionsContainer>
             )}
-            {colors && colors.length > 0 && (
+            {colours && colours.length > 0 && (
                 <ColourOptions>
                     <h6>Colours</h6>
                     {colours.map((colour) => {

@@ -1,21 +1,53 @@
-const express = require("express");
-const router = new express.Router();
+const express = require('express');
+const multer = require('multer');
+const AWS = require('aws-sdk');
+const { v4: uuid } = require("uuid");
 const pool = require("../db");
-router.get('/byPID/:id', async (req, res) => {
-    try {
-        //make a query to insert the image info into the db
-        let result = await pool.query(
-            "SELECT * from IMAGES WHERE product_id ="+ req.params.id,
-        );
-        res.send(result.rows);
-    } catch (e) {
-        console.log(e);
-        res.sendStatus(400);
+const router = express.Router();
+const storage = multer.memoryStorage({
+    destination: function (req, files, callback) {
+        callback(null, '');
     }
-})
-router.post("/add", async (req, res) => {
-    //assign query variables
-    let { filename, label, imageSize, productID } = req.body;
+});
+var multipleUpload = multer({ storage: storage }).array('file');
+const BUCKET_NAME = 'versabucket';
+const accessKeyId = process.env.REACT_APP_AWS_ACCESS_KEY_ID
+
+const secretKey = process.env.REACT_APP_AWS_SECRET_ACCESS_KEY
+
+router.post('/add', multipleUpload, function (req, res) {
+    const filename = uuid();
+    const file = req.files
+    const { label, imageSize, productID } = req.body
+    console.log(label,imageSize,productID)
+    let s3bucket = new AWS.S3({
+        accessKeyId: accessKeyId,
+        secretAccessKey: secretKey,
+        bucketName: BUCKET_NAME,
+        dirName: 'images'
+    });
+    s3bucket.createBucket(function () {
+        var ResponseData = [];
+
+        file.map((item) => {
+            var params = {
+                Bucket: BUCKET_NAME + '/images',
+                Key: filename+'.jpeg',
+                Body: item.buffer,
+                ACL: 'public-read'
+            };
+            s3bucket.upload(params, function (err, data) {
+                if (err) {
+                    res.json({ "error": true, "Message": err });
+                } else {
+                    ResponseData.push(data);
+                    if (ResponseData.length == file.length) {
+                        res.json({ "error": false, "Message": "File Uploaded Successfully", Data: ResponseData });
+                    }
+                }
+            });
+        });
+    });
     try {
         //make a query to insert the image info into the db
         pool.query(
@@ -29,12 +61,26 @@ router.post("/add", async (req, res) => {
                 WHERE id = ${productID};`
             );
         }
-        res.sendStatus(201);
+        //res.sendStatus(201);
+    } catch (e) {
+        console.log(e);
+        //res.sendStatus(400);
+    }
+});
+
+router.get('/byPID/:id', async (req, res) => {
+    try {
+        //make a query to insert the image info into the db
+        let result = await pool.query(
+            "SELECT * from IMAGES WHERE product_id ="+ req.params.id,
+        );
+        res.send(result.rows);
     } catch (e) {
         console.log(e);
         res.sendStatus(400);
     }
-});
+})
+
 
 //delete image
 

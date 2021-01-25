@@ -11,7 +11,7 @@ const ProductPageImage = ({ images, productDataState }) => {
             <ProductImage
                 src={
                     productDataState.image
-                        ? host + "/images/" + productDataState.image
+                        ? host + "/images/" + productDataState.image + ".jpeg"
                         : images.length > 0
                         ? `https://versabucket.s3.us-east-2.amazonaws.com/images/${images[0].filename}.jpeg`
                         : ""

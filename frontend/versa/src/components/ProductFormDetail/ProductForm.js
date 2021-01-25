@@ -12,6 +12,7 @@ import { getProductByID } from "../../axios/gets";
 import theme from "../Reusable/Colors";
 import { AddIcon, LineCloseIcon } from "../../images/icons";
 import colors from "../Reusable/Colors";
+import { crop } from "../../imageUtils";
 let host = process.env.NODE_ENV === "production" ? "" : "http://localhost:5000";
 function deleteItem(index, arr, set) {
     let newArray = [...arr];
@@ -404,17 +405,19 @@ const ProductForm = (props) => {
                         <input
                             style={{ width: "115px" }}
                             onChange={(e) => {
-                                let image = URL.createObjectURL(
-                                    e.target.files[0]
-                                );
-                                setImages([
-                                    ...images,
-                                    {
-                                        image: image,
-                                        imageFile: e.target.files[0],
-                                        size: "full",
-                                    },
-                                ]);
+                                let image = URL.createObjectURL(e.target.files[0]);
+                                crop(image, 1).then((img) => {
+                                    // add that image to the images to be sent to AWS
+                                    setImages([
+                                        ...images,
+                                        {
+                                            image: image,
+                                            label: "test",
+                                            imageFile: img,
+                                            size: "full",
+                                        },
+                                    ]);
+                                });
                             }}
                             type={"file"}
                             accept={"image/jpeg"}
