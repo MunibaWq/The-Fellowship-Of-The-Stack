@@ -119,7 +119,6 @@ const ProductForm = (props) => {
                     data: productInfo,
                 });
                 productID = +res.data.id;
-                console.log(productID);
             } else {
                 axios.put(host + "/products/edit/" + id, {
                     data: productInfo,
@@ -129,12 +128,9 @@ const ProductForm = (props) => {
             //adding thumbnail
             images.forEach(async (image) => {
                 let { imageFile, label, size } = image;
-                console.log(imageFile);
-                console.log(thumbImg);
 
                 if (imageFile === thumbImg) {
                     size = "thumb";
-                    console.log(imageFile);
                 }
 
                 let res = await addImage(imageFile, label, size, productID);
@@ -443,9 +439,8 @@ const ProductForm = (props) => {
                                                     setThumbImg(
                                                         image.imageFile
                                                     );
-                                                    console.log(image.image);
                                                 }}
-                                            />{" "}
+                                            />
                                             Use as thumbnail image
                                         </label>
                                     </Radio>
