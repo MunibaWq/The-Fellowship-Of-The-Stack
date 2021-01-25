@@ -8,6 +8,7 @@ import Icon from "../Reusable/Icons";
 import { ColorInput, Input } from "../../components/Reusable/Input";
 import { Modal, ModalTitle } from "../../components/Reusable/Modal";
 import { addImage } from "../../axios/posts";
+
 const ProductForm = (props) => {
     const setDefault = (fieldName) => {
         if (localStorage.getItem(`${fieldName}`)) {
@@ -37,6 +38,7 @@ const ProductForm = (props) => {
         setDefault("productMaterials")
     );
     const [checkDelete, setCheckDelete] = useState(false);
+    const [thumbImg, setThumbImg] = useState("");
 
     function clearField() {
         window.scrollTo({
@@ -68,22 +70,29 @@ const ProductForm = (props) => {
         }
     }
     const onSubmit = (e) => {
+        e.preventDefault();
         let productID = 15;
         images.forEach(async (image) => {
-            let res = await addImage(
-                image.imageFile,
-                image.label,
-                image.size,
-                productID
-            );
+            let { imageFile, label, size } = image;
+            console.log(imageFile);
+            console.log(thumbImg);
+
+            if (imageFile === thumbImg) {
+                size = "thumb";
+                console.log(imageFile);
+            }
+
+            let res = await addImage(imageFile, label, size, productID);
 
             if (!res)
                 alert(
-                    JSON.stringify(image.imageFile) +
+                    JSON.stringify(imageFile) +
                         " failed to upload, go to edit product to try to add picture again"
                 );
         });
     };
+
+    // bbc9bd83-81a7-4d6d-94cd-a44a70bca8b1.jpeg:1 GET https://versabucket.s3.
     return (
         <Form onSubmit={onSubmit}>
             <h2>Product Details</h2>
@@ -94,6 +103,7 @@ const ProductForm = (props) => {
                         test: (input) => input.length < 1,
                         error: "Required",
                     },
+
                     {
                         test: (input) => input.length < 3,
                         error: "Minimum 3 characters.",
@@ -270,6 +280,20 @@ const ProductForm = (props) => {
                                     alt="product"
                                     src={image.image}
                                 />
+                                <Radio>
+                                    <label htmlFor={"thumb" + index}>
+                                        <input
+                                            type="radio"
+                                            id={"thumb" + index}
+                                            name="chosenOne"
+                                            onClick={() => {
+                                                setThumbImg(image.imageFile);
+                                                console.log(image.image);
+                                            }}
+                                        />
+                                        Choose your thumbnail
+                                    </label>
+                                </Radio>
                             </>
                         );
                     })}
@@ -285,6 +309,11 @@ const ProductForm = (props) => {
 };
 
 export default ProductForm;
+
+const Radio = styled.div`
+    padding-top: 10px;
+`;
+
 const ImageUpload = styled.section`
     @media only screen and (min-width: 800px) {
         width: 220px;
