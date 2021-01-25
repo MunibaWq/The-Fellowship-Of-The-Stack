@@ -171,6 +171,11 @@ const SizeOption = styled.div`
         text-transform: uppercase;
         margin: 0px;
     }
+    &:active {
+        background-color: ${colors.primaryHover};
+        border: 6px solid ${colors.primaryHover};
+        color: ${colors.secondary};
+    }
 `;
 
 const ColourOptions = styled.div`
@@ -194,6 +199,11 @@ const ColourOption = styled.div`
     align-items: center;
     padding: 10px;
     cursor: pointer;
+    &:active {
+        background-color: ${colors.primaryHover};
+        border: 6px solid ${colors.primaryHover};
+        color: ${colors.secondary};
+    }
 `;
 
 const ColourPreview = styled.div`
