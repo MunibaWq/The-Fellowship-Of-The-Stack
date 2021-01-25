@@ -27,7 +27,7 @@ const ProductForm = (props) => {
     const [inputPrice, setInputPrice] = useState();
     const [inputDesc, setInputDesc] = useState();
     const [inputMaterials, setInputMaterials] = useState();
-    const [formError, setFormError]=useState(false)
+    const [formError, setFormError] = useState(false);
     const params = useParams();
     const id = params.id;
     function clearField() {
@@ -44,20 +44,20 @@ const ProductForm = (props) => {
         setInputDesc("");
         setInputMaterials("");
     }
-    useEffect(() => {
-        const getProductData = async () => {
-            let data = await getProductByID(id);
-            setInputName(data.title);
-            setColors(data.colours);
-            setSizes(data.sizes);
-            setInputPrice(data.price);
-            setInputDesc(data.description);
-            setInputMaterials(data.materials);
-        };
-        if (props.type === "Edit") {
-            getProductData();
-        }
-    }, [id, props.type]);
+    // useEffect(() => {
+    //     const getProductData = async () => {
+    //         let data = await getProductByID(id);
+    //         setInputName(data.title);
+    //         setColors(data.colours);
+    //         setSizes(data.sizes);
+    //         setInputPrice(data.price);
+    //         setInputDesc(data.description);
+    //         setInputMaterials(data.materials);
+    //     };
+    //     if (props.type === "Edit") {
+    //         getProductData();
+    //     }
+    // }, [id, props.type]);
 
     useEffect(() => {
         localStorage.setItem(
@@ -121,19 +121,23 @@ const ProductForm = (props) => {
 
             clearField();
             if (props.type === "Edit") {
-                window.location.href = window.location.href.replace('products/edit', 'product-item')
+                window.location.href = window.location.href.replace(
+                    "products/edit",
+                    "product-item"
+                );
             } else {
-                let productID = 1
-                window.location.href = window.location.href.replace('products/create', 'product-item/'+productID)
-
+                let productID = 1;
+                window.location.href = window.location.href.replace(
+                    "products/create",
+                    "product-item/" + productID
+                );
             }
         };
-        let error = document.getElementById('error')
+        let error = document.getElementById("error");
         if (!error) {
-           
             sendData();
         } else {
-            setFormError(true)
+            setFormError(true);
         }
     };
 
@@ -153,8 +157,8 @@ const ProductForm = (props) => {
                     },
                     {
                         test: (input) => input.length > 45,
-                        error: "Title too long"
-                    }
+                        error: "Title too long",
+                    },
                 ]}
                 label="Product Name"
                 value={inputName}
@@ -179,7 +183,6 @@ const ProductForm = (props) => {
                 ]}
                 label="Price"
                 value={inputPrice}
-           
                 setValue={setInputPrice}
             ></TextField>
             <TextField
@@ -363,7 +366,7 @@ const ProductForm = (props) => {
                     Submit
                 </Button>
             </Container>
-            {formError && <Error >Please check all input is valid</Error>}
+            {formError && <Error>Please check all input is valid</Error>}
         </Form>
     );
 };
