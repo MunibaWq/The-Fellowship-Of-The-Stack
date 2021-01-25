@@ -304,6 +304,14 @@ const ProductForm = (props) => {
                             <Button
                                 primary
                                 onClick={() => {
+                                    setColorModalVisible(false);
+                                }}
+                            >
+                                Cancel
+                            </Button>
+                            <Button
+                                primary
+                                onClick={() => {
                                     setColorLabelAndValue();
                                     setColorModalVisible(false);
                                 }}
@@ -372,6 +380,14 @@ const ProductForm = (props) => {
                             <Button
                                 primary
                                 onClick={() => {
+                                    setSizeModalVisible(false);
+                                }}
+                            >
+                                Cancel
+                            </Button>
+                            <Button
+                                primary
+                                onClick={() => {
                                     setSizeValue();
                                     setSizeModalVisible(false);
                                 }}
@@ -405,7 +421,9 @@ const ProductForm = (props) => {
                         <input
                             style={{ width: "115px" }}
                             onChange={(e) => {
-                                let image = URL.createObjectURL(e.target.files[0]);
+                                let image = URL.createObjectURL(
+                                    e.target.files[0]
+                                );
                                 crop(image, 1).then((img) => {
                                     // add that image to the images to be sent to AWS
                                     setImages([
@@ -624,7 +642,7 @@ const NewSize = styled.div`
         text-transform: uppercase;
         font-weight: 700;
         letter-spacing: 0.05em;
-        margin-bottom:unset;
+        margin-bottom: unset;
     }
 `;
 
