@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Star } from "../../images/icons";
+import colors from "../Reusable/Colors";
 
 const CustomerReviews = () => {
     return (
@@ -80,7 +81,7 @@ const CustomerReviewsContainer = styled.section`
     flex-direction: column;
     align-items: flex-start;
     padding: 20px;
-    background-color: #c5c3ff;
+    background-color: ${colors.primary};
     max-width: 425px;
 `;
 

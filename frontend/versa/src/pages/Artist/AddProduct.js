@@ -1,13 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 import ProductForm from "../../components/ProductFormDetail/ProductForm";
-import TempForm from "../../components/ProductFormDetail/TempForm";
 
 const AddProduct = () => {
     return (
         <Container>
             <h1>Add Product</h1>
-            <TempForm type={"Add"} />
+            <ProductForm type={"Add"} />
         </Container>
     );
 };

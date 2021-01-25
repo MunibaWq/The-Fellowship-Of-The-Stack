@@ -26,11 +26,11 @@ router.get("/get/:id", async (req, res) => {
         const result = await client.query(
             `SELECT * FROM products WHERE id = ${req.params.id}`
         );
-       
+
         const productInfo = result.rows[0];
 
         productInfo["colours"] = JSON.parse(productInfo["colours"]);
-        productInfo["sizes"] = JSON.parse(productInfo["sizes"])    
+        productInfo["sizes"] = JSON.parse(productInfo["sizes"]);
         const artistReq = await client.query(
             "SELECT username FROM artists WHERE id = " +
                 productInfo["artist_id"]
@@ -91,20 +91,20 @@ router.post("/create", async (req, res) => {
             sizes,
             materials,
         } = req.body.data;
-
+        console.log(typeof req.body.data);
         let productInfo = await pool.query(
             "INSERT INTO products (title, price, description, colours, artist_id, sizes, materials) VALUES ($1, $2, $3,$4, $5,$6,$7) RETURNING id",
             [
                 title,
-                price,
+                +price,
                 description,
                 JSON.stringify(colours),
-                artist_id,
+                +artist_id,
                 JSON.stringify(sizes),
                 materials,
             ]
         );
-     
+
         res.json(productInfo.rows[0]);
     } catch (err) {
         console.error(err.message);

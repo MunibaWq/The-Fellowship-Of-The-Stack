@@ -1,30 +1,14 @@
 import Axios from "axios";
-import { v4 as uuid } from "uuid";
-import S3 from "react-aws-s3";
-const accessKeyId = process.env.REACT_APP_AWS_ACCESS_KEY_ID;
-const secretKey = process.env.REACT_APP_AWS_SECRET_ACCESS_KEY;
 
 let host = process.env.NODE_ENV === "production" ? "" : "http://localhost:5000";
 export const addImage = async (image, label, imageSize, productID) => {
-    const filename = uuid();
-    const config = {
-        bucketName: "versabucket",
-        dirName: "images",
-        region: "us-east-2",
-        accessKeyId: accessKeyId,
-        secretAccessKey: secretKey,
-    };
-
-    const ReactS3Client = new S3(config);
-
     try {
-        ReactS3Client.uploadFile(image, filename);
-        const response = await Axios.post(host + "/images/add", {
-            filename: filename,
-            label: label,
-            imageSize: imageSize,
-            productID: productID,
-        });
+        const data = new FormData()
+        data.append('file', image)
+        data.append('label', label)
+        data.append('imageSize', imageSize)
+        data.append('productID',productID)
+        const response = await Axios.post(host + '/images/add', data);
         if (response.status === 201) {
             return true;
         }
