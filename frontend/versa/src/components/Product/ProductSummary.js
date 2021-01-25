@@ -9,18 +9,11 @@ import { Link, useParams } from "react-router-dom";
 const ProductSummary = ({
     title,
     price,
-    description,
     num_stars,
     num_reviews,
     sizes,
     colours,
 }) => {
-    // let renderVariations;
-    // if (variations) {
-    //     renderVariations = variations.map((variation, index) => {
-    //         return <Circle variation={variation} key={`${title}-${index}`} />;
-    //     });
-    // }
     const [priceDiff, setPriceDiff] = useState(0);
     let params = useParams();
     return (
@@ -70,7 +63,7 @@ const ProductSummary = ({
             {colors && colors.length > 0 && (
                 <ColourOptions>
                     <h6>Colours</h6>
-                    {colours.map((colour, index) => {
+                    {colours.map((colour) => {
                         return (
                             <ColourOption>
                                 <ColourPreview colour={colour.value} />
