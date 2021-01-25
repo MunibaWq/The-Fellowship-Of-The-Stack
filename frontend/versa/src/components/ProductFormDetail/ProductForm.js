@@ -18,6 +18,7 @@ function deleteItem(index, arr, set) {
     set(newArray);
 }
 const ProductForm = (props) => {
+    const [thumbImg, setThumbImg] = useState("");
     const [colorModalVisible, setColorModalVisible] = useState(false);
     const [sizeModalVisible, setSizeModalVisible] = useState(false);
     const [colors, setColors] = useState([]);
@@ -27,7 +28,7 @@ const ProductForm = (props) => {
     const [inputPrice, setInputPrice] = useState();
     const [inputDesc, setInputDesc] = useState();
     const [inputMaterials, setInputMaterials] = useState();
-    const [formError, setFormError]=useState(false)
+    const [formError, setFormError] = useState(false);
     const params = useParams();
     const id = params.id;
     function clearField() {
@@ -98,7 +99,8 @@ const ProductForm = (props) => {
         }
     }
 
-    const submitData = () => {
+    const submitData = (e) => {
+        e.preventDefault();
         const productInfo = {
             title: inputName,
             price: inputPrice,
@@ -108,32 +110,61 @@ const ProductForm = (props) => {
             sizes: sizes,
             materials: inputMaterials,
         };
-        const sendData = () => {
+
+        const sendData = async () => {
+            let productID;
             if (props.type === "Add") {
-                axios.post(host + "/products/create", {
+                let res = await axios.post(host + "/products/create", {
                     data: productInfo,
                 });
+                productID = +res.data.id;
+                console.log(productID);
             } else {
                 axios.put(host + "/products/edit/" + id, {
                     data: productInfo,
                 });
+                productID = +id;
             }
+            //adding thumbnail
+            images.forEach(async (image) => {
+                let { imageFile, label, size } = image;
+                console.log(imageFile);
+                console.log(thumbImg);
 
+                if (imageFile === thumbImg) {
+                    size = "thumb";
+                    console.log(imageFile);
+                }
+
+                let res = await addImage(imageFile, label, size, productID);
+
+                if (!res)
+                    alert(
+                        JSON.stringify(imageFile) +
+                            " failed to upload, go to edit product to try to add picture again"
+                    );
+            });
+            // alert(productID);
             clearField();
             if (props.type === "Edit") {
-                window.location.href = window.location.href.replace('products/edit', 'product-item')
+                window.location.href = window.location.href.replace(
+                    "products/edit",
+                    "product-item"
+                );
             } else {
-                let productID = 1
-                window.location.href = window.location.href.replace('products/create', 'product-item/'+productID)
+                // let productID = 1;
 
+                window.location.href = window.location.href.replace(
+                    "products/create",
+                    "product-item/" + productID
+                );
             }
         };
-        let error = document.getElementById('error')
+        let error = document.getElementById("error");
         if (!error) {
-           
             sendData();
         } else {
-            setFormError(true)
+            setFormError(true);
         }
     };
 
@@ -153,8 +184,8 @@ const ProductForm = (props) => {
                     },
                     {
                         test: (input) => input.length > 45,
-                        error: "Title too long"
-                    }
+                        error: "Title too long",
+                    },
                 ]}
                 label="Product Name"
                 value={inputName}
@@ -179,7 +210,6 @@ const ProductForm = (props) => {
                 ]}
                 label="Price"
                 value={inputPrice}
-           
                 setValue={setInputPrice}
             ></TextField>
             <TextField
@@ -339,20 +369,50 @@ const ProductForm = (props) => {
             </SizeDiv>
             <ImagesDiv>
                 <h2>Images</h2>
-                <Button secondary>
-                    Add <AddIcon />
-                </Button>
-                {images.map((image, index) => {
-                    return (
-                        <>
-                            <UploadedImage
-                                key={index}
-                                alt="product"
-                                src={image.image}
-                            />
-                        </>
-                    );
-                })}
+                <ImageUpload>
+                    <input
+                        onChange={(e) => {
+                            let image = URL.createObjectURL(e.target.files[0]);
+                            setImages([
+                                ...images,
+                                {
+                                    image: image,
+                                    imageFile: e.target.files[0],
+                                    size: "full",
+                                },
+                            ]);
+                        }}
+                        type={"file"}
+                        accept={"image/jpeg"}
+                    ></input>
+                </ImageUpload>
+                <ImageList>
+                    {images.map((image, index) => {
+                        return (
+                            <>
+                                <UploadedImage
+                                    key={index}
+                                    alt="product"
+                                    src={image.image}
+                                />
+                                <Radio>
+                                    <label htmlFor={"thumb" + index}>
+                                        <input
+                                            type="radio"
+                                            id={"thumb" + index}
+                                            name="chosenOne"
+                                            onClick={() => {
+                                                setThumbImg(image.imageFile);
+                                                console.log(image.image);
+                                            }}
+                                        />
+                                        Choose your thumbnail
+                                    </label>
+                                </Radio>
+                            </>
+                        );
+                    })}
+                </ImageList>
             </ImagesDiv>
             <Container>
                 <Button onClick={clearField}>
@@ -363,12 +423,30 @@ const ProductForm = (props) => {
                     Submit
                 </Button>
             </Container>
-            {formError && <Error >Please check all input is valid</Error>}
+            {formError && <Error>Please check all input is valid</Error>}
         </Form>
     );
 };
 
 export default ProductForm;
+
+const Radio = styled.div`
+    padding-top: 10px;
+`;
+
+const ImageUpload = styled.section`
+    @media only screen and (min-width: 800px) {
+        width: 220px;
+    }
+`;
+const ImageList = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: auto;
+    height: 50vh;
+`;
+
 const RemoveIcon = styled.div`
     display: flex;
     cursor: pointer;
