@@ -215,7 +215,8 @@ const ColourOption = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding: 10px;
+    margin-right: 8px;
+    padding: 5px 10px;
     cursor: pointer;
     /* &:active {
         background-color: ${colors.primaryHover};
@@ -230,10 +231,10 @@ const ColourOption = styled.div`
 const ColourPreview = styled.div`
     width: 1em;
     height: 1em;
-    margin: 0 10px;
+    margin: 0 10px 0 0;
     border-radius: 50px;
     background-color: ${(props) => props.colour};
-    margin-bottom: 5px;
+    /* margin-bottom: 5px; */
     border:solid;
     border-color: ${props => props.chosen ? colors.secondary : colors.tertiary};
     border-width:1px;
