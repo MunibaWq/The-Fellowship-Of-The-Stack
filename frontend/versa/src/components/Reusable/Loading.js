@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import colors from "../Reusable/Colors";
 import { VersaIcon } from "../../images/icons";
 import styled, { keyframes } from "styled-components";
