@@ -1,5 +1,4 @@
 import Axios from "axios";
-import { v4 as uuid } from "uuid";
 import S3 from "react-aws-s3";
 import { accessKeyId, secretKey } from "../posts/secret";
 
