@@ -7,8 +7,8 @@ const Loading = () => {
         <Styles>
             <StyledLogo>
                 <VersaIcon
-                    width="70px"
-                    height="70px"
+                    width="100px"
+                    height="100px"
                     triangleFill={colors.logoTriangle}
                     circleFill={colors.logoCircle}
                     rectFill={colors.logoRect}
@@ -17,6 +17,7 @@ const Loading = () => {
                     circleStroke="none"
                     rectStroke="none"
                     textStroke={colors.logoText}
+                    paddingBottom="100px"
                 />
             </StyledLogo>
             Loading...
@@ -28,6 +29,7 @@ const Styles = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
+    padding: 100px;
 `;
 
 const rotate = keyframes`
