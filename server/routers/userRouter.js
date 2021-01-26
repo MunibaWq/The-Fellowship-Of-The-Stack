@@ -2,6 +2,7 @@ const express = require("express");
 const bcrypt = require("bcryptjs");
 const pool = require("../db");
 const router = new express.Router();
+const auth = require("../middleware/auth");
 const {
     generateAuthToken,
     findByCredentials,
@@ -27,6 +28,29 @@ router.post("/login", async (req, res, next) => {
         token,
     ]);
     res.json({ user, token });
+});
+
+//server endpoint for updating user
+
+//put the auth middleware which will get the user
+
+router.put("/update", auth, async (req, res, next) => {
+    const user = req.user; //this is where the user is, looking at auth.js
+    const updatedUser = {}; //this is what we're going to send into the query
+    //now we hvae the user obj,
+    //do an update query on the db
+    //stuff is in req.body wwe want to add those props into the updated
+    //but the props that are in the user and not in the updated user we want to add to the updated user
+    updatedUser.username = req.body.username || user.username;
+    updatedUser.email = req.body.email || user.email;
+    updatedUser.address = req.body.address || user.address;
+
+    //now we need to change whats in the updatedUser array, this does the update
+    const data = await pool.query(
+        `UPDATE users username=$1, email=$2, address=$3 WHERE id=$4   `,
+        [updatedUser.username, updatedUser.email, updatedUser.address, user.id]
+    );
+    res.status(200);
 });
 
 module.exports = router;
