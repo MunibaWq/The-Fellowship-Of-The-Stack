@@ -8,7 +8,7 @@ import { Modal, ModalTitle } from "../../components/Reusable/Modal";
 import axios from "axios";
 import { addImage } from "../../axios/posts";
 import { useParams } from "react-router";
-import { getProductByID } from "../../axios/gets";
+import { getImagesByPID, getProductByID } from "../../axios/gets";
 import theme from "../Reusable/Colors";
 import { AddIcon, LineCloseIcon } from "../../images/icons";
 import colors from "../Reusable/Colors";
@@ -47,20 +47,32 @@ const ProductForm = (props) => {
         setInputDesc("");
         setInputMaterials("");
     }
-    // useEffect(() => {
-    //     const getProductData = async () => {
-    //         let data = await getProductByID(id);
-    //         setInputName(data.title);
-    //         setColors(data.colours);
-    //         setSizes(data.sizes);
-    //         setInputPrice(data.price);
-    //         setInputDesc(data.description);
-    //         setInputMaterials(data.materials);
-    //     };
-    //     if (props.type === "Edit") {
-    //         getProductData();
-    //     }
-    // }, [id, props.type]);
+    useEffect(() => {
+        const getProductData = async () => {
+            let data = await getProductByID(id);
+            let pictures = await getImagesByPID(id);
+
+            setInputName(data.title);
+            setColors(data.colours);
+            setSizes(data.sizes);
+            setInputPrice(data.price);
+            setInputDesc(data.description);
+            setInputMaterials(data.materials);
+            setImages(
+                pictures.map((picture) => {
+                    return {
+                        image: `https://versabucket.s3.us-east-2.amazonaws.com/images/${picture.filename}.jpeg`,
+                        label: picture.label,
+                        imageFile: 'update',
+                        size: "full",
+                    };
+                })
+            );
+        };
+        if (props.type === "Edit") {
+            getProductData();
+        }
+    }, [id, props.type]);
 
     useEffect(() => {
         localStorage.setItem(
@@ -444,7 +456,7 @@ const ProductForm = (props) => {
                     <ImageList>
                         {images.map((image, index) => {
                             return (
-                                <>
+                                <div>
                                     <UploadedImage
                                         key={index}
                                         alt="product"
@@ -465,7 +477,7 @@ const ProductForm = (props) => {
                                             Use as thumbnail image
                                         </label>
                                     </Radio>
-                                </>
+                                </div>
                             );
                         })}
                     </ImageList>
@@ -501,11 +513,15 @@ const Radio = styled.div`
 const ImageUpload = styled.section``;
 const ImageList = styled.div`
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     overflow-y: auto;
     height: 50vh;
     margin-top: 20px;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 100%;
 `;
 
 const RemoveIcon = styled.div`
@@ -514,10 +530,10 @@ const RemoveIcon = styled.div`
 `;
 const Form = styled.form`
     margin-top: 40px;
-    grid-template-columns: 30% 70%;
+    grid-template-columns: 30% 65%;
     grid-template-rows: auto;
     display: grid;
-
+    grid-column-gap: 5%;
     /* @media only screen and (min-width: 800px) {
         height: 95%; 
      } */
@@ -654,6 +670,7 @@ const UploadedImage = styled.img`
     width: 200px;
     height: 200px;
     object-fit: cover;
+    margin: 0 20px;
 `;
 const ImagesDiv = styled.div`
     display: flex;

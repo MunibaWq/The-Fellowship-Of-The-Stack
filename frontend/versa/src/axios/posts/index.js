@@ -3,15 +3,28 @@ import Axios from "axios";
 let host = process.env.NODE_ENV === "production" ? "" : "http://localhost:5000";
 export const addImage = async (image, label, imageSize, productID) => {
     try {
-        const data = new FormData()
-        data.append('file', image)
-        data.append('label', label)
-        data.append('imageSize', imageSize)
-        data.append('productID',productID)
-        const response = await Axios.post(host + '/images/add', data);
-        if (response.status === 201) {
-            return true;
+        if (image === "update") {
+            const response = await Axios.post(host + "/images/update", {
+                imageSize,
+                productID,
+                label,
+            });
+            if (response.status === 201) {
+                return true;
+            }
+        } else {
+            const data = new FormData();
+
+            data.append("label", label);
+            data.append("imageSize", imageSize);
+            data.append("productID", productID);
+            data.append("file", image);
+            const response = await Axios.post(host + "/images/add", data);
+            if (response.status === 201) {
+                return true;
+            }
         }
+
         return false;
     } catch (err) {
         console.error(err);

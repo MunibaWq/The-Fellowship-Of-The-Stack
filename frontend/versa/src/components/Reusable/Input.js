@@ -89,7 +89,8 @@ export const Input = styled.input`
   
 `;
 export const FieldContainer = styled.div`
-   
+   display: flex;
+    flex-direction: column;
 `;
 export const ColorInput = styled.input.attrs((props) => ({
     type: "color",
