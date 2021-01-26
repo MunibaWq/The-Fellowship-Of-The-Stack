@@ -304,6 +304,14 @@ const ProductForm = (props) => {
                             <Button
                                 primary
                                 onClick={() => {
+                                    setColorModalVisible(false);
+                                }}
+                            >
+                                Cancel
+                            </Button>
+                            <Button
+                                primary
+                                onClick={() => {
                                     setColorLabelAndValue();
                                     setColorModalVisible(false);
                                 }}
@@ -369,6 +377,14 @@ const ProductForm = (props) => {
                             <Input label="Size Label" id="sizeLabelToAdd" />
                             <label>Additional cost for size</label>
                             <Input label="Size Label" id="priceToAdd" />
+                            <Button
+                                primary
+                                onClick={() => {
+                                    setSizeModalVisible(false);
+                                }}
+                            >
+                                Cancel
+                            </Button>
                             <Button
                                 primary
                                 onClick={() => {

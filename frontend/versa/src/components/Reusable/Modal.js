@@ -3,9 +3,8 @@ import styled from "styled-components";
 import colors from "./Colors";
 
 export const Modal = styled.div`
-   
     text-align: center;
-    top:0;
+    top: 0;
     position: absolute;
     width: ${(props) => props.width || "90vw"};
     /* height: 40vh; */
@@ -18,7 +17,7 @@ export const Modal = styled.div`
     flex-direction: column;
     flex-wrap: wrap;
     button {
-        align-self: flex-end;
+        align-self: center;
     }
 `;
 
