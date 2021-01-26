@@ -77,7 +77,7 @@ const ProductSummary = ({
                                     setChosenColor(index);
                                 }}
                             >
-                                <ColourPreview colour={colour.value} />
+                                <ColourPreview chosen={chosenColor === index} colour={colour.value} />
                                 <p>{colour.label}</p>
                             </ColourOption>
                         );
@@ -234,6 +234,9 @@ const ColourPreview = styled.div`
     border-radius: 50px;
     background-color: ${(props) => props.colour};
     margin-bottom: 5px;
+    border:solid;
+    border-color: ${props => props.chosen ? colors.secondary : colors.tertiary};
+    border-width:1px;
 `;
 
 const Container = styled.div`
