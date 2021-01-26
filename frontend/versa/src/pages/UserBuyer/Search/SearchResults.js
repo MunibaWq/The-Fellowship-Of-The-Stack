@@ -6,6 +6,7 @@ import ProductCard from "../../../components/Search/ProductCard.js";
 import { searchProducts, getAllProducts } from "../../../axios/gets";
 import styled from "styled-components";
 import { Magnifying } from "../../../images/icons";
+import Loading from "../../../components/Reusable/Loading";
 
 const SearchResults = () => {
     const [products, setProducts] = useState([]);
@@ -55,7 +56,7 @@ const SearchResults = () => {
             </div>
             <Products>
                 {products.length === 0 ? (
-                    <NoResultsMessage>Sorry, no results found</NoResultsMessage>
+                    <Loading />
                 ) : (
                     products.map((product) => <ProductCard product={product} />)
                 )}
@@ -72,8 +73,7 @@ const MagnifyIcon = styled.div`
     right: 10px;
 `;
 const SearchBarDiv = styled.div`
-    position:relative;
-
+    position: relative;
 `;
 const SearchBar = styled.input`
     padding: 5px;
