@@ -15,6 +15,8 @@ const ProductSummary = ({
     colours,
 }) => {
     const [priceDiff, setPriceDiff] = useState(0);
+    const [chosenColor, setChosenColor] = useState(0);
+    const [chosenSize, setChosenSize] = useState(0);
     let params = useParams();
     return (
         <ProductSummaryContainer>
@@ -45,12 +47,16 @@ const ProductSummary = ({
                 <SizeOptionsContainer>
                     <h6>Sizes</h6>
 
-                    {sizes.map((size) => {
+                    {sizes.map((size, index) => {
                         return (
                             size && (
                                 <SizeOption
+                                    chosen={
+                                        chosenSize === index 
+                                    }
                                     onClick={() => {
                                         setPriceDiff(+size.price);
+                                        setChosenSize(index);
                                     }}
                                 >
                                     <p>{size.label}</p>
@@ -63,9 +69,14 @@ const ProductSummary = ({
             {colours && colours.length > 0 && (
                 <ColourOptions>
                     <h6>Colours</h6>
-                    {colours.map((colour) => {
+                    {colours.map((colour, index) => {
                         return (
-                            <ColourOption>
+                            <ColourOption
+                                chosen={chosenColor === index}
+                                onClick={() => {
+                                    setChosenColor(index);
+                                }}
+                            >
                                 <ColourPreview colour={colour.value} />
                                 <p>{colour.label}</p>
                             </ColourOption>
@@ -157,8 +168,10 @@ const SizeOptionsContainer = styled.div`
     }
 `;
 const SizeOption = styled.div`
-    border: 2px solid ${colors.primary};
-
+    border: 2px solid ${(props) => (props.chosen ? colors.primaryHover : colors.primary)};
+    background-color: ${(props) =>
+        props.chosen ? colors.primary : colors.secondary};
+    
     height: 32px;
     border-radius: 30px;
     display: flex;
@@ -170,21 +183,24 @@ const SizeOption = styled.div`
     p {
         text-transform: uppercase;
         margin: 0px;
+        color: ${props=>props.chosen ? colors.secondary: colors.tertiary};
     }
-    &:active {
+    /* &:active {
         background-color: ${colors.primaryHover};
-        border: 6px solid ${colors.primaryHover};
+        border: 2px solid ${colors.primaryHover};
         color: ${colors.secondary};
-    }
+    } */
 `;
 
 const ColourOptions = styled.div`
+    
     display: flex;
     flex-direction: row;
     align-items: center;
     p {
         text-transform: uppercase;
         margin: 0px;
+        
     }
     h6 {
         padding-right: 20px;
@@ -192,17 +208,22 @@ const ColourOptions = styled.div`
 `;
 
 const ColourOption = styled.div`
-    border: 2px solid ${colors.primary};
+    border: 2px solid ${(props) => (props.chosen ? colors.primaryHover : colors.primary)};
+    background-color: ${(props) =>
+        props.chosen ? colors.primary : colors.secondary};
     border-radius: 20px;
     display: flex;
     flex-direction: row;
     align-items: center;
     padding: 10px;
     cursor: pointer;
-    &:active {
+    /* &:active {
         background-color: ${colors.primaryHover};
-        border: 6px solid ${colors.primaryHover};
+        border: 2px solid ${colors.primaryHover};
         color: ${colors.secondary};
+    } */
+    p {
+        color: ${props=>props.chosen ? colors.secondary: colors.tertiary};
     }
 `;
 
