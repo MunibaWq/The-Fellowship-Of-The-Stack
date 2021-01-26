@@ -682,5 +682,6 @@ const ColorPreview = styled.div`
     height: 20px;
     margin-right: 20px;
     border-radius: 50%;
+    border: 1px solid black;
     background-color: ${(props) => props.color};
 `;
