@@ -9,7 +9,7 @@ import { Magnifying } from "../../../images/icons";
 import Loading from "../../../components/Reusable/Loading";
 
 const SearchResults = () => {
-    const [products, setProducts] = useState([]);
+    const [products, setProducts] = useState();
     const [query, setQuery] = useState();
     useEffect(() => {
         const getProducts = async () => {
@@ -55,11 +55,11 @@ const SearchResults = () => {
                 </SearchCriteria>
             </div>
             <Products>
-                {products.length === 0 ? (
+                {!products ? (
                     <Loading />
-                ) : (
+                ) : products.length > 0 ? (
                     products.map((product) => <ProductCard product={product} />)
-                )}
+                ): <NoResultsMessage>No results found</NoResultsMessage>}
             </Products>
         </SearchPage>
     );
