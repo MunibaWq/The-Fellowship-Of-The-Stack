@@ -12,6 +12,7 @@ import { getProductByID } from "../../axios/gets";
 import theme from "../Reusable/Colors";
 import { AddIcon, LineCloseIcon } from "../../images/icons";
 import colors from "../Reusable/Colors";
+import { crop } from "../../imageUtils";
 let host = process.env.NODE_ENV === "production" ? "" : "http://localhost:5000";
 function deleteItem(index, arr, set) {
     let newArray = [...arr];
@@ -46,20 +47,20 @@ const ProductForm = (props) => {
         setInputDesc("");
         setInputMaterials("");
     }
-    useEffect(() => {
-        const getProductData = async () => {
-            let data = await getProductByID(id);
-            setInputName(data.title);
-            setColors(data.colours);
-            setSizes(data.sizes);
-            setInputPrice(data.price);
-            setInputDesc(data.description);
-            setInputMaterials(data.materials);
-        };
-        if (props.type === "Edit") {
-            getProductData();
-        }
-    }, [id, props.type]);
+    // useEffect(() => {
+    //     const getProductData = async () => {
+    //         let data = await getProductByID(id);
+    //         setInputName(data.title);
+    //         setColors(data.colours);
+    //         setSizes(data.sizes);
+    //         setInputPrice(data.price);
+    //         setInputDesc(data.description);
+    //         setInputMaterials(data.materials);
+    //     };
+    //     if (props.type === "Edit") {
+    //         getProductData();
+    //     }
+    // }, [id, props.type]);
 
     useEffect(() => {
         localStorage.setItem(
@@ -303,6 +304,14 @@ const ProductForm = (props) => {
                             <Button
                                 primary
                                 onClick={() => {
+                                    setColorModalVisible(false);
+                                }}
+                            >
+                                Cancel
+                            </Button>
+                            <Button
+                                primary
+                                onClick={() => {
                                     setColorLabelAndValue();
                                     setColorModalVisible(false);
                                 }}
@@ -371,6 +380,14 @@ const ProductForm = (props) => {
                             <Button
                                 primary
                                 onClick={() => {
+                                    setSizeModalVisible(false);
+                                }}
+                            >
+                                Cancel
+                            </Button>
+                            <Button
+                                primary
+                                onClick={() => {
                                     setSizeValue();
                                     setSizeModalVisible(false);
                                 }}
@@ -407,14 +424,18 @@ const ProductForm = (props) => {
                                 let image = URL.createObjectURL(
                                     e.target.files[0]
                                 );
-                                setImages([
-                                    ...images,
-                                    {
-                                        image: image,
-                                        imageFile: e.target.files[0],
-                                        size: "full",
-                                    },
-                                ]);
+                                crop(image, 1).then((img) => {
+                                    // add that image to the images to be sent to AWS
+                                    setImages([
+                                        ...images,
+                                        {
+                                            image: image,
+                                            label: "test",
+                                            imageFile: img,
+                                            size: "full",
+                                        },
+                                    ]);
+                                });
                             }}
                             type={"file"}
                             accept={"image/jpeg"}
@@ -621,7 +642,7 @@ const NewSize = styled.div`
         text-transform: uppercase;
         font-weight: 700;
         letter-spacing: 0.05em;
-        margin-bottom:unset;
+        margin-bottom: unset;
     }
 `;
 
@@ -661,5 +682,6 @@ const ColorPreview = styled.div`
     height: 20px;
     margin-right: 20px;
     border-radius: 50%;
+    border: 1px solid black;
     background-color: ${(props) => props.color};
 `;

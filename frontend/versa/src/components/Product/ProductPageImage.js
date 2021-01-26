@@ -2,8 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import colors from "../Reusable/Colors";
-import Icon from "../Reusable/Icons";
-import Button from "../Reusable/Button";
 import { LeftIcon } from "../../images/icons";
 
 let host = process.env.NODE_ENV === "production" ? "" : "http://localhost:5000";
@@ -13,7 +11,7 @@ const ProductPageImage = ({ images, productDataState }) => {
             <ProductImage
                 src={
                     productDataState.image
-                        ? host + "/images/" + productDataState.image
+                        ? host + "/images/" + productDataState.image + ".jpeg"
                         : images.length > 0
                         ? `https://versabucket.s3.us-east-2.amazonaws.com/images/${images[0].filename}.jpeg`
                         : ""

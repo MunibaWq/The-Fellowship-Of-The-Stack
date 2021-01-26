@@ -9,18 +9,11 @@ import { Link, useParams } from "react-router-dom";
 const ProductSummary = ({
     title,
     price,
-    description,
     num_stars,
     num_reviews,
     sizes,
     colours,
 }) => {
-    // let renderVariations;
-    // if (variations) {
-    //     renderVariations = variations.map((variation, index) => {
-    //         return <Circle variation={variation} key={`${title}-${index}`} />;
-    //     });
-    // }
     const [priceDiff, setPriceDiff] = useState(0);
     let params = useParams();
     return (
@@ -67,10 +60,10 @@ const ProductSummary = ({
                     })}
                 </SizeOptionsContainer>
             )}
-            {colors && colors.length > 0 && (
+            {colours && colours.length > 0 && (
                 <ColourOptions>
                     <h6>Colours</h6>
-                    {colours.map((colour, index) => {
+                    {colours.map((colour) => {
                         return (
                             <ColourOption>
                                 <ColourPreview colour={colour.value} />
@@ -178,6 +171,11 @@ const SizeOption = styled.div`
         text-transform: uppercase;
         margin: 0px;
     }
+    &:active {
+        background-color: ${colors.primaryHover};
+        border: 6px solid ${colors.primaryHover};
+        color: ${colors.secondary};
+    }
 `;
 
 const ColourOptions = styled.div`
@@ -197,10 +195,15 @@ const ColourOption = styled.div`
     border: 2px solid ${colors.primary};
     border-radius: 20px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     padding: 10px;
     cursor: pointer;
+    &:active {
+        background-color: ${colors.primaryHover};
+        border: 6px solid ${colors.primaryHover};
+        color: ${colors.secondary};
+    }
 `;
 
 const ColourPreview = styled.div`
