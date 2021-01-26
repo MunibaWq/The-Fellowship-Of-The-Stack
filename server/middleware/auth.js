@@ -5,11 +5,11 @@ const auth = async (req, res, next) => {
     try {
         const token = req.header("Authorization").replace("Bearer ", "");
         const decoded = jwt.verify(token, process.env.JWT); //gets user id, that gets saved into decoded.id
-        const user = pool.query(`SELECT * FROM users WHERE id = ($1)`, [
+        const user = await pool.query(`SELECT * FROM users WHERE id = $1`, [
             decoded.id,
         ]);
         //const user = await User.findOne({ _id: decoded._id });
-        if (user.rows.length === 0) {
+        if (!user.rows) {
             throw new Error("no user");
         }
         req.user = user.rows[0]; //attaches a user property onto the req, and that user is the obj that it got from the db

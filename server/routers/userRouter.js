@@ -21,13 +21,20 @@ router.post("/create", async (req, res, next) => {
 });
 
 router.post("/login", async (req, res, next) => {
-    const user = await findByCredentials(req.body.username, req.body.password);
-    const token = generateAuthToken(user);
-    pool.query(`INSERT INTO tokens (user_id, token) VALUES ($1, $2)`, [
-        user.id,
-        token,
-    ]);
-    res.json({ user, token });
+    try {
+        const user = await findByCredentials(
+            req.body.username,
+            req.body.password
+        );
+        const token = generateAuthToken(user);
+        pool.query(`INSERT INTO tokens (user_id, token) VALUES ($1, $2)`, [
+            user.id,
+            token,
+        ]);
+        res.json({ user, token });
+    } catch (e) {
+        res.status(400).send();
+    }
 });
 
 //server endpoint for updating user
@@ -47,10 +54,10 @@ router.put("/update", auth, async (req, res, next) => {
 
     //now we need to change whats in the updatedUser array, this does the update
     const data = await pool.query(
-        `UPDATE users username=$1, email=$2, address=$3 WHERE id=$4   `,
+        `UPDATE users SET username=$1, email=$2, address=$3 WHERE id=$4 RETURNING username  `,
         [updatedUser.username, updatedUser.email, updatedUser.address, user.id]
     );
-    res.status(200);
+    res.json(data.rows[0]);
 });
 
 module.exports = router;
