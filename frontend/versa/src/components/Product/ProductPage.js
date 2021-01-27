@@ -17,7 +17,7 @@ const ProductPage = ({
     sizes,
     description,
     num_stars,
-    productDataState,
+    image
 }) => {
     const [priceDiff, setPriceDiff] = useState(0);
     const [chosenColor, setChosenColor] = useState(0);
@@ -33,18 +33,25 @@ const ProductPage = ({
             </Link>
             <MainInfo>
                 <ProductImages>
+                    <MainImage src={
+                    image
+                        ? "/images/" + image + ".jpeg"
+                        : images && images.length > 0
+                        ? `https://versabucket.s3.us-east-2.amazonaws.com/images/${images[0].filename}.jpeg`
+                        : ""
+                } alt={"image"}></MainImage>
                     <OtherImages>
-                        <Image src={imageTest} alt="image"></Image>
-                        <Image src={imageTest} alt="image"></Image>
-                        <Image src={imageTest} alt="image"></Image>
-                        <Image src={imageTest} alt="image"></Image>
+                        {images&&images.length>0 && images.map((image, index) => {
+                            return <Image key={index} src={`https://versabucket.s3.us-east-2.amazonaws.com/images/${image.filename}.jpeg`} alt="image"></Image>
+                        })}
+                        
+                       
                     </OtherImages>
-                    <MainImage src={imageTest} alt={"image"}></MainImage>
                 </ProductImages>
 
                 <ProductDetail>
                     <Stars>
-                        <Star />
+                        {Array(num_stars).fill(0).map((zero, index) => <Star key={index}/>)}
                     </Stars>
 
                     <h1> {title + " "}</h1>
@@ -67,6 +74,7 @@ const ProductPage = ({
                                 {colours.map((colour, index) => {
                                     return (
                                         <ColourPreview
+                                            key={index}
                                             colour={colour.value}
                                             chosen={chosenColor === index}
                                             onClick={() => {
@@ -89,6 +97,7 @@ const ProductPage = ({
                                     return (
                                         size && (
                                             <SizeOption
+                                                key={index}
                                                 chosen={chosenSize === index}
                                                 onClick={() => {
                                                     setPriceDiff(+size.price);
@@ -143,7 +152,8 @@ const ProductImages = styled.div`
     justify-content: flex-start;
     margin: 20px;
     @media (max-width: 800px) {
-        flex-wrap: wrap-reverse;
+        flex-wrap: wrap;
+        flex-direction: column;
         margin: 10px;
     }
 `;
@@ -154,6 +164,8 @@ const OtherImages = styled.div`
     justify-content: flex-start;
     @media (max-width: 750px) {
         flex-direction: row;
+        justify-content:center;
+
     }
 `;
 
@@ -161,6 +173,8 @@ const Image = styled.img`
     width: 65px;
     height: 65px;
     margin: 10px;
+    padding:5px;
+    border: 2px solid ${colors.tertiary};
     @media (max-width: 750px) {
         width: 50px;
         height: 50px;
