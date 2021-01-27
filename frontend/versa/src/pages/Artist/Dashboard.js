@@ -1,19 +1,21 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { getAllProducts } from "../../axios/gets";
+import { getImagesByPID } from "../../axios/gets";
+
 import Loading from "../../components/Reusable/Loading";
 
-const Dashboard = () => {
+const Dashboard = (currentProduct) => {
     const [results, setResults] = useState([]);
+
     useEffect(() => {
         const getProducts = async () => {
             let data = await getAllProducts();
-            console.log(data);
             setResults(data);
         };
         getProducts();
     }, []);
-    console.log(results);
+
     return (
         <div style={{ padding: "2%" }}>
             <table style={{ width: "100%" }}>
@@ -32,13 +34,21 @@ const Dashboard = () => {
                         return (
                             <tr style={{ padding: "100%" }}>
                                 <input type="checkbox" />
-                                <td>ThumbNail</td>
+                                <td style={{ width: "50px", height: "50px" }}>
+                                    <img
+                                        src={`${"http://localhost:5000"}/images/${
+                                            result.id
+                                        }.jpeg`}
+                                        style={{
+                                            width: "100%",
+                                            objectFit: "cover",
+                                        }}
+                                    />
+                                </td>
                                 <td>{result.title}</td>
                                 <td>Stat</td>
                                 <td>Inven</td>
-
                                 <td>Update</td>
-
                                 <td>Delete</td>
                             </tr>
                         );
