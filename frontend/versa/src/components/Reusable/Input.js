@@ -2,7 +2,14 @@ import styled from "styled-components";
 import { useState } from "react";
 import colors from "./Colors";
 
-export const TextField = ({ password, value, setValue, multi, label, tests = [] }) => {
+export const TextField = ({
+    password,
+    value,
+    setValue,
+    multi,
+    label,
+    tests = [],
+}) => {
     const [showError, setShowError] = useState(false);
     return (
         <div>
@@ -11,7 +18,7 @@ export const TextField = ({ password, value, setValue, multi, label, tests = [] 
                 <br />
                 {multi ? (
                     <TextArea
-                        type={password?"password":"text"}
+                        type={password ? "password" : "text"}
                         value={value}
                         onChange={(e) => {
                             let error = "";
@@ -25,13 +32,13 @@ export const TextField = ({ password, value, setValue, multi, label, tests = [] 
                             } else {
                                 setShowError(false);
                             }
-                            setValue(e.target.value)
+                            setValue(e.target.value);
                         }}
                     ></TextArea>
                 ) : (
-                        <Input
-                            type={password?"password":"text"}
-                            value={value}
+                    <Input
+                        type={password ? "password" : "text"}
+                        value={value}
                         onChange={(e) => {
                             let error = "";
                             for (let test of tests) {
@@ -43,8 +50,8 @@ export const TextField = ({ password, value, setValue, multi, label, tests = [] 
                                 setShowError(error);
                             } else {
                                 setShowError(false);
-                                }
-                                setValue(e.target.value)
+                            }
+                            setValue(e.target.value);
                         }}
                     ></Input>
                 )}
@@ -61,9 +68,7 @@ export const TextArea = styled.textarea`
     border-style: none;
     height: 100px;
     background-color: rgba(80, 80, 80, 15%);
-    
 
-   
     &:focus {
         outline: none !important;
         border: 3px solid ${colors.primary};
@@ -73,14 +78,14 @@ export const TextArea = styled.textarea`
 export const Label = styled.label``;
 export const Error = styled.p`
     color: red;
-height:10px;
+    height: 10px;
 `;
 
 export const Input = styled.input`
     border-radius: 5px;
-    border-style: none;
+    border: 3px solid white;
     height: 35px;
-    
+
     background-color: rgba(80, 80, 80, 15%);
 
     &:focus {
@@ -88,10 +93,9 @@ export const Input = styled.input`
         border: 3px solid ${colors.primary};
         box-shadow: 0 0 10px ${colors.primary};
     }
-  
 `;
 export const FieldContainer = styled.div`
-   display: flex;
+    display: flex;
     flex-direction: column;
 `;
 export const ColorInput = styled.input.attrs((props) => ({
@@ -100,7 +104,7 @@ export const ColorInput = styled.input.attrs((props) => ({
     border-radius: 100%;
     height: 35px;
     width: auto;
-  
+
     border: none;
     outline: none;
     -webkit-appearance: none;
