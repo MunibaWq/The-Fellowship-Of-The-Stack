@@ -22,7 +22,6 @@ const Button = styled.button.attrs((props) => ({
     font-weight: 700;
     letter-spacing: 5%;
     margin: 5px;
-    transition: 0.3s ease;
     min-width: fit-content;
     cursor: pointer;
     max-width: fit-content;
@@ -33,22 +32,14 @@ const Button = styled.button.attrs((props) => ({
         margin-left: 16px;
 
         path {
-            transition: 0.3s ease;
             fill: ${colors.primary};
         }
     }
 
-    &:hover {
-        color: ${colors.primaryHover};
-        svg {
-            path {
-                fill: ${colors.primaryHover};
-            }
-        }
-    }
-
-    &:focus {
-        outline: none;
+    :hover,
+    :active,
+    :focus {
+        transition: 0.1s ease;
         color: ${colors.primaryHover};
         svg {
             path {
@@ -64,23 +55,19 @@ const Button = styled.button.attrs((props) => ({
             border: 6px solid ${colors.primary};
             color: ${colors.primary};
             border-radius: 50px;
-            &:hover {
+            :hover,
+            :active,
+            :focus {
+            transition: 0.1s ease;
             color: ${colors.primaryHover};
             border: 6px solid ${colors.primaryHover};
+            transform: scale(1.02);
             svg{
                 path{
                     fill: ${colors.primaryHover};
                 }
             }
-            &:focus{
-                outline: none;
-                color: ${colors.primaryHover};
-            border: 6px solid ${colors.primaryHover};
-            svg{
-                path{
-                    fill: ${colors.secondaryOther};
-                }
-            }
+           
         `}
     ${(props) =>
         props.primary &&
@@ -95,21 +82,14 @@ const Button = styled.button.attrs((props) => ({
                     fill: ${colors.secondary};
                 }
             }
-            &:hover {
+
+            :hover,
+            :active,
+            :focus {
                 background-color: ${colors.primaryHover};
                 border: 6px solid ${colors.primaryHover};
                 color: ${colors.secondary};
-                svg {
-                    path {
-                        fill: ${colors.secondary};
-                    }
-                }
-            }
-
-            &:focus {
-                outline: none;
-                background-color: ${colors.primaryHover};
-                color: ${colors.secondary};
+                transform: scale(1.02);
                 svg {
                     path {
                         fill: ${colors.secondary};
