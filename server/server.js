@@ -6,10 +6,11 @@ const userRouter = require("./routers/userRouter");
 const PORT = process.env.PORT || 5000;
 const imageRouter = require("./routers/imageRouter");
 const productRouter = require("./routers/productRouter");
-
+var cookieParser = require('cookie-parser');
 let app = express();
+app.use(cookieParser());
 app.use(express.json());
-app.use(cors());
+app.use(cors({origin:'http://localhost:3001',credentials: true }));
 
 app.use(express.static(path.join(__dirname, "../frontend/versa/build")));
 

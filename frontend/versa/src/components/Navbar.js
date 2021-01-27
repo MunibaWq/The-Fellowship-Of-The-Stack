@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 // import logo from "../../images/logo.svg";
 import styled from "styled-components";
 // import Icon from "../Reusable/Icons";
-import colors from "../Reusable/Colors";
+import colors from "./Reusable/Colors";
 import {
     EventsIcon,
     AccountIcon,
@@ -11,8 +11,11 @@ import {
     CartIcon,
     Magnifying,
     VersaIcon,
-} from "../../images/icons";
+} from "../images/icons";
 const Navbar = () => {
+
+    
+    
     return (
         <Nav colors={colors}>
             <NavLink color={colors.secondary} to="/">
@@ -51,6 +54,7 @@ const Navbar = () => {
                 <NavLink color={colors.secondary} to="/shopping-cart">
                     <CartIcon stroke={colors.secondary} />
                 </NavLink>
+                
                 {/* <NavLink colors={colors} to="/product-item">PRODUCT ITEM</NavLink> */}
             </NavMenu>
         </Nav>

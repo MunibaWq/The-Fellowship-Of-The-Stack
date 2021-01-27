@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Button from "../../components/Reusable/Button";
-import colors from "../../components/Reusable/Colors";
-import { AddIcon} from "../../images/icons";
+import Button from "../components/Reusable/Button";
+import colors from "../components/Reusable/Colors";
+import { AddIcon} from "../images/icons";
 
 const Account = () => {
     return (

@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import Categories from "../../../components/Search/Categories";
-import Sort from "../../../components/Search/Sort";
-import Filters from "../../../components/Search/Filters";
-import ProductCard from "../../../components/Search/ProductCard.js";
-import { searchProducts, getAllProducts } from "../../../axios/gets";
+import Categories from "../../components/Search/Categories";
+import Sort from "../../components/Search/Sort";
+import Filters from "../../components/Search/Filters";
+import ProductCard from "../../components/Search/ProductCard.js";
+import { searchProducts, getAllProducts } from "../../axios/gets";
 import styled from "styled-components";
-import { Magnifying } from "../../../images/icons";
-import Loading from "../../../components/Reusable/Loading";
+import { Magnifying } from "../../images/icons";
+import Loading from "../../components/Reusable/Loading";
 
 const SearchResults = () => {
     const [products, setProducts] = useState();
@@ -58,7 +58,7 @@ const SearchResults = () => {
                 {!products ? (
                     <Loading />
                 ) : products.length > 0 ? (
-                    products.map((product) => <ProductCard product={product} />)
+                        products.map((product, index) => <ProductCard key={index} product={product} />)
                 ): <NoResultsMessage>No results found</NoResultsMessage>}
             </Products>
         </SearchPage>

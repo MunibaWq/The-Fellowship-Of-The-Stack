@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import ProductForm from "../../components/ProductFormDetail/ProductForm";
+import ProductForm from "../../components/ProductForm";
 
 const EditProduct = () => {
     return (

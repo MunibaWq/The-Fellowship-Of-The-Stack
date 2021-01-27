@@ -31,6 +31,7 @@ router.post("/login", async (req, res, next) => {
             user.id,
             token,
         ]);
+        res.cookie('token', token, {maxAge: 10800}).send('cookie set');
         res.json({ user, token });
     } catch (e) {
         res.status(400).send();

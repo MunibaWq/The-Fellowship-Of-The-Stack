@@ -1369,7 +1369,7 @@ export const VersaIcon = ({
             width="450"
             height="450"
             xmlns="http://www.w3.org/2000/svg"
-            xmlnsSvg="http://www.w3.org/2000/svg"
+            xmlnssvg="http://www.w3.org/2000/svg"
             xmlnsXlink="http://www.w3.org/1999/xlink"
         >
             <defs>
@@ -1432,7 +1432,7 @@ export const VersaIcon = ({
                     />
                 </symbol>
             </defs>
-            <g class="layer">
+            <g className="layer">
                 <g id="svg_20">
                     <use
                         fill={circleFill || "none"}
@@ -1538,7 +1538,7 @@ export const OtherVersaLogo = ({
                     />
                 </symbol>
             </defs>
-            <g class="layer">
+            <g className="layer">
                 {/* circle  */}
                 <ellipse
                     cx="320.999999"

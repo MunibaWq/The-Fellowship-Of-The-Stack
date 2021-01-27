@@ -1,12 +1,12 @@
 import React from "react";
-import SearchResults from "./pages/UserBuyer/Search/SearchResults";
+import SearchResults from "./pages/UserBuyer/SearchResults";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Navbar from "./components/Navbar/Navbar";
-import Events from "./pages/Events/Events";
-import Account from "./pages/Account/Account";
-import Wishlist from "./pages/UserBuyer/Wishlist/Wishlist";
-import ShoppingCart from "./pages/UserBuyer/ShoppingCart/ShoppingCart";
-import ProductItem from "./pages/UserBuyer/ProductItem/ProductItem";
+import Navbar from "./components/Navbar";
+import Events from "./pages/Events";
+import Account from "./pages/Account";
+import Wishlist from "./pages/UserBuyer/Wishlist";
+import ShoppingCart from "./pages/UserBuyer/ShoppingCart";
+import ProductItem from "./pages/UserBuyer/ProductItem";
 import AddProduct from "./pages/Artist/AddProduct";
 import EditProduct from "./pages/Artist/EditProduct";
 
