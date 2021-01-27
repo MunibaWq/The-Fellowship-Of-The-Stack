@@ -9,6 +9,7 @@ const Account = () => {
         <div>
           
             <Link to="/products/create"><Button secondary>Create a new product<AddIcon stroke={colors.primary}/></Button></Link>
+            <Link to="/artists/create-account"><Button secondary>Create a new account<AddIcon stroke={colors.primary}/></Button></Link>
         </div>
     );
 };

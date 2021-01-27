@@ -9,6 +9,7 @@ import ShoppingCart from "./pages/UserBuyer/ShoppingCart";
 import ProductItem from "./pages/UserBuyer/ProductItem";
 import AddProduct from "./pages/Artist/AddProduct";
 import EditProduct from "./pages/Artist/EditProduct";
+import CreateAccount from "./pages/Artist/CreateAccount";
 
 function App() {
     return (
@@ -26,9 +27,12 @@ function App() {
                         exact
                         component={ShoppingCart}
                     />
+                   
                     <Route path="/product-item/:id" component={ProductItem} />
                     <Route path="/products/create" component={AddProduct} />
                     <Route path="/products/edit/:id" component={EditProduct} />
+                    <Route path="/artists/create-account" component={CreateAccount} />
+
                 </Switch>
             </div>
         </Router>

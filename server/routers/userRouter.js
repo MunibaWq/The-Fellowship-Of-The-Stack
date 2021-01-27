@@ -9,21 +9,34 @@ const {
 } = require("../helperFunctions/index");
 
 router.post("/create", async (req, res, next) => {
-    const user = req.body;
+    const user = req.body.data;
+    console.log(user);
     const hashPassword = await bcrypt.hash(user.password, 8);
     const data = await pool.query(
-        `INSERT INTO users (username, password, email, address, type) VALUES ($1,$2,$3,$4,$5) RETURNING *`,
-        [user.username, hashPassword, user.email, user.address, user.type]
+        `INSERT INTO users (username, password, email, address, type, name) VALUES ($1,$2,$3,$4,$5,$6) RETURNING id`,
+        [
+            user.username,
+            hashPassword,
+            user.email,
+            user.address,
+            user.type,
+            user.name,
+        ]
     );
+    const token = generateAuthToken(data.rows[0]);
+    pool.query(`INSERT INTO tokens (user_id, token) VALUES ($1, $2)`, [
+        data.rows[0].id,
+        token,
+    ]);
     const createUser = data.rows[0];
     delete createUser.password;
-    res.json(createUser);
+    res.cookie("token", token).json(createUser);
 });
 
 router.post("/login", async (req, res, next) => {
     try {
         const user = await findByCredentials(
-            req.body.username,
+            req.body.email,
             req.body.password
         );
         const token = generateAuthToken(user);
@@ -31,7 +44,7 @@ router.post("/login", async (req, res, next) => {
             user.id,
             token,
         ]);
-        res.cookie('token', token, {maxAge: 10800}).send('cookie set');
+        res.cookie("token", token, { maxAge: 10800 }).send("cookie set");
         res.json({ user, token });
     } catch (e) {
         res.status(400).send();

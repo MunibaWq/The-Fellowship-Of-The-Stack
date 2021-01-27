@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { useState } from "react";
 import colors from "./Colors";
 
-export const TextField = ({ value, setValue, multi, label, tests = [] }) => {
+export const TextField = ({ password, value, setValue, multi, label, tests = [] }) => {
     const [showError, setShowError] = useState(false);
     return (
         <div>
@@ -11,6 +11,7 @@ export const TextField = ({ value, setValue, multi, label, tests = [] }) => {
                 <br />
                 {multi ? (
                     <TextArea
+                        type={password?"password":"text"}
                         value={value}
                         onChange={(e) => {
                             let error = "";
@@ -29,6 +30,7 @@ export const TextField = ({ value, setValue, multi, label, tests = [] }) => {
                     ></TextArea>
                 ) : (
                         <Input
+                            type={password?"password":"text"}
                             value={value}
                         onChange={(e) => {
                             let error = "";

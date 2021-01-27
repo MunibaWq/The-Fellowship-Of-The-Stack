@@ -8,12 +8,12 @@ const generateAuthToken = (user) => {
     return token;
 };
 
-const findByCredentials = async (username, password) => {
-    const user = await pool.query(`SELECT * FROM users WHERE username = ($1)`, [
-        username,
+const findByCredentials = async (email, password) => {
+    const user = await pool.query(`SELECT * FROM users WHERE email = ($1)`, [
+        email,
     ]);
     if (user.rows.length === 0) {
-        throw new Error("Username does not exist.");
+        throw new Error("No account with this email");
     }
     const result = await bcrypt.compare(password, user.rows[0].password);
     if (!result) {
