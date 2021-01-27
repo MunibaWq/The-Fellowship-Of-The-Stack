@@ -78,7 +78,7 @@ height:10px;
 
 export const Input = styled.input`
     border-radius: 5px;
-    border-style: none;
+    border: 3px solid ${colors.secondary};
     height: 35px;
     
     background-color: rgba(80, 80, 80, 15%);
