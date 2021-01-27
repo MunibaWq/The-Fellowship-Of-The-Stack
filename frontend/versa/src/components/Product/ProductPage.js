@@ -1,13 +1,10 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import Button from "../Reusable/Button";
-import left from "../../images/left.svg";
 import { Link } from "react-router-dom";
 import colors from "../Reusable/Colors";
-import imageTest from "../../images/imageTest.png";
 import { LeftIcon, Star } from "../../images/icons";
 
-let host = process.env.NODE_ENV === "production" ? "" : "";
 const ProductPage = ({
     images,
     title,
@@ -17,7 +14,7 @@ const ProductPage = ({
     sizes,
     description,
     num_stars,
-    image
+    image,
 }) => {
     const [priceDiff, setPriceDiff] = useState(0);
     const [chosenColor, setChosenColor] = useState(0);
@@ -33,25 +30,38 @@ const ProductPage = ({
             </Link>
             <MainInfo>
                 <ProductImages>
-                    <MainImage src={
-                    image
-                        ? "/images/" + image + ".jpeg"
-                        : images && images.length > 0
-                        ? `https://versabucket.s3.us-east-2.amazonaws.com/images/${images[0].filename}.jpeg`
-                        : ""
-                } alt={"image"}></MainImage>
+                    <MainImage
+                        src={
+                            image
+                                ? "/images/" + image + ".jpeg"
+                                : images && images.length > 0
+                                ? `https://versabucket.s3.us-east-2.amazonaws.com/images/${images[0].filename}.jpeg`
+                                : ""
+                        }
+                        alt={"image"}
+                    ></MainImage>
                     <OtherImages>
-                        {images&&images.length>0 && images.map((image, index) => {
-                            return <Image key={index} src={`https://versabucket.s3.us-east-2.amazonaws.com/images/${image.filename}.jpeg`} alt="image"></Image>
-                        })}
-                        
-                       
+                        {images &&
+                            images.length > 0 &&
+                            images.map((image, index) => {
+                                return (
+                                    <Image
+                                        key={index}
+                                        src={`https://versabucket.s3.us-east-2.amazonaws.com/images/${image.filename}.jpeg`}
+                                        alt="image"
+                                    ></Image>
+                                );
+                            })}
                     </OtherImages>
                 </ProductImages>
 
                 <ProductDetail>
                     <Stars>
-                        {Array(num_stars).fill(0).map((zero, index) => <Star key={index}/>)}
+                        {Array(num_stars)
+                            .fill(0)
+                            .map((zero, index) => (
+                                <Star key={index} />
+                            ))}
                     </Stars>
 
                     <h1> {title + " "}</h1>
@@ -164,8 +174,7 @@ const OtherImages = styled.div`
     justify-content: flex-start;
     @media (max-width: 750px) {
         flex-direction: row;
-        justify-content:center;
-
+        justify-content: center;
     }
 `;
 
@@ -173,7 +182,7 @@ const Image = styled.img`
     width: 65px;
     height: 65px;
     margin: 10px;
-    padding:5px;
+    padding: 5px;
     border: 2px solid ${colors.tertiary};
     @media (max-width: 750px) {
         width: 50px;
