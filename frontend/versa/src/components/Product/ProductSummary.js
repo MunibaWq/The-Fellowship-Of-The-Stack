@@ -51,9 +51,7 @@ const ProductSummary = ({
                         return (
                             size && (
                                 <SizeOption
-                                    chosen={
-                                        chosenSize === index 
-                                    }
+                                    chosen={chosenSize === index}
                                     onClick={() => {
                                         setPriceDiff(+size.price);
                                         setChosenSize(index);
@@ -77,7 +75,10 @@ const ProductSummary = ({
                                     setChosenColor(index);
                                 }}
                             >
-                                <ColourPreview chosen={chosenColor === index} colour={colour.value} />
+                                <ColourPreview
+                                    chosen={chosenColor === index}
+                                    colour={colour.value}
+                                />
                                 <p>{colour.label}</p>
                             </ColourOption>
                         );
@@ -168,10 +169,11 @@ const SizeOptionsContainer = styled.div`
     }
 `;
 const SizeOption = styled.div`
-    border: 2px solid ${(props) => (props.chosen ? colors.primaryHover : colors.primary)};
+    border: 2px solid
+        ${(props) => (props.chosen ? colors.primaryHover : colors.primary)};
     background-color: ${(props) =>
         props.chosen ? colors.primary : colors.secondary};
-    
+
     height: 32px;
     border-radius: 30px;
     display: flex;
@@ -183,7 +185,8 @@ const SizeOption = styled.div`
     p {
         text-transform: uppercase;
         margin: 0px;
-        color: ${props=>props.chosen ? colors.secondary: colors.tertiary};
+        color: ${(props) =>
+            props.chosen ? colors.secondary : colors.tertiary};
     }
     /* &:active {
         background-color: ${colors.primaryHover};
@@ -193,14 +196,12 @@ const SizeOption = styled.div`
 `;
 
 const ColourOptions = styled.div`
-    
     display: flex;
     flex-direction: row;
     align-items: center;
     p {
         text-transform: uppercase;
         margin: 0px;
-        
     }
     h6 {
         padding-right: 20px;
@@ -208,7 +209,8 @@ const ColourOptions = styled.div`
 `;
 
 const ColourOption = styled.div`
-    border: 2px solid ${(props) => (props.chosen ? colors.primaryHover : colors.primary)};
+    border: 2px solid
+        ${(props) => (props.chosen ? colors.primaryHover : colors.primary)};
     background-color: ${(props) =>
         props.chosen ? colors.primary : colors.secondary};
     border-radius: 20px;
@@ -224,7 +226,8 @@ const ColourOption = styled.div`
         color: ${colors.secondary};
     } */
     p {
-        color: ${props=>props.chosen ? colors.secondary: colors.tertiary};
+        color: ${(props) =>
+            props.chosen ? colors.secondary : colors.tertiary};
     }
 `;
 
@@ -235,9 +238,10 @@ const ColourPreview = styled.div`
     border-radius: 50px;
     background-color: ${(props) => props.colour};
     /* margin-bottom: 5px; */
-    border:solid;
-    border-color: ${props => props.chosen ? colors.secondary : colors.tertiary};
-    border-width:1px;
+    border: solid;
+    border-color: ${(props) =>
+        props.chosen ? colors.secondary : colors.tertiary};
+    border-width: 1px;
 `;
 
 const Container = styled.div`
