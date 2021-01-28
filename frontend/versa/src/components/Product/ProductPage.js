@@ -68,9 +68,13 @@ const ProductPage = ({
                             ))}
                     </Stars>
 
-                    <h1> {title + " "} <Link to={"/products/edit/" + params.id}>
-                    <EditIcon stroke={colors.primary} />
-                </Link></h1>
+                    <h1>
+                        {" "}
+                        {title + " "}{" "}
+                        <Link to={"/products/edit/" + params.id}>
+                            <EditIcon stroke={colors.primary} />
+                        </Link>
+                    </h1>
                     <h2>${price + priceDiff}</h2>
                     {colours && colours.length > 0 && (
                         <Colours>
@@ -125,14 +129,13 @@ const ProductPage = ({
                         colours &&
                         colours.length > 0 && (
                             <ClearSelection
-                            
                                 onClick={() => {
                                     setChosenColor(0);
                                     setChosenSize(0);
                                     setPriceDiff(0);
                                 }}
                             >
-                            <DeleteIcon stroke={colors.primary} />
+                                <DeleteIcon stroke={colors.primary} />
                                 Clear Selection
                             </ClearSelection>
                         )}
@@ -144,9 +147,8 @@ const ProductPage = ({
                         <h3>Materials</h3>
                         <p>{materials}</p>
                     </Materials>
-                    
 
-                    <Button primary >Add to Cart</Button>
+                    <Button primary>Add to Cart</Button>
                 </ProductDetail>
             </MainInfo>
         </Container>
@@ -162,7 +164,6 @@ const Container = styled.div`
     h3 {
         font-weight: 700;
     }
-    
 `;
 
 const MainInfo = styled.div`
@@ -175,21 +176,18 @@ const MainInfo = styled.div`
         margin: 20px;
         justify-content: center;
     }
-    
 `;
 
 const ProductImages = styled.div`
     display: flex;
     flex-direction: row;
-    justify-content:center;
+    justify-content: center;
     margin: 20px;
     @media (max-width: 1000px) {
         flex-wrap: wrap;
         flex-direction: column;
         margin: 10px;
     }
-    
-    
 `;
 
 const OtherImages = styled.div`
@@ -203,14 +201,12 @@ const OtherImages = styled.div`
         flex-wrap: wrap;
         justify-content: center;
     }
-    @media (max-width: 380px){
+    @media (max-width: 380px) {
         flex-wrap: wrap;
         justify-content: center;
-        
-    width: 85vw;
-    }
-    
 
+        width: 85vw;
+    }
 `;
 
 const Image = styled.img`
@@ -219,14 +215,13 @@ const Image = styled.img`
     margin: 10px;
     padding: 5px;
     border: 2px solid rgba(68, 68, 68, 0.1);
-   
+
     cursor: pointer;
     @media (max-width: 1000px) {
         width: 50px;
         height: 50px;
         margin: 5px;
     }
-    
 `;
 
 const MainImage = styled.img`
@@ -235,14 +230,14 @@ const MainImage = styled.img`
     margin: 10px;
     border: 2px solid rgba(68, 68, 68, 0.1);
     padding: 1em;
-    
+
     @media (max-width: 1000px) {
         width: 300px;
         height: 300px;
         margin: 5px;
     }
-    @media (max-width: 350px){
-    width: 85vw;
+    @media (max-width: 350px) {
+        width: 85vw;
     }
 `;
 
@@ -331,8 +326,10 @@ const ColourPreview = styled.button.attrs({
     height: 2em;
     margin: 0 10px 0 0;
     padding: 20px;
-    border: 3px solid
-        ${(props) => (props.chosen ? colors.primaryHover : colors.secondary)};
+    border: ${(props) =>
+        props.chosen
+            ? `3px solid ${colors.primaryHover}`
+            : `3px solid rgba(68, 68, 68, 0.2)`};
     border-radius: 50px;
     background-color: ${(props) => props.colour};
     cursor: pointer;
@@ -404,6 +401,6 @@ const SizeOption = styled.button.attrs({
 `;
 
 const ClearSelection = styled(Button)`
-padding: 0;
-margin: 0;
+    padding: 0;
+    margin: 0;
 `;
