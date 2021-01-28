@@ -102,7 +102,11 @@ const ProductPage = ({
                         <Sizes>
                             <SelectedSize>
                                 <h3>Size:</h3>
-                                <h4>{sizes[chosenSize].label}</h4>
+                                <h4>
+                                    {sizes[chosenSize].label === "O"
+                                        ? "One Size"
+                                        : sizes[chosenSize].label}
+                                </h4>
                             </SelectedSize>
                             <SizeOptions>
                                 {sizes.map((size, index) => {
