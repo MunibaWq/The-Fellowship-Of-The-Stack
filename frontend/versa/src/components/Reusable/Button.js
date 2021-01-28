@@ -17,7 +17,7 @@ const Button = styled.button.attrs((props) => ({
     color: ${colors.primary};
     border: none;
     background-color: ${colors.secondary};
-    border-bottom: 3px solid ${colors.secondary};
+    border-bottom: 4px solid ${colors.secondary};
     padding: 5px 15px 5px 8px;
     font-weight: 700;
     letter-spacing: 5%;
@@ -52,7 +52,7 @@ const Button = styled.button.attrs((props) => ({
         props.secondary &&
         css`
             background: ${colors.secondary};
-            border: 6px solid ${colors.primary};
+            border: 4px solid ${colors.primary};
             color: ${colors.primary};
             border-radius: 50px;
             :hover,
@@ -61,7 +61,7 @@ const Button = styled.button.attrs((props) => ({
             outline: none;
             transition: 0.1s ease;
             color: ${colors.primaryHover};
-            border: 6px solid ${colors.primaryHover};
+            border: 4px solid ${colors.primaryHover};
             transform: scale(1.02);
             padding: 5px 15px 5px 8px;
             svg{
@@ -75,7 +75,7 @@ const Button = styled.button.attrs((props) => ({
         props.primary &&
         css`
             background: ${colors.primary};
-            border: 6px solid ${colors.primary};
+            border: 4px solid ${colors.primary};
             padding: 10px 20px;
             border-radius: 50px;
             color: ${colors.secondary};
@@ -90,7 +90,7 @@ const Button = styled.button.attrs((props) => ({
             :focus {
                 outline: none;
                 background-color: ${colors.primaryHover};
-                border: 6px solid ${colors.primaryHover};
+                border: 4px solid ${colors.primaryHover};
                 color: ${colors.secondary};
                 transform: scale(1.02);
                 svg {
