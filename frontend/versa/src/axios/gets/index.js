@@ -23,6 +23,9 @@ export const getAllProducts = async () => {
 };
 
 export const searchProducts = async (query) => {
+    if (!query) {
+        return await getAllProducts()
+    }
     let res = await Axios.get(host + "/products/search/" + query);
     return res.data;
 };

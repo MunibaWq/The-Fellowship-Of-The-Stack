@@ -1,24 +1,19 @@
 import React from "react";
 import colors from "../Reusable/Colors";
-import { VersaIcon } from "../../images/icons";
+import { ShapesLogo } from "../../images/icons";
 import styled, { keyframes } from "styled-components";
 const Loading = () => {
     return (
         <Styles>
             <StyledLogo>
-                <VersaIcon
-                    width="100px"
-                    height="100px"
-                    triangleFill={colors.logoTriangle}
-                    circleFill={colors.logoCircle}
-                    rectFill={colors.logoRect}
-                    textFill={colors.logoText}
-                    triangleStroke="none"
-                    circleStroke="none"
-                    rectStroke="none"
-                    textStroke={colors.logoText}
-                    paddingBottom="100px"
-                />
+            <ShapesLogo
+            width="100"
+            height="100"
+            circle={colors.logoCircle}
+            rectangle={colors.logoRect}
+            triangle={colors.logoTriangle}
+            alt="Versa Logo"
+        />
             </StyledLogo>
             <LoadingMessage>Loading...</LoadingMessage>
         </Styles>

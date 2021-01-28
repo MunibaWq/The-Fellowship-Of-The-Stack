@@ -1,4 +1,4 @@
-export const ShapesLogo = ({ width, height, triangle, circle, rectangle }) => {
+export const ShapesLogo = ({width, height, triangle, circle, rectangle }) => {
     return (
         <svg
             width={width || "40"}
@@ -23,11 +23,11 @@ export const ShapesLogo = ({ width, height, triangle, circle, rectangle }) => {
     );
 };
 
-export const Dashboard = ({ stroke, fill }) => {
+export const Dashboard = ({width, height, stroke, fill }) => {
     return (
         <svg
-            width="32"
-            height="32"
+            width={width || "26"}
+            height={height || "26"}
             viewBox="0 0 32 32"
             fill={fill || "none"}
             xmlns="http://www.w3.org/2000/svg"
@@ -42,7 +42,7 @@ export const Dashboard = ({ stroke, fill }) => {
             <path
                 d="M26.0002 8L16.0002 18L12.0002 14L4.00024 22"
                 stroke={stroke || "#444444"}
-                stroke-width="2"
+                strokeWidth="2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
             />
@@ -57,11 +57,11 @@ export const Dashboard = ({ stroke, fill }) => {
     );
 };
 
-export const WishListIcon = ({ stroke, fill }) => {
+export const WishListIcon = ({width, height, stroke, fill }) => {
     return (
         <svg
-            width="28"
-            height="24"
+            width={width || "26"}
+            height={height || "26"}
             viewBox="0 0 28 24"
             fill={fill || "none"}
             xmlns="http://www.w3.org/2000/svg"
@@ -76,11 +76,11 @@ export const WishListIcon = ({ stroke, fill }) => {
         </svg>
     );
 };
-export const FilterIcon = ({ stroke, fill }) => {
+export const FilterIcon = ({width, height, stroke, fill }) => {
     return (
         <svg
-            width="32"
-            height="32"
+            width={width || "26"}
+            height={height || "26"}
             viewBox="0 0 32 32"
             fill={fill || "none"}
             xmlns="http://www.w3.org/2000/svg"
@@ -95,11 +95,11 @@ export const FilterIcon = ({ stroke, fill }) => {
         </svg>
     );
 };
-export const SortIcon = ({ stroke, fill }) => {
+export const SortIcon = ({width, height, stroke, fill }) => {
     return (
         <svg
-            width="32"
-            height="32"
+            width={width || "26"}
+            height={height || "26"}
             viewBox="0 0 32 32"
             fill={fill || "none"}
             xmlns="http://www.w3.org/2000/svg"
@@ -142,11 +142,11 @@ export const SortIcon = ({ stroke, fill }) => {
         </svg>
     );
 };
-export const CategoriesIcon = ({ stroke, fill }) => {
+export const CategoriesIcon = ({width, height, stroke, fill }) => {
     return (
         <svg
-            width="32"
-            height="32"
+            width={width || "26"}
+            height={height || "26"}
             viewBox="0 0 32 32"
             fill={fill || "none"}
             xmlns="http://www.w3.org/2000/svg"
@@ -187,11 +187,11 @@ export const CategoriesIcon = ({ stroke, fill }) => {
         </svg>
     );
 };
-export const Magnifying = ({ stroke, fill }) => {
+export const Magnifying = ({width, height, stroke, fill }) => {
     return (
         <svg
-            width="32"
-            height="32"
+            width={width || "26"}
+            height={height || "26"}
             viewBox="0 0 32 32"
             fill={fill || "none"}
             xmlns="http://www.w3.org/2000/svg"
@@ -213,11 +213,11 @@ export const Magnifying = ({ stroke, fill }) => {
         </svg>
     );
 };
-export const Star = ({ stroke, fill }) => {
+export const Star = ({width, height, stroke, fill }) => {
     return (
         <svg
-            width="28"
-            height="28"
+            width={width || "26"}
+            height={height || "26"}
             viewBox="0 0 28 28"
             fill={stroke}
             xmlns="http://www.w3.org/2000/svg"
@@ -233,11 +233,11 @@ export const Star = ({ stroke, fill }) => {
     );
 };
 
-export const Circle = ({ stroke, fill }) => {
+export const Circle = ({width, height, stroke, fill }) => {
     return (
         <svg
-            width="26"
-            height="26"
+            width={width || "26"}
+            height={height || "26"}
             viewBox="0 0 26 26"
             fill={fill || "none"}
             xmlns="http://www.w3.org/2000/svg"
@@ -251,11 +251,11 @@ export const Circle = ({ stroke, fill }) => {
         </svg>
     );
 };
-export const ArrowRight = ({ stroke, fill }) => {
+export const ArrowRight = ({width, height, stroke, fill }) => {
     return (
         <svg
-            width="32"
-            height="32"
+            width={width || "26"}
+            height={height || "26"}
             viewBox="0 0 32 32"
             fill={fill || "none"}
             xmlns="http://www.w3.org/2000/svg"
@@ -278,11 +278,11 @@ export const ArrowRight = ({ stroke, fill }) => {
     );
 };
 
-export const ShoppingCart = ({ stroke, fill }) => {
+export const ShoppingCart = ({width, height, stroke, fill }) => {
     return (
         <svg
-            width="32"
-            height="33"
+            width={width || "26"}
+            height={height || "26"}
             viewBox="0 0 32 33"
             fill={fill || "none"}
             xmlns="http://www.w3.org/2000/svg"
@@ -319,11 +319,11 @@ export const ShoppingCart = ({ stroke, fill }) => {
     );
 };
 
-export const HomeIcon = ({ stroke, fill }) => {
+export const HomeIcon = ({width, height, stroke, fill }) => {
     return (
         <svg
-            width="32"
-            height="32"
+            width={width || "26"}
+            height={height || "26"}
             viewBox="0 0 32 32"
             fill={fill || "none"}
             xmlns="http://www.w3.org/2000/svg"
@@ -339,11 +339,11 @@ export const HomeIcon = ({ stroke, fill }) => {
     );
 };
 
-export const EventsIcon = ({ stroke, fill }) => {
+export const EventsIcon = ({width, height, stroke, fill }) => {
     return (
         <svg
-            width="32"
-            height="32"
+            width={width || "26"}
+            height={height || "26"}
             viewBox="0 0 32 32"
             fill={fill || "none"}
             xmlns="http://www.w3.org/2000/svg"
@@ -387,11 +387,11 @@ export const EventsIcon = ({ stroke, fill }) => {
     );
 };
 
-export const AccountIcon = ({ stroke, fill }) => {
+export const AccountIcon = ({width, height, stroke, fill }) => {
     return (
         <svg
-            width="32"
-            height="32"
+            width={width || "26"}
+            height={height || "26"}
             viewBox="0 0 32 32"
             fill={fill || "none"}
             xmlns="http://www.w3.org/2000/svg"
@@ -414,11 +414,11 @@ export const AccountIcon = ({ stroke, fill }) => {
     );
 };
 
-export const CartIcon = ({ stroke, fill }) => {
+export const CartIcon = ({width, height, stroke, fill }) => {
     return (
         <svg
-            width="32"
-            height="32"
+            width={width || "26"}
+            height={height || "26"}
             viewBox="0 0 32 32"
             fill={fill || "none"}
             xmlns="http://www.w3.org/2000/svg"
@@ -454,11 +454,11 @@ export const CartIcon = ({ stroke, fill }) => {
         </svg>
     );
 };
-export const ToolIcon = ({ stroke, fill }) => {
+export const ToolIcon = ({width, height, stroke, fill }) => {
     return (
         <svg
-            width="24"
-            height="24"
+            width={width || "26"}
+            height={height || "26"}
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -473,11 +473,11 @@ export const ToolIcon = ({ stroke, fill }) => {
         </svg>
     );
 };
-export const RefreshIcon = ({ stroke, fill }) => {
+export const RefreshIcon = ({width, height, stroke, fill }) => {
     return (
         <svg
-            width="24"
-            height="24"
+            width={width || "26"}
+            height={height || "26"}
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -492,11 +492,11 @@ export const RefreshIcon = ({ stroke, fill }) => {
         </svg>
     );
 };
-export const SearchIcon = ({ stroke, fill }) => {
+export const SearchIcon = ({width, height, stroke, fill }) => {
     return (
         <svg
-            width="24"
-            height="24"
+            width={width || "26"}
+            height={height || "26"}
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -511,11 +511,11 @@ export const SearchIcon = ({ stroke, fill }) => {
         </svg>
     );
 };
-export const HeartIcon = ({ stroke, fill }) => {
+export const HeartIcon = ({width, height, stroke, fill }) => {
     return (
         <svg
-            width="24"
-            height="24"
+            width={width || "26"}
+            height={height || "26"}
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -531,11 +531,11 @@ export const HeartIcon = ({ stroke, fill }) => {
     );
 };
 
-export const SettingIcon = ({ stroke, fill }) => {
+export const SettingIcon = ({width, height, stroke, fill }) => {
     return (
         <svg
-            width="24"
-            height="24"
+            width={width || "26"}
+            height={height || "26"}
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -550,11 +550,11 @@ export const SettingIcon = ({ stroke, fill }) => {
         </svg>
     );
 };
-export const VisibleIcon = ({ stroke, fill }) => {
+export const VisibleIcon = ({width, height, stroke, fill }) => {
     return (
         <svg
-            width="24"
-            height="24"
+            width={width || "26"}
+            height={height || "26"}
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -569,11 +569,11 @@ export const VisibleIcon = ({ stroke, fill }) => {
         </svg>
     );
 };
-export const FilledTickIcon = ({ stroke, fill }) => {
+export const FilledTickIcon = ({width, height, stroke, fill }) => {
     return (
         <svg
-            width="24"
-            height="24"
+            width={width || "26"}
+            height={height || "26"}
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -588,11 +588,11 @@ export const FilledTickIcon = ({ stroke, fill }) => {
         </svg>
     );
 };
-export const OutlineTickIcon = ({ stroke, fill }) => {
+export const OutlineTickIcon = ({width, height, stroke, fill }) => {
     return (
         <svg
-            width="24"
-            height="24"
+            width={width || "26"}
+            height={height || "26"}
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -607,11 +607,11 @@ export const OutlineTickIcon = ({ stroke, fill }) => {
         </svg>
     );
 };
-export const TickIcon = ({ stroke, fill }) => {
+export const TickIcon = ({width, height, stroke, fill }) => {
     return (
         <svg
-            width="24"
-            height="24"
+            width={width || "26"}
+            height={height || "26"}
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -626,11 +626,11 @@ export const TickIcon = ({ stroke, fill }) => {
         </svg>
     );
 };
-export const MiniburgerIcon = ({ stroke, fill }) => {
+export const MiniburgerIcon = ({width, height, stroke, fill }) => {
     return (
         <svg
-            width="24"
-            height="24"
+            width={width || "26"}
+            height={height || "26"}
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -646,11 +646,11 @@ export const MiniburgerIcon = ({ stroke, fill }) => {
     );
 };
 
-export const FilledBookmarkIcon = ({ stroke, fill }) => {
+export const FilledBookmarkIcon = ({width, height, stroke, fill }) => {
     return (
         <svg
-            width="24"
-            height="24"
+            width={width || "26"}
+            height={height || "26"}
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -666,11 +666,11 @@ export const FilledBookmarkIcon = ({ stroke, fill }) => {
     );
 };
 
-export const OutlineBookmarkIcon = ({ stroke, fill }) => {
+export const OutlineBookmarkIcon = ({width, height, stroke, fill }) => {
     return (
         <svg
-            width="24"
-            height="24"
+            width={width || "26"}
+            height={height || "26"}
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -686,11 +686,11 @@ export const OutlineBookmarkIcon = ({ stroke, fill }) => {
     );
 };
 
-export const FilledErrorIcon = ({ stroke, fill }) => {
+export const FilledErrorIcon = ({width, height, stroke, fill }) => {
     return (
         <svg
-            width="24"
-            height="24"
+            width={width || "26"}
+            height={height || "26"}
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -706,11 +706,11 @@ export const FilledErrorIcon = ({ stroke, fill }) => {
     );
 };
 
-export const OutlineErrorIcon = ({ stroke, fill }) => {
+export const OutlineErrorIcon = ({width, height, stroke, fill }) => {
     return (
         <svg
-            width="24"
-            height="24"
+            width={width || "26"}
+            height={height || "26"}
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -726,11 +726,11 @@ export const OutlineErrorIcon = ({ stroke, fill }) => {
     );
 };
 
-export const AlarmBellErrorIcon = ({ stroke, fill }) => {
+export const AlarmBellErrorIcon = ({width, height, stroke, fill }) => {
     return (
         <svg
-            width="24"
-            height="24"
+            width={width || "26"}
+            height={height || "26"}
             viewBox="0 0 24 24"
             fill={stroke}
             xmlns="http://www.w3.org/2000/svg"
@@ -746,11 +746,11 @@ export const AlarmBellErrorIcon = ({ stroke, fill }) => {
     );
 };
 
-export const AddIcon = ({ stroke, fill }) => {
+export const AddIcon = ({width, height, stroke, fill }) => {
     return (
         <svg
-            width="24"
-            height="24"
+            width={width || "26"}
+            height={height || "26"}
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -766,11 +766,11 @@ export const AddIcon = ({ stroke, fill }) => {
     );
 };
 
-export const CopyIcon = ({ stroke, fill }) => {
+export const CopyIcon = ({width, height, stroke, fill }) => {
     return (
         <svg
-            width="24"
-            height="24"
+            width={width || "26"}
+            height={height || "26"}
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -785,11 +785,11 @@ export const CopyIcon = ({ stroke, fill }) => {
         </svg>
     );
 };
-export const LinkIcon = ({ stroke, fill }) => {
+export const LinkIcon = ({width, height, stroke, fill }) => {
     return (
         <svg
-            width="24"
-            height="24"
+            width={width || "26"}
+            height={height || "26"}
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -804,11 +804,11 @@ export const LinkIcon = ({ stroke, fill }) => {
         </svg>
     );
 };
-export const EditIcon = ({ stroke, fill }) => {
+export const EditIcon = ({width, height, stroke, fill }) => {
     return (
         <svg
-            width="24"
-            height="24"
+            width={width || "26"}
+            height={height || "26"}
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -824,11 +824,11 @@ export const EditIcon = ({ stroke, fill }) => {
     );
 };
 
-export const LocationIcon = ({ stroke, fill }) => {
+export const LocationIcon = ({width, height, stroke, fill }) => {
     return (
         <svg
-            width="24"
-            height="24"
+            width={width || "26"}
+            height={height || "26"}
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -844,11 +844,11 @@ export const LocationIcon = ({ stroke, fill }) => {
     );
 };
 
-export const ReturnIcon = ({ stroke, fill }) => {
+export const ReturnIcon = ({width, height, stroke, fill }) => {
     return (
         <svg
-            width="24"
-            height="24"
+            width={width || "26"}
+            height={height || "26"}
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -864,11 +864,11 @@ export const ReturnIcon = ({ stroke, fill }) => {
     );
 };
 
-export const HamburgerIcon = ({ stroke, fill }) => {
+export const HamburgerIcon = ({width, height, stroke, fill }) => {
     return (
         <svg
-            width="24"
-            height="24"
+            width={width || "26"}
+            height={height || "26"}
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -884,11 +884,11 @@ export const HamburgerIcon = ({ stroke, fill }) => {
     );
 };
 
-export const LayOptionsIcon = ({ stroke, fill }) => {
+export const LayOptionsIcon = ({width, height, stroke, fill }) => {
     return (
         <svg
-            width="24"
-            height="24"
+            width={width || "26"}
+            height={height || "26"}
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -904,11 +904,11 @@ export const LayOptionsIcon = ({ stroke, fill }) => {
     );
 };
 
-export const StandOptionsIcon = ({ stroke, fill }) => {
+export const StandOptionsIcon = ({width, height, stroke, fill }) => {
     return (
         <svg
-            width="24"
-            height="24"
+            width={width || "26"}
+            height={height || "26"}
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -924,11 +924,11 @@ export const StandOptionsIcon = ({ stroke, fill }) => {
     );
 };
 
-export const FilledLeftIcon = ({ stroke, fill }) => {
+export const FilledLeftIcon = ({width, height, stroke, fill }) => {
     return (
         <svg
-            width="24"
-            height="24"
+            width={width || "26"}
+            height={height || "26"}
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -944,11 +944,11 @@ export const FilledLeftIcon = ({ stroke, fill }) => {
     );
 };
 
-export const FilledRightIcon = ({ stroke, fill }) => {
+export const FilledRightIcon = ({width, height, stroke, fill }) => {
     return (
         <svg
-            width="24"
-            height="24"
+            width={width || "26"}
+            height={height || "26"}
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -963,11 +963,11 @@ export const FilledRightIcon = ({ stroke, fill }) => {
         </svg>
     );
 };
-export const FilledUpIcon = ({ stroke, fill }) => {
+export const FilledUpIcon = ({width, height, stroke, fill }) => {
     return (
         <svg
-            width="24"
-            height="24"
+            width={width || "26"}
+            height={height || "26"}
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -983,11 +983,11 @@ export const FilledUpIcon = ({ stroke, fill }) => {
     );
 };
 
-export const FilledDownIcon = ({ stroke, fill }) => {
+export const FilledDownIcon = ({width, height, stroke, fill }) => {
     return (
         <svg
-            width="24"
-            height="24"
+            width={width || "26"}
+            height={height || "26"}
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -1002,11 +1002,11 @@ export const FilledDownIcon = ({ stroke, fill }) => {
         </svg>
     );
 };
-export const CloseIcon = ({ stroke, fill }) => {
+export const CloseIcon = ({width, height, stroke, fill }) => {
     return (
         <svg
-            width="24"
-            height="24"
+            width={width || "26"}
+            height={height || "26"}
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -1022,11 +1022,11 @@ export const CloseIcon = ({ stroke, fill }) => {
     );
 };
 
-export const AppsIcon = ({ stroke, fill }) => {
+export const AppsIcon = ({width, height, stroke, fill }) => {
     return (
         <svg
-            width="24"
-            height="24"
+            width={width || "26"}
+            height={height || "26"}
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -1041,11 +1041,11 @@ export const AppsIcon = ({ stroke, fill }) => {
         </svg>
     );
 };
-export const FullscreenIcon = ({ stroke, fill }) => {
+export const FullscreenIcon = ({width, height, stroke, fill }) => {
     return (
         <svg
-            width="24"
-            height="24"
+            width={width || "26"}
+            height={height || "26"}
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -1060,11 +1060,11 @@ export const FullscreenIcon = ({ stroke, fill }) => {
         </svg>
     );
 };
-export const ExitFullscreenIcon = ({ stroke, fill }) => {
+export const ExitFullscreenIcon = ({width, height, stroke, fill }) => {
     return (
         <svg
-            width="24"
-            height="24"
+            width={width || "26"}
+            height={height || "26"}
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -1082,8 +1082,8 @@ export const ExitFullscreenIcon = ({ stroke, fill }) => {
                 maskUnits="userSpaceOnUse"
                 x="5"
                 y="5"
-                width="14"
-                height="14"
+                width={width || "26"}
+                height={height || "26"}
             >
                 <path
                     fillRule="evenodd"
@@ -1096,11 +1096,11 @@ export const ExitFullscreenIcon = ({ stroke, fill }) => {
         </svg>
     );
 };
-export const LeftIcon = ({ stroke, fill }) => {
+export const LeftIcon = ({width, height, stroke, fill }) => {
     return (
         <svg
-            width="24"
-            height="24"
+            width={width || "26"}
+            height={height || "26"}
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -1115,11 +1115,11 @@ export const LeftIcon = ({ stroke, fill }) => {
         </svg>
     );
 };
-export const RightIcon = ({ stroke, fill }) => {
+export const RightIcon = ({width, height, stroke, fill }) => {
     return (
         <svg
-            width="24"
-            height="24"
+            width={width || "26"}
+            height={height || "26"}
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -1134,11 +1134,11 @@ export const RightIcon = ({ stroke, fill }) => {
         </svg>
     );
 };
-export const UpIcon = ({ stroke, fill }) => {
+export const UpIcon = ({width, height, stroke, fill }) => {
     return (
         <svg
-            width="24"
-            height="24"
+            width={width || "26"}
+            height={height || "26"}
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -1154,11 +1154,11 @@ export const UpIcon = ({ stroke, fill }) => {
     );
 };
 
-export const DownIcon = ({ stroke, fill }) => {
+export const DownIcon = ({width, height, stroke, fill }) => {
     return (
         <svg
-            width="24"
-            height="24"
+            width={width || "26"}
+            height={height || "26"}
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -1173,11 +1173,11 @@ export const DownIcon = ({ stroke, fill }) => {
         </svg>
     );
 };
-export const LineCloseIcon = ({ stroke, fill }) => {
+export const LineCloseIcon = ({width, height, stroke, fill }) => {
     return (
         <svg
-            width="24"
-            height="24"
+            width={width || "26"}
+            height={height || "26"}
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -1193,11 +1193,11 @@ export const LineCloseIcon = ({ stroke, fill }) => {
     );
 };
 
-export const FilledDropdownIcon = ({ stroke, fill }) => {
+export const FilledDropdownIcon = ({width, height, stroke, fill }) => {
     return (
         <svg
-            width="24"
-            height="24"
+            width={width || "26"}
+            height={height || "26"}
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -1213,11 +1213,11 @@ export const FilledDropdownIcon = ({ stroke, fill }) => {
     );
 };
 
-export const FilledNotifyIcon = ({ stroke, fill }) => {
+export const FilledNotifyIcon = ({width, height, stroke, fill }) => {
     return (
         <svg
-            width="24"
-            height="24"
+            width={width || "26"}
+            height={height || "26"}
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -1232,11 +1232,11 @@ export const FilledNotifyIcon = ({ stroke, fill }) => {
         </svg>
     );
 };
-export const LineNotifyIcon = ({ stroke, fill }) => {
+export const LineNotifyIcon = ({width, height, stroke, fill }) => {
     return (
         <svg
-            width="24"
-            height="24"
+            width={width || "26"}
+            height={height || "26"}
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -1251,11 +1251,11 @@ export const LineNotifyIcon = ({ stroke, fill }) => {
         </svg>
     );
 };
-export const ShareIcon = ({ stroke, fill }) => {
+export const ShareIcon = ({width, height, stroke, fill }) => {
     return (
         <svg
-            width="24"
-            height="24"
+            width={width || "26"}
+            height={height || "26"}
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -1271,11 +1271,11 @@ export const ShareIcon = ({ stroke, fill }) => {
     );
 };
 
-export const CheckedBoxIcon = ({ stroke, fill }) => {
+export const CheckedBoxIcon = ({width, height, stroke, fill }) => {
     return (
         <svg
-            width="24"
-            height="24"
+            width={width || "26"}
+            height={height || "26"}
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -1290,11 +1290,11 @@ export const CheckedBoxIcon = ({ stroke, fill }) => {
         </svg>
     );
 };
-export const RemoveIcon = ({ stroke, fill }) => {
+export const RemoveIcon = ({width, height, stroke, fill }) => {
     return (
         <svg
-            width="24"
-            height="24"
+            width={width || "26"}
+            height={height || "26"}
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -1309,11 +1309,11 @@ export const RemoveIcon = ({ stroke, fill }) => {
         </svg>
     );
 };
-export const FilledRadioIcon = ({ stroke, fill }) => {
+export const FilledRadioIcon = ({width, height, stroke, fill }) => {
     return (
         <svg
-            width="24"
-            height="24"
+            width={width || "26"}
+            height={height || "26"}
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -1329,11 +1329,11 @@ export const FilledRadioIcon = ({ stroke, fill }) => {
     );
 };
 
-export const RadioIcon = ({ stroke, fill }) => {
+export const RadioIcon = ({width, height, stroke, fill }) => {
     return (
         <svg
-            width="24"
-            height="24"
+            width={width || "26"}
+            height={height || "26"}
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -1349,11 +1349,11 @@ export const RadioIcon = ({ stroke, fill }) => {
     );
 };
 
-export const FilledStarIcon = ({ stroke, fill }) => {
+export const FilledStarIcon = ({width, height, stroke, fill }) => {
     return (
         <svg
-            width="24"
-            height="24"
+            width={width || "26"}
+            height={height || "26"}
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -1369,11 +1369,11 @@ export const FilledStarIcon = ({ stroke, fill }) => {
     );
 };
 
-export const StarIcon = ({ stroke, fill }) => {
+export const StarIcon = ({width, height, stroke, fill }) => {
     return (
         <svg
-            width="24"
-            height="24"
+            width={width || "26"}
+            height={height || "26"}
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -1388,11 +1388,11 @@ export const StarIcon = ({ stroke, fill }) => {
         </svg>
     );
 };
-export const HalfStarIcon = ({ stroke, fill }) => {
+export const HalfStarIcon = ({width, height, stroke, fill }) => {
     return (
         <svg
-            width="24"
-            height="24"
+            width={width || "26"}
+            height={height || "26"}
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -1422,20 +1422,20 @@ export const VersaIcon = ({
 }) => {
     return (
         <svg
-            style={{ width: width || "50px", height: height || "50px" }}
+            style={{width: width || "50px", height: height || "50px" }}
             viewBox="0 0 450 450"
-            width="450"
-            height="450"
+            width={width || "40"}
+            height={height || "40"}
             xmlns="http://www.w3.org/2000/svg"
             xmlnssvg="http://www.w3.org/2000/svg"
             xmlnsXlink="http://www.w3.org/1999/xlink"
         >
             <defs>
                 <symbol
-                    height="111"
+                    height={height || "40"}
                     id="svg_1"
                     viewBox="0 0 566 111"
-                    width="566"
+                    width={width || "40"}
                     xmlns="http://www.w3.org/2000/svg"
                 >
                     <path
@@ -1448,26 +1448,26 @@ export const VersaIcon = ({
                     />
                 </symbol>
                 <symbol
-                    height="303"
+                    height={height || "40"}
                     id="rect"
                     viewBox="0 0 356 303"
-                    width="356"
+                    width={width || "40"}
                     xmlns="http://www.w3.org/2000/svg"
                 >
                     <rect
-                        height="149"
+                        height={height || "40"}
                         stroke={rectStroke || "none"}
                         transform="rotate(-32.8401 0.691242 176.937)"
-                        width="325"
+                        width={width || "40"}
                         x="0.691242"
                         y="176.937"
                     />
                 </symbol>
                 <symbol
-                    height="191"
+                    height={height || "40"}
                     id="triangle"
                     viewBox="0 0 220 191"
-                    width="220"
+                    width={width || ""}
                     xmlns="http://www.w3.org/2000/svg"
                 >
                     <path
@@ -1476,10 +1476,10 @@ export const VersaIcon = ({
                     />
                 </symbol>
                 <symbol
-                    height="151"
+                    height={height || "26"}
                     id="circle"
                     viewBox="0 0 151 151"
-                    width="151"
+                    width={width || "26"}
                     xmlns="http://www.w3.org/2000/svg"
                 >
                     <circle
@@ -1540,21 +1540,23 @@ export const OtherVersaLogo = ({
     rectFill,
     textFill,
     textStroke,
+    width,
+    height
 }) => {
     return (
         <svg
             style={{ width: "50px", height: "50px" }}
             viewBox="0 0 450 450"
-            width="450"
-            height="450"
+            width={width || "26"}
+            height={height || "26"}
             xmlns="http://www.w3.org/2000/svg"
         >
             <defs>
                 <symbol
-                    height="191"
+                    height={height || "26"}
                     id="svg_6"
                     viewBox="0 0 220 191"
-                    width="220"
+                    width={width || "26"}
                     xmlns="http://www.w3.org/2000/svg"
                 >
                     {/* triangle  */}
@@ -1565,28 +1567,28 @@ export const OtherVersaLogo = ({
                     />
                 </symbol>
                 <symbol
-                    height="303"
+                    height={height || "26"}
                     id="svg_9"
                     viewBox="0 0 356 303"
-                    width="356"
+                    width={width || "26"}
                     xmlns="http://www.w3.org/2000/svg"
                 >
                     {/* rect  */}
                     <rect
-                        height="149"
+                        height={height || "26"}
                         strokeWidth="10"
                         stroke={rectStroke || "#444"}
                         transform="rotate(-32.8401 0.691242 176.937)"
-                        width="325"
+                        width={width || "26"}
                         x="0.691242"
                         y="176.937"
                     />
                 </symbol>
                 <symbol
-                    height="147"
+                    height={height || "26"}
                     id="svg_16"
                     viewBox="0 0 545 147"
-                    width="545"
+                    width={width || "26"}
                     xmlns="http://www.w3.org/2000/svg"
                 >
                     {/* versa  */}
@@ -1636,11 +1638,11 @@ export const OtherVersaLogo = ({
         </svg>
     );
 };
-export const DeleteIcon = ({ stroke, fill }) => {
+export const DeleteIcon = ({width, height, stroke, fill }) => {
     return (
         <svg
-            width="16"
-            height="16"
+            width={width || "26"}
+            height={height || "26"}
             fill={fill || "none"}
             xmlns="http://www.w3.org/2000/svg"
         >

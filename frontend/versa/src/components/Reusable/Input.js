@@ -4,6 +4,7 @@ import colors from "./Colors";
 // import { useDispatch } from "react-redux";
 
 export const TextField = ({
+    required,
     password,
     value,
     setValue,
@@ -15,7 +16,7 @@ export const TextField = ({
     return (
         <div>
             <FieldContainer>
-                <Label>{label}</Label>
+                <Label>{label} {required && "*"}</Label>
                 {multi ? (
                     <TextArea
                         type={password ? "password" : "text"}
@@ -75,13 +76,17 @@ export const TextArea = styled.textarea`
     }
 `;
 export const Label = styled.label`
-margin-left: 3px;
-margin-bottom: 8px;`;
+    margin-left: 3px;
+    margin-bottom: 8px;
+    text-align: left;
+    
+`;
+
 export const Error = styled.p`
     color: red;
     margin-left: 3px;
     margin-bottom: 1.5em;
-height:10px;
+    height: 10px;
 `;
 
 export const Input = styled.input`

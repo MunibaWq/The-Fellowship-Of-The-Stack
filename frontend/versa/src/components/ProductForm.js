@@ -33,6 +33,7 @@ const ProductForm = (props) => {
     const [inputDesc, setInputDesc] = useState();
     const [inputMaterials, setInputMaterials] = useState();
     const [formError, setFormError] = useState(false);
+    const [showNumerical, setShowNumerical] = useState(false)
     const params = useParams();
     const id = params.id;
     function clearField() {
@@ -104,12 +105,12 @@ const ProductForm = (props) => {
         }
     }
     function setSizeValue() {
-        let sizeLabelToAdd = document.querySelector("#sizeLabelToAdd").value;
+        let sizeLabelToAdd = document.querySelector("#sizeLabelToAdd");
         let priceToAdd = document.querySelector("#priceToAdd").value;
-
-        if (sizes.length < 25) {
+        let sizeDropDown = document.querySelector('#sizeDropDown').value
+        if (sizes.length < 5) {
             let temp = {
-                label: sizeLabelToAdd,
+                label: sizeDropDown === "N" ? sizeLabelToAdd.value : sizeDropDown,
                 price: priceToAdd,
             };
             setSizes([...sizes, temp]);
@@ -117,6 +118,7 @@ const ProductForm = (props) => {
     }
 
     const submitData = (e) => {
+
         e.preventDefault();
         const productInfo = {
             title: inputName,
@@ -127,74 +129,82 @@ const ProductForm = (props) => {
             sizes: sizes,
             materials: inputMaterials,
         };
-
+        
         const sendData = async () => {
-            let productID;
-            if (props.type === "Add") {
-                let res = await axios.post(host + "/products/create", {
-                    data: productInfo,
-                });
-                productID = +res.data.id;
+            if (images.length === 0) {
+               setFormError('Please add at least 1 image')
             } else {
-                axios.put(host + "/products/edit/" + id, {
-                    data: productInfo,
-                });
-                productID = +id;
-            }
-            //adding thumbnail
-            images.forEach(async (image, index) => {
-
-                if (index === thumbImg) {
-                    image.size = "thumb";
-                }
-                
-
-                
-                console.log('index',index,'size',image.size)
-                if (image.imageFile === 'update') {
-                    let { label, size, filename } = image;
-                    let res = await updateImage(label, size, id, filename);
-                    if (!res) {
-                        alert('failed to update thumbnail choice')
-                    }
-                } else if (image.imageFile === 'delete') {
-                    let { filename } = image;
-                    //let res = await deleteImage(filename)
-                    //if (!res) {
-                    //    alert(`Failed to delete image ${index}`)
-                    //}
+                let productID;
+                if (props.type === "Add") {
+                    let res = await axios.post(host + "/products/create", {
+                        data: productInfo,
+                    });
+                    productID = +res.data.id;
                 } else {
-                    let { imageFile, label, size } = image;
-                    let res = await addImage(imageFile, label, size, productID);
-                    if (!res)
-                        alert(
-                            JSON.stringify(imageFile) +
-                            " failed to upload, go to edit product to try to add picture again"
-                        );
+                    axios.put(host + "/products/edit/" + id, {
+                        data: productInfo,
+                    });
+                    productID = +id;
                 }
-                
-            });
-            // alert(productID);
-            clearField();
-            if (props.type === "Edit") {
-                window.location.href = window.location.href.replace(
-                    "products/edit",
-                    "product-item"
-                );
-            } else {
-                // let productID = 1;
+                //adding thumbnail
+                images.forEach(async (image, index) => {
 
-                window.location.href = window.location.href.replace(
-                    "products/create",
-                    "product-item/" + productID
-                );
+                    if (index === thumbImg) {
+                        image.size = "thumb";
+                    }
+                
+
+                
+                    console.log('index', index, 'size', image.size)
+                    if (image.imageFile === 'update') {
+                        let { label, size, filename } = image;
+                        let res = await updateImage(label, size, id, filename);
+                        if (!res) {
+                            alert('failed to update thumbnail choice')
+                        }
+                    } else if (image.imageFile === 'delete') {
+                        let { filename } = image;
+                        //let res = await deleteImage(filename)
+                        //if (!res) {
+                        //    alert(`Failed to delete image ${index}`)
+                        //}
+                    } else {
+                        let { imageFile, label, size } = image;
+                        let res = await addImage(imageFile, label, size, productID);
+                        if (!res)
+                            alert(
+                                JSON.stringify(imageFile) +
+                                " failed to upload, go to edit product to try to add picture again"
+                            );
+                    }
+                
+                });
+                // alert(productID);
+                clearField();
+                if (props.type === "Edit") {
+                    window.location.href = window.location.href.replace(
+                        "products/edit",
+                        "product-item"
+                    );
+                } else {
+                    // let productID = 1;
+
+                    window.location.href = window.location.href.replace(
+                        "products/create",
+                        "product-item/" + productID
+                    );
+                }
             }
         };
-        let error = document.getElementById("error");
-        if (!error) {
-            sendData();
+        if (inputName && inputDesc && inputPrice) {
+            let error = document.getElementById("error");
+            if (!error) {
+                sendData();
+            } else {
+                setFormError('Please check all input is valid.');
+            }
         } else {
-            setFormError(true);
+            setFormError('Please fill out all required fields')
         }
     };
     console.log('thumbImg',thumbImg,'images',images)
@@ -225,9 +235,10 @@ const ProductForm = (props) => {
                         },
                     ]}
                     label="Product Name"
+                    required={true}
                     value={inputName}
                     setValue={setInputName}
-                ></TextField>
+                ></TextField> 
                 <TextField
                     multi={false}
                     tests={[
@@ -245,6 +256,7 @@ const ProductForm = (props) => {
                         },
                     ]}
                     label="Price"
+                    required={true}
                     value={inputPrice}
                     setValue={setInputPrice}
                 ></TextField>
@@ -265,6 +277,7 @@ const ProductForm = (props) => {
                         },
                     ]}
                     label="Description"
+                    required={true}
                     value={inputDesc}
                     setValue={setInputDesc}
                 ></TextField>
@@ -334,7 +347,6 @@ const ProductForm = (props) => {
                             <label>Color Name</label>
                             <Input label="Color Name" id="colorLabelToAdd" />
                             <Button
-                                primary
                                 onClick={() => {
                                     setColorModalVisible(false);
                                 }}
@@ -404,13 +416,28 @@ const ProductForm = (props) => {
                     {sizeModalVisible && (
                         <Modal width="fit-content">
                             <ModalTitle>Add A Size Option</ModalTitle>
+                            <select onChange={(e) => {
+                                if (e.target.value === "N") {
+                                setShowNumerical(true)
+                                } else {
+                                    setShowNumerical(false)
+                            }} } name="sizes" id="sizeDropDown">
+                            
+                                <option value="XS">Extra Small</option>
+                                <option value="S">Small</option>
+                                <option value="M">Medium</option>
+                                <option value="L">Large</option>
+                                <option value="XL">Extra Large</option>
+                                <option value="XXL">Extra Extra Large</option>
+                                <option value="N">Numeric Size</option>
 
-                            <label>Size Label</label>
-                            <Input label="Size Label" id="sizeLabelToAdd" />
+                            </select>
+                            {showNumerical ? <>
+                            <label>Enter a numerical size:</label>
+                            <Input type="number" id="sizeLabelToAdd" min="1" max="100"/> </>: ""}
                             <label>Additional cost for size</label>
                             <Input label="Size Label" id="priceToAdd" />
                             <Button
-                                primary
                                 onClick={() => {
                                     setSizeModalVisible(false);
                                 }}
@@ -453,21 +480,23 @@ const ProductForm = (props) => {
                         <input
                             style={{ width: "115px" }}
                             onChange={(e) => {
-                                let image = URL.createObjectURL(
-                                    e.target.files[0]
-                                );
-                                crop(image, 1).then((img) => {
-                                    // add that image to the images to be sent to AWS
-                                    setImages([
-                                        ...images,
-                                        {
-                                            image: image,
-                                            label: "test",
-                                            imageFile: img,
-                                            size: "full",
-                                        },
-                                    ]);
-                                });
+                                if (e.target.files.length > 0) {
+                                    let image = URL.createObjectURL(
+                                        e.target.files[0]
+                                    );
+                                    crop(image, 1).then((img) => {
+                                        // add that image to the images to be sent to AWS
+                                        setImages([
+                                            ...images,
+                                            {
+                                                image: image,
+                                                label: "test",
+                                                imageFile: img,
+                                                size: "full",
+                                            },
+                                        ]);
+                                    });
+                                }
                             }}
                             type={"file"}
                             accept={"image/jpeg"}
@@ -518,7 +547,8 @@ const ProductForm = (props) => {
                         Submit
                     </Button>
                 </Container>
-                {formError && <Error>Please check all input is valid</Error>}
+                {formError && <Error>{formError}</Error>}
+                
             </RowContainer5>
         </Form>
     );

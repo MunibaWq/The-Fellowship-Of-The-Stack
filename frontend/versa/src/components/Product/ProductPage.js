@@ -61,28 +61,27 @@ const ProductPage = ({
                 </ProductImages>
 
                 <ProductDetail>
+                   
+                    <h1>{title ? (title + "  ") : "Loading Product  "}<Link to={"/products/edit/" + params.id}>
+                    <EditIcon stroke={colors.primary} />
+                </Link></h1>
+                    
                     <Stars>
-                        {Array(num_stars)
-                            .fill(0)
-                            .map((zero, index) => (
-                                <Star key={index} />
-                            ))}
-                        <Star />
-                        <Star />
+                    {Array(num_stars)
+                        .fill(0)
+                        .map((zero, index) => (
+                            <Star key={index} width="18" height="18"/>
+                        ))}
 
-                        <Link to={"/products/edit/" + params.id}>
-                            <EditIcon stroke={colors.primary} />
-                        </Link>
-                    </Stars>
-
-                    <h1>{title ? title : "Loading Product"}</h1>
+                    
+                </Stars>
 
                     <h2>${price ? price + priceDiff : 0}</h2>
                     {colours && colours.length > 0 && (
                         <Colours>
                             <SelectedColour>
                                 <h3>Colour:</h3>
-                                <h4>{colours[chosenColor].label}</h4>
+                                <h4>{colours.label === "O" ? "One Colour" : colours[chosenColor].label}</h4>
                             </SelectedColour>
                             <ColourOptions>
                                 {colours.map((colour, index) => {
@@ -348,11 +347,10 @@ const ColourPreview = styled.button.attrs({
         border: 3px solid ${colors.primaryHover};
         outline: none;
         transition: 0.1s ease;
-        filter: brightness(120%);
         transform: scale(1.05);
     }
     :active {
-        border: 3px solid rgba(68, 68, 68, 0.2);
+        border: 3px solid ${colors.primaryHover};
         transition: 0.1s ease;
         transform: scale(1.05);
     }
@@ -396,12 +394,13 @@ const SizeOption = styled.button.attrs({
     cursor: pointer;
     :hover,
     :focus {
+        border: 3px solid ${colors.primaryHover};
         outline: none;
         transition: 0.1s ease;
-        filter: brightness(130%);
         transform: scale(1.05);
     }
     :active {
+        border: 3px solid ${colors.primaryHover};
         transition: 0.1s ease;
         transform: scale(1.05);
     }

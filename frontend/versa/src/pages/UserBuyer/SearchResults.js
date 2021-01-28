@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
-import Categories from "../../components/Search/Categories";
-import Sort from "../../components/Search/Sort";
-import Filters from "../../components/Search/Filters";
 import ProductCard from "../../components/Search/ProductCard.js";
 import { searchProducts, getAllProducts } from "../../axios/gets";
 import styled from "styled-components";
 import { Magnifying } from "../../images/icons";
 import Loading from "../../components/Reusable/Loading";
+import colors from "../../components/Reusable/Colors.js";
 
 const SearchResults = () => {
     const [products, setProducts] = useState();
@@ -20,6 +18,7 @@ const SearchResults = () => {
         getProducts();
     }, []);
     const search = async () => {
+        
         let data = await searchProducts(query);
         setProducts(data);
     };
@@ -28,17 +27,18 @@ const SearchResults = () => {
         <SearchPage>
             <SearchBarDiv>
                 <MagnifyIcon
+                    
                     onClick={() => {
                         if (query) {
                             search();
                         }
                     }}
-                >
-                    <Magnifying />
+                ><Magnifying stroke={colors.primary}/>
+                    
                 </MagnifyIcon>
                 <SearchBar
                     onKeyPress={(e) => {
-                        if (e.key === "Enter" && query) {
+                        if (e.key === "Enter") {
                             search();
                         }
                     }}
@@ -47,19 +47,17 @@ const SearchResults = () => {
                     type="text"
                 />
             </SearchBarDiv>
-            <div>
-                <SearchCriteria>
-                    <Categories />
-                    <Sort />
-                    <Filters />
-                </SearchCriteria>
-            </div>
+            <div></div>
             <Products>
                 {!products ? (
                     <Loading />
                 ) : products.length > 0 ? (
-                        products.map((product, index) => <ProductCard key={index} product={product} />)
-                ): <NoResultsMessage>No results found</NoResultsMessage>}
+                    products.map((product, index) => (
+                        <ProductCard key={index} product={product} />
+                    ))
+                ) : (
+                    <NoResultsMessage>No results found</NoResultsMessage>
+                )}
             </Products>
         </SearchPage>
     );
@@ -81,13 +79,51 @@ const SearchBar = styled.input`
     width: 100%;
     height: 50px;
     margin: 10px 0;
+    border: 3px solid rgba(68, 68, 68, 0.1);
+    border-radius: 10px;
+    :focus,::active, :hover{
+        border: 3px solid ${colors.primary};
+    }
+    ::-webkit-input-placeholder {
+        color: rgba(68, 68, 68, 0.3);
+    letter-spacing: 0.05em;
+    margin: 30px 0 0 8px;
+    font-size: 0.8em;
+    font-weight: 700;
+
+    }
+
+    ::-moz-placeholder {
+        /* Firefox 19+ */
+        color: rgba(68, 68, 68, 0.3);
+    margin: 30px 0 0 8px;
+    letter-spacing: 0.05em;
+    font-size: 0.8em;
+    font-weight: 700;
+    }
+    :-ms-input-placeholder {
+        /* IE 10+ */
+        color: rgba(68, 68, 68, 0.3);
+    letter-spacing: 0.05em;
+    margin: 30px 0 0 8px;
+    font-size: 0.8em;
+    font-weight: 700;
+    }
+    :-moz-placeholder {
+        /* Firefox 18- */
+        color: rgba(68, 68, 68, 0.3);
+    letter-spacing: 0.05em;
+    margin: 30px 0 0 8px;
+    font-size: 0.8em;
+    font-weight: 700;
+    }
 `;
 
-const SearchCriteria = styled.div`
-    display: flex;
-    justify-content: flex-start;
-    margin: 10px 0;
-`;
+// const SearchCriteria = styled.div`
+//     display: flex;
+//     justify-content: flex-start;
+//     margin: 10px 0;
+// `;
 
 const SearchPage = styled.div`
     padding: 4%;
