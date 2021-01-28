@@ -1,13 +1,61 @@
-export const Dashboard = ({ stroke, fill }) => {
-    return(
-    <svg width="32" height="32" viewBox="0 0 32 32" fill={fill || "none"} xmlns="http://www.w3.org/2000/svg">
-    <path d="M28 26H4V6" stroke={stroke || "#444444"} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-    <path d="M26.0002 8L16.0002 18L12.0002 14L4.00024 22" stroke={stroke || "#444444"} stroke-width="2" strokeLinecap="round" strokeLinejoin="round"/>
-    <path d="M26.0002 13V8H21.0002" stroke={stroke || "#444444"} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-    </svg>)
-    
+export const ShapesLogo = ({ width, height, triangle, circle, rectangle }) => {
+    return (
+        <svg
+            width={width || "40"}
+            height={height || "40"}
+            viewBox="0 0 432 359"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+        >
+            <path
+                d="M0.0644531 160.377L248.54 -3.11531e-05L322.333 114.329L73.8577 274.706L0.0644531 160.377Z"
+                fill={rectangle || "none"}
+            />
+            <path
+                d="M432 197.143C432 234.975 401.332 265.643 363.5 265.643C325.668 265.643 295 234.975 295 197.143C295 159.312 325.668 128.643 363.5 128.643C401.332 128.643 432 159.312 432 197.143Z"
+                fill={circle || "none"}
+            />
+            <path
+                d="M235 185.643L335 358.643H135L235 185.643Z"
+                fill={triangle || "none"}
+            />
+        </svg>
+    );
+};
 
-}
+export const Dashboard = ({ stroke, fill }) => {
+    return (
+        <svg
+            width="32"
+            height="32"
+            viewBox="0 0 32 32"
+            fill={fill || "none"}
+            xmlns="http://www.w3.org/2000/svg"
+        >
+            <path
+                d="M28 26H4V6"
+                stroke={stroke || "#444444"}
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            />
+            <path
+                d="M26.0002 8L16.0002 18L12.0002 14L4.00024 22"
+                stroke={stroke || "#444444"}
+                stroke-width="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            />
+            <path
+                d="M26.0002 13V8H21.0002"
+                stroke={stroke || "#444444"}
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            />
+        </svg>
+    );
+};
 
 export const WishListIcon = ({ stroke, fill }) => {
     return (
@@ -775,7 +823,6 @@ export const EditIcon = ({ stroke, fill }) => {
         </svg>
     );
 };
-
 
 export const LocationIcon = ({ stroke, fill }) => {
     return (

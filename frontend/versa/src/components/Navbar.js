@@ -11,7 +11,7 @@ import {
     WishListIcon,
     CartIcon,
     Magnifying,
-    VersaIcon,
+    ShapesLogo,
     Dashboard,
 } from "../images/icons";
 import { useSelector } from "react-redux";
@@ -21,19 +21,13 @@ const Navbar = () => {
     return (
         <Nav colors={colors}>
             <NavLink color={colors.secondary} to="/">
-                {/* <Logo src={logo} alt="logo" /> */}
-                <VersaIcon
-                    width="40px"
-                    height="40px"
-                    triangleFill={colors.logoTriangle}
-                    circleFill={colors.logoCircle}
-                    rectFill={colors.logoRect}
-                    textFill={colors.logoText}
-                    triangleStroke="none"
-                    circleStroke="none"
-                    rectStroke="none"
-                    textStroke={colors.logoText}
+                <ShapesLogo
+                    circle={colors.logoCircle}
+                    rectangle={colors.logoRect}
+                    triangle={colors.logoTriangle}
+                    alt="Versa Logo"
                 />
+                <Versa>Versa</Versa>
             </NavLink>
 
             <NavMenu>
@@ -41,13 +35,12 @@ const Navbar = () => {
                     <Magnifying stroke={colors.secondary} />
                     <WordLink>Shop</WordLink>
                 </NavLink>
-                {/* <NavLink color={colors.secondary} to="/products/create">
-                    Create
-                </NavLink> */}
-                {/* <NavLink color={colors.secondary} to="/products/edit/1">
-                    Edit
-                </NavLink> */}
-                <NavLink color={colors.secondary} to="/events">
+                <NavLink
+                    width="30px"
+                    height="30px"
+                    color={colors.secondary}
+                    to="/events"
+                >
                     <EventsIcon stroke={colors.secondary} />
                     <WordLink>Events</WordLink>
                 </NavLink>
@@ -69,8 +62,6 @@ const Navbar = () => {
                         <Dashboard stroke={colors.secondary} />
                     </NavLink>
                 )}
-
-                {/* <NavLink colors={colors} to="/product-item">PRODUCT ITEM</NavLink> */}
             </NavMenu>
         </Nav>
     );
@@ -89,7 +80,7 @@ export const Nav = styled.nav`
     background: ${(props) => props.colors.primary};
     display: flex;
     justify-content: space-between;
-    padding: 10px 20px;
+    padding: 5px 20px;
     z-index: 10;
     position: -webkit-sticky; /* for Safari */
     position: sticky;
@@ -127,4 +118,13 @@ const WordLink = styled.h2`
     @media (max-width: 700px) {
         display: none;
     }
+`;
+
+const Versa = styled.h1`
+    text-transform: uppercase;
+    color: ${colors.secondary};
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    margin: 2px 0 0 8px;
+    font-size: 1em;
 `;

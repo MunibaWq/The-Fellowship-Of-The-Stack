@@ -4,10 +4,10 @@ const colors = {
     secondary: "#fff",
     secondaryOther: "#317AFC",
     tertiary: "#444",
-    logoText: "#444",
+    logoText: "#fff",
     border: "#D3D3D3",
-    logoTriangle: "lightgreen",
-    logoCircle: "lightblue",
-    logoRect: "orange",
+    logoTriangle: "#FFB649",
+    logoCircle: "#C5C3FF",
+    logoRect: "#FF5C00",
 };
 export default colors;
