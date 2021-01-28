@@ -28,9 +28,8 @@ router.get("/get/:id", async (req, res) => {
         );
 
         const productInfo = result.rows[0];
-
-        productInfo["colours"] = JSON.parse(productInfo["colours"]);
-        productInfo["sizes"] = JSON.parse(productInfo["sizes"]);
+        console.log(productInfo)
+      
         const artistReq = await client.query(
             "SELECT username FROM artists WHERE id = " +
                 productInfo["artist_id"]
@@ -55,8 +54,7 @@ router.get("/allProducts", async (req, res) => {
         const results = result.rows;
         const productsToSend = [];
         for (product of results) {
-            product["colours"] = product["colours"].split(" ");
-            product["sizes"] = product["sizes"].split(" ").map((dim) => +dim);
+           
             const artistReq = await pool.query(
                 "SELECT username FROM artists WHERE id = " +
                     product["artist_id"]

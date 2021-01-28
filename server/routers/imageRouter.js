@@ -17,24 +17,22 @@ const accessKeyId = process.env.REACT_APP_AWS_ACCESS_KEY_ID
 
 const secretKey = process.env.REACT_APP_AWS_SECRET_ACCESS_KEY
 
-router.post('/update', async (req, res) => {
-    const { label, imageSize, productID } = req.body
+router.put('/update', async (req, res) => {
+    const { label, imageSize, productID, filename} = req.body
     try {
         //make a query to insert the image info into the db
-        // THIS IS WRONG, FIX IT - SHOULD NOT BE WHERE PRODUCT_ID = PRODUCTID, this will set all products to the same value
-        let query = `UPDATE images SET label = '${label}', img_size = '${imageSize}' WHERE product_id = ${productID} RETURNING filename;`
+        let query = `UPDATE images SET label = '${label}', img_size = '${imageSize}' WHERE product_id = ${productID} AND filename = '${filename}';`
         console.log(query)
-        const response = await pool.query(
+        pool.query(
             query
         );
-        const filename = response.rows[0].filename
         if (imageSize === "thumb") {
-            const blah = await pool.query(
+            const thumbnail = await pool.query(
                 `UPDATE products
                 SET thumbnail='${filename}'
                 WHERE id = ${productID} RETURNING *;`
             );
-            console.log(blah)
+            console.log(thumbnail)
         }
         res.sendStatus(201);
     } catch (e) {

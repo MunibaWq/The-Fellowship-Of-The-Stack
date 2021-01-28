@@ -9,16 +9,7 @@ export const axiosLogin = async (email, password) => {
 }
 export const addImage = async (image, label, imageSize, productID) => {
     try {
-        if (image === "update") {
-            const response = await Axios.post(host + "/images/update", {
-                imageSize,
-                productID,
-                label,
-            });
-            if (response.status === 201) {
-                return true;
-            }
-        } else {
+        
             const data = new FormData();
 
             data.append("label", label);
@@ -29,7 +20,7 @@ export const addImage = async (image, label, imageSize, productID) => {
             if (response.status === 201) {
                 return true;
             }
-        }
+        
 
         return false;
     } catch (err) {

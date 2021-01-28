@@ -7,6 +7,8 @@ import { ColorInput, Input } from "./Reusable/Input";
 import { Modal, ModalTitle } from "./Reusable/Modal";
 import axios from "axios";
 import { addImage } from "../axios/posts";
+//import { deleteImage } from "../axios/deletes";
+import { updateImage } from "../axios/puts";
 import { useParams } from "react-router";
 import { getImagesByPID, getProductByID } from "../axios/gets";
 import theme from "./Reusable/Colors";
@@ -65,6 +67,7 @@ const ProductForm = (props) => {
                         label: picture.label,
                         imageFile: 'update',
                         size: "full",
+                        filename: picture.filename
                     };
                 })
             );
@@ -139,21 +142,37 @@ const ProductForm = (props) => {
                 productID = +id;
             }
             //adding thumbnail
-            images.forEach(async (image,index) => {
-                let { imageFile, label, size } = image;
+            images.forEach(async (image, index) => {
 
                 if (index === thumbImg) {
-                    size = "thumb";
+                    image.size = "thumb";
                 }
-                console.log('index',index,'size',size)
+                
 
-                let res = await addImage(imageFile, label, size, productID);
-
-                if (!res)
-                    alert(
-                        JSON.stringify(imageFile) +
+                
+                console.log('index',index,'size',image.size)
+                if (image.imageFile === 'update') {
+                    let { label, size, filename } = image;
+                    let res = await updateImage(label, size, id, filename);
+                    if (!res) {
+                        alert('failed to update thumbnail choice')
+                    }
+                } else if (image.imageFile === 'delete') {
+                    let { filename } = image;
+                    //let res = await deleteImage(filename)
+                    //if (!res) {
+                    //    alert(`Failed to delete image ${index}`)
+                    //}
+                } else {
+                    let { imageFile, label, size } = image;
+                    let res = await addImage(imageFile, label, size, productID);
+                    if (!res)
+                        alert(
+                            JSON.stringify(imageFile) +
                             " failed to upload, go to edit product to try to add picture again"
-                    );
+                        );
+                }
+                
             });
             // alert(productID);
             clearField();

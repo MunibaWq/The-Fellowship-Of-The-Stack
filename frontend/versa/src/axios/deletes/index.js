@@ -1,35 +1,35 @@
-import Axios from "axios";
-import S3 from "react-aws-s3";
-import { accessKeyId, secretKey } from "../posts/secret";
+//import Axios from "axios";
+//import S3 from "react-aws-s3";
+//import { accessKeyId, secretKey } from "../posts/secret";
+//This file needs to be redone to move the S3 stuff to the server
 
+//let host = process.env.NODE_ENV==='production'? "" : ""
+//export const deleteImage = async (filename, id) => {
+//    const config = {
+//        bucketName: "versabucket",
+//        dirName: "images",
+//        region: "us-east-2",
+//        accessKeyId: accessKeyId,
+//        secretAccessKey: secretKey,
+//    };
 
-let host = process.env.NODE_ENV==='production'? "" : ""
-export const deleteImage = async (filename, id) => {
-    const config = {
-        bucketName: "versabucket",
-        dirName: "images",
-        region: "us-east-2",
-        accessKeyId: accessKeyId,
-        secretAccessKey: secretKey,
-    };
+//    const ReactS3Client = new S3(config);
 
-    const ReactS3Client = new S3(config);
-
-    ReactS3Client.deleteFile(filename)
-        .then((data) => {
-            Axios.delete(host+"/images/delete/:id").then(
-                (response) => {
-                    if (response.status === 201) {
-                        return true;
-                    }
-                    return false;
-                }
-            );
-        })
-        .catch((err) => {
-            console.error(err);
-            return false;
-        });
+//    ReactS3Client.deleteFile(filename)
+//        .then((data) => {
+//            Axios.delete(host+"/images/delete/:id").then(
+//                (response) => {
+//                    if (response.status === 201) {
+//                        return true;
+//                    }
+//                    return false;
+//                }
+//            );
+//        })
+//        .catch((err) => {
+//            console.error(err);
+//            return false;
+//        });
 
     /**
      * {
@@ -87,4 +87,4 @@ export const deleteImage = async (filename, id) => {
     //     fs.writeFileSync("./sample1.txt", data.Body);
     //     console.log("file downloaded successfully");
     // });
-};
+//};
