@@ -2,7 +2,10 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { getAllProducts } from "../../axios/gets";
 import { getImagesByPID } from "../../axios/gets";
-
+import { Link } from "react-router-dom";
+import Button from "../../components/Reusable/Button";
+import colors from "../../components/Reusable/Colors";
+import { AddIcon } from "../../images/icons";
 import Loading from "../../components/Reusable/Loading";
 
 const Dashboard = (currentProduct) => {
@@ -18,6 +21,12 @@ const Dashboard = (currentProduct) => {
 
     return (
         <div style={{ padding: "2%" }}>
+            <Link to="/products/create">
+                <Button secondary>
+                    Create a new product
+                    <AddIcon stroke={colors.primary} />
+                </Button>
+            </Link>
             <table style={{ width: "100%" }}>
                 <tr>
                     <input type="checkbox" />
@@ -46,8 +55,8 @@ const Dashboard = (currentProduct) => {
                                     />
                                 </td>
                                 <td>{result.title}</td>
-                                <td>Stat</td>
-                                <td>Inven</td>
+                                <td>status</td>
+                                <td>inventory</td>
                                 <td>Update</td>
                                 <td>Delete</td>
                             </tr>
