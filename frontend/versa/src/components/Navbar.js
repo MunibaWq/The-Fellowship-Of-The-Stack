@@ -44,6 +44,15 @@ const Navbar = () => {
                     <EventsIcon stroke={colors.secondary} />
                     <WordLink>Events</WordLink>
                 </NavLink>
+                {user && (
+                    <NavLink
+                        color={colors.secondary}
+                        to={"/dashboard/" + user.id}
+                    >
+                        <Dashboard stroke={colors.secondary} />
+                        <WordLink>Dashboard</WordLink>
+                    </NavLink>
+                )}
                 <NavLink color={colors.secondary} to="/account">
                     <AccountIcon stroke={colors.secondary} />
                     <WordLink>Account</WordLink>
@@ -54,14 +63,7 @@ const Navbar = () => {
                 <NavLink color={colors.secondary} to="/shopping-cart">
                     <CartIcon stroke={colors.secondary} />
                 </NavLink>
-                {user && (
-                    <NavLink
-                        color={colors.secondary}
-                        to={"/dashboard/" + user.id}
-                    >
-                        <Dashboard stroke={colors.secondary} />
-                    </NavLink>
-                )}
+                
             </NavMenu>
         </Nav>
     );
@@ -115,7 +117,7 @@ const WordLink = styled.h2`
     letter-spacing: 0.08em;
     margin: 0 0 0 8px;
     font-size: 0.8em;
-    @media (max-width: 700px) {
+    @media (max-width: 600px) {
         display: none;
     }
 `;

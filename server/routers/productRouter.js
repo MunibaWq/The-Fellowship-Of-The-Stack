@@ -3,6 +3,7 @@ const router = new express.Router();
 const pool = require("../db");
 //search products by keyword found in title and description
 router.get("/search/:searchQuery", async (req, res) => {
+    console.log(req.params.searchQuery)
     let query = req.params.searchQuery.toUpperCase().split(" ");
     let queryString = "";
     query.forEach((term, index) => {

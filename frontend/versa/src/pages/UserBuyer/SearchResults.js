@@ -18,6 +18,7 @@ const SearchResults = () => {
         getProducts();
     }, []);
     const search = async () => {
+        
         let data = await searchProducts(query);
         setProducts(data);
     };
@@ -32,12 +33,12 @@ const SearchResults = () => {
                             search();
                         }
                     }}
-                >
-                    <Magnifying stroke={colors.primary}/>
+                ><Magnifying stroke={colors.primary}/>
+                    
                 </MagnifyIcon>
                 <SearchBar
                     onKeyPress={(e) => {
-                        if (e.key === "Enter" && query) {
+                        if (e.key === "Enter") {
                             search();
                         }
                     }}
@@ -81,23 +82,40 @@ const SearchBar = styled.input`
     border: 3px solid rgba(68, 68, 68, 0.1);
     border-radius: 10px;
     :focus,::active, :hover{
-        border: 3px solid ${colors.primar};
+        border: 3px solid ${colors.primary};
     }
     ::-webkit-input-placeholder {
         color: rgba(68, 68, 68, 0.3);
+    letter-spacing: 0.05em;
+    margin: 30px 0 0 8px;
+    font-size: 0.8em;
+    font-weight: 700;
+
     }
 
     ::-moz-placeholder {
         /* Firefox 19+ */
         color: rgba(68, 68, 68, 0.3);
+    margin: 30px 0 0 8px;
+    letter-spacing: 0.05em;
+    font-size: 0.8em;
+    font-weight: 700;
     }
     :-ms-input-placeholder {
         /* IE 10+ */
         color: rgba(68, 68, 68, 0.3);
+    letter-spacing: 0.05em;
+    margin: 30px 0 0 8px;
+    font-size: 0.8em;
+    font-weight: 700;
     }
     :-moz-placeholder {
         /* Firefox 18- */
         color: rgba(68, 68, 68, 0.3);
+    letter-spacing: 0.05em;
+    margin: 30px 0 0 8px;
+    font-size: 0.8em;
+    font-weight: 700;
     }
 `;
 
