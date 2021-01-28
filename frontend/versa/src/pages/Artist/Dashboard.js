@@ -10,6 +10,7 @@ import Loading from "../../components/Reusable/Loading";
 
 const Dashboard = (currentProduct) => {
     const [results, setResults] = useState([]);
+    const [selectedRows, setSelectedRows] = useState([]);
 
     useEffect(() => {
         const getProducts = async () => {
@@ -18,6 +19,10 @@ const Dashboard = (currentProduct) => {
         };
         getProducts();
     }, []);
+
+    useEffect(() => {
+        console.log(selectedRows);
+    }, [selectedRows]);
 
     return (
         <div style={{ padding: "2%" }}>
@@ -29,6 +34,14 @@ const Dashboard = (currentProduct) => {
             </Link>
             <table style={{ width: "100%" }}>
                 <tr>
+                    <select>
+                        <option>available</option>
+                        <option>backorder</option>
+                        <option>discontinue</option>
+                    </select>
+                </tr>
+
+                <tr>
                     <input type="checkbox" />
                     <th></th>
                     <th>title</th>
@@ -37,12 +50,29 @@ const Dashboard = (currentProduct) => {
                     <th>Edit</th>
                     <th>delete</th>
                 </tr>
-
                 {results ? (
-                    results.map((result) => {
+                    results.map((result, index) => {
                         return (
                             <tr style={{ padding: "100%" }}>
-                                <input type="checkbox" />
+                                <input
+                                    id={result.title + index}
+                                    type="checkbox"
+                                    onChange={(e) => {
+                                        if (e.target.checked) {
+                                            setSelectedRows([
+                                                ...selectedRows,
+                                                e.target.id,
+                                            ]);
+                                        } else {
+                                            setSelectedRows(
+                                                selectedRows.filter(
+                                                    (rowId) =>
+                                                        rowId != e.target.id
+                                                )
+                                            );
+                                        }
+                                    }}
+                                />
                                 <td style={{ width: "50px", height: "50px" }}>
                                     <img
                                         src={`${"http://localhost:5000"}/images/${
