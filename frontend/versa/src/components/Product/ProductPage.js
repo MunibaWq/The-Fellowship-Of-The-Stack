@@ -345,12 +345,14 @@ const ColourPreview = styled.button.attrs({
     cursor: pointer;
     :hover,
     :focus {
+        border: 3px solid rgba(68, 68, 68, 0.2);
         outline: none;
         transition: 0.1s ease;
         filter: brightness(120%);
         transform: scale(1.05);
     }
     :active {
+        border: 3px solid rgba(68, 68, 68, 0.2);
         transition: 0.1s ease;
         transform: scale(1.05);
     }
