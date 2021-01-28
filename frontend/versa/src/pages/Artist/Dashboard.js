@@ -34,7 +34,7 @@ const Dashboard = (currentProduct) => {
                     <th>title</th>
                     <th>status</th>
                     <th>inventory</th>
-                    <th>update</th>
+                    <th>Edit</th>
                     <th>delete</th>
                 </tr>
 
@@ -57,7 +57,14 @@ const Dashboard = (currentProduct) => {
                                 <td>{result.title}</td>
                                 <td>status</td>
                                 <td>inventory</td>
-                                <td>Update</td>
+                                <td>
+                                    <Link to="/products/edit/:results.id">
+                                        <Button secondary>
+                                            Edit
+                                            <AddIcon stroke={colors.primary} />
+                                        </Button>
+                                    </Link>
+                                </td>
                                 <td>Delete</td>
                             </tr>
                         );

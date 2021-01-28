@@ -10,11 +10,13 @@ import ProductItem from "./pages/UserBuyer/ProductItem";
 import AddProduct from "./pages/Artist/AddProduct";
 import EditProduct from "./pages/Artist/EditProduct";
 import CreateAccount from "./pages/Artist/CreateAccount";
+import Dashboard from "./pages/Artist/Dashboard";
 
 function App() {
     return (
         <Router>
             <Navbar />
+
             <div style={{ overflowX: "hidden" }}>
                 <Switch>
                     <Route path="/" exact component={SearchResults} />
@@ -27,12 +29,14 @@ function App() {
                         exact
                         component={ShoppingCart}
                     />
-                   
+                    <Route path="/dashboard/:id" component={Dashboard} />
                     <Route path="/product-item/:id" component={ProductItem} />
                     <Route path="/products/create" component={AddProduct} />
                     <Route path="/products/edit/:id" component={EditProduct} />
-                    <Route path="/artists/create-account" component={CreateAccount} />
-
+                    <Route
+                        path="/artists/create-account"
+                        component={CreateAccount}
+                    />
                 </Switch>
             </div>
         </Router>
