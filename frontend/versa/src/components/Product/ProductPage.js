@@ -345,7 +345,7 @@ const ColourPreview = styled.button.attrs({
     cursor: pointer;
     :hover,
     :focus {
-        border: 3px solid rgba(68, 68, 68, 0.2);
+        border: 3px solid ${colors.primaryHover};
         outline: none;
         transition: 0.1s ease;
         filter: brightness(120%);
