@@ -80,7 +80,7 @@ router.post("/create", async (req, res) => {
     //     })
     // }
     try {
-        const {
+        let {
             title,
             price,
             description,
@@ -90,6 +90,21 @@ router.post("/create", async (req, res) => {
             materials,
         } = req.body.data;
         console.log(typeof req.body.data);
+        if (colours.length === 0) {
+            colours = [{"label":"O", "value":"#444"}]
+        }
+        if (sizes.length === 0) {
+            sizes = [{"label":"O", "price":"0"}]
+        }
+        // To sort the sizes entered in the correct order
+        // Will sort numerical sizes numerically
+        let sizesOrder = ["XS","S","M","L","XL","XXL"]
+        sizes.sort((a, b) => {
+            return (
+                sizesOrder.indexOf(a.label) - sizesOrder.indexOf(b.label) ||
+                +a.label - +b.label
+            );
+        });
         let productInfo = await pool.query(
             "INSERT INTO products (title, price, description, colours, artist_id, sizes, materials) VALUES ($1, $2, $3,$4, $5,$6,$7) RETURNING id",
             [
@@ -127,7 +142,7 @@ router.put("/edit/:id", async (req, res) => {
     }
     try {
         const { id } = req.params; // For use in where
-        const {
+        let {
             title,
             price,
             description,
@@ -136,6 +151,15 @@ router.put("/edit/:id", async (req, res) => {
             sizes,
             materials,
         } = req.body.data; //For use in set
+        console.log(sizes, colours)
+        if (colours.length === 0) {
+            colours = [{"label":"O", "value":"#444"}]
+        }
+        if (sizes.length === 0) {
+            sizes = [{"label":"O", "price":"0"}]
+        }
+        console.log(sizes, colours)
+        
         let response = await pool.query(
             "UPDATE products SET title = $1, price = $2, description = $3, colours = $4, artist_id = $5, sizes = $6, materials = $7 WHERE id = $8 RETURNING id",
             [

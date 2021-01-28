@@ -54,7 +54,7 @@ const Button = styled.button.attrs((props) => ({
             background: ${colors.secondary};
             border: 4px solid ${colors.primary};
             color: ${colors.primary};
-            border-radius: 50px;
+            border-radius: 10px;
             :hover,
             :active,
             :focus {
@@ -77,7 +77,7 @@ const Button = styled.button.attrs((props) => ({
             background: ${colors.primary};
             border: 4px solid ${colors.primary};
             padding: 10px 20px;
-            border-radius: 50px;
+            border-radius: 10px;
             color: ${colors.secondary};
             svg {
                 path {

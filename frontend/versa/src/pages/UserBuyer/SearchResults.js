@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
-import Categories from "../../components/Search/Categories";
-import Sort from "../../components/Search/Sort";
-import Filters from "../../components/Search/Filters";
 import ProductCard from "../../components/Search/ProductCard.js";
 import { searchProducts, getAllProducts } from "../../axios/gets";
 import styled from "styled-components";
 import { Magnifying } from "../../images/icons";
 import Loading from "../../components/Reusable/Loading";
+import colors from "../../components/Reusable/Colors.js";
 
 const SearchResults = () => {
     const [products, setProducts] = useState();
@@ -28,13 +26,14 @@ const SearchResults = () => {
         <SearchPage>
             <SearchBarDiv>
                 <MagnifyIcon
+                    
                     onClick={() => {
                         if (query) {
                             search();
                         }
                     }}
                 >
-                    <Magnifying />
+                    <Magnifying stroke={colors.primary}/>
                 </MagnifyIcon>
                 <SearchBar
                     onKeyPress={(e) => {
@@ -47,19 +46,17 @@ const SearchResults = () => {
                     type="text"
                 />
             </SearchBarDiv>
-            <div>
-                <SearchCriteria>
-                    <Categories />
-                    <Sort />
-                    <Filters />
-                </SearchCriteria>
-            </div>
+            <div></div>
             <Products>
                 {!products ? (
                     <Loading />
                 ) : products.length > 0 ? (
-                        products.map((product, index) => <ProductCard key={index} product={product} />)
-                ): <NoResultsMessage>No results found</NoResultsMessage>}
+                    products.map((product, index) => (
+                        <ProductCard key={index} product={product} />
+                    ))
+                ) : (
+                    <NoResultsMessage>No results found</NoResultsMessage>
+                )}
             </Products>
         </SearchPage>
     );
@@ -81,13 +78,34 @@ const SearchBar = styled.input`
     width: 100%;
     height: 50px;
     margin: 10px 0;
+    border: 3px solid rgba(68, 68, 68, 0.1);
+    border-radius: 10px;
+    :focus,::active, :hover{
+        border: 3px solid ${colors.primar};
+    }
+    ::-webkit-input-placeholder {
+        color: rgba(68, 68, 68, 0.3);
+    }
+
+    ::-moz-placeholder {
+        /* Firefox 19+ */
+        color: rgba(68, 68, 68, 0.3);
+    }
+    :-ms-input-placeholder {
+        /* IE 10+ */
+        color: rgba(68, 68, 68, 0.3);
+    }
+    :-moz-placeholder {
+        /* Firefox 18- */
+        color: rgba(68, 68, 68, 0.3);
+    }
 `;
 
-const SearchCriteria = styled.div`
-    display: flex;
-    justify-content: flex-start;
-    margin: 10px 0;
-`;
+// const SearchCriteria = styled.div`
+//     display: flex;
+//     justify-content: flex-start;
+//     margin: 10px 0;
+// `;
 
 const SearchPage = styled.div`
     padding: 4%;

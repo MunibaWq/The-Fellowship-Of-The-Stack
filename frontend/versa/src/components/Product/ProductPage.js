@@ -82,7 +82,7 @@ const ProductPage = ({
                         <Colours>
                             <SelectedColour>
                                 <h3>Colour:</h3>
-                                <h4>{colours[chosenColor].label}</h4>
+                                <h4>{colours.label === "O" ? "One Colour" : colours[chosenColor].label}</h4>
                             </SelectedColour>
                             <ColourOptions>
                                 {colours.map((colour, index) => {
@@ -352,7 +352,7 @@ const ColourPreview = styled.button.attrs({
         transform: scale(1.05);
     }
     :active {
-        border: 3px solid rgba(68, 68, 68, 0.2);
+        border: 3px solid ${colors.primaryHover};
         transition: 0.1s ease;
         transform: scale(1.05);
     }
@@ -396,12 +396,14 @@ const SizeOption = styled.button.attrs({
     cursor: pointer;
     :hover,
     :focus {
+        border: 3px solid ${colors.primaryHover};
         outline: none;
         transition: 0.1s ease;
         filter: brightness(130%);
         transform: scale(1.05);
     }
     :active {
+        border: 3px solid ${colors.primaryHover};
         transition: 0.1s ease;
         transform: scale(1.05);
     }
