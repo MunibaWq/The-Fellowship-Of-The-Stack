@@ -17,14 +17,14 @@ import {
 import { useSelector } from "react-redux";
 
 const Navbar = () => {
-    const user = useSelector(state=>state.user)
+    const user = useSelector((state) => state.user);
     return (
         <Nav colors={colors}>
             <NavLink color={colors.secondary} to="/">
                 {/* <Logo src={logo} alt="logo" /> */}
                 <VersaIcon
-                    width="70px"
-                    height="70px"
+                    width="40px"
+                    height="40px"
                     triangleFill={colors.logoTriangle}
                     circleFill={colors.logoCircle}
                     rectFill={colors.logoRect}
@@ -39,6 +39,7 @@ const Navbar = () => {
             <NavMenu>
                 <NavLink color={colors.secondary} to="/shop">
                     <Magnifying stroke={colors.secondary} />
+                    <WordLink>Shop</WordLink>
                 </NavLink>
                 {/* <NavLink color={colors.secondary} to="/products/create">
                     Create
@@ -48,9 +49,11 @@ const Navbar = () => {
                 </NavLink> */}
                 <NavLink color={colors.secondary} to="/events">
                     <EventsIcon stroke={colors.secondary} />
+                    <WordLink>Events</WordLink>
                 </NavLink>
                 <NavLink color={colors.secondary} to="/account">
                     <AccountIcon stroke={colors.secondary} />
+                    <WordLink>Account</WordLink>
                 </NavLink>
                 <NavLink color={colors.secondary} to="/wishlist">
                     <WishListIcon stroke={colors.secondary} />
@@ -58,9 +61,14 @@ const Navbar = () => {
                 <NavLink color={colors.secondary} to="/shopping-cart">
                     <CartIcon stroke={colors.secondary} />
                 </NavLink>
-                {user && <NavLink color={colors.secondary} to={"/dashboard/" + user.id}>
-                    <Dashboard stroke={colors.secondary} />
-                </NavLink>}
+                {user && (
+                    <NavLink
+                        color={colors.secondary}
+                        to={"/dashboard/" + user.id}
+                    >
+                        <Dashboard stroke={colors.secondary} />
+                    </NavLink>
+                )}
 
                 {/* <NavLink colors={colors} to="/product-item">PRODUCT ITEM</NavLink> */}
             </NavMenu>
@@ -81,7 +89,7 @@ export const Nav = styled.nav`
     background: ${(props) => props.colors.primary};
     display: flex;
     justify-content: space-between;
-    padding: 5px 20px;
+    padding: 10px 20px;
     z-index: 10;
     position: -webkit-sticky; /* for Safari */
     position: sticky;
@@ -96,8 +104,6 @@ const NavLink = styled(Link)`
     align-items: center;
     text-decoration: none;
     cursor: pointer;
-    font-weight: bold;
-    letter-spacing: 1px;
     padding: 0 10px 0 10px;
     text-transform: uppercase;
 
@@ -109,4 +115,16 @@ const NavLink = styled(Link)`
 const NavMenu = styled.div`
     display: flex;
     align-items: center;
+`;
+
+const WordLink = styled.h2`
+    display: visible;
+    text-transform: uppercase;
+    color: ${colors.secondary};
+    letter-spacing: 0.08em;
+    margin: 0 0 0 8px;
+    font-size: 0.8em;
+    @media (max-width: 700px) {
+        display: none;
+    }
 `;
