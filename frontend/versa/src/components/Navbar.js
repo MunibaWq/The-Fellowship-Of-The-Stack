@@ -80,7 +80,7 @@ export const Nav = styled.nav`
     background: ${(props) => props.colors.primary};
     display: flex;
     justify-content: space-between;
-    padding: 5px 20px;
+    padding: 10px 20px;
     z-index: 10;
     position: -webkit-sticky; /* for Safari */
     position: sticky;
