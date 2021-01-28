@@ -4,7 +4,7 @@ const colors = {
     secondary: "#fff",
     secondaryOther: "#317AFC",
     tertiary: "#444",
-    logoText: "#fff",
+    logoText: "#444",
     border: "#D3D3D3",
     logoTriangle: "#FFB649",
     logoCircle: "#C5C3FF",
