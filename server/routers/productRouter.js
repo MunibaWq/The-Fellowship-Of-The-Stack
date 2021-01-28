@@ -102,7 +102,14 @@ router.post("/create", async (req, res) => {
                 materials,
             ]
         );
-
+        let productID = productInfo.rows[0].id
+        let query = []
+        for (colour of colours) {
+            for (size of sizes) {
+                query.push(`INSERT INTO "stock" ("product_id", "color", "size") VALUES ('${productID}', '${colour.label}', '${size.label}');`)
+             }
+        }
+        pool.query(query.join(' '))
         res.json(productInfo.rows[0]);
     } catch (err) {
         console.error(err.message);
