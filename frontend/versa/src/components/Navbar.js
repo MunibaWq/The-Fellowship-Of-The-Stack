@@ -14,8 +14,10 @@ import {
     VersaIcon,
     Dashboard,
 } from "../images/icons";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
+    const user = useSelector(state=>state.user)
     return (
         <Nav colors={colors}>
             <NavLink color={colors.secondary} to="/">
@@ -56,9 +58,9 @@ const Navbar = () => {
                 <NavLink color={colors.secondary} to="/shopping-cart">
                     <CartIcon stroke={colors.secondary} />
                 </NavLink>
-                <NavLink color={colors.secondary} to="/dashboard/:id">
+                {user && <NavLink color={colors.secondary} to={"/dashboard/" + user.id}>
                     <Dashboard stroke={colors.secondary} />
-                </NavLink>
+                </NavLink>}
 
                 {/* <NavLink colors={colors} to="/product-item">PRODUCT ITEM</NavLink> */}
             </NavMenu>

@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import Button from "../Reusable/Button";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import colors from "../Reusable/Colors";
-import { LeftIcon, Star, DeleteIcon } from "../../images/icons";
+import { LeftIcon, Star, DeleteIcon, EditIcon } from "../../images/icons";
 
 const ProductPage = ({
     images,
@@ -20,7 +20,7 @@ const ProductPage = ({
     const [chosenColor, setChosenColor] = useState(0);
     const [chosenSize, setChosenSize] = useState(0);
     const [chosenImage, setChosenImage] = useState(0);
-
+    let params = useParams();
     return (
         <Container>
             <Link to="/">
@@ -68,7 +68,9 @@ const ProductPage = ({
                             ))}
                     </Stars>
 
-                    <h1> {title + " "}</h1>
+                    <h1> {title + " "} <Link to={"/products/edit/" + params.id}>
+                    <EditIcon stroke={colors.primary} />
+                </Link></h1>
                     <h2>${price + priceDiff}</h2>
                     {colours && colours.length > 0 && (
                         <Colours>
@@ -338,7 +340,7 @@ const ColourPreview = styled.button.attrs({
     :focus {
         outline: none;
         transition: 0.1s ease;
-        filter: brightness(130%);
+        filter: brightness(120%);
         transform: scale(1.05);
     }
     :active {

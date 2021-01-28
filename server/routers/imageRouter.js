@@ -21,6 +21,7 @@ router.post('/update', async (req, res) => {
     const { label, imageSize, productID } = req.body
     try {
         //make a query to insert the image info into the db
+        // THIS IS WRONG, FIX IT - SHOULD NOT BE WHERE PRODUCT_ID = PRODUCTID, this will set all products to the same value
         let query = `UPDATE images SET label = '${label}', img_size = '${imageSize}' WHERE product_id = ${productID} RETURNING filename;`
         console.log(query)
         const response = await pool.query(
@@ -28,11 +29,12 @@ router.post('/update', async (req, res) => {
         );
         const filename = response.rows[0].filename
         if (imageSize === "thumb") {
-            pool.query(
+            const blah = await pool.query(
                 `UPDATE products
                 SET thumbnail='${filename}'
-                WHERE id = ${productID};`
+                WHERE id = ${productID} RETURNING *;`
             );
+            console.log(blah)
         }
         res.sendStatus(201);
     } catch (e) {

@@ -139,12 +139,13 @@ const ProductForm = (props) => {
                 productID = +id;
             }
             //adding thumbnail
-            images.forEach(async (image) => {
+            images.forEach(async (image,index) => {
                 let { imageFile, label, size } = image;
 
-                if (imageFile === thumbImg) {
+                if (index === thumbImg) {
                     size = "thumb";
                 }
+                console.log('index',index,'size',size)
 
                 let res = await addImage(imageFile, label, size, productID);
 
@@ -177,7 +178,7 @@ const ProductForm = (props) => {
             setFormError(true);
         }
     };
-
+    console.log('thumbImg',thumbImg,'images',images)
     return (
         <Form onSubmit={submitData}>
             <Instruction1>
@@ -470,7 +471,7 @@ const ProductForm = (props) => {
                                                 name="chosenOne"
                                                 onClick={() => {
                                                     setThumbImg(
-                                                        image.imageFile
+                                                        index
                                                     );
                                                 }}
                                             />

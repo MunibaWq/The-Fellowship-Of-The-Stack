@@ -1,7 +1,7 @@
 const initState = {
     loginEmail:'',
     loginPassword: '',
-    user: {},
+    user: '',
     productData: {},
     selectedProduct: null,
     currentPage: "Search",
