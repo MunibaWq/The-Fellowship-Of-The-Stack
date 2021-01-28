@@ -28,8 +28,8 @@ router.get("/get/:id", async (req, res) => {
         );
 
         const productInfo = result.rows[0];
-        console.log(productInfo)
-      
+        console.log(productInfo);
+
         const artistReq = await client.query(
             "SELECT username FROM artists WHERE id = " +
                 productInfo["artist_id"]
@@ -54,7 +54,6 @@ router.get("/allProducts", async (req, res) => {
         const results = result.rows;
         const productsToSend = [];
         for (product of results) {
-           
             const artistReq = await pool.query(
                 "SELECT username FROM artists WHERE id = " +
                     product["artist_id"]
@@ -102,14 +101,16 @@ router.post("/create", async (req, res) => {
                 materials,
             ]
         );
-        let productID = productInfo.rows[0].id
-        let query = []
+        let productID = productInfo.rows[0].id;
+        let query = [];
         for (colour of colours) {
             for (size of sizes) {
-                query.push(`INSERT INTO "stock" ("product_id", "color", "size") VALUES ('${productID}', '${colour.label}', '${size.label}');`)
-             }
+                query.push(
+                    `INSERT INTO "stock" ("product_id", "color", "size") VALUES ('${productID}', '${colour.label}', '${size.label}');`
+                );
+            }
         }
-        pool.query(query.join(' '))
+        pool.query(query.join(" "));
         res.json(productInfo.rows[0]);
     } catch (err) {
         console.error(err.message);
@@ -135,9 +136,10 @@ router.put("/edit/:id", async (req, res) => {
             artist_id,
             sizes,
             materials,
+            status,
         } = req.body.data; //For use in set
         let response = await pool.query(
-            "UPDATE products SET title = $1, price = $2, description = $3, colours = $4, artist_id = $5, sizes = $6, materials = $7 WHERE id = $8 RETURNING id",
+            "UPDATE products SET title = $1, price = $2, description = $3, colours = $4, artist_id = $5, sizes = $6, materials = $7, status=$8 WHERE id = $9 RETURNING id",
             [
                 title,
                 price,
@@ -146,6 +148,7 @@ router.put("/edit/:id", async (req, res) => {
                 artist_id,
                 JSON.stringify(sizes),
                 materials,
+                status,
                 id,
             ]
         );
