@@ -20,7 +20,7 @@ const Loading = () => {
                     paddingBottom="100px"
                 />
             </StyledLogo>
-            Loading...
+            <LoadingMessage>Loading...</LoadingMessage>
         </Styles>
     );
 };
@@ -46,6 +46,14 @@ const StyledLogo = styled.div`
     animation: ${rotate} 3s ease-in-out infinite;
     width: 100px;
     height: 100px;
+`;
+
+const LoadingMessage = styled.p`
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin: 30px 0 0 8px;
+    font-size: 0.8em;
+    font-weight: 700;
 `;
 
 export default Loading;

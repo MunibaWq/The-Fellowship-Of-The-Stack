@@ -4,6 +4,7 @@ import Button from "../Reusable/Button";
 import { Link, useParams } from "react-router-dom";
 import colors from "../Reusable/Colors";
 import { LeftIcon, Star, DeleteIcon, EditIcon } from "../../images/icons";
+import ImageTest from "../../images/imageTest.png";
 
 const ProductPage = ({
     images,
@@ -37,7 +38,7 @@ const ProductPage = ({
                                 ? "/images/" + image + ".jpeg"
                                 : images && images.length > 0
                                 ? `https://versabucket.s3.us-east-2.amazonaws.com/images/${images[chosenImage].filename}.jpeg`
-                                : ""
+                                : ImageTest
                         }
                         alt={"image"}
                     ></MainImage>
@@ -66,16 +67,17 @@ const ProductPage = ({
                             .map((zero, index) => (
                                 <Star key={index} />
                             ))}
-                    </Stars>
+                        <Star />
+                        <Star />
 
-                    <h1>
-                        {" "}
-                        {title + " "}{" "}
                         <Link to={"/products/edit/" + params.id}>
                             <EditIcon stroke={colors.primary} />
                         </Link>
-                    </h1>
-                    <h2>${price + priceDiff}</h2>
+                    </Stars>
+
+                    <h1>{title ? title : "Loading Product"}</h1>
+
+                    <h2>${price ? price + priceDiff : 0}</h2>
                     {colours && colours.length > 0 && (
                         <Colours>
                             <SelectedColour>
@@ -145,11 +147,15 @@ const ProductPage = ({
                         )}
                     <Description>
                         <h3>Description</h3>
-                        <p>{description}</p>
+                        <p>
+                            {description
+                                ? description
+                                : "Loading description..."}
+                        </p>
                     </Description>
                     <Materials>
                         <h3>Materials</h3>
-                        <p>{materials}</p>
+                        <p>{materials ? materials : "Loading materials..."}</p>
                     </Materials>
 
                     <Button primary>Add to Cart</Button>
