@@ -1,14 +1,15 @@
 import styled from "styled-components";
 import { useState } from "react";
 import colors from "./Colors";
+// import { useDispatch } from "react-redux";
 
 export const TextField = ({ password, value, setValue, multi, label, tests = [] }) => {
+    // const dispatch = useDispatch()
     const [showError, setShowError] = useState(false);
     return (
         <div>
             <FieldContainer>
                 <Label>{label}</Label>
-                <br />
                 {multi ? (
                     <TextArea
                         type={password?"password":"text"}
@@ -48,7 +49,6 @@ export const TextField = ({ password, value, setValue, multi, label, tests = [] 
                         }}
                     ></Input>
                 )}
-                <br />
                 <Error id={showError && "error"}>{showError}</Error>
             </FieldContainer>
         </div>
@@ -70,9 +70,13 @@ export const TextArea = styled.textarea`
         box-shadow: 0 0 10px ${colors.primary};
     }
 `;
-export const Label = styled.label``;
+export const Label = styled.label`
+margin-left: 3px;
+margin-bottom: 8px;`;
 export const Error = styled.p`
     color: red;
+    margin-left: 3px;
+    margin-bottom: 1.5em;
 height:10px;
 `;
 

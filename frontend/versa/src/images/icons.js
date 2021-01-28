@@ -1,3 +1,14 @@
+export const Dashboard = ({ stroke, fill }) => {
+    return(
+    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M28 26H4V6" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M26.0002 8L16.0002 18L12.0002 14L4.00024 22" stroke="black" stroke-width="2" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M26.0002 13V8H21.0002" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>)
+    
+
+}
+
 export const WishListIcon = ({ stroke, fill }) => {
     return (
         <svg

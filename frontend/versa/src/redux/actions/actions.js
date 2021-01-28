@@ -1,10 +1,9 @@
-import { getProductByID } from "../axios/gets";
-export const loginAction = (user) => {
+import { getProductByID } from "../../axios/gets";
+export const login = (user) => {
     return async (dispatch) => {
-        console.log('action', user)
         dispatch({
             type: "LOGIN",
-            payload: user,
+            paylod: user,
         });
     };
 };

@@ -1,13 +1,10 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import Button from "../Reusable/Button";
-import left from "../../images/left.svg";
 import { Link } from "react-router-dom";
 import colors from "../Reusable/Colors";
-import imageTest from "../../images/imageTest.png";
-import { LeftIcon, Star } from "../../images/icons";
+import { LeftIcon, Star, DeleteIcon } from "../../images/icons";
 
-let host = process.env.NODE_ENV === "production" ? "" : "";
 const ProductPage = ({
     images,
     title,
@@ -17,11 +14,12 @@ const ProductPage = ({
     sizes,
     description,
     num_stars,
-    image
+    image,
 }) => {
     const [priceDiff, setPriceDiff] = useState(0);
     const [chosenColor, setChosenColor] = useState(0);
     const [chosenSize, setChosenSize] = useState(0);
+    const [chosenImage, setChosenImage] = useState(0);
 
     return (
         <Container>
@@ -33,42 +31,50 @@ const ProductPage = ({
             </Link>
             <MainInfo>
                 <ProductImages>
-                    <MainImage src={
-                    image
-                        ? "/images/" + image + ".jpeg"
-                        : images && images.length > 0
-                        ? `https://versabucket.s3.us-east-2.amazonaws.com/images/${images[0].filename}.jpeg`
-                        : ""
-                } alt={"image"}></MainImage>
+                    <MainImage
+                        src={
+                            image
+                                ? "/images/" + image + ".jpeg"
+                                : images && images.length > 0
+                                ? `https://versabucket.s3.us-east-2.amazonaws.com/images/${images[chosenImage].filename}.jpeg`
+                                : ""
+                        }
+                        alt={"image"}
+                    ></MainImage>
                     <OtherImages>
-                        {images&&images.length>0 && images.map((image, index) => {
-                            return <Image key={index} src={`https://versabucket.s3.us-east-2.amazonaws.com/images/${image.filename}.jpeg`} alt="image"></Image>
-                        })}
-                        
-                       
+                        {images &&
+                            images.length > 0 &&
+                            images.map((image, index) => {
+                                return (
+                                    <Image
+                                        key={index}
+                                        src={`https://versabucket.s3.us-east-2.amazonaws.com/images/${image.filename}.jpeg`}
+                                        alt="image"
+                                        onClick={() => {
+                                            setChosenImage(index);
+                                        }}
+                                    ></Image>
+                                );
+                            })}
                     </OtherImages>
                 </ProductImages>
 
                 <ProductDetail>
                     <Stars>
-                        {Array(num_stars).fill(0).map((zero, index) => <Star key={index}/>)}
+                        {Array(num_stars)
+                            .fill(0)
+                            .map((zero, index) => (
+                                <Star key={index} />
+                            ))}
                     </Stars>
 
                     <h1> {title + " "}</h1>
                     <h2>${price + priceDiff}</h2>
-                    <Description>
-                        <h3>Description</h3>
-                        <p>{description}</p>
-                    </Description>
-                    <Materials>
-                        <h3>Materials</h3>
-                        <p>{materials}</p>
-                    </Materials>
                     {colours && colours.length > 0 && (
                         <Colours>
                             <SelectedColour>
                                 <h3>Colour:</h3>
-                                <h4>Select a colour below</h4>
+                                <h4>{colours[chosenColor].label}</h4>
                             </SelectedColour>
                             <ColourOptions>
                                 {colours.map((colour, index) => {
@@ -90,7 +96,7 @@ const ProductPage = ({
                         <Sizes>
                             <SelectedSize>
                                 <h3>Size:</h3>
-                                <h4>Select a size below</h4>
+                                <h4>{sizes[chosenSize].label}</h4>
                             </SelectedSize>
                             <SizeOptions>
                                 {sizes.map((size, index) => {
@@ -115,9 +121,30 @@ const ProductPage = ({
                     {sizes &&
                         sizes.length > 0 &&
                         colours &&
-                        colours.length > 0 && <Button>Clear Selection</Button>}
+                        colours.length > 0 && (
+                            <ClearSelection
+                            
+                                onClick={() => {
+                                    setChosenColor(0);
+                                    setChosenSize(0);
+                                    setPriceDiff(0);
+                                }}
+                            >
+                            <DeleteIcon stroke={colors.primary} />
+                                Clear Selection
+                            </ClearSelection>
+                        )}
+                    <Description>
+                        <h3>Description</h3>
+                        <p>{description}</p>
+                    </Description>
+                    <Materials>
+                        <h3>Materials</h3>
+                        <p>{materials}</p>
+                    </Materials>
+                    
 
-                    <Button primary>Add to Cart</Button>
+                    <Button primary >Add to Cart</Button>
                 </ProductDetail>
             </MainInfo>
         </Container>
@@ -133,6 +160,7 @@ const Container = styled.div`
     h3 {
         font-weight: 700;
     }
+    
 `;
 
 const MainInfo = styled.div`
@@ -140,56 +168,79 @@ const MainInfo = styled.div`
     margin: 40px;
     flex-direction: row;
     justify-content: flex-start;
-    @media (max-width: 750px) {
+    @media (max-width: 1000px) {
         flex-wrap: wrap;
         margin: 20px;
+        justify-content: center;
     }
+    
 `;
 
 const ProductImages = styled.div`
     display: flex;
     flex-direction: row;
-    justify-content: flex-start;
+    justify-content:center;
     margin: 20px;
-    @media (max-width: 800px) {
+    @media (max-width: 1000px) {
         flex-wrap: wrap;
         flex-direction: column;
         margin: 10px;
     }
+    
+    
 `;
 
 const OtherImages = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    @media (max-width: 750px) {
+    max-width: 300px;
+    margin: 5px;
+    @media (max-width: 1000px) {
         flex-direction: row;
-        justify-content:center;
-
+        flex-wrap: wrap;
+        justify-content: center;
     }
+    @media (max-width: 380px){
+        flex-wrap: wrap;
+        justify-content: center;
+        
+    width: 85vw;
+    }
+    
+
 `;
 
 const Image = styled.img`
     width: 65px;
     height: 65px;
     margin: 10px;
-    padding:5px;
-    border: 2px solid ${colors.tertiary};
-    @media (max-width: 750px) {
+    padding: 5px;
+    border: 2px solid rgba(68, 68, 68, 0.1);
+   
+    cursor: pointer;
+    @media (max-width: 1000px) {
         width: 50px;
         height: 50px;
         margin: 5px;
     }
+    
 `;
 
 const MainImage = styled.img`
     width: 600px;
     height: 600px;
     margin: 10px;
-    @media (max-width: 750px) {
+    border: 2px solid rgba(68, 68, 68, 0.1);
+    padding: 1em;
+    
+    @media (max-width: 1000px) {
         width: 300px;
         height: 300px;
         margin: 5px;
+    }
+    @media (max-width: 350px){
+    width: 85vw;
     }
 `;
 
@@ -212,7 +263,7 @@ const ProductDetail = styled.div`
     h3 {
         margin: 0 1em 1em 0;
     }
-    @media (max-width: 750px) {
+    @media (max-width: 1000px) {
         h1 {
             font-size: 1.5em;
         }
@@ -348,4 +399,9 @@ const SizeOption = styled.button.attrs({
         margin: 0px;
         color: ${colors.secondary};
     }
+`;
+
+const ClearSelection = styled(Button)`
+padding: 0;
+margin: 0;
 `;

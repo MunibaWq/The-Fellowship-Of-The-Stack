@@ -44,8 +44,9 @@ router.post("/login", async (req, res, next) => {
             user.id,
             token,
         ]);
-        res.cookie("token", token, { maxAge: 10800 }).send("cookie set");
-        res.json({ user, token });
+        // var hour = 3600000
+        // req.session.cookie.expires = new Date(Date.now() + hour)
+        res.cookie("token", token, {maxAge:Infinity+1 }).json(user);
     } catch (e) {
         res.status(400).send();
     }

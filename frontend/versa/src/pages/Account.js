@@ -8,8 +8,10 @@ const Account = () => {
     return (
         <div>
           
-            <Link to="/products/create"><Button secondary>Create a new product<AddIcon stroke={colors.primary}/></Button></Link>
-            <Link to="/artists/create-account"><Button secondary>Create a new account<AddIcon stroke={colors.primary}/></Button></Link>
+            <Link to="/products/create"><Button secondary><AddIcon stroke={colors.primary}/>Create a new product</Button></Link>
+            <Link to="/artists/create-account"><Button secondary><AddIcon stroke={colors.primary}/>Create a new account</Button></Link>
+            <Link to="/artists/log-in"><Button secondary><AddIcon stroke={colors.primary}/>Log In</Button></Link>
+
         </div>
     );
 };

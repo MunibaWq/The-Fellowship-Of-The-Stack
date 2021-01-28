@@ -1,10 +1,11 @@
 import Axios from "axios";
 let host = process.env.NODE_ENV === "production" ? "" : "";
 
-export const axiosLogin = async (username, password) => {
+export const axiosLogin = async (email, password) => {
     console.log('logging in')
-    let res = await Axios.post(host + '/users/login', { username, password })
+    let res = await Axios.post(host + '/users/login', { email, password })
     console.log(res.data)
+    return res.data
 }
 export const addImage = async (image, label, imageSize, productID) => {
     try {
