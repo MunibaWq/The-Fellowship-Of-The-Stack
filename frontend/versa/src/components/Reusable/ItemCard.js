@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
 const CardContainer = styled.div`
     display: flex;
@@ -40,7 +40,7 @@ const ImageCard = styled.div`
 //     height: 10px;
 // `;
 
-const Description = styled.p`
+const Description = styled.div`
     height: 4rem;
     margin-bottom: 0;
     @media (max-width: 768px) {
@@ -50,7 +50,7 @@ const Description = styled.p`
         height: 4rem;
     }
 `;
-const Price = styled.p`
+const Price = styled.div`
     height: 10px;
     width: 100%;
 `;

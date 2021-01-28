@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { TextField } from "../Reusable/Input";
-import Button from "../Reusable/Button";
-import Icon from "../Reusable/Icons";
-import { ColorInput, Input } from "../../components/Reusable/Input";
-import { Modal, ModalTitle } from "../../components/Reusable/Modal";
+import { TextField } from "./Reusable/Input";
+import Button from "./Reusable/Button";
+import Icon from "./Reusable/Icons";
+import { ColorInput, Input } from "./Reusable/Input";
+import { Modal, ModalTitle } from "./Reusable/Modal";
 import axios from "axios";
-import { addImage } from "../../axios/posts";
+import { addImage } from "../axios/posts";
 import { useParams } from "react-router";
-import { getProductByID } from "../../axios/gets";
-import theme from "../Reusable/Colors";
-import { AddIcon, LineCloseIcon } from "../../images/icons";
-import colors from "../Reusable/Colors";
-import { crop } from "../../imageUtils";
-let host = process.env.NODE_ENV === "production" ? "" : "http://localhost:5000";
+import { getImagesByPID, getProductByID } from "../axios/gets";
+import theme from "./Reusable/Colors";
+import { AddIcon, LineCloseIcon } from "../images/icons";
+import colors from "./Reusable/Colors";
+import { crop } from "../imageUtils";
+let host = process.env.NODE_ENV === "production" ? "" : "";
 function deleteItem(index, arr, set) {
     let newArray = [...arr];
     newArray.splice(index, 1);
@@ -47,20 +47,32 @@ const ProductForm = (props) => {
         setInputDesc("");
         setInputMaterials("");
     }
-    // useEffect(() => {
-    //     const getProductData = async () => {
-    //         let data = await getProductByID(id);
-    //         setInputName(data.title);
-    //         setColors(data.colours);
-    //         setSizes(data.sizes);
-    //         setInputPrice(data.price);
-    //         setInputDesc(data.description);
-    //         setInputMaterials(data.materials);
-    //     };
-    //     if (props.type === "Edit") {
-    //         getProductData();
-    //     }
-    // }, [id, props.type]);
+    useEffect(() => {
+        const getProductData = async () => {
+            let data = await getProductByID(id);
+            let pictures = await getImagesByPID(id);
+
+            setInputName(data.title);
+            setColors(data.colours);
+            setSizes(data.sizes);
+            setInputPrice(data.price);
+            setInputDesc(data.description);
+            setInputMaterials(data.materials);
+            setImages(
+                pictures.map((picture) => {
+                    return {
+                        image: `https://versabucket.s3.us-east-2.amazonaws.com/images/${picture.filename}.jpeg`,
+                        label: picture.label,
+                        imageFile: 'update',
+                        size: "full",
+                    };
+                })
+            );
+        };
+        if (props.type === "Edit") {
+            getProductData();
+        }
+    }, [id, props.type]);
 
     useEffect(() => {
         localStorage.setItem(
@@ -127,12 +139,13 @@ const ProductForm = (props) => {
                 productID = +id;
             }
             //adding thumbnail
-            images.forEach(async (image) => {
+            images.forEach(async (image,index) => {
                 let { imageFile, label, size } = image;
 
-                if (imageFile === thumbImg) {
+                if (index === thumbImg) {
                     size = "thumb";
                 }
+                console.log('index',index,'size',size)
 
                 let res = await addImage(imageFile, label, size, productID);
 
@@ -165,7 +178,7 @@ const ProductForm = (props) => {
             setFormError(true);
         }
     };
-
+    console.log('thumbImg',thumbImg,'images',images)
     return (
         <Form onSubmit={submitData}>
             <Instruction1>
@@ -444,7 +457,7 @@ const ProductForm = (props) => {
                     <ImageList>
                         {images.map((image, index) => {
                             return (
-                                <>
+                                <div>
                                     <UploadedImage
                                         key={index}
                                         alt="product"
@@ -458,14 +471,14 @@ const ProductForm = (props) => {
                                                 name="chosenOne"
                                                 onClick={() => {
                                                     setThumbImg(
-                                                        image.imageFile
+                                                        index
                                                     );
                                                 }}
                                             />
                                             Use as thumbnail image
                                         </label>
                                     </Radio>
-                                </>
+                                </div>
                             );
                         })}
                     </ImageList>
@@ -501,11 +514,15 @@ const Radio = styled.div`
 const ImageUpload = styled.section``;
 const ImageList = styled.div`
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     overflow-y: auto;
     height: 50vh;
     margin-top: 20px;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 100%;
 `;
 
 const RemoveIcon = styled.div`
@@ -514,10 +531,10 @@ const RemoveIcon = styled.div`
 `;
 const Form = styled.form`
     margin-top: 40px;
-    grid-template-columns: 30% 70%;
+    grid-template-columns: 30% 65%;
     grid-template-rows: auto;
     display: grid;
-
+    grid-column-gap: 5%;
     /* @media only screen and (min-width: 800px) {
         height: 95%; 
      } */
@@ -654,6 +671,7 @@ const UploadedImage = styled.img`
     width: 200px;
     height: 200px;
     object-fit: cover;
+    margin: 0 20px;
 `;
 const ImagesDiv = styled.div`
     display: flex;

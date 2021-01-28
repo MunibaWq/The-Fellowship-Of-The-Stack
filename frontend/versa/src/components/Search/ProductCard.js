@@ -1,5 +1,4 @@
 import React from "react";
-import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { setSelectedProduct } from "../../redux/actions";
 import { Link } from "react-router-dom";
@@ -7,7 +6,7 @@ import { Link } from "react-router-dom";
 // import Card from "../Reusable/Card";
 import ItemCard from "../Reusable/ItemCard";
 
-let host = process.env.NODE_ENV === "production" ? "" : "http://localhost:5000";
+let host = process.env.NODE_ENV === "production" ? "" : "";
 const ProductCard = ({ product }) => {
     const dispatch = useDispatch();
     const productSelected = (id) => {

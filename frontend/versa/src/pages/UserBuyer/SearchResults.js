@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
-import Categories from "../../../components/Search/Categories";
-import Sort from "../../../components/Search/Sort";
-import Filters from "../../../components/Search/Filters";
-import ProductCard from "../../../components/Search/ProductCard.js";
-import { searchProducts, getAllProducts } from "../../../axios/gets";
+import Categories from "../../components/Search/Categories";
+import Sort from "../../components/Search/Sort";
+import Filters from "../../components/Search/Filters";
+import ProductCard from "../../components/Search/ProductCard.js";
+import { searchProducts, getAllProducts } from "../../axios/gets";
 import styled from "styled-components";
-import { Magnifying } from "../../../images/icons";
+import { Magnifying } from "../../images/icons";
+import Loading from "../../components/Reusable/Loading";
 
 const SearchResults = () => {
-    const [products, setProducts] = useState([]);
+    const [products, setProducts] = useState();
     const [query, setQuery] = useState();
     useEffect(() => {
         const getProducts = async () => {
@@ -54,11 +55,11 @@ const SearchResults = () => {
                 </SearchCriteria>
             </div>
             <Products>
-                {products.length === 0 ? (
-                    <NoResultsMessage>Sorry, no results found</NoResultsMessage>
-                ) : (
-                    products.map((product) => <ProductCard product={product} />)
-                )}
+                {!products ? (
+                    <Loading />
+                ) : products.length > 0 ? (
+                        products.map((product, index) => <ProductCard key={index} product={product} />)
+                ): <NoResultsMessage>No results found</NoResultsMessage>}
             </Products>
         </SearchPage>
     );
@@ -72,8 +73,7 @@ const MagnifyIcon = styled.div`
     right: 10px;
 `;
 const SearchBarDiv = styled.div`
-    position:relative;
-
+    position: relative;
 `;
 const SearchBar = styled.input`
     padding: 5px;

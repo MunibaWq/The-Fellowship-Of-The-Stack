@@ -1,3 +1,14 @@
+export const Dashboard = ({ stroke, fill }) => {
+    return(
+    <svg width="32" height="32" viewBox="0 0 32 32" fill={fill || "none"} xmlns="http://www.w3.org/2000/svg">
+    <path d="M28 26H4V6" stroke={stroke || "#444444"} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M26.0002 8L16.0002 18L12.0002 14L4.00024 22" stroke={stroke || "#444444"} stroke-width="2" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M26.0002 13V8H21.0002" stroke={stroke || "#444444"} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>)
+    
+
+}
+
 export const WishListIcon = ({ stroke, fill }) => {
     return (
         <svg
@@ -1369,7 +1380,7 @@ export const VersaIcon = ({
             width="450"
             height="450"
             xmlns="http://www.w3.org/2000/svg"
-            xmlnsSvg="http://www.w3.org/2000/svg"
+            xmlnssvg="http://www.w3.org/2000/svg"
             xmlnsXlink="http://www.w3.org/1999/xlink"
         >
             <defs>
@@ -1432,7 +1443,7 @@ export const VersaIcon = ({
                     />
                 </symbol>
             </defs>
-            <g class="layer">
+            <g className="layer">
                 <g id="svg_20">
                     <use
                         fill={circleFill || "none"}
@@ -1538,7 +1549,7 @@ export const OtherVersaLogo = ({
                     />
                 </symbol>
             </defs>
-            <g class="layer">
+            <g className="layer">
                 {/* circle  */}
                 <ellipse
                     cx="320.999999"

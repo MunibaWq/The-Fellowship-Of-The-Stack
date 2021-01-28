@@ -8,7 +8,7 @@ const Product = () => {
 
     useEffect(() => {
         dispatch(fetchProduct());
-    }, []);
+    }, [dispatch]);
     return (
         <div>
             {product.map((el) => {

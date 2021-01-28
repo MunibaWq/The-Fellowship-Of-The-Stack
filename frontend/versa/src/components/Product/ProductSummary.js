@@ -15,6 +15,8 @@ const ProductSummary = ({
     colours,
 }) => {
     const [priceDiff, setPriceDiff] = useState(0);
+    const [chosenColor, setChosenColor] = useState(0);
+    const [chosenSize, setChosenSize] = useState(0);
     let params = useParams();
     return (
         <ProductSummaryContainer>
@@ -45,12 +47,14 @@ const ProductSummary = ({
                 <SizeOptionsContainer>
                     <h6>Sizes</h6>
 
-                    {sizes.map((size) => {
+                    {sizes.map((size, index) => {
                         return (
                             size && (
                                 <SizeOption
+                                    chosen={chosenSize === index}
                                     onClick={() => {
                                         setPriceDiff(+size.price);
+                                        setChosenSize(index);
                                     }}
                                 >
                                     <p>{size.label}</p>
@@ -63,10 +67,18 @@ const ProductSummary = ({
             {colours && colours.length > 0 && (
                 <ColourOptions>
                     <h6>Colours</h6>
-                    {colours.map((colour) => {
+                    {colours.map((colour, index) => {
                         return (
-                            <ColourOption>
-                                <ColourPreview colour={colour.value} />
+                            <ColourOption
+                                chosen={chosenColor === index}
+                                onClick={() => {
+                                    setChosenColor(index);
+                                }}
+                            >
+                                <ColourPreview
+                                    chosen={chosenColor === index}
+                                    colour={colour.value}
+                                />
                                 <p>{colour.label}</p>
                             </ColourOption>
                         );
@@ -157,7 +169,10 @@ const SizeOptionsContainer = styled.div`
     }
 `;
 const SizeOption = styled.div`
-    border: 2px solid ${colors.primary};
+    border: 2px solid
+        ${(props) => (props.chosen ? colors.primaryHover : colors.primary)};
+    background-color: ${(props) =>
+        props.chosen ? colors.primary : colors.secondary};
 
     height: 32px;
     border-radius: 30px;
@@ -170,12 +185,14 @@ const SizeOption = styled.div`
     p {
         text-transform: uppercase;
         margin: 0px;
+        color: ${(props) =>
+            props.chosen ? colors.secondary : colors.tertiary};
     }
-    &:active {
+    /* &:active {
         background-color: ${colors.primaryHover};
-        border: 6px solid ${colors.primaryHover};
+        border: 2px solid ${colors.primaryHover};
         color: ${colors.secondary};
-    }
+    } */
 `;
 
 const ColourOptions = styled.div`
@@ -192,27 +209,39 @@ const ColourOptions = styled.div`
 `;
 
 const ColourOption = styled.div`
-    border: 2px solid ${colors.primary};
+    border: 2px solid
+        ${(props) => (props.chosen ? colors.primaryHover : colors.primary)};
+    background-color: ${(props) =>
+        props.chosen ? colors.primary : colors.secondary};
     border-radius: 20px;
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding: 10px;
+    margin-right: 8px;
+    padding: 5px 10px;
     cursor: pointer;
-    &:active {
+    /* &:active {
         background-color: ${colors.primaryHover};
-        border: 6px solid ${colors.primaryHover};
+        border: 2px solid ${colors.primaryHover};
         color: ${colors.secondary};
+    } */
+    p {
+        color: ${(props) =>
+            props.chosen ? colors.secondary : colors.tertiary};
     }
 `;
 
 const ColourPreview = styled.div`
     width: 1em;
     height: 1em;
-    margin: 0 10px;
+    margin: 0 10px 0 0;
     border-radius: 50px;
     background-color: ${(props) => props.colour};
-    margin-bottom: 5px;
+    /* margin-bottom: 5px; */
+    border: solid;
+    border-color: ${(props) =>
+        props.chosen ? colors.secondary : colors.tertiary};
+    border-width: 1px;
 `;
 
 const Container = styled.div`

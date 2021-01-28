@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import ProductPageImage from "../../../components/Product/ProductPageImage";
-import { getProductByID } from "../../../axios/gets";
-import ProductData from "../../../components/Product/ProductData";
+import { getProductByID } from "../../axios/gets";
 import { useParams } from "react-router-dom";
-import { getImagesByPID } from "../../../axios/gets";
+import { getImagesByPID } from "../../axios/gets";
+import ProductPage from "../../components/Product/ProductPage";
+
 const ProductItem = () => {
     const params = useParams();
     const currentProduct = params.id;
@@ -25,13 +25,7 @@ const ProductItem = () => {
     }, [currentProduct]);
     return (
         <ProductItemContainer>
-            <ProductPageImage
-                images={images}
-                productDataState={productDataState}
-            />
-            <Container>
-                <ProductData productDataState={productDataState} />
-            </Container>
+            <ProductPage images={images} {...productDataState} />
         </ProductItemContainer>
     );
 };
@@ -39,9 +33,4 @@ const ProductItem = () => {
 export default ProductItem;
 
 const ProductItemContainer = styled.div``;
-const Container = styled.div`
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-`;
+

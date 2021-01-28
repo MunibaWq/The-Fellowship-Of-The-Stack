@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import colors from "../Reusable/Colors";
 import { LeftIcon } from "../../images/icons";
 
-let host = process.env.NODE_ENV === "production" ? "" : "http://localhost:5000";
+let host = process.env.NODE_ENV === "production" ? "" : "";
 const ProductPageImage = ({ images, productDataState }) => {
     return (
         <CarouselContainer>

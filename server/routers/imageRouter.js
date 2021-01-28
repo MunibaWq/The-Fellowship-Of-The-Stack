@@ -3,6 +3,8 @@ const multer = require('multer');
 const AWS = require('aws-sdk');
 const { v4: uuid } = require("uuid");
 const pool = require("../db");
+require('dotenv').config()
+
 const router = express.Router();
 const storage = multer.memoryStorage({
     destination: function (req, files, callback) {
@@ -15,11 +17,38 @@ const accessKeyId = process.env.REACT_APP_AWS_ACCESS_KEY_ID
 
 const secretKey = process.env.REACT_APP_AWS_SECRET_ACCESS_KEY
 
+router.post('/update', async (req, res) => {
+    const { label, imageSize, productID } = req.body
+    try {
+        //make a query to insert the image info into the db
+        // THIS IS WRONG, FIX IT - SHOULD NOT BE WHERE PRODUCT_ID = PRODUCTID, this will set all products to the same value
+        let query = `UPDATE images SET label = '${label}', img_size = '${imageSize}' WHERE product_id = ${productID} RETURNING filename;`
+        console.log(query)
+        const response = await pool.query(
+            query
+        );
+        const filename = response.rows[0].filename
+        if (imageSize === "thumb") {
+            const blah = await pool.query(
+                `UPDATE products
+                SET thumbnail='${filename}'
+                WHERE id = ${productID} RETURNING *;`
+            );
+            console.log(blah)
+        }
+        res.sendStatus(201);
+    } catch (e) {
+        console.log(e);
+        res.sendStatus(400);
+    }
+
+})
+
+
 router.post('/add', multipleUpload, function (req, res) {
     const filename = uuid();
     const file = req.files
     const { label, imageSize, productID } = req.body
-    console.log(label,imageSize,productID)
     let s3bucket = new AWS.S3({
         accessKeyId: accessKeyId,
         secretAccessKey: secretKey,
@@ -38,11 +67,11 @@ router.post('/add', multipleUpload, function (req, res) {
             };
             s3bucket.upload(params, function (err, data) {
                 if (err) {
-                    res.json({ "error": true, "Message": err });
+                    res.status(400).json({ "error": true, "Message": err });
                 } else {
                     ResponseData.push(data);
                     if (ResponseData.length == file.length) {
-                        res.json({ "error": false, "Message": "File Uploaded Successfully", Data: ResponseData });
+                        res.status(201).json({ "error": false, "Message": "File Uploaded Successfully", Data: ResponseData });
                     }
                 }
             });

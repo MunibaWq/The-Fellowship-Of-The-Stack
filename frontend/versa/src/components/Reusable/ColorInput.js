@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { SketchPicker } from "react-color";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
 export const Color = styled.div`
     width: 36px;

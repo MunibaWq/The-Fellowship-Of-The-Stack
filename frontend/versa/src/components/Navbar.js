@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 // import logo from "../../images/logo.svg";
 import styled from "styled-components";
 // import Icon from "../Reusable/Icons";
-import colors from "../Reusable/Colors";
+import colors from "./Reusable/Colors";
+
 import {
     EventsIcon,
     AccountIcon,
@@ -11,13 +12,19 @@ import {
     CartIcon,
     Magnifying,
     VersaIcon,
-} from "../../images/icons";
+    Dashboard,
+} from "../images/icons";
+import { useSelector } from "react-redux";
+
 const Navbar = () => {
+    const user = useSelector(state=>state.user)
     return (
         <Nav colors={colors}>
             <NavLink color={colors.secondary} to="/">
                 {/* <Logo src={logo} alt="logo" /> */}
-                <VersaIcon width="70px" height="70px"
+                <VersaIcon
+                    width="70px"
+                    height="70px"
                     triangleFill={colors.logoTriangle}
                     circleFill={colors.logoCircle}
                     rectFill={colors.logoRect}
@@ -51,6 +58,10 @@ const Navbar = () => {
                 <NavLink color={colors.secondary} to="/shopping-cart">
                     <CartIcon stroke={colors.secondary} />
                 </NavLink>
+                {user && <NavLink color={colors.secondary} to={"/dashboard/" + user.id}>
+                    <Dashboard stroke={colors.secondary} />
+                </NavLink>}
+
                 {/* <NavLink colors={colors} to="/product-item">PRODUCT ITEM</NavLink> */}
             </NavMenu>
         </Nav>

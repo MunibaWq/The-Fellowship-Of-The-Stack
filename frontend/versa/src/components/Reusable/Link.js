@@ -1,15 +1,7 @@
-import styled, { css } from "styled-components";
+import {css} from 'styled-components';
 import colors from "./Colors";
 
-// The style is TERTIARY. Add primary or secondary as props if you'd like those styles
-//eg <Button primary>Click me</Button>
-
-// The type is "button". If you need it to submit, add type="submit"
-//eg <Button type="submit">Submit Form</Button>
-
-const Button = styled.button.attrs((props) => ({
-    type: props.type || "button",
-}))`
+export const LinkCSS = css`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -27,17 +19,18 @@ const Button = styled.button.attrs((props) => ({
     max-width: fit-content;
 
     svg {
-        width: 28px;
-        height: 28px;
+        width: 24px;
+        height: 24px;
 
         path {
             fill: ${colors.primary};
         }
     }
+    :focus{
+    outline: none;
+    }
 
-    :hover,
-    :active,
-    :focus {
+    :hover, :active {
         outline: none;
         transition: 0.1s ease;
         color: ${colors.primaryHover};
@@ -46,51 +39,55 @@ const Button = styled.button.attrs((props) => ({
                 fill: ${colors.primaryHover};
             }
         }
+        
+        
     }
 
     ${(props) =>
         props.secondary &&
         css`
             background: ${colors.secondary};
-            border: 6px solid ${colors.primary};
+            border: 3px solid ${colors.primary};
             color: ${colors.primary};
-            border-radius: 50px;
-            :hover,
-            :active,
-            :focus {
-            outline: none;
+            border-radius: 15px;
+            :hover, :active{
+                outline: none;
             transition: 0.1s ease;
             color: ${colors.primaryHover};
-            border: 6px solid ${colors.primaryHover};
+            border: 3px solid ${colors.primaryHover};
             transform: scale(1.02);
-            padding: 5px 15px 5px 8px;
+
+            :focus{
+            outline: none;
+            }
             svg{
                 path{
                     fill: ${colors.primaryHover};
                 }
             }
+            
            
         `}
     ${(props) =>
         props.primary &&
         css`
             background: ${colors.primary};
-            border: 6px solid ${colors.primary};
-            padding: 10px 20px;
-            border-radius: 50px;
+            border: 3px solid ${colors.primary};
+            padding: 5px 20px;
+            border-radius: 15px;
             color: ${colors.secondary};
+            :focus{
+            outline: none;
+            }
             svg {
                 path {
                     fill: ${colors.secondary};
                 }
             }
 
-            :hover,
-            :active,
-            :focus {
-                outline: none;
+            :hover, :active {
                 background-color: ${colors.primaryHover};
-                border: 6px solid ${colors.primaryHover};
+                border: 3px solid ${colors.primaryHover};
                 color: ${colors.secondary};
                 transform: scale(1.02);
                 svg {
@@ -99,7 +96,7 @@ const Button = styled.button.attrs((props) => ({
                     }
                 }
             }
+            
+            
         `}
 `;
-
-export default Button;

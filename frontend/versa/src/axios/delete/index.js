@@ -1,10 +1,9 @@
 import Axios from "axios";
-import { v4 as uuid } from "uuid";
 import S3 from "react-aws-s3";
 import { accessKeyId, secretKey } from "../posts/secret";
 
 
-let host = process.env.NODE_ENV==='production'? "" : "http://localhost:5000"
+let host = process.env.NODE_ENV==='production'? "" : ""
 export const deleteImage = async (filename, id) => {
     const config = {
         bucketName: "versabucket",
