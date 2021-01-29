@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Button from "../Reusable/Button";
 import { Link, useParams } from "react-router-dom";
 import colors from "../Reusable/Colors";
-import { LeftIcon, Star, DeleteIcon, EditIcon } from "../../images/icons";
+import { LeftIcon, Star, LineCloseIcon, EditIcon } from "../../images/icons";
 import ImageTest from "../../images/imageTest.png";
 
 const ProductPage = ({
@@ -144,10 +144,10 @@ const ProductPage = ({
                                     setPriceDiff(0);
                                 }}
                             >
-                                <DeleteIcon
+                                <LineCloseIcon
                                     stroke={colors.primary}
-                                    width="8"
-                                    height="8"
+                                    width="26"
+                                    height="26"
                                 />
                                 Clear Selection
                             </ClearSelection>
