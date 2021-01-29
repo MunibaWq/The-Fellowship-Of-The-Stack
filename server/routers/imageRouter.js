@@ -44,6 +44,7 @@ router.put('/update', async (req, res) => {
 
 
 router.post('/add', multipleUpload, function (req, res) {
+    console.log('image add route', req.files)
     const filename = uuid();
     const file = req.files
     const { label, imageSize, productID } = req.body
@@ -65,6 +66,7 @@ router.post('/add', multipleUpload, function (req, res) {
             };
             s3bucket.upload(params, function (err, data) {
                 if (err) {
+                    console.log('line 68 imageRouter', err)
                     res.status(400).json({ "error": true, "Message": err });
                 } else {
                     ResponseData.push(data);
@@ -77,16 +79,19 @@ router.post('/add', multipleUpload, function (req, res) {
     });
     try {
         //make a query to insert the image info into the db
-        pool.query(
+        const response = await pool.query(
             "INSERT INTO images (filename, label, img_size, product_id) VALUES ($1, $2, $3,$4) RETURNING *",
             [filename, label, imageSize, productID]
         );
+        console.log('line 85 imageRouter', response)
         if (imageSize === "thumb") {
-            pool.query(
+
+            const thumbResponse = await pool.query(
                 `UPDATE products
                 SET thumbnail='${filename}'
                 WHERE id = ${productID};`
             );
+            console.log('line 93 imageRouter', thumbResponse)
         }
         //res.sendStatus(201);
     } catch (e) {
