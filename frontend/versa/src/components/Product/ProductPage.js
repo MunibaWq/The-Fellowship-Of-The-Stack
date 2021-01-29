@@ -144,7 +144,11 @@ const ProductPage = ({
                                     setPriceDiff(0);
                                 }}
                             >
-                                <DeleteIcon stroke={colors.primary} />
+                                <DeleteIcon
+                                    stroke={colors.primary}
+                                    width="8"
+                                    height="8"
+                                />
                                 Clear Selection
                             </ClearSelection>
                         )}
@@ -416,6 +420,8 @@ const SizeOption = styled.button.attrs({
 `;
 
 const ClearSelection = styled(Button)`
+    display: flex;
+    align-items: center;
     padding: 0;
     margin: 0;
 `;

@@ -1,4 +1,4 @@
-export const ShapesLogo = ({width, height, triangle, circle, rectangle }) => {
+export const ShapesLogo = ({ width, height, triangle, circle, rectangle }) => {
     return (
         <svg
             width={width || "40"}
@@ -23,7 +23,7 @@ export const ShapesLogo = ({width, height, triangle, circle, rectangle }) => {
     );
 };
 
-export const Dashboard = ({width, height, stroke, fill }) => {
+export const Dashboard = ({ width, height, stroke, fill }) => {
     return (
         <svg
             width={width || "26"}
@@ -57,7 +57,7 @@ export const Dashboard = ({width, height, stroke, fill }) => {
     );
 };
 
-export const WishListIcon = ({width, height, stroke, fill }) => {
+export const WishListIcon = ({ width, height, stroke, fill }) => {
     return (
         <svg
             width={width || "26"}
@@ -76,7 +76,7 @@ export const WishListIcon = ({width, height, stroke, fill }) => {
         </svg>
     );
 };
-export const FilterIcon = ({width, height, stroke, fill }) => {
+export const FilterIcon = ({ width, height, stroke, fill }) => {
     return (
         <svg
             width={width || "26"}
@@ -95,7 +95,7 @@ export const FilterIcon = ({width, height, stroke, fill }) => {
         </svg>
     );
 };
-export const SortIcon = ({width, height, stroke, fill }) => {
+export const SortIcon = ({ width, height, stroke, fill }) => {
     return (
         <svg
             width={width || "26"}
@@ -142,7 +142,7 @@ export const SortIcon = ({width, height, stroke, fill }) => {
         </svg>
     );
 };
-export const CategoriesIcon = ({width, height, stroke, fill }) => {
+export const CategoriesIcon = ({ width, height, stroke, fill }) => {
     return (
         <svg
             width={width || "26"}
@@ -187,7 +187,7 @@ export const CategoriesIcon = ({width, height, stroke, fill }) => {
         </svg>
     );
 };
-export const Magnifying = ({width, height, stroke, fill }) => {
+export const Magnifying = ({ width, height, stroke, fill }) => {
     return (
         <svg
             width={width || "26"}
@@ -213,7 +213,7 @@ export const Magnifying = ({width, height, stroke, fill }) => {
         </svg>
     );
 };
-export const Star = ({width, height, stroke, fill }) => {
+export const Star = ({ width, height, stroke, fill }) => {
     return (
         <svg
             width={width || "26"}
@@ -233,7 +233,7 @@ export const Star = ({width, height, stroke, fill }) => {
     );
 };
 
-export const Circle = ({width, height, stroke, fill }) => {
+export const Circle = ({ width, height, stroke, fill }) => {
     return (
         <svg
             width={width || "26"}
@@ -251,7 +251,7 @@ export const Circle = ({width, height, stroke, fill }) => {
         </svg>
     );
 };
-export const ArrowRight = ({width, height, stroke, fill }) => {
+export const ArrowRight = ({ width, height, stroke, fill }) => {
     return (
         <svg
             width={width || "26"}
@@ -278,7 +278,7 @@ export const ArrowRight = ({width, height, stroke, fill }) => {
     );
 };
 
-export const ShoppingCart = ({width, height, stroke, fill }) => {
+export const ShoppingCart = ({ width, height, stroke, fill }) => {
     return (
         <svg
             width={width || "26"}
@@ -319,7 +319,7 @@ export const ShoppingCart = ({width, height, stroke, fill }) => {
     );
 };
 
-export const HomeIcon = ({width, height, stroke, fill }) => {
+export const HomeIcon = ({ width, height, stroke, fill }) => {
     return (
         <svg
             width={width || "26"}
@@ -339,7 +339,7 @@ export const HomeIcon = ({width, height, stroke, fill }) => {
     );
 };
 
-export const EventsIcon = ({width, height, stroke, fill }) => {
+export const EventsIcon = ({ width, height, stroke, fill }) => {
     return (
         <svg
             width={width || "26"}
@@ -387,7 +387,7 @@ export const EventsIcon = ({width, height, stroke, fill }) => {
     );
 };
 
-export const AccountIcon = ({width, height, stroke, fill }) => {
+export const AccountIcon = ({ width, height, stroke, fill }) => {
     return (
         <svg
             width={width || "26"}
@@ -414,7 +414,7 @@ export const AccountIcon = ({width, height, stroke, fill }) => {
     );
 };
 
-export const CartIcon = ({width, height, stroke, fill }) => {
+export const CartIcon = ({ width, height, stroke, fill }) => {
     return (
         <svg
             width={width || "26"}
@@ -454,7 +454,7 @@ export const CartIcon = ({width, height, stroke, fill }) => {
         </svg>
     );
 };
-export const ToolIcon = ({width, height, stroke, fill }) => {
+export const ToolIcon = ({ width, height, stroke, fill }) => {
     return (
         <svg
             width={width || "26"}
@@ -473,7 +473,7 @@ export const ToolIcon = ({width, height, stroke, fill }) => {
         </svg>
     );
 };
-export const RefreshIcon = ({width, height, stroke, fill }) => {
+export const RefreshIcon = ({ width, height, stroke, fill }) => {
     return (
         <svg
             width={width || "26"}
@@ -492,7 +492,7 @@ export const RefreshIcon = ({width, height, stroke, fill }) => {
         </svg>
     );
 };
-export const SearchIcon = ({width, height, stroke, fill }) => {
+export const SearchIcon = ({ width, height, stroke, fill }) => {
     return (
         <svg
             width={width || "26"}
@@ -511,7 +511,7 @@ export const SearchIcon = ({width, height, stroke, fill }) => {
         </svg>
     );
 };
-export const HeartIcon = ({width, height, stroke, fill }) => {
+export const HeartIcon = ({ width, height, stroke, fill }) => {
     return (
         <svg
             width={width || "26"}
@@ -531,7 +531,7 @@ export const HeartIcon = ({width, height, stroke, fill }) => {
     );
 };
 
-export const SettingIcon = ({width, height, stroke, fill }) => {
+export const SettingIcon = ({ width, height, stroke, fill }) => {
     return (
         <svg
             width={width || "26"}
@@ -550,7 +550,7 @@ export const SettingIcon = ({width, height, stroke, fill }) => {
         </svg>
     );
 };
-export const VisibleIcon = ({width, height, stroke, fill }) => {
+export const VisibleIcon = ({ width, height, stroke, fill }) => {
     return (
         <svg
             width={width || "26"}
@@ -569,7 +569,7 @@ export const VisibleIcon = ({width, height, stroke, fill }) => {
         </svg>
     );
 };
-export const FilledTickIcon = ({width, height, stroke, fill }) => {
+export const FilledTickIcon = ({ width, height, stroke, fill }) => {
     return (
         <svg
             width={width || "26"}
@@ -588,7 +588,7 @@ export const FilledTickIcon = ({width, height, stroke, fill }) => {
         </svg>
     );
 };
-export const OutlineTickIcon = ({width, height, stroke, fill }) => {
+export const OutlineTickIcon = ({ width, height, stroke, fill }) => {
     return (
         <svg
             width={width || "26"}
@@ -607,7 +607,7 @@ export const OutlineTickIcon = ({width, height, stroke, fill }) => {
         </svg>
     );
 };
-export const TickIcon = ({width, height, stroke, fill }) => {
+export const TickIcon = ({ width, height, stroke, fill }) => {
     return (
         <svg
             width={width || "26"}
@@ -626,7 +626,7 @@ export const TickIcon = ({width, height, stroke, fill }) => {
         </svg>
     );
 };
-export const MiniburgerIcon = ({width, height, stroke, fill }) => {
+export const MiniburgerIcon = ({ width, height, stroke, fill }) => {
     return (
         <svg
             width={width || "26"}
@@ -646,7 +646,7 @@ export const MiniburgerIcon = ({width, height, stroke, fill }) => {
     );
 };
 
-export const FilledBookmarkIcon = ({width, height, stroke, fill }) => {
+export const FilledBookmarkIcon = ({ width, height, stroke, fill }) => {
     return (
         <svg
             width={width || "26"}
@@ -666,7 +666,7 @@ export const FilledBookmarkIcon = ({width, height, stroke, fill }) => {
     );
 };
 
-export const OutlineBookmarkIcon = ({width, height, stroke, fill }) => {
+export const OutlineBookmarkIcon = ({ width, height, stroke, fill }) => {
     return (
         <svg
             width={width || "26"}
@@ -686,7 +686,7 @@ export const OutlineBookmarkIcon = ({width, height, stroke, fill }) => {
     );
 };
 
-export const FilledErrorIcon = ({width, height, stroke, fill }) => {
+export const FilledErrorIcon = ({ width, height, stroke, fill }) => {
     return (
         <svg
             width={width || "26"}
@@ -706,7 +706,7 @@ export const FilledErrorIcon = ({width, height, stroke, fill }) => {
     );
 };
 
-export const OutlineErrorIcon = ({width, height, stroke, fill }) => {
+export const OutlineErrorIcon = ({ width, height, stroke, fill }) => {
     return (
         <svg
             width={width || "26"}
@@ -726,7 +726,7 @@ export const OutlineErrorIcon = ({width, height, stroke, fill }) => {
     );
 };
 
-export const AlarmBellErrorIcon = ({width, height, stroke, fill }) => {
+export const AlarmBellErrorIcon = ({ width, height, stroke, fill }) => {
     return (
         <svg
             width={width || "26"}
@@ -746,7 +746,7 @@ export const AlarmBellErrorIcon = ({width, height, stroke, fill }) => {
     );
 };
 
-export const AddIcon = ({width, height, stroke, fill }) => {
+export const AddIcon = ({ width, height, stroke, fill }) => {
     return (
         <svg
             width={width || "26"}
@@ -766,7 +766,7 @@ export const AddIcon = ({width, height, stroke, fill }) => {
     );
 };
 
-export const CopyIcon = ({width, height, stroke, fill }) => {
+export const CopyIcon = ({ width, height, stroke, fill }) => {
     return (
         <svg
             width={width || "26"}
@@ -785,7 +785,7 @@ export const CopyIcon = ({width, height, stroke, fill }) => {
         </svg>
     );
 };
-export const LinkIcon = ({width, height, stroke, fill }) => {
+export const LinkIcon = ({ width, height, stroke, fill }) => {
     return (
         <svg
             width={width || "26"}
@@ -804,7 +804,7 @@ export const LinkIcon = ({width, height, stroke, fill }) => {
         </svg>
     );
 };
-export const EditIcon = ({width, height, stroke, fill }) => {
+export const EditIcon = ({ width, height, stroke, fill }) => {
     return (
         <svg
             width={width || "26"}
@@ -824,7 +824,7 @@ export const EditIcon = ({width, height, stroke, fill }) => {
     );
 };
 
-export const LocationIcon = ({width, height, stroke, fill }) => {
+export const LocationIcon = ({ width, height, stroke, fill }) => {
     return (
         <svg
             width={width || "26"}
@@ -844,7 +844,7 @@ export const LocationIcon = ({width, height, stroke, fill }) => {
     );
 };
 
-export const ReturnIcon = ({width, height, stroke, fill }) => {
+export const ReturnIcon = ({ width, height, stroke, fill }) => {
     return (
         <svg
             width={width || "26"}
@@ -864,7 +864,7 @@ export const ReturnIcon = ({width, height, stroke, fill }) => {
     );
 };
 
-export const HamburgerIcon = ({width, height, stroke, fill }) => {
+export const HamburgerIcon = ({ width, height, stroke, fill }) => {
     return (
         <svg
             width={width || "26"}
@@ -884,7 +884,7 @@ export const HamburgerIcon = ({width, height, stroke, fill }) => {
     );
 };
 
-export const LayOptionsIcon = ({width, height, stroke, fill }) => {
+export const LayOptionsIcon = ({ width, height, stroke, fill }) => {
     return (
         <svg
             width={width || "26"}
@@ -904,7 +904,7 @@ export const LayOptionsIcon = ({width, height, stroke, fill }) => {
     );
 };
 
-export const StandOptionsIcon = ({width, height, stroke, fill }) => {
+export const StandOptionsIcon = ({ width, height, stroke, fill }) => {
     return (
         <svg
             width={width || "26"}
@@ -924,7 +924,7 @@ export const StandOptionsIcon = ({width, height, stroke, fill }) => {
     );
 };
 
-export const FilledLeftIcon = ({width, height, stroke, fill }) => {
+export const FilledLeftIcon = ({ width, height, stroke, fill }) => {
     return (
         <svg
             width={width || "26"}
@@ -944,7 +944,7 @@ export const FilledLeftIcon = ({width, height, stroke, fill }) => {
     );
 };
 
-export const FilledRightIcon = ({width, height, stroke, fill }) => {
+export const FilledRightIcon = ({ width, height, stroke, fill }) => {
     return (
         <svg
             width={width || "26"}
@@ -963,7 +963,7 @@ export const FilledRightIcon = ({width, height, stroke, fill }) => {
         </svg>
     );
 };
-export const FilledUpIcon = ({width, height, stroke, fill }) => {
+export const FilledUpIcon = ({ width, height, stroke, fill }) => {
     return (
         <svg
             width={width || "26"}
@@ -983,7 +983,7 @@ export const FilledUpIcon = ({width, height, stroke, fill }) => {
     );
 };
 
-export const FilledDownIcon = ({width, height, stroke, fill }) => {
+export const FilledDownIcon = ({ width, height, stroke, fill }) => {
     return (
         <svg
             width={width || "26"}
@@ -1002,7 +1002,7 @@ export const FilledDownIcon = ({width, height, stroke, fill }) => {
         </svg>
     );
 };
-export const CloseIcon = ({width, height, stroke, fill }) => {
+export const CloseIcon = ({ width, height, stroke, fill }) => {
     return (
         <svg
             width={width || "26"}
@@ -1022,7 +1022,7 @@ export const CloseIcon = ({width, height, stroke, fill }) => {
     );
 };
 
-export const AppsIcon = ({width, height, stroke, fill }) => {
+export const AppsIcon = ({ width, height, stroke, fill }) => {
     return (
         <svg
             width={width || "26"}
@@ -1041,7 +1041,7 @@ export const AppsIcon = ({width, height, stroke, fill }) => {
         </svg>
     );
 };
-export const FullscreenIcon = ({width, height, stroke, fill }) => {
+export const FullscreenIcon = ({ width, height, stroke, fill }) => {
     return (
         <svg
             width={width || "26"}
@@ -1060,7 +1060,7 @@ export const FullscreenIcon = ({width, height, stroke, fill }) => {
         </svg>
     );
 };
-export const ExitFullscreenIcon = ({width, height, stroke, fill }) => {
+export const ExitFullscreenIcon = ({ width, height, stroke, fill }) => {
     return (
         <svg
             width={width || "26"}
@@ -1096,7 +1096,7 @@ export const ExitFullscreenIcon = ({width, height, stroke, fill }) => {
         </svg>
     );
 };
-export const LeftIcon = ({width, height, stroke, fill }) => {
+export const LeftIcon = ({ width, height, stroke, fill }) => {
     return (
         <svg
             width={width || "26"}
@@ -1115,7 +1115,7 @@ export const LeftIcon = ({width, height, stroke, fill }) => {
         </svg>
     );
 };
-export const RightIcon = ({width, height, stroke, fill }) => {
+export const RightIcon = ({ width, height, stroke, fill }) => {
     return (
         <svg
             width={width || "26"}
@@ -1134,7 +1134,7 @@ export const RightIcon = ({width, height, stroke, fill }) => {
         </svg>
     );
 };
-export const UpIcon = ({width, height, stroke, fill }) => {
+export const UpIcon = ({ width, height, stroke, fill }) => {
     return (
         <svg
             width={width || "26"}
@@ -1154,7 +1154,7 @@ export const UpIcon = ({width, height, stroke, fill }) => {
     );
 };
 
-export const DownIcon = ({width, height, stroke, fill }) => {
+export const DownIcon = ({ width, height, stroke, fill }) => {
     return (
         <svg
             width={width || "26"}
@@ -1173,7 +1173,7 @@ export const DownIcon = ({width, height, stroke, fill }) => {
         </svg>
     );
 };
-export const LineCloseIcon = ({width, height, stroke, fill }) => {
+export const LineCloseIcon = ({ width, height, stroke, fill }) => {
     return (
         <svg
             width={width || "26"}
@@ -1193,7 +1193,7 @@ export const LineCloseIcon = ({width, height, stroke, fill }) => {
     );
 };
 
-export const FilledDropdownIcon = ({width, height, stroke, fill }) => {
+export const FilledDropdownIcon = ({ width, height, stroke, fill }) => {
     return (
         <svg
             width={width || "26"}
@@ -1213,7 +1213,7 @@ export const FilledDropdownIcon = ({width, height, stroke, fill }) => {
     );
 };
 
-export const FilledNotifyIcon = ({width, height, stroke, fill }) => {
+export const FilledNotifyIcon = ({ width, height, stroke, fill }) => {
     return (
         <svg
             width={width || "26"}
@@ -1232,7 +1232,7 @@ export const FilledNotifyIcon = ({width, height, stroke, fill }) => {
         </svg>
     );
 };
-export const LineNotifyIcon = ({width, height, stroke, fill }) => {
+export const LineNotifyIcon = ({ width, height, stroke, fill }) => {
     return (
         <svg
             width={width || "26"}
@@ -1251,7 +1251,7 @@ export const LineNotifyIcon = ({width, height, stroke, fill }) => {
         </svg>
     );
 };
-export const ShareIcon = ({width, height, stroke, fill }) => {
+export const ShareIcon = ({ width, height, stroke, fill }) => {
     return (
         <svg
             width={width || "26"}
@@ -1271,7 +1271,7 @@ export const ShareIcon = ({width, height, stroke, fill }) => {
     );
 };
 
-export const CheckedBoxIcon = ({width, height, stroke, fill }) => {
+export const CheckedBoxIcon = ({ width, height, stroke, fill }) => {
     return (
         <svg
             width={width || "26"}
@@ -1290,7 +1290,7 @@ export const CheckedBoxIcon = ({width, height, stroke, fill }) => {
         </svg>
     );
 };
-export const RemoveIcon = ({width, height, stroke, fill }) => {
+export const RemoveIcon = ({ width, height, stroke, fill }) => {
     return (
         <svg
             width={width || "26"}
@@ -1309,7 +1309,7 @@ export const RemoveIcon = ({width, height, stroke, fill }) => {
         </svg>
     );
 };
-export const FilledRadioIcon = ({width, height, stroke, fill }) => {
+export const FilledRadioIcon = ({ width, height, stroke, fill }) => {
     return (
         <svg
             width={width || "26"}
@@ -1329,7 +1329,7 @@ export const FilledRadioIcon = ({width, height, stroke, fill }) => {
     );
 };
 
-export const RadioIcon = ({width, height, stroke, fill }) => {
+export const RadioIcon = ({ width, height, stroke, fill }) => {
     return (
         <svg
             width={width || "26"}
@@ -1349,7 +1349,7 @@ export const RadioIcon = ({width, height, stroke, fill }) => {
     );
 };
 
-export const FilledStarIcon = ({width, height, stroke, fill }) => {
+export const FilledStarIcon = ({ width, height, stroke, fill }) => {
     return (
         <svg
             width={width || "26"}
@@ -1369,7 +1369,7 @@ export const FilledStarIcon = ({width, height, stroke, fill }) => {
     );
 };
 
-export const StarIcon = ({width, height, stroke, fill }) => {
+export const StarIcon = ({ width, height, stroke, fill }) => {
     return (
         <svg
             width={width || "26"}
@@ -1388,7 +1388,7 @@ export const StarIcon = ({width, height, stroke, fill }) => {
         </svg>
     );
 };
-export const HalfStarIcon = ({width, height, stroke, fill }) => {
+export const HalfStarIcon = ({ width, height, stroke, fill }) => {
     return (
         <svg
             width={width || "26"}
@@ -1422,7 +1422,7 @@ export const VersaIcon = ({
 }) => {
     return (
         <svg
-            style={{width: width || "50px", height: height || "50px" }}
+            style={{ width: width || "50px", height: height || "50px" }}
             viewBox="0 0 450 450"
             width={width || "40"}
             height={height || "40"}
@@ -1541,7 +1541,7 @@ export const OtherVersaLogo = ({
     textFill,
     textStroke,
     width,
-    height
+    height,
 }) => {
     return (
         <svg
@@ -1638,18 +1638,26 @@ export const OtherVersaLogo = ({
         </svg>
     );
 };
-export const DeleteIcon = ({width, height, stroke, fill }) => {
+export const DeleteIcon = ({ width, height, stroke, fill }) => {
     return (
         <svg
             width={width || "26"}
             height={height || "26"}
-            fill={fill || "none"}
+            viewBox="0 0 32 32"
+            fill="none"
             xmlns="http://www.w3.org/2000/svg"
         >
             <path
-                d="M12.5 3.5l-9 9M12.5 12.5l-9-9"
+                d="M25 7L7 25"
                 stroke={stroke || "#444"}
-                strokeWidth="1.5"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            />
+            <path
+                d="M25 25L7 7"
+                stroke={stroke || "#444"}
+                strokeWidth="2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
             />
