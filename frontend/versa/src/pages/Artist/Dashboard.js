@@ -5,12 +5,14 @@ import { getImagesByPID } from "../../axios/gets";
 import { Link } from "react-router-dom";
 import Button from "../../components/Reusable/Button";
 import colors from "../../components/Reusable/Colors";
-import { AddIcon } from "../../images/icons";
+import { AddIcon, EditIcon, DeleteIcon } from "../../images/icons";
+import axios from "axios";
 import Loading from "../../components/Reusable/Loading";
 
 const Dashboard = (currentProduct) => {
     const [results, setResults] = useState([]);
     const [selectedRows, setSelectedRows] = useState([]);
+    const [status, setStatus] = useState("");
 
     useEffect(() => {
         const getProducts = async () => {
@@ -19,10 +21,16 @@ const Dashboard = (currentProduct) => {
         };
         getProducts();
     }, []);
-
-    useEffect(() => {
-        console.log(selectedRows);
-    }, [selectedRows]);
+    console.log(results);
+    const updateStatus = async (result, status) => {
+        result.status = status;
+        await axios.put("http://localhost:5000/products/get/" + result.id, {
+            headers: {
+                "Access-Control-Allow-Origin": "*",
+            },
+            data: result,
+        });
+    };
 
     return (
         <div style={{ padding: "2%" }}>
@@ -34,7 +42,7 @@ const Dashboard = (currentProduct) => {
             </Link>
             <table style={{ width: "100%" }}>
                 <tr>
-                    <select>
+                    <select onChange={(e) => {}}>
                         <option>available</option>
                         <option>backorder</option>
                         <option>discontinue</option>
@@ -53,31 +61,21 @@ const Dashboard = (currentProduct) => {
                 {results ? (
                     results.map((result, index) => {
                         return (
-                            <tr style={{ padding: "100%" }}>
+                            <tr style={{ padding: "10%" }}>
                                 <input
                                     id={result.title + index}
                                     type="checkbox"
                                     onChange={(e) => {
-                                        if (e.target.checked) {
-                                            setSelectedRows([
-                                                ...selectedRows,
-                                                e.target.id,
-                                            ]);
-                                        } else {
-                                            setSelectedRows(
-                                                selectedRows.filter(
-                                                    (rowId) =>
-                                                        rowId != e.target.id
-                                                )
-                                            );
-                                        }
+                                        results.status = e.target.value;
                                     }}
                                 />
                                 <td style={{ width: "50px", height: "50px" }}>
                                     <img
-                                        src={`${"http://localhost:5000"}/images/${
-                                            result.id
-                                        }.jpeg`}
+                                        src={
+                                            "https://versabucket.s3.us-east-2.amazonaws.com/images/" +
+                                            result.thumbnail +
+                                            ".jpeg"
+                                        }
                                         style={{
                                             width: "100%",
                                             objectFit: "cover",
@@ -85,17 +83,37 @@ const Dashboard = (currentProduct) => {
                                     />
                                 </td>
                                 <td>{result.title}</td>
-                                <td>status</td>
-                                <td>inventory</td>
+                                <td>
+                                    <select
+                                        onChange={(e) =>
+                                            updateStatus(result, e.target.value)
+                                        }
+                                    >
+                                        <option value="Active">Active</option>
+                                        <option value="Backorder">
+                                            Backorder
+                                        </option>
+                                        <option value="Discontinue">
+                                            Discontinue
+                                        </option>
+                                    </select>
+                                    {/* {result.status} */}
+                                </td>
+                                <td>{Math.floor(Math.random() * 10)}</td>
                                 <td>
                                     <Link to="/products/edit/:results.id">
-                                        <Button secondary>
+                                        <EditIcon stroke={colors.primary} />
+                                    </Link>
+                                    {/* <Button secondary>
                                             Edit
                                             <AddIcon stroke={colors.primary} />
                                         </Button>
-                                    </Link>
+                                    </Link> */}
                                 </td>
-                                <td>Delete</td>
+                                <td>
+                                    {" "}
+                                    <DeleteIcon stroke={colors.primary} />
+                                </td>
                             </tr>
                         );
                     })
