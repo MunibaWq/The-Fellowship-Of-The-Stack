@@ -2,25 +2,43 @@ import Axios from "axios";
 let host = process.env.NODE_ENV === "production" ? "" : "";
 
 export const axiosLogin = async (email, password) => {
-    console.log('logging in')
-    let res = await Axios.post(host + '/users/login', { email, password })
-    console.log(res.data)
-    return res.data
-}
+    let res = await Axios.post(host + "/users/login", { email, password });
+    return res.data;
+};
+export const addProduct = async (productInfo, images, thumbImg) => {
+    let res = await Axios.post(host + "/products/create", {
+        data: productInfo,
+    });
+    let productID = +res.data.id;
+
+    images.forEach(async (image, index) => {
+        if (index === thumbImg) {
+            image.size = "thumb";
+        }
+
+
+        let { imageFile, label, size } = image;
+        let res = await addImage(imageFile, label, size, productID);
+        if (!res)
+            alert(
+                JSON.stringify(imageFile) +
+                    " failed to upload, go to edit product to try to add picture again"
+            );
+    });
+    return productID
+};
 export const addImage = async (image, label, imageSize, productID) => {
     try {
-        
-            const data = new FormData();
+        const data = new FormData();
 
-            data.append("label", label);
-            data.append("imageSize", imageSize);
-            data.append("productID", productID);
-            data.append("file", image);
-            const response = await Axios.post(host + "/images/add", data);
-            if (response.status === 201) {
-                return true;
-            }
-        
+        data.append("label", label);
+        data.append("imageSize", imageSize);
+        data.append("productID", productID);
+        data.append("file", image);
+        const response = await Axios.post(host + "/images/add", data);
+        if (response.status === 201) {
+            return true;
+        }
 
         return false;
     } catch (err) {

@@ -22,7 +22,6 @@ router.put('/update', async (req, res) => {
     try {
         //make a query to insert the image info into the db
         let query = `UPDATE images SET label = '${label}', img_size = '${imageSize}' WHERE product_id = ${productID} AND filename = '${filename}';`
-        console.log(query)
         pool.query(
             query
         );
@@ -32,7 +31,6 @@ router.put('/update', async (req, res) => {
                 SET thumbnail='${filename}'
                 WHERE id = ${productID} RETURNING *;`
             );
-            console.log(thumbnail)
         }
         res.sendStatus(201);
     } catch (e) {
@@ -44,7 +42,6 @@ router.put('/update', async (req, res) => {
 
 
 router.post('/add', multipleUpload, async function (req, res) {
-    console.log('image add route', req.files)
     const filename = uuid();
     const file = req.files
     const { label, imageSize, productID } = req.body
@@ -66,7 +63,6 @@ router.post('/add', multipleUpload, async function (req, res) {
             };
             s3bucket.upload(params, function (err, data) {
                 if (err) {
-                    console.log('line 68 imageRouter', err)
                     res.status(400).json({ "error": true, "Message": err });
                 } else {
                     ResponseData.push(data);
@@ -83,7 +79,6 @@ router.post('/add', multipleUpload, async function (req, res) {
             "INSERT INTO images (filename, label, img_size, product_id) VALUES ($1, $2, $3,$4) RETURNING *",
             [filename, label, imageSize, productID]
         );
-        console.log('line 85 imageRouter', response)
         if (imageSize === "thumb") {
 
             const thumbResponse = await pool.query(
@@ -91,7 +86,6 @@ router.post('/add', multipleUpload, async function (req, res) {
                 SET thumbnail='${filename}'
                 WHERE id = ${productID};`
             );
-            console.log('line 93 imageRouter', thumbResponse)
         }
         //res.sendStatus(201);
     } catch (e) {

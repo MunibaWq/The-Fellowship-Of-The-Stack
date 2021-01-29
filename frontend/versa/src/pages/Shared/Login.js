@@ -25,7 +25,6 @@ const Login = (props) => {
         
             try {
                 const user = await axiosLogin(email, password);
-                console.log('Login', user)
                 dispatch(loginAction(user));
             } catch (e) {
                 setLoginFail('Login Failed, please check that your email and password are correct')
@@ -38,7 +37,6 @@ const Login = (props) => {
     
     // const email = useSelector((state) => state.loginEmail);
     // const password = useSelector((state) => state.loginPassword);
-    console.log(email,password)
     return (
         <Container>
             {loggedInUser && loggedInUser.username && <Redirect to={"/dashboard/" + loggedInUser.id} />}
