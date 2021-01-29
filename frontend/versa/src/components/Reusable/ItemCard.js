@@ -41,13 +41,13 @@ const ImageCard = styled.div`
 // `;
 
 const Description = styled.div`
-    height: 4rem;
+    height: 1.5rem;
     margin-bottom: 0;
     @media (max-width: 768px) {
-        height: 5rem;
+        height: 2rem;
     }
     @media (max-width: 600px) {
-        height: 4rem;
+        height: 2rem;
     }
 `;
 const Price = styled.div`
