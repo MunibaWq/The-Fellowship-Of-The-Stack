@@ -181,19 +181,19 @@ const ProductForm = (props) => {
                 });
                 // alert(productID);
                 clearField();
-                if (props.type === "Edit") {
-                    window.location.href = window.location.href.replace(
-                        "products/edit",
-                        "product-item"
-                    );
-                } else {
-                    // let productID = 1;
+                // if (props.type === "Edit") {
+                //     window.location.href = window.location.href.replace(
+                //         "products/edit",
+                //         "product-item"
+                //     );
+                // } else {
+                //     // let productID = 1;
 
-                    window.location.href = window.location.href.replace(
-                        "products/create",
-                        "product-item/" + productID
-                    );
-                }
+                //     window.location.href = window.location.href.replace(
+                //         "products/create",
+                //         "product-item/" + productID
+                //     );
+                // }
             }
         };
         if (inputName && inputDesc && inputPrice) {
