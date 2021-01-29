@@ -61,27 +61,31 @@ const ProductPage = ({
                 </ProductImages>
 
                 <ProductDetail>
-                   
-                    <h1>{title ? (title + "  ") : "Loading Product  "}<Link to={"/products/edit/" + params.id}>
-                    <EditIcon stroke={colors.primary} />
-                </Link></h1>
-                    
-                    <Stars>
-                    {Array(num_stars)
-                        .fill(0)
-                        .map((zero, index) => (
-                            <Star key={index} width="18" height="18"/>
-                        ))}
+                    <h1>
+                        {title ? title + "  " : "Loading Product  "}
+                        <Link to={"/products/edit/" + params.id}>
+                            <EditIcon stroke={colors.primary} />
+                        </Link>
+                    </h1>
 
-                    
-                </Stars>
+                    <Stars>
+                        {Array(num_stars)
+                            .fill(0)
+                            .map((zero, index) => (
+                                <Star key={index} width="18" height="18" />
+                            ))}
+                    </Stars>
 
                     <h2>${price ? price + priceDiff : 0}</h2>
                     {colours && colours.length > 0 && (
                         <Colours>
                             <SelectedColour>
                                 <h3>Colour:</h3>
-                                <h4>{colours.label === "O" ? "One Colour" : colours[chosenColor].label}</h4>
+                                <h4>
+                                    {colours[chosenColor].label === "O"
+                                        ? "One Colour"
+                                        : colours[chosenColor].label}
+                                </h4>
                             </SelectedColour>
                             <ColourOptions>
                                 {colours.map((colour, index) => {
