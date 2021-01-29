@@ -10,7 +10,7 @@ var cookieParser = require('cookie-parser');
 let app = express();
 app.use(cookieParser());
 app.use(express.json());
-app.use(cors({origin:'http://localhost:3001',credentials: true }));
+app.use(cors({credentials: true }));
 
 app.use(express.static(path.join(__dirname, "../frontend/versa/build")));
 
