@@ -63,7 +63,6 @@ const Navbar = () => {
                 <NavLink color={colors.secondary} to="/shopping-cart">
                     <CartIcon stroke={colors.secondary} />
                 </NavLink>
-                
             </NavMenu>
         </Nav>
     );
@@ -89,6 +88,9 @@ export const Nav = styled.nav`
     top: 0;
     align-self: flex-start;
     overflow: hidden;
+    @media (max-width: 600px) {
+        padding: 5px;
+    }
 `;
 
 const NavLink = styled(Link)`
@@ -102,6 +104,9 @@ const NavLink = styled(Link)`
 
     &.active {
         color: #038db2;
+    }
+    @media (max-width: 600px) {
+        padding: 5px;
     }
 `;
 
