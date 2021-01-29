@@ -43,7 +43,7 @@ router.put('/update', async (req, res) => {
 })
 
 
-router.post('/add', multipleUpload, function (req, res) {
+router.post('/add', multipleUpload, async function (req, res) {
     console.log('image add route', req.files)
     const filename = uuid();
     const file = req.files
