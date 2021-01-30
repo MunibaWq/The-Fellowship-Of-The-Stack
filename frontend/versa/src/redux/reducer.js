@@ -17,7 +17,6 @@ const productReducer = (state = initState, action) => {
             newState.loginPassword = action.payload
             return newState
         case "LOGIN":
-            console.log(action.payload)
             newState.user = action.payload;
             return newState;
         case "FETCH_PRODUCT":

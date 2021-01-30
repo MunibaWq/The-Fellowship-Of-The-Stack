@@ -1,7 +1,6 @@
 import { getProductByID } from "../axios/gets";
 export const loginAction = (user) => {
     return async (dispatch) => {
-        console.log('action', user)
         dispatch({
             type: "LOGIN",
             payload: user,

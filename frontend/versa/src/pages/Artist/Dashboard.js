@@ -24,7 +24,7 @@ const Dashboard = (currentProduct) => {
     console.log(results);
     const updateStatus = async (result, status) => {
         result.status = status;
-        await axios.put("http://localhost:5000/products/get/" + result.id, {
+        await axios.put("/products/get/" + result.id, {
             headers: {
                 "Access-Control-Allow-Origin": "*",
             },
