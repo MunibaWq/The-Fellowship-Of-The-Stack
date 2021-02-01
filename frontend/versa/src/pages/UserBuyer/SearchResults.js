@@ -18,7 +18,6 @@ const SearchResults = () => {
         getProducts();
     }, []);
     const search = async () => {
-        
         let data = await searchProducts(query);
         setProducts(data);
     };
@@ -27,14 +26,13 @@ const SearchResults = () => {
         <SearchPage>
             <SearchBarDiv>
                 <MagnifyIcon
-                    
                     onClick={() => {
                         if (query) {
                             search();
                         }
                     }}
-                ><Magnifying stroke={theme.primary}/>
-                    
+                >
+                    <Magnifying stroke={theme.primary} strokeWidth="4" />
                 </MagnifyIcon>
                 <SearchBar
                     onKeyPress={(e) => {
@@ -82,41 +80,42 @@ const SearchBar = styled.input`
     margin: 10px 0;
     border: 3px solid rgba(68, 68, 68, 0.1);
     border-radius: 10px;
-    :focus,::active, :hover{
+    :focus,
+    ::active,
+    :hover {
         border: 3px solid ${theme.primary};
     }
     ::-webkit-input-placeholder {
         color: rgba(68, 68, 68, 0.3);
-    letter-spacing: 0.05em;
-    margin: 30px 0 0 8px;
-    font-size: 0.8em;
-    font-weight: 700;
-
+        letter-spacing: 0.05em;
+        margin: 30px 0 0 8px;
+        font-size: 0.8em;
+        font-weight: 700;
     }
 
     ::-moz-placeholder {
         /* Firefox 19+ */
         color: rgba(68, 68, 68, 0.3);
-    margin: 30px 0 0 8px;
-    letter-spacing: 0.05em;
-    font-size: 0.8em;
-    font-weight: 700;
+        margin: 30px 0 0 8px;
+        letter-spacing: 0.05em;
+        font-size: 0.8em;
+        font-weight: 700;
     }
     :-ms-input-placeholder {
         /* IE 10+ */
         color: rgba(68, 68, 68, 0.3);
-    letter-spacing: 0.05em;
-    margin: 30px 0 0 8px;
-    font-size: 0.8em;
-    font-weight: 700;
+        letter-spacing: 0.05em;
+        margin: 30px 0 0 8px;
+        font-size: 0.8em;
+        font-weight: 700;
     }
     :-moz-placeholder {
         /* Firefox 18- */
         color: rgba(68, 68, 68, 0.3);
-    letter-spacing: 0.05em;
-    margin: 30px 0 0 8px;
-    font-size: 0.8em;
-    font-weight: 700;
+        letter-spacing: 0.05em;
+        margin: 30px 0 0 8px;
+        font-size: 0.8em;
+        font-weight: 700;
     }
 `;
 
