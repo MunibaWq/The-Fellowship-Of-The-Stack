@@ -8,12 +8,14 @@ import theme from "../../components/Reusable/Colors";
 import { AddIcon, EditIcon, DeleteIcon } from "../../images/icons";
 import axios from "axios";
 import Loading from "../../components/Reusable/Loading";
+import { DeleteProductModal } from "../../components/Dashboard/DeleteProductModal";
 
 const Dashboard = (currentProduct) => {
     const [results, setResults] = useState([]);
     const [selectedRows, setSelectedRows] = useState([]);
     const [status, setStatus] = useState("");
-
+    const [visible, setVisible] = useState(false);
+    const [currentId, setCurrentId] = useState(null);
     useEffect(() => {
         const getProducts = async () => {
             let data = await getAllProducts();
@@ -22,6 +24,7 @@ const Dashboard = (currentProduct) => {
         getProducts();
     }, []);
     console.log(results);
+
     const updateStatus = async (result, status) => {
         result.status = status;
         await axios.put("/products/edit/" + result.id, {
@@ -32,7 +35,11 @@ const Dashboard = (currentProduct) => {
         });
         return status;
     };
-
+    const showModal = (id) => {
+        setVisible(!visible);
+        console.log(`showing modal`);
+        setCurrentId(id);
+    };
     return (
         <div style={{ padding: "2%" }}>
             <Link to="/account">
@@ -93,8 +100,7 @@ const Dashboard = (currentProduct) => {
                                 <td>
                                     {result.status}
                                     <select
-                                        // value={status}
-                                        onClick={(e) => {
+                                        onChange={(e) => {
                                             const newStatus = updateStatus(
                                                 result,
                                                 e.target.value
@@ -102,11 +108,14 @@ const Dashboard = (currentProduct) => {
                                             setStatus(newStatus);
                                         }}
                                     >
-                                        <option value="Active">Active</option>
-                                        <option value="Backorder">
+                                        <option value={result.status}>
+                                            Select Status
+                                        </option>
+                                        <option label="Active">Active</option>
+                                        <option label="Backorder">
                                             Backorder
                                         </option>
-                                        <option value="Discontinue">
+                                        <option label="Discontinue">
                                             Discontinue
                                         </option>
                                     </select>
@@ -123,8 +132,11 @@ const Dashboard = (currentProduct) => {
                                     </Link> */}
                                 </td>
                                 <td>
-                                    {" "}
-                                    <DeleteIcon stroke={theme.primary} />
+                                    <Button
+                                        onClick={() => showModal(result.id)}
+                                    >
+                                        <DeleteIcon stroke={theme.primary} />
+                                    </Button>
                                 </td>
                             </tr>
                         );
@@ -133,6 +145,21 @@ const Dashboard = (currentProduct) => {
                     <td>Loading...</td>
                 )}
             </table>
+            {visible ? (
+                <DeleteProductModal
+                    value={visible}
+                    setter={setVisible}
+                    id={currentId}
+                    display="flex"
+                />
+            ) : (
+                <DeleteProductModal
+                    value={visible}
+                    setter={setVisible}
+                    id={currentId}
+                    display="none"
+                />
+            )}
         </div>
     );
 };
