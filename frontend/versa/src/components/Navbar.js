@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 // import logo from "../../images/logo.svg";
 import styled from "styled-components";
 // import Icon from "../Reusable/Icons";
-import colors from "./Reusable/Colors";
+import theme from "./Reusable/Colors";
 
 import {
     EventsIcon,
@@ -19,49 +19,49 @@ import { useSelector } from "react-redux";
 const Navbar = () => {
     const user = useSelector((state) => state.user);
     return (
-        <Nav colors={colors}>
-            <NavLink color={colors.secondary} to="/">
+        <Nav colors={theme}>
+            <NavLink color={theme.secondary} to="/">
                 <ShapesLogo
-                    circle={colors.logoCircle}
-                    rectangle={colors.logoRect}
-                    triangle={colors.logoTriangle}
+                    circle={theme.logoCircle}
+                    rectangle={theme.logoRect}
+                    triangle={theme.logoTriangle}
                     alt="Versa Logo"
                 />
                 <Versa>Versa</Versa>
             </NavLink>
 
             <NavMenu>
-                <NavLink color={colors.secondary} to="/shop">
-                    <Magnifying stroke={colors.secondary} />
+                <NavLink color={theme.secondary} to="/shop">
+                    <Magnifying stroke={theme.secondary} />
                     <WordLink>Shop</WordLink>
                 </NavLink>
                 <NavLink
                     width="30px"
                     height="30px"
-                    color={colors.secondary}
+                    color={theme.secondary}
                     to="/events"
                 >
-                    <EventsIcon stroke={colors.secondary} />
+                    <EventsIcon stroke={theme.secondary} />
                     <WordLink>Events</WordLink>
                 </NavLink>
                 {user && (
                     <NavLink
-                        color={colors.secondary}
+                        color={theme.secondary}
                         to={"/dashboard/" + user.id}
                     >
-                        <Dashboard stroke={colors.secondary} />
+                        <Dashboard stroke={theme.secondary} />
                         <WordLink>Dashboard</WordLink>
                     </NavLink>
                 )}
-                <NavLink color={colors.secondary} to="/account">
-                    <AccountIcon stroke={colors.secondary} />
+                <NavLink color={theme.secondary} to="/account">
+                    <AccountIcon stroke={theme.secondary} />
                     <WordLink>Account</WordLink>
                 </NavLink>
-                <NavLink color={colors.secondary} to="/wishlist">
-                    <WishListIcon stroke={colors.secondary} />
+                <NavLink color={theme.secondary} to="/wishlist">
+                    <WishListIcon stroke={theme.secondary} />
                 </NavLink>
-                <NavLink color={colors.secondary} to="/shopping-cart">
-                    <CartIcon stroke={colors.secondary} />
+                <NavLink color={theme.secondary} to="/shopping-cart">
+                    <CartIcon stroke={theme.secondary} />
                 </NavLink>
             </NavMenu>
         </Nav>
@@ -118,7 +118,7 @@ const NavMenu = styled.div`
 const WordLink = styled.h2`
     display: visible;
     text-transform: uppercase;
-    color: ${colors.secondary};
+    color: ${theme.secondary};
     letter-spacing: 0.08em;
     margin: 0 0 0 8px;
     font-size: 0.8em;
@@ -129,7 +129,7 @@ const WordLink = styled.h2`
 
 const Versa = styled.h1`
     text-transform: uppercase;
-    color: ${colors.secondary};
+    color: ${theme.secondary};
     font-weight: 700;
     letter-spacing: 0.08em;
     margin: 2px 0 0 8px;

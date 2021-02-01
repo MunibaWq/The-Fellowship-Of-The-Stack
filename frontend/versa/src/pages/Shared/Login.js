@@ -7,39 +7,46 @@ import { TextField } from "../../components/Reusable/Input";
 import { axiosLogin } from "../../axios/posts";
 // import { setEmail, setPassword } from "../../redux/actions/LoginPage";
 import Button from "../../components/Reusable/Button";
-import { useState } from "react";
+import { setFormErrors } from "../../redux/actions/Errors";
 
 const Login = (props) => {
-    
-    const loggedInUser = useSelector(state=>state.user)
-    const [email, setEmail] = useState()
-    const [password, setPassword] = useState()
-    const [loginFail, setLoginFail] = useState(false)
-    const dispatch = useDispatch()
+    const loggedInUser = useSelector((state) => state.user);
+    const input = useSelector((state) => state.formInputs.login);
+    const formError = useSelector((state) => state.formErrors.login);
+
+    const dispatch = useDispatch();
     const sendLogin = async () => {
-        setLoginFail('')
+        dispatch(setFormErrors('login',''))
         let error = document.getElementById("error");
         if (!error) {
-           
-            
-        
             try {
-                const user = await axiosLogin(email, password);
+                const user = await axiosLogin(input.email, input.password);
                 dispatch(loginAction(user));
             } catch (e) {
-                setLoginFail('Login Failed, please check that your email and password are correct')
+                dispatch(
+                    setFormErrors(
+                        "login",
+                        "Login Failed, please check that your email and password are correct"
+                    )
+                );
             }
         } else {
-            setLoginFail('Please check that your have entered a valid email and password');
+            dispatch(
+                setFormErrors(
+                    "login",
+                    "Please check that you have entered a valid email address"
+                )
+            );
         }
-        
     };
-    
+
     // const email = useSelector((state) => state.loginEmail);
     // const password = useSelector((state) => state.loginPassword);
     return (
         <Container>
-            {loggedInUser && loggedInUser.username && <Redirect to={"/dashboard/" + loggedInUser.id} />}
+            {loggedInUser && loggedInUser.username && (
+                <Redirect to={"/dashboard/" + loggedInUser.id} />
+            )}
             <h2>Log In</h2>
             <TextField
                 multi={false}
@@ -56,9 +63,8 @@ const Login = (props) => {
                     },
                 ]}
                 label="Email"
-                value={email}
-                setValue={setEmail}
-              
+                form="login"
+                name="email"
             ></TextField>
             <TextField
                 multi={false}
@@ -70,36 +76,38 @@ const Login = (props) => {
                     },
                     // {
                     //     test: (input) =>
-                    //         input.length > 
+                    //         input.length >
                     //         input.search(/[A-Z]/) === -1 ||
                     //         input.search(/\d/) === -1,
                     //     error: "Please enter a valid password.",
                     // },
                 ]}
                 label="Password"
-                value={password}
-                setValue={setPassword}
+                form="login"
+                name="password"
             ></TextField>
             <Button primary onClick={sendLogin}>
                 Log In
             </Button>
-            {loginFail && <LoginFailMessage >{loginFail}</LoginFailMessage>}
-            {props.buyer && 
+            {formError && <LoginFailMessage>{formError.form}</LoginFailMessage>}
+            {props.buyer && (
                 <Link to="/artists/log-in">
-                <Button>Are you an artist?</Button>
+                    <Button>Are you an artist?</Button>
                 </Link>
-            }
+            )}
         </Container>
     );
 };
 
 export default Login;
-const LoginFailMessage = styled.p`color:red;`
+const LoginFailMessage = styled.p`
+    color: red;
+`;
 const Container = styled.div`
     display: flex;
     flex-direction: column;
     margin-top: 2em;
-    h2{
+    h2 {
         margin-bottom: 2em;
         margin-left: 3px;
     }

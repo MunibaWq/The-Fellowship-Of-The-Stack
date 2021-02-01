@@ -1,26 +1,30 @@
 import styled from "styled-components";
-import { useState } from "react";
-import colors from "./Colors";
-// import { useDispatch } from "react-redux";
+import theme from "./Colors";
+import { useDispatch, useSelector } from "react-redux";
+import { setFormInputs } from "../../redux/actions/Forms";
+import { setInputErrors } from "../../redux/actions/Errors";
 
 export const TextField = ({
     required,
     password,
-    value,
-    setValue,
+    form,
+    name,
     multi,
     label,
     tests = [],
 }) => {
-    const [showError, setShowError] = useState(false);
+    const dispatch = useDispatch();
+    const input = useSelector((state) => state.formInputs[form][name]);
+    const error = useSelector((state)=>state.formErrors[form][name])
     return (
         <div>
             <FieldContainer>
-                <Label>{label} {required && "*"}</Label>
+                <Label>
+                    {label} {required && "*"}
+                </Label>
                 {multi ? (
                     <TextArea
                         type={password ? "password" : "text"}
-                        value={value}
                         onChange={(e) => {
                             let error = "";
                             for (let test of tests) {
@@ -29,17 +33,19 @@ export const TextField = ({
                                 }
                             }
                             if (error) {
-                                setShowError(error);
+                                dispatch(setInputErrors(form,name,error))
+                                // setShowError(error);
                             } else {
-                                setShowError(false);
+                                dispatch(setInputErrors(form,name,false))
                             }
-                            setValue(e.target.value);
+                            dispatch(setFormInputs(form, name, e.target.value));
                         }}
+                        value={input||''}
                     ></TextArea>
                 ) : (
                     <Input
+                            value={input||''}
                         type={password ? "password" : "text"}
-                        value={value}
                         onChange={(e) => {
                             let error = "";
                             for (let test of tests) {
@@ -48,15 +54,16 @@ export const TextField = ({
                                 }
                             }
                             if (error) {
-                                setShowError(error);
+                                dispatch(setInputErrors(form,name,error))
+                                // setShowError(error);
                             } else {
-                                setShowError(false);
+                                dispatch(setInputErrors(form,name,false))
                             }
-                            setValue(e.target.value);
+                            dispatch(setFormInputs(form, name, e.target.value));
                         }}
                     ></Input>
                 )}
-                <Error id={showError && "error"}>{showError}</Error>
+                <Error id={error && "error"}>{error}</Error>
             </FieldContainer>
         </div>
     );
@@ -71,15 +78,14 @@ export const TextArea = styled.textarea`
 
     &:focus {
         outline: none !important;
-        border: 3px solid ${colors.primary};
-        box-shadow: 0 0 10px ${colors.primary};
+        border: 3px solid ${theme.primary};
+        box-shadow: 0 0 10px ${theme.primary};
     }
 `;
 export const Label = styled.label`
     margin-left: 3px;
     margin-bottom: 8px;
     text-align: left;
-    
 `;
 
 export const Error = styled.p`
@@ -91,15 +97,15 @@ export const Error = styled.p`
 
 export const Input = styled.input`
     border-radius: 5px;
-    border: 3px solid ${colors.secondary};
+    border: 3px solid ${theme.secondary};
     height: 35px;
 
     background-color: rgba(80, 80, 80, 15%);
 
     &:focus {
         outline: none !important;
-        border: 3px solid ${colors.primary};
-        box-shadow: 0 0 10px ${colors.primary};
+        border: 3px solid ${theme.primary};
+        box-shadow: 0 0 10px ${theme.primary};
     }
 `;
 export const FieldContainer = styled.div`

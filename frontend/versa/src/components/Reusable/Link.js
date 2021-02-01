@@ -1,15 +1,15 @@
 import {css} from 'styled-components';
-import colors from "./Colors";
+import theme from "./Colors";
 
 export const LinkCSS = css`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    color: ${colors.primary};
+    color: ${theme.primary};
     border: none;
-    background-color: ${colors.secondary};
-    border-bottom: 3px solid ${colors.secondary};
+    background-color: ${theme.secondary};
+    border-bottom: 3px solid ${theme.secondary};
     padding: 5px 15px 5px 8px;
     font-weight: 700;
     letter-spacing: 5%;
@@ -23,7 +23,7 @@ export const LinkCSS = css`
         height: 24px;
 
         path {
-            fill: ${colors.primary};
+            fill: ${theme.primary};
         }
     }
     :focus{
@@ -33,10 +33,10 @@ export const LinkCSS = css`
     :hover, :active {
         outline: none;
         transition: 0.1s ease;
-        color: ${colors.primaryHover};
+        color: ${theme.primaryHover};
         svg {
             path {
-                fill: ${colors.primaryHover};
+                fill: ${theme.primaryHover};
             }
         }
         
@@ -46,15 +46,15 @@ export const LinkCSS = css`
     ${(props) =>
         props.secondary &&
         css`
-            background: ${colors.secondary};
-            border: 3px solid ${colors.primary};
-            color: ${colors.primary};
+            background: ${theme.secondary};
+            border: 3px solid ${theme.primary};
+            color: ${theme.primary};
             border-radius: 15px;
             :hover, :active{
                 outline: none;
             transition: 0.1s ease;
-            color: ${colors.primaryHover};
-            border: 3px solid ${colors.primaryHover};
+            color: ${theme.primaryHover};
+            border: 3px solid ${theme.primaryHover};
             transform: scale(1.02);
 
             :focus{
@@ -62,7 +62,7 @@ export const LinkCSS = css`
             }
             svg{
                 path{
-                    fill: ${colors.primaryHover};
+                    fill: ${theme.primaryHover};
                 }
             }
             
@@ -71,28 +71,28 @@ export const LinkCSS = css`
     ${(props) =>
         props.primary &&
         css`
-            background: ${colors.primary};
-            border: 3px solid ${colors.primary};
+            background: ${theme.primary};
+            border: 3px solid ${theme.primary};
             padding: 5px 20px;
             border-radius: 15px;
-            color: ${colors.secondary};
+            color: ${theme.secondary};
             :focus{
             outline: none;
             }
             svg {
                 path {
-                    fill: ${colors.secondary};
+                    fill: ${theme.secondary};
                 }
             }
 
             :hover, :active {
-                background-color: ${colors.primaryHover};
-                border: 3px solid ${colors.primaryHover};
-                color: ${colors.secondary};
+                background-color: ${theme.primaryHover};
+                border: 3px solid ${theme.primaryHover};
+                color: ${theme.secondary};
                 transform: scale(1.02);
                 svg {
                     path {
-                        fill: ${colors.secondary};
+                        fill: ${theme.secondary};
                     }
                 }
             }

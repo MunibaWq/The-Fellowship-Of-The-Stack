@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import colors from "../Reusable/Colors";
+import theme from "../Reusable/Colors";
 import { LeftIcon } from "../../images/icons";
 
 let host = process.env.NODE_ENV === "production" ? "" : "";
@@ -19,7 +19,7 @@ const ProductPageImage = ({ images, productDataState }) => {
                 alt={""}
             />
             <BackToSearch to="/">
-                <LeftIcon stroke={colors.primary} />
+                <LeftIcon stroke={theme.primary} />
                 Back to results
             </BackToSearch>
 
@@ -31,17 +31,17 @@ const ProductPageImage = ({ images, productDataState }) => {
 export default ProductPageImage;
 
 const BackToSearch = styled(Link)`
-    color: ${colors.primary};
+    color: ${theme.primary};
     position: absolute;
     margin: 20px 0 0 20px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    color: ${colors.primary};
+    color: ${theme.primary};
     border: none;
-    background-color: ${colors.secondary};
-    border-bottom: 3px solid ${colors.secondary};
+    background-color: ${theme.secondary};
+    border-bottom: 3px solid ${theme.secondary};
     padding: 5px 10px;
     font-weight: 700;
     letter-spacing: 5%;
@@ -58,25 +58,25 @@ const BackToSearch = styled(Link)`
 
         path {
             transition: 0.3s ease;
-            fill: ${colors.primary};
+            fill: ${theme.primary};
         }
     }
 
     &:hover {
-        color: ${colors.primaryHover};
+        color: ${theme.primaryHover};
         svg {
             path {
-                fill: ${colors.primaryHover};
+                fill: ${theme.primaryHover};
             }
         }
     }
 
     &:focus {
         outline: none;
-        color: ${colors.primaryHover};
+        color: ${theme.primaryHover};
         svg {
             path {
-                fill: ${colors.primaryHover};
+                fill: ${theme.primaryHover};
             }
         }
     }
@@ -103,8 +103,8 @@ const ProductImage = styled.img`
 const Badge = styled.p`
     padding: 5px 10px;
     margin: 0 0 20px 20px;
-    background: ${colors.primary};
-    border: 2px solid ${colors.primary};
+    background: ${theme.primary};
+    border: 2px solid ${theme.primary};
     border-radius: 50px;
     align-self: end;
     width: 60px;

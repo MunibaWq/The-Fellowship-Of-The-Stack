@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import colors from "../Reusable/Colors";
+import theme from "../Reusable/Colors";
 
 const ProductDetails = ({ description, size, materials }) => {
     return (
@@ -18,12 +18,13 @@ const ProductDetails = ({ description, size, materials }) => {
     );
 };
 
+
 export default ProductDetails;
 
 const DetailsContainer = styled.div`
-    background-color: ${colors.primary};
+    background-color: ${theme.primary};
     * {
-        color: ${colors.secondary};
+        color: ${theme.secondary};
     }
     @media (max-width: 414px) {
         display: flex;

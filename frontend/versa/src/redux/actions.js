@@ -1,4 +1,4 @@
-import { getProductByID } from "../axios/gets";
+import { getImagesByPID, getProductByID } from "../axios/gets";
 export const loginAction = (user) => {
     return async (dispatch) => {
         dispatch({
@@ -7,10 +7,18 @@ export const loginAction = (user) => {
         });
     };
 };
-
+export const fetchImages = (id) => {
+    return async (dispatch) => {
+        const images = await getImagesByPID(id);
+        dispatch({
+            type: "FETCH_IMAGES",
+            payload: images,
+        });
+    };
+};
 export const fetchProduct = (id) => {
     return async (dispatch, getState) => {
-        const data = getProductByID(id);
+        const data = await getProductByID(id);
 
         dispatch({
             type: "FETCH_PRODUCT",
@@ -27,11 +35,3 @@ export const setSelectedProduct = (id) => {
     };
 };
 
-export const setPage = (page) => {
-    return (dispatch) => {
-        dispatch({
-            type: "SET_PAGE",
-            payload: page,
-        });
-    };
-};

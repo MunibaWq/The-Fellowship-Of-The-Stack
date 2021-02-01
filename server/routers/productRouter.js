@@ -87,10 +87,10 @@ router.post("/create", async (req, res) => {
             sizes,
             materials,
         } = req.body.data;
-        if (colours.length === 0) {
+        if (!colours||colours.length === 0) {
             colours = [{"label":"O", "value":"#444"}]
         }
-        if (sizes.length === 0) {
+        if (!sizes||sizes.length === 0) {
             sizes = [{"label":"O", "price":"0"}]
         }
         // To sort the sizes entered in the correct order

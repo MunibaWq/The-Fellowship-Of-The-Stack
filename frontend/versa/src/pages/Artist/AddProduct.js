@@ -17,7 +17,7 @@ const Container = styled.div`
     margin: 2em;
     display: flex;
     flex-direction: column;
-    height: calc(84vh - 4em);
+    /* height: calc(84vh - 4em); */
     text-align: center;
 `;
 

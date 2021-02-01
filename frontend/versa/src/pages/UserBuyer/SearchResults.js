@@ -4,7 +4,7 @@ import { searchProducts, getAllProducts } from "../../axios/gets";
 import styled from "styled-components";
 import { Magnifying } from "../../images/icons";
 import Loading from "../../components/Reusable/Loading";
-import colors from "../../components/Reusable/Colors.js";
+import theme from "../../components/Reusable/Colors.js";
 
 const SearchResults = () => {
     const [products, setProducts] = useState();
@@ -33,7 +33,7 @@ const SearchResults = () => {
                             search();
                         }
                     }}
-                ><Magnifying stroke={colors.primary}/>
+                ><Magnifying stroke={theme.primary}/>
                     
                 </MagnifyIcon>
                 <SearchBar
@@ -49,6 +49,7 @@ const SearchResults = () => {
             </SearchBarDiv>
             <div></div>
             <Products>
+                {console.log(typeof products)}
                 {!products ? (
                     <Loading />
                 ) : products.length > 0 ? (
@@ -82,7 +83,7 @@ const SearchBar = styled.input`
     border: 3px solid rgba(68, 68, 68, 0.1);
     border-radius: 10px;
     :focus,::active, :hover{
-        border: 3px solid ${colors.primary};
+        border: 3px solid ${theme.primary};
     }
     ::-webkit-input-placeholder {
         color: rgba(68, 68, 68, 0.3);

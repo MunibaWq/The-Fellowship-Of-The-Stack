@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import Button from "../Reusable/Button";
 import { Link, useParams } from "react-router-dom";
-import colors from "../Reusable/Colors";
+import theme from "../Reusable/Colors";
 import { LeftIcon, Star, LineCloseIcon, EditIcon } from "../../images/icons";
 import ImageTest from "../../images/imageTest.png";
+import { useDispatch, useSelector } from "react-redux";
+import { setChoices } from "../../redux/actions/ProductPage";
+import { setRedirect } from "../../redux/actions/Redirects";
 
 const ProductPage = ({
     images,
@@ -17,16 +20,18 @@ const ProductPage = ({
     num_stars,
     image,
 }) => {
-    const [priceDiff, setPriceDiff] = useState(0);
-    const [chosenColor, setChosenColor] = useState(0);
-    const [chosenSize, setChosenSize] = useState(0);
-    const [chosenImage, setChosenImage] = useState(0);
+    const choices = useSelector((state) => state.productChoices);
+    const dispatch = useDispatch();
     let params = useParams();
+
+    useEffect(() => {
+        dispatch(setRedirect("productForm", ""));
+    }, [dispatch]);
     return (
         <Container>
             <Link to="/">
                 <Button>
-                    <LeftIcon stroke={colors.primary} />
+                    <LeftIcon stroke={theme.primary} />
                     Back to Search
                 </Button>
             </Link>
@@ -37,7 +42,9 @@ const ProductPage = ({
                             image
                                 ? "/images/" + image + ".jpeg"
                                 : images && images.length > 0
-                                ? `https://versabucket.s3.us-east-2.amazonaws.com/images/${images[chosenImage].filename}.jpeg`
+                                ? `https://versabucket.s3.us-east-2.amazonaws.com/images/${
+                                      images[choices.image].filename
+                                  }.jpeg`
                                 : ImageTest
                         }
                         alt={"image"}
@@ -52,7 +59,10 @@ const ProductPage = ({
                                         src={`https://versabucket.s3.us-east-2.amazonaws.com/images/${image.filename}.jpeg`}
                                         alt="image"
                                         onClick={() => {
-                                            setChosenImage(index);
+                                            dispatch(
+                                                setChoices("image", index)
+                                            );
+                                            // setChosenImage(index);
                                         }}
                                     ></Image>
                                 );
@@ -64,7 +74,7 @@ const ProductPage = ({
                     <h1>
                         {title ? title + "  " : "Loading Product  "}
                         <Link to={"/products/edit/" + params.id}>
-                            <EditIcon stroke={colors.primary} />
+                            <EditIcon stroke={theme.primary} />
                         </Link>
                     </h1>
 
@@ -76,15 +86,15 @@ const ProductPage = ({
                             ))}
                     </Stars>
 
-                    <h2>${price ? price + priceDiff : 0}</h2>
+                    <h2>${price ? price + sizes[choices.size].price : 0}</h2>
                     {colours && colours.length > 0 && (
                         <Colours>
                             <SelectedColour>
                                 <h3>Colour:</h3>
                                 <h4>
-                                    {colours[chosenColor].label === "O"
+                                    {colours[choices.colour].label === "O"
                                         ? "One Colour"
-                                        : colours[chosenColor].label}
+                                        : colours[choices.colour].label}
                                 </h4>
                             </SelectedColour>
                             <ColourOptions>
@@ -93,9 +103,12 @@ const ProductPage = ({
                                         <ColourPreview
                                             key={index}
                                             colour={colour.value}
-                                            chosen={chosenColor === index}
+                                            chosen={choices.colour === index}
                                             onClick={() => {
-                                                setChosenColor(index);
+                                                dispatch(
+                                                    setChoices("colour", index)
+                                                );
+                                                // setChosenColor(index);
                                             }}
                                         />
                                     );
@@ -108,9 +121,9 @@ const ProductPage = ({
                             <SelectedSize>
                                 <h3>Size:</h3>
                                 <h4>
-                                    {sizes[chosenSize].label === "O"
+                                    {sizes[choices.size].label === "O"
                                         ? "One Size"
-                                        : sizes[chosenSize].label}
+                                        : sizes[choices.size].label}
                                 </h4>
                             </SelectedSize>
                             <SizeOptions>
@@ -119,10 +132,16 @@ const ProductPage = ({
                                         size && (
                                             <SizeOption
                                                 key={index}
-                                                chosen={chosenSize === index}
+                                                chosen={choices.size === index}
                                                 onClick={() => {
-                                                    setPriceDiff(+size.price);
-                                                    setChosenSize(index);
+                                                    // setPriceDiff(+size.price);
+                                                    dispatch(
+                                                        setChoices(
+                                                            "size",
+                                                            index
+                                                        )
+                                                    );
+                                                    // setChosenSize(index);
                                                 }}
                                             >
                                                 <p>{size.label}</p>
@@ -139,13 +158,15 @@ const ProductPage = ({
                         colours.length > 0 && (
                             <ClearSelection
                                 onClick={() => {
-                                    setChosenColor(0);
-                                    setChosenSize(0);
-                                    setPriceDiff(0);
+                                    dispatch(setChoices("size", 0));
+                                    dispatch(setChoices("color", 0));
+                                    // setChosenColor(0);
+                                    // setChosenSize(0);
+                                    // setPriceDiff(0);
                                 }}
                             >
                                 <LineCloseIcon
-                                    stroke={colors.primary}
+                                    stroke={theme.primary}
                                     width="26"
                                     height="26"
                                 />
@@ -271,7 +292,7 @@ const ProductDetail = styled.div`
     h2 {
         font-size: 1.5em;
         font-weight: 700;
-        color: ${colors.primary};
+        color: ${theme.primary};
     }
 
     h3 {
@@ -345,20 +366,20 @@ const ColourPreview = styled.button.attrs({
     padding: 20px;
     border: ${(props) =>
         props.chosen
-            ? `3px solid ${colors.primaryHover}`
+            ? `3px solid ${theme.primaryHover}`
             : `3px solid rgba(68, 68, 68, 0.2)`};
     border-radius: 50px;
     background-color: ${(props) => props.colour};
     cursor: pointer;
     :hover,
     :focus {
-        border: 3px solid ${colors.primaryHover};
+        border: 3px solid ${theme.primaryHover};
         outline: none;
         transition: 0.1s ease;
         transform: scale(1.05);
     }
     :active {
-        border: 3px solid ${colors.primaryHover};
+        border: 3px solid ${theme.primaryHover};
         transition: 0.1s ease;
         transform: scale(1.05);
     }
@@ -389,8 +410,8 @@ const SizeOption = styled.button.attrs({
     type: "button",
 })`
     border: 3px solid
-        ${(props) => (props.chosen ? colors.primaryHover : colors.secondary)};
-    background-color: ${colors.tertiary};
+        ${(props) => (props.chosen ? theme.primaryHover : theme.secondary)};
+    background-color: ${theme.tertiary};
     height: 2em;
     width: 2em;
     border-radius: 50px;
@@ -402,20 +423,20 @@ const SizeOption = styled.button.attrs({
     cursor: pointer;
     :hover,
     :focus {
-        border: 3px solid ${colors.primaryHover};
+        border: 3px solid ${theme.primaryHover};
         outline: none;
         transition: 0.1s ease;
         transform: scale(1.05);
     }
     :active {
-        border: 3px solid ${colors.primaryHover};
+        border: 3px solid ${theme.primaryHover};
         transition: 0.1s ease;
         transform: scale(1.05);
     }
     p {
         text-transform: uppercase;
         margin: 0px;
-        color: ${colors.secondary};
+        color: ${theme.secondary};
     }
 `;
 

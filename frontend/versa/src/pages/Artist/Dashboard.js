@@ -4,7 +4,7 @@ import { getAllProducts } from "../../axios/gets";
 import { getImagesByPID } from "../../axios/gets";
 import { Link } from "react-router-dom";
 import Button from "../../components/Reusable/Button";
-import colors from "../../components/Reusable/Colors";
+import theme from "../../components/Reusable/Colors";
 import { AddIcon, EditIcon, DeleteIcon } from "../../images/icons";
 import axios from "axios";
 import Loading from "../../components/Reusable/Loading";
@@ -37,7 +37,7 @@ const Dashboard = (currentProduct) => {
             <Link to="/products/create">
                 <Button secondary>
                     Create a new product
-                    <AddIcon stroke={colors.primary} />
+                    <AddIcon stroke={theme.primary} />
                 </Button>
             </Link>
             <table style={{ width: "100%" }}>
@@ -102,7 +102,7 @@ const Dashboard = (currentProduct) => {
                                 <td>{Math.floor(Math.random() * 10)}</td>
                                 <td>
                                     <Link to="/products/edit/:results.id">
-                                        <EditIcon stroke={colors.primary} />
+                                        <EditIcon stroke={theme.primary} />
                                     </Link>
                                     {/* <Button secondary>
                                             Edit
@@ -112,7 +112,7 @@ const Dashboard = (currentProduct) => {
                                 </td>
                                 <td>
                                     {" "}
-                                    <DeleteIcon stroke={colors.primary} />
+                                    <DeleteIcon stroke={theme.primary} />
                                 </td>
                             </tr>
                         );

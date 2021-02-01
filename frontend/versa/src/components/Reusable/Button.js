@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import colors from "./Colors";
+import theme from "./Colors";
 
 // The style is TERTIARY. Add primary or secondary as props if you'd like those styles
 //eg <Button primary>Click me</Button>
@@ -14,10 +14,10 @@ const Button = styled.button.attrs((props) => ({
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    color: ${colors.primary};
+    color: ${theme.primary};
     border: none;
-    background-color: ${colors.secondary};
-    border-bottom: 4px solid ${colors.secondary};
+    background-color: ${theme.secondary};
+    border-bottom: 4px solid ${theme.secondary};
     padding: 5px 15px 5px 8px;
     font-weight: 700;
     letter-spacing: 5%;
@@ -31,7 +31,7 @@ const Button = styled.button.attrs((props) => ({
         height: 28px;
 
         path {
-            fill: ${colors.primary};
+            fill: ${theme.primary};
         }
     }
 
@@ -40,10 +40,10 @@ const Button = styled.button.attrs((props) => ({
     :focus {
         outline: none;
         transition: 0.1s ease;
-        color: ${colors.primaryHover};
+        color: ${theme.primaryHover};
         svg {
             path {
-                fill: ${colors.primaryHover};
+                fill: ${theme.primaryHover};
             }
         }
     }
@@ -51,22 +51,22 @@ const Button = styled.button.attrs((props) => ({
     ${(props) =>
         props.secondary &&
         css`
-            background: ${colors.secondary};
-            border: 4px solid ${colors.primary};
-            color: ${colors.primary};
+            background: ${theme.secondary};
+            border: 4px solid ${theme.primary};
+            color: ${theme.primary};
             border-radius: 10px;
             :hover,
             :active,
             :focus {
             outline: none;
             transition: 0.1s ease;
-            color: ${colors.primaryHover};
-            border: 4px solid ${colors.primaryHover};
+            color: ${theme.primaryHover};
+            border: 4px solid ${theme.primaryHover};
             transform: scale(1.02);
             padding: 5px 15px 5px 8px;
             svg{
                 path{
-                    fill: ${colors.primaryHover};
+                    fill: ${theme.primaryHover};
                 }
             }
            
@@ -74,14 +74,14 @@ const Button = styled.button.attrs((props) => ({
     ${(props) =>
         props.primary &&
         css`
-            background: ${colors.primary};
-            border: 4px solid ${colors.primary};
+            background: ${theme.primary};
+            border: 4px solid ${theme.primary};
             padding: 10px 20px;
             border-radius: 10px;
-            color: ${colors.secondary};
+            color: ${theme.secondary};
             svg {
                 path {
-                    fill: ${colors.secondary};
+                    fill: ${theme.secondary};
                 }
             }
 
@@ -89,13 +89,13 @@ const Button = styled.button.attrs((props) => ({
             :active,
             :focus {
                 outline: none;
-                background-color: ${colors.primaryHover};
-                border: 4px solid ${colors.primaryHover};
-                color: ${colors.secondary};
+                background-color: ${theme.primaryHover};
+                border: 4px solid ${theme.primaryHover};
+                color: ${theme.secondary};
                 transform: scale(1.02);
                 svg {
                     path {
-                        fill: ${colors.secondary};
+                        fill: ${theme.secondary};
                     }
                 }
             }

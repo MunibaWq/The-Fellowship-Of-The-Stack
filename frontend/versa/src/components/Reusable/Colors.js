@@ -1,4 +1,4 @@
-const colors = {
+const theme = {
     primary: "#6495ed",
     primaryHover: "#005bff",
     secondary: "#fff",
@@ -10,4 +10,4 @@ const colors = {
     logoCircle: "#C5C3FF",
     logoRect: "#FF5C00",
 };
-export default colors;
+export default theme;

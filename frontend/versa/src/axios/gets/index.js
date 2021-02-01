@@ -12,7 +12,10 @@ export const getProductByID = async (currentProduct) => {
     const response = await Axios.get(`${host}/products/get/${currentProduct}`);
     return response.data;
 };
-
+export const getUserByID = async (id) => {
+    const response = await Axios.get('/users/get/' + id)
+    return response.data
+}
 export const getAllProducts = async () => {
     let res = await Axios.get(host + "/products/allProducts", {
         headers: {

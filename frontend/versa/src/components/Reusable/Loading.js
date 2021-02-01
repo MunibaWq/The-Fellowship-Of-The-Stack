@@ -1,5 +1,5 @@
 import React from "react";
-import colors from "../Reusable/Colors";
+import theme from "../Reusable/Colors";
 import { ShapesLogo } from "../../images/icons";
 import styled, { keyframes } from "styled-components";
 const Loading = () => {
@@ -9,9 +9,9 @@ const Loading = () => {
             <ShapesLogo
             width="100"
             height="100"
-            circle={colors.logoCircle}
-            rectangle={colors.logoRect}
-            triangle={colors.logoTriangle}
+            circle={theme.logoCircle}
+            rectangle={theme.logoRect}
+            triangle={theme.logoTriangle}
             alt="Versa Logo"
         />
             </StyledLogo>
