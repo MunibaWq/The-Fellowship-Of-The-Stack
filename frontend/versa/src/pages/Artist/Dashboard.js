@@ -101,7 +101,7 @@ const Dashboard = (currentProduct) => {
                                 </td>
                                 <td>{Math.floor(Math.random() * 10)}</td>
                                 <td>
-                                    <Link to="/products/edit/:results.id">
+                                    <Link to={"/products/edit/" + result.id}>
                                         <EditIcon stroke={theme.primary} />
                                     </Link>
                                     {/* <Button secondary>
