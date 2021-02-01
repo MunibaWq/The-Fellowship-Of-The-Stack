@@ -24,16 +24,23 @@ const Dashboard = (currentProduct) => {
     console.log(results);
     const updateStatus = async (result, status) => {
         result.status = status;
-        await axios.put("/products/get/" + result.id, {
+        await axios.put("/products/edit/" + result.id, {
             headers: {
                 "Access-Control-Allow-Origin": "*",
             },
             data: result,
         });
+        return status;
     };
 
     return (
         <div style={{ padding: "2%" }}>
+            <Link to="/account">
+                <Button secondary>
+                    Back To Dashboard
+                    <AddIcon stroke={theme.primary} />
+                </Button>
+            </Link>
             <Link to="/products/create">
                 <Button secondary>
                     Create a new product
@@ -43,9 +50,9 @@ const Dashboard = (currentProduct) => {
             <table style={{ width: "100%" }}>
                 <tr>
                     <select onChange={(e) => {}}>
-                        <option>available</option>
-                        <option>backorder</option>
-                        <option>discontinue</option>
+                        <option>Active</option>
+                        <option>Backorder</option>
+                        <option>Discontinue</option>
                     </select>
                 </tr>
 
@@ -84,10 +91,16 @@ const Dashboard = (currentProduct) => {
                                 </td>
                                 <td>{result.title}</td>
                                 <td>
+                                    {result.status}
                                     <select
-                                        onChange={(e) =>
-                                            updateStatus(result, e.target.value)
-                                        }
+                                        // value={status}
+                                        onClick={(e) => {
+                                            const newStatus = updateStatus(
+                                                result,
+                                                e.target.value
+                                            );
+                                            setStatus(newStatus);
+                                        }}
                                     >
                                         <option value="Active">Active</option>
                                         <option value="Backorder">
@@ -97,7 +110,6 @@ const Dashboard = (currentProduct) => {
                                             Discontinue
                                         </option>
                                     </select>
-                                    {/* {result.status} */}
                                 </td>
                                 <td>{Math.floor(Math.random() * 10)}</td>
                                 <td>
