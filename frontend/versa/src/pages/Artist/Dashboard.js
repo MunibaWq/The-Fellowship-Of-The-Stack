@@ -8,12 +8,14 @@ import theme from "../../components/Reusable/Colors";
 import { AddIcon, EditIcon, DeleteIcon } from "../../images/icons";
 import axios from "axios";
 import Loading from "../../components/Reusable/Loading";
+import { DeleteProductModal } from "../../components/Dashboard/DeleteProductModal";
 
 const Dashboard = (currentProduct) => {
     const [results, setResults] = useState([]);
     const [selectedRows, setSelectedRows] = useState([]);
     const [status, setStatus] = useState("");
-
+    const [visible, setVisible] = useState(false);
+    const [currentId, setCurrentId] = useState(null);
     useEffect(() => {
         const getProducts = async () => {
             let data = await getAllProducts();
@@ -22,18 +24,30 @@ const Dashboard = (currentProduct) => {
         getProducts();
     }, []);
     console.log(results);
+
     const updateStatus = async (result, status) => {
         result.status = status;
-        await axios.put("/products/get/" + result.id, {
+        await axios.put("/products/edit/" + result.id, {
             headers: {
                 "Access-Control-Allow-Origin": "*",
             },
             data: result,
         });
+        return status;
     };
-
+    const showModal = (id) => {
+        setVisible(!visible);
+        console.log(`showing modal`);
+        setCurrentId(id);
+    };
     return (
         <div style={{ padding: "2%" }}>
+            <Link to="/account">
+                <Button secondary>
+                    Back To Dashboard
+                    <AddIcon stroke={theme.primary} />
+                </Button>
+            </Link>
             <Link to="/products/create">
                 <Button secondary>
                     Create a new product
@@ -43,9 +57,9 @@ const Dashboard = (currentProduct) => {
             <table style={{ width: "100%" }}>
                 <tr>
                     <select onChange={(e) => {}}>
-                        <option>available</option>
-                        <option>backorder</option>
-                        <option>discontinue</option>
+                        <option>Active</option>
+                        <option>Backorder</option>
+                        <option>Discontinue</option>
                     </select>
                 </tr>
 
@@ -84,20 +98,27 @@ const Dashboard = (currentProduct) => {
                                 </td>
                                 <td>{result.title}</td>
                                 <td>
+                                    {result.status}
                                     <select
-                                        onChange={(e) =>
-                                            updateStatus(result, e.target.value)
-                                        }
+                                        onChange={(e) => {
+                                            const newStatus = updateStatus(
+                                                result,
+                                                e.target.value
+                                            );
+                                            setStatus(newStatus);
+                                        }}
                                     >
-                                        <option value="Active">Active</option>
-                                        <option value="Backorder">
+                                        <option value={result.status}>
+                                            Select Status
+                                        </option>
+                                        <option label="Active">Active</option>
+                                        <option label="Backorder">
                                             Backorder
                                         </option>
-                                        <option value="Discontinue">
+                                        <option label="Discontinue">
                                             Discontinue
                                         </option>
                                     </select>
-                                    {/* {result.status} */}
                                 </td>
                                 <td>{Math.floor(Math.random() * 10)}</td>
                                 <td>
@@ -111,8 +132,11 @@ const Dashboard = (currentProduct) => {
                                     </Link> */}
                                 </td>
                                 <td>
-                                    {" "}
-                                    <DeleteIcon stroke={theme.primary} />
+                                    <Button
+                                        onClick={() => showModal(result.id)}
+                                    >
+                                        <DeleteIcon stroke={theme.primary} />
+                                    </Button>
                                 </td>
                             </tr>
                         );
@@ -121,6 +145,21 @@ const Dashboard = (currentProduct) => {
                     <td>Loading...</td>
                 )}
             </table>
+            {visible ? (
+                <DeleteProductModal
+                    value={visible}
+                    setter={setVisible}
+                    id={currentId}
+                    display="flex"
+                />
+            ) : (
+                <DeleteProductModal
+                    value={visible}
+                    setter={setVisible}
+                    id={currentId}
+                    display="none"
+                />
+            )}
         </div>
     );
 };
