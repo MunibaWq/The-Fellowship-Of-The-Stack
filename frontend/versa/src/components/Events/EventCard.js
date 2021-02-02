@@ -56,7 +56,6 @@ const EventCard = () => {
                     {!going && (
                         <div>
                             <Going width="33" height="33" />
-                            <p>Attending!</p>
                         </div>
                     )}
                     {going && <NotGoing width="33" height="33" />}
