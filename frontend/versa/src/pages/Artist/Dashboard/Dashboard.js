@@ -14,6 +14,8 @@ import TotalOrders from "./TotalOrders";
 import TotalSales from "./TotalSales";
 import DashboardEvents from "./DashboardEvents";
 import { useState } from "react";
+import AddProduct from "../AddProduct";
+import EditProduct from "../EditProduct";
 
 const Dashboard = () => {
     
@@ -78,6 +80,9 @@ const Dashboard = () => {
                         exact
                         component={SalesByProduct}
                     />
+                    
+                    <Route path="/products/create" component={AddProduct} />
+                    <Route path="/products/edit/:id" component={EditProduct} />
                 </Switch>
             </Container>
         </Router>
