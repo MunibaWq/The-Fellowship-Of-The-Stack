@@ -11,6 +11,7 @@ import AddProduct from "./pages/Artist/AddProduct";
 import EditProduct from "./pages/Artist/EditProduct";
 import CreateAccount from "./pages/Artist/CreateAccount";
 import ArtistLogIn from "./pages/Artist/ArtistLogIn";
+import Dashboard from "./pages/Artist/Dashboard/Dashboard";
 
 function App() {
     return (
@@ -38,6 +39,7 @@ function App() {
                         component={CreateAccount}
                     />
                     <Route path="/artists/log-in" component={ArtistLogIn} />
+                    <Route path="/dashboard" component={Dashboard} />
                 </Switch>
             </div>
         </Router>
