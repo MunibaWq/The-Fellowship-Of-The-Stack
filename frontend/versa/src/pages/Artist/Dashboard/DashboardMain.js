@@ -73,5 +73,5 @@ const StoreDash = styled.div`
     grid-template-columns: repeat(auto-fit, minmax(250px, 250px));
 `;
 const Greeting = styled.h1`
-    margin: 2em;
+    margin: 1.5em;
 `;

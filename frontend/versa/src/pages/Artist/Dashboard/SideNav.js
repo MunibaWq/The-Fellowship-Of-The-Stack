@@ -38,11 +38,11 @@ const SideNav = () => {
                             <UserType>Artist</UserType>
                         </UserInfo>
                         <Close onClick={() => setExpanded(!expanded)}>
-                            {/**<LineCloseIcon
+                            <LineCloseIcon
                                 stroke={theme.primary}
                                 width="40"
                                 height="40"
-                            />**/}
+                            />
                         </Close>
                     </Header>
 
@@ -68,7 +68,7 @@ const SideNav = () => {
                                     </MenuLink>
                                 </li>
                             </Link>
-                            <Link to="/dashboard/Settings">
+                            <Link to="/dashboard/settings">
                                 <li>
                                     <MenuLink>
                                         <Setting stroke={theme.primary} />
@@ -176,7 +176,7 @@ const SideNav = () => {
                                 </Link>
                             </SubMenu>
                         )}
-                        <Link to="/dashboard/events">
+                        <Link to="/dashboard/manage-events">
                             <li>
                                 <MenuLink>
                                     <NotiCount>
@@ -203,10 +203,10 @@ const NotiCount = styled(Pill)`
 `;
 
 const Container = styled.div`
-    margin: 20px;
+    margin: 20px 20px 0px 20px;
     background: none;
     max-width: 300px;
-    height: calc(100vh - 60px);
+    height: calc(100vh - 84px);
     @media (max-width: 700px) {
         max-width: 100px;
     }
@@ -222,9 +222,12 @@ const Toggle = styled.div`
     padding: 10px 10px 6px 10px;
     width: 46px;
     border-radius: 15px;
-    cursor: pointer;
     position: absolute;
     margin: 10px;
+    :hover {
+        transform: scale(1.05);
+    }
+    cursor: pointer;
 `;
 
 const NavBar = styled.div`
@@ -265,13 +268,14 @@ const UserInfo = styled.div`
     -ms-transition: all 0.3s ease;
     -o-transition: all 0.3s ease;
     transition: all 0.3s ease;
+    margin: 5px 15px;
 `;
 
 const Name = styled.h2`
     margin: 0 0 8px 0;
 `;
 const UserType = styled.p`
-    margin: 0 0 10px 0;
+    margin: 0 0 8px 0;
 `;
 const Menu = styled.ul`
     list-style: none;
@@ -282,6 +286,7 @@ const Menu = styled.ul`
     transition: all 0.3s ease;
 `;
 const MenuLink = styled.button`
+    margin: 2px 0;
     border: none;
     background-color: white;
     width: 100%;
@@ -328,9 +333,10 @@ const SubMenu = styled.div`
 `;
 const SubMenuLink = styled.button`
     border: none;
+    margin: 3px 0;
     background-color: white;
     width: 100%;
-    padding: 8px;
+    padding: 8px 8px 8px 10px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
