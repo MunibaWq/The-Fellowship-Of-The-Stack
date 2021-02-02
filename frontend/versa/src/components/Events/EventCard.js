@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import imageTest from "../../images/imageTest.png";
-import { Going, WishListIcon, Share } from "../../images/icons";
+import { Going, WishListIcon, Share, NotGoing } from "../../images/icons";
+import Button from "../Reusable/Button";
+import theme from "../Reusable/Colors";
 
 const EventCard = () => {
+    const [interested, setInterested] = useState(false);
+    const [going, setGoing] = useState(false);
+
     return (
         <CardContainer>
             <Thumbnail src={imageTest} />
@@ -15,9 +20,50 @@ const EventCard = () => {
                 <NumGoing>135 Interested</NumGoing>
             </Stats>
             <Actions>
-                <WishListIcon />
-                <Going />
-                <Share />
+                <ActionButton
+                    onClick={() => {
+                        setInterested((curr) => !curr);
+                    }}
+                >
+                    {interested && (
+                        <div>
+                            <WishListIcon
+                                onClick={() => setInterested(false)}
+                                fill="#FF0000"
+                                stroke="#FF0000"
+                                width="33"
+                                height="33"
+                            />
+                            <p>Added!</p>
+                        </div>
+                    )}
+                    {!interested && (
+                        <div>
+                            <WishListIcon
+                                fill="white"
+                                stroke={theme.primary}
+                                width="33"
+                                height="33"
+                            />
+                        </div>
+                    )}
+                </ActionButton>
+                <ActionButton
+                    onClick={() => {
+                        setGoing((curr) => !curr);
+                    }}
+                >
+                    {!going && (
+                        <div>
+                            <Going width="33" height="33" />
+                            <p>Attending!</p>
+                        </div>
+                    )}
+                    {going && <NotGoing width="33" height="33" />}
+                </ActionButton>
+                <ActionButton>
+                    <Share width="33" height="33" />
+                </ActionButton>
             </Actions>
         </CardContainer>
     );
@@ -26,7 +72,8 @@ const EventCard = () => {
 export default EventCard;
 
 const CardContainer = styled.div`
-    padding: 25px;
+    margin: 25px;
+    cursor: pointer;
 `;
 
 const Thumbnail = styled.img`
@@ -54,4 +101,18 @@ const Actions = styled.div`
     flex-direction: row;
     justify-content: space-between;
     width: 250px;
+`;
+
+const ActionButton = styled(Button)`
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    :hover,
+    :focus,
+    :active {
+        transform: scale(1.05);
+    }
+    p {
+        font-size: 0.5em;
+    }
 `;

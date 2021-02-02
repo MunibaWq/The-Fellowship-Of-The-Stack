@@ -1,3 +1,58 @@
+export const NotGoing = ({ width, height, stroke }) => {
+    return (
+        <svg
+            width={width || "33"}
+            height={height || "32"}
+            viewBox="0 0 33 32"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+        >
+            <path
+                d="M26.5 5H6.5C5.94772 5 5.5 5.44772 5.5 6V26C5.5 26.5523 5.94772 27 6.5 27H26.5C27.0523 27 27.5 26.5523 27.5 26V6C27.5 5.44772 27.0523 5 26.5 5Z"
+                stroke={stroke || "#444"}
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            />
+            <path
+                d="M22.5 3V7"
+                stroke={stroke || "#444"}
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            />
+            <path
+                d="M10.5 3V7"
+                stroke={stroke || "#444"}
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            />
+            <path
+                d="M5.5 11H27.5"
+                stroke={stroke || "#444"}
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            />
+            <path
+                d="M19.5 16L13.5 22"
+                stroke={stroke || "#444"}
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            />
+            <path
+                d="M19.5 22L13.5 16"
+                stroke={stroke || "#444"}
+                strokeWidth="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            />
+        </svg>
+    );
+};
+
 export const Share = ({ width, height, stroke }) => {
     return (
         <svg
