@@ -23,7 +23,7 @@ const PageLink = styled(Button)`
 const Title = styled.h1`
     flex: none;
     margin: 0;
-    font-size: 1.2em;
+    font-size: 1em;
     padding: 4px 0;
 `;
 
@@ -95,6 +95,22 @@ const Table = styled.div`
         }
     }
 `;
+
+const Legend = styled.div`
+    div {
+        display: flex;
+        align-items: center;
+        font-size: 8px;
+        text-transform: uppercase;
+    }
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    div > svg {
+        margin: 5px;
+    }
+`;
+
 const DashCard = (props) => {
     const {
         total,
@@ -225,18 +241,5 @@ const VGraph = ({ data }) => {
         </>
     );
 };
-const Legend = styled.div`
-    div {
-        display: flex;
-        align-items: center;
-        font-size: 8px;
-        text-transform: uppercase;
-    }
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    div > svg {
-        margin: 5px;
-    }
-`;
+
 export default DashCard;
