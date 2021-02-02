@@ -2,8 +2,9 @@ import { setFormErrors } from "../../redux/actions/Errors";
 import { sendProductData } from "./functions/sendProductData";
 
 export function submitData(input, images, dispatch, props, id) {
-    return (e) => {
-        e.preventDefault();
+  
+       
+        console.log('submitData happened')
         const productInfo = {
             title: input.title,
             price: input.price,
@@ -29,4 +30,4 @@ export function submitData(input, images, dispatch, props, id) {
             );
         }
     };
-}
+

@@ -157,7 +157,13 @@ router.put("/edit/:id", async (req, res) => {
         if (sizes.length === 0) {
             sizes = [{ label: "O", price: "0" }];
         }
-
+        let sizesOrder = ["XS","S","M","L","XL","XXL"]
+        sizes.sort((a, b) => {
+            return (
+                sizesOrder.indexOf(a.label) - sizesOrder.indexOf(b.label) ||
+                +a.label - +b.label
+            );
+        });
         let response = await pool.query(
             "UPDATE products SET title = $1, price = $2, description = $3, colours = $4, artist_id = $5, sizes = $6, materials = $7, status=$8 WHERE id = $9 RETURNING id",
             [

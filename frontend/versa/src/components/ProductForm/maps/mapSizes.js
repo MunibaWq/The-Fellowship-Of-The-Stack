@@ -7,8 +7,10 @@ import {
     NewSizePrice
 } from "../styledComponents";
 import { deleteItem } from "../functions/deleteItem";
+import { setFormInputs } from "../../../redux/actions/Forms";
 
-export function mapSizes(sizes) {
+export function mapSizes(sizes, dispatch) {
+
     return sizes.map((size, index) => {
         return (
             <NewSize>
@@ -22,7 +24,9 @@ export function mapSizes(sizes) {
                         deleteItem(
                             index,
                             sizes,
-                            "sizes"
+                            setFormInputs,
+                            dispatch,
+                            'sizes'
                         );
                     }}
                 >

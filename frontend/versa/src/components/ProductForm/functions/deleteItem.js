@@ -1,6 +1,6 @@
 
-export function deleteItem(index, arr, set) {
+export function deleteItem(index, arr, set, dispatch, type) {
     let newArray = [...arr];
     newArray.splice(index, 1);
-    set(newArray);
+    dispatch(set('product',type, newArray));
 }

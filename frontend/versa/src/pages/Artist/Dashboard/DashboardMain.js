@@ -3,40 +3,67 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import DashCard from "./DashCard";
-
+import {
+    ordersData,
+    productData,
+    salesData,
+    avgOrderData,
+    salesByProductData,
+    recentOrders,
+} from "./data";
 const DashboardMain = () => {
     const dispatch = useDispatch();
-
+    console.log(salesData);
     return (
         <DashboardContainer>
             <Greeting>Hello, Danielle</Greeting>
             <StoreDash>
-                <History>
+                {/* <History>
                     They can toggle the date to go to past day version of
-                    dashboard. eg to see yesterdays orders, sales etc
-                </History>
-                <DashCard
-                    table={true}
+                    dashbord. eg to see yesterdays orders, sales etc
+                </History> */}
+                <Orders
+                    graphData={ordersData}
                     total="123"
                     totalLabel="orders"
                     title="Orders"
                 >
-                    Total Orders
-                </DashCard>
+                    
+                </Orders>
+                <RecentOrders
+                    tableData={recentOrders}
+                    total="12"
+                    totalLabel="Unfulfilled"
+                    title="Recent Orders"
+                >
+                    
+                    </RecentOrders>
+                <SalesPerOrder
+                    total="$107.23"
+                    totalLabel="Average"
+                    graphData={avgOrderData}
+                    title="Sales Per Order"
+                ></SalesPerOrder>
                 <Inventory
+                    total="7"
+                    totalLabel="Low stock"
+                    tableData={productData}
                     title="Inventory"
-                    total="123"
-                    totalLabel="orders"
-                    title="Orders"
-                >
-                    table Showing 5 lowest inv products
-                </Inventory>
-                <Profit>Small Card with number of total profit</Profit>
-                <MonthlySales>
-                    graph showing this months sales, with sales goals line over
-                    top, in the future they can click to change it to Day / Year
-                </MonthlySales>
-                <Events>card showing 5 cards inside of upcoming events</Events>
+                ></Inventory>
+                <SalesByProduct
+                    total="$3500"
+                    totalLabel="Top Product Sales"
+                    graphData={salesByProductData}
+                    title="Sales By Product"
+                />
+                {/* <Profit>Small Card with number of total profit</Profit> */}
+                <MonthlySales
+                    total="$37.5k"
+                    totalLabel="Total"
+                    title="Monthly Sales"
+                    graphData={salesData}
+                ></MonthlySales>
+                {/* <Events>card showing 5 cards inside of upcoming events</Events> */}
             </StoreDash>
         </DashboardContainer>
     );
@@ -48,18 +75,13 @@ const DashboardContainer = styled.div`
     height: calc(100vh - 60px);
 `;
 
-const Card = styled.div`
-        
-        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-transition: 0.3s;
-hover {
-    box - shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
-}
-`;
+
 const UserDash = styled.div``;
 const Orders = styled(DashCard)``;
+const RecentOrders = styled(DashCard)``;
 const Inventory = styled(DashCard)``;
-
+const SalesPerOrder = styled(DashCard)``;
+const SalesByProduct = styled(DashCard)``;
 const Events = styled(DashCard)``;
 const MonthlySales = styled(DashCard)``;
 const Profit = styled(DashCard)``;

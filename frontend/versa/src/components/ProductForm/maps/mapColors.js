@@ -6,8 +6,10 @@ import {
     RemoveIcon
 } from "../styledComponents";
 import { deleteItem } from "../functions/deleteItem";
+import { setFormInputs } from "../../../redux/actions/Forms";
 
-export function mapColors(colours) {
+export function mapColors(colours,dispatch) {
+   
     return colours.map((color, index) => {
         return (
             <ColorOption>
@@ -18,7 +20,9 @@ export function mapColors(colours) {
                         deleteItem(
                             index,
                             colours,
-                            "colours"
+                            setFormInputs,
+                            dispatch,
+                            'colours'
                         );
                     }}
                 >

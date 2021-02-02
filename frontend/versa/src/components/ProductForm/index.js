@@ -29,7 +29,7 @@ import {
 } from "./styledComponents";
 import { setVisible } from "../../redux/actions/Modals";
 import { mapColors } from "./maps/mapColors";
-import { mapSizes } from "./maps/mapSizes";
+import {  mapSizes } from "./maps/mapSizes";
 import { mapImages } from "./maps/mapImages";
 import { loadPage } from "./functions/loadPage";
 import { ImageInput } from "./ImageInput";
@@ -204,7 +204,7 @@ const ProductForm = (props) => {
                             width: "75%",
                         }}
                     >
-                        {input.colours && mapColors(input.colours)}
+                        {input.colours && mapColors(input.colours, dispatch)}
                     </div>
 
                     <ColourModal
@@ -241,7 +241,7 @@ const ProductForm = (props) => {
                     >
                         {input.sizes &&
                             input.sizes.length > 0 &&
-                            mapSizes(input.sizes)}
+                            mapSizes(input.sizes, dispatch)}
                     </div>
                     <SizeModal
                         modalToggle={modalToggle}
