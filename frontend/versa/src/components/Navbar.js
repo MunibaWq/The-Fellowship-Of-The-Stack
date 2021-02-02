@@ -45,10 +45,7 @@ const Navbar = () => {
                     <WordLink>Events</WordLink>
                 </NavLink>
                 {user && (
-                    <NavLink
-                        color={theme.secondary}
-                        to={"/dashboard/" + user.id}
-                    >
+                    <NavLink color={theme.secondary} to={"/dashboard"}>
                         <Dashboard stroke={theme.secondary} />
                         <WordLink>Dashboard</WordLink>
                     </NavLink>
