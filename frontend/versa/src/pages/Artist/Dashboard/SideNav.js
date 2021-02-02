@@ -4,20 +4,26 @@ import {
     LineCloseIcon,
     Notification,
     Message,
-	Setting,
-	Dashboard,
-	Orders,
-	Products,
+    Setting,
+    Dashboard,
+    Orders,
+    Products,
     EventsIcon,
-    ShopHome
+    ShopHome,
+    DownIcon,
+    RightIcon,
+    HamburgerIcon,
 } from "../../../images/icons";
+import Button from "../../../components/Reusable/Button.js";
 import theme from "../../../components/Reusable/Colors";
 import Pill from "../../../components/Reusable/Pill";
 
 const SideNav = () => {
     return (
         <NavBar>
-            <Toggle>OnOFF</Toggle>
+            <Toggle>
+                <HamburgerIcon stroke={theme.secondary} />
+            </Toggle>
             <TitleToggle>
                 <Title>Dashboard</Title>
                 <LineCloseIcon stroke={theme.primary} />
@@ -40,28 +46,63 @@ const SideNav = () => {
                 </Menu>
             </ToolBar>
             <Menu>
-                <MenuLink><ShopHome />Dashboard</MenuLink>
-				<MenuLink>
-                <Orders />
-                <Pill>
-                        <p>3</p>
-                </Pill>
-                    Orders
+                <MenuLink>
+                    <ShopHome />
+                    Dashboard
+                    <RightIcon stroke={theme.primary} />
                 </MenuLink>
-                <MenuLink><Products />Products</MenuLink>
+                <MenuLink>
+                    <Orders />
+                    <Pill>
+                        <p>3</p>
+                    </Pill>
+                    Orders
+                    <RightIcon stroke={theme.primary} />
+                </MenuLink>
+                <MenuLink>
+                    <Products />
+                    Products
+                    <DownIcon stroke={theme.primary} />
+                </MenuLink>
                 <SubMenu>
-                    <SubMenuLink>Inventory</SubMenuLink>
+                    <SubMenuLink>
+                        Inventory
+                        <RightIcon stroke={theme.primary} />
+                    </SubMenuLink>
+                    <SubMenuLink>
+                        Categories
+                        <RightIcon stroke={theme.primary} />
+                    </SubMenuLink>
                 </SubMenu>
 
-                <MenuLink><Dashboard />Analytics</MenuLink>
+                <MenuLink>
+                    <Dashboard />
+                    Analytics
+                    <DownIcon stroke={theme.primary} />
+                </MenuLink>
                 <SubMenu>
-                    <SubMenuLink>Total Sales</SubMenuLink>
-                    <SubMenuLink>Total Orders</SubMenuLink>
-                    <SubMenuLink>Order Value</SubMenuLink>
-                    <SubMenuLink>Sales by Product</SubMenuLink>
+                    <SubMenuLink>
+                        Total Sales
+                        <RightIcon stroke={theme.primary} />
+                    </SubMenuLink>
+                    <SubMenuLink>
+                        Total Orders
+                        <RightIcon stroke={theme.primary} />
+                    </SubMenuLink>
+                    <SubMenuLink>
+                        Average Order Value
+                        <RightIcon stroke={theme.primary} />
+                    </SubMenuLink>
+                    <SubMenuLink>
+                        Sales by Product
+                        <RightIcon stroke={theme.primary} />
+                    </SubMenuLink>
                 </SubMenu>
-                <MenuLink><EventsIcon />Events
-            </MenuLink>
+                <MenuLink>
+                    <EventsIcon />
+                    Events
+                    <RightIcon stroke={theme.primary} />
+                </MenuLink>
             </Menu>
         </NavBar>
     );
@@ -83,6 +124,9 @@ const Toggle = styled.div`
     -ms-transition: all 0.3s ease;
     -o-transition: all 0.3s ease;
     transition: all 0.3s ease;
+    background-color: ${theme.primary};
+    padding: 10px;
+    width: 50px;
 `;
 const TitleToggle = styled.div`
     display: flex;
@@ -123,18 +167,22 @@ const Menu = styled.ul`
     transition: all 0.3s ease;
 `;
 const MenuLink = styled.li`
-    margin: 10px;
+    padding: 10px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    cursor: pointer;
     -webkit-transition: all 0.3s ease;
     -moz-transition: all 0.3s ease;
     -ms-transition: all 0.3s ease;
     -o-transition: all 0.3s ease;
     transition: all 0.3s ease;
+    :hover {
+        background-color: #d0dfff;
+    }
 `;
-        const SubMenu = styled.div`
+const SubMenu = styled.div`
     -webkit-transition: all 0.3s ease;
     -moz-transition: all 0.3s ease;
     -ms-transition: all 0.3s ease;
@@ -142,9 +190,7 @@ const MenuLink = styled.li`
     transition: all 0.3s ease;
 `;
 const SubMenuLink = styled.li`
-    
-    padding: 5px;
-    margin: 10px;
+    padding: 8px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -153,9 +199,10 @@ const SubMenuLink = styled.li`
     -moz-transition: all 0.3s ease;
     -ms-transition: all 0.3s ease;
     -o-transition: all 0.3s ease;
+    cursor: pointer;
     transition: all 0.3s ease;
-    :hover{
-        background-color: #EFF3FE;
+    :hover {
+        background-color: #d0dfff;
     }
 `;
 const ToolBar = styled.div`
@@ -170,4 +217,15 @@ const ToolBar = styled.div`
     -ms-transition: all 0.3s ease;
     -o-transition: all 0.3s ease;
     transition: all 0.3s ease;
+`;
+
+const HoverIcon = styled.svg`
+    stroke: ${theme.secondary};
+    fill: ${theme.secondary};
+    width: 26px;
+    height: 26px;
+    :hover {
+        stroke: ${theme.primary};
+        fill: ${theme.primary};
+    }
 `;

@@ -31,7 +31,7 @@ const Button = styled.button.attrs((props) => ({
         height: 28px;
 
         path {
-            fill: ${theme.primary};
+            stroke: ${theme.primary};
         }
     }
 
@@ -43,7 +43,7 @@ const Button = styled.button.attrs((props) => ({
         color: ${theme.primaryHover};
         svg {
             path {
-                fill: ${theme.primaryHover};
+                stroke: ${theme.primaryHover};
             }
         }
     }
@@ -66,7 +66,7 @@ const Button = styled.button.attrs((props) => ({
             padding: 5px 15px 5px 8px;
             svg{
                 path{
-                    fill: ${theme.primaryHover};
+                    stroke: ${theme.primaryHover};
                 }
             }
            
@@ -81,7 +81,7 @@ const Button = styled.button.attrs((props) => ({
             color: ${theme.secondary};
             svg {
                 path {
-                    fill: ${theme.secondary};
+                    stroke: ${theme.secondary};
                 }
             }
 
@@ -95,7 +95,7 @@ const Button = styled.button.attrs((props) => ({
                 transform: scale(1.02);
                 svg {
                     path {
-                        fill: ${theme.secondary};
+                        stroke: ${theme.secondary};
                     }
                 }
             }
