@@ -43,19 +43,13 @@ const Dashboard = (currentProduct) => {
     };
     return (
         <div style={{ padding: "2%" }}>
-            <Link to="/dashboard">
-                <Button secondary>
-                    Back To Dashboard
-                    <AddIcon stroke={theme.primary} />
-                </Button>
-            </Link>
             <Link to="/dashboard/products/create">
-                <Button secondary>
+                <Button secondary style={{ float: "right" }}>
                     Create a new product
                     <AddIcon stroke={theme.primary} />
                 </Button>
             </Link>
-            <TableStyle style={{ width: "100%" }}>
+            <TableStyle style={{ width: "100%", marginTop: "10%" }}>
                 <tr>
                     <th>PIC</th>
                     <th>TITLE</th>
@@ -112,7 +106,12 @@ const Dashboard = (currentProduct) => {
                                 </td>
                                 <td>{Math.floor(Math.random() * 10)}</td>
                                 <td>
-                                    <Link to={"/dashboard/products/edit/" + result.id}>
+                                    <Link
+                                        to={
+                                            "/dashboard/products/edit/" +
+                                            result.id
+                                        }
+                                    >
                                         <EditIcon stroke={theme.primary} />
                                     </Link>
                                     {/* <Button secondary>
