@@ -14,6 +14,7 @@ const Events = () => {
     //When results can be pulled, must be organised by soonest at the top
     return (
         <EventsResults>
+            <h1>Hello pretend I am a search bar. Shhh</h1>
             {/**<SearchBarDiv>
                 <MagnifyIcon
                     onClick={() => {
