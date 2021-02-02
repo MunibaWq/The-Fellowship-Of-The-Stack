@@ -10,6 +10,8 @@ const Events = () => {
     //     let data = await searchEvents(query);
     //     setEvents(data);
     // };
+
+    //When results can be pulled, must be organised by soonest at the top
     return (
         <EventsResults>
             {/**<SearchBarDiv>
