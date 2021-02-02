@@ -10,17 +10,22 @@ const GoToPage = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    align-items: flex-end;
+    align-items: flex-start;
     width: 100%;
 `;
 
 const PageLink = styled(Button)`
+svg{
+    margin: 0 -5px;
+}
+    font-size:0.8em;
     margin: 0;
     padding: 0;
     border-bottom: none;
 `;
 
 const Title = styled.h1`
+max-width: 133px;
     flex: none;
     margin: 0;
     font-size: 1em;
@@ -50,7 +55,12 @@ const AtAGlance = styled.div`
     display: flex;
     flex-direction: column;
 `;
-const DataTitle = styled.h2``;
+const DataTitle = styled.h2`
+        text-align: center;
+    font-size: 0.8em;
+    font-weight: 700;
+    margin: 30px 0 0 0;
+`;
 const Card = styled.div`
     margin: 0;
     padding: 20px;
@@ -75,7 +85,7 @@ const Table = styled.div`
     margin: 5px;
     display: flex;
     justify-content: center;
-    padding-top: 20px;
+    padding-top: 5px;
     td {
         font-weight: 300;
         padding: 6px;
@@ -110,7 +120,10 @@ const Legend = styled.div`
         margin: 5px;
     }
 `;
-
+const PieContainer = styled.div`
+    margin-top: -18px;
+    margin-bottom: -18px;
+`;
 const DashCard = (props) => {
     const {
         total,
@@ -118,6 +131,7 @@ const DashCard = (props) => {
         dataTitle,
         graphTitle,
         tableTitle,
+        pieData,
         graphData,
         tableData,
         title,
@@ -128,7 +142,7 @@ const DashCard = (props) => {
                 <GoToPage>
                     <Title>{title}</Title>
                     <PageLink>
-                        View
+                        Reports
                         <RightIcon stroke={theme.primary} />
                     </PageLink>
                 </GoToPage>
@@ -140,6 +154,14 @@ const DashCard = (props) => {
                     </Total>
                 )}
             </AtAGlance>
+            {pieData && (
+                <>
+                    <DataTitle>{dataTitle}</DataTitle>
+                    <Graph>
+                        <VPie data={pieData} />
+                    </Graph>
+                </>
+            )}
             {graphData && (
                 <>
                     <DataTitle>{dataTitle}</DataTitle>
@@ -157,6 +179,26 @@ const DashCard = (props) => {
                 </>
             )}
         </Card>
+    );
+};
+const VPie = ({ data }) => {
+    return (
+        <PieContainer>
+            <V.VictoryPie
+                padding={{ top: 0, left: 100, right: 100 }}
+                padAngle={2}
+                innerRadius={50}
+                labels={({ datum }) => `${datum.x}: ${datum.y}%`}
+                colorScale={[
+                    theme.primaryHover,
+                    theme.primaryHover + "cc",
+                    theme.primaryHover + "99",
+                    theme.primaryHover + "66",
+                    theme.primaryHover + "33",
+                ]}
+                data={data}
+            />
+        </PieContainer>
     );
 };
 const VTable = ({ data }) => {
@@ -213,7 +255,7 @@ const VGraph = ({ data }) => {
             >
                 <V.VictoryLine
                     style={{
-                        labels: { fill: theme.primary},
+                        labels: { fill: theme.primary },
                         data: { stroke: theme.primary },
                         parent: { border: "1px solid #00ff00" },
                     }}

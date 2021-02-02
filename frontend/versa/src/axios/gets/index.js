@@ -16,8 +16,8 @@ export const getUserByID = async (id) => {
     const response = await Axios.get('/users/get/' + id)
     return response.data
 }
-export const getAllProducts = async () => {
-    let res = await Axios.get(host + "/products/allProducts", {
+export const getAllProducts = async (artist_id) => {
+    let res = await Axios.get(host + "/products/allProducts/"+artist_id, {
         headers: {
             "Access-Control-Allow-Origin": "*",
         },
