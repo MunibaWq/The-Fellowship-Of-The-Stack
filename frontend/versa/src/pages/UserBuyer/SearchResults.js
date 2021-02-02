@@ -11,7 +11,18 @@ const SearchResults = () => {
     const [query, setQuery] = useState();
     useEffect(() => {
         const getProducts = async () => {
-            const data = await getAllProducts();
+            let data = await getAllProducts();
+            data = data.sort((product1, product2) => {
+                if (
+                    product1.stock.reduce((total, curr) => {
+                        total += curr.quantity;
+                        return total;
+                    }, 0) === 0
+                ) {
+                    return 1;
+                }
+                return -1;
+            });
 
             setProducts(data);
         };

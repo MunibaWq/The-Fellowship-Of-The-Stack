@@ -43,13 +43,13 @@ const Dashboard = (currentProduct) => {
     };
     return (
         <div style={{ padding: "2%" }}>
-            <Link to="/account">
+            <Link to="/dashboard">
                 <Button secondary>
                     Back To Dashboard
                     <AddIcon stroke={theme.primary} />
                 </Button>
             </Link>
-            <Link to="/products/create">
+            <Link to="/dashboard/products/create">
                 <Button secondary>
                     Create a new product
                     <AddIcon stroke={theme.primary} />
@@ -112,7 +112,7 @@ const Dashboard = (currentProduct) => {
                                 </td>
                                 <td>{Math.floor(Math.random() * 10)}</td>
                                 <td>
-                                    <Link to={"/products/edit/" + result.id}>
+                                    <Link to={"/dashboard/products/edit/" + result.id}>
                                         <EditIcon stroke={theme.primary} />
                                     </Link>
                                     {/* <Button secondary>

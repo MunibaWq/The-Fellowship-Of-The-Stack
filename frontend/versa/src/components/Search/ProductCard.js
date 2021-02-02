@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 // import { Image, ImageCard, ProductInfo } from "../Reusable/Card";
 // import Card from "../Reusable/Card";
 import ItemCard from "../Reusable/ItemCard";
+import styled from "styled-components";
+import Pill from "../Reusable/Pill";
 
 let host = process.env.NODE_ENV === "production" ? "" : "";
 const ProductCard = ({ product }) => {
@@ -41,7 +43,17 @@ const ProductCard = ({ product }) => {
                 </ProductInfo>
             </ImageCard> */}
             <ItemCard title={product.title} price={product.price}>
-                <img
+                {
+                    product.stock.reduce((total, curr) => {
+                        total += curr.quantity;
+                        return total;
+                    }, 0) === 0 &&
+                    <OOSPill><p>Out of Stock</p></OOSPill>}
+                <ProductImage
+                    stock={product.stock.reduce((total, curr) => {
+                        total += curr.quantity;
+                        return total;
+                    }, 0)}
                     style={{
                         width: "100%",
                     }}
@@ -61,6 +73,17 @@ const ProductCard = ({ product }) => {
         </Link>
     );
 };
+const OOSPill = styled(Pill)`
+position:absolute;
+z-index:9;
+margin:5px;
+background-color:black;
+`
+
+const ProductImage = styled.img`
+    width: 100%;
+    filter: ${props=>props.stock===0?"grayscale(100%)":"grayscale(0%)"};
+`;
 // const ImageCard = styled.div`
 //     margin-bottom: 10%;
 //     display: flex;
