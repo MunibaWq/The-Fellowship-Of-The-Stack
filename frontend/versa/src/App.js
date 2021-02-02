@@ -30,13 +30,16 @@ function App() {
                         exact
                         component={ShoppingCart}
                     />
-                    <Route path="/dashboard/:id" component={Dashboard} />
+
                     <Route path="/product-item/:id" component={ProductItem} />
                     <Route path="/products/create" component={AddProduct} />
                     <Route path="/products/edit/:id" component={EditProduct} />
-                    <Route path="/artists/create-account" component={CreateAccount} />
+                    <Route
+                        path="/artists/create-account"
+                        component={CreateAccount}
+                    />
                     <Route path="/artists/log-in" component={ArtistLogIn} />
-
+                    <Route path="/dashboard" component={Dashboard} />
                 </Switch>
             </div>
         </Router>

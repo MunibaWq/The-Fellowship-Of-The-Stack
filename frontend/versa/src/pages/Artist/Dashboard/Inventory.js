@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { getAllProducts } from "../../axios/gets";
-import { getImagesByPID } from "../../axios/gets";
+import { getAllProducts } from "../../../axios/gets";
+import { getImagesByPID } from "../../../axios/gets";
 import { Link } from "react-router-dom";
-import Button from "../../components/Reusable/Button";
-import theme from "../../components/Reusable/Colors";
-import { AddIcon, EditIcon, DeleteIcon } from "../../images/icons";
+import Button from "../../../components/Reusable/Button";
+import theme from "../../../components/Reusable/Colors";
+import { AddIcon, EditIcon, DeleteIcon } from "../../../images/icons";
 import axios from "axios";
-import Loading from "../../components/Reusable/Loading";
+import Loading from "../../../components/Reusable/Loading";
 
-const Dashboard = (currentProduct) => {
+const Inventory = (currentProduct) => {
     const [results, setResults] = useState([]);
     const [selectedRows, setSelectedRows] = useState([]);
     const [status, setStatus] = useState("");
@@ -125,4 +125,4 @@ const Dashboard = (currentProduct) => {
     );
 };
 
-export default Dashboard;
+export default Inventory;

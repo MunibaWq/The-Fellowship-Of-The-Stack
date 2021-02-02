@@ -18,7 +18,7 @@ const Dashboard = () => {
 export default Dashboard;
 const Container = styled.div`
     display: grid;
-    grid-template-columns: 200px auto;
+    grid-template-columns: 300px auto;
 `;
 const DashboardMainDiv = styled.div`
     grid-column: 2;

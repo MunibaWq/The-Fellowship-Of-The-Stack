@@ -87,15 +87,15 @@ router.post("/create", async (req, res) => {
             sizes,
             materials,
         } = req.body.data;
-        if (!colours||colours.length === 0) {
-            colours = [{"label":"O", "value":"#444"}]
+        if (!colours || colours.length === 0) {
+            colours = [{ label: "O", value: "#444" }];
         }
-        if (!sizes||sizes.length === 0) {
-            sizes = [{"label":"O", "price":"0"}]
+        if (!sizes || sizes.length === 0) {
+            sizes = [{ label: "O", price: "0" }];
         }
         // To sort the sizes entered in the correct order
         // Will sort numerical sizes numerically
-        let sizesOrder = ["XS","S","M","L","XL","XXL"]
+        let sizesOrder = ["XS", "S", "M", "L", "XL", "XXL"];
         sizes.sort((a, b) => {
             return (
                 sizesOrder.indexOf(a.label) - sizesOrder.indexOf(b.label) ||
@@ -152,10 +152,10 @@ router.put("/edit/:id", async (req, res) => {
             status,
         } = req.body.data; //For use in set
         if (colours.length === 0) {
-            colours = [{"label":"O", "value":"#444"}]
+            colours = [{ label: "O", value: "#444" }];
         }
         if (sizes.length === 0) {
-            sizes = [{"label":"O", "price":"0"}]
+            sizes = [{ label: "O", price: "0" }];
         }
         let sizesOrder = ["XS","S","M","L","XL","XXL"]
         sizes.sort((a, b) => {
@@ -196,7 +196,9 @@ router.delete("/delete/:id", async (req, res) => {
         console.log("no id");
     }
     try {
-        pool.query("DELETE FROM products WHERE id = $1", [id]);
+        await pool.query("DELETE FROM images WHERE product_id = $1", [id]);
+        await pool.query("DELETE FROM stock WHERE product_id = $1", [id]);
+        await pool.query("DELETE FROM products WHERE id = $1", [id]);
         res.json({ msg: "Product Deleted!" });
     } catch (err) {
         console.error(err.message);

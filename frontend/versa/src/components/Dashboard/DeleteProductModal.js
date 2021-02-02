@@ -18,15 +18,7 @@ const deleteItem = async (id) => {
 export function DeleteProductModal({ display, value, setter, id }) {
     return (
         <ModalCenter disp={display}>
-            <Modal
-                onMouseOut={() => {
-                    if (value) {
-                        setter(false);
-                    } else {
-                        setter(true);
-                    }
-                }}
-            >
+            <Modal>
                 <ModalTitle>
                     Are you SURE you want to delete this product?
                 </ModalTitle>

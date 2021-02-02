@@ -37,7 +37,7 @@ const Dashboard = (currentProduct) => {
     };
     const showModal = (id) => {
         setVisible(!visible);
-        console.log(`showing modal`);
+        console.log(`showing screen x`, window.innerWidth);
         setCurrentId(id);
     };
     return (
@@ -54,36 +54,25 @@ const Dashboard = (currentProduct) => {
                     <AddIcon stroke={theme.primary} />
                 </Button>
             </Link>
-            <table style={{ width: "100%" }}>
+            <TableStyle style={{ width: "100%" }}>
                 <tr>
-                    <select onChange={(e) => {}}>
-                        <option>Active</option>
-                        <option>Backorder</option>
-                        <option>Discontinue</option>
-                    </select>
-                </tr>
-
-                <tr>
-                    <input type="checkbox" />
-                    <th></th>
-                    <th>title</th>
-                    <th>status</th>
-                    <th>inventory</th>
-                    <th>Edit</th>
-                    <th>delete</th>
+                    <th>PIC</th>
+                    <th>TITLE</th>
+                    <th>STATUS</th>
+                    <th>INVENTORY</th>
+                    <th>EDIT</th>
+                    <th>DELETE</th>
                 </tr>
                 {results ? (
                     results.map((result, index) => {
                         return (
                             <tr style={{ padding: "10%" }}>
-                                <input
-                                    id={result.title + index}
-                                    type="checkbox"
-                                    onChange={(e) => {
-                                        results.status = e.target.value;
+                                <td
+                                    style={{
+                                        width: "100px",
+                                        height: "100px",
                                     }}
-                                />
-                                <td style={{ width: "50px", height: "50px" }}>
+                                >
                                     <img
                                         src={
                                             "https://versabucket.s3.us-east-2.amazonaws.com/images/" +
@@ -98,7 +87,7 @@ const Dashboard = (currentProduct) => {
                                 </td>
                                 <td>{result.title}</td>
                                 <td>
-                                    {result.status}
+                                    {result.status} <br />
                                     <select
                                         onChange={(e) => {
                                             const newStatus = updateStatus(
@@ -144,7 +133,7 @@ const Dashboard = (currentProduct) => {
                 ) : (
                     <td>Loading...</td>
                 )}
-            </table>
+            </TableStyle>
             {visible ? (
                 <DeleteProductModal
                     value={visible}
@@ -165,3 +154,20 @@ const Dashboard = (currentProduct) => {
 };
 
 export default Dashboard;
+
+const TableStyle = styled.table`
+    min-width: 655px;
+    text-align: left;
+    padding: 1%;
+
+    width: 100%;
+    /* border: 1px solid black; */
+    border-collapse: collapse;
+    th {
+        padding: 1%;
+    }
+    td {
+        padding: 1%;
+        border-collapse: collapse;
+    }
+`;
