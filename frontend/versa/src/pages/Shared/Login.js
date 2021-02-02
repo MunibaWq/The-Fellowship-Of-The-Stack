@@ -16,7 +16,7 @@ const Login = (props) => {
 
     const dispatch = useDispatch();
     const sendLogin = async () => {
-        dispatch(setFormErrors('login',''))
+        dispatch(setFormErrors("login", ""));
         let error = document.getElementById("error");
         if (!error) {
             try {
@@ -45,7 +45,7 @@ const Login = (props) => {
     return (
         <Container>
             {loggedInUser && loggedInUser.username && (
-                <Redirect to={"/dashboard/" + loggedInUser.id} />
+                <Redirect to={"/dashboard"} />
             )}
             <h2>Log In</h2>
             <TextField
