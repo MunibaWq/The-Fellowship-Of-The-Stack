@@ -1,11 +1,28 @@
 import React from "react";
+import styled from "styled-components";
+import EventCard from "../components/Events/EventCard";
 
 const Events = () => {
     return (
-        <div>
-            <h1>Events</h1>
-        </div>
+        <EventsResults>
+            <EventCard />
+            <EventCard />
+            <EventCard />
+            <EventCard />
+            <EventCard />
+            <EventCard />
+            <EventCard />
+            <EventCard />
+            <EventCard />
+            <EventCard />
+            <EventCard />
+            <EventCard />
+            <EventCard />
+            <EventCard />
+        </EventsResults>
     );
 };
 
 export default Events;
+
+const EventsResults = styled.div``;
