@@ -23,37 +23,43 @@ const DashboardMain = () => {
                     dashbord. eg to see yesterdays orders, sales etc
                 </History> */}
                 <Orders
+                    dataTitle="Orders this month"
                     graphData={ordersData}
                     total="123"
                     totalLabel="orders"
                     title="Orders"
                 ></Orders>
                 <RecentOrders
+                    dataTitle="5 most recent"
                     tableData={recentOrders}
                     total="12"
                     totalLabel="Unfulfilled"
                     title="Recent Orders"
                 ></RecentOrders>
                 <SalesPerOrder
+                    dataTitle="Average per week"
                     total="$107.23"
                     totalLabel="Average"
                     graphData={avgOrderData}
-                    title="Sales Per Order"
+                    title={`Sales Per Order`}
                 ></SalesPerOrder>
                 <Inventory
+                    dataTitle="5 lowest in stock"
                     total="7"
                     totalLabel="Low stock"
                     tableData={productData}
                     title="Inventory"
                 ></Inventory>
                 <SalesByProduct
-                    total="$3500"
+                    dataTitle="Top 5 products"
+                    total="$3.5k"
                     totalLabel="Top Product Sales"
-                    graphData={salesByProductData}
+                    pieData={salesByProductData}
                     title="Sales By Product"
                 />
                 {/* <Profit>Small Card with number of total profit</Profit> */}
                 <MonthlySales
+                    dataTitle="Sales per week"
                     total="$37.5k"
                     totalLabel="Total"
                     title="Monthly Sales"
