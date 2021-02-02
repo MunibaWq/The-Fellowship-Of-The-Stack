@@ -13,13 +13,16 @@ import Settings from "./Settings";
 import TotalOrders from "./TotalOrders";
 import TotalSales from "./TotalSales";
 import DashboardEvents from "./DashboardEvents";
+import { useState } from "react";
 
 const Dashboard = () => {
+    
+    const [navWidth, setNavWidth] = useState(300);
     return (
         <Router>
-            <Container>
-                <SideNavDiv>
-                    <SideNav />
+            <Container width={navWidth}>
+                <SideNavDiv >
+                    <SideNav setNavWidth={setNavWidth}/>
                 </SideNavDiv>
                 <Switch>
                     <Route path="/dashboard" exact component={DashboardMain} />
@@ -84,7 +87,7 @@ const Dashboard = () => {
 export default Dashboard;
 const Container = styled.div`
     display: grid;
-    grid-template-columns: 300px auto;
+    grid-template-columns: ${props=>props.width}px auto;
 `;
 const DashboardMainDiv = styled.div`
     grid-column: 2;

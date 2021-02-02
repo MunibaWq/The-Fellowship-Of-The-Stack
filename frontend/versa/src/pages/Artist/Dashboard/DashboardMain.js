@@ -70,9 +70,8 @@ const DashboardMain = () => {
 };
 export default DashboardMain;
 const DashboardContainer = styled.div`
-    padding: 2em;
+    padding: 2em 2em 2em calc(2em + 66px);
     background-color: #eff3fe;
-    height: calc(100vh - 60px);
 `;
 
 

@@ -18,7 +18,7 @@ import {
 import theme from "../../../components/Reusable/Colors";
 import Pill from "../../../components/Reusable/Pill";
 
-const SideNav = () => {
+const SideNav = ({setNavWidth}) => {
     const [visiblePSub, setVisiblePSub] = useState(false);
     const [visibleASub, setVisibleASub] = useState(false);
     const [expanded, setExpanded] = useState(true);
@@ -26,7 +26,10 @@ const SideNav = () => {
     return (
         <Container>
             {!expanded && (
-                <Toggle onClick={() => setExpanded(!expanded)}>
+                <Toggle onClick={() => {
+                    setNavWidth(300)
+                    setExpanded(true)
+                }}>
                     <HamburgerIcon stroke={theme.secondary} />
                 </Toggle>
             )}
@@ -37,7 +40,10 @@ const SideNav = () => {
                             <Name>Fudge Doe</Name>
                             <UserType>Artist</UserType>
                         </UserInfo>
-                        <Close onClick={() => setExpanded(!expanded)}>
+                        <Close onClick={() => {
+                            setNavWidth(0)
+                            setExpanded(false)
+                        }}>
                             <LineCloseIcon
                                 stroke={theme.primary}
                                 width="40"
