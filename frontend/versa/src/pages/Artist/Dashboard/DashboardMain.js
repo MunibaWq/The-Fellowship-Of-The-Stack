@@ -27,17 +27,13 @@ const DashboardMain = () => {
                     total="123"
                     totalLabel="orders"
                     title="Orders"
-                >
-                    
-                </Orders>
+                ></Orders>
                 <RecentOrders
                     tableData={recentOrders}
                     total="12"
                     totalLabel="Unfulfilled"
                     title="Recent Orders"
-                >
-                    
-                    </RecentOrders>
+                ></RecentOrders>
                 <SalesPerOrder
                     total="$107.23"
                     totalLabel="Average"
@@ -74,7 +70,6 @@ const DashboardContainer = styled.div`
     background-color: #eff3fe;
 `;
 
-
 const UserDash = styled.div``;
 const Orders = styled(DashCard)``;
 const RecentOrders = styled(DashCard)``;
@@ -88,11 +83,11 @@ const History = styled(DashCard)``;
 const Wishlist = styled(DashCard)``;
 const StoreDash = styled.div`
     display: grid;
-    margin: 2em;
+    margin: 1em;
     grid-row-gap: 30px;
     grid-column-gap: 50px;
     grid-template-columns: repeat(auto-fit, minmax(250px, 250px));
 `;
 const Greeting = styled.h1`
-    margin: 1.5em;
+    margin: 0 1em 2em 1em;
 `;
