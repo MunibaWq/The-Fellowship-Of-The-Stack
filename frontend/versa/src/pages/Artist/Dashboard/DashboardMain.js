@@ -47,7 +47,7 @@ const DashboardMain = () => {
                     title="Inventory"
                 ></Inventory>
                 <SalesByProduct
-                    total="$3500"
+                    total="$3.5k"
                     totalLabel="Top Product Sales"
                     graphData={salesByProductData}
                     title="Sales By Product"
