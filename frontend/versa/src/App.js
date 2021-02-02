@@ -32,8 +32,7 @@ function App() {
                     />
 
                     <Route path="/product-item/:id" component={ProductItem} />
-                    <Route path="/products/create" component={AddProduct} />
-                    <Route path="/products/edit/:id" component={EditProduct} />
+                   
                     <Route
                         path="/artists/create-account"
                         component={CreateAccount}

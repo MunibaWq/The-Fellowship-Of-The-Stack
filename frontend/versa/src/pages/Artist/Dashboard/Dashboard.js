@@ -81,8 +81,8 @@ const Dashboard = () => {
                         component={SalesByProduct}
                     />
                     
-                    <Route path="/products/create" component={AddProduct} />
-                    <Route path="/products/edit/:id" component={EditProduct} />
+                    <Route path="/dashboard/products/create" component={AddProduct} />
+                    <Route path="/dashboard/products/edit/:id" component={EditProduct} />
                 </Switch>
             </Container>
         </Router>
