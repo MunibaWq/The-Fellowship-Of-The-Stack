@@ -18,7 +18,7 @@ import {
 import theme from "../../../components/Reusable/Colors";
 import Pill from "../../../components/Reusable/Pill";
 
-const SideNav = ({setNavWidth}) => {
+const SideNav = ({ setNavWidth }) => {
     const [visiblePSub, setVisiblePSub] = useState(false);
     const [visibleASub, setVisibleASub] = useState(false);
     const [expanded, setExpanded] = useState(true);
@@ -26,10 +26,12 @@ const SideNav = ({setNavWidth}) => {
     return (
         <Container>
             {!expanded && (
-                <Toggle onClick={() => {
-                    setNavWidth(300)
-                    setExpanded(true)
-                }}>
+                <Toggle
+                    onClick={() => {
+                        setNavWidth(300);
+                        setExpanded(true);
+                    }}
+                >
                     <HamburgerIcon stroke={theme.secondary} />
                 </Toggle>
             )}
@@ -40,10 +42,12 @@ const SideNav = ({setNavWidth}) => {
                             <Name>Fudge Doe</Name>
                             <UserType>Artist</UserType>
                         </UserInfo>
-                        <Close onClick={() => {
-                            setNavWidth(0)
-                            setExpanded(false)
-                        }}>
+                        <Close
+                            onClick={() => {
+                                setNavWidth(0);
+                                setExpanded(false);
+                            }}
+                        >
                             <LineCloseIcon
                                 stroke={theme.primary}
                                 width="40"
@@ -213,9 +217,6 @@ const Container = styled.div`
     background: none;
     max-width: 300px;
     height: calc(100vh - 84px);
-    @media (max-width: 700px) {
-        max-width: 100px;
-    }
 `;
 
 const Toggle = styled.div`
@@ -245,9 +246,6 @@ const NavBar = styled.div`
     left: -300px;
     background: white;
     position: sticky;
-    @media (max-width: 700px) {
-        width: 100px;
-    }
 `;
 
 const Close = styled.div`
@@ -320,14 +318,6 @@ const MenuLink = styled.button`
 
     h3 {
         font-size: 1em;
-    }
-    @media (max-width: 700px) {
-        h3 {
-            display: none;
-        }
-        img {
-            display: none;
-        }
     }
 `;
 const SubMenu = styled.div`
