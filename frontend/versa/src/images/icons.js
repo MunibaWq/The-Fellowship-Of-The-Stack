@@ -1269,7 +1269,7 @@ export const FilledRightIcon = ({ width, height, stroke, fill }) => {
             width={width || "26"}
             height={height || "26"}
             viewBox="0 0 24 24"
-            fill="none"
+            fill={stroke}
             xmlns="http://www.w3.org/2000/svg"
         >
             <path

@@ -15,17 +15,18 @@ const GoToPage = styled.div`
 `;
 
 const PageLink = styled(Button)`
-svg{
-    margin: 0 -5px;
-}
-    font-size:0.8em;
+    svg {
+        margin: 0 -5px;
+        fill: ${theme.primary};
+    }
+    font-size: 0.8em;
     margin: 0;
     padding: 0;
     border-bottom: none;
 `;
 
 const Title = styled.h1`
-max-width: 133px;
+    max-width: 133px;
     flex: none;
     margin: 0;
     font-size: 1em;
@@ -56,7 +57,7 @@ const AtAGlance = styled.div`
     flex-direction: column;
 `;
 const DataTitle = styled.h2`
-        text-align: center;
+    text-align: center;
     font-size: 0.8em;
     font-weight: 700;
     margin: 30px 0 0 0;
