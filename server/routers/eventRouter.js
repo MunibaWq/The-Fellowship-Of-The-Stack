@@ -26,7 +26,7 @@ router.get("/get/:id", async (req, res) => {
         const client = await pool.connect();
         const result = await pool.query(
             `SELECT 
-            c.count AS num_attendees,
+            CAST(c.count AS INT) AS num_attendees,
             u.username AS host_name,
             e.*  
             FROM 
@@ -60,7 +60,7 @@ router.get("/artistsEvents/:id", async (req, res) => {
     try {
         const result = await pool.query(
             `SELECT 
-            c.count AS num_attendees,
+            CAST(c.count AS INT) AS num_attendees,
             u.username AS host_name,
             e.*  
             FROM 
@@ -89,7 +89,7 @@ router.get("/artistsEvents/:id", async (req, res) => {
 router.get("/allEvents", async (req, res) => {
     try {
         const result = await pool.query(`SELECT 
-        c.count AS num_attendees,
+        CAST(c.count AS INT) AS num_attendees,
         u.username AS host_name,
         e.*  
         FROM 
@@ -106,7 +106,7 @@ router.get("/allEvents", async (req, res) => {
         ON u.id = e.host`);
         const results = result.rows;
 
-        res.json(productsToSend);
+        res.json(results);
     } catch (e) {
         console.log(e);
         res.send("error");
