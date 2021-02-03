@@ -14,10 +14,7 @@ const SearchResults = () => {
             let data = await getAllProducts();
             data = data.sort((product1, product2) => {
                 if (
-                    product1.stock.reduce((total, curr) => {
-                        total += curr.quantity;
-                        return total;
-                    }, 0) === 0
+                    calcTotalStock(product1) === 0
                 ) {
                     return 1;
                 }
@@ -159,3 +156,10 @@ const Products = styled.div`
     }
 `;
 export default SearchResults;
+function calcTotalStock(product1) {
+    return product1.stock.reduce((total, curr) => {
+        total += curr.quantity;
+        return total;
+    }, 0);
+}
+

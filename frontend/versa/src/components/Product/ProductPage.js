@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import Button from "../Reusable/Button";
+import Pill from '../Reusable/Pill'
 import { Link, useParams } from "react-router-dom";
 import theme from "../Reusable/Colors";
 import { LeftIcon, Star, LineCloseIcon, EditIcon } from "../../images/icons";
@@ -19,11 +20,12 @@ const ProductPage = ({
     description,
     num_stars,
     image,
+    stock
 }) => {
     const choices = useSelector((state) => state.productChoices);
     const dispatch = useDispatch();
     let params = useParams();
-
+    console.log(stock)
     useEffect(() => {
         dispatch(setRedirect("productForm", ""));
     }, [dispatch]);
@@ -86,7 +88,7 @@ const ProductPage = ({
                             ))}
                     </Stars>
 
-                    <h2>${price ? price + sizes[choices.size].price : 0}</h2>
+                    <h2>${price ? price + +sizes[choices.size].price : 0}</h2>
                     {colours && colours.length > 0 && (
                         <Colours>
                             <SelectedColour>
@@ -95,7 +97,17 @@ const ProductPage = ({
                                     {colours[choices.colour].label === "O"
                                         ? "One Colour"
                                         : colours[choices.colour].label}
-                                </h4>
+                                    
+                                </h4>{stock.map((variation) => {
+                                        console.log(sizes[choices.size].price)
+                                        if (variation.color === colours[choices.colour].label && 
+                                            variation.size === sizes[choices.size].label) {
+                                            if (variation.quantity < 3) {
+                                                return <Pill><p>{variation.quantity + " left"}</p></Pill>
+                                                }
+                                        }
+                                        return ""
+                                    })}
                             </SelectedColour>
                             <ColourOptions>
                                 {colours.map((colour, index) => {
@@ -349,6 +361,14 @@ const Colours = styled.div`
 const SelectedColour = styled.div`
     display: flex;
     flex-direction: row;
+    h4{
+        margin-right: 8px;
+    }
+    align-items:flex-start;
+    div{
+        background-color:red;
+        margin-top: -3px;
+    }
 `;
 
 const ColourOptions = styled.div`

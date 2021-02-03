@@ -8,6 +8,12 @@ import ItemCard from "../Reusable/ItemCard";
 import styled from "styled-components";
 import Pill from "../Reusable/Pill";
 
+function calcTotalStock(product) {
+    return product.stock.reduce((total, curr) => {
+        total += curr.quantity;
+        return total;
+    }, 0);
+}
 let host = process.env.NODE_ENV === "production" ? "" : "";
 const ProductCard = ({ product }) => {
     const dispatch = useDispatch();
@@ -50,10 +56,7 @@ const ProductCard = ({ product }) => {
                     }, 0) === 0 &&
                     <OOSPill><p>Out of Stock</p></OOSPill>}
                 <ProductImage
-                    stock={product.stock.reduce((total, curr) => {
-                        total += curr.quantity;
-                        return total;
-                    }, 0)}
+                    stock={calcTotalStock(product)}
                     style={{
                         width: "100%",
                     }}
@@ -116,3 +119,4 @@ const ProductImage = styled.img`
 //     }
 // `;
 export default ProductCard;
+
