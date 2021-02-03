@@ -4,5 +4,8 @@
     "singleQuote": false,
     "semi": true,
     "printWidth": 80,
-    "quoteProps": "consistent"
+    "quoteProps": "consistent",
+    "trailingComma": "es5",
+    "jsxBracketSameLine": true
+
 }

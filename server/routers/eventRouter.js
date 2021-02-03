@@ -12,241 +12,222 @@ router.get("/search/:searchQuery", async (req, res) => {
             queryString += ` AND (UPPER (e.name) LIKE '%${term}%' OR UPPER (e.description) LIKE '%${term}%'OR UPPER (a.username) LIKE '%${term}%')`;
         }
     });
-   
+
     const result = await pool.query(
         `SELECT e.*, u.username FROM events e INNER JOIN users u ON e.host = u.id WHERE ${queryString} AND e.host = a.id`
     );
-    const events = result.rows
-    
+    const events = result.rows;
+
     res.json(events);
 });
-// Get a product
-// router.get("/get/:id", async (req, res) => {
-//     try {
-//         const client = await pool.connect();
-//         const result = await pool.query(
-//             `SELECT * FROM products WHERE id = ${req.params.id}`
-//         );
 
-//         const productInfo = result.rows[0];
+router.get("/get/:id", async (req, res) => {
+    try {
+        const client = await pool.connect();
+        const result = await pool.query(
+            `SELECT 
+            c.count AS num_attendees,
+            u.username AS host_name,
+            e.*  
+            FROM 
+            events e 
+            INNER JOIN 
+                (SELECT a.event,COUNT(*) 
+                FROM events_attendees a 
+                INNER JOIN events e 
+                ON a.event = e.id 
+                GROUP BY a.event) c
+            ON e.id = c.event
+            INNER JOIN
+            users u
+            ON u.id = e.host
+            WHERE e.id = ${req.params.id}`
+        );
 
-//         const artistReq = await client.query(
-//             "SELECT username FROM users WHERE id = " +
-//                 productInfo["artist_id"]
-//         );
-//         const artist = artistReq.rows[0].username;
-//         productInfo["artist"] = artist;
-//         const stockReq = await pool.query(
-//             "SELECT * FROM stock where product_id = " +
-//             productInfo["id"]
-//         )
-//         const stock = stockReq.rows
-//         productInfo["stock"] = stock
-//         client.release(true);
-//         res.json(productInfo);
-//     } catch (e) {
-//         console.log("error", e);
+        const eventInfo = result.rows[0];
 
-//         res.send(e);
-//     }
-// });
+        client.release(true);
+        res.json(eventInfo);
+    } catch (e) {
+        console.log("error", e);
+        res.send(e);
+    }
+});
 
-// //Get all products
+//Get all products
+//change this to use auth instead of req.params
+router.get("/artistsEvents/:id", async (req, res) => {
+    try {
+        const result = await pool.query(
+            `SELECT 
+            c.count AS num_attendees,
+            u.username AS host_name,
+            e.*  
+            FROM 
+            events e 
+            INNER JOIN 
+                (SELECT a.event,COUNT(*) 
+                FROM events_attendees a 
+                INNER JOIN events e 
+                ON a.event = e.id 
+                GROUP BY a.event) c
+            ON e.id = c.event
+            INNER JOIN
+            users u
+            ON u.id = e.host
+            WHERE e.host= ${req.params.id}`
+        );
+        const results = result.rows;
 
-// router.get("/artistsProducts/:id", async (req, res) => {
-//     try {
-//         const client = await pool.connect();
-//         const result = await client.query("SELECT * FROM products WHERE artist_id="+req.params.id);
-//         const results = result.rows;
-//         const productsToSend = [];
-//         for (product of results) {
-//             const artistReq = await pool.query(
-//                 "SELECT username FROM users WHERE id = " +
-//                     product["artist_id"]
-//             );
-//             const stockReq = await pool.query(
-//                 "SELECT * FROM stock where product_id = " +
-//                 product["id"]
-//             )
-//             const stock = stockReq.rows
-//             const artist = artistReq.rows[0].username;
-//             product["stock"] = stock
-//             product["artist"] = artist;
-//             productsToSend.push(product);
-//         }
-//         client.release(true);
-//         res.json(productsToSend);
-//     } catch (e) {
-//         console.log(e);
-//         res.send("error");
-//     }
-// });
+        res.json(results);
+    } catch (e) {
+        console.log(e);
+        res.send("error");
+    }
+});
 
-// router.get("/allProducts", async (req, res) => {
-//     try {
-//         const client = await pool.connect();
-//         const result = await client.query("SELECT * FROM products");
-//         const results = result.rows;
-//         const productsToSend = [];
-//         for (product of results) {
-//             const artistReq = await pool.query(
-//                 "SELECT username FROM users WHERE id = " +
-//                     product["artist_id"]
-//             );
-//             const stockReq = await pool.query(
-//                 "SELECT * FROM stock where product_id = " +
-//                 product["id"]
-//             )
-//             const stock = stockReq.rows
-//             const artist = artistReq.rows[0].username;
-//             product["stock"] = stock
-//             product["artist"] = artist;
-//             productsToSend.push(product);
-//         }
-//         client.release(true);
-//         res.json(productsToSend);
-//     } catch (e) {
-//         console.log(e);
-//         res.send("error");
-//     }
-// });
+router.get("/allEvents", async (_req, res) => {
+    try {
+        const result = await pool.query(`SELECT 
+        c.count AS num_attendees,
+        u.username AS host_name,
+        e.*  
+        FROM 
+        events e 
+        INNER JOIN 
+            (SELECT a.event,COUNT(*) 
+            FROM events_attendees a 
+            INNER JOIN events e 
+            ON a.event = e.id 
+            GROUP BY a.event) c
+        ON e.id = c.event
+        INNER JOIN
+        users u
+        ON u.id = e.host`);
+        const results = result.rows;
 
-// // Create a product ON FRONT END - NEED TO SEND sizes AS OBJECT-> sizes:PRICE
+        res.json(productsToSend);
+    } catch (e) {
+        console.log(e);
+        res.send("error");
+    }
+});
 
-// router.post("/create", async (req, res) => {
-//     // if (Object.keys(req.body.data).length === 0) {
-//     //     res.send({
-//     //         message: "Theres nobody!"
-//     //     })
-//     // }
-//     try {
-//         let {
-//             title,
-//             price,
-//             description,
-//             colours,
-//             artist_id,
-//             sizes,
-//             materials,
-//         } = req.body.data;
-//         if (!colours || colours.length === 0) {
-//             colours = [{ label: "O", value: "#444" }];
-//         }
-//         if (!sizes || sizes.length === 0) {
-//             sizes = [{ label: "O", price: "0" }];
-//         }
-//         // To sort the sizes entered in the correct order
-//         // Will sort numerical sizes numerically
-//         let sizesOrder = ["XS", "S", "M", "L", "XL", "XXL"];
-//         sizes.sort((a, b) => {
-//             return (
-//                 sizesOrder.indexOf(a.label) - sizesOrder.indexOf(b.label) ||
-//                 +a.label - +b.label
-//             );
-//         });
-//         let productInfo = await pool.query(
-//             "INSERT INTO products (title, price, description, colours, artist_id, sizes, materials) VALUES ($1, $2, $3,$4, $5,$6,$7) RETURNING id",
-//             [
-//                 title,
-//                 +price,
-//                 description,
-//                 JSON.stringify(colours),
-//                 +artist_id,
-//                 JSON.stringify(sizes),
-//                 materials,
-//             ]
-//         );
-//         let productID = productInfo.rows[0].id;
-//         let query = [];
-//         for (colour of colours) {
-//             for (size of sizes) {
-//                 query.push(
-//                     `INSERT INTO "stock" ("product_id", "color", "size") VALUES ('${productID}', '${colour.label}', '${size.label}');`
-//                 );
-//             }
-//         }
-//         pool.query(query.join(" "));
-//         res.json(productInfo.rows[0]);
-//     } catch (err) {
-//         console.error(err.message);
-//         res.send("error");
-//     }
-// });
+// Create a product ON FRONT END - NEED TO SEND sizes AS OBJECT-> sizes:PRICE
 
-// // Update a product
+router.post("/create", async (req, res) => {
+    try {
+        let {
+            name,
+            host,
+            description,
+            status,
+            capacity,
+            startTime,
+            endTime,
+            location,
+            type,
+        } = req.body.data;
 
-// router.put("/edit/:id", async (req, res) => {
-//     if (Object.keys(req.body).length === 0) {
-//         res.send({
-//             message: "Theres nobody!",
-//         });
-//     }
-//     try {
-//         const { id } = req.params; // For use in where
-//         let {
-//             title,
-//             price,
-//             description,
-//             colours,
-//             artist_id,
-//             sizes,
-//             materials,
-//             status,
-//         } = req.body.data; //For use in set
-//         if (colours.length === 0) {
-//             colours = [{ label: "O", value: "#444" }];
-//         }
-//         if (sizes.length === 0) {
-//             sizes = [{ label: "O", price: "0" }];
-//         }
-//         let sizesOrder = ["XS","S","M","L","XL","XXL"]
-//         sizes.sort((a, b) => {
-//             return (
-//                 sizesOrder.indexOf(a.label) - sizesOrder.indexOf(b.label) ||
-//                 +a.label - +b.label
-//             );
-//         });
-//         let response = await pool.query(
-//             "UPDATE products SET title = $1, price = $2, description = $3, colours = $4, artist_id = $5, sizes = $6, materials = $7, status=$8 WHERE id = $9 RETURNING id",
-//             [
-//                 title,
-//                 price,
-//                 description,
-//                 JSON.stringify(colours),
-//                 artist_id,
-//                 JSON.stringify(sizes),
-//                 materials,
-//                 status,
-//                 id,
-//             ]
-//         );
-//         res.json(response.rows[0].id);
-//     } catch (err) {
-//         console.error(err.message);
-//         res.send({
-//             message: "error",
-//         });
-//     }
-// });
+        let eventInfo = await pool.query(
+            `INSERT INTO events 
+            (name, host, description, status, capacity, startTime, endTime, location, type) 
+            VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9)`,
+            [
+                name,
+                host,
+                description,
+                status,
+                capacity,
+                startTime,
+                endTime,
+                location,
+                type,
+            ]
+        );
 
-// // Delete a product PLEASE ADD AUTH
+        res.json(eventInfo.rows[0]);
+    } catch (err) {
+        console.error(err.message);
+        res.send("error");
+    }
+});
 
-// router.delete("/delete/:id", async (req, res) => {
-//     const id = req.params.id;
+// Update a product
 
-//     if (Object.keys(req.params).length === 0) {
-//         console.log("no id");
-//     }
-//     try {
-//         await pool.query("DELETE FROM images WHERE product_id = $1", [id]);
-//         await pool.query("DELETE FROM stock WHERE product_id = $1", [id]);
-//         await pool.query("DELETE FROM products WHERE id = $1", [id]);
-//         res.json({ msg: "Product Deleted!" });
-//     } catch (err) {
-//         console.error(err.message);
-//         res.send({
-//             message: "error",
-//         });
-//     }
-// });
+router.put("/edit/:id", async (req, res) => {
+    if (Object.keys(req.body).length === 0) {
+        res.send({
+            message: "Theres nobody!",
+        });
+    }
+    try {
+        const { id } = req.params; // For use in where
+        const {
+            name,
+            host,
+            description,
+            status,
+            capacity,
+            startTime,
+            endTime,
+            location,
+            type,
+        } = req.body.data;
+
+        let response = await pool.query(
+            "UPDATE events SET name=$1, host=$2, description=$3, status=$4, capacity=$5, startTime=$5, endTime=$7, location=$8, type=$9 WHERE id = $10",
+            [
+                name,
+                host,
+                description,
+                status,
+                capacity,
+                startTime,
+                endTime,
+                location,
+                type,
+                id
+            ]
+        );
+        res.json(response.rows[0].id);
+    } catch (err) {
+        console.error(err.message);
+        res.send({
+            message: "error",
+        });
+    }
+});
+
+// Delete a product PLEASE ADD AUTH
+
+router.delete("/delete/:id", async (req, res) => {
+    const id = req.params.id;
+
+    if (Object.keys(req.params).length === 0) {
+        console.log("no id");
+    }
+    try {
+        await pool.query("DELETE FROM event_images WHERE event_id = $1", [id]);
+        await pool.query("DELETE FROM events_attendees WHERE event_id = $1", [id]);
+        await pool.query("DELETE FROM events WHERE id = $1", [id]);
+        res.json({ msg: "Event Deleted!" });
+    } catch (err) {
+        console.error(err.message);
+        res.send({
+            message: "error",
+        });
+    }
+});
+//change to auth and use auth for id instead of req.params
+router.post('/attend/:event/:id', (req, res) => {
+    const { event, id } = req.params
+    const { status, reminder } = req.body
+    const queryPart = []
+    if (status) queryPart.push(`SET status = ${status}`)
+    if (reminder) queryPart.push(`SET reminder = ${reminder}`)
+    const query = queryPart.join(', ')
+    pool.query(`UPDATE events_attendees ${query} WHERE attendee = ${id} AND event = ${event}`)
+    res.send('updated')
+})
 module.exports = router;

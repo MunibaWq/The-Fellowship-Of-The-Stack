@@ -15,13 +15,12 @@ export async function sendProductData(
     if (images.length === 0) {
         dispatch(setFormErrors("product", "Please add at least 1 image"));
     } else {
-        let res;
         if (props.type === "Add") {
-            res = await addProduct(productInfo, images, thumbImg);
+            addProduct(productInfo, images, thumbImg);
         } else {
-            res = await editProduct(productInfo, images, id, thumbImg);
+            editProduct(productInfo, images, id, thumbImg);
         }
-        let productID = res;
-        dispatch(setRedirect("productForm", "/product-item/" + productID));
+
+        dispatch(setRedirect("productForm", "/dashboard/inventory"));
     }
 }
