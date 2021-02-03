@@ -19,7 +19,7 @@ const Dashboard = (currentProduct) => {
 
     useEffect(() => {
         const getProducts = async () => {
-            let data = await getAllArtistProducts();
+            let data = await getAllArtistProducts(1);
             setResults(data);
         };
         getProducts();
