@@ -25,7 +25,7 @@ export const getAllProducts = async () => {
     return res.data;
 };
 export const getAllArtistProducts = async (id) => {
-    let res = await Axios.get(host + "products/artistsProducts/" + id);
+    let res = await Axios.get("/products/artistsProducts/" + id);
     return res.data;
 };
 

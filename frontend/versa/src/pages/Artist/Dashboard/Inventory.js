@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { getAllProducts } from "../../../axios/gets";
+import { getAllArtistProducts } from "../../../axios/gets";
 import { getImagesByPID } from "../../../axios/gets";
 import { Link } from "react-router-dom";
 import Button from "../../../components/Reusable/Button";
@@ -19,7 +19,7 @@ const Dashboard = (currentProduct) => {
 
     useEffect(() => {
         const getProducts = async () => {
-            let data = await getAllProducts();
+            let data = await getAllArtistProducts();
             setResults(data);
         };
         getProducts();
