@@ -187,7 +187,7 @@ router.put("/edit/:id", async (req, res) => {
                 endTime,
                 location,
                 type,
-                id
+                id,
             ]
         );
         res.json(response.rows[0].id);
@@ -209,7 +209,9 @@ router.delete("/delete/:id", async (req, res) => {
     }
     try {
         await pool.query("DELETE FROM event_images WHERE event_id = $1", [id]);
-        await pool.query("DELETE FROM events_attendees WHERE event_id = $1", [id]);
+        await pool.query("DELETE FROM events_attendees WHERE event_id = $1", [
+            id,
+        ]);
         await pool.query("DELETE FROM events WHERE id = $1", [id]);
         res.json({ msg: "Event Deleted!" });
     } catch (err) {
@@ -220,14 +222,25 @@ router.delete("/delete/:id", async (req, res) => {
     }
 });
 //change to auth and use auth for id instead of req.params
-router.post('/attend/:event/:id', (req, res) => {
-    const { event, id } = req.params
-    const { status, reminder } = req.body
-    const queryPart = []
-    if (status) queryPart.push(`SET status = ${status}`)
-    if (reminder) queryPart.push(`SET reminder = ${reminder}`)
-    const query = queryPart.join(', ')
-    pool.query(`UPDATE events_attendees ${query} WHERE attendee = ${id} AND event = ${event}`)
-    res.send('updated')
-})
+router.post("/attend/:event/:id", (req, res) => {
+    const { event, id } = req.params;
+    const { status, reminder } = req.body;
+    const queryPart = [];
+    if (status) queryPart.push(`SET status = ${status}`);
+    if (reminder) queryPart.push(`SET reminder = ${reminder}`);
+    const query = queryPart.join(", ");
+    pool.query(
+        `UPDATE events_attendees ${query} WHERE attendee = ${id} AND event = ${event}`
+    );
+    res.send("updated");
+});
+router.post("/join/:event/:id", (req, res) => {
+    const { event, id } = req.params;
+    const { status, reminder } = req.body;
+    pool.query(
+        `INSERT INTO events_attendees (event, attendee, status, reminder) VALUES ($1,$2,$3,$4)`,
+        [event, id, status, reminder]
+    );
+    res.send('joined')
+});
 module.exports = router;
