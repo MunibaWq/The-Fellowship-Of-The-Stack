@@ -6,6 +6,7 @@ const userRouter = require("./routers/userRouter");
 const PORT = process.env.PORT || 5000;
 const imageRouter = require("./routers/imageRouter");
 const productRouter = require("./routers/productRouter");
+const eventRouter = require('./routers/eventRouter')
 var cookieParser = require('cookie-parser');
 let app = express();
 app.use(cookieParser());
@@ -25,7 +26,7 @@ app.use(express.static("../frontend/versa/build"));
 app.use("/images", imageRouter);
 app.use("/products", productRouter);
 app.use("/users", userRouter);
-
+app.use('/events', eventRouter)
 app.get("*", (req, res) => {
     res.sendFile(
         path.resolve(__dirname, "../frontend/versa/build", "index.html")
