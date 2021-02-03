@@ -13,9 +13,9 @@ export const getProductByID = async (currentProduct) => {
     return response.data;
 };
 export const getUserByID = async (id) => {
-    const response = await Axios.get('/users/get/' + id)
-    return response.data
-}
+    const response = await Axios.get("/users/get/" + id);
+    return response.data;
+};
 export const getAllProducts = async () => {
     let res = await Axios.get(host + "/products/allProducts/", {
         headers: {
@@ -24,10 +24,14 @@ export const getAllProducts = async () => {
     });
     return res.data;
 };
+export const getAllArtistProducts = async (id) => {
+    let res = await Axios.get("/products/artistsProducts/" + id);
+    return res.data;
+};
 
 export const searchProducts = async (query) => {
     if (!query) {
-        return await getAllProducts()
+        return await getAllProducts();
     }
     let res = await Axios.get(host + "/products/search/" + query);
     return res.data;
