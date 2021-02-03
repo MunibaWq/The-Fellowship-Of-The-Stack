@@ -7,14 +7,20 @@ router.get("/search/:searchQuery", async (req, res) => {
     let queryString = "";
     query.forEach((term, index) => {
         if (index == 0) {
-            queryString = `(UPPER (e.name) LIKE '%${term}%' OR UPPER (e.description) LIKE '%${term}%' OR UPPER (a.username) LIKE '%${term}%')`;
+            queryString = `(UPPER (e.name) LIKE '%${term}%' 
+            OR UPPER (e.description) LIKE '%${term}%' 
+            OR UPPER (u.username) LIKE '%${term}%')`;
         } else {
-            queryString += ` AND (UPPER (e.name) LIKE '%${term}%' OR UPPER (e.description) LIKE '%${term}%'OR UPPER (a.username) LIKE '%${term}%')`;
+            queryString += ` AND (UPPER (e.name) LIKE '%${term}%' 
+            OR UPPER (e.description) LIKE '%${term}%'
+            OR UPPER (u.username) LIKE '%${term}%')`;
         }
     });
 
     const result = await pool.query(
-        `SELECT e.*, u.username FROM events e INNER JOIN users u ON e.host = u.id WHERE ${queryString} AND e.host = a.id`
+        `SELECT e.*, u.username FROM events e 
+        INNER JOIN users u ON e.host = u.id
+        WHERE ${queryString} AND e.host = u.id`
     );
     const events = result.rows;
 
@@ -130,9 +136,14 @@ router.post("/create", async (req, res) => {
         } = req.body.data;
 
         let eventInfo = await pool.query(
-            `INSERT INTO events 
-            (name, host, description, status, capacity, startTime, endTime, location, type) 
-            VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9)`,
+            `
+            INSERT INTO events(
+                name, host, description, status, capacity, 
+                startTime, endTime, location, type
+                ) 
+            VALUES 
+                ($1,$2,$3,$4,$5,$6,$7,$8,$9)
+            `,
             [
                 name,
                 host,
@@ -176,7 +187,11 @@ router.put("/edit/:id", async (req, res) => {
         } = req.body.data;
 
         let response = await pool.query(
-            "UPDATE events SET name=$1, host=$2, description=$3, status=$4, capacity=$5, startTime=$5, endTime=$7, location=$8, type=$9 WHERE id = $10",
+            `UPDATE events SET 
+            name = $1, host = $2, description = $3, 
+            status = $4, capacity = $5, startTime = $5, 
+            endTime = $7, location = $8, type = $9 
+            WHERE id = $10`,
             [
                 name,
                 host,
@@ -230,7 +245,8 @@ router.post("/attend/:event/:id", (req, res) => {
     if (reminder) queryPart.push(`SET reminder = ${reminder}`);
     const query = queryPart.join(", ");
     pool.query(
-        `UPDATE events_attendees ${query} WHERE attendee = ${id} AND event = ${event}`
+        `UPDATE events_attendees ${query} 
+        WHERE attendee = ${id} AND event = ${event}`
     );
     res.send("updated");
 });
@@ -238,7 +254,8 @@ router.post("/join/:event/:id", (req, res) => {
     const { event, id } = req.params;
     const { status, reminder } = req.body;
     pool.query(
-        `INSERT INTO events_attendees (event, attendee, status, reminder) VALUES ($1,$2,$3,$4)`,
+        `INSERT INTO events_attendees (event, attendee, status, reminder) 
+        VALUES ($1,$2,$3,$4)`,
         [event, id, status, reminder]
     );
     res.send('joined')
