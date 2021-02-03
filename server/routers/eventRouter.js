@@ -86,7 +86,7 @@ router.get("/artistsEvents/:id", async (req, res) => {
     }
 });
 
-router.get("/allEvents", async (_req, res) => {
+router.get("/allEvents", async (req, res) => {
     try {
         const result = await pool.query(`SELECT 
         c.count AS num_attendees,
