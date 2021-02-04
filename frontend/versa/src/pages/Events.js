@@ -83,7 +83,8 @@ const EventsResults = styled.div`
 const Results = styled.div`
     display: grid;
     grid-gap: 1rem;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: ${(props) =>
+        props.loading ? "auto" : "repeat(auto-fit, minmax(300px, 1fr))"};
     margin: 1.5em;
 `;
 

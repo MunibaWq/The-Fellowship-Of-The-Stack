@@ -56,11 +56,7 @@ const EventCard = ({
                     )}
                     {!interested && (
                         <div>
-                            <WishListIcon
-                                stroke={theme.primary}
-                                width="33"
-                                height="33"
-                            />
+                            <WishListIcon stroke={theme.primary} />
                         </div>
                     )}
                 </ActionButton>
@@ -70,13 +66,13 @@ const EventCard = ({
                     }}>
                     {!going && (
                         <div>
-                            <Going width="33" height="33" />
+                            <Going />
                         </div>
                     )}
-                    {going && <NotGoing width="33" height="33" />}
+                    {going && <NotGoing />}
                 </ActionButton>
                 <ActionButton>
-                    <Share width="33" height="33" />
+                    <Share />
                 </ActionButton>
             </Actions>
         </CardContainer>

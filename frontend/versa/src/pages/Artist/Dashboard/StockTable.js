@@ -51,10 +51,6 @@ const StockTable = ({ formType }) => {
                 </TableStyle>
                 <button type="submit">create</button>
             </form>
-                    {mapTable(stock)}
-                </TableStyle>
-                <button type="submit">create</button>
-            </form>
         </div>
     );
 };
