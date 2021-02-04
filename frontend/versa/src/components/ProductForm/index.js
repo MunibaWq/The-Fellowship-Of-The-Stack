@@ -3,6 +3,7 @@ import { Redirect, useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { TextField } from "../Reusable/Input";
 import Button from "../Reusable/Button";
+import theme from "../Reusable/Colors";
 import { AddIcon, LineCloseIcon } from "../../images/icons";
 //import { deleteImage } from "../axios/deletes";
 import { clearFormInputs, setFormInputs } from "../../redux/actions/Forms";
@@ -29,7 +30,7 @@ import {
 } from "./styledComponents";
 import { setVisible } from "../../redux/actions/Modals";
 import { mapColors } from "./maps/mapColors";
-import {  mapSizes } from "./maps/mapSizes";
+import { mapSizes } from "./maps/mapSizes";
 import { mapImages } from "./maps/mapImages";
 import { loadPage } from "./functions/loadPage";
 import { ImageInput } from "./ImageInput";
@@ -126,8 +127,7 @@ const ProductForm = (props) => {
                     label="Product Name"
                     required={true}
                     form="product"
-                    name="title"
-                ></TextField>
+                    name="title"></TextField>
                 <TextField
                     multi={false}
                     tests={[
@@ -147,8 +147,7 @@ const ProductForm = (props) => {
                     label="Price"
                     required={true}
                     form="product"
-                    name="price"
-                ></TextField>
+                    name="price"></TextField>
             </RowContainer1>
             <Instruction2>
                 Add a description of your product, let your customers know all
@@ -168,8 +167,7 @@ const ProductForm = (props) => {
                     label="Description"
                     required={true}
                     form="product"
-                    name="desc"
-                ></TextField>
+                    name="desc"></TextField>
                 <TextField
                     multi={true}
                     tests={[
@@ -180,8 +178,7 @@ const ProductForm = (props) => {
                     ]}
                     label="Materials"
                     form="product"
-                    name="materials"
-                ></TextField>
+                    name="materials"></TextField>
             </RowContainer2>
             <Instruction3>
                 Choose the colour and size options that you want to offer for
@@ -194,16 +191,14 @@ const ProductForm = (props) => {
                         display: "flex",
                         flexDirection: "column",
                         alignItems: "center",
-                    }}
-                >
+                    }}>
                     <h2>Colours</h2>
                     <div
                         style={{
                             display: "flex",
                             flexWrap: "wrap",
                             width: "75%",
-                        }}
-                    >
+                        }}>
                         {input.colours && mapColors(input.colours, dispatch)}
                     </div>
 
@@ -218,10 +213,9 @@ const ProductForm = (props) => {
                             dispatch(
                                 setVisible("productForm", "colours", true)
                             );
-                        }}
-                    >
+                        }}>
                         Add
-                        <AddIcon />
+                        <AddIcon stroke={theme.primary} />
                     </Button>
                 </ColorDiv>
                 <SizeDiv
@@ -229,16 +223,14 @@ const ProductForm = (props) => {
                         display: "flex",
                         flexDirection: "column",
                         alignItems: "center",
-                    }}
-                >
+                    }}>
                     <h2>Sizes</h2>
                     <div
                         style={{
                             display: "flex",
                             flexWrap: "wrap",
                             width: "75%",
-                        }}
-                    >
+                        }}>
                         {input.sizes &&
                             input.sizes.length > 0 &&
                             mapSizes(input.sizes, dispatch)}
@@ -252,10 +244,9 @@ const ProductForm = (props) => {
                         secondary
                         onClick={() => {
                             dispatch(setVisible("productForm", "sizes", true));
-                        }}
-                    >
+                        }}>
                         Add
-                        <AddIcon />
+                        <AddIcon stroke={theme.primary} />
                     </Button>
                 </SizeDiv>
             </RowContainer3>
@@ -282,14 +273,13 @@ const ProductForm = (props) => {
                 <Container>
                     <Button onClick={clearField}>
                         Cancel
-                        <LineCloseIcon />
+                        <LineCloseIcon stroke={theme.primary} />
                     </Button>
                     <Button
                         primary
                         onClick={() => {
                             submitData(input, images, dispatch, props, id);
-                        }}
-                    >
+                        }}>
                         Submit
                     </Button>
                 </Container>

@@ -61,8 +61,8 @@ const Events = () => {
                 {!events ? (
                     <Loading />
                 ) : events.length > 0 ? (
-                    events.map((event) => (
-                        <EventCard key={event.id} event={event} />
+                    events.map((theEvent) => (
+                        <EventCard key={theEvent.id} theEvent={theEvent} />
                     ))
                 ) : (
                     <NoResultsMessage>No results found</NoResultsMessage>

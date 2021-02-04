@@ -5,37 +5,26 @@ import { Going, WishListIcon, Share, NotGoing } from "../../images/icons";
 import Button from "../Reusable/Button";
 import theme from "../Reusable/Colors";
 
-const EventCard = ({
-    id,
-    name,
-    host,
-    description,
-    status,
-    capacity,
-    start_time,
-    end_time,
-    location,
-    thumbnail,
-    type,
-    num_attendees,
-}) => {
+const EventCard = ({ theEvent }) => {
     const [interested, setInterested] = useState(false);
     const [going, setGoing] = useState(false);
 
     return (
         <CardContainer>
-            {thumbnail ? (
-                <Thumbnail src={thumbnail} />
+            {theEvent.thumbnail ? (
+                <Thumbnail src={theEvent.thumbnail} />
             ) : (
                 <Thumbnail src={imageTest} />
             )}
-            <Name>{name}</Name>
-            <Host>{host}</Host>
+            <Name>{theEvent.name}</Name>
+            <Host>{theEvent.host_name}</Host>
             <Date>Sat Feb 14 - Sunday Feb 15</Date>
             <Time>6:00 PM MST</Time>
             <Stats>
-                <NumInterested>20 Interested</NumInterested>
-                <NumGoing>{num_attendees} Interested</NumGoing>
+                <NumInterested>
+                    {theEvent.num_attendees} Interested
+                </NumInterested>
+                <NumGoing>{theEvent.num_attendees} Going</NumGoing>
             </Stats>
             <Actions>
                 <ActionButton
@@ -66,13 +55,13 @@ const EventCard = ({
                     }}>
                     {!going && (
                         <div>
-                            <Going />
+                            <Going stroke={theme.primary} />
                         </div>
                     )}
                     {going && <NotGoing />}
                 </ActionButton>
                 <ActionButton>
-                    <Share />
+                    <Share stroke={theme.primary} />
                 </ActionButton>
             </Actions>
         </CardContainer>
