@@ -44,7 +44,6 @@ const Button = styled.button.attrs((props) => ({
         svg {
             path {
                 stroke: ${theme.primaryHover};
-                fill: ${theme.primaryHover};
             }
         }
     }

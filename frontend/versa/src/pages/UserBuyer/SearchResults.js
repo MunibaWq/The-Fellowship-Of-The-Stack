@@ -13,9 +13,7 @@ const SearchResults = () => {
         const getProducts = async () => {
             let data = await getAllProducts();
             data = data.sort((product1, product2) => {
-                if (
-                    calcTotalStock(product1) === 0
-                ) {
+                if (calcTotalStock(product1) === 0) {
                     return 1;
                 }
                 return -1;
@@ -32,14 +30,14 @@ const SearchResults = () => {
 
     return (
         <SearchPage>
+            <h1>Shop</h1>
             <SearchBarDiv>
                 <MagnifyIcon
                     onClick={() => {
                         if (query) {
                             search();
                         }
-                    }}
-                >
+                    }}>
                     <Magnifying stroke={theme.primary} strokeWidth="4" />
                 </MagnifyIcon>
                 <SearchBar
@@ -162,4 +160,3 @@ function calcTotalStock(product1) {
         return total;
     }, 0);
 }
-

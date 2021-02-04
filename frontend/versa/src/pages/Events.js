@@ -25,18 +25,9 @@ const Events = () => {
         setEvents(data);
     };
 
-    // const renderList = (events) => {
-    //     !events ? (
-    //         <Loading />
-    //     ) : events.length > 0 ? (
-    //         events.map((event) => <EventCard key={event.id} event={event} />)
-    //     ) : (
-    //         <NoResultsMessage>No results found</NoResultsMessage>
-    //     );
-    // };
-
     return (
         <EventsResults>
+            <h1>Events</h1>
             <SearchBarDiv>
                 <MagnifyIcon
                     onClick={() => {
@@ -77,7 +68,7 @@ export default Events;
 const EventsResults = styled.div`
     display: flex;
     flex-direction: column;
-    margin: 1.5em;
+    padding: 4%;
 `;
 
 const Results = styled.div`
