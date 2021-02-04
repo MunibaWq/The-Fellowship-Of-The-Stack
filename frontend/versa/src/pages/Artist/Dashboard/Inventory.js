@@ -9,7 +9,6 @@ import { AddIcon, EditIcon, DeleteIcon } from "../../../images/icons";
 import axios from "axios";
 import Loading from "../../../components/Reusable/Loading";
 import { DeleteProductModal } from "../../../components/Dashboard/DeleteProductModal";
-import StockTable from "./StockTable";
 
 const Dashboard = (currentProduct) => {
     const [results, setResults] = useState([]);
@@ -141,7 +140,6 @@ const Dashboard = (currentProduct) => {
                     display="none"
                 />
             )}
-            <StockTable formType="edit" />
         </div>
     );
 };
