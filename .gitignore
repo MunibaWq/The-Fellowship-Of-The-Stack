@@ -7,4 +7,4 @@ secret.js
 /.vs/The-Fellowship-Of-The-Stack/v16/.suo
 /.vs
 **/db/backup*.js*
-*.vs*
+*.vs*sendgrid.env

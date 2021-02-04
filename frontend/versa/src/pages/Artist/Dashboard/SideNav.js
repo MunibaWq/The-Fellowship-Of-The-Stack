@@ -21,7 +21,7 @@ import Pill from "../../../components/Reusable/Pill";
 const SideNav = ({ setNavWidth }) => {
     const [visiblePSub, setVisiblePSub] = useState(false);
     const [visibleASub, setVisibleASub] = useState(false);
-    const [expanded, setExpanded] = useState(true);
+    const [expanded, setExpanded] = useState(false);
 
     return (
         <Container>
@@ -30,8 +30,7 @@ const SideNav = ({ setNavWidth }) => {
                     onClick={() => {
                         setNavWidth(300);
                         setExpanded(true);
-                    }}
-                >
+                    }}>
                     <HamburgerIcon stroke={theme.secondary} />
                 </Toggle>
             )}
@@ -46,8 +45,7 @@ const SideNav = ({ setNavWidth }) => {
                             onClick={() => {
                                 setNavWidth(0);
                                 setExpanded(false);
-                            }}
-                        >
+                            }}>
                             <LineCloseIcon
                                 stroke={theme.primary}
                                 width="40"
@@ -112,8 +110,7 @@ const SideNav = ({ setNavWidth }) => {
                         </Link>
                         <li>
                             <MenuLink
-                                onClick={() => setVisiblePSub(!visiblePSub)}
-                            >
+                                onClick={() => setVisiblePSub(!visiblePSub)}>
                                 <Products />
                                 <h3>Products</h3>
                                 <DownIcon stroke={theme.primary} />
@@ -142,8 +139,7 @@ const SideNav = ({ setNavWidth }) => {
 
                         <li>
                             <MenuLink
-                                onClick={() => setVisibleASub(!visibleASub)}
-                            >
+                                onClick={() => setVisibleASub(!visibleASub)}>
                                 <Dashboard />
                                 <h3>Analytics</h3>
                                 <DownIcon stroke={theme.primary} />

@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import imageTest from "../../images/imageTest.png";
-import { Going, WishListIcon, Share, NotGoing } from "../../images/icons";
+import { Going, NotGoing } from "../../images/icons";
 import Button from "../Reusable/Button";
 import theme from "../Reusable/Colors";
 
 const EventCard = ({ theEvent }) => {
-    const [interested, setInterested] = useState(false);
+    //const [interested, setInterested] = useState(false);
     const [going, setGoing] = useState(false);
 
     let eventDate = new Date(theEvent.start_time);
@@ -31,6 +31,13 @@ const EventCard = ({ theEvent }) => {
 
     let endDate = eventEndDate.toLocaleDateString("en-US", options);
 
+    //TO DO:
+    //function to send data
+    //get user data
+    //create a variable that contains the user name, email, status (going, not going, interested), event name, event start date, event start time
+    // axios post to /mail/send
+    // event button, if user status = going, render the not going button. if user status = not going. render going button
+
     return (
         <CardContainer>
             {theEvent.thumbnail ? (
@@ -51,13 +58,13 @@ const EventCard = ({ theEvent }) => {
                 </Time>
                 <Stats>
                     <NumInterested>
-                        {theEvent.num_attendees} Interested
+                        {theEvent.num_interested} Interested
                     </NumInterested>
-                    <NumGoing>{theEvent.num_attendees} Going</NumGoing>
+                    <NumGoing>{theEvent.num_attending} Going</NumGoing>
                 </Stats>
             </Link>
             <Actions>
-                <ActionButton
+                {/**<ActionButton
                     onClick={() => {
                         setInterested((curr) => !curr);
                     }}>
@@ -78,7 +85,8 @@ const EventCard = ({ theEvent }) => {
                             <WishListIcon stroke={theme.primary} />
                         </div>
                     )}
-                </ActionButton>
+                    
+                </ActionButton>**/}
                 <ActionButton
                     onClick={() => {
                         setGoing((curr) => !curr);
@@ -90,9 +98,9 @@ const EventCard = ({ theEvent }) => {
                     )}
                     {going && <NotGoing />}
                 </ActionButton>
-                <ActionButton>
+                {/**} <ActionButton>
                     <Share stroke={theme.primary} />
-                </ActionButton>
+                    </ActionButton>**/}
             </Actions>
         </CardContainer>
     );
