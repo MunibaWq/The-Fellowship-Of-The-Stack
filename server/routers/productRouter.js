@@ -74,13 +74,13 @@ router.get("/test/:id", async (req, res, next) => {
 router.put("/put", async (req, res, next) => {
     try {
         const client = await pool.connect();
-        req.body.stock.forEach((obj) => {
-            let { id, quantity } = obj;
-            client.query(`UPDATE stock SET quantity = $1 WHERE id = $2`, [
+        for (const obj of req.body.stock) {
+            const { id, quantity } = obj;
+            await client.query(`UPDATE stock SET quantity = $1 WHERE id = $2`, [
                 quantity,
                 id,
             ]);
-        });
+        }
         client.release(true);
         res.json({ msg: "all good" });
     } catch (error) {
@@ -88,26 +88,7 @@ router.put("/put", async (req, res, next) => {
         res.send("error request failed");
     }
 });
-router.post("/post", async (req, res, next) => {
-    try {
-        const client = pool.connect();
-        req.body.stock.forEach((obj) => {
-            let { product_id, color, size, quantity } = obj;
-            client.query(
-                `
-            `,
-                []
-            );
-            client.release(true);
-            res.json({
-                msg: "successfully added new entries into stock table.",
-            });
-        });
-    } catch (error) {
-        console.log(error);
-        res.send("error request failed");
-    }
-});
+router.post("/post", async (req, res, next) => {});
 
 router.get("/artistsProducts/:id", async (req, res) => {
     try {

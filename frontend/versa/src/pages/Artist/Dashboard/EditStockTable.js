@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styled from "styled-components";
+import { useParams } from "react-router-dom";
+
 const EditStockTable = () => {
     const [stock, setStock] = useState([]);
+    const { id } = useParams();
 
     useEffect(() => {
         const getProductStock = async () => {
-            const res = await axios.get("/products/test");
+            const res = await axios.get("/products/test/" + id);
             setStock(res.data);
         };
         getProductStock();
@@ -51,7 +54,6 @@ const EditStockTable = () => {
                 {mapTable(stock)}
             </TableStyle>
             <button
-                type="submit"
                 onClick={() => {
                     axios.put("/products/put", {
                         stock,
