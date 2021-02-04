@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 
-import { useDispatch, useSelector } from "react-redux";
+// import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import DashCard from "./DashCard";
 import {
@@ -12,7 +12,8 @@ import {
     recentOrders,
 } from "./data";
 const DashboardMain = () => {
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
+    // const user = useSelector((state) => state.user);
     console.log(salesData);
     return (
         <DashboardContainer>
@@ -28,34 +29,35 @@ const DashboardMain = () => {
                     total="123"
                     totalLabel="orders"
                     title="Orders"
-                ></Orders>
+                    link="/dashboard/total-orders"></Orders>
                 <RecentOrders
                     dataTitle="5 most recent"
                     tableData={recentOrders}
                     total="12"
                     totalLabel="Unfulfilled"
                     title="Recent Orders"
-                ></RecentOrders>
+                    link="/dashboard/orders"></RecentOrders>
                 <SalesPerOrder
                     dataTitle="Average per week"
                     total="$107.23"
                     totalLabel="Average"
                     graphData={avgOrderData}
                     title={`Sales Per Order`}
-                ></SalesPerOrder>
+                    link="/dashboard/average-order-value"></SalesPerOrder>
                 <Inventory
                     dataTitle="5 lowest in stock"
                     total="7"
                     totalLabel="Low stock"
                     tableData={productData}
                     title="Inventory"
-                ></Inventory>
+                    link="/dashboard/inventory"></Inventory>
                 <SalesByProduct
                     dataTitle="Top 5 products"
                     total="$3.5k"
                     totalLabel="Top Product Sales"
                     pieData={salesByProductData}
                     title="Sales By Product"
+                    link="/dashboard/sales-by-product"
                 />
                 {/* <Profit>Small Card with number of total profit</Profit> */}
                 <MonthlySales
@@ -64,7 +66,7 @@ const DashboardMain = () => {
                     totalLabel="Total"
                     title="Monthly Sales"
                     graphData={salesData}
-                ></MonthlySales>
+                    link="/dashboard/total-sales"></MonthlySales>
                 {/* <Events>card showing 5 cards inside of upcoming events</Events> */}
             </StoreDash>
         </DashboardContainer>
@@ -76,17 +78,16 @@ const DashboardContainer = styled.div`
     background-color: #eff3fe;
 `;
 
-const UserDash = styled.div``;
 const Orders = styled(DashCard)``;
 const RecentOrders = styled(DashCard)``;
 const Inventory = styled(DashCard)``;
 const SalesPerOrder = styled(DashCard)``;
 const SalesByProduct = styled(DashCard)``;
-const Events = styled(DashCard)``;
+// const Events = styled(DashCard)``;
 const MonthlySales = styled(DashCard)``;
-const Profit = styled(DashCard)``;
-const History = styled(DashCard)``;
-const Wishlist = styled(DashCard)``;
+// const Profit = styled(DashCard)``;
+// const History = styled(DashCard)``;
+// const Wishlist = styled(DashCard)``;
 const StoreDash = styled.div`
     display: grid;
     margin: 1em;

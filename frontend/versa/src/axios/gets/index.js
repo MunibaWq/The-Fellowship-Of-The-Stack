@@ -36,3 +36,30 @@ export const searchProducts = async (query) => {
     let res = await Axios.get(host + "/products/search/" + query);
     return res.data;
 };
+
+export const searchEvents = async (searchQuery) => {
+    if (!searchQuery) {
+        return await getAllEvents();
+    }
+    let res = await Axios.get("events/search/" + searchQuery);
+    return res.data;
+};
+
+export const getAllEvents = async () => {
+    let res = await Axios.get("/events/allEvents/", {
+        headers: {
+            "Access-Control-Allow-Origin": "*",
+        },
+    });
+    return res.data;
+};
+
+export const getAllArtistEvents = async (id) => {
+    let res = await Axios.get("/events/artistsEvents/" + id);
+    return res.data;
+};
+
+export const getEventByID = async (id) => {
+    const response = await Axios.get("/events/get/" + id);
+    return response.data;
+};

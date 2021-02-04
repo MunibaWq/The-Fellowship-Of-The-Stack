@@ -5,8 +5,7 @@ export const NotGoing = ({ width, height, stroke }) => {
             height={height || "32"}
             viewBox="0 0 33 32"
             fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-        >
+            xmlns="http://www.w3.org/2000/svg">
             <path
                 d="M26.5 5H6.5C5.94772 5 5.5 5.44772 5.5 6V26C5.5 26.5523 5.94772 27 6.5 27H26.5C27.0523 27 27.5 26.5523 27.5 26V6C27.5 5.44772 27.0523 5 26.5 5Z"
                 stroke={stroke || "#444"}
@@ -46,8 +45,8 @@ export const NotGoing = ({ width, height, stroke }) => {
                 d="M19.5 22L13.5 16"
                 stroke={stroke || "#444"}
                 strokeWidth="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeLinecap="round"
+                strokeLinejoin="round"
             />
         </svg>
     );
@@ -60,8 +59,7 @@ export const Share = ({ width, height, stroke }) => {
             height={height || "32"}
             viewBox="0 0 32 32"
             fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-        >
+            xmlns="http://www.w3.org/2000/svg">
             <path
                 d="M10.75 10.2463L16 4.99634L21.25 10.2463"
                 stroke={stroke || "#444"}
@@ -94,14 +92,13 @@ export const Going = ({ width, height, stroke }) => {
             height={height || "32"}
             viewBox="0 0 33 32"
             fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-        >
+            xmlns="http://www.w3.org/2000/svg">
             <path
                 d="M26.5 5H6.5C5.94772 5 5.5 5.44772 5.5 6V26C5.5 26.5523 5.94772 27 6.5 27H26.5C27.0523 27 27.5 26.5523 27.5 26V6C27.5 5.44772 27.0523 5 26.5 5Z"
                 stroke={stroke || "#444"}
                 strokeWidth="2"
                 strokeLinecap="round"
-                stroke-linejoin="round"
+                strokeLinejoin="round"
             />
             <path
                 d="M22.5 3V7"
@@ -149,8 +146,7 @@ export const ShopHome = ({ width, height, stroke }) => {
             height={height || "32"}
             viewBox="0 0 32 32"
             fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-        >
+            xmlns="http://www.w3.org/2000/svg">
             <path
                 d="M6 17.4485V26C6 26.2652 6.10536 26.5195 6.29289 26.7071C6.48043 26.8946 6.73478 27 7 27H25C25.2652 27 25.5196 26.8946 25.7071 26.7071C25.8946 26.5195 26 26.2652 26 26V17.4487"
                 stroke={stroke || "#444"}
@@ -196,8 +192,7 @@ export const Products = ({ width, height, stroke }) => {
             width={width || "32"}
             height={height || "32"}
             fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-        >
+            xmlns="http://www.w3.org/2000/svg">
             <path
                 d="M15.333 3.235L5.251 5.25 3.235 15.333a1 1 0 00.273.903l13.057 13.057a1 1 0 001.414 0l11.314-11.314a1 1 0 000-1.414L16.236 3.508a1 1 0 00-.903-.273v0z"
                 stroke={stroke || "#444"}
@@ -219,8 +214,7 @@ export const Orders = ({ width, height, stroke }) => {
             width={width || "32"}
             height={height || "32"}
             fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-        >
+            xmlns="http://www.w3.org/2000/svg">
             <path
                 d="M16.119 16l-.133 12.851M27.486 21.916V10.084a1 1 0 00-.508-.871l-10.5-5.935a1 1 0 00-.984 0l-10.5 5.935a1 1 0 00-.508.87v11.833a1 1 0 00.508.871l10.5 5.935a1 1 0 00.984 0l10.5-5.935a1 1 0 00.508-.87v0z"
                 stroke={stroke || "#444"}
@@ -253,8 +247,7 @@ export const Setting = ({ width, height, stroke }) => {
             height={height || "32"}
             viewBox="0 0 32 32"
             fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-        >
+            xmlns="http://www.w3.org/2000/svg">
             <path
                 d="M16 23.0001C19.866 23.0001 23 19.8661 23 16.0001C23 12.1341 19.866 9.00006 16 9.00006C12.134 9.00006 9 12.1341 9 16.0001C9 19.8661 12.134 23.0001 16 23.0001Z"
                 stroke={stroke || "#444"}
@@ -279,8 +272,7 @@ export const Message = ({ width, height, stroke }) => {
             height={height || "32"}
             viewBox="0 0 32 32"
             fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-        >
+            xmlns="http://www.w3.org/2000/svg">
             <path
                 d="M4 7H28V24C28 24.2652 27.8946 24.5196 27.7071 24.7071C27.5196 24.8946 27.2652 25 27 25H5C4.73478 25 4.48043 24.8946 4.29289 24.7071C4.10536 24.5196 4 24.2652 4 24V7Z"
                 stroke={stroke || "#444"}
@@ -305,8 +297,7 @@ export const Notification = ({ width, height, stroke }) => {
             width={width || "32"}
             height={height || "32"}
             fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-        >
+            xmlns="http://www.w3.org/2000/svg">
             <path
                 d="M7.025 13a8.987 8.987 0 019.044-9c4.948.037 8.907 4.15 8.907 9.113V14c0 4.477.936 7.075 1.761 8.495a.999.999 0 01-.86 1.505H6.123a1 1 0 01-.86-1.506c.825-1.42 1.762-4.017 1.762-8.494v-1zM12 24v1a4 4 0 108 0v-1"
                 stroke={stroke || "#444"}
@@ -324,8 +315,7 @@ export const ShapesLogo = ({ width, height, triangle, circle, rectangle }) => {
             height={height || "40"}
             viewBox="0 0 432 359"
             fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-        >
+            xmlns="http://www.w3.org/2000/svg">
             <path
                 d="M0.0644531 160.377L248.54 -3.11531e-05L322.333 114.329L73.8577 274.706L0.0644531 160.377Z"
                 fill={rectangle || "none"}
@@ -349,8 +339,7 @@ export const Dashboard = ({ width, height, stroke, fill }) => {
             height={height || "32"}
             viewBox="0 0 32 32"
             fill={fill || "none"}
-            xmlns="http://www.w3.org/2000/svg"
-        >
+            xmlns="http://www.w3.org/2000/svg">
             <path
                 d="M28 26H4V6"
                 stroke={stroke || "#444444"}
@@ -383,8 +372,7 @@ export const WishListIcon = ({ width, height, stroke, fill }) => {
             height={height || "26"}
             viewBox="0 0 28 24"
             fill={fill || "none"}
-            xmlns="http://www.w3.org/2000/svg"
-        >
+            xmlns="http://www.w3.org/2000/svg">
             <path
                 d="M14 23C14 23 1.5 16 1.5 7.50001C1.50025 5.99768 2.02082 4.5418 2.97318 3.3799C3.92555 2.21801 5.25093 1.42181 6.72399 1.12669C8.19704 0.831559 9.72685 1.05572 11.0533 1.76105C12.3798 2.46638 13.421 3.60935 14 4.99563L14 4.99565C14.579 3.60936 15.6202 2.46639 16.9467 1.76106C18.2731 1.05572 19.8029 0.83156 21.276 1.12669C22.7491 1.42181 24.0745 2.21801 25.0268 3.3799C25.9792 4.5418 26.4997 5.99768 26.5 7.50001C26.5 16 14 23 14 23Z"
                 stroke={stroke || "#444444"}
@@ -402,8 +390,7 @@ export const FilterIcon = ({ width, height, stroke, fill }) => {
             height={height || "26"}
             viewBox="0 0 32 32"
             fill={fill || "none"}
-            xmlns="http://www.w3.org/2000/svg"
-        >
+            xmlns="http://www.w3.org/2000/svg">
             <path
                 d="M5.2605 6H26.7394C26.9331 6 27.1227 6.05627 27.285 6.16198C27.4474 6.26769 27.5755 6.41828 27.6539 6.59545C27.7323 6.77262 27.7575 6.96874 27.7265 7.15997C27.6955 7.35121 27.6097 7.52932 27.4793 7.67267L19.26 16.7139C19.0927 16.898 18.9999 17.1378 18.9999 17.3866V24.4648C18.9999 24.6294 18.9593 24.7915 18.8816 24.9367C18.8039 25.0818 18.6916 25.2055 18.5546 25.2969L14.5546 27.9635C14.404 28.0639 14.229 28.1216 14.0482 28.1303C13.8674 28.1391 13.6877 28.0986 13.5281 28.0132C13.3685 27.9278 13.2351 27.8006 13.1421 27.6454C13.0491 27.4901 12.9999 27.3125 12.9999 27.1315V17.3866C12.9999 17.1378 12.9072 16.898 12.7399 16.7139L4.52056 7.67267C4.39024 7.52932 4.30437 7.35121 4.27338 7.15997C4.24239 6.96874 4.26761 6.77262 4.34598 6.59545C4.42436 6.41828 4.55251 6.26769 4.71486 6.16198C4.87721 6.05627 5.06677 6 5.2605 6V6Z"
                 stroke={stroke || "black"}
@@ -421,8 +408,7 @@ export const SortIcon = ({ width, height, stroke, fill }) => {
             height={height || "26"}
             viewBox="0 0 32 32"
             fill={fill || "none"}
-            xmlns="http://www.w3.org/2000/svg"
-        >
+            xmlns="http://www.w3.org/2000/svg">
             <path
                 d="M18 20.9993L23 25.9993L27.9999 21"
                 stroke={stroke || "black"}
@@ -468,8 +454,7 @@ export const CategoriesIcon = ({ width, height, stroke, fill }) => {
             height={height || "26"}
             viewBox="0 0 32 32"
             fill={fill || "none"}
-            xmlns="http://www.w3.org/2000/svg"
-        >
+            xmlns="http://www.w3.org/2000/svg">
             <path
                 d="M11 8H27"
                 stroke={stroke || "black"}
@@ -513,8 +498,7 @@ export const Magnifying = ({ width, height, stroke, fill, strokeWidth }) => {
             height={height || "26"}
             viewBox="0 0 32 32"
             fill={fill || "none"}
-            xmlns="http://www.w3.org/2000/svg"
-        >
+            xmlns="http://www.w3.org/2000/svg">
             <path
                 d="M14.4998 25C20.2987 25 24.9998 20.299 24.9998 14.5C24.9998 8.70101 20.2987 4 14.4998 4C8.70077 4 3.99976 8.70101 3.99976 14.5C3.99976 20.299 8.70077 25 14.4998 25Z"
                 stroke={stroke || "black"}
@@ -539,8 +523,7 @@ export const Star = ({ width, height, stroke, fill }) => {
             height={height || "26"}
             viewBox="0 0 28 28"
             fill={stroke}
-            xmlns="http://www.w3.org/2000/svg"
-        >
+            xmlns="http://www.w3.org/2000/svg">
             <path
                 d="M14.5514 21.8416L20.8558 25.8358C21.6617 26.3464 22.6622 25.587 22.4231 24.6463L20.6016 17.481C20.5503 17.2815 20.5564 17.0715 20.6191 16.8752C20.6819 16.6789 20.7987 16.5044 20.9563 16.3715L26.6097 11.6661C27.3525 11.0478 26.9691 9.81502 26.0147 9.75308L18.6318 9.27392C18.4329 9.25971 18.2422 9.18931 18.0818 9.0709C17.9214 8.95249 17.7979 8.79095 17.7258 8.6051L14.9722 1.67097C14.8974 1.4737 14.7643 1.30387 14.5906 1.18403C14.417 1.06418 14.211 1 14 1C13.789 1 13.583 1.06418 13.4094 1.18403C13.2357 1.30387 13.1026 1.4737 13.0278 1.67097L10.2742 8.6051C10.2021 8.79095 10.0786 8.95249 9.91823 9.0709C9.75784 9.18931 9.5671 9.25971 9.36824 9.27392L1.98525 9.75308C1.03087 9.81502 0.647463 11.0478 1.3903 11.6661L7.04371 16.3715C7.20126 16.5044 7.31813 16.6789 7.38088 16.8752C7.44362 17.0715 7.4497 17.2815 7.39841 17.481L5.70918 24.126C5.42222 25.2549 6.62287 26.1661 7.58991 25.5534L13.4486 21.8416C13.6134 21.7367 13.8047 21.681 14 21.681C14.1953 21.681 14.3866 21.7367 14.5514 21.8416V21.8416Z"
                 stroke={stroke || "#444444"}
@@ -559,8 +542,7 @@ export const Circle = ({ width, height, stroke, fill }) => {
             height={height || "26"}
             viewBox="0 0 26 26"
             fill={fill || "none"}
-            xmlns="http://www.w3.org/2000/svg"
-        >
+            xmlns="http://www.w3.org/2000/svg">
             <path
                 d="M13 25C19.6274 25 25 19.6274 25 13C25 6.37258 19.6274 1 13 1C6.37258 1 1 6.37258 1 13C1 19.6274 6.37258 25 13 25Z"
                 stroke={stroke || "#444444"}
@@ -577,8 +559,7 @@ export const ArrowRight = ({ width, height, stroke, fill }) => {
             height={height || "26"}
             viewBox="0 0 32 32"
             fill={fill || "none"}
-            xmlns="http://www.w3.org/2000/svg"
-        >
+            xmlns="http://www.w3.org/2000/svg">
             <path
                 d="M5 16H27"
                 stroke={stroke || "#444444"}
@@ -604,8 +585,7 @@ export const ShoppingCart = ({ width, height, stroke, fill }) => {
             height={height || "26"}
             viewBox="0 0 32 33"
             fill={fill || "none"}
-            xmlns="http://www.w3.org/2000/svg"
-        >
+            xmlns="http://www.w3.org/2000/svg">
             <path
                 d="M24 23.521H8.56185C8.32766 23.521 8.1009 23.4388 7.9211 23.2887C7.7413 23.1387 7.61987 22.9303 7.57797 22.6999L4.2402 4.34211C4.19831 4.1117 4.07688 3.9033 3.89708 3.75324C3.71728 3.60319 3.49052 3.521 3.25633 3.521H1"
                 stroke={stroke || "#444444"}
@@ -645,8 +625,7 @@ export const HomeIcon = ({ width, height, stroke, fill }) => {
             height={height || "26"}
             viewBox="0 0 32 32"
             fill={fill || "none"}
-            xmlns="http://www.w3.org/2000/svg"
-        >
+            xmlns="http://www.w3.org/2000/svg">
             <path
                 d="M18.9993 25.9992V19.9991C18.9993 19.7339 18.8939 19.4795 18.7064 19.292C18.5188 19.1044 18.2645 18.9991 17.9993 18.9991H13.9993C13.7341 18.9991 13.4797 19.1044 13.2922 19.292C13.1046 19.4795 12.9993 19.7339 12.9993 19.9991V25.9992C12.9993 26.2644 12.8939 26.5187 12.7064 26.7063C12.5189 26.8938 12.2646 26.9992 11.9994 26.9992L6.00012 27C5.86879 27 5.73874 26.9741 5.6174 26.9239C5.49606 26.8737 5.38581 26.8 5.29294 26.7071C5.20007 26.6143 5.12639 26.504 5.07613 26.3827C5.02587 26.2614 5 26.1313 5 26V14.4424C5 14.3031 5.02911 14.1653 5.08547 14.0379C5.14183 13.9105 5.22418 13.7963 5.32726 13.7026L15.3266 4.6107C15.5106 4.44334 15.7505 4.35059 15.9993 4.35059C16.2481 4.35058 16.4879 4.44331 16.672 4.61066L26.6727 13.7025C26.7758 13.7963 26.8582 13.9105 26.9145 14.0379C26.9709 14.1653 27 14.3031 27 14.4425V26C27 26.1313 26.9741 26.2614 26.9239 26.3827C26.8736 26.504 26.7999 26.6143 26.7071 26.7071C26.6142 26.8 26.5039 26.8737 26.3826 26.9239C26.2613 26.9742 26.1312 27 25.9999 27L19.9991 26.9992C19.7339 26.9992 19.4796 26.8938 19.2921 26.7063C19.1046 26.5187 18.9993 26.2644 18.9993 25.9992V25.9992Z"
                 stroke={stroke || "#444444"}
@@ -665,8 +644,7 @@ export const EventsIcon = ({ width, height, stroke, fill }) => {
             height={height || "32"}
             viewBox="0 0 32 32"
             fill={fill || "none"}
-            xmlns="http://www.w3.org/2000/svg"
-        >
+            xmlns="http://www.w3.org/2000/svg">
             <path
                 d="M26 5H6C5.44772 5 5 5.44772 5 6V26C5 26.5523 5.44772 27 6 27H26C26.5523 27 27 26.5523 27 26V6C27 5.44772 26.5523 5 26 5Z"
                 stroke={stroke || "#444444"}
@@ -713,8 +691,7 @@ export const AccountIcon = ({ width, height, stroke, fill }) => {
             height={height || "26"}
             viewBox="0 0 32 32"
             fill={fill || "none"}
-            xmlns="http://www.w3.org/2000/svg"
-        >
+            xmlns="http://www.w3.org/2000/svg">
             <path
                 d="M16 20C20.4183 20 24 16.4183 24 12C24 7.58172 20.4183 4 16 4C11.5817 4 8 7.58172 8 12C8 16.4183 11.5817 20 16 20Z"
                 stroke={stroke || "#444444"}
@@ -740,8 +717,7 @@ export const CartIcon = ({ width, height, stroke, fill }) => {
             height={height || "26"}
             viewBox="0 0 32 32"
             fill={fill || "none"}
-            xmlns="http://www.w3.org/2000/svg"
-        >
+            xmlns="http://www.w3.org/2000/svg">
             <path
                 d="M24 23H8.56185C8.32766 23 8.1009 22.9178 7.9211 22.7678C7.7413 22.6177 7.61987 22.4093 7.57797 22.1789L4.2402 3.82112C4.19831 3.5907 4.07688 3.3823 3.89708 3.23225C3.71728 3.08219 3.49052 3 3.25633 3H1"
                 stroke={stroke || "#444444"}
@@ -780,8 +756,7 @@ export const ToolIcon = ({ width, height, stroke, fill }) => {
             height={height || "26"}
             viewBox="0 0 24 24"
             fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-        >
+            xmlns="http://www.w3.org/2000/svg">
             <path
                 fillRule="evenodd"
                 clipRule="evenodd"
@@ -799,8 +774,7 @@ export const RefreshIcon = ({ width, height, stroke, fill }) => {
             height={height || "26"}
             viewBox="0 0 24 24"
             fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-        >
+            xmlns="http://www.w3.org/2000/svg">
             <path
                 fillRule="evenodd"
                 clipRule="evenodd"
@@ -818,8 +792,7 @@ export const SearchIcon = ({ width, height, stroke, fill }) => {
             height={height || "26"}
             viewBox="0 0 24 24"
             fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-        >
+            xmlns="http://www.w3.org/2000/svg">
             <path
                 fillRule="evenodd"
                 clipRule="evenodd"
@@ -837,8 +810,7 @@ export const HeartIcon = ({ width, height, stroke, fill }) => {
             height={height || "26"}
             viewBox="0 0 24 24"
             fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-        >
+            xmlns="http://www.w3.org/2000/svg">
             <path
                 fillRule="evenodd"
                 clipRule="evenodd"
@@ -857,8 +829,7 @@ export const SettingIcon = ({ width, height, stroke, fill }) => {
             height={height || "26"}
             viewBox="0 0 24 24"
             fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-        >
+            xmlns="http://www.w3.org/2000/svg">
             <path
                 fillRule="evenodd"
                 clipRule="evenodd"
@@ -876,8 +847,7 @@ export const VisibleIcon = ({ width, height, stroke, fill }) => {
             height={height || "26"}
             viewBox="0 0 24 24"
             fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-        >
+            xmlns="http://www.w3.org/2000/svg">
             <path
                 fillRule="evenodd"
                 clipRule="evenodd"
@@ -895,8 +865,7 @@ export const FilledTickIcon = ({ width, height, stroke, fill }) => {
             height={height || "26"}
             viewBox="0 0 24 24"
             fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-        >
+            xmlns="http://www.w3.org/2000/svg">
             <path
                 fillRule="evenodd"
                 clipRule="evenodd"
@@ -914,8 +883,7 @@ export const OutlineTickIcon = ({ width, height, stroke, fill }) => {
             height={height || "26"}
             viewBox="0 0 24 24"
             fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-        >
+            xmlns="http://www.w3.org/2000/svg">
             <path
                 fillRule="evenodd"
                 clipRule="evenodd"
@@ -933,8 +901,7 @@ export const TickIcon = ({ width, height, stroke, fill }) => {
             height={height || "26"}
             viewBox="0 0 24 24"
             fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-        >
+            xmlns="http://www.w3.org/2000/svg">
             <path
                 fillRule="evenodd"
                 clipRule="evenodd"
@@ -952,8 +919,7 @@ export const MiniburgerIcon = ({ width, height, stroke, fill }) => {
             height={height || "26"}
             viewBox="0 0 24 24"
             fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-        >
+            xmlns="http://www.w3.org/2000/svg">
             <path
                 fillRule="evenodd"
                 clipRule="evenodd"
@@ -972,8 +938,7 @@ export const FilledBookmarkIcon = ({ width, height, stroke, fill }) => {
             height={height || "26"}
             viewBox="0 0 24 24"
             fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-        >
+            xmlns="http://www.w3.org/2000/svg">
             <path
                 fillRule="evenodd"
                 clipRule="evenodd"
@@ -992,8 +957,7 @@ export const OutlineBookmarkIcon = ({ width, height, stroke, fill }) => {
             height={height || "26"}
             viewBox="0 0 24 24"
             fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-        >
+            xmlns="http://www.w3.org/2000/svg">
             <path
                 fillRule="evenodd"
                 clipRule="evenodd"
@@ -1012,8 +976,7 @@ export const FilledErrorIcon = ({ width, height, stroke, fill }) => {
             height={height || "26"}
             viewBox="0 0 24 24"
             fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-        >
+            xmlns="http://www.w3.org/2000/svg">
             <path
                 fillRule="evenodd"
                 clipRule="evenodd"
@@ -1032,8 +995,7 @@ export const OutlineErrorIcon = ({ width, height, stroke, fill }) => {
             height={height || "26"}
             viewBox="0 0 24 24"
             fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-        >
+            xmlns="http://www.w3.org/2000/svg">
             <path
                 fillRule="evenodd"
                 clipRule="evenodd"
@@ -1052,8 +1014,7 @@ export const AlarmBellErrorIcon = ({ width, height, stroke, fill }) => {
             height={height || "26"}
             viewBox="0 0 24 24"
             fill={stroke}
-            xmlns="http://www.w3.org/2000/svg"
-        >
+            xmlns="http://www.w3.org/2000/svg">
             <path
                 fill-rule="evenodd"
                 clipRule="evenodd"
@@ -1072,8 +1033,7 @@ export const AddIcon = ({ width, height, stroke, fill }) => {
             height={height || "26"}
             viewBox="0 0 24 24"
             fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-        >
+            xmlns="http://www.w3.org/2000/svg">
             <path
                 fillRule="evenodd"
                 clipRule="evenodd"
@@ -1092,8 +1052,7 @@ export const CopyIcon = ({ width, height, stroke, fill }) => {
             height={height || "26"}
             viewBox="0 0 24 24"
             fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-        >
+            xmlns="http://www.w3.org/2000/svg">
             <path
                 fillRule="evenodd"
                 clipRule="evenodd"
@@ -1111,8 +1070,7 @@ export const LinkIcon = ({ width, height, stroke, fill }) => {
             height={height || "26"}
             viewBox="0 0 24 24"
             fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-        >
+            xmlns="http://www.w3.org/2000/svg">
             <path
                 fillRule="evenodd"
                 clipRule="evenodd"
@@ -1130,8 +1088,7 @@ export const EditIcon = ({ width, height, stroke, fill }) => {
             height={height || "26"}
             viewBox="0 0 24 24"
             fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-        >
+            xmlns="http://www.w3.org/2000/svg">
             <path
                 fillRule="evenodd"
                 clipRule="evenodd"
@@ -1150,8 +1107,7 @@ export const LocationIcon = ({ width, height, stroke, fill }) => {
             height={height || "26"}
             viewBox="0 0 24 24"
             fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-        >
+            xmlns="http://www.w3.org/2000/svg">
             <path
                 fillRule="evenodd"
                 clipRule="evenodd"
@@ -1170,8 +1126,7 @@ export const ReturnIcon = ({ width, height, stroke, fill }) => {
             height={height || "26"}
             viewBox="0 0 24 24"
             fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-        >
+            xmlns="http://www.w3.org/2000/svg">
             <path
                 fillRule="evenodd"
                 clipRule="evenodd"
@@ -1190,8 +1145,7 @@ export const HamburgerIcon = ({ width, height, stroke, fill }) => {
             height={height || "26"}
             viewBox="0 0 24 24"
             fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-        >
+            xmlns="http://www.w3.org/2000/svg">
             <path
                 fillRule="evenodd"
                 clipRule="evenodd"
@@ -1210,8 +1164,7 @@ export const LayOptionsIcon = ({ width, height, stroke, fill }) => {
             height={height || "26"}
             viewBox="0 0 24 24"
             fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-        >
+            xmlns="http://www.w3.org/2000/svg">
             <path
                 fillRule="evenodd"
                 clipRule="evenodd"
@@ -1230,8 +1183,7 @@ export const StandOptionsIcon = ({ width, height, stroke, fill }) => {
             height={height || "26"}
             viewBox="0 0 24 24"
             fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-        >
+            xmlns="http://www.w3.org/2000/svg">
             <path
                 fillRule="evenodd"
                 clipRule="evenodd"
@@ -1250,8 +1202,7 @@ export const FilledLeftIcon = ({ width, height, stroke, fill }) => {
             height={height || "26"}
             viewBox="0 0 24 24"
             fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-        >
+            xmlns="http://www.w3.org/2000/svg">
             <path
                 fillRule="evenodd"
                 clipRule="evenodd"
@@ -1270,8 +1221,7 @@ export const FilledRightIcon = ({ width, height, stroke, fill }) => {
             height={height || "26"}
             viewBox="0 0 24 24"
             fill={stroke}
-            xmlns="http://www.w3.org/2000/svg"
-        >
+            xmlns="http://www.w3.org/2000/svg">
             <path
                 fillRule="evenodd"
                 clipRule="evenodd"
@@ -1289,8 +1239,7 @@ export const FilledUpIcon = ({ width, height, stroke, fill }) => {
             height={height || "26"}
             viewBox="0 0 24 24"
             fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-        >
+            xmlns="http://www.w3.org/2000/svg">
             <path
                 fillRule="evenodd"
                 clipRule="evenodd"
@@ -1309,8 +1258,7 @@ export const FilledDownIcon = ({ width, height, stroke, fill }) => {
             height={height || "26"}
             viewBox="0 0 24 24"
             fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-        >
+            xmlns="http://www.w3.org/2000/svg">
             <path
                 fillRule="evenodd"
                 clipRule="evenodd"
@@ -1328,8 +1276,7 @@ export const CloseIcon = ({ width, height, stroke, fill }) => {
             height={height || "26"}
             viewBox="0 0 24 24"
             fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-        >
+            xmlns="http://www.w3.org/2000/svg">
             <path
                 fillRule="evenodd"
                 clipRule="evenodd"
@@ -1348,8 +1295,7 @@ export const AppsIcon = ({ width, height, stroke, fill }) => {
             height={height || "26"}
             viewBox="0 0 24 24"
             fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-        >
+            xmlns="http://www.w3.org/2000/svg">
             <path
                 fillRule="evenodd"
                 clipRule="evenodd"
@@ -1367,8 +1313,7 @@ export const FullscreenIcon = ({ width, height, stroke, fill }) => {
             height={height || "26"}
             viewBox="0 0 24 24"
             fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-        >
+            xmlns="http://www.w3.org/2000/svg">
             <path
                 fillRule="evenodd"
                 clipRule="evenodd"
@@ -1386,8 +1331,7 @@ export const ExitFullscreenIcon = ({ width, height, stroke, fill }) => {
             height={height || "26"}
             viewBox="0 0 24 24"
             fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-        >
+            xmlns="http://www.w3.org/2000/svg">
             <path
                 fillRule="evenodd"
                 clipRule="evenodd"
@@ -1402,8 +1346,7 @@ export const ExitFullscreenIcon = ({ width, height, stroke, fill }) => {
                 x="5"
                 y="5"
                 width={width || "26"}
-                height={height || "26"}
-            >
+                height={height || "26"}>
                 <path
                     fillRule="evenodd"
                     clipRule="evenodd"
@@ -1422,8 +1365,7 @@ export const LeftIcon = ({ width, height, stroke, fill }) => {
             height={height || "26"}
             viewBox="0 0 24 24"
             fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-        >
+            xmlns="http://www.w3.org/2000/svg">
             <path
                 fillRule="evenodd"
                 clipRule="evenodd"
@@ -1441,8 +1383,7 @@ export const RightIcon = ({ width, height, stroke, fill }) => {
             height={height || "26"}
             viewBox="0 0 24 24"
             fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-        >
+            xmlns="http://www.w3.org/2000/svg">
             <path
                 fillRule="evenodd"
                 clipRule="evenodd"
@@ -1460,8 +1401,7 @@ export const UpIcon = ({ width, height, stroke, fill }) => {
             height={height || "26"}
             viewBox="0 0 24 24"
             fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-        >
+            xmlns="http://www.w3.org/2000/svg">
             <path
                 fillRule="evenodd"
                 clipRule="evenodd"
@@ -1480,8 +1420,7 @@ export const DownIcon = ({ width, height, stroke, fill }) => {
             height={height || "26"}
             viewBox="0 0 24 24"
             fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-        >
+            xmlns="http://www.w3.org/2000/svg">
             <path
                 fillRule="evenodd"
                 clipRule="evenodd"
@@ -1499,8 +1438,7 @@ export const LineCloseIcon = ({ width, height, stroke, fill }) => {
             height={height || "26"}
             viewBox="0 0 24 24"
             fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-        >
+            xmlns="http://www.w3.org/2000/svg">
             <path
                 fillRule="evenodd"
                 clipRule="evenodd"
@@ -1519,8 +1457,7 @@ export const FilledDropdownIcon = ({ width, height, stroke, fill }) => {
             height={height || "26"}
             viewBox="0 0 24 24"
             fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-        >
+            xmlns="http://www.w3.org/2000/svg">
             <path
                 fillRule="evenodd"
                 clipRule="evenodd"
@@ -1539,8 +1476,7 @@ export const FilledNotifyIcon = ({ width, height, stroke, fill }) => {
             height={height || "26"}
             viewBox="0 0 24 24"
             fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-        >
+            xmlns="http://www.w3.org/2000/svg">
             <path
                 fillRule="evenodd"
                 clipRule="evenodd"
@@ -1558,8 +1494,7 @@ export const LineNotifyIcon = ({ width, height, stroke, fill }) => {
             height={height || "26"}
             viewBox="0 0 24 24"
             fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-        >
+            xmlns="http://www.w3.org/2000/svg">
             <path
                 fillRule="evenodd"
                 clipRule="evenodd"
@@ -1577,8 +1512,7 @@ export const ShareIcon = ({ width, height, stroke, fill }) => {
             height={height || "26"}
             viewBox="0 0 24 24"
             fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-        >
+            xmlns="http://www.w3.org/2000/svg">
             <path
                 fillRule="evenodd"
                 clipRule="evenodd"
@@ -1597,8 +1531,7 @@ export const CheckedBoxIcon = ({ width, height, stroke, fill }) => {
             height={height || "26"}
             viewBox="0 0 24 24"
             fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-        >
+            xmlns="http://www.w3.org/2000/svg">
             <path
                 fillRule="evenodd"
                 clipRule="evenodd"
@@ -1616,8 +1549,7 @@ export const RemoveIcon = ({ width, height, stroke, fill }) => {
             height={height || "26"}
             viewBox="0 0 24 24"
             fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-        >
+            xmlns="http://www.w3.org/2000/svg">
             <path
                 fillRule="evenodd"
                 clipRule="evenodd"
@@ -1635,8 +1567,7 @@ export const FilledRadioIcon = ({ width, height, stroke, fill }) => {
             height={height || "26"}
             viewBox="0 0 24 24"
             fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-        >
+            xmlns="http://www.w3.org/2000/svg">
             <path
                 fill-rule="evenodd"
                 clipRule="evenodd"
@@ -1655,8 +1586,7 @@ export const RadioIcon = ({ width, height, stroke, fill }) => {
             height={height || "26"}
             viewBox="0 0 24 24"
             fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-        >
+            xmlns="http://www.w3.org/2000/svg">
             <path
                 fillRule="evenodd"
                 clipRule="evenodd"
@@ -1675,8 +1605,7 @@ export const FilledStarIcon = ({ width, height, stroke, fill }) => {
             height={height || "26"}
             viewBox="0 0 24 24"
             fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-        >
+            xmlns="http://www.w3.org/2000/svg">
             <path
                 fillRule="evenodd"
                 clipRule="evenodd"
@@ -1695,8 +1624,7 @@ export const StarIcon = ({ width, height, stroke, fill }) => {
             height={height || "26"}
             viewBox="0 0 24 24"
             fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-        >
+            xmlns="http://www.w3.org/2000/svg">
             <path
                 fillRule="evenodd"
                 clipRule="evenodd"
@@ -1714,8 +1642,7 @@ export const HalfStarIcon = ({ width, height, stroke, fill }) => {
             height={height || "26"}
             viewBox="0 0 24 24"
             fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-        >
+            xmlns="http://www.w3.org/2000/svg">
             <path
                 fillRule="evenodd"
                 clipRule="evenodd"
@@ -1747,16 +1674,14 @@ export const VersaIcon = ({
             height={height || "40"}
             xmlns="http://www.w3.org/2000/svg"
             xmlnssvg="http://www.w3.org/2000/svg"
-            xmlnsXlink="http://www.w3.org/1999/xlink"
-        >
+            xmlnsXlink="http://www.w3.org/1999/xlink">
             <defs>
                 <symbol
                     height={height || "40"}
                     id="svg_1"
                     viewBox="0 0 566 111"
                     width={width || "40"}
-                    xmlns="http://www.w3.org/2000/svg"
-                >
+                    xmlns="http://www.w3.org/2000/svg">
                     <path
                         d="m114.864,5.20024l-43.632,100.79976l-23.04,0l-43.488,-100.79976l25.2,0l30.672,71.99996l31.104,-71.99996l23.184,0zm97.264,82.07996l0,18.7198l-78.048,0l0,-100.79976l76.176,0l0,18.71996l-52.992,0l0,21.888l46.8,0l0,18.144l-46.8,0l0,23.328l54.864,0zm93.586,18.7198l-19.44,-28.0798l-1.152,0l-20.304,0l0,28.0798l-23.328,0l0,-100.79976l43.632,0c8.928,0 16.656,1.488 23.184,4.464c6.624,2.97596 11.712,7.19996 15.264,12.67196c3.552,5.472 5.328,11.952 5.328,19.44c0,7.488 -1.824,13.968 -5.472,19.44c-3.552,5.376 -8.64,9.504 -15.264,12.384l22.608,32.3998l-25.056,0zm-0.432,-64.2238c0,-5.664 -1.824,-9.984 -5.472,-12.96c-3.648,-3.072 -8.976,-4.608 -15.984,-4.608l-19.008,0l0,35.136l19.008,0c7.008,0 12.336,-1.536 15.984,-4.608c3.648,-3.072 5.472,-7.392 5.472,-12.96zm86.018,65.9518c-7.968,0 -15.696,-1.056 -23.184,-3.168c-7.392,-2.208 -13.344,-5.0398 -17.856,-8.4958l7.92,-17.568c4.32,3.168 9.456,5.712 15.408,7.632c5.952,1.92 11.904,2.88 17.856,2.88c6.624,0 11.52,-0.96 14.688,-2.88c3.168,-2.016 4.752,-4.656 4.752,-7.92c0,-2.4 -0.96,-4.368 -2.88,-5.904c-1.824,-1.632 -4.224,-2.928 -7.2,-3.888c-2.88,-0.96 -6.816,-2.016 -11.808,-3.168c-7.68,-1.824 -13.968,-3.648 -18.864,-5.472c-4.896,-1.824 -9.12,-4.752 -12.672,-8.784c-3.456,-4.032 -5.184,-9.408 -5.184,-16.128c0,-5.856 1.584,-11.136 4.752,-15.84c3.168,-4.8 7.92,-8.592 14.256,-11.37596c6.432,-2.784 14.256,-4.176 23.472,-4.176c6.432,0 12.72,0.768 18.864,2.304c6.144,1.536 11.52,3.744 16.128,6.62396l-7.2,17.712c-9.312,-5.28 -18.624,-7.92 -27.936,-7.92c-6.528,0 -11.376,1.056 -14.544,3.168c-3.072,2.112 -4.608,4.896 -4.608,8.352c0,3.456 1.776,6.048 5.328,7.776c3.648,1.632 9.168,3.264 16.56,4.896c7.68,1.824 13.968,3.648 18.864,5.472c4.896,1.824 9.072,4.704 12.528,8.64c3.552,3.936 5.328,9.264 5.328,15.984c0,5.76 -1.632,11.04 -4.896,15.84c-3.168,4.704 -7.968,8.4478 -14.4,11.2318c-6.432,2.784 -14.256,4.176 -23.472,4.176zm135.892,-23.3278l-46.8,0l-8.928,21.5998l-23.904,0l44.928,-100.79976l23.04,0l45.072,100.79976l-24.48,0l-8.928,-21.5998zm-7.344,-17.712l-15.984,-38.592l-15.984,38.592l31.968,0z"
                         fill={textFill || "#444444"}
@@ -1771,8 +1696,7 @@ export const VersaIcon = ({
                     id="rect"
                     viewBox="0 0 356 303"
                     width={width || "40"}
-                    xmlns="http://www.w3.org/2000/svg"
-                >
+                    xmlns="http://www.w3.org/2000/svg">
                     <rect
                         height={height || "40"}
                         stroke={rectStroke || "none"}
@@ -1787,8 +1711,7 @@ export const VersaIcon = ({
                     id="triangle"
                     viewBox="0 0 220 191"
                     width={width || ""}
-                    xmlns="http://www.w3.org/2000/svg"
-                >
+                    xmlns="http://www.w3.org/2000/svg">
                     <path
                         d="m0.8808,190l109.1192,-189.00012l109.119,189.00012l-218.2382,0z"
                         stroke={triangleStroke || "none"}
@@ -1799,8 +1722,7 @@ export const VersaIcon = ({
                     id="circle"
                     viewBox="0 0 151 151"
                     width={width || "26"}
-                    xmlns="http://www.w3.org/2000/svg"
-                >
+                    xmlns="http://www.w3.org/2000/svg">
                     <circle
                         cx="75.5"
                         cy="75.4999"
@@ -1868,16 +1790,14 @@ export const OtherVersaLogo = ({
             viewBox="0 0 450 450"
             width={width || "26"}
             height={height || "26"}
-            xmlns="http://www.w3.org/2000/svg"
-        >
+            xmlns="http://www.w3.org/2000/svg">
             <defs>
                 <symbol
                     height={height || "26"}
                     id="svg_6"
                     viewBox="0 0 220 191"
                     width={width || "26"}
-                    xmlns="http://www.w3.org/2000/svg"
-                >
+                    xmlns="http://www.w3.org/2000/svg">
                     {/* triangle  */}
                     <path
                         d="m0.8808,190l109.1192,-189.00012l109.119,189.00012l-218.2382,0z"
@@ -1890,8 +1810,7 @@ export const OtherVersaLogo = ({
                     id="svg_9"
                     viewBox="0 0 356 303"
                     width={width || "26"}
-                    xmlns="http://www.w3.org/2000/svg"
-                >
+                    xmlns="http://www.w3.org/2000/svg">
                     {/* rect  */}
                     <rect
                         height={height || "26"}
@@ -1908,8 +1827,7 @@ export const OtherVersaLogo = ({
                     id="svg_16"
                     viewBox="0 0 545 147"
                     width={width || "26"}
-                    xmlns="http://www.w3.org/2000/svg"
-                >
+                    xmlns="http://www.w3.org/2000/svg">
                     {/* versa  */}
                     <path
                         d="m120,2.19987l-51,142.80013l-18,0l-51,-142.80013l18.8,0l32.2,91.60003c2.1333,5.8666 3.9333,11.4001 5.4,16.6001c1.4667,5.067 2.6667,9.933 3.6,14.6c0.9333,-4.667 2.1333,-9.6 3.6,-14.8c1.4667,-5.2 3.2667,-10.8001 5.4,-16.8001l32,-91.20003l19,0zm87.122,142.80013l-79.8,0l0,-142.80013l79.8,0l0,15.80003l-61.8,0l0,44.6l58.2,0l0,15.6l-58.2,0l0,51.0001l61.8,0l0,15.8zm58.733,-142.80013c17.733,0 30.8,3.4 39.2,10.20003c8.533,6.6666 12.8,16.8 12.8,30.4c0,7.6 -1.4,13.9333 -4.2,19c-2.8,5.0666 -6.4,9.1333 -10.8,12.2c-4.267,2.9333 -8.8,5.2666 -13.6,7l39.2,64.0001l-21,0l-34.6,-59.0001l-28.4,0l0,59.0001l-18,0l0,-142.80013l39.4,0zm-1,15.60003l-20.4,0l0,53l21.4,0c11.6,0 20.066,-2.2667 25.4,-6.8c5.333,-4.6667 8,-11.4667 8,-20.4c0,-9.3334 -2.8,-15.9334 -8.4,-19.8c-5.6,-4 -14.267,-6 -26,-6zm155.014,89.0001c0,12.667 -4.6,22.533 -13.8,29.6c-9.2,7.067 -21.6,10.6 -37.2,10.6c-8,0 -15.4,-0.6 -22.2,-1.8c-6.8,-1.2 -12.467,-2.867 -17,-5l0,-17.2c4.8,2.133 10.733,4.067 17.8,5.8c7.2,1.733 14.6,2.6 22.2,2.6c10.666,0 18.666,-2.067 24,-6.2c5.466,-4.133 8.2,-9.733 8.2,-16.8c0,-4.667 -1,-8.6001 -3,-11.8001c-2,-3.2 -5.467,-6.1334 -10.4,-8.8c-4.8,-2.8 -11.534,-5.7334 -20.2,-8.8c-12.134,-4.4 -21.334,-9.8 -27.6,-16.2c-6.134,-6.4 -9.2,-15.1334 -9.2,-26.2c0,-7.6 1.933,-14.0667 5.8,-19.4c3.866,-5.4667 9.2,-9.66669 16,-12.60003c6.933,-2.93333 14.866,-4.4 23.8,-4.4c7.866,0 15.066,0.73333 21.6,2.2c6.533,1.46667 12.466,3.4 17.8,5.8l-5.6,15.40003c-4.934,-2.1334 -10.334,-3.9334 -16.2,-5.4c-5.734,-1.4667 -11.734,-2.2 -18,-2.2c-8.934,0 -15.667,1.9333 -20.2,5.8c-4.534,3.7333 -6.8,8.7333 -6.8,15c0,4.8 1,8.8 3,12c2,3.2 5.266,6.0666 9.8,8.6c4.533,2.5333 10.666,5.2666 18.4,8.2c8.4,3.0666 15.466,6.4 21.2,10c5.866,3.4666 10.266,7.6666 13.2,12.6c3.066,4.9333 4.6,11.1333 4.6,18.6001zm106.365,38.2l-17.2,-44.2l-56.6,0l-17,44.2l-18.2,0l55.8,-143.40012l16.2,0l55.6,143.40012l-18.6,0zm-38.6,-103.4001c-0.4,-1.0667 -1.066,-3 -2,-5.8c-0.933,-2.8 -1.866,-5.6667 -2.8,-8.6c-0.8,-3.0667 -1.466,-5.4 -2,-7c-0.933,4.1333 -2,8.2 -3.2,12.2c-1.2,3.8666 -2.2,6.9333 -3,9.2l-16.2,43.2l45.2,0l-16,-43.2z"
@@ -1964,8 +1882,7 @@ export const DeleteIcon = ({ width, height, stroke, fill }) => {
             height={height || "26"}
             viewBox="0 0 50 50"
             fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-        >
+            xmlns="http://www.w3.org/2000/svg">
             <path
                 d="M25 7L7 25"
                 stroke={stroke || "#444"}

@@ -1,30 +1,66 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 import imageTest from "../../images/imageTest.png";
 import { Going, WishListIcon, Share, NotGoing } from "../../images/icons";
 import Button from "../Reusable/Button";
 import theme from "../Reusable/Colors";
 
-const EventCard = () => {
+const EventCard = ({ theEvent }) => {
     const [interested, setInterested] = useState(false);
     const [going, setGoing] = useState(false);
 
+    let eventDate = new Date(theEvent.start_time);
+    let startTime = eventDate.toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit",
+    });
+    let options = {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+    };
+    let startDate = eventDate.toLocaleDateString("en-US", options);
+
+    let eventEndDate = new Date(theEvent.end_time);
+    let endTime = eventEndDate.toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit",
+    });
+
+    let endDate = eventEndDate.toLocaleDateString("en-US", options);
+
     return (
         <CardContainer>
-            <Thumbnail src={imageTest} />
-            <Name>Meet the owner: Wonderland</Name>
-            <Date>Sat Feb 14 - Sunday Feb 15</Date>
-            <Time>6:00 PM MST</Time>
-            <Stats>
-                <NumInterested>20 Interested</NumInterested>
-                <NumGoing>135 Interested</NumGoing>
-            </Stats>
+            {theEvent.thumbnail ? (
+                <Link to={`/events/${theEvent.id}`}>
+                    <Thumbnail src={theEvent.thumbnail} />
+                </Link>
+            ) : (
+                <Thumbnail src={imageTest} />
+            )}
+            <Link to={`/events/${theEvent.id}`}>
+                <Name>{theEvent.name}</Name>
+                <Host>{theEvent.host_name}</Host>
+                <EventDate>
+                    {startDate === endDate ? startDate : startDate - endDate}
+                </EventDate>
+                <Time>
+                    {startTime} - {endTime}
+                </Time>
+                <Stats>
+                    <NumInterested>
+                        {theEvent.num_attendees} Interested
+                    </NumInterested>
+                    <NumGoing>{theEvent.num_attendees} Going</NumGoing>
+                </Stats>
+            </Link>
             <Actions>
                 <ActionButton
                     onClick={() => {
                         setInterested((curr) => !curr);
-                    }}
-                >
+                    }}>
                     {interested && (
                         <div>
                             <WishListIcon
@@ -39,29 +75,23 @@ const EventCard = () => {
                     )}
                     {!interested && (
                         <div>
-                            <WishListIcon
-                                fill="white"
-                                stroke={theme.primary}
-                                width="33"
-                                height="33"
-                            />
+                            <WishListIcon stroke={theme.primary} />
                         </div>
                     )}
                 </ActionButton>
                 <ActionButton
                     onClick={() => {
                         setGoing((curr) => !curr);
-                    }}
-                >
+                    }}>
                     {!going && (
                         <div>
-                            <Going width="33" height="33" />
+                            <Going stroke={theme.primary} />
                         </div>
                     )}
-                    {going && <NotGoing width="33" height="33" />}
+                    {going && <NotGoing />}
                 </ActionButton>
                 <ActionButton>
-                    <Share width="33" height="33" />
+                    <Share stroke={theme.primary} />
                 </ActionButton>
             </Actions>
         </CardContainer>
@@ -83,7 +113,11 @@ const Name = styled.h2`
     width: 250px;
     margin-top: 10px;
 `;
-const Date = styled.p`
+const Host = styled.h3`
+    width: 250px;
+    margin-top: 10px;
+`;
+const EventDate = styled.p`
     margin-bottom: 5px;
 `;
 const Time = styled.p``;
@@ -113,5 +147,12 @@ const ActionButton = styled(Button)`
     }
     p {
         font-size: 0.5em;
+    }
+    div {
+        svg {
+            path {
+                fill: ${(props) => props.fill};
+            }
+        }
     }
 `;

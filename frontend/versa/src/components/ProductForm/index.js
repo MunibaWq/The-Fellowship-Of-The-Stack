@@ -3,6 +3,7 @@ import { Redirect, useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { TextField } from "../Reusable/Input";
 import Button from "../Reusable/Button";
+import theme from "../Reusable/Colors";
 import { AddIcon, LineCloseIcon } from "../../images/icons";
 //import { deleteImage } from "../axios/deletes";
 import { clearFormInputs, setFormInputs } from "../../redux/actions/Forms";
@@ -216,7 +217,7 @@ const ProductForm = (props) => {
                             );
                         }}>
                         Add
-                        <AddIcon />
+                        <AddIcon stroke={theme.primary} />
                     </Button>
                 </ColorDiv>
                 <SizeDiv
@@ -247,7 +248,7 @@ const ProductForm = (props) => {
                             dispatch(setVisible("productForm", "sizes", true));
                         }}>
                         Add
-                        <AddIcon />
+                        <AddIcon stroke={theme.primary} />
                     </Button>
                     <EditStockTable />
                 </SizeDiv>
@@ -275,7 +276,7 @@ const ProductForm = (props) => {
                 <Container>
                     <Button onClick={clearField}>
                         Cancel
-                        <LineCloseIcon />
+                        <LineCloseIcon stroke={theme.primary} />
                     </Button>
                     <Button
                         primary
