@@ -95,7 +95,8 @@ router.get("/artistsEvents/:id", async (req, res) => {
 router.get("/allEvents", async (req, res) => {
     try {
         const result = await pool.query(`SELECT 
-        CAST(c.count AS INT) AS num_attendees,
+        CAST(c.count AS INT) AS num_attending,
+        CAST(i.count AS INT) AS num_interested,
         u.username AS host_name,
         e.*  
         FROM 
@@ -105,8 +106,19 @@ router.get("/allEvents", async (req, res) => {
             FROM events_attendees a 
             INNER JOIN events e 
             ON a.event = e.id 
-            GROUP BY a.event) c
+            WHERE a.status = 'attending'
+            GROUP BY a.event ) c
+            
+       
         ON e.id = c.event
+        INNER JOIN
+            (SELECT a.event, COUNT(*)
+            FROM events_attendees a
+            INNER JOIN events e
+            ON a.event = e.id
+            WHERE a.status = 'interested'
+            GROUP BY a.event) i
+        ON e.id = i.event
         INNER JOIN
         users u
         ON u.id = e.host`);
