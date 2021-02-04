@@ -38,12 +38,12 @@ router.get("/get/:id", async (req, res) => {
             FROM 
             events e 
             INNER JOIN 
-                (SELECT a.event,COUNT(*) 
+                (SELECT a.event_id,COUNT(*) 
                 FROM events_attendees a 
                 INNER JOIN events e 
-                ON a.event = e.id 
-                GROUP BY a.event) c
-            ON e.id = c.event
+                ON a.event_id = e.id 
+                GROUP BY a.event_id) c
+            ON e.id = c.event_id
             INNER JOIN
             users u
             ON u.id = e.host
@@ -72,12 +72,12 @@ router.get("/artistsEvents/:id", async (req, res) => {
             FROM 
             events e 
             INNER JOIN 
-                (SELECT a.event,COUNT(*) 
+                (SELECT a.event_id,COUNT(*) 
                 FROM events_attendees a 
                 INNER JOIN events e 
-                ON a.event = e.id 
-                GROUP BY a.event) c
-            ON e.id = c.event
+                ON a.event_id = e.id 
+                GROUP BY a.event_id) c
+            ON e.id = c.event_id
             INNER JOIN
             users u
             ON u.id = e.host
@@ -102,23 +102,23 @@ router.get("/allEvents", async (req, res) => {
         FROM 
         events e 
         INNER JOIN 
-            (SELECT a.event,COUNT(*) 
+            (SELECT a.event_id,COUNT(*) 
             FROM events_attendees a 
             INNER JOIN events e 
-            ON a.event = e.id 
+            ON a.event_id = e.id 
             WHERE a.status = 'attending'
-            GROUP BY a.event ) c
+            GROUP BY a.event_id ) c
             
        
-        ON e.id = c.event
+        ON e.id = c.event_id
         INNER JOIN
-            (SELECT a.event, COUNT(*)
+            (SELECT a.event_id, COUNT(*)
             FROM events_attendees a
             INNER JOIN events e
-            ON a.event = e.id
+            ON a.event_id = e.id
             WHERE a.status = 'interested'
-            GROUP BY a.event) i
-        ON e.id = i.event
+            GROUP BY a.event_id) i
+        ON e.id = i.event_id
         INNER JOIN
         users u
         ON u.id = e.host`);
@@ -131,7 +131,7 @@ router.get("/allEvents", async (req, res) => {
     }
 });
 
-// Create a product ON FRONT END - NEED TO SEND sizes AS OBJECT-> sizes:PRICE
+//create event
 
 router.post("/create", async (req, res) => {
     try {
@@ -176,7 +176,7 @@ router.post("/create", async (req, res) => {
     }
 });
 
-// Update a product
+// Update an event
 
 router.put("/edit/:id", async (req, res) => {
     if (Object.keys(req.body).length === 0) {
@@ -226,7 +226,7 @@ router.put("/edit/:id", async (req, res) => {
     }
 });
 
-// Delete a product PLEASE ADD AUTH
+// Delete an event PLEASE ADD AUTH
 
 router.delete("/delete/:id", async (req, res) => {
     const id = req.params.id;
@@ -258,7 +258,7 @@ router.post("/attend/:event/:id", (req, res) => {
     const query = queryPart.join(", ");
     pool.query(
         `UPDATE events_attendees ${query} 
-        WHERE attendee = ${id} AND event = ${event}`
+        WHERE user_id = ${id} AND event_id = ${event}`
     );
     res.send("updated");
 });
@@ -266,10 +266,33 @@ router.post("/join/:event/:id", (req, res) => {
     const { event, id } = req.params;
     const { status, reminder } = req.body;
     pool.query(
-        `INSERT INTO events_attendees (event, attendee, status, reminder) 
+        `INSERT INTO events_attendees (event_id, user_id, status, reminder) 
         VALUES ($1,$2,$3,$4)`,
         [event, id, status, reminder]
     );
-    res.send('joined')
+    res.send("joined");
+});
+
+//user not going
+
+router.delete("/delete/:event/:id", async (req, res) => {
+    const id = req.params.id;
+    const event_id = req.params.event;
+
+    if (Object.keys(req.params).length === 0) {
+        console.log("no id");
+    }
+    try {
+        await pool.query(
+            "DELETE FROM events_attendees WHERE event_id = $1 AND user_id =$2",
+            [event_id, id]
+        );
+        res.json({ msg: "User Deleted from event!" });
+    } catch (err) {
+        console.error(err.message);
+        res.send({
+            message: "error",
+        });
+    }
 });
 module.exports = router;

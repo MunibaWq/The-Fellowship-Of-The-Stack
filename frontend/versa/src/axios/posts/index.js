@@ -16,7 +16,6 @@ export const addProduct = async (productInfo, images, thumbImg) => {
             image.size = "thumb";
         }
 
-
         let { imageFile, label, size } = image;
         let res = await addImage(imageFile, label, size, productID);
         if (!res)
@@ -25,7 +24,7 @@ export const addProduct = async (productInfo, images, thumbImg) => {
                     " failed to upload, go to edit product to try to add picture again"
             );
     });
-    return productID
+    return productID;
 };
 export const addImage = async (image, label, imageSize, productID) => {
     try {
@@ -45,6 +44,19 @@ export const addImage = async (image, label, imageSize, productID) => {
         console.error(err);
         return false;
     }
+};
+
+export const userGoing = async (eventID, userID, status) => {
+    let res = await Axios.post(`/events/join/${eventID}/${userID}`, {
+        status: { status },
+        reminder: true,
+    });
+    return res.data;
+};
+
+export const userNotGoing = async (eventID, userID) => {
+    let res = await Axios.delete(`/events/delete/${eventID}/${userID}`);
+    return res.data;
 };
 
 /**
