@@ -67,7 +67,12 @@ router.get("/test/:id", async (req, res, next) => {
     client.release(true);
     res.json(result.rows);
 });
-
+router.get("/getAll", async (req, res, next) => {
+    const client = await pool.connect();
+    const result = await pool.query("SELECT * FROM stock");
+    client.release(true);
+    res.json(result.rows);
+});
 //create delete route for stocktable
 //create get route for stock table
 
