@@ -16,14 +16,13 @@ router.get("/search/:searchQuery", async (req, res) => {
     const result = await client.query(
         `SELECT * FROM products WHERE ${queryString}`
     );
-    const products = result.rows
+    const products = result.rows;
     for (product of products) {
         const stockReq = await pool.query(
-            "SELECT * FROM stock where product_id = " +
-            product["id"]
-        )
-        const stock = stockReq.rows
-        product["stock"] = stock
+            "SELECT * FROM stock where product_id = " + product["id"]
+        );
+        const stock = stockReq.rows;
+        product["stock"] = stock;
     }
     client.release(true);
     res.json(result.rows);
@@ -39,17 +38,15 @@ router.get("/get/:id", async (req, res) => {
         const productInfo = result.rows[0];
 
         const artistReq = await client.query(
-            "SELECT username FROM users WHERE id = " +
-                productInfo["artist_id"]
+            "SELECT username FROM users WHERE id = " + productInfo["artist_id"]
         );
         const artist = artistReq.rows[0].username;
         productInfo["artist"] = artist;
         const stockReq = await pool.query(
-            "SELECT * FROM stock where product_id = " +
-            productInfo["id"]
-        )
-        const stock = stockReq.rows
-        productInfo["stock"] = stock
+            "SELECT * FROM stock where product_id = " + productInfo["id"]
+        );
+        const stock = stockReq.rows;
+        productInfo["stock"] = stock;
         client.release(true);
         res.json(productInfo);
     } catch (e) {
@@ -60,25 +57,51 @@ router.get("/get/:id", async (req, res) => {
 });
 
 //Get all products
+router.get("/test", async (req, res, next) => {
+    const client = await pool.connect();
+    const result = await pool.query(
+        "SELECT * FROM stock WHERE product_id = 22"
+    );
+    client.release(true);
+    res.json(result.rows);
+});
+//create 'create' route for stocktable
+//create delete route for stocktable
+//create get route for stock table
+//create edit route for stock table
+router.put("/put", async (req, res, next) => {
+    try {
+        const client = await pool.connect();
+        const result = await pool.query(
+            `
+    UPDATE stock SET 
+    quantity = $1 WHERE id = $2`,
+            [quantity, id]
+        );
+    } catch (error) {
+        console.log(error);
+        res.json("request failed!");
+    }
+});
 
 router.get("/artistsProducts/:id", async (req, res) => {
     try {
         const client = await pool.connect();
-        const result = await client.query("SELECT * FROM products WHERE artist_id="+req.params.id);
+        const result = await client.query(
+            "SELECT * FROM products WHERE artist_id=" + req.params.id
+        );
         const results = result.rows;
         const productsToSend = [];
         for (product of results) {
             const artistReq = await pool.query(
-                "SELECT username FROM users WHERE id = " +
-                    product["artist_id"]
+                "SELECT username FROM users WHERE id = " + product["artist_id"]
             );
             const stockReq = await pool.query(
-                "SELECT * FROM stock where product_id = " +
-                product["id"]
-            )
-            const stock = stockReq.rows
+                "SELECT * FROM stock where product_id = " + product["id"]
+            );
+            const stock = stockReq.rows;
             const artist = artistReq.rows[0].username;
-            product["stock"] = stock
+            product["stock"] = stock;
             product["artist"] = artist;
             productsToSend.push(product);
         }
@@ -98,16 +121,14 @@ router.get("/allProducts", async (req, res) => {
         const productsToSend = [];
         for (product of results) {
             const artistReq = await pool.query(
-                "SELECT username FROM users WHERE id = " +
-                    product["artist_id"]
+                "SELECT username FROM users WHERE id = " + product["artist_id"]
             );
             const stockReq = await pool.query(
-                "SELECT * FROM stock where product_id = " +
-                product["id"]
-            )
-            const stock = stockReq.rows
+                "SELECT * FROM stock where product_id = " + product["id"]
+            );
+            const stock = stockReq.rows;
             const artist = artistReq.rows[0].username;
-            product["stock"] = stock
+            product["stock"] = stock;
             product["artist"] = artist;
             productsToSend.push(product);
         }
@@ -207,7 +228,7 @@ router.put("/edit/:id", async (req, res) => {
         if (sizes.length === 0) {
             sizes = [{ label: "O", price: "0" }];
         }
-        let sizesOrder = ["XS","S","M","L","XL","XXL"]
+        let sizesOrder = ["XS", "S", "M", "L", "XL", "XXL"];
         sizes.sort((a, b) => {
             return (
                 sizesOrder.indexOf(a.label) - sizesOrder.indexOf(b.label) ||
