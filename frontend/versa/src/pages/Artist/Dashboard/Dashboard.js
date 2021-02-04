@@ -18,13 +18,12 @@ import AddProduct from "../AddProduct";
 import EditProduct from "../EditProduct";
 
 const Dashboard = () => {
-    
     const [navWidth, setNavWidth] = useState(300);
     return (
         <Router>
             <Container width={navWidth}>
-                <SideNavDiv >
-                    <SideNav setNavWidth={setNavWidth}/>
+                <SideNavDiv>
+                    <SideNav setNavWidth={setNavWidth} />
                 </SideNavDiv>
                 <Switch>
                     <Route path="/dashboard" exact component={DashboardMain} />
@@ -80,9 +79,15 @@ const Dashboard = () => {
                         exact
                         component={SalesByProduct}
                     />
-                    
-                    <Route path="/dashboard/products/create" component={AddProduct} />
-                    <Route path="/dashboard/products/edit/:id" component={EditProduct} />
+
+                    <Route
+                        path="/dashboard/products/create"
+                        component={AddProduct}
+                    />
+                    <Route
+                        path="/dashboard/products/edit/:id"
+                        component={EditProduct}
+                    />
                 </Switch>
             </Container>
         </Router>
@@ -92,11 +97,11 @@ const Dashboard = () => {
 export default Dashboard;
 const Container = styled.div`
     display: grid;
-    grid-template-columns: ${props=>props.width}px auto;
+    grid-template-columns: ${(props) => props.width}px auto;
 `;
-const DashboardMainDiv = styled.div`
-    grid-column: 2;
-`;
+// const DashboardMainDiv = styled.div`
+//     grid-column: 2;
+// `;
 
 const SideNavDiv = styled.div`
     grid-column: 1;

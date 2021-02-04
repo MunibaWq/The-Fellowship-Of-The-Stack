@@ -9,6 +9,7 @@ import { AddIcon, EditIcon, DeleteIcon } from "../../../images/icons";
 import axios from "axios";
 import Loading from "../../../components/Reusable/Loading";
 import { DeleteProductModal } from "../../../components/Dashboard/DeleteProductModal";
+import StockTable from "./StockTable";
 
 const Dashboard = (currentProduct) => {
     const [results, setResults] = useState([]);
@@ -49,7 +50,7 @@ const Dashboard = (currentProduct) => {
                     <AddIcon stroke={theme.primary} />
                 </Button>
             </Link>
-            <TableStyle style={{ width: "100%", marginTop: "10%" }}>
+            <TableStyle>
                 <tr>
                     <th>PIC</th>
                     <th>TITLE</th>
@@ -66,8 +67,7 @@ const Dashboard = (currentProduct) => {
                                     style={{
                                         width: "100px",
                                         height: "100px",
-                                    }}
-                                >
+                                    }}>
                                     <img
                                         src={
                                             "https://versabucket.s3.us-east-2.amazonaws.com/images/" +
@@ -90,8 +90,7 @@ const Dashboard = (currentProduct) => {
                                                 e.target.value
                                             );
                                             setStatus(newStatus);
-                                        }}
-                                    >
+                                        }}>
                                         <option value={result.status}>
                                             Select Status
                                         </option>
@@ -110,20 +109,13 @@ const Dashboard = (currentProduct) => {
                                         to={
                                             "/dashboard/products/edit/" +
                                             result.id
-                                        }
-                                    >
+                                        }>
                                         <EditIcon stroke={theme.primary} />
                                     </Link>
-                                    {/* <Button secondary>
-                                            Edit
-                                            <AddIcon stroke={colors.primary} />
-                                        </Button>
-                                    </Link> */}
                                 </td>
                                 <td>
                                     <Button
-                                        onClick={() => showModal(result.id)}
-                                    >
+                                        onClick={() => showModal(result.id)}>
                                         <DeleteIcon stroke={theme.primary} />
                                     </Button>
                                 </td>
@@ -149,17 +141,18 @@ const Dashboard = (currentProduct) => {
                     display="none"
                 />
             )}
+            <StockTable formType="edit" />
         </div>
     );
 };
 
 export default Dashboard;
 
-const TableStyle = styled.table`
+export const TableStyle = styled.table`
     min-width: 655px;
     text-align: left;
     padding: 1%;
-
+    margin-top: 10%;
     width: 100%;
     /* border: 1px solid black; */
     border-collapse: collapse;

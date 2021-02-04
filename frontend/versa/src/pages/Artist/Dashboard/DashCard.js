@@ -130,22 +130,23 @@ const DashCard = (props) => {
         total,
         totalLabel,
         dataTitle,
-        graphTitle,
-        tableTitle,
         pieData,
         graphData,
         tableData,
         title,
+        link,
     } = props;
     return (
         <Card>
             <AtAGlance>
                 <GoToPage>
                     <Title>{title}</Title>
-                    <PageLink>
-                        Reports
-                        <RightIcon stroke={theme.primary} />
-                    </PageLink>
+                    <Link to={link}>
+                        <PageLink>
+                            Reports
+                            <RightIcon stroke={theme.primary} />
+                        </PageLink>
+                    </Link>
                 </GoToPage>
 
                 {total && (
@@ -252,24 +253,21 @@ const VGraph = ({ data }) => {
                             )}`
                         }
                     />
-                }
-            >
+                }>
                 <V.VictoryLine
                     style={{
                         labels: { fill: theme.primary },
                         data: { stroke: theme.primary },
                         parent: { border: "1px solid #00ff00" },
                     }}
-                    data={data.graphActual}
-                ></V.VictoryLine>
+                    data={data.graphActual}></V.VictoryLine>
                 <V.VictoryLine
                     style={{
                         labels: { fill: "#00aa33" },
                         data: { stroke: "#00aa3377" },
                         parent: { border: "1px solid #00ff00" },
                     }}
-                    data={data.graphGoal}
-                ></V.VictoryLine>
+                    data={data.graphGoal}></V.VictoryLine>
             </V.VictoryChart>
             <Legend>
                 <div>
