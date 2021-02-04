@@ -5,26 +5,43 @@ import { Going, WishListIcon, Share, NotGoing } from "../../images/icons";
 import Button from "../Reusable/Button";
 import theme from "../Reusable/Colors";
 
-const EventCard = () => {
+const EventCard = ({
+    id,
+    name,
+    host,
+    description,
+    status,
+    capacity,
+    start_time,
+    end_time,
+    location,
+    thumbnail,
+    type,
+    num_attendees,
+}) => {
     const [interested, setInterested] = useState(false);
     const [going, setGoing] = useState(false);
 
     return (
         <CardContainer>
-            <Thumbnail src={imageTest} />
-            <Name>Meet the owner: Wonderland</Name>
+            {thumbnail ? (
+                <Thumbnail src={thumbnail} />
+            ) : (
+                <Thumbnail src={imageTest} />
+            )}
+            <Name>{name}</Name>
+            <Host>{host}</Host>
             <Date>Sat Feb 14 - Sunday Feb 15</Date>
             <Time>6:00 PM MST</Time>
             <Stats>
                 <NumInterested>20 Interested</NumInterested>
-                <NumGoing>135 Interested</NumGoing>
+                <NumGoing>{num_attendees} Interested</NumGoing>
             </Stats>
             <Actions>
                 <ActionButton
                     onClick={() => {
                         setInterested((curr) => !curr);
-                    }}
-                >
+                    }}>
                     {interested && (
                         <div>
                             <WishListIcon
@@ -40,7 +57,6 @@ const EventCard = () => {
                     {!interested && (
                         <div>
                             <WishListIcon
-                                fill="white"
                                 stroke={theme.primary}
                                 width="33"
                                 height="33"
@@ -51,8 +67,7 @@ const EventCard = () => {
                 <ActionButton
                     onClick={() => {
                         setGoing((curr) => !curr);
-                    }}
-                >
+                    }}>
                     {!going && (
                         <div>
                             <Going width="33" height="33" />
@@ -80,6 +95,10 @@ const Thumbnail = styled.img`
     height: 250px;
 `;
 const Name = styled.h2`
+    width: 250px;
+    margin-top: 10px;
+`;
+const Host = styled.h3`
     width: 250px;
     margin-top: 10px;
 `;

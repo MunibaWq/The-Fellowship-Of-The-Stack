@@ -7,8 +7,6 @@ import Account from "./pages/Account";
 import Wishlist from "./pages/UserBuyer/Wishlist";
 import ShoppingCart from "./pages/UserBuyer/ShoppingCart";
 import ProductItem from "./pages/UserBuyer/ProductItem";
-import AddProduct from "./pages/Artist/AddProduct";
-import EditProduct from "./pages/Artist/EditProduct";
 import CreateAccount from "./pages/Artist/CreateAccount";
 import ArtistLogIn from "./pages/Artist/ArtistLogIn";
 import Dashboard from "./pages/Artist/Dashboard/Dashboard";
@@ -32,7 +30,7 @@ function App() {
                     />
 
                     <Route path="/product-item/:id" component={ProductItem} />
-                   
+
                     <Route
                         path="/artists/create-account"
                         component={CreateAccount}
