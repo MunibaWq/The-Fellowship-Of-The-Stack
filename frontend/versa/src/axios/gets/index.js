@@ -60,6 +60,6 @@ export const getAllArtistEvents = async (id) => {
 };
 
 export const getEventByID = async (id) => {
-    const response = await Axios.get("/events/get/" + id);
+    const response = await Axios.get(`/events/get/${id}`);
     return response.data;
 };

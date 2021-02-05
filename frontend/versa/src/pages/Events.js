@@ -13,11 +13,9 @@ const Events = () => {
     useEffect(() => {
         const getEvents = async () => {
             let data = await getAllEvents();
-            console.log("get events", data);
             setEvents(data);
         };
         getEvents();
-        console.log("set events", events);
     }, []);
 
     const search = async () => {

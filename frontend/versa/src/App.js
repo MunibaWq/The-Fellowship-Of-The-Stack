@@ -10,7 +10,7 @@ import ProductItem from "./pages/UserBuyer/ProductItem";
 import CreateAccount from "./pages/Artist/CreateAccount";
 import ArtistLogIn from "./pages/Artist/ArtistLogIn";
 import Dashboard from "./pages/Artist/Dashboard/Dashboard";
-import EventItem from "./pages/EventItem";
+import EventPage from "./components/Events/EventPage";
 
 function App() {
     return (
@@ -31,7 +31,7 @@ function App() {
                     />
 
                     <Route path="/product-item/:id" component={ProductItem} />
-                    <Route path="/events/:id" component={EventItem} />
+                    <Route path="/events/:id" component={EventPage} />
 
                     <Route
                         path="/artists/create-account"
