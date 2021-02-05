@@ -71,8 +71,7 @@ const Dashboard = (currentProduct) => {
                                     style={{
                                         width: "100px",
                                         height: "100px",
-                                    }}
-                                >
+                                    }}>
                                     <img
                                         src={
                                             "https://versabucket.s3.us-east-2.amazonaws.com/images/" +
@@ -95,8 +94,7 @@ const Dashboard = (currentProduct) => {
                                                 e.target.value
                                             );
                                             setStatus(newStatus);
-                                        }}
-                                    >
+                                        }}>
                                         <option value={result.status}>
                                             Select Status
                                         </option>
@@ -111,7 +109,7 @@ const Dashboard = (currentProduct) => {
                                 </td>
                                 <td>{Math.floor(Math.random() * 10)}</td>
                                 <td>
-                                    <Link to={"/products/edit/" + result.id}>
+                                    <Link to={`/products/edit/:${result.id}`}>
                                         <EditIcon stroke={theme.primary} />
                                     </Link>
                                     {/* <Button secondary>
@@ -122,8 +120,7 @@ const Dashboard = (currentProduct) => {
                                 </td>
                                 <td>
                                     <Button
-                                        onClick={() => showModal(result.id)}
-                                    >
+                                        onClick={() => showModal(result.id)}>
                                         <DeleteIcon stroke={theme.primary} />
                                     </Button>
                                 </td>

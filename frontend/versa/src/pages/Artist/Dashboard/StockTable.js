@@ -1,20 +1,20 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { TableStyle } from "./Inventory";
-import { getAllArtistProducts } from "../../../axios/gets";
-const StockTable = ({ formType }) => {
+
+const StockTable = () => {
     const [stock, setStock] = useState([]);
 
     useEffect(() => {
         const getProductStock = async () => {
-            const res = await axios.get("/products/test");
+            const res = await axios.get("/products/test/22");
             setStock(res.data);
         };
         getProductStock();
     }, []);
     console.log(stock);
 
-    function mapTable(arr, arr2) {
+    function mapTable(arr) {
         if (arr.length > 0) {
             return arr.map((item) => {
                 return (
@@ -38,7 +38,6 @@ const StockTable = ({ formType }) => {
             stock
             <form
                 onSubmit={(e) => {
-                    e.preventDefault();
                     console.log(e);
                 }}>
                 <TableStyle>
