@@ -255,7 +255,7 @@ router.post("/join/:event/:id", (req, res) => {
 
 //user not going
 
-router.delete("/delete/:event/:id", async (req, res) => {
+router.delete("/not-attending/:event/:id/", async (req, res) => {
     const id = req.params.id;
     const event_id = req.params.event;
 

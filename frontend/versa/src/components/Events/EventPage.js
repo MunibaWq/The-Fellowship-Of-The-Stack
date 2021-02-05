@@ -14,6 +14,13 @@ const EventPage = () => {
     const [dateTime, setDateTime] = useState();
 
     useEffect(() => {
+        const setUserAsAttending = async () => {};
+        return () => {
+            cleanup;
+        };
+    }, [going]);
+
+    useEffect(() => {
         const fetchEvent = async () => {
             const data = await getEventByID(currentEvent);
             setEventData(data);
@@ -67,11 +74,17 @@ const EventPage = () => {
                 </EventImages>
 
                 <EventDetail>
+                    <h3>
+                        {eventData
+                            ? eventData.type
+                            : "Loading event categories"}
+                    </h3>
                     <h1>{eventData ? eventData.name : "Loading Event  "}</h1>
                     <h2>
                         by
                         {eventData ? eventData.host_name : "Loading Host Name"}
                     </h2>
+
                     <Details>
                         <h3>Date: </h3>
                         <p>
