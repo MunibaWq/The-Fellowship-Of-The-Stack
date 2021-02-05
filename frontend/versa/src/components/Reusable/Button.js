@@ -76,9 +76,9 @@ const Button = styled.button.attrs((props) => ({
             border-radius: 10px;
             color: ${theme.secondary};
             svg {
+                margin: 0 4px;
                 path {
-                    stroke: ${theme.primaryHover};
-                    fill: ${theme.primaryHover};
+                    stroke: ${theme.secondary};
                 }
             }
 
@@ -93,7 +93,6 @@ const Button = styled.button.attrs((props) => ({
                 svg {
                     path {
                         stroke: ${theme.secondary};
-                        fill: ${theme.secondary};
                     }
                 }
             }
