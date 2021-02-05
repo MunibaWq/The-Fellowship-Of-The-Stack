@@ -3,8 +3,10 @@ import styled from "styled-components";
 import Button from "../Reusable/Button";
 import { Link, useParams } from "react-router-dom";
 import { getEventByID } from "../../axios/gets";
+import { userGoing } from "../../axios/posts";
 import theme from "../Reusable/Colors";
 import { LeftIcon, Going, NotGoing } from "../../images/icons";
+import { deleteUserFromEventByID } from "../../axios/deletes";
 
 const EventPage = () => {
     const [going, setGoing] = useState(false);
@@ -14,11 +16,12 @@ const EventPage = () => {
     const [dateTime, setDateTime] = useState();
 
     useEffect(() => {
-        const setUserAsAttending = async () => {};
-        return () => {
-            cleanup;
-        };
-    }, [going]);
+        if (!going) {
+            deleteUserFromEventByID(currentEvent, 1);
+        } else {
+            userGoing(currentEvent, 1);
+        }
+    }, [going, currentEvent]);
 
     useEffect(() => {
         const fetchEvent = async () => {
@@ -74,15 +77,17 @@ const EventPage = () => {
                 </EventImages>
 
                 <EventDetail>
-                    <h3>
+                    <h4>
                         {eventData
                             ? eventData.type
                             : "Loading event categories"}
-                    </h3>
+                    </h4>
                     <h1>{eventData ? eventData.name : "Loading Event  "}</h1>
                     <h2>
                         by
-                        {eventData ? eventData.host_name : "Loading Host Name"}
+                        {eventData
+                            ? "  " + eventData.username
+                            : "Loading Host Name"}
                     </h2>
 
                     <Details>
@@ -217,11 +222,14 @@ const EventDetail = styled.div`
         font-size: 1em;
         font-weight: 700;
         margin: 0 0 2em 0;
-        //color: ${theme.primary};
     }
 
     h3 {
         margin: 0 1em 1em 0;
+    }
+    h4 {
+        margin: 0 1em 1em 0;
+        color: ${theme.primary};
     }
     p {
         margin: 0 0 8px 0;

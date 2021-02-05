@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { Going, NotGoing } from "../../images/icons";
+import { userGoing } from "../../axios/posts";
+import { deleteUserFromEventByID } from "../../axios/deletes";
 import imageTest from "../../images/imageTest.png";
 import Button from "../Reusable/Button";
 import theme from "../Reusable/Colors";
@@ -9,6 +11,15 @@ import theme from "../Reusable/Colors";
 const EventCard = ({ theEvent }) => {
     //const [interested, setInterested] = useState(false);
     const [going, setGoing] = useState(false);
+    let currentEvent = theEvent.id;
+
+    useEffect(() => {
+        if (!going) {
+            deleteUserFromEventByID(currentEvent, 1);
+        } else {
+            userGoing(currentEvent, 1);
+        }
+    }, [going, currentEvent]);
 
     console.log("results", theEvent);
     let options = {
@@ -45,7 +56,9 @@ const EventCard = ({ theEvent }) => {
                     <Thumbnail src={theEvent.thumbnail} />
                 </Link>
             ) : (
-                <Thumbnail src="https://source.unsplash.com/random/250x250/?party" />
+                <Link to={`/events/${theEvent.id}`}>
+                    <Thumbnail src="https://source.unsplash.com/random/250x250/?party" />
+                </Link>
             )}
             <Link to={`/events/${theEvent.id}`}>
                 <Name>{theEvent.name}</Name>

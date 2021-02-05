@@ -242,7 +242,7 @@ router.post("/attend/:event/:id", (req, res) => {
     const query = queryPart.join(", ");
     pool.query(
         `UPDATE events_attendees ${query} 
-        WHERE user_id = ${id} AND event_id = ${event}`
+        WHERE attendee = ${id} AND event_id = ${event}`
     );
     res.send("updated");
 });
@@ -250,7 +250,7 @@ router.post("/join/:event/:id", (req, res) => {
     const { event, id } = req.params;
     const { status, reminder } = req.body;
     pool.query(
-        `INSERT INTO events_attendees (event_id, user_id, status, reminder) 
+        `INSERT INTO events_attendees (event_id, attendee, status, reminder) 
         VALUES ($1,$2,$3,$4)`,
         [event, id, status, reminder]
     );
@@ -268,7 +268,7 @@ router.delete("/not-attending/:event/:id/", async (req, res) => {
     }
     try {
         await pool.query(
-            "DELETE FROM events_attendees WHERE event_id = $1 AND user_id =$2",
+            "DELETE FROM events_attendees WHERE event_id = $1 AND attendee =$2",
             [event_id, id]
         );
         res.json({ msg: "User Deleted from event!" });
