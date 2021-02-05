@@ -48,14 +48,9 @@ export const addImage = async (image, label, imageSize, productID) => {
 
 export const userGoing = async (eventID, userID, status) => {
     let res = await Axios.post(`/events/join/${eventID}/${userID}`, {
-        status: { status },
+        status: "attending",
         reminder: true,
     });
-    return res.data;
-};
-
-export const userNotGoing = async (eventID, userID) => {
-    let res = await Axios.delete(`/events/delete/${eventID}/${userID}`);
     return res.data;
 };
 
