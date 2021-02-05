@@ -18,13 +18,17 @@ const EventPage = () => {
             const data = await getEventByID(currentEvent);
             setEventData(data);
             console.log(data);
+            return data;
+        };
+        fetchEvent().then((data) => {
             let options = {
                 weekday: "long",
                 year: "numeric",
                 month: "long",
                 day: "numeric",
             };
-            let eventDate = new Date(eventData.start_time);
+            console.log(eventData);
+            let eventDate = new Date(data.start_time);
             let startTime = eventDate.toLocaleTimeString([], {
                 hour: "2-digit",
                 minute: "2-digit",
@@ -32,7 +36,7 @@ const EventPage = () => {
 
             let startDate = eventDate.toLocaleDateString("en-US", options);
 
-            let eventEndDate = new Date(eventData.end_time);
+            let eventEndDate = new Date(data.end_time);
             let endDate = eventEndDate.toLocaleDateString("en-US", options);
             let endTime = eventEndDate.toLocaleTimeString([], {
                 hour: "2-digit",
@@ -44,8 +48,7 @@ const EventPage = () => {
                 startTime,
                 endTime,
             });
-        };
-        fetchEvent();
+        });
     }, [currentEvent]);
 
     return (
@@ -66,7 +69,7 @@ const EventPage = () => {
                 <EventDetail>
                     <h1>{eventData ? eventData.name : "Loading Event  "}</h1>
                     <h2>
-                        by{" "}
+                        by
                         {eventData ? eventData.host_name : "Loading Host Name"}
                     </h2>
                     <Details>
