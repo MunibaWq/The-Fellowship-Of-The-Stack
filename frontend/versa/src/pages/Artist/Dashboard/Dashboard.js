@@ -20,7 +20,7 @@ import EditEvent from "../EditEvent";
 import CreateEvent from "../CreateEvent";
 
 const Dashboard = () => {
-    const [navWidth, setNavWidth] = useState(300);
+    const [navWidth, setNavWidth] = useState(0);
     return (
         <Router>
             <Container width={navWidth}>

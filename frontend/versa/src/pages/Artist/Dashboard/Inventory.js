@@ -9,11 +9,10 @@ import { AddIcon, EditIcon, DeleteIcon } from "../../../images/icons";
 import axios from "axios";
 import Loading from "../../../components/Reusable/Loading";
 import { DeleteProductModal } from "../../../components/Dashboard/DeleteProductModal";
-import StockTable from "./StockTable";
 
-const Dashboard = (currentProduct) => {
+const Inventory = (currentProduct) => {
     const [results, setResults] = useState([]);
-    const [selectedRows, setSelectedRows] = useState([]);
+    const [inventory, setInventory] = useState([]);
     const [status, setStatus] = useState("");
     const [visible, setVisible] = useState(false);
     const [currentId, setCurrentId] = useState(null);
@@ -25,7 +24,33 @@ const Dashboard = (currentProduct) => {
         };
         getProducts();
     }, []);
-    console.log(results);
+
+    useEffect(() => {
+        const getStock = async () => {
+            let data = await axios.get("/products/getAll");
+            setInventory(data.data);
+        };
+        getStock();
+    }, []);
+
+    function groupStockObj(obj, id) {
+        let result = [];
+        for (let row of obj) {
+            if (row.product_id === id) {
+                result.push(row);
+            }
+        }
+        return result;
+    }
+
+    function countInv(arr) {
+        let invTotal = 0;
+        let invItems = arr.length;
+        for (let item of arr) {
+            invTotal += item.quantity;
+        }
+        return `(${invTotal}) stock over ${invItems} variations.`;
+    }
 
     const updateStatus = async (result, status) => {
         result.status = status;
@@ -59,8 +84,8 @@ const Dashboard = (currentProduct) => {
                     <th>EDIT</th>
                     <th>DELETE</th>
                 </tr>
-                {results ? (
-                    results.map((result, index) => {
+                {results.length > 0 && inventory.length > 0 ? (
+                    results.map((result) => {
                         return (
                             <tr style={{ padding: "10%" }}>
                                 <td
@@ -103,7 +128,11 @@ const Dashboard = (currentProduct) => {
                                         </option>
                                     </select>
                                 </td>
-                                <td>{Math.floor(Math.random() * 10)}</td>
+                                <td>
+                                    {countInv(
+                                        groupStockObj(inventory, result.id)
+                                    )}
+                                </td>
                                 <td>
                                     <Link
                                         to={
@@ -141,12 +170,11 @@ const Dashboard = (currentProduct) => {
                     display="none"
                 />
             )}
-            <StockTable formType="edit" />
         </div>
     );
 };
 
-export default Dashboard;
+export default Inventory;
 
 export const TableStyle = styled.table`
     min-width: 655px;

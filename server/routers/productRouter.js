@@ -56,34 +56,6 @@ router.get("/get/:id", async (req, res) => {
     }
 });
 
-//Get all products
-router.get("/test", async (req, res, next) => {
-    const client = await pool.connect();
-    const result = await pool.query(
-        "SELECT * FROM stock WHERE product_id = 22"
-    );
-    client.release(true);
-    res.json(result.rows);
-});
-//create 'create' route for stocktable
-//create delete route for stocktable
-//create get route for stock table
-//create edit route for stock table
-router.put("/put", async (req, res, next) => {
-    try {
-        const client = await pool.connect();
-        const result = await pool.query(
-            `
-    UPDATE stock SET 
-    quantity = $1 WHERE id = $2`,
-            [quantity, id]
-        );
-    } catch (error) {
-        console.log(error);
-        res.json("request failed!");
-    }
-});
-
 router.get("/artistsProducts/:id", async (req, res) => {
     try {
         const client = await pool.connect();

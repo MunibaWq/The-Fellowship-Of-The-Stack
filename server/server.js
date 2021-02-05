@@ -4,6 +4,7 @@ const crypto = require("crypto");
 const path = require("path");
 const userRouter = require("./routers/userRouter");
 const PORT = process.env.PORT || 5000;
+const stockRouter = require("./routers/stockRouter");
 const imageRouter = require("./routers/imageRouter");
 const productRouter = require("./routers/productRouter");
 const eventRouter = require("./routers/eventRouter");
@@ -82,6 +83,7 @@ app.use("*", (req, res, next) => {
     }
     next();
 });
+app.use("/stock", stockRouter);
 app.use("/images", imageRouter);
 app.use("/products", productRouter);
 app.use("/users", userRouter);

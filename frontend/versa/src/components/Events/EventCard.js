@@ -1,35 +1,42 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { Going, NotGoing } from "../../images/icons";
 import imageTest from "../../images/imageTest.png";
-import { Going, WishListIcon, Share, NotGoing } from "../../images/icons";
 import Button from "../Reusable/Button";
 import theme from "../Reusable/Colors";
 
 const EventCard = ({ theEvent }) => {
-    const [interested, setInterested] = useState(false);
+    //const [interested, setInterested] = useState(false);
     const [going, setGoing] = useState(false);
 
-    let eventDate = new Date(theEvent.start_time);
-    let startTime = eventDate.toLocaleTimeString([], {
-        hour: "2-digit",
-        minute: "2-digit",
-    });
+    console.log("results", theEvent);
     let options = {
         weekday: "long",
         year: "numeric",
         month: "long",
         day: "numeric",
     };
+    let eventDate = new Date(theEvent.start_time);
     let startDate = eventDate.toLocaleDateString("en-US", options);
+    let startTime = eventDate.toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit",
+    });
 
     let eventEndDate = new Date(theEvent.end_time);
+    let endDate = eventEndDate.toLocaleDateString("en-US", options);
     let endTime = eventEndDate.toLocaleTimeString([], {
         hour: "2-digit",
         minute: "2-digit",
     });
 
-    let endDate = eventEndDate.toLocaleDateString("en-US", options);
+    //TO DO:
+    //function to send data
+    //get user data
+    //create a variable that contains the user name, email, status (going, not going, interested), event name, event start date, event start time
+    // axios post to /mail/send
+    // event button, if user status = going, render the not going button. if user status = not going. render going button
 
     return (
         <CardContainer>
@@ -38,26 +45,28 @@ const EventCard = ({ theEvent }) => {
                     <Thumbnail src={theEvent.thumbnail} />
                 </Link>
             ) : (
-                <Thumbnail src={imageTest} />
+                <Thumbnail src="https://source.unsplash.com/random/250x250/?party" />
             )}
             <Link to={`/events/${theEvent.id}`}>
                 <Name>{theEvent.name}</Name>
                 <Host>{theEvent.host_name}</Host>
                 <EventDate>
-                    {startDate === endDate ? startDate : startDate - endDate}
+                    {startDate
+                        ? startDate === endDate
+                            ? startDate
+                            : startDate + "-" + endDate
+                        : "Loading"}
                 </EventDate>
-                <Time>
-                    {startTime} - {endTime}
-                </Time>
+                <Time>{startTime ? startTime + "-" + endTime : "Loading"}</Time>
                 <Stats>
                     <NumInterested>
-                        {theEvent.num_attendees} Interested
+                        {theEvent.num_interested} Interested
                     </NumInterested>
-                    <NumGoing>{theEvent.num_attendees} Going</NumGoing>
+                    <NumGoing>{theEvent.num_attending} Going</NumGoing>
                 </Stats>
             </Link>
             <Actions>
-                <ActionButton
+                {/**<ActionButton
                     onClick={() => {
                         setInterested((curr) => !curr);
                     }}>
@@ -78,7 +87,8 @@ const EventCard = ({ theEvent }) => {
                             <WishListIcon stroke={theme.primary} />
                         </div>
                     )}
-                </ActionButton>
+                    
+                </ActionButton>**/}
                 <ActionButton
                     onClick={() => {
                         setGoing((curr) => !curr);
@@ -90,9 +100,9 @@ const EventCard = ({ theEvent }) => {
                     )}
                     {going && <NotGoing />}
                 </ActionButton>
-                <ActionButton>
+                {/**} <ActionButton>
                     <Share stroke={theme.primary} />
-                </ActionButton>
+                    </ActionButton>**/}
             </Actions>
         </CardContainer>
     );
