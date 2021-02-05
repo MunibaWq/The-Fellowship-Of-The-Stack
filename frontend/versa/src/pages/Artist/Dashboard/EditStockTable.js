@@ -16,7 +16,7 @@ const EditStockTable = ({ tempColour, tempSize }) => {
 
     useEffect(() => {
         const getProductStock = async () => {
-            const res = await axios.get("/products/test/" + id);
+            const res = await axios.get("/stock/get/" + id);
             setStock(res.data);
         };
         getProductStock();
@@ -74,7 +74,7 @@ const EditStockTable = ({ tempColour, tempSize }) => {
             </TableStyle>
             <button
                 onClick={() => {
-                    axios.put("/products/put", {
+                    axios.put("/stock/put", {
                         stock,
                     });
                 }}>

@@ -27,7 +27,7 @@ const Inventory = (currentProduct) => {
 
     useEffect(() => {
         const getStock = async () => {
-            let data = await axios.get("/products/getAll");
+            let data = await axios.get("/stock/getAll");
             setInventory(data.data);
         };
         getStock();
