@@ -31,7 +31,7 @@ router.get("/get/:id", async (req, res) => {
     try {
         const client = await pool.connect();
         const result = await pool.query(
-            `SELECT i.sum AS num_interested, a.sum AS num_attending, e.* from (SELECT event_id, SUM ( CASE WHEN status = 'interested'
+            `SELECT u.username, i.sum AS num_interested, a.sum AS num_attending, e.* from (SELECT event_id, SUM ( CASE WHEN status = 'interested'
             THEN 1 ELSE 0 end) FROM events_attendees
             GROUP BY event_id) i
             INNER JOIN
@@ -42,7 +42,9 @@ router.get("/get/:id", async (req, res) => {
             THEN 1 ELSE 0 end) FROM events_attendees
             GROUP BY event_id) a
             ON a.event_id = e.id
-            
+            INNER JOIN 
+            users u
+            ON u.id=e.host
             WHERE e.id = ${req.params.id}`
         );
 
@@ -90,7 +92,7 @@ router.get("/artistsEvents/:id", async (req, res) => {
 
 router.get("/allEvents", async (req, res) => {
     try {
-        const result = await pool.query(`SELECT i.sum AS num_interested, a.sum AS num_attending, e.* from (SELECT event_id, SUM ( CASE WHEN status = 'interested'
+        const result = await pool.query(`SELECT u.username as host_name, i.sum AS num_interested, a.sum AS num_attending, e.* from (SELECT event_id, SUM ( CASE WHEN status = 'interested'
         THEN 1 ELSE 0 end) FROM events_attendees
         GROUP BY event_id) i
         INNER JOIN
@@ -101,6 +103,8 @@ router.get("/allEvents", async (req, res) => {
         THEN 1 ELSE 0 end) FROM events_attendees
         GROUP BY event_id) a
         ON a.event_id = e.id
+        INNER JOIN users u
+        ON u.id = e.host
         `);
         const results = result.rows;
 
