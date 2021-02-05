@@ -3,7 +3,7 @@ import axios from "axios";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
 
-const EditStockTable = ({ tempColour, tempSize }) => {
+const EditStockTable = ({ item }) => {
     const [stock, setStock] = useState([]);
     const { id } = useParams();
 
@@ -13,7 +13,28 @@ const EditStockTable = ({ tempColour, tempSize }) => {
     //     size: tempSize[0].label,
     //     quantity: 1,
     // }
+    function mapColorsAndSizes(stock) {
+        let result = [];
+        for (let color of item.colours) {
+            for (let size of item.sizes) {
+                let temp = {
+                    color: color.label,
+                    size: size.label,
+                    price: size.price,
+                    quantity: 0,
+                };
+                for (let el of stock) {
+                    if (el.color === color.label && el.size === size.label) {
+                        temp.quantity = el.quantity;
+                    }
+                }
+                result.push(temp);
+            }
+        }
+        setStock(result);
+    }
 
+    //function to get quant and map to each row
     useEffect(() => {
         const getProductStock = async () => {
             const res = await axios.get("/stock/get/" + id);
@@ -22,6 +43,12 @@ const EditStockTable = ({ tempColour, tempSize }) => {
         getProductStock();
     }, []);
 
+    useEffect(() => {
+        if (item.length !== 0 && stock.length > 0) {
+            mapColorsAndSizes(stock);
+        }
+    }, [item]);
+
     // useEffect(() => {
     //     const updateStock = () => {
     //         setStock(...[tempIncoming]);
@@ -29,7 +56,6 @@ const EditStockTable = ({ tempColour, tempSize }) => {
     //     updateStock();
     // }, []);
 
-    console.log(stock);
     // console.log(tempColour);
     // console.log(tempSize);
     // console.log(tempIncoming);

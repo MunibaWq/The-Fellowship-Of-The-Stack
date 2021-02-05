@@ -55,8 +55,8 @@ const ProductForm = (props) => {
     const params = useParams();
 
     const [stock, setStock] = useState([]);
-    const [tempColour, setTempColour] = useState([]);
-    const [tempSize, setTempSize] = useState([]);
+    const [color, setColor] = useState([]);
+    const [size, setSize] = useState([]);
 
     const id = params.id;
     function clearField() {
@@ -86,25 +86,28 @@ const ProductForm = (props) => {
             dispatch(
                 setFormInputs("product", "colours", [...input.colours, temp])
             );
-            setTempColour([temp]);
         }
     }
     function setSizeValue() {
         let sizeLabelToAdd = document.querySelector("#sizeLabelToAdd");
         let priceToAdd = document.querySelector("#priceToAdd").value;
         let sizeDropDown = document.querySelector("#sizeDropDown").value;
-
         let temp = {
             label: sizeDropDown === "N" ? sizeLabelToAdd.value : sizeDropDown,
             price: priceToAdd,
         };
+
         if (!input.sizes) {
             dispatch(setFormInputs("product", "sizes", [temp]));
         } else if (input.sizes.length < 5) {
             dispatch(setFormInputs("product", "sizes", [...input.sizes, temp]));
-            setTempSize([temp]);
         }
     }
+    useEffect(() => {
+        if (input.colours !== undefined && input.sizes !== undefined) {
+            setStock(input);
+        }
+    }, [input]);
 
     return redirect ? (
         <Redirect to={redirect} />
@@ -258,10 +261,7 @@ const ProductForm = (props) => {
                         Add
                         <AddIcon stroke={theme.primary} />
                     </Button>
-                    <EditStockTable
-                        tempColour={tempColour}
-                        tempSize={tempSize}
-                    />
+                    <EditStockTable item={stock} />
                 </SizeDiv>
             </RowContainer3>
             <Instruction4>
@@ -274,8 +274,10 @@ const ProductForm = (props) => {
             <RowContainer4>
                 <ImagesDiv>
                     <h2>Images</h2>
-                    <ImageUpload>{ImageInput(dispatch, images,"productForm")}</ImageUpload>
-                    <ImageList>{images&&mapImages(images)}</ImageList>
+                    <ImageUpload>
+                        {ImageInput(dispatch, images, "productForm")}
+                    </ImageUpload>
+                    <ImageList>{images && mapImages(images)}</ImageList>
                 </ImagesDiv>
             </RowContainer4>
             <Instruction5>
