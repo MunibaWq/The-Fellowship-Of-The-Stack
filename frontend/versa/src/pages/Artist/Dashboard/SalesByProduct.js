@@ -1,16 +1,16 @@
 import React from "react";
+import styled from "styled-components";
 import Pie from "../../../components/Dashboard/Pie";
 import Table from "../../../components/Dashboard/Table";
 import { salesByProductData, recentOrders } from "./data";
 
 const SalesByProduct = (salesByProductData) => {
-    return (
-        <div>
-            Sales By Product
-            <Pie data={salesByProductData} />
-            <Table data={recentOrders} title="Top Selling Products" />
-        </div>
-    );
+    return <SBPContainer>Sales By Product</SBPContainer>;
 };
 
 export default SalesByProduct;
+
+const SBPContainer = styled.div`
+    padding: 2em;
+    margin: 2em;
+`;

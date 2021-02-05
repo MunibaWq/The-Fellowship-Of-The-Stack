@@ -63,3 +63,5 @@ export const getEventByID = async (id) => {
     const response = await Axios.get(`/events/get/${id}`);
     return response.data;
 };
+
+export const sendGoingEmailToAttendee = async () => {};
