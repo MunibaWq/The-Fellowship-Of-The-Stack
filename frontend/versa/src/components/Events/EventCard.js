@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import imageTest from "../../images/imageTest.png";
 import { Going, NotGoing } from "../../images/icons";
 import Button from "../Reusable/Button";
 import theme from "../Reusable/Colors";
@@ -45,7 +44,7 @@ const EventCard = ({ theEvent }) => {
                     <Thumbnail src={theEvent.thumbnail} />
                 </Link>
             ) : (
-                <Thumbnail src={imageTest} />
+                <Thumbnail src="https://source.unsplash.com/random/250x250/?party" />
             )}
             <Link to={`/events/${theEvent.id}`}>
                 <Name>{theEvent.name}</Name>
