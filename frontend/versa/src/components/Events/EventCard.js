@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { Going, NotGoing } from "../../images/icons";
+import imageTest from "../../images/imageTest.png";
 import Button from "../Reusable/Button";
 import theme from "../Reusable/Colors";
 
@@ -9,26 +10,26 @@ const EventCard = ({ theEvent }) => {
     //const [interested, setInterested] = useState(false);
     const [going, setGoing] = useState(false);
 
-    let eventDate = new Date(theEvent.start_time);
-    let startTime = eventDate.toLocaleTimeString([], {
-        hour: "2-digit",
-        minute: "2-digit",
-    });
+    console.log("results", theEvent);
     let options = {
         weekday: "long",
         year: "numeric",
         month: "long",
         day: "numeric",
     };
+    let eventDate = new Date(theEvent.start_time);
     let startDate = eventDate.toLocaleDateString("en-US", options);
-
-    let eventEndDate = new Date(theEvent.end_time);
-    let endTime = eventEndDate.toLocaleTimeString([], {
+    let startTime = eventDate.toLocaleTimeString([], {
         hour: "2-digit",
         minute: "2-digit",
     });
 
+    let eventEndDate = new Date(theEvent.end_time);
     let endDate = eventEndDate.toLocaleDateString("en-US", options);
+    let endTime = eventEndDate.toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit",
+    });
 
     //TO DO:
     //function to send data
@@ -50,11 +51,13 @@ const EventCard = ({ theEvent }) => {
                 <Name>{theEvent.name}</Name>
                 <Host>{theEvent.host_name}</Host>
                 <EventDate>
-                    {startDate === endDate ? startDate : startDate - endDate}
+                    {startDate
+                        ? startDate === endDate
+                            ? startDate
+                            : startDate + "-" + endDate
+                        : "Loading"}
                 </EventDate>
-                <Time>
-                    {startTime} - {endTime}
-                </Time>
+                <Time>{startTime ? startTime + "-" + endTime : "Loading"}</Time>
                 <Stats>
                     <NumInterested>
                         {theEvent.num_interested} Interested

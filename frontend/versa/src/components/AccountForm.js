@@ -18,10 +18,10 @@ const AccountForm = (props) => {
     useEffect(() => {
         const getUserData = async () => {
             let data = await getUserByID(id);
-            dispatch(setFormInputs("account", "title", data.title));
-            dispatch(setFormInputs("account", "address", data.title));
-            dispatch(setFormInputs("account", "email", data.title));
-            dispatch(setFormInputs("account", "storeName", data.title));
+            dispatch(setFormInputs("account", "name", data.name));
+            dispatch(setFormInputs("account", "address", data.address));
+            dispatch(setFormInputs("account", "email", data.email));
+            dispatch(setFormInputs("account", "storeName", data.username));
         };
         if (props.type === "Edit") {
             getUserData();

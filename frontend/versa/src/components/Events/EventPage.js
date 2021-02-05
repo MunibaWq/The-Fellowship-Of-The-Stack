@@ -14,17 +14,28 @@ const EventPage = () => {
     const [dateTime, setDateTime] = useState();
 
     useEffect(() => {
+        const setUserAsAttending = async () => {};
+        return () => {
+            cleanup;
+        };
+    }, [going]);
+
+    useEffect(() => {
         const fetchEvent = async () => {
             const data = await getEventByID(currentEvent);
             setEventData(data);
             console.log(data);
+            return data;
+        };
+        fetchEvent().then((data) => {
             let options = {
                 weekday: "long",
                 year: "numeric",
                 month: "long",
                 day: "numeric",
             };
-            let eventDate = new Date(eventData.start_time);
+            console.log(eventData);
+            let eventDate = new Date(data.start_time);
             let startTime = eventDate.toLocaleTimeString([], {
                 hour: "2-digit",
                 minute: "2-digit",
@@ -32,7 +43,7 @@ const EventPage = () => {
 
             let startDate = eventDate.toLocaleDateString("en-US", options);
 
-            let eventEndDate = new Date(eventData.end_time);
+            let eventEndDate = new Date(data.end_time);
             let endDate = eventEndDate.toLocaleDateString("en-US", options);
             let endTime = eventEndDate.toLocaleTimeString([], {
                 hour: "2-digit",
@@ -44,8 +55,7 @@ const EventPage = () => {
                 startTime,
                 endTime,
             });
-        };
-        fetchEvent();
+        });
     }, [currentEvent]);
 
     return (
@@ -64,11 +74,17 @@ const EventPage = () => {
                 </EventImages>
 
                 <EventDetail>
+                    <h3>
+                        {eventData
+                            ? eventData.type
+                            : "Loading event categories"}
+                    </h3>
                     <h1>{eventData ? eventData.name : "Loading Event  "}</h1>
                     <h2>
-                        by{" "}
+                        by
                         {eventData ? eventData.host_name : "Loading Host Name"}
                     </h2>
+
                     <Details>
                         <h3>Date: </h3>
                         <p>
@@ -86,15 +102,15 @@ const EventPage = () => {
                         </p>
                     </Details>
                     <Details>
-                        <h3>People Interested: </h3>
+                        <h3>Interested: </h3>
                         <Stats>
-                            <p>{eventData ? eventData.num_interested : "0"}</p>
+                            <p>{eventData ? eventData.num_interested : "0"} </p>
                         </Stats>
                     </Details>
                     <Details>
-                        <h3>People Interested: </h3>
+                        <h3>Attending: </h3>
                         <Stats>
-                            <p>{eventData ? eventData.num_attending : "0"}</p>
+                            <p>{eventData ? eventData.num_attending : "0"} </p>
                         </Stats>
                     </Details>
 
@@ -113,8 +129,8 @@ const EventPage = () => {
                             onClick={() => {
                                 setGoing((curr) => !curr);
                             }}>
-                            <Going />
-                            <p>Attend Event</p>
+                            <Going stroke={theme.secondary} />
+                            Attend Event
                         </Button>
                     )}
 
@@ -124,8 +140,8 @@ const EventPage = () => {
                             onClick={() => {
                                 setGoing((curr) => !curr);
                             }}>
-                            <NotGoing />
-                            <p>Not Going</p>
+                            <NotGoing stroke={theme.secondary} />
+                            Not Going
                         </Button>
                     )}
                 </EventDetail>
@@ -189,21 +205,26 @@ const MainImage = styled.img`
 const EventDetail = styled.div`
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: flex-start;
     margin: 30px 20px;
     h1 {
         font-size: 2em;
         font-weight: 700;
+        margin: 0 0 1em 0;
     }
     h2 {
         font-size: 1em;
         font-weight: 700;
+        margin: 0 0 2em 0;
         //color: ${theme.primary};
     }
 
     h3 {
         margin: 0 1em 1em 0;
+    }
+    p {
+        margin: 0 0 8px 0;
     }
     @media (max-width: 1000px) {
         h1 {
@@ -221,6 +242,7 @@ const EventDetail = styled.div`
 const Description = styled.div`
     display: flex;
     flex-direction: column;
+
     padding: 1em 0;
     h3 {
         margin-bottom: 0.8em;
@@ -230,17 +252,23 @@ const Description = styled.div`
 const Details = styled.div`
     display: flex;
     flex-direction: row;
+    align-items: center;
+    justify-content: center;
 `;
 
 const Stats = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 2em;
     height: 2em;
-    margin: 0 20px 0 0;
+    margin: 0 0px 20px 0px;
     padding: 20px;
-    border: ${theme.primary};
+    border: ${theme.tertiary};
     border-radius: 50px;
-    background-color: ${theme.primary};
+    background-color: ${theme.tertiary};
     p {
+        margin: 0;
         font-size: 0.8em;
         color: white;
     }

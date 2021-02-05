@@ -16,6 +16,8 @@ import DashboardEvents from "./DashboardEvents";
 import { useState } from "react";
 import AddProduct from "../AddProduct";
 import EditProduct from "../EditProduct";
+import EditEvent from "../EditEvent";
+import CreateEvent from "../CreateEvent";
 
 const Dashboard = () => {
     const [navWidth, setNavWidth] = useState(0);
@@ -87,6 +89,14 @@ const Dashboard = () => {
                     <Route
                         path="/dashboard/products/edit/:id"
                         component={EditProduct}
+                    />
+                    <Route
+                        path="/dashboard/events/create"
+                        component={CreateEvent}
+                    />
+                    <Route
+                        path="/dashboard/events/edit/:id"
+                        component={EditEvent}
                     />
                 </Switch>
             </Container>
