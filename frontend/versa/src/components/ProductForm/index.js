@@ -260,8 +260,8 @@ const ProductForm = (props) => {
             <RowContainer4>
                 <ImagesDiv>
                     <h2>Images</h2>
-                    <ImageUpload>{ImageInput(dispatch, images)}</ImageUpload>
-                    <ImageList>{mapImages(images)}</ImageList>
+                    <ImageUpload>{ImageInput(dispatch, images,"productForm")}</ImageUpload>
+                    <ImageList>{images&&mapImages(images)}</ImageList>
                 </ImagesDiv>
             </RowContainer4>
             <Instruction5>

@@ -6,7 +6,7 @@ export function mapImages(images) {
     return images.map((image, index) => {
         return (
             <div>
-                <UploadedImage key={index} alt="product" src={image.image} />
+                <UploadedImage key={index} alt="" src={image.image} />
                 <Radio>
                     <label htmlFor={"thumb" + index}>
                         <input
