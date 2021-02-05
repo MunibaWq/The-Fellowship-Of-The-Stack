@@ -2,7 +2,7 @@ import React from "react";
 import { crop } from "../../imageUtils";
 import { setImages } from "../../redux/actions/Images";
 
-export function ImageInput(dispatch, images) {
+export function ImageInput(dispatch, images, form) {
     return (<input
         style={{ width: "115px" }}
         onChange={(e) => {
@@ -14,7 +14,7 @@ export function ImageInput(dispatch, images) {
                 crop(image, 1).then((img) => {
                     // add that image to the images to be sent to AWS
                     dispatch(
-                        setImages("productForm", [
+                        setImages(form, [
                             ...images,
                             {
                                 image: image,

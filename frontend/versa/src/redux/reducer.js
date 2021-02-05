@@ -8,11 +8,13 @@ const initState = {
         account: {},
         product: {},
         login: {},
+        event: {}
     },
     formInputs: {
         account: {},
         product: {},
         login: {},
+        event: {}
     },
     user: "",
     productData: {},
@@ -20,9 +22,11 @@ const initState = {
         productForm: [],
         productPage: [],
         searchPage: [],
+        eventForm: [],
+        eventPage:[]
     },
     selectedProduct: null,
-    redirect:{productForm:''}
+    redirect:{productForm:'',eventForm:''}
 };
 
 const productReducer = (state = initState, action) => {
