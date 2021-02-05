@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Redirect, useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { TextField } from "../Reusable/Input";
@@ -39,6 +39,8 @@ import { SizeModal } from "./SizeModal";
 import { submitData } from "./submitData";
 import CreateStockTable from "../../pages/Artist/Dashboard/CreateStockTable";
 import EditStockTable from "../../pages/Artist/Dashboard/EditStockTable";
+import StockTable from "../../pages/Artist/Dashboard/StockTable";
+import { template } from "lodash";
 
 const ProductForm = (props) => {
     const dispatch = useDispatch();
@@ -51,6 +53,10 @@ const ProductForm = (props) => {
     const redirect = useSelector((state) => state.redirect.productForm);
     const formError = useSelector((state) => state.formErrors.product.form);
     const params = useParams();
+
+    const [stock, setStock] = useState([]);
+    const [tempColour, setTempColour] = useState([]);
+    const [tempSize, setTempSize] = useState([]);
 
     const id = params.id;
     function clearField() {
@@ -80,6 +86,7 @@ const ProductForm = (props) => {
             dispatch(
                 setFormInputs("product", "colours", [...input.colours, temp])
             );
+            setTempColour([temp]);
         }
     }
     function setSizeValue() {
@@ -95,6 +102,7 @@ const ProductForm = (props) => {
             dispatch(setFormInputs("product", "sizes", [temp]));
         } else if (input.sizes.length < 5) {
             dispatch(setFormInputs("product", "sizes", [...input.sizes, temp]));
+            setTempSize([temp]);
         }
     }
 
@@ -250,7 +258,10 @@ const ProductForm = (props) => {
                         Add
                         <AddIcon stroke={theme.primary} />
                     </Button>
-                    <EditStockTable />
+                    <EditStockTable
+                        tempColour={tempColour}
+                        tempSize={tempSize}
+                    />
                 </SizeDiv>
             </RowContainer3>
             <Instruction4>

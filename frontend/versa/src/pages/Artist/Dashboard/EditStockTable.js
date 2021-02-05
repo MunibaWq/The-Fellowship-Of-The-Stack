@@ -3,9 +3,16 @@ import axios from "axios";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
 
-const EditStockTable = () => {
+const EditStockTable = ({ tempColour, tempSize }) => {
     const [stock, setStock] = useState([]);
     const { id } = useParams();
+
+    const tempIncoming = {
+        product_id: id,
+        color: tempColour[0].label,
+        size: tempSize[0].label,
+        quantity: 1,
+    };
 
     useEffect(() => {
         const getProductStock = async () => {
@@ -14,7 +21,19 @@ const EditStockTable = () => {
         };
         getProductStock();
     }, []);
+
+    useEffect(() => {
+        const updateStock = () => {
+            setStock(...[tempIncoming]);
+        };
+        updateStock();
+    }, []);
+
     console.log(stock);
+    // console.log(tempColour);
+    // console.log(tempSize);
+    // console.log(tempIncoming);
+    console.log(tempIncoming);
 
     function mapTable(arr) {
         if (arr.length > 0) {

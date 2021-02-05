@@ -10,7 +10,7 @@ import axios from "axios";
 import Loading from "../../../components/Reusable/Loading";
 import { DeleteProductModal } from "../../../components/Dashboard/DeleteProductModal";
 
-const Dashboard = (currentProduct) => {
+const Inventory = (currentProduct) => {
     const [results, setResults] = useState([]);
     const [inventory, setInventory] = useState([]);
     const [status, setStatus] = useState("");
@@ -174,7 +174,7 @@ const Dashboard = (currentProduct) => {
     );
 };
 
-export default Dashboard;
+export default Inventory;
 
 export const TableStyle = styled.table`
     min-width: 655px;
