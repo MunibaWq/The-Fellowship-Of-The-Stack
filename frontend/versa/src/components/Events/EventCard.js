@@ -57,7 +57,7 @@ const EventCard = ({ theEvent }) => {
                 </Link>
             ) : (
                 <Link to={`/events/${theEvent.id}`}>
-                    <Thumbnail src="https://source.unsplash.com/random/250x250/?party" />
+                    <Thumbnail src={imageTest} />
                 </Link>
             )}
             <Link to={`/events/${theEvent.id}`}>
