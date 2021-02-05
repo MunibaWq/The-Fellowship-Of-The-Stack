@@ -10,6 +10,10 @@ const productRouter = require("./routers/productRouter");
 const eventRouter = require("./routers/eventRouter");
 var cookieParser = require("cookie-parser");
 const pool = require("./db");
+require("dotenv").config();
+const sgMail = require("@sendgrid/mail");
+const apiKey = process.env.SENDGRID_API_KEY;
+sgMail.setApiKey(apiKey);
 let app = express();
 app.use(cookieParser());
 app.use(express.json());
@@ -24,31 +28,30 @@ app.listen(PORT, () => {
 app.use(express.static("../frontend/versa/build"));
 
 //ROUTES
-const sendGrid = (type, email) => {
-    console.log(`sent a ${type} email to ${email}`);
-};
+
 const emailsSent = async (day) => {
-    const response = await pool.query("SELECT sent FROM sendgrid where day = $1", [
-        day,
-    ]);
+    const response = await pool.query(
+        "SELECT sent FROM sendgrid where day = $1",
+        [day]
+    );
     return response.rows[0];
 };
 const sendEmails = async () => {
     const events = await pool.query("SELECT * from events");
     for (event of events.rows) {
-        console.log(event)
+        console.log(event);
         if (
             new Date(event.start_time).getTime() - new Date().getTime() <
             86400000
         ) {
-            console.log('here')
+            console.log("here");
             attendees = await pool.query(
                 "SELECT u.email from events_attendees a INNER JOIN users u ON a.attendee = u.id WHERE a.event_id = " +
                     event.id
             );
             for (attendee of attendees.rows) {
-                console.log(attendee)
-                sendGrid('reminder',attendee.email);
+                console.log(attendee);
+                sendGrid("reminder", attendee.email);
             }
         }
     }
@@ -67,7 +70,6 @@ const sendEmails = async () => {
         ]
     );
 };
-
 
 app.use("*", (req, res, next) => {
     if (
