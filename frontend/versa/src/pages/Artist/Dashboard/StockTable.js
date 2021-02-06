@@ -2,17 +2,30 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { TableStyle } from "./Inventory";
 
-const StockTable = () => {
+const StockTable = ({ item }) => {
     const [stock, setStock] = useState([]);
 
     useEffect(() => {
-        const getProductStock = async () => {
-            const res = await axios.get("/products/test/22");
-            setStock(res.data);
-        };
-        getProductStock();
-    }, []);
-    console.log(stock);
+        mapOverColorAndSize();
+    }, [item]);
+
+    function mapOverColorAndSize() {
+        if (item.colours !== undefined && item.sizes !== undefined) {
+            let result = [];
+            for (let color of item.colours) {
+                for (let size of item.sizes) {
+                    let temp = {
+                        color: color.label,
+                        size: size.label,
+                        price: size.price,
+                        quantity: 0,
+                    };
+                    result.push(temp);
+                }
+            }
+            setStock(result);
+        }
+    }
 
     function mapTable(arr) {
         if (arr.length > 0) {
@@ -35,21 +48,14 @@ const StockTable = () => {
 
     return (
         <div>
-            stock
-            <form
-                onSubmit={(e) => {
-                    console.log(e);
-                }}>
-                <TableStyle>
-                    <tr>
-                        <th>color </th>
-                        <th>size </th>
-                        <th>quantity </th>
-                    </tr>
-                    {mapTable(stock)}
-                </TableStyle>
-                <button type="submit">create</button>
-            </form>
+            <TableStyle>
+                <tr>
+                    <th>color </th>
+                    <th>size </th>
+                    <th>quantity </th>
+                </tr>
+                {mapTable(stock)}
+            </TableStyle>
         </div>
     );
 };
