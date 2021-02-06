@@ -5,12 +5,19 @@ import Table from "../../../components/Dashboard/Table";
 import { salesByProductData, recentOrders } from "./data";
 
 const SalesByProduct = (salesByProductData) => {
-    return <SBPContainer>Sales By Product</SBPContainer>;
+    return (
+        <SBPContainer>
+            <h1>Sales By Product</h1>
+        </SBPContainer>
+    );
 };
 
 export default SalesByProduct;
 
 const SBPContainer = styled.div`
-    padding: 2em;
-    margin: 2em;
+    padding: 2em 2em 2em calc(2em + 66px);
+
+    h1 {
+        margin: 0 1em 2em 1em;
+    }
 `;
