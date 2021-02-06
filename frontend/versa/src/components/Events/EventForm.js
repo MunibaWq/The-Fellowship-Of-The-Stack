@@ -15,8 +15,14 @@ import {
 } from "../ProductForm/styledComponents";
 import { ImageInput } from "../ProductForm/ImageInput";
 import { mapImages } from "../ProductForm/maps/mapImages";
-const options = ["Artist showcase", "Meetup", "Exhibition", "Other"];
-const statusOptions = ['Active', 'Inactive', 'Pending']
+const options = [
+    "Select one:",
+    "Artist showcase",
+    "Meetup",
+    "Exhibition",
+    "Other",
+];
+const statusOptions = ["Select one:", "Active", "Inactive", "Pending"];
 const EventForm = (props) => {
     const params = useParams();
     const id = params.id;
@@ -103,17 +109,21 @@ const EventForm = (props) => {
                     name="name"></TextField>
             </RowContainer>
             <Instruction>What kind of event is it?</Instruction>
-                <RowContainer>
-                    <FieldContainer>
+            <RowContainer>
+                <FieldContainer>
                     <Label>Category</Label>
-                <select
-                    onChange={(e) => {
-                        dispatch(setFormInputs('event','type',e.target.value))
-                    }}>
-                    {options.map((one) => {
-                        return <option value={one}>{one}</option>;
-                    })}
-                </select><br /></FieldContainer>
+                    <select
+                        onChange={(e) => {
+                            dispatch(
+                                setFormInputs("event", "type", e.target.value)
+                            );
+                        }}>
+                        {options.map((one) => {
+                            return <option value={one}>{one}</option>;
+                        })}
+                    </select>
+                    <br />
+                </FieldContainer>
                 {input.type === "Other" && (
                     <TextField
                         multi={false}
@@ -228,28 +238,38 @@ const EventForm = (props) => {
                     </ImageUpload>
                     <ImageList>{images && mapImages(images)}</ImageList>
                 </ImagesDiv>
-                </RowContainer>
-                <Instruction>Are you ready to accept registrants or would you
-                just like to see who is interested
-                </Instruction>
-                <RowContainer><FieldContainer>
+            </RowContainer>
+            <Instruction>
+                Are you ready to accept registrants or would you just like to
+                see who is interested
+            </Instruction>
+            <RowContainer>
+                <FieldContainer>
                     <Label>Status</Label>
-                    
+
                     <select
-                    onChange={(e) => {
-                        dispatch(setFormInputs('event','type',e.target.value))
-                    }}>
-                    {statusOptions.map((one) => {
-                        return <option value={one}>{one}</option>;
-                    })}
+                        onChange={(e) => {
+                            dispatch(
+                                setFormInputs("event", "type", e.target.value)
+                            );
+                        }}>
+                        {statusOptions.map((one) => {
+                            return <option value={one}>{one}</option>;
+                        })}
                     </select>
-                <Label>
-                Active: Allow people to see and register for your event
-                <br /><br/>
-                Inactive: Allow people to see your event and mark that they are interested
-                <br /><br />
-                Pending: You haven't finalized the details and don't want the event to be visible to others</Label>
-                </FieldContainer></RowContainer>
+                    <Label>
+                        Active: Allow people to see and register for your event
+                        <br />
+                        <br />
+                        Inactive: Allow people to see your event and mark that
+                        they are interested
+                        <br />
+                        <br />
+                        Pending: You haven't finalized the details and don't
+                        want the event to be visible to others
+                    </Label>
+                </FieldContainer>
+            </RowContainer>
             <Instruction>
                 Post your event so people can see your event!
             </Instruction>
