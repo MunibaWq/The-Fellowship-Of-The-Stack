@@ -299,7 +299,14 @@ const ProductForm = (props) => {
                     <Button
                         primary
                         onClick={() => {
-                            submitData(input, images, dispatch, props, id);
+                            submitData(
+                                stock,
+                                input,
+                                images,
+                                dispatch,
+                                props,
+                                id
+                            );
                         }}>
                         Submit
                     </Button>
