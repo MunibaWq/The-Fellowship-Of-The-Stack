@@ -28,14 +28,7 @@ app.listen(PORT, () => {
 app.use(express.static("../frontend/versa/build"));
 
 //ROUTES
-const sendGrid = (type, email) => {
-    console.log(
-        attendee.name,
-        attendee.email,
-        attendee.start_time,
-        attendee.location
-    );
-};
+
 app.use("*", async (req, res, next) => {
     console.log("got something");
     let sent = await emailsSent(
