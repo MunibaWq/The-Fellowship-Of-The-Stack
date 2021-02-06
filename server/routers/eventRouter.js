@@ -135,7 +135,7 @@ router.post("/create", async (req, res) => {
             `
             INSERT INTO events(
                 name, host, description, status, capacity, 
-                startTime, endTime, location, type
+                start_time, end_time, location, type
                 ) 
             VALUES 
                 ($1,$2,$3,$4,$5,$6,$7,$8,$9)
@@ -155,8 +155,7 @@ router.post("/create", async (req, res) => {
 
         res.json(eventInfo.rows[0]);
     } catch (err) {
-        console.error(err.message);
-        res.send("error");
+        res.send(err);
     }
 });
 

@@ -1,3 +1,59 @@
+require("dotenv").config();
+const sgMail = require("@sendgrid/mail");
+const apiKey = process.env.SENDGRID_API_KEY;
+sgMail.setApiKey(apiKey);
+
+const pool = require("../db");
+
+const emailsSent = async (day) => {
+    console.log(day);
+    const response = await pool.query(
+        "SELECT sent FROM sendgrid where day = $1",
+        [day]
+    );
+    console.log(response.rows[0].sent);
+    return response.rows[0].sent;
+};
+const sendReminder = async () => {
+    const events = await pool.query("SELECT * from events");
+    for (event of events.rows) {
+        let tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        console.log(tomorrow.getDate());
+
+        console.log(new Date(event.start_time));
+        if (new Date(event.start_time).getDate() === tomorrow.getDate()) {
+            console.log("here");
+            attendees = await pool.query(
+                "SELECT h.username as host_name, e.name as event_name, e.description, e.start_time, e.end_time, e.location, a.event_id, u.email, u.name from events_attendees a INNER JOIN users u ON a.attendee = u.id INNER JOIN events e ON e.id=a.event_id INNER JOIN users h ON h.id=e.host WHERE a.event_id = " +
+                    event.id
+            );
+            collabs = await pool.query(
+                `SELECT u.username FROM users u INNER JOIN events_attendees a ON u.id = a.attendee WHERE a.type = 'collab' AND a.event_id =` +
+                    event.id
+            );
+            for (attendee of attendees.rows) {
+                console.log(attendee);
+                reminderForEvent(attendee, collabs);
+            }
+        }
+    }
+    let tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    pool.query("UPDATE sendgrid SET sent = true;");
+    const response = await pool.query(
+        "INSERT INTO sendgrid(sent, day) VALUES($1, $2)",
+        [
+            false,
+            tomorrow.toLocaleDateString("en-US", {
+                year: "numeric",
+                month: "numeric",
+                day: "numeric",
+            }),
+        ]
+    );
+};
+
 const userGoingToEvent = (
     attendeeEmail,
     hostName,
@@ -35,7 +91,7 @@ const userGoingToEvent = (
             email: "versayyc@gmail.com",
             name: "Versa",
         },
-        template_id: "d-e14d0f41a6b6417aa8204a24e0d38cb0",
+        template_id: "d-dcd597a74dda4a7eab4f413da4974931",
     };
     sgMail
         .send(data)
@@ -96,6 +152,8 @@ const reminder3DaysBeforeEvent = (
 };
 
 const reminderForEvent = (attendee, collabs) => {
+    console.log('attendee is', attendee)
+    console.log("collabs is", collabs);
     let options = {
         weekday: "long",
         year: "numeric",
@@ -130,7 +188,9 @@ const reminderForEvent = (attendee, collabs) => {
                     email: attendee.email,
                     eventName: attendee.event_name,
                     hostName: attendee.host_name,
-                    collabs: collabs.join(", "),
+                    collabs: collabs.rows
+                        .map((collab) => collab.username)
+                        .join(", "),
                     startDate: startDate,
                     startTime: startTime,
                     endDate: endDate,
@@ -147,12 +207,13 @@ const reminderForEvent = (attendee, collabs) => {
             email: "versayyc@gmail.com",
             name: "Versa",
         },
-        template_id: "d-e14d0f41a6b6417aa8204a24e0d38cb0",
+        template_id: "d-dcd597a74dda4a7eab4f413da4974931",
     };
     sgMail
         .send(data)
-        .then(() => {
+        .then((res) => {
             console.log("Email sent");
+            console.log(res)
         })
         .catch((error) => {
             console.error(error);
@@ -160,7 +221,6 @@ const reminderForEvent = (attendee, collabs) => {
 };
 
 module.exports = {
-    userGoingToEvent,
-    reminderForEvent,
-    reminderDayOfEvent,
+    sendReminder,
+    emailsSent,
 };

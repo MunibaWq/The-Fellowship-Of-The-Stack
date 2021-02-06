@@ -9,12 +9,11 @@ const imageRouter = require("./routers/imageRouter");
 const productRouter = require("./routers/productRouter");
 const eventRouter = require("./routers/eventRouter");
 var cookieParser = require("cookie-parser");
-const { emailsSent, sendReminder } = require("./emailsSent");
+const {
+    emailsSent,
+    sendReminder,
+} = require("./helperFunctions/sendGridFunctions");
 const pool = require("./db");
-require("dotenv").config();
-const sgMail = require("@sendgrid/mail");
-const apiKey = process.env.SENDGRID_API_KEY;
-sgMail.setApiKey(apiKey);
 let app = express();
 app.use(cookieParser());
 app.use(express.json());
@@ -30,18 +29,25 @@ app.use(express.static("../frontend/versa/build"));
 
 //ROUTES
 const sendGrid = (type, email) => {
-    console.log(attendee.name, attendee.email, attendee.start_time, attendee.location);
+    console.log(
+        attendee.name,
+        attendee.email,
+        attendee.start_time,
+        attendee.location
+    );
 };
-app.use("*", (req, res, next) => {
-    if (
-        !emailsSent(
-            new Date().toLocaleDateString("en-US", {
-                year: "numeric",
-                month: "numeric",
-                day: "numeric",
-            })
-        )
-    ) {
+app.use("*", async (req, res, next) => {
+    console.log("got something");
+    let sent = await emailsSent(
+        new Date().toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "numeric",
+            day: "numeric",
+        })
+    );
+   
+    if (!sent) {
+        console.log("got to here");
         sendReminder();
     }
     next();
