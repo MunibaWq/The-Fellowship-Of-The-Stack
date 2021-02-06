@@ -37,10 +37,11 @@ import { ImageInput } from "./ImageInput";
 import { ColourModal } from "./ColourModal";
 import { SizeModal } from "./SizeModal";
 import { submitData } from "./submitData";
-import CreateStockTable from "../../pages/Artist/Dashboard/CreateStockTable";
+
 import EditStockTable from "../../pages/Artist/Dashboard/EditStockTable";
-import StockTable from "../../pages/Artist/Dashboard/StockTable";
+
 import { template } from "lodash";
+import StockTable from "../../pages/Artist/Dashboard/StockTable";
 
 const ProductForm = (props) => {
     const dispatch = useDispatch();
@@ -261,7 +262,11 @@ const ProductForm = (props) => {
                         Add
                         <AddIcon stroke={theme.primary} />
                     </Button>
-                    <EditStockTable item={stock} />
+                    {props.type === "Edit" ? (
+                        <EditStockTable item={stock} />
+                    ) : (
+                        <StockTable item={stock} />
+                    )}
                 </SizeDiv>
             </RowContainer3>
             <Instruction4>
