@@ -9,6 +9,7 @@ import ImageTest from "../../images/imageTest.png";
 import { useDispatch, useSelector } from "react-redux";
 import { setChoices } from "../../redux/actions/ProductPage";
 import { setRedirect } from "../../redux/actions/Redirects";
+import { addToCart } from "../../redux/actions/Cart";
 
 const ProductPage = ({
     images,
@@ -20,15 +21,28 @@ const ProductPage = ({
     description,
     num_stars,
     image,
-    stock
+    stock,
+    id
 }) => {
     const choices = useSelector((state) => state.productChoices);
     const dispatch = useDispatch();
+    const cart = useSelector(state=>state.cart)
     let params = useParams();
     console.log(stock)
     useEffect(() => {
         dispatch(setRedirect("productForm", ""));
     }, [dispatch]);
+    const showProductTotal = () => {
+        return Object.keys(cart[id]).reduce((colourTotal, currColour, cIndex) => {
+            colourTotal = colourTotal + Object.keys(cart[id][currColour]).reduce((sizeTotal, currSize, sIndex) => {
+                sizeTotal += cart[id][currColour][currSize]
+                console.log(cart[id][currColour][currSize])
+                return sizeTotal
+            },0)
+            return colourTotal
+        }, 0)
+        
+    }
     return (
         <Container>
             <Link to="/">
@@ -198,7 +212,14 @@ const ProductPage = ({
                         <p>{materials ? materials : "Loading materials..."}</p>
                     </Materials>
 
-                    <Button primary>Add to Cart</Button>
+                    <Button primary onClick={() => {
+                        dispatch(addToCart(id, colours[choices.colour].label, sizes[choices.size].label, 1))
+                        
+                    }}>Add to Cart</Button>
+                    
+                    {cart && cart[id] && "In your cart: "+showProductTotal()}
+                        
+                    
                 </ProductDetail>
             </MainInfo>
         </Container>
