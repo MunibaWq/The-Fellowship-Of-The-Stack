@@ -9,6 +9,7 @@ const imageRouter = require("./routers/imageRouter");
 const productRouter = require("./routers/productRouter");
 const dashboardRouter = require("./routers/dashboardRouter");
 const eventRouter = require("./routers/eventRouter");
+const orderRouter = require("./routers/orderRouter");
 var cookieParser = require("cookie-parser");
 const {
     emailsSent,
@@ -52,6 +53,7 @@ app.use("/products", productRouter);
 app.use("/users", userRouter);
 app.use("/events", eventRouter);
 app.use("/dashboard", dashboardRouter);
+app.use("/orders", orderRouter);
 app.get("*", (req, res) => {
     res.sendFile(
         path.resolve(__dirname, "../frontend/versa/build", "index.html")

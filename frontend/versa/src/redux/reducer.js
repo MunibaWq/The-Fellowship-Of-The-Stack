@@ -1,20 +1,22 @@
 import _ from "lodash";
 const initState = {
+    cart: {},
     modalVisibility: {
-        productForm: {sizes:false, colours:false},
+        productForm: { sizes: false, colours: false },
     },
     productChoices: { image: 0, colour: 0, size: 0 },
     formErrors: {
         account: {},
         product: {},
         login: {},
-        event: {}
+        event: {},
+        cart: {}
     },
     formInputs: {
         account: {},
         product: {},
         login: {},
-        event: {}
+        event: {},
     },
     user: "",
     productData: {},
@@ -23,15 +25,45 @@ const initState = {
         productPage: [],
         searchPage: [],
         eventForm: [],
-        eventPage:[]
+        eventPage: [],
     },
     selectedProduct: null,
-    redirect:{productForm:'',eventForm:''}
+    redirect: { productForm: "", eventForm: "" },
 };
 
 const productReducer = (state = initState, action) => {
     let newState = _.cloneDeep(state);
     switch (action.type) {
+        case "REMOVE_FROM_CART":
+            console.log("remove from cart");
+            delete newState.cart[action.payload.cartProduct][
+                action.payload.colour
+            ][action.payload.size];
+            return newState;
+        case "ADD_TO_CART":
+            const { cartProduct, colour, size, quantity } = action.payload;
+            if (newState.cart[cartProduct]) {
+                if (newState.cart[cartProduct][colour]) {
+                    if (newState.cart[cartProduct][colour][size]) {
+                        newState.cart[cartProduct][colour][size] += quantity;
+                    } else {
+                        newState.cart[cartProduct][colour][size] = quantity;
+                    }
+                } else {
+                    newState.cart[cartProduct][colour] = { [size]: quantity };
+                }
+            } else {
+                newState.cart[cartProduct] = { [colour]: { [size]: quantity } };
+            }
+            console.log(newState);
+            return newState;
+        case "MODIFY_CART":
+            console.log('modifying cart')
+            console.log(action.payload)
+            const { mCartProduct, mColour, mSize, mQuantity } = action.payload;
+
+            newState.cart[mCartProduct][mColour][mSize] = Math.round(mQuantity);
+            return newState;
         case "SET_MODAL_VISIBLE":
             let { modalPage, modalName, visible } = action.payload;
             newState.modalVisibility[modalPage][modalName] = visible;
@@ -41,8 +73,6 @@ const productReducer = (state = initState, action) => {
             newState.productChoices[choiceKey] = choiceValue;
             return newState;
         case "SET_IMAGES":
-            console.log(newState);
-
             let { page, images } = action.payload;
             newState.images[page] = images;
             return newState;
@@ -63,7 +93,6 @@ const productReducer = (state = initState, action) => {
             newState.formInputs[formToClear] = {};
             return newState;
         case "FORM_SET_INPUTS":
-            console.log(newState);
             let {
                 form: inputFormName,
                 key: inputFormKey,
@@ -89,7 +118,7 @@ const productReducer = (state = initState, action) => {
             newState.selectedProduct = action.payload;
             return newState;
         case "SET_REDIRECT":
-            let { redirectPage, redirectValue } = action.payload
+            let { redirectPage, redirectValue } = action.payload;
             newState.redirect[redirectPage] = redirectValue;
             return newState;
         default:

@@ -3,6 +3,13 @@ const router = new express.Router();
 const pool = require("../db");
 
 //get all variations of specific product in stock db
+router.get('/getByVariation/:id/:colour/:size', async (req, res) => {
+    const { id, colour, size } = req.params
+    const result = await pool.query(`SELECT * FROM stock 
+    WHERE product_id = $1 AND color=$2 AND size=$3`,
+        [id, colour, size])
+    res.send(result.rows)
+})
 router.get("/get/:id", async (req, res, next) => {
     const { id } = req.params;
     const client = await pool.connect();

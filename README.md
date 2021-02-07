@@ -25,3 +25,20 @@ TO RUN LOCALLY:
 3. then go to localhost:3000 in the browser
 
 X-----X
+
+TEST CREDIT CARDS:
+
+Use any expiry date that is in the future and any 3 digit CVC
+
+4242424242424242    Success
+4000000000009235	Elevated Risk
+4000000000004954	High Risk
+4100000000000019	Fraud
+4000000000000002	General Decline
+4000000000009995	Insufficient Funds
+4000000000009987	Lost Card
+4000000000009979	Stolen
+4000000000000069	Expired
+4000000000000127	Incorrect CVC
+4000000000000119	Processing Error
+4242424242424241	Incorrect number

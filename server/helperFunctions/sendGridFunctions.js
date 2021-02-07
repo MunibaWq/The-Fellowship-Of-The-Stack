@@ -34,7 +34,7 @@ const sendReminder = async () => {
             );
             for (attendee of attendees.rows) {
                 console.log(attendee);
-                reminderForEvent(attendee, collabs);
+                reminderForEvent(attendee, collabs.rows.map(collab=>collab.username));
             }
         }
     }
@@ -56,6 +56,7 @@ const sendReminder = async () => {
 
 
 const reminderForEvent = (attendee, collabs) => {
+    console.log('here is some infp', collabs)
     let options = {
         weekday: "long",
         year: "numeric",
