@@ -22,6 +22,8 @@ router.get("/getAll", async (req, res, next) => {
     res.json(result.rows);
 });
 
+//edit stock
+
 router.put("/put", async (req, res, next) => {
     try {
         const client = await pool.connect();

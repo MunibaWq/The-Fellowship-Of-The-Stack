@@ -1,25 +1,23 @@
-import Axios from 'axios'
-import { addImage } from '../posts';
+import Axios from "axios";
+import { addImage } from "../posts";
+
 export const editProduct = async (productInfo, images, id, thumbImg) => {
     await Axios.put("/products/edit/" + id, {
         data: productInfo,
     });
     let productID = +id;
     images.forEach(async (image, index) => {
-
         if (index === thumbImg) {
             image.size = "thumb";
         }
-    
 
-    
-        if (image.imageFile === 'update') {
+        if (image.imageFile === "update") {
             let { label, size, filename } = image;
             let res = await updateImage(label, size, id, filename);
             if (!res) {
-                alert('failed to update thumbnail choice')
+                alert("failed to update thumbnail choice");
             }
-        } else if (image.imageFile === 'delete') {
+        } else if (image.imageFile === "delete") {
             let { filename } = image;
             //let res = await deleteImage(filename)
             //if (!res) {
@@ -31,30 +29,42 @@ export const editProduct = async (productInfo, images, id, thumbImg) => {
             if (!res)
                 alert(
                     JSON.stringify(imageFile) +
-                    " failed to upload, go to edit product to try to add picture again"
+                        " failed to upload, go to edit product to try to add picture again"
                 );
         }
-    
     });
     return productID;
-}
+};
 export const updateImage = async (label, imageSize, productID, filename) => {
     try {
-        
-            const response = await Axios.put("/images/update", {
-                imageSize,
-                productID,
-                label,
-                filename
-            });
-            if (response.status === 201) {
-                return true;
-            }
-        
+        const response = await Axios.put("/images/update", {
+            imageSize,
+            productID,
+            label,
+            filename,
+        });
+        if (response.status === 201) {
+            return true;
+        }
 
         return false;
     } catch (err) {
         console.error(err);
+        return false;
+    }
+};
+// created a put request for editStock part of product form and passed stock prop from productForm to submitData to sendProductData to here
+export const editStock = async (stock) => {
+    try {
+        const response = await Axios.put("/stock/put", {
+            stock,
+        });
+        console.log(stock);
+        if (response.status === 201) {
+            return true;
+        }
+    } catch (err) {
+        console.log(err);
         return false;
     }
 };
