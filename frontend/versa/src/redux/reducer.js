@@ -10,6 +10,7 @@ const initState = {
         product: {},
         login: {},
         event: {},
+        cart: {}
     },
     formInputs: {
         account: {},
@@ -34,6 +35,10 @@ const productReducer = (state = initState, action) => {
     let newState = _.cloneDeep(state);
     switch (action.type) {
         case "REMOVE_FROM_CART":
+            console.log("remove from cart");
+            delete newState.cart[action.payload.cartProduct][
+                action.payload.colour
+            ][action.payload.size];
             return newState;
         case "ADD_TO_CART":
             const { cartProduct, colour, size, quantity } = action.payload;
@@ -50,9 +55,14 @@ const productReducer = (state = initState, action) => {
             } else {
                 newState.cart[cartProduct] = { [colour]: { [size]: quantity } };
             }
-            console.log(newState)
+            console.log(newState);
             return newState;
         case "MODIFY_CART":
+            console.log('modifying cart')
+            console.log(action.payload)
+            const { mCartProduct, mColour, mSize, mQuantity } = action.payload;
+
+            newState.cart[mCartProduct][mColour][mSize] = Math.round(mQuantity);
             return newState;
         case "SET_MODAL_VISIBLE":
             let { modalPage, modalName, visible } = action.payload;
@@ -63,7 +73,6 @@ const productReducer = (state = initState, action) => {
             newState.productChoices[choiceKey] = choiceValue;
             return newState;
         case "SET_IMAGES":
-
             let { page, images } = action.payload;
             newState.images[page] = images;
             return newState;

@@ -16,11 +16,11 @@ export const removeFromCart = (cartProduct, colour, size, quantity) => {
     };
 };
 
-export const changeQuantity = (cartProduct, colour, size, quantity) => {
+export const changeQuantity = (mCartProduct, mColour, mSize, mQuantity) => {
     return async (dispatch) => {
         dispatch({
             type: "MODIFY_CART",
-            payload: { cartProduct, colour, size, quantity },
+            payload: { mCartProduct, mColour, mSize, mQuantity },
         });
     };
 };

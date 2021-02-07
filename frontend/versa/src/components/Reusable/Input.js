@@ -96,6 +96,7 @@ export const Error = styled.p`
 `;
 
 export const Input = styled.input`
+    width: 100%;
     border-radius: 5px;
     border: 3px solid ${theme.secondary};
     height: 35px;
