@@ -8,6 +8,13 @@ const ShoppingCart = () => {
     // const dispatch = useDispatch();
     const cart = useSelector((state) => state.cart);
     const [cartItems, setCartItems] = useState();
+    const calcCartTotal = () => {
+        if (!cartItems) return 0;
+        const total = cartItems.reduce((total, cartItem) => {
+            return total + cartItem.itemPrice * cartItem.itemQuantity;
+        },0);
+        return total.toFixed(2)
+    };
     useEffect(() => {
         const getCartContents = async () => {
             let cartContents = [];
@@ -46,8 +53,8 @@ const ShoppingCart = () => {
                     <div style={{ gridColumn: "1/3" }}>Item</div>
 
                     <div>Quantity</div>
-                    <div>Each</div>
-                    <div>Total</div>
+                    <Price>Each</Price>
+                    <Price>Total</Price>
                 </CartItem>
                 {cartItems &&
                     cartItems.map((cartItem) => {
@@ -65,48 +72,47 @@ const ShoppingCart = () => {
                                 />
                                 <div>{cartItem.variation}</div>
                                 <div>{cartItem.itemQuantity}</div>
-                                <div>{cartItem.itemPrice}</div>
-                                <div>
-                                    {cartItem.itemPrice * cartItem.itemQuantity}
-                                </div>
+                                <Price>{(cartItem.itemPrice).toLocaleString('us-US', { style: 'currency', currency: 'USD' })}</Price>
+                                <Price>
+                                    {(cartItem.itemPrice * cartItem.itemQuantity).toLocaleString('us-US', { style: 'currency', currency: 'USD' })}
+                                </Price>
                             </CartItem>
                         );
                     })}
                 <CartItem>
-                    <div style={{ gridColumn: "3 / 4" }}>Subtotal:</div>
-                    <div></div>
-                    
-                    </CartItem>
+                    <div style={{ gridColumn: "3 / 5" }}>Subtotal:</div>
+                    <Price>{(calcCartTotal()).toLocaleString('us-US', { style: 'currency', currency: 'USD' })}</Price>
+                </CartItem>
                 <CartItem>
-                    <div style={{ gridColumn: "3 / 4" }}>GST (5%):</div>
-                    
-                    
-                    </CartItem>
+                    <div style={{ gridColumn: "3 / 5" }}>GST (5%):</div>
+                    <Price>{(calcCartTotal() * 0.05).toLocaleString('us-US', { style: 'currency', currency: 'USD' })}</Price>
+                </CartItem>
                 <CartItem>
-                    <div style={{ gridColumn: "3 / 4" }}>Total:</div>
-                    
-                    
-                    </CartItem>
+                    <div style={{ gridColumn: "3 / 5" }}>Total:</div>
+                    <Price>{(calcCartTotal() * 1.05).toLocaleString('us-US', { style: 'currency', currency: 'USD' })}</Price>
+                </CartItem>
             </Cart>
-            <CheckoutButton artistName="Versa" price={150} />
+            <CheckoutButton artistName="Versa" price={(calcCartTotal() * 1.05).toFixed(2)} />
         </Container>
     );
 };
+const Price = styled.div`
+    text-align: right;
+`;
 const Cart = styled.div`
-display: grid;
+    display: grid;
     grid-auto-rows: 50px;
-`
+`;
 const Container = styled.div`
     display: flex;
     flex-direction: column;
     padding: 2em;
-    
 `;
 const CartItem = styled.div`
     display: grid;
     grid-template-columns: 60px auto 15% 15% 15%;
     align-items: self-end;
-    border-bottom: black solid 1px;
+    /* border-bottom: black solid 1px; */
     img {
         width: 50px;
     }

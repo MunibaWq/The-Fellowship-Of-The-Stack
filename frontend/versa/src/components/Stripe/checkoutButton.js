@@ -14,7 +14,7 @@ const CheckoutButton = ({ price, artistName }) => {
     const publishableKey =
         "pk_test_51ICnpqINw7U5M31CEDkye0SmruSOvRzTQiiX8ObajGYJr2uONQKzqPpmQXmj98jJUKWCFDvAhlU76oJT2XpM0HUc00GbQtAjta";
     let onToken = async (token) => {
-        axios.post('http://localhost:5000/orders/stripe/payment',{token, amount:priceForStripe})
+        axios.post('/orders/stripe/payment',{token, amount:priceForStripe})
     }
     
     return (
