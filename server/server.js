@@ -7,6 +7,7 @@ const PORT = process.env.PORT || 5000;
 const stockRouter = require("./routers/stockRouter");
 const imageRouter = require("./routers/imageRouter");
 const productRouter = require("./routers/productRouter");
+const dashboardRouter = require("./routers/dashboardRouter");
 const eventRouter = require("./routers/eventRouter");
 var cookieParser = require("cookie-parser");
 const {
@@ -38,7 +39,7 @@ app.use("*", async (req, res, next) => {
             day: "numeric",
         })
     );
-   
+
     if (!sent) {
         console.log("got to here");
         sendReminder();
@@ -50,6 +51,7 @@ app.use("/images", imageRouter);
 app.use("/products", productRouter);
 app.use("/users", userRouter);
 app.use("/events", eventRouter);
+app.use("/dashboard", dashboardRouter);
 app.get("*", (req, res) => {
     res.sendFile(
         path.resolve(__dirname, "../frontend/versa/build", "index.html")

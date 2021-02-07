@@ -1,9 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import * as V from "victory";
 import styled from "styled-components";
 import theme from "../Reusable/Colors";
 
+// salesByProductData = [
+//     { x: "Goober \nCandle", y: 32 },
+//     { x: "Duck \nEggs", y: 27 },
+//     { x: "Totem \nCandle", y: 21 },
+//     { x: "Horseshoe \nMagnet", y: 10 },
+//     { x: "Other", y: 20 },
+// ];
+
 const Pie = ({ data }) => {
+    console.log(data, "pie");
+    const [salesData, setSalesData] = useState();
+
     return (
         <PieContainer>
             <V.VictoryPie

@@ -2,13 +2,13 @@ import React from "react";
 import styled from "styled-components";
 
 const data = {
-    headers: ["#", "Status", "Date", "Total"],
+    headers: ["Name", "# Sold", "Colour", "Size", "Total Revenue"],
     values: [
-        [8, "Received", "8/1/21", "$123.20"],
-        [9, "Shipped", "8/3/21", "$126.90"],
-        [10, "Processing", "8/4/21", "$23.20"],
-        [11, "Confirmed", "8/5/21", "$3.20"],
-        [12, "Paid", "8/6/21", "$12.20"],
+        ["Totem Candle", 264, "Plum", "XS", "$11,298"],
+        ["Goober Candle", 235, "8/3/21", "$9,221"],
+        ["Doodle Crayon", 198, "8/4/21", "$7,321"],
+        ["Plant Pedestal", 176, "8/5/21", "$6,345"],
+        ["Match Striker", 123, "8/6/21", "$4,123"],
     ],
 };
 
