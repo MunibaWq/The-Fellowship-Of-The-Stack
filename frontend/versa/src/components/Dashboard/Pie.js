@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import * as V from "victory";
 import styled from "styled-components";
 import theme from "../Reusable/Colors";

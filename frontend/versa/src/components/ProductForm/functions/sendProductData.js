@@ -17,10 +17,10 @@ export async function sendProductData(
         dispatch(setFormErrors("product", "Please add at least 1 image"));
     } else {
         if (props.type === "Add") {
-            addStock(stock);
+            // addStock(stock);
             addProduct(productInfo, images, thumbImg);
         } else {
-            editStock(stock);
+            // editStock(stock);
             editProduct(productInfo, images, id, thumbImg);
         }
 
