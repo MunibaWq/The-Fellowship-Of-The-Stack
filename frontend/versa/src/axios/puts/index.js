@@ -54,12 +54,13 @@ export const updateImage = async (label, imageSize, productID, filename) => {
     }
 };
 // created a put request for editStock part of product form and passed stock prop from productForm to submitData to sendProductData to here
-export const editStock = async (stock) => {
+export const editStock = async (id, quant) => {
     try {
         const response = await Axios.put("/stock/put", {
-            stock,
+            quant,
+            id,
         });
-        console.log(stock);
+
         if (response.status === 201) {
             return true;
         }

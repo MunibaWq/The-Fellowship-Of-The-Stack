@@ -3,7 +3,7 @@ import axios from "axios";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
 
-const EditStockTable = ({ item }) => {
+const EditStockTable = ({ item, setter }) => {
     const [stock, setStock] = useState([]);
     const { id } = useParams();
 
@@ -31,6 +31,7 @@ const EditStockTable = ({ item }) => {
                 result.push(temp);
             }
         }
+        setter(result);
         setStock(result);
     }
 

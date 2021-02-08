@@ -1,5 +1,5 @@
 import { addProduct } from "../../../axios/posts";
-import { editProduct } from "../../../axios/puts";
+import { editProduct, editStock } from "../../../axios/puts";
 import { setFormErrors } from "../../../redux/actions/Errors";
 import { setRedirect } from "../../../redux/actions/Redirects";
 import { thumbImg } from "../maps/mapImages";
@@ -10,17 +10,18 @@ export async function sendProductData(
     dispatch,
     props,
     productInfo,
-    id
+    id,
+    quant,
+    input
 ) {
     console.log("sendProductData happened");
     if (images.length === 0) {
         dispatch(setFormErrors("product", "Please add at least 1 image"));
     } else {
         if (props.type === "Add") {
-            addStock(stock);
             addProduct(productInfo, images, thumbImg);
         } else {
-            editStock(stock);
+            editStock(id, quant);
             editProduct(productInfo, images, id, thumbImg);
         }
 

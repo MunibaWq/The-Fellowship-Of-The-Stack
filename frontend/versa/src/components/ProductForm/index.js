@@ -56,8 +56,7 @@ const ProductForm = (props) => {
     const params = useParams();
 
     const [stock, setStock] = useState([]);
-    const [color, setColor] = useState([]);
-    const [size, setSize] = useState([]);
+    const [quant, setQuant] = useState(null);
 
     const id = params.id;
     function clearField() {
@@ -263,9 +262,9 @@ const ProductForm = (props) => {
                         <AddIcon stroke={theme.primary} />
                     </Button>
                     {props.type === "Edit" ? (
-                        <EditStockTable item={stock} />
+                        <EditStockTable item={stock} setter={setQuant} />
                     ) : (
-                        <StockTable item={stock} />
+                        <StockTable item={stock} setter={setQuant} />
                     )}
                 </SizeDiv>
             </RowContainer3>
@@ -305,7 +304,8 @@ const ProductForm = (props) => {
                                 images,
                                 dispatch,
                                 props,
-                                id
+                                id,
+                                quant
                             );
                         }}>
                         Submit
