@@ -172,7 +172,7 @@ const SideNav = ({ setNavWidth }) => {
                                         </SubMenuLink>
                                     </li>
                                 </Link>
-                                <Link to="/dashboard/sales-by-product">
+                                <Link to="/dashboard/sales-by-products/1">
                                     <li>
                                         <SubMenuLink>
                                             <h4>Sales by Product</h4>

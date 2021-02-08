@@ -64,4 +64,18 @@ export const getEventByID = async (id) => {
     return response.data;
 };
 
+export const getSalesByProduct = async (id) => {
+    const response = await Axios.get(`/dashboard/sales-by-products/${id}`);
+    return response.data;
+};
+export const emailAttending = async (eventid, id) => {
+    const response = await Axios.get(`/events/attend/email/${eventid}/${id}`);
+    return response.data;
+};
+export const emailNotAttending = async (eventid, id) => {
+    const response = await Axios.get(
+        `/events/not-attending/email/${eventid}/${id}`
+    );
+    return response.data;
+};
 export const sendGoingEmailToAttendee = async () => {};

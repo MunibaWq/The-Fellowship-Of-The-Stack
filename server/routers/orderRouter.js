@@ -2,6 +2,7 @@ const express = require("express");
 const router = new express.Router();
 const pool = require("../db");
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+const { orderConfirmation } = require("../helperFunctions/sendGridFunctions");
 router.post("/stripe/payment", (req, res) => {
     const body = {
         source: req.body.token.id,
@@ -63,12 +64,23 @@ router.post("/paid", async (req, res) => {
                 new Date().toLocaleString().replace(/\./g, ""),
             ]
         );
+
         const reduceStock = await pool.query(
             `
         UPDATE stock set quantity=quantity-$1 where product_id=$2 AND color=$3 AND size=$4`,
             [item.itemQuantity, item.productID, item.colour, item.size]
         );
     }
+    const getBuyerName = await pool.query(
+        `SELECT username, email FROM users where id=1`
+    );
+    const user = getBuyerName.rows[0];
+    const orderID = orderResponse.rows[0].id;
+
+    const total = payment.amount / 100;
+
+    orderConfirmation(total, user.username, user.email, orderID);
+    console.log("bubble tea");
 });
 
 module.exports = router;

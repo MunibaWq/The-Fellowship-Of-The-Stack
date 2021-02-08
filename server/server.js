@@ -7,8 +7,9 @@ const PORT = process.env.PORT || 5000;
 const stockRouter = require("./routers/stockRouter");
 const imageRouter = require("./routers/imageRouter");
 const productRouter = require("./routers/productRouter");
+const dashboardRouter = require("./routers/dashboardRouter");
 const eventRouter = require("./routers/eventRouter");
-const orderRouter = require('./routers/orderRouter')
+const orderRouter = require("./routers/orderRouter");
 var cookieParser = require("cookie-parser");
 const {
     emailsSent,
@@ -31,7 +32,7 @@ app.use(express.static("../frontend/versa/build"));
 //ROUTES
 
 app.use("*", async (req, res, next) => {
-    console.log("got something");
+    console.log("Checked events for emails to be sent.");
     let sent = await emailsSent(
         new Date().toLocaleDateString("en-US", {
             year: "numeric",
@@ -39,19 +40,21 @@ app.use("*", async (req, res, next) => {
             day: "numeric",
         })
     );
-   
+
     if (!sent) {
-        console.log("got to here");
+        console.log("No Emails sent.");
         sendReminder();
     }
     next();
 });
+
 app.use("/stock", stockRouter);
 app.use("/images", imageRouter);
 app.use("/products", productRouter);
 app.use("/users", userRouter);
 app.use("/events", eventRouter);
-app.use('/orders',orderRouter)
+app.use("/dashboard", dashboardRouter);
+app.use("/orders", orderRouter);
 app.get("*", (req, res) => {
     res.sendFile(
         path.resolve(__dirname, "../frontend/versa/build", "index.html")
