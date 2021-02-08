@@ -4,15 +4,25 @@ import * as V from "victory";
 import { getTotalSales } from "../../../axios/gets";
 import Loading from "../../../components/Reusable/Loading";
 import theme from "../../../components/Reusable/Colors";
+import { Circle } from "../../../images/icons";
 
 const TotalSales = () => {
     const [salesData, setSalesData] = useState();
+    const [graphData, setGraphData] = useState();
     const currentUser = 1;
 
     useEffect(() => {
         const fetchData = async () => {
             const data = await getTotalSales(currentUser);
-
+            let temp = [];
+            data.map((sales) => {
+                return temp.push({
+                    x: sales.day,
+                    y: parseFloat(sales.sum),
+                });
+            });
+            console.log(temp);
+            setGraphData(temp);
             setSalesData(data);
         };
 
@@ -28,6 +38,64 @@ const TotalSales = () => {
                 <Loading />
             ) : (
                 <div>
+                    <V.VictoryChart
+                        domain={
+                            graphData && {
+                                x: [
+                                    Math.min(
+                                        ...graphData.map((values) => values.x)
+                                    ),
+                                    Math.max(
+                                        ...graphData.map((values) => values.x)
+                                    ),
+                                ],
+                                y: [
+                                    0,
+                                    Math.max(
+                                        ...graphData.map((sales) => sales.y)
+                                    ),
+                                ],
+                            }
+                        }
+                        theme={V.VictoryTheme.grayscale}
+                        containerComponent={
+                            <V.VictoryVoronoiContainer
+                                labelComponent={
+                                    <V.VictoryTooltip
+                                        border={0}
+                                        cornerRadius={5}
+                                        flyoutStyle={{
+                                            stroke: "none",
+                                            fill: "none",
+                                        }}
+                                    />
+                                }
+                                labels={({ datum }) =>
+                                    `Day ${Math.round(
+                                        datum.x,
+                                        0
+                                    )}: $${Math.round(datum.y, 2)}`
+                                }
+                            />
+                        }>
+                        <V.VictoryLine
+                            style={{
+                                labels: { fill: theme.primary },
+                                data: { stroke: theme.primary },
+                                parent: { border: "1px solid #444" },
+                            }}
+                            data={graphData}></V.VictoryLine>
+                    </V.VictoryChart>
+                    <Legend>
+                        <div>
+                            <Circle
+                                width="10px"
+                                height="10px"
+                                fill={theme.primary}
+                            />
+                            Total Orders per Day
+                        </div>
+                    </Legend>
                     <PieContainer>
                         <V.VictoryPie
                             padding={{ top: 0, left: 150, right: 150 }}
@@ -111,5 +179,19 @@ const PieContainer = styled.div`
     svg {
         width: fit-content;
         height: fit-content;
+    }
+`;
+const Legend = styled.div`
+    div {
+        display: flex;
+        align-items: center;
+        font-size: 8px;
+        text-transform: uppercase;
+    }
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    div > svg {
+        margin: 5px;
     }
 `;

@@ -11,23 +11,33 @@ const TotalOrders = () => {
     const [graphData, setGraphData] = useState();
     const currentUser = 1;
 
-    useEffect(() => {
+    useEffect((temp) => {
         const fetchData = async () => {
             const data = await getTotalOrders(currentUser);
-            console.log("to d", data);
+            let temp = [];
+            data.map((sales) => {
+                return temp.push({
+                    x: sales.day,
+                    y: parseFloat(sales.sum),
+                });
+            });
+            console.log(temp);
+            setGraphData(temp);
             setSalesData(data);
-            // let temp = salesData.map((sales) => {
-            //     let newSalesSum = parseFloat(sales.sum);
-            //     return {
-            //         x: sales.day,
-            //         y: newSalesSum,
-            //     };
-            // });
-            // setGraphData(temp);
         };
-
         fetchData();
     }, []);
+
+    // salesData
+    //     ? salesData.map((sales) => {
+    //           return temp.push({
+    //               x: sales.day,
+    //               y: parseFloat(sales.sum),
+    //           });
+    //       })
+    //     : console.log(salesData);
+
+    // console.log(graphData);
     let headers = ["Date", "Order Total"];
 
     console.log("to sd", salesData);
@@ -35,22 +45,30 @@ const TotalOrders = () => {
     return (
         <SBPContainer>
             {/*<Button to="/dashboard">Back to Dashboard</Button>*/}
-            <h1>Total Sales Per Order</h1>
+            <h1>Order Totals per Day</h1>
             {!salesData ? (
                 <Loading />
             ) : (
                 <div>
-                    {/*<V.VictoryChart
-                        domain={{
-                            x: [
-                                Math.min(graphData.map((values) => values.x)),
-                                Math.max(graphData.map((values) => values.x)),
-                            ],
-                            y: [
-                                0,
-                                Math.max(graphData.map((values) => values.y)),
-                            ],
-                        }}
+                    <V.VictoryChart
+                        domain={
+                            graphData && {
+                                x: [
+                                    Math.min(
+                                        ...graphData.map((values) => values.x)
+                                    ),
+                                    Math.max(
+                                        ...graphData.map((values) => values.x)
+                                    ),
+                                ],
+                                y: [
+                                    0,
+                                    Math.max(
+                                        ...graphData.map((sales) => sales.y)
+                                    ),
+                                ],
+                            }
+                        }
                         theme={V.VictoryTheme.grayscale}
                         containerComponent={
                             <V.VictoryVoronoiContainer
@@ -65,7 +83,7 @@ const TotalOrders = () => {
                                     />
                                 }
                                 labels={({ datum }) =>
-                                    `Week ${Math.round(
+                                    `Day ${Math.round(
                                         datum.x,
                                         0
                                     )}: $${Math.round(datum.y, 2)}`
@@ -76,9 +94,9 @@ const TotalOrders = () => {
                             style={{
                                 labels: { fill: theme.primary },
                                 data: { stroke: theme.primary },
-                                parent: { border: "1px solid #00ff00" },
+                                parent: { border: "1px solid #444" },
                             }}
-                            data={salesData}></V.VictoryLine>
+                            data={graphData}></V.VictoryLine>
                     </V.VictoryChart>
                     <Legend>
                         <div>
@@ -89,8 +107,8 @@ const TotalOrders = () => {
                             />
                             Total Orders per Day
                         </div>
-                        </Legend>*/}
-                    <PieContainer>
+                    </Legend>
+                    {/*<PieContainer>
                         <V.VictoryPie
                             padding={{ top: 0, left: 150, right: 150 }}
                             padAngle={2}
@@ -111,7 +129,7 @@ const TotalOrders = () => {
                                 };
                             })}
                         />
-                    </PieContainer>
+                        </PieContainer>*/}
                     <SBPTable>
                         <thead>
                             {headers.map((header, index) => (
@@ -124,7 +142,7 @@ const TotalOrders = () => {
                                     <td>
                                         February {sales.day}, {sales.year}
                                     </td>
-                                    <td>{sales.sum}</td>
+                                    <td>${sales.sum}</td>
                                 </tr>
                             ))}
                         </tbody>
@@ -185,9 +203,9 @@ const SBPTable = styled.table`
     }
 `;
 
-const PieContainer = styled.div`
-    svg {
-        width: fit-content;
-        height: fit-content;
-    }
-`;
+// const PieContainer = styled.div`
+//     svg {
+//         width: fit-content;
+//         height: fit-content;
+//     }
+// `;

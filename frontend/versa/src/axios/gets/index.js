@@ -87,4 +87,13 @@ export const getTotalOrders = async (id) => {
     const response = await Axios.get(`/dashboard/total-orders/${id}`);
     return response.data;
 };
-export const sendGoingEmailToAttendee = async () => {};
+export const getAvgOrderValue = async (id) => {
+    const response = await Axios.get(`/dashboard/average-order-value/${id}`);
+    return response.data;
+};
+
+export const getRecentOrders = async (id) => {
+    console.log("gro", id);
+    const response = await Axios.get(`/dashboard/recent-orders/${id}`);
+    return response.data;
+};
