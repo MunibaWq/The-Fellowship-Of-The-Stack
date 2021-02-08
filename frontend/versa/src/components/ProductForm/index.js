@@ -42,17 +42,15 @@ import EditStockTable from "../../pages/Artist/Dashboard/EditStockTable";
 
 import { template } from "lodash";
 import StockTable from "../../pages/Artist/Dashboard/StockTable";
-
-const ProductForm = (props) => {
+import { setRedirect } from "../../redux/actions/Redirects";
+const ProductForm = props => {
     const dispatch = useDispatch();
-    const input = useSelector((state) => state.formInputs.product);
-    const images = useSelector((state) => state.images.productForm);
-    const modalToggle = useSelector(
-        (state) => state.modalVisibility.productForm
-    );
+    const input = useSelector(state => state.formInputs.product);
+    const images = useSelector(state => state.images.productForm);
+    const modalToggle = useSelector(state => state.modalVisibility.productForm);
 
-    const redirect = useSelector((state) => state.redirect.productForm);
-    const formError = useSelector((state) => state.formErrors.product.form);
+    const redirect = useSelector(state => state.redirect.productForm);
+    const formError = useSelector(state => state.formErrors.product.form);
     const params = useParams();
 
     const [stock, setStock] = useState([]);
@@ -70,10 +68,17 @@ const ProductForm = (props) => {
         dispatch(setImages("productForm", []));
     }
 
+    useEffect(
+        () => {
+            loadPage(id, dispatch, props.type);
+        },
+        [dispatch, id, props.type]
+    );
     useEffect(() => {
-        loadPage(id, dispatch, props.type);
-    }, [dispatch, id, props.type]);
-
+        return () => {
+            dispatch(setRedirect("productForm", ""));
+        };
+    }, []);
     function setColorLabelAndValue() {
         let colorToAdd = document.querySelector("#colorToAdd").value;
         let colorLabelToAdd = document.querySelector("#colorLabelToAdd").value;
@@ -104,11 +109,14 @@ const ProductForm = (props) => {
             dispatch(setFormInputs("product", "sizes", [...input.sizes, temp]));
         }
     }
-    useEffect(() => {
-        if (input.colours !== undefined && input.sizes !== undefined) {
-            setStock(input);
-        }
-    }, [input]);
+    useEffect(
+        () => {
+            if (input.colours !== undefined && input.sizes !== undefined) {
+                setStock(input);
+            }
+        },
+        [input]
+    );
 
     return redirect ? (
         <Redirect to={redirect} />
@@ -126,42 +134,44 @@ const ProductForm = (props) => {
                     multi={false}
                     tests={[
                         {
-                            test: (input) => input.length < 1,
+                            test: input => input.length < 1,
                             error: "Required",
                         },
                         {
-                            test: (input) => input.length < 3,
+                            test: input => input.length < 3,
                             error: "Minimum 3 characters.",
                         },
                         {
-                            test: (input) => input.length > 45,
+                            test: input => input.length > 45,
                             error: "Title too long",
                         },
                     ]}
                     label="Product Name"
                     required={true}
                     form="product"
-                    name="title"></TextField>
+                    name="title"
+                />
                 <TextField
                     multi={false}
                     tests={[
                         {
-                            test: (input) => isNaN(input),
+                            test: input => isNaN(input),
                             error: "Numerical values only",
                         },
                         {
-                            test: (input) => input.length < 1,
+                            test: input => input.length < 1,
                             error: "Required",
                         },
                         {
-                            test: (input) => input && +input <= 0,
+                            test: input => input && +input <= 0,
                             error: "Minimum 0.01",
                         },
                     ]}
                     label="Price"
                     required={true}
                     form="product"
-                    name="price"></TextField>
+                    name="price"
+                />
             </RowContainer1>
             <Instruction2>
                 Add a description of your product, let your customers know all
@@ -174,25 +184,27 @@ const ProductForm = (props) => {
                     multi={true}
                     tests={[
                         {
-                            test: (input) => input.length < 10,
+                            test: input => input.length < 10,
                             error: "Minimum 10 characters",
                         },
                     ]}
                     label="Description"
                     required={true}
                     form="product"
-                    name="desc"></TextField>
+                    name="desc"
+                />
                 <TextField
                     multi={true}
                     tests={[
                         {
-                            test: (input) => input.length < 10,
+                            test: input => input.length < 10,
                             error: "Minimum 10 characters",
                         },
                     ]}
                     label="Materials"
                     form="product"
-                    name="materials"></TextField>
+                    name="materials"
+                />
             </RowContainer2>
             <Instruction3>
                 Choose the colour and size options that you want to offer for
