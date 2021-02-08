@@ -1,6 +1,7 @@
 import _ from "lodash";
 const initState = {
     cart: {},
+    cartUpdate: {},
     modalVisibility: {
         productForm: { sizes: false, colours: false },
     },
@@ -10,13 +11,14 @@ const initState = {
         product: {},
         login: {},
         event: {},
-        cart: {}
+        cart: {},
     },
     formInputs: {
         account: {},
         product: {},
         login: {},
         event: {},
+        cart: { quantity: 0 },
     },
     user: "",
     productData: {},
@@ -32,8 +34,43 @@ const initState = {
 };
 
 const productReducer = (state = initState, action) => {
+    console.log('state at top of product reducer',state)
     let newState = _.cloneDeep(state);
     switch (action.type) {
+        case "UPDATE_CART":
+            console.log('cart is updated')
+            newState.cart = _.cloneDeep(newState.cartUpdate)
+            return newState
+        case "SET_CART_INPUT":
+            console.log('set_cart_input')
+            const cartItem = action.payload.cartItem
+            newState.cart = state.cart
+            if (newState.cartUpdate[cartItem.productID]) {
+                if (
+                    newState.cartUpdate[cartItem.productID][
+                        cartItem.colour
+                    ]
+                ) {
+                    
+                        newState.cartUpdate[cartItem.productID][
+                            cartItem.colour
+                        ][cartItem.size] = +action.payload.newQuantity;
+                    
+                } else {
+                    newState.cartUpdate[cartItem.productID][
+                        cartItem.colour
+                    ] = { [cartItem.size]: +action.payload.newQuantity };
+                }
+            } else {
+                newState.cartUpdate[cartItem.productID] = {
+                    [cartItem.colour]: {
+                        [cartItem.size]: +action.payload.newQuantity,
+                    },
+                };
+            }
+            console.log('newState cartUpdate reducer', newState)
+            console.log('old cart === new cart')
+            return newState;
         case "REMOVE_FROM_CART":
             console.log("remove from cart");
             delete newState.cart[action.payload.cartProduct][
@@ -41,6 +78,7 @@ const productReducer = (state = initState, action) => {
             ][action.payload.size];
             return newState;
         case "ADD_TO_CART":
+            console.log('add_to_cart')
             const { cartProduct, colour, size, quantity } = action.payload;
             if (newState.cart[cartProduct]) {
                 if (newState.cart[cartProduct][colour]) {
@@ -55,11 +93,11 @@ const productReducer = (state = initState, action) => {
             } else {
                 newState.cart[cartProduct] = { [colour]: { [size]: quantity } };
             }
-            console.log(newState);
+            console.log('add to cart newState',newState);
             return newState;
         case "MODIFY_CART":
-            console.log('modifying cart')
-            console.log(action.payload)
+            
+            console.log("modifying cart",action.payload);
             const { mCartProduct, mColour, mSize, mQuantity } = action.payload;
 
             newState.cart[mCartProduct][mColour][mSize] = Math.round(mQuantity);
