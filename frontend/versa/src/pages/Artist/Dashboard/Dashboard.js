@@ -77,7 +77,7 @@ const Dashboard = () => {
                         component={AvgOrderValue}
                     />
                     <Route
-                        path="/dashboard/sales-by-product"
+                        path="/dashboard/sales-by-products/1"
                         exact
                         component={SalesByProduct}
                     />

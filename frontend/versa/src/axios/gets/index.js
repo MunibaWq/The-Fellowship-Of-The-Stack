@@ -78,4 +78,9 @@ export const emailNotAttending = async (eventid, id) => {
     );
     return response.data;
 };
+
+export const getTotalSales = async (id) => {
+    const response = await Axios.get(`/dashboard/sales-by-products/${id}`);
+    return response.data;
+};
 export const sendGoingEmailToAttendee = async () => {};

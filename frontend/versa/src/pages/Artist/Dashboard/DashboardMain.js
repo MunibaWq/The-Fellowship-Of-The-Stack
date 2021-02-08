@@ -57,7 +57,7 @@ const DashboardMain = () => {
                     totalLabel="Top Product Sales"
                     pieData={salesByProductData}
                     title="Sales By Product"
-                    link="/dashboard/sales-by-product"
+                    link="/dashboard/sales-by-products/1"
                 />
                 {/* <Profit>Small Card with number of total profit</Profit> */}
                 <MonthlySales

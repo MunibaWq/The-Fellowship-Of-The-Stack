@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as V from "victory";
 import styled from "styled-components";
 import theme from "../Reusable/Colors";
@@ -11,17 +11,17 @@ import theme from "../Reusable/Colors";
 //     { x: "Other", y: 20 },
 // ];
 
-const Pie = ({ data }) => {
-    console.log(data, "pie");
-    const [salesData, setSalesData] = useState();
+const Pie = ({ productData }) => {
+    // const [salesData, setSalesData] = useState([]);
 
     return (
         <PieContainer>
             <V.VictoryPie
-                padding={{ top: 0, left: 100, right: 100 }}
+                padding={{ top: 0, left: 150, right: 150 }}
                 padAngle={2}
-                innerRadius={50}
-                labels={({ datum }) => `${datum.x}: ${datum.y}%`}
+                innerRadius={25}
+                style={{ labels: { fontSize: 5 } }}
+                labels={({ datum }) => `${datum.x}: $${datum.y}`}
                 colorScale={[
                     theme.primaryHover,
                     theme.primaryHover + "cc",
@@ -29,7 +29,12 @@ const Pie = ({ data }) => {
                     theme.primaryHover + "66",
                     theme.primaryHover + "33",
                 ]}
-                data={data}
+                data={productData.map((product) => {
+                    return {
+                        x: product.title.split(" ").join(`\n`),
+                        y: product.sum,
+                    };
+                })}
             />
         </PieContainer>
     );
@@ -38,6 +43,8 @@ const Pie = ({ data }) => {
 export default Pie;
 
 const PieContainer = styled.div`
-    margin-top: -18px;
-    margin-bottom: -18px;
+    svg {
+        width: fit-content;
+        height: fit-content;
+    }
 `;
