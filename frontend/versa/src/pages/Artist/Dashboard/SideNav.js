@@ -95,7 +95,7 @@ const SideNav = ({ setNavWidth }) => {
                                 </MenuLink>
                             </li>
                         </Link>
-                        <Link to="/dashboard/orders">
+                        <Link to="/dashboard/recent-orders/1">
                             <li>
                                 <MenuLink>
                                     <Orders />
@@ -148,7 +148,7 @@ const SideNav = ({ setNavWidth }) => {
 
                         {visibleASub && (
                             <SubMenu>
-                                <Link to="/dashboard/total-sales">
+                                <Link to="/dashboard/total-sales/1">
                                     <li>
                                         <SubMenuLink>
                                             <h4>Total Sales</h4>
@@ -156,7 +156,7 @@ const SideNav = ({ setNavWidth }) => {
                                         </SubMenuLink>
                                     </li>
                                 </Link>
-                                <Link to="/dashboard/total-orders">
+                                <Link to="/dashboard/total-orders/1">
                                     <li>
                                         <SubMenuLink>
                                             <h4>Total Orders</h4>
@@ -164,7 +164,7 @@ const SideNav = ({ setNavWidth }) => {
                                         </SubMenuLink>
                                     </li>
                                 </Link>
-                                <Link to="/dashboard/avg-order-value">
+                                <Link to="/dashboard/average-order-value/1">
                                     <li>
                                         <SubMenuLink>
                                             <h4>Average Order Value</h4>
@@ -172,7 +172,7 @@ const SideNav = ({ setNavWidth }) => {
                                         </SubMenuLink>
                                     </li>
                                 </Link>
-                                <Link to="/dashboard/sales-by-product">
+                                <Link to="/dashboard/sales-by-products/1">
                                     <li>
                                         <SubMenuLink>
                                             <h4>Sales by Product</h4>

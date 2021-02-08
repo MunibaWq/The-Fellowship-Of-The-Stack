@@ -1,6 +1,11 @@
 const express = require("express");
 const router = new express.Router();
 const pool = require("../db");
+const {
+    goingToEvent,
+    notGoingToEvent,
+} = require("../helperFunctions/sendGridFunctions");
+
 //search events by keyword found in title and description or artist name
 router.get("/search/:searchQuery", async (req, res) => {
     let query = req.params.searchQuery.toUpperCase().split(" ");
@@ -278,4 +283,43 @@ router.delete("/not-attending/:event/:id/", async (req, res) => {
         });
     }
 });
+
+router.get("/attend/email/:eventid/:id", async (req, res) => {
+    try {
+        attendees = await pool.query(
+            `SELECT h.username as host_name, e.name as event_name, e.description, e.start_time, e.end_time, e.location, a.event_id, u.email, u.name from events_attendees a INNER JOIN users u ON a.attendee = u.id INNER JOIN events e ON e.id=a.event_id INNER JOIN users h ON h.id=e.host WHERE a.event_id = ${req.params.eventid}`
+        );
+        collabs = await pool.query(
+            `SELECT u.username FROM users u INNER JOIN events_attendees a ON u.id = a.attendee WHERE a.type = 'collab' AND a.event_id = ${req.params.eventid}`
+        );
+        for (attendee of attendees.rows) {
+            console.log(attendee);
+            goingToEvent(attendee, collabs.rows);
+        }
+
+        res.status(200).send("Successssssssssss");
+    } catch (e) {
+        console.log(e);
+        res.send("error");
+    }
+});
+
+router.get("/not-attending/email/:eventid/:id", async (req, res) => {
+    try {
+        attendees = await pool.query(
+            `SELECT h.username as host_name, e.name as event_name, e.description, e.start_time, e.end_time, e.location, a.event_id, u.email, u.name from events_attendees a INNER JOIN users u ON a.attendee = u.id INNER JOIN events e ON e.id=a.event_id INNER JOIN users h ON h.id=e.host WHERE a.event_id = ${req.params.eventid}`
+        );
+
+        for (attendee of attendees.rows) {
+            console.log(attendee);
+            notGoingToEvent(attendee);
+        }
+
+        res.status(200).send("Successssssssssss");
+    } catch (e) {
+        console.log(e);
+        res.send("error");
+    }
+});
+
 module.exports = router;

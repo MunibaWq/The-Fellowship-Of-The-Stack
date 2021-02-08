@@ -162,7 +162,9 @@ router.post("/create", async (req, res) => {
         for (colour of colours) {
             for (size of sizes) {
                 query.push(
-                    `INSERT INTO "stock" ("product_id", "color", "size") VALUES ('${productID}', '${colour.label}', '${size.label}');`
+                    `INSERT INTO "stock" ("product_id", "color", "size") VALUES ('${productID}', '${
+                        colour.label
+                    }', '${size.label}');`
                 );
             }
         }
@@ -207,6 +209,7 @@ router.put("/edit/:id", async (req, res) => {
                 +a.label - +b.label
             );
         });
+
         let response = await pool.query(
             "UPDATE products SET title = $1, price = $2, description = $3, colours = $4, artist_id = $5, sizes = $6, materials = $7, status=$8 WHERE id = $9 RETURNING id",
             [
@@ -221,6 +224,11 @@ router.put("/edit/:id", async (req, res) => {
                 id,
             ]
         );
+        if (status === "Backorder" || status === "Discontinue") {
+            const changeStockToZero = pool.query(
+                "UPDATE stock set quantity = 0 where product_id =" + id
+            );
+        }
         res.json(response.rows[0].id);
     } catch (err) {
         console.error(err.message);

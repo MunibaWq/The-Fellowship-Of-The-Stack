@@ -10,21 +10,13 @@ import { clearFormInputs, setFormInputs } from "../../redux/actions/Forms";
 import { setImages } from "../../redux/actions/Images";
 import {
     Form,
-    Instruction1,
-    RowContainer1,
-    Instruction2,
-    RowContainer2,
-    Instruction3,
-    RowContainer3,
+    Instruction,
+    RowContainer,
     ColorDiv,
     SizeDiv,
-    Instruction4,
-    RowContainer4,
     ImagesDiv,
     ImageUpload,
     ImageList,
-    Instruction5,
-    RowContainer5,
     Container,
     Error,
 } from "./styledComponents";
@@ -42,17 +34,15 @@ import EditStockTable from "../../pages/Artist/Dashboard/EditStockTable";
 
 import { template } from "lodash";
 import StockTable from "../../pages/Artist/Dashboard/StockTable";
-
-const ProductForm = (props) => {
+import { setRedirect } from "../../redux/actions/Redirects";
+const ProductForm = props => {
     const dispatch = useDispatch();
-    const input = useSelector((state) => state.formInputs.product);
-    const images = useSelector((state) => state.images.productForm);
-    const modalToggle = useSelector(
-        (state) => state.modalVisibility.productForm
-    );
+    const input = useSelector(state => state.formInputs.product);
+    const images = useSelector(state => state.images.productForm);
+    const modalToggle = useSelector(state => state.modalVisibility.productForm);
 
-    const redirect = useSelector((state) => state.redirect.productForm);
-    const formError = useSelector((state) => state.formErrors.product.form);
+    const redirect = useSelector(state => state.redirect.productForm);
+    const formError = useSelector(state => state.formErrors.product.form);
     const params = useParams();
 
     const [stock, setStock] = useState([]);
@@ -69,10 +59,17 @@ const ProductForm = (props) => {
         dispatch(setImages("productForm", []));
     }
 
+    useEffect(
+        () => {
+            loadPage(id, dispatch, props.type);
+        },
+        [dispatch, id, props.type]
+    );
     useEffect(() => {
-        loadPage(id, dispatch, props.type);
-    }, [dispatch, id, props.type]);
-
+        return () => {
+            dispatch(setRedirect("productForm", ""));
+        };
+    }, []);
     function setColorLabelAndValue() {
         let colorToAdd = document.querySelector("#colorToAdd").value;
         let colorLabelToAdd = document.querySelector("#colorLabelToAdd").value;
@@ -103,102 +100,109 @@ const ProductForm = (props) => {
             dispatch(setFormInputs("product", "sizes", [...input.sizes, temp]));
         }
     }
-    useEffect(() => {
-        if (input.colours !== undefined && input.sizes !== undefined) {
-            setStock(input);
-        }
-    }, [input]);
+    useEffect(
+        () => {
+            if (input.colours !== undefined && input.sizes !== undefined) {
+                setStock(input);
+            }
+        },
+        [input]
+    );
 
     return redirect ? (
         <Redirect to={redirect} />
     ) : (
         <Form>
-            <Instruction1>
+            <Instruction>
                 Add your products name!
                 <br />
                 <br />
                 Set a base price, you can add an additional cost for different
                 sizes later on.
-            </Instruction1>
-            <RowContainer1>
+            </Instruction>
+            <RowContainer>
                 <TextField
                     multi={false}
                     tests={[
                         {
-                            test: (input) => input.length < 1,
+                            test: input => input.length < 1,
                             error: "Required",
                         },
                         {
-                            test: (input) => input.length < 3,
+                            test: input => input.length < 3,
                             error: "Minimum 3 characters.",
                         },
                         {
-                            test: (input) => input.length > 45,
+                            test: input => input.length > 45,
                             error: "Title too long",
                         },
                     ]}
                     label="Product Name"
                     required={true}
                     form="product"
-                    name="title"></TextField>
+                    name="title"
+                />
                 <TextField
                     multi={false}
                     tests={[
                         {
-                            test: (input) => isNaN(input),
+                            test: input => isNaN(input),
                             error: "Numerical values only",
                         },
                         {
-                            test: (input) => input.length < 1,
+                            test: input => input.length < 1,
                             error: "Required",
                         },
                         {
-                            test: (input) => input && +input <= 0,
+                            test: input => input && +input <= 0,
                             error: "Minimum 0.01",
                         },
                     ]}
                     label="Price"
                     required={true}
                     form="product"
-                    name="price"></TextField>
-            </RowContainer1>
-            <Instruction2>
+                    name="price"
+                />
+            </RowContainer>
+            <Instruction>
                 Add a description of your product, let your customers know all
                 the great things about it! <br />
                 <br /> Let them know what materials you use to make your
                 product!
-            </Instruction2>
-            <RowContainer2>
+            </Instruction>
+            <RowContainer>
                 <TextField
                     multi={true}
                     tests={[
                         {
-                            test: (input) => input.length < 10,
+                            test: input => input.length < 10,
                             error: "Minimum 10 characters",
                         },
                     ]}
                     label="Description"
                     required={true}
                     form="product"
-                    name="desc"></TextField>
+                    name="desc"
+                />
                 <TextField
                     multi={true}
                     tests={[
                         {
-                            test: (input) => input.length < 10,
+                            test: input => input.length < 10,
                             error: "Minimum 10 characters",
                         },
                     ]}
                     label="Materials"
                     form="product"
-                    name="materials"></TextField>
-            </RowContainer2>
-            <Instruction3>
+                    name="materials"
+                />
+            </RowContainer>
+            <Instruction>
                 Choose the colour and size options that you want to offer for
                 your product. <br /> <br /> You can add an additional cost for
                 each different size.
-            </Instruction3>
-            <RowContainer3>
+            </Instruction>
+            <RowContainer>
                 <ColorDiv
                     style={{
                         display: "flex",
@@ -261,21 +265,40 @@ const ProductForm = (props) => {
                         Add
                         <AddIcon stroke={theme.primary} />
                     </Button>
+<<<<<<< HEAD
                     {props.type === "Edit" ? (
                         <EditStockTable item={stock} setter={setQuant} />
                     ) : (
                         <StockTable item={stock} setter={setQuant} />
                     )}
+=======
+>>>>>>> bd4c3e0a62d6288b69f89e2439123c4d7ae57a56
                 </SizeDiv>
-            </RowContainer3>
-            <Instruction4>
+            </RowContainer>
+            {props.type === "Edit" ? (
+                <>
+                    <Instruction>
+                        Set the level of stock for each variation
+                    </Instruction>
+                    <RowContainer>
+                        <EditStockTable item={stock} />
+                    </RowContainer>
+                </>
+            ) : (
+                <RowContainer>
+                    You can set the stock levels once your product is submitted
+                    from your dashboard
+                </RowContainer>
+            )}
+
+            <Instruction>
                 Add some images of your product to be shown on your product
                 page.
                 <br /> <br /> Choose one image to be the thumbnail to show up in
                 search results. <br />
                 <br /> Images will be cropped to be 1:1{" "}
-            </Instruction4>
-            <RowContainer4>
+            </Instruction>
+            <RowContainer>
                 <ImagesDiv>
                     <h2>Images</h2>
                     <ImageUpload>
@@ -283,13 +306,13 @@ const ProductForm = (props) => {
                     </ImageUpload>
                     <ImageList>{images && mapImages(images)}</ImageList>
                 </ImagesDiv>
-            </RowContainer4>
-            <Instruction5>
+            </RowContainer>
+            <Instruction>
                 Add your new product to the store! <br />
                 <br />
                 Or cancel if you've changed your mind
-            </Instruction5>
-            <RowContainer5>
+            </Instruction>
+            <RowContainer>
                 <Container>
                     <Button onClick={clearField}>
                         Cancel
@@ -313,7 +336,7 @@ const ProductForm = (props) => {
                     </Button>
                 </Container>
                 {formError && <Error>{formError}</Error>}
-            </RowContainer5>
+            </RowContainer>
         </Form>
     );
 };

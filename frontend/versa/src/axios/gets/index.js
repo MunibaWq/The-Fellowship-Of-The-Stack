@@ -65,7 +65,35 @@ export const getEventByID = async (id) => {
 };
 
 export const getSalesByProduct = async (id) => {
-    const response = await Axios.get(`/dashboard/sales-by-products`);
+    const response = await Axios.get(`/dashboard/sales-by-products/${id}`);
     return response.data;
 };
-export const sendGoingEmailToAttendee = async () => {};
+export const emailAttending = async (eventid, id) => {
+    const response = await Axios.get(`/events/attend/email/${eventid}/${id}`);
+    return response.data;
+};
+export const emailNotAttending = async (eventid, id) => {
+    const response = await Axios.get(
+        `/events/not-attending/email/${eventid}/${id}`
+    );
+    return response.data;
+};
+
+export const getTotalSales = async (id) => {
+    const response = await Axios.get(`/dashboard/total-sales/${id}`);
+    return response.data;
+};
+export const getTotalOrders = async (id) => {
+    const response = await Axios.get(`/dashboard/total-orders/${id}`);
+    return response.data;
+};
+export const getAvgOrderValue = async (id) => {
+    const response = await Axios.get(`/dashboard/average-order-value/${id}`);
+    return response.data;
+};
+
+export const getRecentOrders = async (id) => {
+    console.log("gro", id);
+    const response = await Axios.get(`/dashboard/recent-orders/${id}`);
+    return response.data;
+};

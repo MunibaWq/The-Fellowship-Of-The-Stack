@@ -32,7 +32,7 @@ app.use(express.static("../frontend/versa/build"));
 //ROUTES
 
 app.use("*", async (req, res, next) => {
-    console.log("got something");
+    console.log("Checked events for emails to be sent.");
     let sent = await emailsSent(
         new Date().toLocaleDateString("en-US", {
             year: "numeric",
@@ -42,11 +42,12 @@ app.use("*", async (req, res, next) => {
     );
 
     if (!sent) {
-        console.log("got to here");
+        console.log("No Emails sent.");
         sendReminder();
     }
     next();
 });
+
 app.use("/stock", stockRouter);
 app.use("/images", imageRouter);
 app.use("/products", productRouter);

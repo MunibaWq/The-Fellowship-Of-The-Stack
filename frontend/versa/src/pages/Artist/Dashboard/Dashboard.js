@@ -40,7 +40,11 @@ const Dashboard = () => {
                         exact
                         component={Categories}
                     />
-                    <Route path="/dashboard/orders" exact component={Orders} />
+                    <Route
+                        path="/dashboard/recent-orders/1"
+                        exact
+                        component={Orders}
+                    />
                     <Route
                         path="/dashboard/notifications"
                         exact
@@ -62,22 +66,22 @@ const Dashboard = () => {
                         component={DashboardEvents}
                     />
                     <Route
-                        path="/dashboard/total-sales"
+                        path="/dashboard/total-sales/1"
                         exact
                         component={TotalSales}
                     />
                     <Route
-                        path="/dashboard/total-orders"
+                        path="/dashboard/total-orders/1"
                         exact
                         component={TotalOrders}
                     />
                     <Route
-                        path="/dashboard/average-order-value"
+                        path="/dashboard/average-order-value/1"
                         exact
                         component={AvgOrderValue}
                     />
                     <Route
-                        path="/dashboard/sales-by-product"
+                        path="/dashboard/sales-by-products/1"
                         exact
                         component={SalesByProduct}
                     />

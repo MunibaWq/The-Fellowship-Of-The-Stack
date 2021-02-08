@@ -34,7 +34,10 @@ const sendReminder = async () => {
             );
             for (attendee of attendees.rows) {
                 console.log(attendee);
-                reminderForEvent(attendee, collabs.rows.map(collab=>collab.username));
+                reminderForEvent(
+                    attendee,
+                    collabs.rows.map((collab) => collab.username)
+                );
             }
         }
     }
@@ -54,9 +57,8 @@ const sendReminder = async () => {
     );
 };
 
-
 const reminderForEvent = (attendee, collabs) => {
-    console.log('here is some infp', collabs)
+    console.log("here is some infp", collabs);
     let options = {
         weekday: "long",
         year: "numeric",
@@ -155,7 +157,11 @@ const goingToEvent = (attendee, collabs) => {
                     email: attendee.email,
                     eventName: attendee.event_name,
                     hostName: attendee.host_name,
-                    collabs: collabs.join(", "),
+                    collabs: collabs
+                        .map((username) => {
+                            username.username;
+                        })
+                        .join(", "),
                     startDate: startDate,
                     startTime: startTime,
                     endDate: endDate,
@@ -172,7 +178,7 @@ const goingToEvent = (attendee, collabs) => {
             email: "versayyc@gmail.com",
             name: "Versa",
         },
-        template_id: "d-558c253136564e32a35bd912020b9d0",
+        template_id: "d-558c253136564e32a35bd912020b9d06",
     };
     sgMail
         .send(data)
@@ -180,7 +186,7 @@ const goingToEvent = (attendee, collabs) => {
             console.log("Email sent");
         })
         .catch((error) => {
-            console.error(error);
+            console.error(error.response.body.errors);
         });
 };
 
@@ -281,10 +287,63 @@ const notGoingToEvent = (attendee) => {
         .send(data)
         .then((res) => {
             console.log("Email sent");
-            console.log(res)
+            console.log(res);
         })
         .catch((error) => {
             console.error(error);
+        });
+};
+
+const orderConfirmation = (total, username, email, orderID) => {
+    let options = {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+    };
+    let orderDate = new Date();
+    let startDate = orderDate.toLocaleDateString("en-US", options);
+    let startTime = orderDate.toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit",
+    });
+
+    let data = {
+        personalizations: [
+            {
+                to: [
+                    {
+                        email: email,
+                        name: username,
+                    },
+                ],
+                dynamic_template_data: {
+                    username: username,
+                    email: email,
+                    orderDate: startDate,
+                    orderTime: startTime,
+                    total: total,
+                    orderID: orderID,
+                },
+            },
+        ],
+        from: {
+            email: "versayyc@gmail.com",
+            name: "Versa",
+        },
+        reply_to: {
+            email: "versayyc@gmail.com",
+            name: "Versa",
+        },
+        template_id: "d-7b8a8574a7404463a504220823241d0d",
+    };
+    sgMail
+        .send(data)
+        .then(() => {
+            console.log("Email sent");
+        })
+        .catch((error) => {
+            console.error(error.response.body.errors);
         });
 };
 
@@ -293,5 +352,6 @@ module.exports = {
     emailsSent,
     goingToEvent,
     notGoingToEvent,
-    changesToEvent
+    changesToEvent,
+    orderConfirmation,
 };

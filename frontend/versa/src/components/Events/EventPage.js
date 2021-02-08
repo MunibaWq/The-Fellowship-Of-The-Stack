@@ -2,7 +2,11 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Button from "../Reusable/Button";
 import { Link, useParams } from "react-router-dom";
-import { getEventByID } from "../../axios/gets";
+import {
+    getEventByID,
+    emailAttending,
+    emailNotAttending,
+} from "../../axios/gets";
 import { userGoing } from "../../axios/posts";
 import theme from "../Reusable/Colors";
 import { LeftIcon, Going, NotGoing } from "../../images/icons";
@@ -18,8 +22,18 @@ const EventPage = () => {
     useEffect(() => {
         if (!going) {
             deleteUserFromEventByID(currentEvent, 1);
+            try {
+                emailNotAttending(currentEvent, 1);
+            } catch (error) {
+                console.log("user not going", error);
+            }
         } else {
             userGoing(currentEvent, 1);
+            try {
+                emailAttending(currentEvent, 1);
+            } catch (error) {
+                console.log("user is going", error);
+            }
         }
     }, [going, currentEvent]);
 
@@ -37,7 +51,6 @@ const EventPage = () => {
                 month: "long",
                 day: "numeric",
             };
-            console.log(eventData);
             let eventDate = new Date(data.start_time);
             let startTime = eventDate.toLocaleTimeString([], {
                 hour: "2-digit",

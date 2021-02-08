@@ -33,8 +33,9 @@ router.get("/getAll", async (req, res, next) => {
 
 //edit stock
 
-router.put("/put", async (req, res, next) => {
+router.put("/update", async (req, res, next) => {
     try {
+        console.log(req.body.stock);
         const client = await pool.connect();
         const { id } = req.body;
         await client.query(

@@ -1,35 +1,23 @@
 import React from "react";
 import styled from "styled-components";
 
-const data = {
-    headers: ["Name", "# Sold", "Colour", "Size", "Total Revenue"],
-    values: [
-        ["Totem Candle", 264, "Plum", "XS", "$11,298"],
-        ["Goober Candle", 235, "8/3/21", "$9,221"],
-        ["Doodle Crayon", 198, "8/4/21", "$7,321"],
-        ["Plant Pedestal", 176, "8/5/21", "$6,345"],
-        ["Match Striker", 123, "8/6/21", "$4,123"],
-    ],
-};
-
-const Table = ({ data }) => {
+const Table = ({ productData, headers }) => {
     return (
-        <div>
-            <table>
-                <thead>
-                    {data.table.headers.map((header) => (
-                        <td>{header}</td>
-                    ))}
-                </thead>
-                {data.table.values.map((row, index) => (
-                    <tr>
-                        {row.map((data) => (
-                            <td>{data}</td>
-                        ))}
-                    </tr>
+        <table>
+            <thead>
+                {headers.map((header) => (
+                    <td>{header}</td>
                 ))}
-            </table>
-        </div>
+            </thead>
+            {productData.map((product, index) => (
+                <tr key={product.product_name + index}>
+                    <td>{product.product_name}</td>
+                    <td>{product.quantity}</td>
+                    <td>{product.sale_price}</td>
+                    <td>{product.total}</td>
+                </tr>
+            ))}
+        </table>
     );
 };
 
