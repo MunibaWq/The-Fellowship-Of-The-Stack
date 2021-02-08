@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
+import Button from "../../../components/Reusable/Button";
+import { Container } from "../../../components/ProductForm/styledComponents";
 
 const EditStockTable = ({ item }) => {
     const [stock, setStock] = useState([]);
@@ -18,9 +20,9 @@ const EditStockTable = ({ item }) => {
         for (let color of item.colours) {
             for (let size of item.sizes) {
                 let temp = {
+                    id: id,
                     color: color.label,
                     size: size.label,
-                    price: size.price,
                     quantity: 0,
                 };
                 for (let el of stock) {
@@ -43,11 +45,14 @@ const EditStockTable = ({ item }) => {
         getProductStock();
     }, []);
 
-    useEffect(() => {
-        if (item.length !== 0 && stock.length > 0) {
-            mapColorsAndSizes(stock);
-        }
-    }, [item]);
+    useEffect(
+        () => {
+            if (item.length !== 0 && stock.length > 0) {
+                mapColorsAndSizes(stock);
+            }
+        },
+        [item]
+    );
 
     // useEffect(() => {
     //     const updateStock = () => {
@@ -63,7 +68,7 @@ const EditStockTable = ({ item }) => {
 
     function mapTable(arr) {
         if (arr.length > 0) {
-            return arr.map((item) => {
+            return arr.map(item => {
                 return (
                     <tr>
                         <td>{item.color}</td>
@@ -72,8 +77,8 @@ const EditStockTable = ({ item }) => {
                         <td>
                             <input
                                 type="number"
-                                placeholder={item.quantity}
-                                onChange={(e) => {
+                                value={item.quantity}
+                                onChange={e => {
                                     item.quantity = e.target.value;
                                     setStock([...stock]);
                                 }}
@@ -83,49 +88,55 @@ const EditStockTable = ({ item }) => {
                 );
             });
         } else {
-            return <tr></tr>;
+            return <tr />;
         }
     }
 
     return (
         <div>
-            stock
+            <h2>Stock Levels</h2>
             <TableStyle>
-                <tr>
-                    <th>color </th>
-                    <th>size </th>
-                    <th>quantity </th>
-                </tr>
+                <thead>
+                    <th>Color </th>
+                    <th>Size </th>
+                    <th>Quantity </th>
+                </thead>
                 {mapTable(stock)}
             </TableStyle>
-            <button
-                onClick={() => {
-                    axios.put("/stock/put", {
-                        stock,
-                    });
-                }}>
-                edit
-            </button>
+            <Container>
+                <Button
+                    secondary
+                    onClick={() => {
+                        axios.put("/stock/update", {
+                            stock,
+                        });
+                    }}>
+                    Update Stock Levels
+                </Button>
+            </Container>
         </div>
     );
 };
 const TableStyle = styled.table`
-    min-width: 655px;
+    width:100%
     text-align: left;
     padding: 1%;
     margin-top: 10%;
+    margin-bottom: 10%;
     width: 100%;
     /* border: 1px solid black; */
     border-collapse: collapse;
     tr:nth-child(odd) {
-        background: beige;
+        background: #6495ed55;
     }
     th {
         padding: 1%;
+        border-bottom: #6495ed55 solid 1px;
     }
     td {
         padding: 1%;
         border-collapse: collapse;
     }
+    input { width: 100%; }
 `;
 export default EditStockTable;

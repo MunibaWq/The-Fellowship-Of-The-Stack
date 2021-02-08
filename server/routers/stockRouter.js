@@ -3,13 +3,15 @@ const router = new express.Router();
 const pool = require("../db");
 
 //get all variations of specific product in stock db
-router.get('/getByVariation/:id/:colour/:size', async (req, res) => {
-    const { id, colour, size } = req.params
-    const result = await pool.query(`SELECT * FROM stock 
+router.get("/getByVariation/:id/:colour/:size", async (req, res) => {
+    const { id, colour, size } = req.params;
+    const result = await pool.query(
+        `SELECT * FROM stock 
     WHERE product_id = $1 AND color=$2 AND size=$3`,
-        [id, colour, size])
-    res.send(result.rows)
-})
+        [id, colour, size]
+    );
+    res.send(result.rows);
+});
 router.get("/get/:id", async (req, res, next) => {
     const { id } = req.params;
     const client = await pool.connect();
@@ -31,15 +33,16 @@ router.get("/getAll", async (req, res, next) => {
 
 //edit stock
 
-router.put("/put", async (req, res, next) => {
+router.put("/update", async (req, res, next) => {
     try {
+        console.log(req.body.stock);
         const client = await pool.connect();
         for (const obj of req.body.stock) {
-            const { id, quantity } = obj;
-            await client.query(`UPDATE stock SET quantity = $1 WHERE id = $2`, [
-                quantity,
-                id,
-            ]);
+            const { color, size, quantity, id } = obj;
+            await client.query(
+                `UPDATE stock SET quantity = $1 WHERE product_id = $2 AND color = $3 AND size = $4`,
+                [+quantity, id, color, size]
+            );
         }
         client.release(true);
         res.json({ msg: "all good" });

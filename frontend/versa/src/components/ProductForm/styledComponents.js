@@ -27,19 +27,21 @@ export const Form = styled.form`
     grid-template-rows: auto;
     display: grid;
     grid-column-gap: 5%;
-    /* @media only screen and (min-width: 800px) {
-        height: 95%; 
-     } */
+    @media only screen and (max-width: 600px) {
+        grid-template-columns: 95%;
+    }
 `;
-export const RowContainer1 = styled.div`
+export const RowContainer = styled.div`
     padding: 20px 0 20px 0;
     border-bottom: 2px dashed #ccc;
-    grid-row: 1;
+
     grid-column: 2;
+    @media only screen and (max-width: 600px) {
+        grid-column: 1;
+    }
 `;
-export const Instruction1 = styled.div`
+export const Instruction = styled.div`
     padding: 20px 20px 20px 0;
-    grid-row: 1;
     grid-column: 1;
     border-bottom: 2px dashed #ccc;
     text-align: left;
@@ -50,13 +52,11 @@ export const Instruction1 = styled.div`
 export const RowContainer2 = styled.div`
     padding: 20px 0 20px 0;
     border-bottom: 2px dashed #ccc;
-    grid-row: 2;
     grid-column: 2;
 `;
 export const Instruction2 = styled.div`
     padding: 20px 0 20px 0;
     border-bottom: 2px dashed #ccc;
-    grid-row: 2;
     grid-column: 1;
     text-align: left;
     display: flex;
@@ -66,13 +66,11 @@ export const Instruction2 = styled.div`
 export const RowContainer3 = styled.div`
     padding: 20px 0 20px 0;
     border-bottom: 2px dashed #ccc;
-    grid-row: 3;
     grid-column: 2;
 `;
 export const Instruction3 = styled.div`
     padding: 20px 0 20px 0;
     border-bottom: 2px dashed #ccc;
-    grid-row: 3;
     grid-column: 1;
     text-align: left;
 
@@ -83,14 +81,12 @@ export const Instruction3 = styled.div`
 export const RowContainer4 = styled.div`
     padding: 20px 0 20px 0;
     border-bottom: 2px dashed #ccc;
-    grid-row: 4;
     grid-column: 2;
     align-items: center;
 `;
 export const Instruction4 = styled.div`
     padding: 20px 0 20px 0;
     border-bottom: 2px dashed #ccc;
-    grid-row: 4;
     grid-column: 1;
     text-align: left;
     display: flex;
@@ -100,14 +96,12 @@ export const Instruction4 = styled.div`
 export const RowContainer5 = styled.div`
     padding: 20px 0 20px 0;
     border-bottom: 2px dashed #ccc;
-    grid-row: 5;
     grid-column: 2;
     align-items: center;
 `;
 export const Instruction5 = styled.div`
     padding: 20px 0 20px 0;
     border-bottom: 2px dashed #ccc;
-    grid-row: 5;
     grid-column: 1;
     text-align: left;
     display: flex;
@@ -185,5 +179,5 @@ export const ColorPreview = styled.div`
     margin-right: 20px;
     border-radius: 50%;
     border: 1px solid black;
-    background-color: ${(props) => props.color};
+    background-color: ${props => props.color};
 `;

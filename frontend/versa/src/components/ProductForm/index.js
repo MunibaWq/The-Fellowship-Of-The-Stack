@@ -10,21 +10,13 @@ import { clearFormInputs, setFormInputs } from "../../redux/actions/Forms";
 import { setImages } from "../../redux/actions/Images";
 import {
     Form,
-    Instruction1,
-    RowContainer1,
-    Instruction2,
-    RowContainer2,
-    Instruction3,
-    RowContainer3,
+    Instruction,
+    RowContainer,
     ColorDiv,
     SizeDiv,
-    Instruction4,
-    RowContainer4,
     ImagesDiv,
     ImageUpload,
     ImageList,
-    Instruction5,
-    RowContainer5,
     Container,
     Error,
 } from "./styledComponents";
@@ -122,14 +114,14 @@ const ProductForm = props => {
         <Redirect to={redirect} />
     ) : (
         <Form>
-            <Instruction1>
+            <Instruction>
                 Add your products name!
                 <br />
                 <br />
                 Set a base price, you can add an additional cost for different
                 sizes later on.
-            </Instruction1>
-            <RowContainer1>
+            </Instruction>
+            <RowContainer>
                 <TextField
                     multi={false}
                     tests={[
@@ -172,14 +164,14 @@ const ProductForm = props => {
                     form="product"
                     name="price"
                 />
-            </RowContainer1>
-            <Instruction2>
+            </RowContainer>
+            <Instruction>
                 Add a description of your product, let your customers know all
                 the great things about it! <br />
                 <br /> Let them know what materials you use to make your
                 product!
-            </Instruction2>
-            <RowContainer2>
+            </Instruction>
+            <RowContainer>
                 <TextField
                     multi={true}
                     tests={[
@@ -205,13 +197,13 @@ const ProductForm = props => {
                     form="product"
                     name="materials"
                 />
-            </RowContainer2>
-            <Instruction3>
+            </RowContainer>
+            <Instruction>
                 Choose the colour and size options that you want to offer for
                 your product. <br /> <br /> You can add an additional cost for
                 each different size.
-            </Instruction3>
-            <RowContainer3>
+            </Instruction>
+            <RowContainer>
                 <ColorDiv
                     style={{
                         display: "flex",
@@ -274,21 +266,32 @@ const ProductForm = props => {
                         Add
                         <AddIcon stroke={theme.primary} />
                     </Button>
-                    {props.type === "Edit" ? (
-                        <EditStockTable item={stock} />
-                    ) : (
-                        <StockTable item={stock} />
-                    )}
                 </SizeDiv>
-            </RowContainer3>
-            <Instruction4>
+            </RowContainer>
+            {props.type === "Edit" ? (
+                <>
+                    <Instruction>
+                        Set the level of stock for each variation
+                    </Instruction>
+                    <RowContainer>
+                        <EditStockTable item={stock} />
+                    </RowContainer>
+                </>
+            ) : (
+                <RowContainer>
+                    You can set the stock levels once your product is submitted
+                    from your dashboard
+                </RowContainer>
+            )}
+
+            <Instruction>
                 Add some images of your product to be shown on your product
                 page.
                 <br /> <br /> Choose one image to be the thumbnail to show up in
                 search results. <br />
                 <br /> Images will be cropped to be 1:1{" "}
-            </Instruction4>
-            <RowContainer4>
+            </Instruction>
+            <RowContainer>
                 <ImagesDiv>
                     <h2>Images</h2>
                     <ImageUpload>
@@ -296,13 +299,13 @@ const ProductForm = props => {
                     </ImageUpload>
                     <ImageList>{images && mapImages(images)}</ImageList>
                 </ImagesDiv>
-            </RowContainer4>
-            <Instruction5>
+            </RowContainer>
+            <Instruction>
                 Add your new product to the store! <br />
                 <br />
                 Or cancel if you've changed your mind
-            </Instruction5>
-            <RowContainer5>
+            </Instruction>
+            <RowContainer>
                 <Container>
                     <Button onClick={clearField}>
                         Cancel
@@ -324,7 +327,7 @@ const ProductForm = props => {
                     </Button>
                 </Container>
                 {formError && <Error>{formError}</Error>}
-            </RowContainer5>
+            </RowContainer>
         </Form>
     );
 };
