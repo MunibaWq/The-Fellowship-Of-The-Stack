@@ -77,6 +77,7 @@ const EditStockTable = ({ item, setter }) => {
                                 onChange={(e) => {
                                     item.quantity = e.target.value;
                                     setStock([...stock]);
+                                    setter(stock);
                                 }}
                             />
                         </td>

@@ -16,6 +16,7 @@ export function submitData(stock, input, images, dispatch, props, id, quant) {
     if (input.title && input.desc && input.price) {
         let error = document.getElementById("error");
         if (!error) {
+            console.log(quant);
             sendProductData(
                 stock,
                 images,

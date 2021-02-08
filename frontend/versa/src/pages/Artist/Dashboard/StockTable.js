@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { TableStyle } from "./Inventory";
 
-const StockTable = ({ item }) => {
+const StockTable = ({ item, setter }) => {
     const [stock, setStock] = useState([]);
 
     useEffect(() => {
@@ -20,9 +20,18 @@ const StockTable = ({ item }) => {
                         price: size.price,
                         quantity: 0,
                     };
+                    for (let el of stock) {
+                        if (
+                            el.color === color.label &&
+                            el.size === size.label
+                        ) {
+                            temp.quantity = el.quantity;
+                        }
+                    }
                     result.push(temp);
                 }
             }
+            setter(result);
             setStock(result);
         }
     }
@@ -36,7 +45,14 @@ const StockTable = ({ item }) => {
                         <td>{item.size}</td>
 
                         <td>
-                            <input type="number" placeholder={item.quantity} />
+                            <input
+                                type="number"
+                                placeholder={item.quantity}
+                                onChange={(e) => {
+                                    item.quantity = e.target.value;
+                                    setStock([...stock]);
+                                }}
+                            />
                         </td>
                     </tr>
                 );

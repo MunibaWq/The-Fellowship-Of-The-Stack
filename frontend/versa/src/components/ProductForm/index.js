@@ -298,6 +298,7 @@ const ProductForm = (props) => {
                     <Button
                         primary
                         onClick={() => {
+                            console.log(stock, quant);
                             submitData(
                                 stock,
                                 input,

@@ -1,4 +1,4 @@
-import { addProduct } from "../../../axios/posts";
+import { addProduct, addStock } from "../../../axios/posts";
 import { editProduct, editStock } from "../../../axios/puts";
 import { setFormErrors } from "../../../redux/actions/Errors";
 import { setRedirect } from "../../../redux/actions/Redirects";
@@ -19,7 +19,11 @@ export async function sendProductData(
         dispatch(setFormErrors("product", "Please add at least 1 image"));
     } else {
         if (props.type === "Add") {
-            addProduct(productInfo, images, thumbImg);
+            const test = async () => {
+                const id = await addProduct(productInfo, images, thumbImg);
+                await addStock(id, quant);
+            };
+            test();
         } else {
             editStock(id, quant);
             editProduct(productInfo, images, id, thumbImg);

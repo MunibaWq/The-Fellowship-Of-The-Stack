@@ -54,6 +54,21 @@ export const userGoing = async (eventID, userID, status) => {
     return res.data;
 };
 
+export const addStock = async (id, quant) => {
+    try {
+        const response = await Axios.post("/stock/post", {
+            quant,
+            id,
+        });
+
+        if (response.status === 201) {
+            return true;
+        }
+    } catch (err) {
+        console.log(err);
+        return false;
+    }
+};
 /**
  * {
  *   Response: {

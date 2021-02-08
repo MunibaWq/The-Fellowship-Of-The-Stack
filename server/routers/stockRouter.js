@@ -43,7 +43,7 @@ router.put("/put", async (req, res, next) => {
             [id]
         );
         for (const obj of req.body.quant) {
-            const { color, size, price, quantity } = obj;
+            const { color, size, quantity } = obj;
             await client.query(
                 `INSERT INTO stock (product_id, color, size, quantity) VALUES ($1, $2, $3, $4)`,
                 [id, color, size, quantity]
@@ -57,6 +57,24 @@ router.put("/put", async (req, res, next) => {
     }
 });
 
-router.post("/post", async (req, res, next) => {});
+router.post("/post", async (req, res, next) => {
+    console.log("id, quant", req.body.id, req.body.quant);
+    try {
+        const client = await pool.connect();
+        const { id } = req.body;
+        for (const obj of req.body.quant) {
+            const { color, size, quantity } = obj;
+            await client.query(
+                `INSERT INTO stock (product_id, color, size, quantity) VALUES ($1, $2, $3, $4)`,
+                [id, color, size, quantity]
+            );
+        }
+        client.release(true);
+        res.json({ msg: "all good" });
+    } catch (error) {
+        console.log(error);
+        res.send("error request failed");
+    }
+});
 
 module.exports = router;
