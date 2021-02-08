@@ -40,7 +40,11 @@ const Dashboard = () => {
                         exact
                         component={Categories}
                     />
-                    <Route path="/dashboard/orders" exact component={Orders} />
+                    <Route
+                        path="/dashboard/recent-orders/1"
+                        exact
+                        component={Orders}
+                    />
                     <Route
                         path="/dashboard/notifications"
                         exact
