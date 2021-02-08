@@ -35,14 +35,16 @@ import EditStockTable from "../../pages/Artist/Dashboard/EditStockTable";
 import { template } from "lodash";
 import StockTable from "../../pages/Artist/Dashboard/StockTable";
 import { setRedirect } from "../../redux/actions/Redirects";
-const ProductForm = props => {
+const ProductForm = (props) => {
     const dispatch = useDispatch();
-    const input = useSelector(state => state.formInputs.product);
-    const images = useSelector(state => state.images.productForm);
-    const modalToggle = useSelector(state => state.modalVisibility.productForm);
+    const input = useSelector((state) => state.formInputs.product);
+    const images = useSelector((state) => state.images.productForm);
+    const modalToggle = useSelector(
+        (state) => state.modalVisibility.productForm
+    );
 
-    const redirect = useSelector(state => state.redirect.productForm);
-    const formError = useSelector(state => state.formErrors.product.form);
+    const redirect = useSelector((state) => state.redirect.productForm);
+    const formError = useSelector((state) => state.formErrors.product.form);
     const params = useParams();
 
     const [stock, setStock] = useState([]);
@@ -59,12 +61,9 @@ const ProductForm = props => {
         dispatch(setImages("productForm", []));
     }
 
-    useEffect(
-        () => {
-            loadPage(id, dispatch, props.type);
-        },
-        [dispatch, id, props.type]
-    );
+    useEffect(() => {
+        loadPage(id, dispatch, props.type);
+    }, [dispatch, id, props.type]);
     useEffect(() => {
         return () => {
             dispatch(setRedirect("productForm", ""));
@@ -100,14 +99,11 @@ const ProductForm = props => {
             dispatch(setFormInputs("product", "sizes", [...input.sizes, temp]));
         }
     }
-    useEffect(
-        () => {
-            if (input.colours !== undefined && input.sizes !== undefined) {
-                setStock(input);
-            }
-        },
-        [input]
-    );
+    useEffect(() => {
+        if (input.colours !== undefined && input.sizes !== undefined) {
+            setStock(input);
+        }
+    }, [input]);
 
     return redirect ? (
         <Redirect to={redirect} />
@@ -125,15 +121,15 @@ const ProductForm = props => {
                     multi={false}
                     tests={[
                         {
-                            test: input => input.length < 1,
+                            test: (input) => input.length < 1,
                             error: "Required",
                         },
                         {
-                            test: input => input.length < 3,
+                            test: (input) => input.length < 3,
                             error: "Minimum 3 characters.",
                         },
                         {
-                            test: input => input.length > 45,
+                            test: (input) => input.length > 45,
                             error: "Title too long",
                         },
                     ]}
@@ -146,15 +142,15 @@ const ProductForm = props => {
                     multi={false}
                     tests={[
                         {
-                            test: input => isNaN(input),
+                            test: (input) => isNaN(input),
                             error: "Numerical values only",
                         },
                         {
-                            test: input => input.length < 1,
+                            test: (input) => input.length < 1,
                             error: "Required",
                         },
                         {
-                            test: input => input && +input <= 0,
+                            test: (input) => input && +input <= 0,
                             error: "Minimum 0.01",
                         },
                     ]}
@@ -175,7 +171,7 @@ const ProductForm = props => {
                     multi={true}
                     tests={[
                         {
-                            test: input => input.length < 10,
+                            test: (input) => input.length < 10,
                             error: "Minimum 10 characters",
                         },
                     ]}
@@ -188,7 +184,7 @@ const ProductForm = props => {
                     multi={true}
                     tests={[
                         {
-                            test: input => input.length < 10,
+                            test: (input) => input.length < 10,
                             error: "Minimum 10 characters",
                         },
                     ]}
@@ -265,29 +261,18 @@ const ProductForm = props => {
                         Add
                         <AddIcon stroke={theme.primary} />
                     </Button>
-<<<<<<< HEAD
-                    {props.type === "Edit" ? (
-                        <EditStockTable item={stock} setter={setQuant} />
-                    ) : (
-                        <StockTable item={stock} setter={setQuant} />
-                    )}
-=======
->>>>>>> bd4c3e0a62d6288b69f89e2439123c4d7ae57a56
                 </SizeDiv>
             </RowContainer>
+            <Instruction>Set the level of stock for each variation</Instruction>
             {props.type === "Edit" ? (
                 <>
-                    <Instruction>
-                        Set the level of stock for each variation
-                    </Instruction>
                     <RowContainer>
-                        <EditStockTable item={stock} />
+                        <EditStockTable item={stock} setter={setQuant} />
                     </RowContainer>
                 </>
             ) : (
                 <RowContainer>
-                    You can set the stock levels once your product is submitted
-                    from your dashboard
+                    <StockTable item={stock} setter={setQuant} />
                 </RowContainer>
             )}
 

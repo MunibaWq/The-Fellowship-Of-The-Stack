@@ -16,6 +16,8 @@ const EditStockTable = ({ item, setter }) => {
     //     quantity: 1,
     // }
     function mapColorsAndSizes(stock) {
+        console.log(stock);
+        console.log(item);
         let result = [];
         for (let color of item.colours) {
             for (let size of item.sizes) {
@@ -42,18 +44,21 @@ const EditStockTable = ({ item, setter }) => {
         const getProductStock = async () => {
             const res = await axios.get("/stock/get/" + id);
             setStock(res.data);
+            console.log(res);
         };
         getProductStock();
+        console.log("1st useefft");
+        return () => {
+            setStock([]);
+        };
     }, []);
 
-    useEffect(
-        () => {
-            if (item.length !== 0 && stock.length > 0) {
-                mapColorsAndSizes(stock);
-            }
-        },
-        [item]
-    );
+    useEffect(() => {
+        console.log("2nd useeffect");
+        if (item.length !== 0 && stock.length > 0) {
+            mapColorsAndSizes(stock);
+        }
+    }, [item.length]);
 
     // useEffect(() => {
     //     const updateStock = () => {
@@ -69,18 +74,18 @@ const EditStockTable = ({ item, setter }) => {
 
     function mapTable(arr) {
         if (arr.length > 0) {
-            return arr.map(item => {
+            return arr.map((unit) => {
                 return (
                     <tr>
-                        <td>{item.color}</td>
-                        <td>{item.size}</td>
+                        <td>{unit.color}</td>
+                        <td>{unit.size}</td>
 
                         <td>
                             <input
                                 type="number"
-                                value={item.quantity}
-                                onChange={e => {
-                                    item.quantity = e.target.value;
+                                value={unit.quantity}
+                                onChange={(e) => {
+                                    unit.quantity = e.target.value;
                                     setStock([...stock]);
                                     setter(stock);
                                 }}
