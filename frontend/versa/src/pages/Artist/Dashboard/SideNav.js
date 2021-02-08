@@ -164,7 +164,7 @@ const SideNav = ({ setNavWidth }) => {
                                         </SubMenuLink>
                                     </li>
                                 </Link>
-                                <Link to="/dashboard/avg-order-value">
+                                <Link to="/dashboard/avg-order-value/1">
                                     <li>
                                         <SubMenuLink>
                                             <h4>Average Order Value</h4>
