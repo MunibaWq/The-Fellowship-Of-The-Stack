@@ -148,7 +148,7 @@ const SideNav = ({ setNavWidth }) => {
 
                         {visibleASub && (
                             <SubMenu>
-                                <Link to="/dashboard/total-sales">
+                                <Link to="/dashboard/total-sales/1">
                                     <li>
                                         <SubMenuLink>
                                             <h4>Total Sales</h4>
@@ -156,7 +156,7 @@ const SideNav = ({ setNavWidth }) => {
                                         </SubMenuLink>
                                     </li>
                                 </Link>
-                                <Link to="/dashboard/total-orders">
+                                <Link to="/dashboard/total-orders/1">
                                     <li>
                                         <SubMenuLink>
                                             <h4>Total Orders</h4>

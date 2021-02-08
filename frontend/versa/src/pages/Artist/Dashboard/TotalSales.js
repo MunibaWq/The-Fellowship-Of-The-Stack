@@ -1,30 +1,30 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import * as V from "victory";
-import { getSalesByProduct } from "../../../axios/gets";
+import { getTotalSales } from "../../../axios/gets";
 import Loading from "../../../components/Reusable/Loading";
 import theme from "../../../components/Reusable/Colors";
 
 const TotalSales = () => {
-    const [productData, setProductData] = useState();
+    const [salesData, setSalesData] = useState();
     const currentUser = 1;
 
     useEffect(() => {
         const fetchData = async () => {
-            const data = await getSalesByProduct(currentUser);
+            const data = await getTotalSales(currentUser);
 
-            setProductData(data);
+            setSalesData(data);
         };
 
         fetchData();
     }, []);
-    let headers = ["Product Name", "Price", "Total Sales"];
-    console.log(productData);
+    let headers = ["Date", "Total Sales"];
+
     return (
         <SBPContainer>
             {/*<Button to="/dashboard">Back to Dashboard</Button>*/}
-            <h1>Sales By Product</h1>
-            {!productData ? (
+            <h1>Total Sales Per Day</h1>
+            {!salesData ? (
                 <Loading />
             ) : (
                 <div>
@@ -42,26 +42,25 @@ const TotalSales = () => {
                                 theme.primaryHover + "66",
                                 theme.primaryHover + "33",
                             ]}
-                            data={productData.map((product) => {
+                            data={salesData.map((sales) => {
                                 return {
-                                    x: product.title.split(" ").join(`\n`),
-                                    y: product.sum,
+                                    y: sales.sum,
+                                    x: `February ${sales.day}, ${sales.year}`,
                                 };
                             })}
                         />
                     </PieContainer>
                     <SBPTable>
                         <thead>
-                            {headers.map((header) => (
-                                <th>{header}</th>
+                            {headers.map((header, index) => (
+                                <th key={header + index}>{header}</th>
                             ))}
                         </thead>
                         <tbody>
-                            {productData.map((product, index) => (
-                                <tr key={product.title + index}>
-                                    <td>{product.title}</td>
-                                    <td>{product.sale_price}</td>
-                                    <td>{product.sum}</td>
+                            {salesData.map((sales, index) => (
+                                <tr key={sales.sum + index}>
+                                    <td>{`February ${sales.day},${sales.year}`}</td>
+                                    <td>${sales.sum}</td>
                                 </tr>
                             ))}
                         </tbody>

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import axios from "axios";
 import Button from "../Reusable/Button";
 import { Link, useParams } from "react-router-dom";
 import {
@@ -52,7 +51,6 @@ const EventPage = () => {
                 month: "long",
                 day: "numeric",
             };
-            console.log(eventData);
             let eventDate = new Date(data.start_time);
             let startTime = eventDate.toLocaleTimeString([], {
                 hour: "2-digit",

@@ -5,11 +5,12 @@ const pool = require("../db");
 router.get("/sales-by-products/:id", async (req, res) => {
     try {
         const result = await pool.query(
-            `SELECT p.title, s.sale_price, SUM(s.sale_price * s.quantity) 
+            `SELECT p.title, s.sale_price, s.quantity, SUM(s.sale_price * s.quantity) 
             FROM sales_by_product s
             INNER JOIN products p
             ON p.id=s.product_id
-            GROUP BY product_id, title, s.sale_price
+            GROUP BY product_id, title, s.sale_price, s.quantity
+            ORDER BY SUM desc;
             `
         );
 
@@ -21,14 +22,13 @@ router.get("/sales-by-products/:id", async (req, res) => {
         res.send(e);
     }
 });
-router.get("/sales-by-products/:id", async (req, res) => {
+router.get("/total-orders/:id", async (req, res) => {
     try {
         const result = await pool.query(
-            `SELECT p.title, s.sale_price, SUM(s.sale_price * s.quantity) 
-            FROM sales_by_product s
-            INNER JOIN products p
-            ON p.id=s.product_id
-            GROUP BY product_id, title, s.sale_price
+            `SELECT sum(order_total), EXTRACT(day FROM DATE) AS DAY, EXTRACT(month FROM DATE) AS month, EXTRACT(year FROM DATE) AS YEAR
+            FROM orders
+            GROUP BY EXTRACT(day FROM DATE), EXTRACT(month FROM DATE), EXTRACT(year FROM DATE)
+            ORDER BY DAY desc;
             `
         );
 
@@ -45,9 +45,10 @@ router.get("/total-sales/:id", async (req, res) => {
     console.log(req.params, "fresh");
     try {
         const result = await pool.query(
-            `SELECT SUM(sale_price * quantity) 
-            FROM sales_by_product 
-            WHERE artist_id = ${req.params.id}
+            `SELECT sum(sale_price), EXTRACT(day FROM DATE) AS DAY, EXTRACT(month FROM DATE) AS month, EXTRACT(year FROM DATE) AS YEAR
+            FROM sales_by_product
+            GROUP BY EXTRACT(day FROM DATE), EXTRACT(month FROM DATE), EXTRACT(year FROM DATE)
+            ORDER BY DAY desc
             `
         );
 

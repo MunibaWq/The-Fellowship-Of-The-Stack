@@ -18,8 +18,7 @@ const SalesByProduct = () => {
 
         fetchData();
     }, []);
-    let headers = ["Product Name", "Price", "Total Sales"];
-    console.log(productData);
+    let headers = ["Product Name", "Price", "# Sold", "Total Sales"];
     return (
         <SBPContainer>
             {/*<Button to="/dashboard">Back to Dashboard</Button>*/}
@@ -41,6 +40,7 @@ const SalesByProduct = () => {
                                 theme.primaryHover + "99",
                                 theme.primaryHover + "66",
                                 theme.primaryHover + "33",
+                                theme.primaryHover + "18",
                             ]}
                             data={productData.map((product) => {
                                 return {
@@ -52,8 +52,8 @@ const SalesByProduct = () => {
                     </PieContainer>
                     <SBPTable>
                         <thead>
-                            {headers.map((header) => (
-                                <th>{header}</th>
+                            {headers.map((header, index) => (
+                                <th key={header + index}>{header}</th>
                             ))}
                         </thead>
                         <tbody>
@@ -61,6 +61,7 @@ const SalesByProduct = () => {
                                 <tr key={product.title + index}>
                                     <td>{product.title}</td>
                                     <td>{product.sale_price}</td>
+                                    <td>{product.quantity}</td>
                                     <td>{product.sum}</td>
                                 </tr>
                             ))}
