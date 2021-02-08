@@ -21,6 +21,25 @@ router.get("/sales-by-products/:id", async (req, res) => {
         res.send(e);
     }
 });
+router.get("/sales-by-products/:id", async (req, res) => {
+    try {
+        const result = await pool.query(
+            `SELECT p.title, s.sale_price, SUM(s.sale_price * s.quantity) 
+            FROM sales_by_product s
+            INNER JOIN products p
+            ON p.id=s.product_id
+            GROUP BY product_id, title, s.sale_price
+            `
+        );
+
+        const productSalesInfo = result.rows;
+
+        res.json(productSalesInfo);
+    } catch (e) {
+        console.log("error", e);
+        res.send(e);
+    }
+});
 
 router.get("/total-sales/:id", async (req, res) => {
     console.log(req.params, "fresh");
