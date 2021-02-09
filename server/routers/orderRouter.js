@@ -80,7 +80,29 @@ router.post("/paid", async (req, res) => {
     const total = payment.amount / 100;
 
     orderConfirmation(total, user.username, user.email, orderID);
-    console.log("bubble tea");
+});
+
+router.put("/edit/status/:id", async (req, res) => {
+    if (orderStatus.length === 0) {
+        res.send({
+            message: "You have to give me data to update with!",
+        });
+    }
+    try {
+        const { id } = req.params; // For use in where
+        let { orderStatus } = req.body.data; //For use in set
+
+        let response = await pool.query(
+            "UPDATE orders SET status = $1 WHERE id = $2 RETURNING id",
+            [orderStatus, id]
+        );
+        res.json(response.rows[0].id);
+    } catch (err) {
+        console.error(err.message);
+        res.send({
+            message: "error",
+        });
+    }
 });
 
 module.exports = router;

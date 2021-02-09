@@ -36,7 +36,7 @@ const DashboardMain = () => {
                     total="12"
                     totalLabel="Unfulfilled"
                     title="Recent Orders"
-                    link="/dashboard/orders/1"></RecentOrders>
+                    link="/dashboard/recent-orders/1"></RecentOrders>
                 <SalesPerOrder
                     dataTitle="Average per week"
                     total="$107.23"

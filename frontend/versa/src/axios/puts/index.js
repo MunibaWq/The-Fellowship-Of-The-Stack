@@ -69,3 +69,20 @@ export const editStock = async (id, quant) => {
         return false;
     }
 };
+
+//update order status when artist changes its status within dashboard order page
+
+export const updateOrderStatus = async (orderStatus, id) => {
+    try {
+        const response = await Axios.put("/edit/status" + id, {
+            orderStatus: orderStatus,
+        });
+
+        if (response.status === 201) {
+            return true;
+        }
+    } catch (err) {
+        console.log(err);
+        return false;
+    }
+};

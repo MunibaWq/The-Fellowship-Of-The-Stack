@@ -18,6 +18,7 @@ import AddProduct from "../AddProduct";
 import EditProduct from "../EditProduct";
 import EditEvent from "../EditEvent";
 import CreateEvent from "../CreateEvent";
+import OrdersCopy from "./Orders copy";
 
 const Dashboard = () => {
     const [navWidth, setNavWidth] = useState(0);
@@ -43,7 +44,7 @@ const Dashboard = () => {
                     <Route
                         path="/dashboard/recent-orders/1"
                         exact
-                        component={Orders}
+                        component={OrdersCopy}
                     />
                     <Route
                         path="/dashboard/notifications"

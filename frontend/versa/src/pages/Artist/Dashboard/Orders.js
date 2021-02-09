@@ -15,19 +15,19 @@ const Orders = () => {
         fetchData();
     }, []);
 
-    let headers = ["Order ID", "Buyer Name", "Date", "Status"];
+    let headers = ["Order ID", "Buyer Name", "Date", "Status", "Shipping Date"];
 
     console.log("to o", orderData);
 
     return (
         <SBPContainer>
-            {/*<Button to="/dashboard">Back to Dashboard</Button>*/}
             <h1>Recent Orders</h1>
             {!orderData ? (
                 <Loading />
             ) : (
                 <div>
                     <SBPTable>
+                        }
                         <thead>
                             {headers.map((header, index) => (
                                 <th key={header + index}>{header}</th>
@@ -59,20 +59,6 @@ const SBPContainer = styled.div`
 
     h1 {
         margin: 0 1em 2em 1em;
-    }
-`;
-const Legend = styled.div`
-    div {
-        display: flex;
-        align-items: center;
-        font-size: 8px;
-        text-transform: uppercase;
-    }
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    div > svg {
-        margin: 5px;
     }
 `;
 
