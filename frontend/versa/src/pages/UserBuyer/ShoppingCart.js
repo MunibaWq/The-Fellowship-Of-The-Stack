@@ -15,14 +15,17 @@ import { setFormErrors } from "../../redux/actions/Errors";
 import { setFormInputs } from "../../redux/actions/Forms";
 import QuantityInput from "../../components/Cart/QuantityInput";
 import Button from "../../components/Reusable/Button";
-import { RefreshIcon } from '../../images/icons'
+import { RefreshIcon } from "../../images/icons";
 import theme from "../../components/Reusable/Colors";
+import RadioButton from "../../components/Reusable/RadioButton";
+import FreeDelivery from "../../components/Cart/FreeDelivery";
 const ShoppingCart = () => {
     // const dispatch = useDispatch();
+    const [preference, setPreference] = useState(null);
     const cart = useSelector((state) => state.cart);
     const error = useSelector((state) => state.formErrors.cart.form);
     const [cartItems, setCartItems] = useState();
-    const [needToUpdate, setNeedToUpdate] = useState()
+    const [needToUpdate, setNeedToUpdate] = useState();
     const dispatch = useDispatch();
     const calcCartTotal = () => {
         if (!cartItems) return 0;
@@ -108,9 +111,21 @@ const ShoppingCart = () => {
         };
     }, []);
     // console.log(cart)
+
+    function deliveryFee() {
+        const total = calcCartTotal();
+        if (isNaN(total)) {
+            return;
+        }
+        if (total >= 100) {
+            return "Free";
+        } else {
+            return 10;
+        }
+    }
     return (
         <Container>
-            <h1>Your cart</h1>
+            <h1>Your cart {<FreeDelivery total={calcCartTotal()} />}</h1>
             <TooMany>{error}</TooMany>
             <Cart>
                 {cartItems && cartItems.length > 0 ? (
@@ -165,15 +180,21 @@ const ShoppingCart = () => {
                                 );
                             })}
                         <CartItem>
-                            <Button tertiary
-                                style={{ gridColumn: "4 / 6", placeSelf:"end", marginRight:"0px"}}
-                            onClick={() => {
-                                dispatch(updateCart());
-                                setNeedToUpdate(true)
-                            }}>
-                            
-                                <RefreshIcon stroke={theme.primary }/>  Update Cart
-                        </Button></CartItem>
+                            <Button
+                                tertiary
+                                style={{
+                                    gridColumn: "4 / 6",
+                                    placeSelf: "end",
+                                    marginRight: "0px",
+                                }}
+                                onClick={() => {
+                                    dispatch(updateCart());
+                                    setNeedToUpdate(true);
+                                }}>
+                                <RefreshIcon stroke={theme.primary} /> Update
+                                Cart
+                            </Button>
+                        </CartItem>
                         <CartItem>
                             <div style={{ gridColumn: "3 / 5" }}>Subtotal:</div>
                             <Price>
@@ -195,30 +216,55 @@ const ShoppingCart = () => {
                                 )}
                             </Price>
                         </CartItem>
+                        {preference === "delivery" ? (
+                            <CartItem>
+                                <div style={{ gridColumn: "3 / 5" }}>
+                                    Delivery:
+                                </div>
+                                <Price>{deliveryFee()}</Price>
+                            </CartItem>
+                        ) : (
+                            <></>
+                        )}
                         <CartItem>
                             <div style={{ gridColumn: "3 / 5" }}>Total:</div>
                             <Price>
-                                {(calcCartTotal() * 1.05).toLocaleString(
-                                    "us-US",
-                                    {
-                                        style: "currency",
-                                        currency: "USD",
-                                    }
-                                )}
+                                {preference !== "delivery"
+                                    ? (calcCartTotal() * 1.05).toLocaleString(
+                                          "us-US",
+                                          {
+                                              style: "currency",
+                                              currency: "USD",
+                                          }
+                                      )
+                                    : (
+                                          calcCartTotal() * 1.05 +
+                                          10
+                                      ).toLocaleString("us-US", {
+                                          style: "currency",
+                                          currency: "USD",
+                                      })}
                             </Price>
                         </CartItem>
                     </>
                 ) : (
                     <div style={{ marginTop: "10px" }}>No items in cart</div>
                 )}
+
+                <RadioButton
+                    preference={preference}
+                    setPreference={setPreference}
+                />
             </Cart>
             {cartItems && cartItems.length > 0 && (
                 <CheckoutButton
                     items={cartItems}
                     artistName="Versa"
-                    price={(calcCartTotal() * 1.05).toFixed(
-                        2
-                    )}></CheckoutButton>
+                    price={
+                        preference === "delivery"
+                            ? (calcCartTotal() * 1.05).toFixed(2) + 10
+                            : (calcCartTotal() * 1.05).toFixed(2)
+                    }></CheckoutButton>
             )}
         </Container>
     );
