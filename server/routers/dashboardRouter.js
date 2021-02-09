@@ -84,7 +84,6 @@ router.get("/average-order-value/:id", async (req, res) => {
     }
 });
 router.get("/recent-orders/:id", async (req, res) => {
-    console.log(req.params, "fresh");
     try {
         const result = await pool.query(
             `SELECT o.*, u.name FROM orders o left JOIN users u on o.buyer_id=u.id ORDER BY Date desc;
@@ -111,9 +110,6 @@ router.get("/recent-orders/:id", async (req, res) => {
             order.orderTime = orderTime;
             order.orderDate = orderDate;
         }
-        console.log(orderInfo, "baked");
-
-        console.log(orderInfo, "donuts");
 
         res.json(orderInfo);
     } catch (e) {
