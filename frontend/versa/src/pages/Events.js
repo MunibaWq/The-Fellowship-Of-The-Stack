@@ -59,7 +59,9 @@ const Events = () => {
                 <Label>From</Label>
                 <Input
                     onChange={(e) => {
-                        setDate1(new Date(e.target.value));
+                        let toDate = new Date(e.target.value);
+                        let date1Set = toDate.setDate(toDate.getDate() + 1);
+                        setDate1(new Date(date1Set));
                     }}
                     type="date"
                 />
@@ -67,7 +69,9 @@ const Events = () => {
                 <Label>To</Label>
                 <Input
                     onChange={(e) => {
-                        setDate2(new Date(e.target.value));
+                        let toDate = new Date(e.target.value);
+                        let date2Set = toDate.setDate(toDate.getDate() + 1);
+                        setDate2(new Date(date2Set));
                     }}
                     type="date"
                 />
@@ -83,7 +87,7 @@ const Events = () => {
                             let eventDate2 = new Date(event2.start_time);
 
                             {
-                                // console.log("eventTime " + eventDate1);
+                                console.log("eventTime " + eventDate1);
                             }
                             if (new Date() - eventDate1 > 0) {
                                 return 1;
@@ -95,8 +99,18 @@ const Events = () => {
 
                         .map((theEvent) =>
                             date1 || date2 ? (
-                                date1 <= new Date(theEvent.start_time) &&
-                                date2 >= new Date(theEvent.start_time) ? (
+                                date1 <=
+                                    new Date(theEvent.start_time).setDate(
+                                        new Date(
+                                            theEvent.start_time
+                                        ).getDate() + 1
+                                    ) &&
+                                date2 >=
+                                    new Date(theEvent.start_time).setDate(
+                                        new Date(
+                                            theEvent.start_time
+                                        ).getDate() - 1
+                                    ) ? (
                                     <EventCard
                                         key={theEvent.id}
                                         theEvent={theEvent}
