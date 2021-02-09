@@ -109,6 +109,11 @@ router.get("/recent-orders/:id", async (req, res) => {
             });
             order.orderTime = orderTime;
             order.orderDate = orderDate;
+
+            let orderShipDate = new Date(order.ship_date);
+           
+            let shipDate = orderShipDate.toLocaleDateString("en-US", options);
+            order.orderShipDate = order.ship_date === null ? null : shipDate;
         }
         res.json(orderInfo);
     } catch (e) {

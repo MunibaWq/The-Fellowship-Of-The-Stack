@@ -74,8 +74,24 @@ export const editStock = async (id, quant) => {
 
 export const updateOrderStatus = async (orderStatus, id) => {
     try {
-        const response = await Axios.put("/edit/status" + id, {
+        const response = await Axios.put("/orders/edit/" + id, {
             orderStatus: orderStatus,
+        });
+
+        if (response.status === 201) {
+            return true;
+        }
+    } catch (err) {
+        console.log(err);
+        return false;
+    }
+};
+
+export const updateOrderShipDate = async (orderStatus, shipDate, id) => {
+    try {
+        const response = await Axios.put("/orders/edit/" + id, {
+            orderStatus: orderStatus,
+            shipDate: shipDate,
         });
 
         if (response.status === 201) {

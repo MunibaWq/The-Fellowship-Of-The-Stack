@@ -82,21 +82,32 @@ router.post("/paid", async (req, res) => {
     orderConfirmation(total, user.username, user.email, orderID);
 });
 
-router.put("/edit/status/:id", async (req, res) => {
+router.put("/edit/:id", async (req, res) => {
+    const {orderStatus} = req.body
     if (orderStatus.length === 0) {
         res.send({
             message: "You have to give me data to update with!",
         });
     }
-    try {
-        const { id } = req.params; // For use in where
-        let { orderStatus } = req.body.data; //For use in set
 
-        let response = await pool.query(
-            "UPDATE orders SET status = $1 WHERE id = $2 RETURNING id",
-            [orderStatus, id]
+    const response = await pool.query(
+        `SELECT ship_date, status FROM orders WHERE id = ${req.params.id}`
+    )
+
+    const order = response.rows[0]
+    const updatedOrder = {};
+
+        updatedOrder.status = req.body.shipDate ? "Shipped" : orderStatus || order.status;
+        updatedOrder.ship_date = req.body.shipDate || order.ship_date;
+
+    
+    
+     try {   
+         const order = await pool.query(
+            `UPDATE orders SET status = $1, ship_date = $2 WHERE id = $3`,
+            [updatedOrder.status, updatedOrder.ship_date, req.params.id]
         );
-        res.json(response.rows[0].id);
+        res.status(200).send()
     } catch (err) {
         console.error(err.message);
         res.send({

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import theme from "../Reusable/Colors";
 import Loading from "../Reusable/Loading";
@@ -29,6 +29,10 @@ const Table = ({ orderData }) => {
         {
             value: "Ready To Ship",
             label: "Ready To Ship",
+        },
+        {
+            value: "Shipped",
+            label: "Shipped",
         },
         {
             value: "On Hold",
@@ -87,9 +91,9 @@ const Table = ({ orderData }) => {
                                 </td>
                                 <td>
                                     <p>
-                                        {order.ship_date === null
+                                        {order.orderShipDate === null
                                             ? "Not Shipped"
-                                            : order.ship_date}
+                                            : order.orderShipDate}
                                     </p>
                                 </td>
                             </BodyRows>
@@ -148,13 +152,3 @@ const BodyRows = styled.tr`
     }
 `;
 
-const Status = styled.select`
-    padding: 8px;
-    outline: none;
-    border: 2px solid ${theme.primary};
-    :active,
-    :hover,
-    :focus {
-        border: 2px solid ${theme.primaryHover};
-    }
-`;

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { FilledTickIcon } from "../../../images/icons";
+import { updateOrderStatus, updateOrderShipDate } from "../../../axios/puts";
 import theme from "../../Reusable/Colors";
 
 const Status = styled.select`
@@ -21,12 +21,17 @@ const Status = styled.select`
 `;
 
 const DropDown = ({ statusOptions, order }) => {
-    const [status, setStatus] = useState();
+    const [status, setStatus] = useState(order.status);
     const [confirmation, setConfirmation] = useState(false);
 
+
+    
     const handleChange = (e) => {
         setStatus(e.target.value);
         setConfirmation(true);
+        console.log(status)
+        e.target.value === "Shipped" ? updateOrderShipDate(e.target.value,new Date(), order.id) :
+        updateOrderStatus(order.status, order.id);
     };
     console.log("s", status);
     console.log("c", confirmation);
