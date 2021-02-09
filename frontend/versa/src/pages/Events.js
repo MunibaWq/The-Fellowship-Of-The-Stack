@@ -5,11 +5,22 @@ import { searchEvents, getAllEvents } from "../axios/gets";
 import { Magnifying } from "../images/icons";
 import Loading from "../components/Reusable/Loading";
 import theme from "../components/Reusable/Colors.js";
+import {
+    FieldContainer,
+    Input,
+    Label,
+    TextField,
+} from "../components/Reusable/Input";
 
 const Events = () => {
     const [events, setEvents] = useState();
     const [searchQuery, setSearchQuery] = useState();
+    const [date1, setDate1] = useState();
+    const [date2, setDate2] = useState();
+    const [dateResults, setDateResults] = useState();
 
+    console.log("date 1 " + date1);
+    console.log("date 2 " + date2);
     useEffect(() => {
         const getEvents = async () => {
             let data = await getAllEvents();
@@ -45,9 +56,23 @@ const Events = () => {
                     placeholder="Search"
                     type="text"
                 />
-                <input type="date" />
-                <input type="submit" value="Filter By Date" />
+                <Label>From</Label>
+                <Input
+                    onChange={(e) => {
+                        setDate1(new Date(e.target.value));
+                    }}
+                    type="date"
+                />
+
+                <Label>To</Label>
+                <Input
+                    onChange={(e) => {
+                        setDate2(new Date(e.target.value));
+                    }}
+                    type="date"
+                />
             </SearchBarDiv>
+
             <Results>
                 {!events ? (
                     <Loading />
@@ -57,6 +82,9 @@ const Events = () => {
                             let eventDate1 = new Date(event1.start_time);
                             let eventDate2 = new Date(event2.start_time);
 
+                            {
+                                // console.log("eventTime " + eventDate1);
+                            }
                             if (new Date() - eventDate1 > 0) {
                                 return 1;
                             } else if (new Date() - eventDate2 > 0) {
@@ -64,10 +92,27 @@ const Events = () => {
                             }
                             return eventDate1 - eventDate2;
                         })
-                        .map((theEvent) => (
-                            <EventCard key={theEvent.id} theEvent={theEvent} />
-                        ))
+
+                        .map((theEvent) =>
+                            date1 || date2 ? (
+                                date1 <= new Date(theEvent.start_time) &&
+                                date2 >= new Date(theEvent.start_time) ? (
+                                    <EventCard
+                                        key={theEvent.id}
+                                        theEvent={theEvent}
+                                    />
+                                ) : null
+                            ) : (
+                                <EventCard
+                                    key={theEvent.id}
+                                    theEvent={theEvent}
+                                />
+                            )
+                        )
                 ) : (
+                    // .map((theEvent) => (
+                    //     <EventCard key={theEvent.id} theEvent={theEvent} />
+                    // ))
                     <NoResultsMessage>No results found</NoResultsMessage>
                 )}
             </Results>
