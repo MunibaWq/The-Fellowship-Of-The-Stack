@@ -6,6 +6,7 @@ import theme from "../../Reusable/Colors";
 const Status = styled.select`
     padding: 8px;
     outline: none;
+    cursor: pointer;
     border: ${(props) =>
         props.border === true
             ? `2px solid #77dd77`
@@ -30,7 +31,7 @@ const DropDown = ({ statusOptions, order }) => {
         setStatus(e.target.value);
         setConfirmation(true);
         console.log(status)
-        e.target.value === "Shipped" ? updateOrderShipDate(e.target.value,new Date(), order.id) :
+        e.target.value === "Picked Up" ? updateOrderShipDate(e.target.value,new Date(), order.id) :
         updateOrderStatus(order.status, order.id);
     };
     console.log("s", status);

@@ -11,7 +11,7 @@ const Table = ({ orderData }) => {
         "Buyer Address",
         "Date",
         "Status",
-        "Shipping Date",
+        "Date Received by Buyer",
     ];
     const statusOptions = [
         {
@@ -31,8 +31,8 @@ const Table = ({ orderData }) => {
             label: "Ready To Ship",
         },
         {
-            value: "Shipped",
-            label: "Shipped",
+            value: "Picked Up",
+            label: "Picked Up",
         },
         {
             value: "On Hold",
@@ -48,7 +48,7 @@ const Table = ({ orderData }) => {
         },
     ];
     return (
-        <div>
+        <TableContainer>
             {!orderData ? (
                 <Loading />
             ) : (
@@ -92,7 +92,7 @@ const Table = ({ orderData }) => {
                                 <td>
                                     <p>
                                         {order.orderShipDate === null
-                                            ? "Not Shipped"
+                                            ? "Not Received Yet"
                                             : order.orderShipDate}
                                     </p>
                                 </td>
@@ -100,13 +100,18 @@ const Table = ({ orderData }) => {
                         ))}
                 </OrdersTable>
             )}
-        </div>
+        </TableContainer>
     );
 };
 
 export default Table;
 
+const TableContainer = styled.div`
+justify-self: center;
+`;
+
 const OrdersTable = styled.table`
+
     border-collapse: collapse;
     margin: 0 1em 2em 1em;
     font-size: 0.9em;
