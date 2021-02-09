@@ -45,6 +45,8 @@ const Events = () => {
                     placeholder="Search"
                     type="text"
                 />
+                <input type="date" />
+                <input type="submit" value="Filter By Date" />
             </SearchBarDiv>
             <Results>
                 {!events ? (
@@ -60,11 +62,6 @@ const Events = () => {
                             } else if (new Date() - eventDate2 > 0) {
                                 return -1;
                             }
-
-                            console.log(event1.start_time);
-                            console.log(event2.start_time);
-
-                            console.log(eventDate1 - eventDate2);
                             return eventDate1 - eventDate2;
                         })
                         .map((theEvent) => (
