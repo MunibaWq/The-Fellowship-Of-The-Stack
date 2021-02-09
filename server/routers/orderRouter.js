@@ -91,13 +91,13 @@ router.put("/edit/:id", async (req, res) => {
     }
 
     const response = await pool.query(
-        `SELECT ship_date, status FROM orders WHERE id = ${req.params.id}`
+        `SELECT ship_date, status FROM orders WHERE id = ${req.params.id} ORDER BY DATE desc`
     )
 
     const order = response.rows[0]
     const updatedOrder = {};
 
-        updatedOrder.status = req.body.shipDate ? "Shipped" : orderStatus || order.status;
+        updatedOrder.status = req.body.shipDate ? "Picked Up" : orderStatus || order.status;
         updatedOrder.ship_date = req.body.shipDate || order.ship_date;
 
     

@@ -73,11 +73,7 @@ const Table = ({ orderData }) => {
                                 </td>
                                 <td>
                                     <p>
-                                        {order.address === "none"
-                                            ? "for Pickup"
-                                            : order.address === "null"
-                                            ? "-"
-                                            : order.address}
+                                        {order.pickup === true ? "for Pickup" : order.address}
                                     </p>
                                 </td>
                                 <td>
