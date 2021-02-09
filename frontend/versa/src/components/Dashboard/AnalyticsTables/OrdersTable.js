@@ -1,10 +1,10 @@
 import React from "react";
 import styled from "styled-components";
-import theme from "../Reusable/Colors";
-import Loading from "../Reusable/Loading";
-import DropDown from "./AnalyticsTables/DropDown";
+import theme from "../../Reusable/Colors";
+import Loading from "../../Reusable/Loading";
+import DropDown from "./DropDown";
 
-const Table = ({ orderData }) => {
+const OrdersTable = ({ orderData }) => {
     let headers = [
         "Order ID",
         "Buyer Name",
@@ -13,46 +13,13 @@ const Table = ({ orderData }) => {
         "Status",
         "Date Received by Buyer",
     ];
-    const statusOptions = [
-        {
-            value: "Paid",
-            label: "Paid",
-        },
-        {
-            value: "Processing",
-            label: "Processing",
-        },
-        {
-            value: "Packed",
-            label: "Packed",
-        },
-        {
-            value: "Ready To Ship",
-            label: "Ready To Ship",
-        },
-        {
-            value: "Picked Up",
-            label: "Picked Up",
-        },
-        {
-            value: "On Hold",
-            label: "On Hold",
-        },
-        {
-            value: "Cancelled",
-            label: "Cancelled",
-        },
-        {
-            value: "Refunded",
-            label: "Refunded",
-        },
-    ];
+    
     return (
         <TableContainer>
             {!orderData ? (
                 <Loading />
             ) : (
-                <OrdersTable>
+                <Table>
                     <thead>
                         <Headers>
                             {headers.map((header) => (
@@ -81,7 +48,6 @@ const Table = ({ orderData }) => {
                                 </td>
                                 <td>
                                     <DropDown
-                                        statusOptions={statusOptions}
                                         order={order}
                                     />
                                 </td>
@@ -94,27 +60,30 @@ const Table = ({ orderData }) => {
                                 </td>
                             </BodyRows>
                         ))}
-                </OrdersTable>
+                </Table>
             )}
         </TableContainer>
     );
 };
 
-export default Table;
+export default OrdersTable;
 
 const TableContainer = styled.div`
 justify-self: center;
 `;
 
-const OrdersTable = styled.table`
-
+const Table = styled.table`
+    position: relative;
     border-collapse: collapse;
     margin: 0 1em 2em 1em;
     font-size: 0.9em;
     min-width: 400px;
     box-shadow: 3px 3px 10px rgba(27, 49, 66, 0.13);
     border-radius: 15px 15px 0px 0px;
-
+    th{
+        position: sticky;
+  top: 0;
+    }
     th,
     td {
         padding: 12px 15px;

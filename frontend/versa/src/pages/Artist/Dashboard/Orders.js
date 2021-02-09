@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { getRecentOrders } from "../../../axios/gets";
 import Loading from "../../../components/Reusable/Loading";
-import Table from "../../../components/Dashboard/Table";
+import OrdersTable from "../../../components/Dashboard/AnalyticsTables/OrdersTable";
 
 const Orders = () => {
     const [orderData, setOrderData] = useState();
@@ -19,7 +19,7 @@ const Orders = () => {
     return (
         <OrderContainer>
             <h1>Recent Orders</h1>
-            {!orderData ? <Loading /> : <Table orderData={orderData} />}
+            {!orderData ? <Loading /> : <OrdersTable orderData={orderData} />}
         </OrderContainer>
     );
 };
