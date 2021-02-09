@@ -59,7 +59,7 @@ const Events = () => {
                 <Label>From:</Label>
 
                 <Input
-                    style={{ width: "30%" }}
+                    style={{ width: "20%" }}
                     onChange={(e) => {
                         let toDate = new Date(e.target.value);
                         let date1Set = toDate.setDate(toDate.getDate() + 1);
@@ -70,7 +70,7 @@ const Events = () => {
 
                 <Label style={{ paddingLeft: "3%" }}>To:</Label>
                 <Input
-                    style={{ width: "30%" }}
+                    style={{ width: "20%" }}
                     onChange={(e) => {
                         let toDate = new Date(e.target.value);
                         let date2Set = toDate.setDate(toDate.getDate() + 1);
@@ -103,10 +103,9 @@ const Events = () => {
                         .map((theEvent) =>
                             date1 || date2 ? (
                                 date1 <=
-                                    new Date(theEvent.start_time).setDate(
-                                        new Date(
-                                            theEvent.start_time
-                                        ).getDate() + 1
+                                    new Date(theEvent.end_time).setDate(
+                                        new Date(theEvent.end_time).getDate() +
+                                            1
                                     ) &&
                                 date2 >=
                                     new Date(theEvent.start_time).setDate(
