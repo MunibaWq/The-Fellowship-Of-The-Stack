@@ -50,9 +50,26 @@ const Events = () => {
                 {!events ? (
                     <Loading />
                 ) : events.length > 0 ? (
-                    events.map((theEvent) => (
-                        <EventCard key={theEvent.id} theEvent={theEvent} />
-                    ))
+                    events
+                        .sort((event1, event2) => {
+                            let eventDate1 = new Date(event1.start_time);
+                            let eventDate2 = new Date(event2.start_time);
+
+                            if (new Date() - eventDate1 > 0) {
+                                return 1;
+                            } else if (new Date() - eventDate2 > 0) {
+                                return -1;
+                            }
+
+                            console.log(event1.start_time);
+                            console.log(event2.start_time);
+
+                            console.log(eventDate1 - eventDate2);
+                            return eventDate1 - eventDate2;
+                        })
+                        .map((theEvent) => (
+                            <EventCard key={theEvent.id} theEvent={theEvent} />
+                        ))
                 ) : (
                     <NoResultsMessage>No results found</NoResultsMessage>
                 )}
