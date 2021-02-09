@@ -56,8 +56,10 @@ const Events = () => {
                     placeholder="Search"
                     type="text"
                 />
-                <Label>From</Label>
+                <Label>From:</Label>
+
                 <Input
+                    style={{ width: "30%" }}
                     onChange={(e) => {
                         let toDate = new Date(e.target.value);
                         let date1Set = toDate.setDate(toDate.getDate() + 1);
@@ -66,8 +68,9 @@ const Events = () => {
                     type="date"
                 />
 
-                <Label>To</Label>
+                <Label style={{ paddingLeft: "3%" }}>To:</Label>
                 <Input
+                    style={{ width: "30%" }}
                     onChange={(e) => {
                         let toDate = new Date(e.target.value);
                         let date2Set = toDate.setDate(toDate.getDate() + 1);
