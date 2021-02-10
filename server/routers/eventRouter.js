@@ -14,12 +14,10 @@ router.get("/search/:searchQuery", async (req, res) => {
         if (index == 0) {
             queryString = `(UPPER (e.name) LIKE '%${term}%' 
             OR UPPER (e.description) LIKE '%${term}%' 
-            
             OR UPPER (u.username) LIKE '%${term}%')`;
         } else {
             queryString += ` AND (UPPER (e.name) LIKE '%${term}%' 
             OR UPPER (e.description) LIKE '%${term}%'
-        
             OR UPPER (u.username) LIKE '%${term}%')`;
         }
     });
