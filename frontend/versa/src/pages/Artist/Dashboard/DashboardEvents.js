@@ -24,12 +24,13 @@ const DashboardEvents = () => {
         <div>
             Dashboard Events
             <Link to="/dashboard/events/create">
-                <Button>
+                <Button secondary style={{ float: "right" }}>
                     <AddIcon />
                     Create Event
                 </Button>
             </Link>
-            <EventsContainer>
+            <EventsContainer
+                style={({ paddingTop: "90px" }, { width: "100%" })}>
                 {!eventsData ? (
                     <Loading />
                 ) : (
@@ -43,7 +44,7 @@ const DashboardEvents = () => {
 export default DashboardEvents;
 
 const EventsContainer = styled.div`
-    padding: 2em 2em 2em calc(2em + 66px);
+    padding: 2em 3em 2em calc(2em + 66px);
     display: grid;
     grid-template-rows: auto auto;
 

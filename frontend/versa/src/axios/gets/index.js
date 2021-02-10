@@ -97,3 +97,8 @@ export const getRecentOrders = async (id) => {
     const response = await Axios.get(`/dashboard/recent-orders/${id}`);
     return response.data;
 };
+
+export const getOneOrder = async (id, orderid) => {
+    const response = await Axios.get(`/orders/recent-orders/${id}/${orderid}`);
+    return response.data;
+};

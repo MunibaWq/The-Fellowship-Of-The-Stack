@@ -1,16 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import theme from "../../Reusable/Colors";
 import Loading from "../../Reusable/Loading";
 import { Link } from "react-router-dom";
 import { EditIcon, DeleteIcon } from "../../../images/icons";
 import DropDown from "./EventsDropDown";
+import { DeleteEventModal } from "../DeleteEventModal";
+import Button from "../../Reusable/Button";
 
 const EventsTable = ({ eventsData }) => {
+    const [visible, setVisible] = useState(false);
+    const [currentId, setCurrentId] = useState(null);
     let headers = [
         // "Event ID",
         "Event Name",
-        "Start Date/Time",
+        "Start Date",
         "End Date/Time",
         "Attendees",
         "Status",
@@ -18,7 +22,13 @@ const EventsTable = ({ eventsData }) => {
         "Delete",
     ];
     console.log(eventsData);
-    // console.log(new Date(eventsData[0].start_time));
+
+    const showModal = (id) => {
+        setVisible(!visible);
+        console.log(`showing screen x`, window.innerWidth);
+        setCurrentId(id);
+    };
+
     return (
         <TableContainer>
             {!eventsData ? (
@@ -42,34 +52,52 @@ const EventsTable = ({ eventsData }) => {
                                     <p>{event.name}</p>
                                 </td>
                                 <td>
-                                    <p>{event.start_time}</p>
+                                    <p>{Date(event.start_time)}</p>
                                 </td>
                                 <td>
-                                    <p>{event.end_time}</p>
+                                    <p>{Date(event.end_time)}</p>
                                 </td>
                                 <td>{event.num_attendees}</td>
-                                <td>
-                                    <DropDown eventStatus={event.status} />
+                                <td style={{ width: "17%" }}>
+                                    <DropDown
+                                        eventStatus={event.status}
+                                        eventID={event.id}
+                                    />
                                 </td>
 
                                 <td>
-                                    {/* <Link
+                                    <Link
                                         to={
-                                           
-                                        }> */}
-                                    <p>
-                                        <EditIcon stroke={theme.primary} />
-                                    </p>
-                                    {/* </Link> */}
+                                            "/dashboard/events/edit/" + event.id
+                                        }>
+                                        <p>
+                                            <EditIcon stroke={theme.primary} />
+                                        </p>
+                                    </Link>
                                 </td>
                                 <td>
-                                    <p>
+                                    <Button onClick={() => showModal(event.id)}>
                                         <DeleteIcon stroke={theme.primary} />
-                                    </p>
+                                    </Button>
                                 </td>
                             </BodyRows>
                         ))}
                 </Table>
+            )}
+            {visible ? (
+                <DeleteEventModal
+                    value={visible}
+                    setter={setVisible}
+                    id={currentId}
+                    display="flex"
+                />
+            ) : (
+                <DeleteEventModal
+                    value={visible}
+                    setter={setVisible}
+                    id={currentId}
+                    display="none"
+                />
             )}
         </TableContainer>
     );
