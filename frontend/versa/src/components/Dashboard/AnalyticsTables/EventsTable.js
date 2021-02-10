@@ -69,14 +69,14 @@ const EventsTable = ({ eventsData }) => {
                                 </td>
 
                                 <td>
-                                    {/* <Link
+                                    <Link
                                         to={
-                                           
-                                        }> */}
-                                    <p>
-                                        <EditIcon stroke={theme.primary} />
-                                    </p>
-                                    {/* </Link> */}
+                                            "/dashboard/events/edit/" + event.id
+                                        }>
+                                        <p>
+                                            <EditIcon stroke={theme.primary} />
+                                        </p>
+                                    </Link>
                                 </td>
                                 <td>
                                     <Button onClick={() => showModal(event.id)}>
