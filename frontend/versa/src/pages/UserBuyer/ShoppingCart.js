@@ -247,6 +247,7 @@ const ShoppingCart = () => {
                                       })}
                             </Price>
                         </CartItem>
+                        <p>*all sales are final</p>
                     </>
                 ) : (
                     <div style={{ marginTop: "10px" }}>No items in cart</div>
