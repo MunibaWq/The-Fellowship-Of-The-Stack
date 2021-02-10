@@ -10,7 +10,7 @@ const EventsTable = ({ eventsData }) => {
     let headers = [
         // "Event ID",
         "Event Name",
-        "Start Date/Time",
+        "Start Date",
         "End Date/Time",
         "Attendees",
         "Status",
@@ -49,7 +49,13 @@ const EventsTable = ({ eventsData }) => {
                                 </td>
                                 <td>{event.num_attendees}</td>
                                 <td>
-                                    <DropDown eventStatus={event.status} />
+                                    <DropDown
+                                        eventStatus={event.status}
+                                        eventID={event.id}
+                                    />
+                                    {console.log(
+                                        "event status " + event.status
+                                    )}
                                 </td>
 
                                 <td>
