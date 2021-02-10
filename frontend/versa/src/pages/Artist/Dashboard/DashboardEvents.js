@@ -22,15 +22,14 @@ const DashboardEvents = () => {
     console.log(eventsData);
     return (
         <div>
-            Dashboard Events
             <Link to="/dashboard/events/create">
                 <Button secondary style={{ float: "right" }}>
                     <AddIcon />
                     Create Event
                 </Button>
             </Link>
-            <EventsContainer
-                style={({ paddingTop: "90px" }, { width: "100%" })}>
+            <EventsContainer style={{ width: "100%" }}>
+                <h1>Dashboard Events</h1>
                 {!eventsData ? (
                     <Loading />
                 ) : (
