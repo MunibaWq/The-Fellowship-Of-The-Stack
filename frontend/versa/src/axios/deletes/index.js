@@ -95,9 +95,10 @@ export const deleteUserFromEventByID = async (event, id) => {
 };
 
 export const deleteArtistEvent = async (id) => {
-    let url = `/event/delete/${id}`;
-    const resp = await Axios.delete(`/event/delete/${id}`);
-    return resp.status;
-
-    console.log(resp);
+    const response = await Axios.delete(`/events/delete/${id}`, {
+        headers: {
+            "Access-Control-Allow-Origin": "*",
+        },
+    });
+    console.log(response);
 };
