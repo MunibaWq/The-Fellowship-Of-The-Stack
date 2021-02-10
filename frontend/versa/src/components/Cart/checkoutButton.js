@@ -21,7 +21,7 @@ const CheckoutButton = ({ price, artistName, items }) => {
                 amount: priceForStripe,
             });
             const purchaseInfo = res.data.success
-            axios.post('/orders/paid', { items: items, payment: purchaseInfo })
+            axios.post('/orders/paid', { success: res.data.success, token, items: items, payment: purchaseInfo })
             
         } catch(error) {
             if (error.response.status === 500) {
@@ -59,7 +59,6 @@ const CheckoutButton = ({ price, artistName, items }) => {
             currency="CAD"
             stripeKey={publishableKey}
             locale="us"
-            email
             // Note: Enabling either address option will give the user the ability to
             // fill out both. Addresses are sent as a second parameter in the token callback.
             shippingAddress

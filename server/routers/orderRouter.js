@@ -4,6 +4,7 @@ const pool = require("../db");
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const { orderConfirmation } = require("../helperFunctions/sendGridFunctions");
 router.post("/stripe/payment", (req, res) => {
+    
     const body = {
         source: req.body.token.id,
         amount: req.body.amount,
@@ -19,7 +20,6 @@ router.post("/stripe/payment", (req, res) => {
 });
 
 router.post("/paid", async (req, res) => {
-    console.log(new Date().toLocaleString().replace(/\./g, ""));
     const { items, payment } = req.body;
     let orderResponse = await pool.query(
         `INSERT INTO orders

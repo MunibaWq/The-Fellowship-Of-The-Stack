@@ -6,12 +6,10 @@ sgMail.setApiKey(apiKey);
 const pool = require("../db");
 
 const emailsSent = async (day) => {
-    console.log(day);
     const response = await pool.query(
         "SELECT sent FROM sendgrid where day = $1",
         [day]
     );
-    console.log(response.rows[0].sent);
     return response.rows[0].sent;
 };
 const sendReminder = async () => {
@@ -19,11 +17,8 @@ const sendReminder = async () => {
     for (event of events.rows) {
         let tomorrow = new Date();
         tomorrow.setDate(tomorrow.getDate() + 1);
-        console.log(tomorrow.getDate());
 
-        console.log(new Date(event.start_time));
         if (new Date(event.start_time).getDate() === tomorrow.getDate()) {
-            console.log("here");
             attendees = await pool.query(
                 "SELECT h.username as host_name, e.name as event_name, e.description, e.start_time, e.end_time, e.location, a.event_id, u.email, u.name from events_attendees a INNER JOIN users u ON a.attendee = u.id INNER JOIN events e ON e.id=a.event_id INNER JOIN users h ON h.id=e.host WHERE a.event_id = " +
                     event.id
@@ -33,7 +28,6 @@ const sendReminder = async () => {
                     event.id
             );
             for (attendee of attendees.rows) {
-                console.log(attendee);
                 reminderForEvent(
                     attendee,
                     collabs.rows.map((collab) => collab.username)
@@ -58,7 +52,6 @@ const sendReminder = async () => {
 };
 
 const reminderForEvent = (attendee, collabs) => {
-    console.log("here is some infp", collabs);
     let options = {
         weekday: "long",
         year: "numeric",
