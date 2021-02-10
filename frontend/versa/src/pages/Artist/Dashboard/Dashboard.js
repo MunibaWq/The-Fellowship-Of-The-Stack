@@ -18,6 +18,7 @@ import AddProduct from "../AddProduct";
 import EditProduct from "../EditProduct";
 import EditEvent from "../EditEvent";
 import CreateEvent from "../CreateEvent";
+import OrderItems from "./OrderItems";
 
 
 const Dashboard = () => {
@@ -102,6 +103,10 @@ const Dashboard = () => {
                     <Route
                         path="/dashboard/events/edit/:id"
                         component={EditEvent}
+                    />
+                    <Route
+                        path="/dashboard/recent-orders/:id/:orderid"
+                        component={OrderItems}
                     />
                 </Switch>
             </Container>
