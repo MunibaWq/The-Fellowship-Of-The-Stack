@@ -52,10 +52,10 @@ const EventsTable = ({ eventsData }) => {
                                     <p>{event.name}</p>
                                 </td>
                                 <td>
-                                    <p>{event.start_time}</p>
+                                    <p>{Date(event.start_time)}</p>
                                 </td>
                                 <td>
-                                    <p>{event.end_time}</p>
+                                    <p>{Date(event.end_time)}</p>
                                 </td>
                                 <td>{event.num_attendees}</td>
                                 <td>
