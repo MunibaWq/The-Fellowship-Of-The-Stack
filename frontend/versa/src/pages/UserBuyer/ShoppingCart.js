@@ -21,7 +21,8 @@ import RadioButton from "../../components/Reusable/RadioButton";
 import FreeDelivery from "../../components/Cart/FreeDelivery";
 const ShoppingCart = () => {
     // const dispatch = useDispatch();
-    const [preference, setPreference] = useState(null);
+    const [preference, setPreference] = useState("delivery");
+    const [extraInstructions, setExtraInstructions] = useState("");
     const cart = useSelector((state) => state.cart);
     const error = useSelector((state) => state.formErrors.cart.form);
     const [cartItems, setCartItems] = useState();
@@ -254,15 +255,19 @@ const ShoppingCart = () => {
                 <RadioButton
                     preference={preference}
                     setPreference={setPreference}
+                    instructions={extraInstructions}
+                    setInstructions={setExtraInstructions}
                 />
             </Cart>
             {cartItems && cartItems.length > 0 && (
                 <CheckoutButton
                     items={cartItems}
                     artistName="Versa"
+                    custPref={preference}
+                    custNote={extraInstructions}
                     price={
                         preference === "delivery"
-                            ? (calcCartTotal() * 1.05).toFixed(2) + 10
+                            ? ((calcCartTotal() + 10) * 1.05).toFixed(2)
                             : (calcCartTotal() * 1.05).toFixed(2)
                     }></CheckoutButton>
             )}

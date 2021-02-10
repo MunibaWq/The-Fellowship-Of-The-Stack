@@ -1,18 +1,17 @@
 import React from "react";
 
-const TextArea = () => {
+const TextArea = ({ setter, getter }) => {
     return (
         <div>
             <label htmlFor="deliveryTextBox">Delivery Instructions:</label>
 
             <textarea
+                value={getter}
                 id="deliveryTextBox"
                 name="deliveryInstructions"
                 rows="4"
-                cols="50">
-                Add delivery instructions or special directions when delivering
-                this item.
-            </textarea>
+                cols="50"
+                onChange={(e) => setter(e.target.value)}></textarea>
         </div>
     );
 };

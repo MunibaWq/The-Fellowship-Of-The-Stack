@@ -19,17 +19,35 @@ router.post("/stripe/payment", (req, res) => {
 });
 
 router.post("/paid", async (req, res) => {
+    console.log("success", req.body.success);
+    console.log("payment", req.body.payment);
+    const { email } = req.body.success;
+    const {
+        name,
+        last4,
+        address_line1,
+        address_zip,
+        address_city,
+        address_country,
+    } = req.body.success.card;
+    const { deliveryType, deliveryNote } = req.body.payment;
+    const pickup = deliveryType === "pickup";
     console.log(new Date().toLocaleString().replace(/\./g, ""));
     const { items, payment } = req.body;
     let orderResponse = await pool.query(
         `INSERT INTO orders
-    (date, status, buyer_id, order_total)
-    VALUES ($1,$2,$3,$4) returning id`,
+    (date, status, buyer_id, order_total, email, name, pickup, billing_address, delivery_notes)
+    VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9) returning id`,
         [
             new Date().toLocaleString().replace(/\./g, ""),
             "paid",
             1,
             payment.amount / 100,
+            email,
+            name,
+            pickup,
+            `${address_line1} ${address_zip} ${address_city}, ${address_country}`,
+            deliveryNote,
         ]
     );
 
@@ -79,11 +97,11 @@ router.post("/paid", async (req, res) => {
 
     const total = payment.amount / 100;
 
-    orderConfirmation(total, user.username, user.email, orderID);
+    //orderConfirmation(total, user.username, user.email, orderID);
 });
 
 router.put("/edit/:id", async (req, res) => {
-    const {orderStatus} = req.body
+    const { orderStatus } = req.body;
     if (orderStatus.length === 0) {
         res.send({
             message: "You have to give me data to update with!",
@@ -92,22 +110,22 @@ router.put("/edit/:id", async (req, res) => {
 
     const response = await pool.query(
         `SELECT ship_date, status FROM orders WHERE id = ${req.params.id} ORDER BY DATE asc`
-    )
+    );
 
-    const order = response.rows[0]
+    const order = response.rows[0];
     const updatedOrder = {};
 
-        updatedOrder.status = req.body.shipDate ? "Picked Up" : orderStatus || order.status;
-        updatedOrder.ship_date = req.body.shipDate || order.ship_date;
+    updatedOrder.status = req.body.shipDate
+        ? "Picked Up"
+        : orderStatus || order.status;
+    updatedOrder.ship_date = req.body.shipDate || order.ship_date;
 
-    
-    
-     try {   
-         const order = await pool.query(
+    try {
+        const order = await pool.query(
             `UPDATE orders SET status = $1, ship_date = $2 WHERE id = $3`,
             [updatedOrder.status, updatedOrder.ship_date, req.params.id]
         );
-        res.status(200).send()
+        res.status(200).send();
     } catch (err) {
         console.error(err.message);
         res.send({
