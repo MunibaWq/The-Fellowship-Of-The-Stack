@@ -86,10 +86,14 @@ router.get("/average-order-value/:id", async (req, res) => {
 router.get("/recent-orders/:id", async (req, res) => {
     try {
         const result = await pool.query(
-            `SELECT o.*, u.name, u.address FROM orders o left JOIN users u on o.buyer_id=u.id ORDER BY Date desc;
-            `
+            `SELECT o.order_total, o.id, o.shipping_address, o.name, o.date, o.ship_date, o.delivery_notes, o.phone, o.pickup, s.artist_id, s.product_id, s.quantity, s.color, s.size, p.title
+            FROM orders o
+            INNER JOIN sales_by_product s
+            ON o.id = s.order_id
+            INNER JOIN products p
+            ON s.product_id = p.id
+            WHERE s.artist_id = ${req.params.id}`
         );
-
         const orderInfo = result.rows;
         for (order of orderInfo) {
             let options = {
@@ -111,7 +115,7 @@ router.get("/recent-orders/:id", async (req, res) => {
             order.orderDate = orderDate;
 
             let orderShipDate = new Date(order.ship_date);
-           
+
             let shipDate = orderShipDate.toLocaleDateString("en-US", options);
             order.orderShipDate = order.ship_date === null ? null : shipDate;
         }

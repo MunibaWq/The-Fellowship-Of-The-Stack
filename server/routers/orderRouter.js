@@ -83,7 +83,7 @@ router.post("/paid", async (req, res) => {
 });
 
 router.put("/edit/:id", async (req, res) => {
-    const {orderStatus} = req.body
+    const { orderStatus } = req.body;
     if (orderStatus.length === 0) {
         res.send({
             message: "You have to give me data to update with!",
@@ -92,22 +92,67 @@ router.put("/edit/:id", async (req, res) => {
 
     const response = await pool.query(
         `SELECT ship_date, status FROM orders WHERE id = ${req.params.id} ORDER BY DATE asc`
-    )
+    );
 
-    const order = response.rows[0]
+    const order = response.rows[0];
     const updatedOrder = {};
 
-        updatedOrder.status = req.body.shipDate ? "Picked Up" : orderStatus || order.status;
-        updatedOrder.ship_date = req.body.shipDate || order.ship_date;
+    updatedOrder.status = req.body.shipDate
+        ? "Picked Up"
+        : orderStatus || order.status;
+    updatedOrder.ship_date = req.body.shipDate || order.ship_date;
 
-    
-    
-     try {   
-         const order = await pool.query(
+    try {
+        const order = await pool.query(
             `UPDATE orders SET status = $1, ship_date = $2 WHERE id = $3`,
             [updatedOrder.status, updatedOrder.ship_date, req.params.id]
         );
-        res.status(200).send()
+        res.status(200).send();
+    } catch (err) {
+        console.error(err.message);
+        res.send({
+            message: "error",
+        });
+    }
+});
+
+router.get("/recent-orders/:id/:orderid", async (req, res) => {
+    try {
+        const result = await pool.query(
+            `SELECT o.order_total, o.id, o.shipping_address, o.name, o.date, o.ship_date, o.phone, o.pickup, o.delivery_notes, s.artist_id, s.product_id, s.quantity, s.color, s.size, p.title
+            FROM orders o
+            INNER JOIN sales_by_product s
+            ON o.id = s.order_id
+            INNER JOIN products p
+            ON s.product_id = p.id
+            WHERE s.artist_id = ${req.params.id} AND o.id = ${req.params.orderid}`
+        );
+        const orderInfo = result.rows;
+        for (order of orderInfo) {
+            let options = {
+                weekday: "long",
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+            };
+
+            let ordersDate = new Date(order.date);
+
+            let orderDate = ordersDate.toLocaleDateString("en-US", options);
+
+            let orderTime = ordersDate.toLocaleTimeString([], {
+                hour: "2-digit",
+                minute: "2-digit",
+            });
+            order.orderTime = orderTime;
+            order.orderDate = orderDate;
+
+            let orderShipDate = new Date(order.ship_date);
+
+            let shipDate = orderShipDate.toLocaleDateString("en-US", options);
+            order.orderShipDate = order.ship_date === null ? null : shipDate;
+        }
+        res.json(orderInfo);
     } catch (err) {
         console.error(err.message);
         res.send({

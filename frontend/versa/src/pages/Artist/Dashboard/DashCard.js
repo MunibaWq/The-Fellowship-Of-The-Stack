@@ -76,9 +76,6 @@ const Card = styled.div`
     }
 
     transition: 0.3s;
-    hover {
-        box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
-    }
 `;
 
 const Graph = styled.div``;
@@ -127,6 +124,7 @@ const PieContainer = styled.div`
 `;
 const DashCard = (props) => {
     const {
+        buttonText,
         total,
         totalLabel,
         dataTitle,
@@ -143,7 +141,7 @@ const DashCard = (props) => {
                     <Title>{title}</Title>
                     <Link to={link}>
                         <PageLink>
-                            Reports
+                            {buttonText}
                             <RightIcon stroke={theme.primary} />
                         </PageLink>
                     </Link>

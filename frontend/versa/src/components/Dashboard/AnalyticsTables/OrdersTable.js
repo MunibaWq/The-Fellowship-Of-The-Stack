@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import {useHistory} from 'react-router-dom'
+import { useHistory } from "react-router-dom";
 import theme from "../../Reusable/Colors";
 import Loading from "../../Reusable/Loading";
 import DropDown from "./DropDown";
@@ -14,12 +14,13 @@ const OrdersTable = ({ user, orderData }) => {
         "Status",
         "Date Received by Buyer",
     ];
+    console.log("t", orderData);
 
     const history = useHistory();
     // const handleRowClick = (order.id) => {
     //     history.push(`/dashboard/recent-orders/${order.id}`);
-    // } 
-    
+    // }
+
     return (
         <TableContainer>
             {!orderData ? (
@@ -38,26 +39,51 @@ const OrdersTable = ({ user, orderData }) => {
                     {orderData &&
                         orderData.map((order, index) => (
                             <BodyRows key={order.name + index}>
-                                <td onClick={()=> history.push(`/dashboard/recent-orders/${user}/${order.id}`)}>
+                                <td
+                                    onClick={() =>
+                                        history.push(
+                                            `/dashboard/recent-orders/${user}/${order.id}`
+                                        )
+                                    }>
                                     <p>{order.id}</p>
                                 </td>
-                                <td onClick={()=> history.push(`/dashboard/recent-orders/${user}/${order.id}`)}>
+                                <td
+                                    onClick={() =>
+                                        history.push(
+                                            `/dashboard/recent-orders/${user}/${order.id}`
+                                        )
+                                    }>
                                     <p>{order.name}</p>
                                 </td>
-                                <td onClick={()=> history.push(`/dashboard/recent-orders/${user}/${order.id}`)}>
+                                <td
+                                    onClick={() =>
+                                        history.push(
+                                            `/dashboard/recent-orders/${user}/${order.id}`
+                                        )
+                                    }>
                                     <p>
-                                        {order.pickup === true ? "for Pickup" : order.address}
+                                        {order.pickup === true
+                                            ? "for Pickup"
+                                            : order.shipping_address}
                                     </p>
                                 </td>
-                                <td onClick={()=> history.push(`/dashboard/recent-orders/${user}/${order.id}`)}>
+                                <td
+                                    onClick={() =>
+                                        history.push(
+                                            `/dashboard/recent-orders/${user}/${order.id}`
+                                        )
+                                    }>
                                     <p>{order.orderDate}</p>
                                 </td>
                                 <td>
-                                    <DropDown
-                                        order={order}
-                                    />
+                                    <DropDown order={order} />
                                 </td>
-                                <td onClick={()=> history.push(`/dashboard/recent-orders/${user}/${order.id}`)}>
+                                <td
+                                    onClick={() =>
+                                        history.push(
+                                            `/dashboard/recent-orders/${user}/${order.id}`
+                                        )
+                                    }>
                                     <p>
                                         {order.orderShipDate === null
                                             ? "Not Received Yet"
@@ -75,7 +101,7 @@ const OrdersTable = ({ user, orderData }) => {
 export default OrdersTable;
 
 const TableContainer = styled.div`
-justify-self: center;
+    justify-self: center;
 `;
 
 const Table = styled.table`
@@ -86,7 +112,7 @@ const Table = styled.table`
     min-width: 400px;
     box-shadow: 3px 3px 10px rgba(27, 49, 66, 0.13);
     border-radius: 15px 15px 0px 0px;
-    thead th{
+    thead th {
         position: sticky;
         top: 0;
     }
@@ -128,4 +154,3 @@ const BodyRows = styled.tr`
         border-bottom: 2px solid ${theme.primary};
     }
 `;
-
