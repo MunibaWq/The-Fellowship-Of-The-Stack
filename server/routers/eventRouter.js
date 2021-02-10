@@ -175,7 +175,7 @@ router.put("/edit/:id", async (req, res) => {
     }
     try {
         const { id } = req.params; // For use in where
-        const {
+        let {
             name,
             host,
             description,
@@ -187,12 +187,27 @@ router.put("/edit/:id", async (req, res) => {
             type,
         } = req.body.data;
 
+        let current = await pool.query(`SELECT * FROM events WHERE id = $1 `, [
+            id,
+        ]);
+        const currentEvent = current.rows[0];
+
+        name = name || currentEvent.name;
+        host = host || currentEvent.host;
+        description = description || currentEvent.description;
+        status = status || currentEvent.status;
+        capacity = capacity || currentEvent.capacity;
+        startTime = startTime || currentEvent.start_time;
+        endTime = endTime || currentEvent.end_time;
+        location = location || currentEvent.location;
+        type = type || currentEvent.type;
+
         let response = await pool.query(
             `UPDATE events SET 
             name = $1, host = $2, description = $3, 
-            status = $4, capacity = $5, startTime = $5, 
-            endTime = $7, location = $8, type = $9 
-            WHERE id = $10`,
+            status = $4, capacity = $5, start_time = $6, 
+            end_time = $7, location = $8, type = $9 
+            WHERE id = $10 RETURNING id`,
             [
                 name,
                 host,

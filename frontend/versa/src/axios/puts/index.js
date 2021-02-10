@@ -102,3 +102,35 @@ export const updateOrderShipDate = async (orderStatus, shipDate, id) => {
         return false;
     }
 };
+
+//update event status
+
+export const updateEventStatus = async (status, id) => {
+    try {
+        const response = await Axios.put("/events/edit/" + id, {
+            data: { status },
+        });
+
+        if (response.status === 201) {
+            return true;
+        }
+    } catch (err) {
+        console.log(err);
+        return false;
+    }
+};
+
+export const editEvent = async (event) => {
+    try {
+        const response = await Axios.put("/events/edit/" + event.id, {
+            data: event,
+        });
+
+        if (response.status === 201) {
+            return true;
+        }
+    } catch (err) {
+        console.log(err);
+        return false;
+    }
+};
