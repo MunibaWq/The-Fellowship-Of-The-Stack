@@ -93,3 +93,11 @@ export const deleteUserFromEventByID = async (event, id) => {
     const response = await Axios.delete(`/events/not-attending/${event}/${id}`);
     return response.status;
 };
+
+export const deleteArtistEvent = async (id) => {
+    let url = `/event/delete/${id}`;
+    const resp = await Axios.delete(`/event/delete/${id}`);
+    return resp.status;
+
+    console.log(resp);
+};
