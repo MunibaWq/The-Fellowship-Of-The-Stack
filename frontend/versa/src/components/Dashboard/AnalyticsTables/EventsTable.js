@@ -2,20 +2,23 @@ import React from "react";
 import styled from "styled-components";
 import theme from "../../Reusable/Colors";
 import Loading from "../../Reusable/Loading";
-// import DropDown from "./DropDown";
+import { Link } from "react-router-dom";
+import { EditIcon, DeleteIcon } from "../../../images/icons";
+import DropDown from "./EventsDropDown";
 
 const EventsTable = ({ eventsData }) => {
     let headers = [
-        "Event ID",
+        // "Event ID",
         "Event Name",
-        "Start Date",
-        "End Date",
-        "Start Time",
-        "End Time",
+        "Start Date/Time",
+        "End Date/Time",
+        "Attendees",
+        "Status",
         "Edit",
         "Delete",
     ];
-
+    console.log(eventsData);
+    // console.log(new Date(eventsData[0].start_time));
     return (
         <TableContainer>
             {!eventsData ? (
@@ -31,12 +34,10 @@ const EventsTable = ({ eventsData }) => {
                             ))}
                         </Headers>
                     </thead>
+
                     {eventsData &&
                         eventsData.map((event, index) => (
                             <BodyRows key={event.name + index}>
-                                <td>
-                                    <p>{event.id}</p>
-                                </td>
                                 <td>
                                     <p>{event.name}</p>
                                 </td>
@@ -46,13 +47,25 @@ const EventsTable = ({ eventsData }) => {
                                 <td>
                                     <p>{event.end_time}</p>
                                 </td>
-                                <td>time start</td>
-                                <td>time end</td>
+                                <td>{event.num_attendees}</td>
                                 <td>
-                                    <p>edit event</p>
+                                    <DropDown eventStatus={event.status} />
+                                </td>
+
+                                <td>
+                                    {/* <Link
+                                        to={
+                                           
+                                        }> */}
+                                    <p>
+                                        <EditIcon stroke={theme.primary} />
+                                    </p>
+                                    {/* </Link> */}
                                 </td>
                                 <td>
-                                    <p>delete event</p>
+                                    <p>
+                                        <DeleteIcon stroke={theme.primary} />
+                                    </p>
                                 </td>
                             </BodyRows>
                         ))}
