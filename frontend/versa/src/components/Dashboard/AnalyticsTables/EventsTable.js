@@ -58,14 +58,11 @@ const EventsTable = ({ eventsData }) => {
                                     <p>{Date(event.end_time)}</p>
                                 </td>
                                 <td>{event.num_attendees}</td>
-                                <td>
+                                <td style={{ width: "17%" }}>
                                     <DropDown
                                         eventStatus={event.status}
                                         eventID={event.id}
                                     />
-                                    {console.log(
-                                        "event status " + event.status
-                                    )}
                                 </td>
 
                                 <td>
