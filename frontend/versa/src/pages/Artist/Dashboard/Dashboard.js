@@ -112,7 +112,7 @@ const Dashboard = () => {
                         component={EditEvent}
                     />
                     <Route
-                        path="/dashboard/recent-orders/:id/:orderid"
+                        path="/dashboard/recent-orders/:orderid"
                         component={OrderItems}
                     />
                 </Switch>
