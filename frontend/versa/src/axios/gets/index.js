@@ -57,6 +57,11 @@ export const getAllArtistEvents = async (id) => {
     return res.data;
 };
 
+export const getMyArtistEvents = async () => {
+    let res = await Axios.get("/api/events/myArtistsEvents/");
+    return res.data;
+};
+
 export const getEventByID = async (id) => {
     const response = await Axios.get(`/api/events/get/${id}`);
     return response.data;
