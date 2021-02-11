@@ -44,10 +44,8 @@ const EditStockTable = ({ item, setter }) => {
             setStock(res.data);
         };
         getProductStock();
-        return () => {
-            setStock([]);
-        };
-    }, []);
+        
+    }, [id]);
 
     useEffect(() => {
         if (item.length !== 0 && stock.length > 0) {

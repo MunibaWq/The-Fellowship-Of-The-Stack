@@ -12,7 +12,7 @@ export function submitData(input, images, dispatch, props, id, quant) {
         materials: input.materials,
     };
 
-    if (input.title && input.desc && input.price) {
+    if (input.title && input.desc && input.price && input.colours && input.sizes) {
         let error = document.getElementById("error");
         if (!error) {
             sendProductData(

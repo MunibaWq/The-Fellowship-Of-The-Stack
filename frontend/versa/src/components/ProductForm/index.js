@@ -67,6 +67,7 @@ const ProductForm = (props) => {
     useEffect(() => {
         return () => {
             dispatch(setRedirect("productForm", ""));
+            clearField()
         };
     }, []);
     function setColorLabelAndValue() {
