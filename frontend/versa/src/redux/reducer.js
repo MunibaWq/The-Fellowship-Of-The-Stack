@@ -34,32 +34,23 @@ const initState = {
 };
 
 const productReducer = (state = initState, action) => {
-    console.log('state at top of product reducer',state)
     let newState = _.cloneDeep(state);
     switch (action.type) {
         case "UPDATE_CART":
-            console.log('cart is updated')
-            newState.cart = _.cloneDeep(newState.cartUpdate)
-            return newState
+            newState.cart = _.cloneDeep(newState.cartUpdate);
+            return newState;
         case "SET_CART_INPUT":
-            console.log('set_cart_input')
-            const cartItem = action.payload.cartItem
-            newState.cart = state.cart
+            const cartItem = action.payload.cartItem;
+            newState.cart = state.cart;
             if (newState.cartUpdate[cartItem.productID]) {
-                if (
-                    newState.cartUpdate[cartItem.productID][
-                        cartItem.colour
-                    ]
-                ) {
-                    
-                        newState.cartUpdate[cartItem.productID][
-                            cartItem.colour
-                        ][cartItem.size] = +action.payload.newQuantity;
-                    
+                if (newState.cartUpdate[cartItem.productID][cartItem.colour]) {
+                    newState.cartUpdate[cartItem.productID][cartItem.colour][
+                        cartItem.size
+                    ] = +action.payload.newQuantity;
                 } else {
-                    newState.cartUpdate[cartItem.productID][
-                        cartItem.colour
-                    ] = { [cartItem.size]: +action.payload.newQuantity };
+                    newState.cartUpdate[cartItem.productID][cartItem.colour] = {
+                        [cartItem.size]: +action.payload.newQuantity,
+                    };
                 }
             } else {
                 newState.cartUpdate[cartItem.productID] = {
@@ -68,17 +59,14 @@ const productReducer = (state = initState, action) => {
                     },
                 };
             }
-            console.log('newState cartUpdate reducer', newState)
-            console.log('old cart === new cart')
+
             return newState;
         case "REMOVE_FROM_CART":
-            console.log("remove from cart");
             delete newState.cart[action.payload.cartProduct][
                 action.payload.colour
             ][action.payload.size];
             return newState;
         case "ADD_TO_CART":
-            console.log('add_to_cart')
             const { cartProduct, colour, size, quantity } = action.payload;
             if (newState.cart[cartProduct]) {
                 if (newState.cart[cartProduct][colour]) {
@@ -93,11 +81,8 @@ const productReducer = (state = initState, action) => {
             } else {
                 newState.cart[cartProduct] = { [colour]: { [size]: quantity } };
             }
-            console.log('add to cart newState',newState);
             return newState;
         case "MODIFY_CART":
-            
-            console.log("modifying cart",action.payload);
             const { mCartProduct, mColour, mSize, mQuantity } = action.payload;
 
             newState.cart[mCartProduct][mColour][mSize] = Math.round(mQuantity);
@@ -147,7 +132,10 @@ const productReducer = (state = initState, action) => {
             newState.loginPassword = action.payload;
             return newState;
         case "LOGIN":
-            newState.user = action.payload;
+            newState.user = true;
+            return newState;
+        case "LOGOUT":
+            newState.user = false
             return newState;
         case "FETCH_PRODUCT":
             newState.productData = action.payload;

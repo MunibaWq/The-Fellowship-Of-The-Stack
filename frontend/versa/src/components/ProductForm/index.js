@@ -32,7 +32,7 @@ import { submitData } from "./submitData";
 
 import EditStockTable from "../../pages/Artist/Dashboard/EditStockTable";
 
-import { template } from "lodash";
+import _ from "lodash";
 import StockTable from "../../pages/Artist/Dashboard/StockTable";
 import { setRedirect } from "../../redux/actions/Redirects";
 const ProductForm = (props) => {
@@ -306,15 +306,13 @@ const ProductForm = (props) => {
                     <Button
                         primary
                         onClick={() => {
-                            console.log(stock, quant);
                             submitData(
-                                stock,
-                                input,
-                                images,
+                                _.cloneDeep(input),
+                                _.cloneDeep(images),
                                 dispatch,
-                                props,
+                                _.cloneDeep(props),
                                 id,
-                                quant
+                                _.cloneDeep(quant)
                             );
                         }}>
                         Submit

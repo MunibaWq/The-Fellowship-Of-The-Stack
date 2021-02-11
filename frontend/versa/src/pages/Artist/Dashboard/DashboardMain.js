@@ -29,21 +29,21 @@ const DashboardMain = () => {
                     total="123"
                     totalLabel="orders"
                     title="Orders"
-                    link="/dashboard/total-orders/1"></Orders>
+                    link="/dashboard/total-orders"></Orders>
                 <RecentOrders
                     dataTitle="5 most recent"
                     tableData={recentOrders}
                     total="12"
                     totalLabel="Unfulfilled"
                     title="Recent Orders"
-                    link="/dashboard/orders/1"></RecentOrders>
+                    link="/dashboard/orders"></RecentOrders>
                 <SalesPerOrder
                     dataTitle="Average per week"
                     total="$107.23"
                     totalLabel="Average"
                     graphData={avgOrderData}
                     title={`Sales Per Order`}
-                    link="/dashboard/average-order-value/1"></SalesPerOrder>
+                    link="/dashboard/average-order-value"></SalesPerOrder>
                 <Inventory
                     dataTitle="5 lowest in stock"
                     total="7"
@@ -57,7 +57,7 @@ const DashboardMain = () => {
                     totalLabel="Top Product Sales"
                     pieData={salesByProductData}
                     title="Sales By Product"
-                    link="/dashboard/sales-by-products/1"
+                    link="/dashboard/sales-by-products"
                 />
                 {/* <Profit>Small Card with number of total profit</Profit> */}
                 <MonthlySales
@@ -66,7 +66,7 @@ const DashboardMain = () => {
                     totalLabel="Total"
                     title="Monthly Sales"
                     graphData={salesData}
-                    link="/dashboard/total-sales/1"></MonthlySales>
+                    link="/dashboard/total-sales"></MonthlySales>
                 {/* <Events>card showing 5 cards inside of upcoming events</Events> */}
             </StoreDash>
         </DashboardContainer>

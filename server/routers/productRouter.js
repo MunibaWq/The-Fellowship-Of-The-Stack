@@ -1,6 +1,8 @@
 const express = require("express");
 const router = new express.Router();
 const pool = require("../db");
+const auth = require("../middleware/auth");
+
 //search products by keyword found in title and description
 router.get("/search/:searchQuery", async (req, res) => {
     let query = req.params.searchQuery.toUpperCase().split(" ");
@@ -114,19 +116,17 @@ router.get("/allProducts", async (req, res) => {
 
 // Create a product ON FRONT END - NEED TO SEND sizes AS OBJECT-> sizes:PRICE
 
-router.post("/create", async (req, res) => {
-    // if (Object.keys(req.body.data).length === 0) {
-    //     res.send({
-    //         message: "Theres nobody!"
-    //     })
-    // }
+router.post("/create", auth, async (req, res) => {
+    if (req.user.type !== 1) {
+        res.status(500).send('Not Authorized')
+    }
+    
     try {
         let {
             title,
             price,
             description,
             colours,
-            artist_id,
             sizes,
             materials,
         } = req.body.data;
@@ -152,7 +152,7 @@ router.post("/create", async (req, res) => {
                 +price,
                 description,
                 JSON.stringify(colours),
-                +artist_id,
+                +req.user.id,
                 JSON.stringify(sizes),
                 materials,
             ]
@@ -178,20 +178,27 @@ router.post("/create", async (req, res) => {
 
 // Update a product
 
-router.put("/edit/:id", async (req, res) => {
+router.put("/edit/:id", auth, async (req, res) => {
+    if (req.user.type !== 1) {
+        res.status(500).send('Not Authorized')
+    }
+    const { id } = req.params;
+    let checkOwner = await pool.query('SELECT artist_id from products WHERE product_id = ' + id)
+    if (checkOwner.rows[0].artist_id !== req.user.id) {
+        res.status(500).send('Not Authorized')
+    }
     if (Object.keys(req.body).length === 0) {
         res.send({
             message: "Theres nobody!",
         });
     }
     try {
-        const { id } = req.params; // For use in where
+        
         let {
             title,
             price,
             description,
             colours,
-            artist_id,
             sizes,
             materials,
             status,
@@ -211,13 +218,12 @@ router.put("/edit/:id", async (req, res) => {
         });
 
         let response = await pool.query(
-            "UPDATE products SET title = $1, price = $2, description = $3, colours = $4, artist_id = $5, sizes = $6, materials = $7, status=$8 WHERE id = $9 RETURNING id",
+            "UPDATE products SET title = $1, price = $2, description = $3, colours = $4, sizes = $6, materials = $7, status=$8 WHERE id = $9 RETURNING id",
             [
                 title,
                 price,
                 description,
                 JSON.stringify(colours),
-                artist_id,
                 JSON.stringify(sizes),
                 materials,
                 status,
@@ -240,9 +246,15 @@ router.put("/edit/:id", async (req, res) => {
 
 // Delete a product PLEASE ADD AUTH
 
-router.delete("/delete/:id", async (req, res) => {
+router.delete("/delete/:id", auth, async (req, res) => {
     const id = req.params.id;
-
+    if (req.user.type !== 1) {
+        res.status(500).send('Not Authorized')
+    }
+    let checkOwner = await pool.query('SELECT artist_id from products WHERE product_id = ' + id)
+    if (checkOwner.rows[0].artist_id !== req.user.id) {
+        res.status(500).send('Not Authorized')
+    }
     if (Object.keys(req.params).length === 0) {
         console.log("no id");
     }

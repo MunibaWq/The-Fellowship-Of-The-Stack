@@ -10,7 +10,7 @@ let onOpened = (message) => {
 let onClosed = (message) => {
     // console.log(message)
 };
-const CheckoutButton = ({ price, artistName, items }) => {
+const CheckoutButton = ({ price, items }) => {
     const priceForStripe = price * 100;
     const publishableKey =
         "pk_test_51ICnpqINw7U5M31CEDkye0SmruSOvRzTQiiX8ObajGYJr2uONQKzqPpmQXmj98jJUKWCFDvAhlU76oJT2XpM0HUc00GbQtAjta";
@@ -51,7 +51,7 @@ const CheckoutButton = ({ price, artistName, items }) => {
     return (
         <StripeContainer>
         <Stripe
-            name={artistName} // the pop-in header title
+            name="Versa" // the pop-in header title
             description={`Total: ${price}`} // the pop-in header subtitle
             // the pop-in header image (default none)
             panelLabel="Give Money" // prepended to the amount in the bottom pay button
@@ -59,7 +59,7 @@ const CheckoutButton = ({ price, artistName, items }) => {
             currency="CAD"
             stripeKey={publishableKey}
             locale="us"
-            email
+            email="caseybarker86@gmail.com"
             // Note: Enabling either address option will give the user the ability to
             // fill out both. Addresses are sent as a second parameter in the token callback.
             shippingAddress

@@ -3,6 +3,9 @@ const router = new express.Router();
 const pool = require("../db");
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const { orderConfirmation } = require("../helperFunctions/sendGridFunctions");
+const auth = require("../middleware/auth");
+const optionalAuth = require("../middleware/optionalAuth");
+
 router.post("/stripe/payment", (req, res) => {
     const body = {
         source: req.body.token.id,
@@ -18,7 +21,8 @@ router.post("/stripe/payment", (req, res) => {
     });
 });
 
-router.post("/paid", async (req, res) => {
+router.post("/paid", optionalAuth, async (req, res) => {
+    const buyerID = req.user.id || 9999
     console.log(new Date().toLocaleString().replace(/\./g, ""));
     const { items, payment } = req.body;
     let orderResponse = await pool.query(
@@ -28,7 +32,7 @@ router.post("/paid", async (req, res) => {
         [
             new Date().toLocaleString().replace(/\./g, ""),
             "paid",
-            1,
+            buyerID,
             payment.amount / 100,
         ]
     );
@@ -72,7 +76,7 @@ router.post("/paid", async (req, res) => {
         );
     }
     const getBuyerName = await pool.query(
-        `SELECT username, email FROM users where id=1`
+        `SELECT username, email FROM users where id=${buyerID}`
     );
     const user = getBuyerName.rows[0];
     const orderID = orderResponse.rows[0].id;
@@ -80,7 +84,6 @@ router.post("/paid", async (req, res) => {
     const total = payment.amount / 100;
 
     orderConfirmation(total, user.username, user.email, orderID);
-    console.log("bubble tea");
 });
 
 module.exports = router;
