@@ -212,13 +212,14 @@ router.post("/create", auth, async (req, res) => {
 
 // Update an event
 
-router.put("/edit/:id", auth, async (req, res) => {
-    const { id } = req.params;
+router.put("/edit/:eventId", auth, async (req, res) => {
+    const { eventId } = req.params;
+    console.log(eventId);
     if (req.user.type !== 1) {
         res.status(500).send("Not Authorized");
     }
     let checkOwner = await pool.query(
-        "SELECT e.host from events WHERE id = " + id
+        "SELECT host from events WHERE id = " + eventId
     );
     if (checkOwner.rows[0].host !== req.user.id) {
         res.status(500).send("Not Authorized");
@@ -229,9 +230,9 @@ router.put("/edit/:id", auth, async (req, res) => {
         });
     }
     try {
-        const { id } = req.params; // For use in where
         let {
             name,
+
             description,
             status,
             capacity,
@@ -241,13 +242,28 @@ router.put("/edit/:id", auth, async (req, res) => {
             type,
         } = req.body.data;
 
+        console.log(
+            name,
+
+            req.user.id,
+            description,
+            status,
+            capacity,
+            startTime,
+            endTime,
+            location,
+            type,
+            eventId
+        );
+        console.log(eventId);
+
         let current = await pool.query(`SELECT * FROM events WHERE id = $1 `, [
-            id,
+            eventId,
         ]);
         const currentEvent = current.rows[0];
 
         name = name || currentEvent.name;
-        host = host || currentEvent.host;
+        // host = host || currentEvent.host;
         description = description || currentEvent.description;
         status = status || currentEvent.status;
         capacity = capacity || currentEvent.capacity;
@@ -272,9 +288,10 @@ router.put("/edit/:id", auth, async (req, res) => {
                 endTime,
                 location,
                 type,
-                id,
+                eventId,
             ]
         );
+
         res.json(response.rows[0].id);
     } catch (err) {
         console.error(err.message, "/edit/:id");

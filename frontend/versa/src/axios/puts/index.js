@@ -74,7 +74,7 @@ export const editStock = async (id, stock) => {
 
 export const updateOrderStatus = async (orderStatus, id) => {
     try {
-        const response = await Axios.put("/orders/edit/" + id, {
+        const response = await Axios.put("/api/orders/edit/" + id, {
             orderStatus: orderStatus,
         });
 
@@ -89,7 +89,7 @@ export const updateOrderStatus = async (orderStatus, id) => {
 
 export const updateOrderShipDate = async (orderStatus, shipDate, id) => {
     try {
-        const response = await Axios.put("/orders/edit/" + id, {
+        const response = await Axios.put("/api/orders/edit/" + id, {
             orderStatus: orderStatus,
             shipDate: shipDate,
         });
@@ -107,7 +107,7 @@ export const updateOrderShipDate = async (orderStatus, shipDate, id) => {
 
 export const updateEventStatus = async (status, id) => {
     try {
-        const response = await Axios.put("/events/edit/" + id, {
+        const response = await Axios.put("/api/events/edit/" + id, {
             data: { status },
         });
 
@@ -122,7 +122,7 @@ export const updateEventStatus = async (status, id) => {
 
 export const editEvent = async (event) => {
     try {
-        const response = await Axios.put("/events/edit/" + event.id, {
+        const response = await Axios.put("/api/events/edit/" + event.id, {
             data: event,
         });
 
