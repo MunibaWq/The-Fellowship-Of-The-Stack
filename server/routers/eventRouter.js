@@ -383,4 +383,18 @@ router.get("/not-attending/email/:eventid/:id", async (req, res) => {
     }
 });
 
+router.get("/amIGoing/:eventid", auth, async (req, res) => {
+    try {
+        const response = await pool.query(
+            `SELECT * FROM events_attendees WHERE event_id = $1 AND attendee=$2`,
+            [req.params.eventid, req.user.id]
+        );
+        const going = response.rows.length === 1;
+        res.send(going);
+    } catch (e) {
+        console.log(e);
+        res.send("error");
+    }
+});
+
 module.exports = router;
