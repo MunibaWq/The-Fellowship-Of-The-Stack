@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { getAllArtistProducts } from "../../../axios/gets";
+import { getAllMyProducts } from "../../../axios/gets";
 import { getImagesByPID } from "../../../axios/gets";
 import { Link } from "react-router-dom";
 import Button from "../../../components/Reusable/Button";
@@ -19,7 +19,7 @@ const Inventory = (currentProduct) => {
 
     useEffect(() => {
         const getProducts = async () => {
-            let data = await getAllArtistProducts(1);
+            let data = await getAllMyProducts();
             setResults(data);
         };
         getProducts();
@@ -27,7 +27,7 @@ const Inventory = (currentProduct) => {
 
     useEffect(() => {
         const getStock = async () => {
-            let data = await axios.get("/stock/getAll");
+            let data = await axios.get("api/stock/getAll");
             setInventory(data.data);
         };
         getStock();
@@ -54,7 +54,7 @@ const Inventory = (currentProduct) => {
 
     const updateStatus = async (result, status) => {
         result.status = status;
-        await axios.put("/products/edit/" + result.id, {
+        await axios.put("api/products/edit/" + result.id, {
             headers: {
                 "Access-Control-Allow-Origin": "*",
             },
@@ -94,6 +94,7 @@ const Inventory = (currentProduct) => {
                                         height: "100px",
                                     }}>
                                     <img
+                                        alt={result.title}
                                         src={
                                             "https://versabucket.s3.us-east-2.amazonaws.com/images/" +
                                             result.thumbnail +

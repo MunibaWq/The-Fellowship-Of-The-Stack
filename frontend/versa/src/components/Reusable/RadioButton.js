@@ -1,7 +1,12 @@
 import React, { useState } from "react";
 import TextArea from "./TextArea";
 
-const RadioButton = ({ preference, setPreference }) => {
+const RadioButton = ({
+    preference,
+    setPreference,
+    instructions,
+    setInstructions,
+}) => {
     function selectActive() {
         if (preference === "pickup") {
             return (
@@ -11,7 +16,7 @@ const RadioButton = ({ preference, setPreference }) => {
                 </h3>
             );
         } else if (preference === "delivery") {
-            return <TextArea />;
+            return <TextArea setter={setInstructions} getter={instructions} />;
         }
     }
     return (
@@ -27,6 +32,7 @@ const RadioButton = ({ preference, setPreference }) => {
             {selectActive()}
             <label htmlFor="delivery">Delivery:</label>
             <input
+                checked={preference === "pickup" ? false : true}
                 id="delivery"
                 name="orderPref"
                 type="radio"

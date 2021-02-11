@@ -89,7 +89,16 @@ import Axios from "axios";
 // });
 //};
 
-export const deleteUserFromEventByID = async (event, id) => {
-    const response = await Axios.delete(`/events/not-attending/${event}/${id}`);
+export const deleteUserFromEventByID = async (event) => {
+    const response = await Axios.delete(`/api/events/not-attending/${event}`);
     return response.status;
+};
+
+export const deleteArtistEvent = async (id) => {
+    const response = await Axios.delete(`/api/events/delete/${id}`, {
+        headers: {
+            "Access-Control-Allow-Origin": "*",
+        },
+    });
+    console.log(response);
 };

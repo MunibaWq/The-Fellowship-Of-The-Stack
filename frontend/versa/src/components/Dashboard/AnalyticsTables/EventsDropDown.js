@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { updateOrderStatus, updateOrderShipDate } from "../../../axios/puts";
+import { updateEventStatus } from "../../../axios/puts";
 import theme from "../../Reusable/Colors";
 
 const Status = styled.select`
@@ -22,47 +22,32 @@ const Status = styled.select`
     }
 `;
 
-const DropDown = ({ order }) => {
+const EventsDropDown = ({ eventStatus, eventID }) => {
     const statusOptions = [
         {
-            value: "Unfulfilled",
-            label: "Unfulfilled",
+            value: "Active",
+            label: "Active",
         },
         {
-            value: "Processing",
-            label: "Processing",
+            value: "Inactive",
+            label: "Inactive",
         },
         {
-            value: "Picked Up",
-            label: "Picked Up",
-        },
-        {
-            value: "On Hold",
-            label: "On Hold",
-        },
-        {
-            value: "Cancelled",
-            label: "Cancelled",
-        },
-        {
-            value: "Refunded",
-            label: "Refunded",
+            value: "Pending",
+            label: "Pending",
         },
     ];
-    const [status, setStatus] = useState(order.status);
+    const [status, setStatus] = useState(eventStatus);
     const [confirmation, setConfirmation] = useState(false);
 
     const handleChange = (e) => {
         setStatus(e.target.value);
         setConfirmation(true);
         console.log(status);
-        e.target.value === "Picked Up"
-            ? updateOrderShipDate(e.target.value, new Date(), order.id)
-            : e.target.value === "Delivered"
-            ? updateOrderShipDate(e.target.value, new Date(), order.id)
-            : updateOrderStatus(order.status, order.id);
+        updateEventStatus(e.target.value, eventID);
     };
-
+    console.log("s", status);
+    console.log("c", confirmation);
     return (
         <Status
             name="status"
@@ -75,13 +60,8 @@ const DropDown = ({ order }) => {
                     <option value={option.value}>{option.label}</option>
                 </>
             ))}
-            {order.pickup === true ? (
-                <option value="Ready For Pick Up">Ready For Pick Up</option>
-            ) : (
-                <option value="Ready For Delivery">Ready For Delivery</option>
-            )}
         </Status>
     );
 };
 
-export default DropDown;
+export default EventsDropDown;

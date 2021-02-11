@@ -1,31 +1,29 @@
 import Axios from "axios";
 Axios.defaults.withCredentials = true;
 
-//add axios to fetch data from API
-let host = process.env.NODE_ENV === "production" ? "" : "";
 export const getImagesByPID = async (currentProduct) => {
-    const response = await Axios.get(`${host}/images/byPID/${currentProduct}`);
+    const response = await Axios.get(`/api/images/byPID/${currentProduct}`);
     let images = await response.data;
     return images;
 };
 export const getProductByID = async (currentProduct) => {
-    const response = await Axios.get(`${host}/products/get/${currentProduct}`);
+    const response = await Axios.get(`/api/products/get/${currentProduct}`);
     return response.data;
 };
 export const getUserByID = async (id) => {
-    const response = await Axios.get("/users/get/" + id);
+    const response = await Axios.get("/api/users/get/" + id);
     return response.data;
 };
 export const getAllProducts = async () => {
-    let res = await Axios.get(host + "/products/allProducts/", {
+    let res = await Axios.get("/api/products/allProducts/", {
         headers: {
             "Access-Control-Allow-Origin": "*",
         },
     });
     return res.data;
 };
-export const getAllArtistProducts = async (id) => {
-    let res = await Axios.get("/products/artistsProducts/" + id);
+export const getAllMyProducts = async () => {
+    let res = await Axios.get("/api/products/myProducts/");
     return res.data;
 };
 
@@ -33,7 +31,7 @@ export const searchProducts = async (query) => {
     if (!query) {
         return await getAllProducts();
     }
-    let res = await Axios.get(host + "/products/search/" + query);
+    let res = await Axios.get("/api/products/search/" + query);
     return res.data;
 };
 
@@ -41,12 +39,12 @@ export const searchEvents = async (searchQuery) => {
     if (!searchQuery) {
         return await getAllEvents();
     }
-    let res = await Axios.get("events/search/" + searchQuery);
+    let res = await Axios.get("/api/events/search/" + searchQuery);
     return res.data;
 };
 
 export const getAllEvents = async () => {
-    let res = await Axios.get("/events/allEvents/", {
+    let res = await Axios.get("/api/events/allEvents/", {
         headers: {
             "Access-Control-Allow-Origin": "*",
         },
@@ -55,45 +53,44 @@ export const getAllEvents = async () => {
 };
 
 export const getAllArtistEvents = async (id) => {
-    let res = await Axios.get("/events/artistsEvents/" + id);
+    let res = await Axios.get("/api/events/artistsEvents/" + id);
     return res.data;
 };
 
 export const getEventByID = async (id) => {
-    const response = await Axios.get(`/events/get/${id}`);
+    const response = await Axios.get(`/api/events/get/${id}`);
     return response.data;
 };
 
 export const getSalesByProduct = async (id) => {
-    const response = await Axios.get(`/dashboard/sales-by-products/${id}`);
-    return response.data;
-};
-export const emailAttending = async (eventid, id) => {
-    const response = await Axios.get(`/events/attend/email/${eventid}/${id}`);
-    return response.data;
-};
-export const emailNotAttending = async (eventid, id) => {
-    const response = await Axios.get(
-        `/events/not-attending/email/${eventid}/${id}`
-    );
+    const response = await Axios.get(`/api/dashboard/sales-by-products/`);
     return response.data;
 };
 
-export const getTotalSales = async (id) => {
-    const response = await Axios.get(`/dashboard/total-sales/${id}`);
+export const getTotalSales = async () => {
+    const response = await Axios.get(`/api/dashboard/total-sales/`);
     return response.data;
 };
-export const getTotalOrders = async (id) => {
-    const response = await Axios.get(`/dashboard/total-orders/${id}`);
+export const getTotalOrders = async () => {
+    const response = await Axios.get(`/api/dashboard/total-orders/`);
     return response.data;
 };
-export const getAvgOrderValue = async (id) => {
-    const response = await Axios.get(`/dashboard/average-order-value/${id}`);
+export const getAvgOrderValue = async () => {
+    const response = await Axios.get(`/api/dashboard/average-order-value/`);
     return response.data;
 };
 
-export const getRecentOrders = async (id) => {
-    console.log("gro", id);
-    const response = await Axios.get(`/dashboard/recent-orders/${id}`);
+export const getRecentOrders = async () => {
+    const response = await Axios.get(`/api/dashboard/recent-orders/`);
+    return response.data;
+};
+
+export const getOneOrder = async (orderid) => {
+    const response = await Axios.get(`/api/orders/recent-orders/${orderid}`);
+    return response.data;
+};
+
+export const amIGoing = async (eventID) => {
+    const response = await Axios.get(`api/events/amIGoing/${eventID}`);
     return response.data;
 };

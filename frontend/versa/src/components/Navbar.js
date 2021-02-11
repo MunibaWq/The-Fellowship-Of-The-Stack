@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 // import logo from "../../images/logo.svg";
 import styled from "styled-components";
 // import Icon from "../Reusable/Icons";
 import theme from "./Reusable/Colors";
-
+import Cookies from 'universal-cookie'
 import {
     EventsIcon,
     AccountIcon,
@@ -14,10 +14,16 @@ import {
     ShapesLogo,
     Dashboard,
 } from "../images/icons";
-import { useSelector } from "react-redux";
-
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "../redux/actions/actions";
+const cookies = new Cookies()
 const Navbar = () => {
-    const user = useSelector((state) => state.user);
+    const dispatch = useDispatch()
+    const loggedIn = cookies.get('token')
+    useEffect(() => {
+        dispatch(login)
+    },[loggedIn])
+    const user = useSelector(state=>state.user)
     return (
         <Nav colors={theme}>
             <NavLink color={theme.secondary} to="/">
@@ -44,7 +50,7 @@ const Navbar = () => {
                     <EventsIcon stroke={theme.secondary} />
                     <WordLink>Events</WordLink>
                 </NavLink>
-                {user && (
+                {loggedIn && (
                     <NavLink color={theme.secondary} to={"/dashboard"}>
                         <Dashboard stroke={theme.secondary} />
                         <WordLink>Dashboard</WordLink>

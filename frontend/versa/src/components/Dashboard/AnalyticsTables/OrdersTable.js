@@ -1,10 +1,76 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import { useHistory } from "react-router-dom";
 import theme from "../../Reusable/Colors";
 import Loading from "../../Reusable/Loading";
 import DropDown from "./DropDown";
 
-const OrdersTable = ({ orderData }) => {
+const OrdersTable = ({ user, orderData }) => {
+    const [data, setData] = useState(orderData);
+    const [sortType, setSortType] = useState();
+    const [orderDate, setOrderDate] = useState();
+    const [shipDate, setShipDate] = useState();
+
+    const sortOptions = [
+        {
+            value: "orderdate",
+            label: "Order Date",
+        },
+        {
+            value: "status",
+            label: "Order Status",
+        },
+        {
+            value: "shipdate",
+            label: "Date Received by Buyer",
+        },
+    ];
+
+    useEffect(() => {
+        const sortArray = (type) => {
+            const types = {
+                status: "status",
+                orderdate: "orderdate",
+                shipdate: "shipdate",
+            };
+            const sortProperty = types[type];
+
+            const sorted = [...orderData].sort(
+                (a, b) => b[sortProperty] - a[sortProperty]
+            );
+            console.log(sorted);
+            setData(sorted);
+        };
+
+        sortArray(sortType);
+    }, [sortType]);
+
+    const toLocaleOrderDate = (date) => {
+        let options = {
+            weekday: "long",
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+        };
+
+        let ordersDate = new Date(date);
+
+        let orderDate = ordersDate.toLocaleDateString("en-US", options);
+        setOrderDate(orderDate);
+    };
+    const toLocaleShipDate = (ship_date) => {
+        let options = {
+            weekday: "long",
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+        };
+        let orderShipDate = new Date(ship_date);
+
+        let shipDate = orderShipDate.toLocaleDateString("en-US", options);
+        setShipDate(shipDate);
+    };
+
     let headers = [
         "Order ID",
         "Buyer Name",
@@ -13,54 +79,103 @@ const OrdersTable = ({ orderData }) => {
         "Status",
         "Date Received by Buyer",
     ];
-    
+
+    const history = useHistory();
+
     return (
         <TableContainer>
             {!orderData ? (
                 <Loading />
             ) : (
-                <Table>
-                    <thead>
-                        <Headers>
-                            {headers.map((header) => (
-                                <th>
-                                    <h2>{header}</h2>
-                                </th>
+                <>
+                    <Sort>
+                        <h2>Sort by: </h2>
+                        <SortChoice
+                            name="sort"
+                            id="sort"
+                            value={sortType}
+                            onChange={(e) => setSortType(e.target.value)}>
+                            {sortOptions.map((option) => (
+                                <>
+                                    <option value={option.value}>
+                                        {option.label}
+                                    </option>
+                                </>
                             ))}
-                        </Headers>
-                    </thead>
-                    {orderData &&
-                        orderData.map((order, index) => (
-                            <BodyRows key={order.name + index}>
-                                <td>
-                                    <p>{order.id}</p>
-                                </td>
-                                <td>
-                                    <p>{order.name}</p>
-                                </td>
-                                <td>
-                                    <p>
-                                        {order.pickup === true ? "for Pickup" : order.address}
-                                    </p>
-                                </td>
-                                <td>
-                                    <p>{order.orderDate}</p>
-                                </td>
-                                <td>
-                                    <DropDown
-                                        order={order}
-                                    />
-                                </td>
-                                <td>
-                                    <p>
-                                        {order.orderShipDate === null
-                                            ? "Not Received Yet"
-                                            : order.orderShipDate}
-                                    </p>
-                                </td>
-                            </BodyRows>
-                        ))}
-                </Table>
+                        </SortChoice>
+                    </Sort>
+                    <Table>
+                        <thead>
+                            <Headers>
+                                {headers.map((header) => (
+                                    <th>
+                                        <h2>{header}</h2>
+                                    </th>
+                                ))}
+                            </Headers>
+                        </thead>
+                        {data &&
+                            data.map((order, index) => (
+                                <BodyRows key={order.name + index}>
+                                    <td
+                                        onClick={() =>
+                                            history.push(
+                                                `/dashboard/recent-orders/${user}/${order.id}`
+                                            )
+                                        }>
+                                        <p>{order.id}</p>
+                                    </td>
+                                    <td
+                                        onClick={() =>
+                                            history.push(
+                                                `/dashboard/recent-orders/${user}/${order.id}`
+                                            )
+                                        }>
+                                        <p>{order.name}</p>
+                                    </td>
+                                    <td
+                                        onClick={() =>
+                                            history.push(
+                                                `/dashboard/recent-orders/${user}/${order.id}`
+                                            )
+                                        }>
+                                        <p>
+                                            {order.pickup === true
+                                                ? "for Pickup"
+                                                : order.shipping_address}
+                                        </p>
+                                    </td>
+                                    <td
+                                        onClick={() =>
+                                            history.push(
+                                                `/dashboard/recent-orders/${user}/${order.id}`
+                                            )
+                                        }>
+                                        <p>
+                                            {order.date === null
+                                                ? "Error Loading Order Date"
+                                                : order.date}
+                                        </p>
+                                    </td>
+                                    <td>
+                                        <DropDown order={order} />
+                                    </td>
+                                    <td
+                                        onClick={() =>
+                                            history.push(
+                                                `/dashboard/recent-orders/${user}/${order.id}`
+                                            )
+                                        }>
+                                        <p>
+                                            {order.ship_date === null
+                                                ? "Not Received Yet"
+                                                : order.ship_date}
+                                        </p>
+                                    </td>
+                                </BodyRows>
+                            ))}
+                    </Table>
+                </>
             )}
         </TableContainer>
     );
@@ -69,7 +184,20 @@ const OrdersTable = ({ orderData }) => {
 export default OrdersTable;
 
 const TableContainer = styled.div`
-justify-self: center;
+    justify-self: center;
+`;
+
+const Sort = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 1em;
+    h2 {
+        margin: 0 16px 0 0;
+        font-size: 1em;
+        font-weight: 700;
+        text-transform: uppercase;
+    }
 `;
 
 const Table = styled.table`
@@ -80,9 +208,9 @@ const Table = styled.table`
     min-width: 400px;
     box-shadow: 3px 3px 10px rgba(27, 49, 66, 0.13);
     border-radius: 15px 15px 0px 0px;
-    th{
+    thead th {
         position: sticky;
-  top: 0;
+        top: 0;
     }
     th,
     td {
@@ -103,6 +231,7 @@ const Headers = styled.tr`
 `;
 const BodyRows = styled.tr`
     border-bottom: thin solid #dddddd;
+    cursor: pointer;
     p {
         color: ${theme.tertiary};
         margin-bottom: 0;
@@ -122,3 +251,21 @@ const BodyRows = styled.tr`
     }
 `;
 
+const SortChoice = styled.select`
+    padding: 8px;
+    outline: none;
+    min-width: 150px;
+    cursor: pointer;
+    border: ${(props) =>
+        props.border === true
+            ? `2px solid #77dd77`
+            : `2px solid ${theme.primary}`};
+    :active,
+    :hover,
+    :focus {
+        border: ${(props) =>
+            props.border === true
+                ? `2px solid #77dd77`
+                : `2px solid ${theme.primaryHover}`};
+    }
+`;

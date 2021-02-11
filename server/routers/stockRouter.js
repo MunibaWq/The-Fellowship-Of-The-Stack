@@ -1,9 +1,10 @@
 const express = require("express");
 const router = new express.Router();
 const pool = require("../db");
-
+const auth = require("../middleware/auth");
 //get all variations of specific product in stock db
 router.get("/getByVariation/:id/:colour/:size", async (req, res) => {
+ 
     const { id, colour, size } = req.params;
     const result = await pool.query(
         `SELECT * FROM stock 
@@ -33,17 +34,25 @@ router.get("/getAll", async (req, res, next) => {
 
 //edit stock
 
-router.put("/update", async (req, res, next) => {
+router.put("/update", auth, async (req, res, next) => {
+    if (req.user.type !== 1) {
+        res.status(500).send('Not Authorized')
+    }
+    const { id } = req.body;
+    let checkOwner = await pool.query('SELECT artist_id from products WHERE id = ' + id)
+    if (checkOwner.rows[0].artist_id !== req.user.id) {
+        res.status(500).send('Not Authorized')
+    }
     try {
-        console.log(req.body.stock);
+        
         const client = await pool.connect();
-        const { id } = req.body;
+        
         await client.query(
             `
         DELETE FROM stock WHERE product_id = $1`,
             [id]
         );
-        for (const obj of req.body.quant) {
+        for (const obj of req.body.stock) {
             const { color, size, quantity } = obj;
             await client.query(
                 `INSERT INTO stock (product_id, color, size, quantity) VALUES ($1, $2, $3, $4)`,
@@ -58,11 +67,18 @@ router.put("/update", async (req, res, next) => {
     }
 });
 
-router.post("/post", async (req, res, next) => {
-    console.log("id, quant", req.body.id, req.body.quant);
+router.post("/post", auth, async (req, res, next) => {
+    if (req.user.type !== 1) {
+        res.status(500).send('Not Authorized')
+    }
+    const { id } = req.body;
+    let checkOwner = await pool.query('SELECT artist_id from products WHERE product_id = ' + id)
+    if (checkOwner.rows[0].artist_id !== req.user.id) {
+        res.status(500).send('Not Authorized')
+    }
     try {
         const client = await pool.connect();
-        const { id } = req.body;
+  
         for (const obj of req.body.quant) {
             const { color, size, quantity } = obj;
             await client.query(

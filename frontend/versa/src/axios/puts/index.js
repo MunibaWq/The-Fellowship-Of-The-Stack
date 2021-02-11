@@ -2,7 +2,7 @@ import Axios from "axios";
 import { addImage } from "../posts";
 
 export const editProduct = async (productInfo, images, id, thumbImg) => {
-    await Axios.put("/products/edit/" + id, {
+    await Axios.put("/api/products/edit/" + id, {
         data: productInfo,
     });
     let productID = +id;
@@ -37,7 +37,7 @@ export const editProduct = async (productInfo, images, id, thumbImg) => {
 };
 export const updateImage = async (label, imageSize, productID, filename) => {
     try {
-        const response = await Axios.put("/images/update", {
+        const response = await Axios.put("/api/images/update", {
             imageSize,
             productID,
             label,
@@ -54,10 +54,10 @@ export const updateImage = async (label, imageSize, productID, filename) => {
     }
 };
 // created a put request for editStock part of product form and passed stock prop from productForm to submitData to sendProductData to here
-export const editStock = async (id, quant) => {
+export const editStock = async (id, stock) => {
     try {
-        const response = await Axios.put("/stock/put", {
-            quant,
+        const response = await Axios.put("/api/stock/update", {
+            stock,
             id,
         });
 
@@ -92,6 +92,38 @@ export const updateOrderShipDate = async (orderStatus, shipDate, id) => {
         const response = await Axios.put("/orders/edit/" + id, {
             orderStatus: orderStatus,
             shipDate: shipDate,
+        });
+
+        if (response.status === 201) {
+            return true;
+        }
+    } catch (err) {
+        console.log(err);
+        return false;
+    }
+};
+
+//update event status
+
+export const updateEventStatus = async (status, id) => {
+    try {
+        const response = await Axios.put("/events/edit/" + id, {
+            data: { status },
+        });
+
+        if (response.status === 201) {
+            return true;
+        }
+    } catch (err) {
+        console.log(err);
+        return false;
+    }
+};
+
+export const editEvent = async (event) => {
+    try {
+        const response = await Axios.put("/events/edit/" + event.id, {
+            data: event,
         });
 
         if (response.status === 201) {

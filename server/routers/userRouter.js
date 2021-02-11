@@ -47,7 +47,9 @@ router.post("/login", async (req, res, next) => {
         res.status(400).send();
     }
 });
-
+router.get('/byToken', auth, (req, res) => {
+    res.send(req.user.id)
+})
 //server endpoint for updating user
 
 //put the auth middleware which will get the user

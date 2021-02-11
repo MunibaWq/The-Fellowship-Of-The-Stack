@@ -60,9 +60,7 @@ const ProductCard = ({ product }) => {
                     style={{
                         width: "100%",
                     }}
-                    onClick={() => {
-                        productSelected(product.id);
-                    }}
+                    
                     alt="product"
                     src={
                         product.image
