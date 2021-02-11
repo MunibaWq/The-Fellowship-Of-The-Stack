@@ -85,7 +85,8 @@ router.get("/artistsEvents/:id", async (req, res) => {
             INNER JOIN
             users u
             ON u.id = e.host
-            WHERE e.host= ${req.params.id}`
+            WHERE e.host= ${req.params.id}
+            `
         );
         const results = result.rows;
 
@@ -184,8 +185,8 @@ router.put("/edit/:id", auth, async (req, res) => {
         });
     }
     try {
-         // For use in where
-        const {
+        const { id } = req.params; // For use in where
+        let {
             name,
             description,
             status,
@@ -196,12 +197,27 @@ router.put("/edit/:id", auth, async (req, res) => {
             type,
         } = req.body.data;
 
+        let current = await pool.query(`SELECT * FROM events WHERE id = $1 `, [
+            id,
+        ]);
+        const currentEvent = current.rows[0];
+
+        name = name || currentEvent.name;
+        host = host || currentEvent.host;
+        description = description || currentEvent.description;
+        status = status || currentEvent.status;
+        capacity = capacity || currentEvent.capacity;
+        startTime = startTime || currentEvent.start_time;
+        endTime = endTime || currentEvent.end_time;
+        location = location || currentEvent.location;
+        type = type || currentEvent.type;
+
         let response = await pool.query(
             `UPDATE events SET 
             name = $1, host = $2, description = $3, 
-            status = $4, capacity = $5, startTime = $5, 
-            endTime = $7, location = $8, type = $9 
-            WHERE id = $10`,
+            status = $4, capacity = $5, start_time = $6, 
+            end_time = $7, location = $8, type = $9 
+            WHERE id = $10 RETURNING id`,
             [
                 name,
                 req.user.id,

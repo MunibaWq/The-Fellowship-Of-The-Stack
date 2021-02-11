@@ -5,11 +5,22 @@ import { searchEvents, getAllEvents } from "../axios/gets";
 import { Magnifying } from "../images/icons";
 import Loading from "../components/Reusable/Loading";
 import theme from "../components/Reusable/Colors.js";
+import {
+    FieldContainer,
+    Input,
+    Label,
+    TextField,
+} from "../components/Reusable/Input";
 
 const Events = () => {
     const [events, setEvents] = useState();
     const [searchQuery, setSearchQuery] = useState();
+    const [date1, setDate1] = useState();
+    const [date2, setDate2] = useState();
+    const [dateResults, setDateResults] = useState();
 
+    console.log("date 1 " + date1);
+    console.log("date 2 " + date2);
     useEffect(() => {
         const getEvents = async () => {
             let data = await getAllEvents();
@@ -45,15 +56,79 @@ const Events = () => {
                     placeholder="Search"
                     type="text"
                 />
+                <Label>From:</Label>
+
+                <Input
+                    style={{ width: "20%" }}
+                    onChange={(e) => {
+                        let toDate = new Date(e.target.value);
+                        let date1Set = toDate.setDate(toDate.getDate() + 1);
+                        setDate1(new Date(date1Set));
+                    }}
+                    type="date"
+                />
+
+                <Label style={{ paddingLeft: "3%" }}>To:</Label>
+                <Input
+                    style={{ width: "20%" }}
+                    onChange={(e) => {
+                        let toDate = new Date(e.target.value);
+                        let date2Set = toDate.setDate(toDate.getDate() + 1);
+                        setDate2(new Date(date2Set));
+                    }}
+                    type="date"
+                />
             </SearchBarDiv>
+
             <Results>
                 {!events ? (
                     <Loading />
                 ) : events.length > 0 ? (
-                    events.map((theEvent) => (
-                        <EventCard key={theEvent.id} theEvent={theEvent} />
-                    ))
+                    events
+                        .sort((event1, event2) => {
+                            let eventDate1 = new Date(event1.start_time);
+                            let eventDate2 = new Date(event2.start_time);
+
+                            {
+                                console.log("eventTime " + eventDate1);
+                            }
+                            if (new Date() - eventDate1 > 0) {
+                                return 1;
+                            } else if (new Date() - eventDate2 > 0) {
+                                return -1;
+                            }
+                            return eventDate1 - eventDate2;
+                        })
+
+                        .map((theEvent) =>
+                            date1 || date2 ? (
+                                date1 <=
+                                    new Date(theEvent.end_time).setDate(
+                                        new Date(theEvent.end_time).getDate() +
+                                            1
+                                    ) &&
+                                date2 >=
+                                    new Date(theEvent.start_time).setDate(
+                                        new Date(
+                                            theEvent.start_time
+                                        ).getDate() - 1
+                                    ) ? (
+                                    <EventCard
+                                        key={theEvent.id}
+                                        theEvent={theEvent}
+                                    />
+                                ) : null
+                            ) : (
+                                <EventCard
+                                    key={theEvent.id}
+                                    theEvent={theEvent}
+                                />
+                            )
+                        )
                 ) : (
+                    // .map((theEvent) => (
+                    //     <EventCard key={theEvent.id} theEvent={theEvent} />
+                    // ))
                     <NoResultsMessage>No results found</NoResultsMessage>
                 )}
             </Results>

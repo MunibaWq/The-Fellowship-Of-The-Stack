@@ -24,6 +24,7 @@ const DashboardMain = () => {
                     dashbord. eg to see yesterdays orders, sales etc
                 </History> */}
                 <Orders
+                    buttonText="Reports"
                     dataTitle="Orders this month"
                     graphData={ordersData}
                     total="123"
@@ -31,13 +32,15 @@ const DashboardMain = () => {
                     title="Orders"
                     link="/dashboard/total-orders"></Orders>
                 <RecentOrders
+                    buttonText="View"
                     dataTitle="5 most recent"
                     tableData={recentOrders}
                     total="12"
                     totalLabel="Unfulfilled"
                     title="Recent Orders"
-                    link="/dashboard/orders"></RecentOrders>
+                    link="/dashboard/recent-orders"></RecentOrders>
                 <SalesPerOrder
+                    buttonText="Reports"
                     dataTitle="Average per week"
                     total="$107.23"
                     totalLabel="Average"
@@ -45,6 +48,7 @@ const DashboardMain = () => {
                     title={`Sales Per Order`}
                     link="/dashboard/average-order-value"></SalesPerOrder>
                 <Inventory
+                    buttonText="View"
                     dataTitle="5 lowest in stock"
                     total="7"
                     totalLabel="Low stock"
@@ -52,6 +56,7 @@ const DashboardMain = () => {
                     title="Inventory"
                     link="/dashboard/inventory"></Inventory>
                 <SalesByProduct
+                    buttonText="Reports"
                     dataTitle="Top 5 products"
                     total="$3.5k"
                     totalLabel="Top Product Sales"
@@ -61,6 +66,7 @@ const DashboardMain = () => {
                 />
                 {/* <Profit>Small Card with number of total profit</Profit> */}
                 <MonthlySales
+                    buttonText="Reports"
                     dataTitle="Sales per week"
                     total="$37.5k"
                     totalLabel="Total"

@@ -34,10 +34,7 @@ router.post("/create", async (req, res, next) => {
 
 router.post("/login", async (req, res, next) => {
     try {
-        const user = await findByCredentials(
-            req.body.email,
-            req.body.password
-        );
+        const user = await findByCredentials(req.body.email, req.body.password);
         const token = generateAuthToken(user);
         pool.query(`INSERT INTO tokens (user_id, token) VALUES ($1, $2)`, [
             user.id,
@@ -45,7 +42,7 @@ router.post("/login", async (req, res, next) => {
         ]);
         // var hour = 3600000
         // req.session.cookie.expires = new Date(Date.now() + hour)
-        res.cookie("token", token, {maxAge:Infinity+1 }).json(user);
+        res.cookie("token", token, { maxAge: Infinity + 1 }).json(user);
     } catch (e) {
         res.status(400).send();
     }
@@ -60,7 +57,7 @@ router.get('/byToken', auth, (req, res) => {
 router.put("/update", auth, async (req, res, next) => {
     const user = req.user; //this is where the user is, looking at auth.js
     const updatedUser = {}; //this is what we're going to send into the query
-    //now we hvae the user obj,
+    //now we have the user obj,
     //do an update query on the db
     //stuff is in req.body wwe want to add those props into the updated
     //but the props that are in the user and not in the updated user we want to add to the updated user

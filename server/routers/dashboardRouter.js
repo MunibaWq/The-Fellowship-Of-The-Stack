@@ -92,13 +92,16 @@ router.get("/average-order-value", auth, async (req, res) => {
     }
 });
 router.get("/recent-orders", auth, async (req, res) => {
-    console.log(req.params, "fresh");
     try {
         const result = await pool.query(
-            `SELECT o.*, u.name FROM orders o left JOIN users u on o.buyer_id=u.id ORDER BY Date desc;
-            `
+            `SELECT o.order_total, o.id, o.shipping_address, o.name, o.date, o.ship_date, o.delivery_notes, o.phone, o.pickup, s.artist_id, s.product_id, s.quantity, s.color, s.size, p.title
+            FROM orders o
+            INNER JOIN sales_by_product s
+            ON o.id = s.order_id
+            INNER JOIN products p
+            ON s.product_id = p.id
+            WHERE s.artist_id = ${req.user.id}`
         );
-
         const orderInfo = result.rows;
         for (order of orderInfo) {
             let options = {
@@ -118,11 +121,12 @@ router.get("/recent-orders", auth, async (req, res) => {
             });
             order.orderTime = orderTime;
             order.orderDate = orderDate;
+
+            let orderShipDate = new Date(order.ship_date);
+
+            let shipDate = orderShipDate.toLocaleDateString("en-US", options);
+            order.orderShipDate = order.ship_date === null ? null : shipDate;
         }
-        console.log(orderInfo, "baked");
-
-        console.log(orderInfo, "donuts");
-
         res.json(orderInfo);
     } catch (e) {
         console.log("error", e);

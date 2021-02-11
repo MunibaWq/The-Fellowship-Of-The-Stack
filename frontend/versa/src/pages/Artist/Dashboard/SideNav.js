@@ -38,8 +38,8 @@ const SideNav = ({ setNavWidth }) => {
                 <NavBar>
                     <Header>
                         <UserInfo>
-                            <Name>Fudge Doe</Name>
-                            <UserType>Artist</UserType>
+                            <Name>Artist Name</Name>
+                            <UserType>User Type</UserType>
                         </UserInfo>
                         <Close
                             onClick={() => {

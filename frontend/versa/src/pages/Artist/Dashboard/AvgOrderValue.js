@@ -154,12 +154,6 @@ const SBPTable = styled.table`
     }
 `;
 
-const PieContainer = styled.div`
-    svg {
-        width: fit-content;
-        height: fit-content;
-    }
-`;
 const Legend = styled.div`
     div {
         display: flex;

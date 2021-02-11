@@ -1,5 +1,10 @@
 import styled from "styled-components";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import {
+    BrowserRouter as Router,
+    Route,
+    Switch,
+    useParams,
+} from "react-router-dom";
 import DashboardMain from "./DashboardMain";
 import SideNav from "./SideNav";
 import Orders from "./Orders";
@@ -18,9 +23,13 @@ import AddProduct from "../AddProduct";
 import EditProduct from "../EditProduct";
 import EditEvent from "../EditEvent";
 import CreateEvent from "../CreateEvent";
+import OrderItems from "./OrderItems";
 
 const Dashboard = () => {
     const [navWidth, setNavWidth] = useState(0);
+    const params = useParams();
+    let id = params.id;
+    let orderid = params.orderid;
     return (
         <Router>
             <Container width={navWidth}>
@@ -101,6 +110,10 @@ const Dashboard = () => {
                     <Route
                         path="/dashboard/events/edit/:id"
                         component={EditEvent}
+                    />
+                    <Route
+                        path="/dashboard/recent-orders/:id/:orderid"
+                        component={OrderItems}
                     />
                 </Switch>
             </Container>
