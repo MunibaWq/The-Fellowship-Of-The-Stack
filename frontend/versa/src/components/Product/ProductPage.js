@@ -102,7 +102,7 @@ const ProductPage = ({
                             ))}
                     </Stars>
 
-                    <h2>${price ? price + +sizes[choices.size].price : 0}</h2>
+                    <h2>${price ? +price + +sizes[choices.size].price : 0}</h2>
                     {colours && colours.length > 0 && (
                         <Colours>
                             <SelectedColour>

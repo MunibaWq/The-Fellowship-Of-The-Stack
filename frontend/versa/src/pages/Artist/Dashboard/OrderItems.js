@@ -9,7 +9,6 @@ import theme from "../../../components/Reusable/Colors";
 const OrderItems = () => {
     let params = useParams();
     let orderID = params.orderid;
-    let id = params.id;
 
     const [orderData, setOrderData] = useState();
     const [buyerDetails, setBuyerDetails] = useState();
