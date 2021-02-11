@@ -12,9 +12,10 @@ export async function sendProductData(
     id,
     quant,
 ) {
-    console.log("sendProductData happened");
     if (images.length === 0) {
         dispatch(setFormErrors("product", "Please add at least 1 image"));
+    } else if (!quant) {
+        dispatch(setFormErrors('product','Please choose some initial stock values for your products'))
     } else {
         if (props.type === "Add") {
             const test = async () => {

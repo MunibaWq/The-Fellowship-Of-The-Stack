@@ -28,7 +28,6 @@ const ProductPage = ({
     const dispatch = useDispatch();
     const cart = useSelector(state => state.cart);
     let params = useParams();
-    console.log(stock);
     useEffect(
         () => {
             dispatch(setRedirect("productForm", ""));
@@ -47,7 +46,6 @@ const ProductPage = ({
                     Object.keys(cart[id][currColour]).reduce(
                         (sizeTotal, currSize, sIndex) => {
                             sizeTotal += cart[id][currColour][currSize];
-                            console.log(cart[id][currColour][currSize]);
                             return sizeTotal;
                         },
                         0
@@ -130,7 +128,6 @@ const ProductPage = ({
                                             : colours[choices.colour].label}
                                     </h4>
                                     {stock.map(variation => {
-                                        console.log(sizes[choices.size].price);
                                         if (
                                             variation.color ===
                                                 colours[choices.colour].label &&

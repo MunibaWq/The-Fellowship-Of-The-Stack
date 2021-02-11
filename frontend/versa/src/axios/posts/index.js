@@ -9,7 +9,6 @@ export const addProduct = async (productInfo, images, thumbImg) => {
         data: productInfo,
     });
     let productID = +res.data.id;
-
     images.forEach(async (image, index) => {
         if (index === thumbImg) {
             image.size = "thumb";

@@ -25,7 +25,7 @@ router.put('/update', auth, async (req, res) => {
     if (req.user.type !== 1) {
         res.status(500).send('Not Authorized')
     }
-    let checkOwner = await pool.query('SELECT artist_id from products WHERE product_id = ' + productID)
+    let checkOwner = await pool.query('SELECT artist_id from products WHERE id = ' + productID)
     if (checkOwner.rows[0].artist_id !== req.user.id) {
         res.status(500).send('Not Authorized')
     }
@@ -51,7 +51,7 @@ router.put('/update', auth, async (req, res) => {
 })
 
 
-router.post('/add', auth, multipleUpload, async function (req, res) {
+router.post('/add',  multipleUpload, auth, async function (req, res) {
     const filename = uuid();
     const file = req.files
     const { label, imageSize, productID } = req.body
@@ -64,7 +64,7 @@ router.post('/add', auth, multipleUpload, async function (req, res) {
     if (req.user.type !== 1) {
         res.status(500).send('Not Authorized')
     }
-    let checkOwner = await pool.query('SELECT artist_id from products WHERE product_id = ' + productID)
+    let checkOwner = await pool.query('SELECT artist_id from products WHERE id = ' + productID)
     if (checkOwner.rows[0].artist_id !== req.user.id) {
         res.status(500).send('Not Authorized')
     }
