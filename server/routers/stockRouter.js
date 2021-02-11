@@ -52,7 +52,7 @@ router.put("/update", auth, async (req, res, next) => {
         DELETE FROM stock WHERE product_id = $1`,
             [id]
         );
-        for (const obj of req.body.stock) {
+        for (const obj of req.body.quant) {
             const { color, size, quantity } = obj;
             await client.query(
                 `INSERT INTO stock (product_id, color, size, quantity) VALUES ($1, $2, $3, $4)`,
@@ -72,7 +72,7 @@ router.post("/post", auth, async (req, res, next) => {
         res.status(500).send('Not Authorized')
     }
     const { id } = req.body;
-    let checkOwner = await pool.query('SELECT artist_id from products WHERE product_id = ' + id)
+    let checkOwner = await pool.query('SELECT artist_id from products WHERE id = ' + id)
     if (checkOwner.rows[0].artist_id !== req.user.id) {
         res.status(500).send('Not Authorized')
     }

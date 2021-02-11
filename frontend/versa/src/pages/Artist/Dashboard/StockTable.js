@@ -8,7 +8,6 @@ const StockTable = ({ item, setter }) => {
     
 
     function mapOverColorAndSize(stock) {
-        console.log('mapper')
         if (item.colours && item.sizes) {
             let result = [];
             for (let color of item.colours) {
@@ -27,14 +26,12 @@ const StockTable = ({ item, setter }) => {
                     result.push(temp);
                 }
             }
-            // setter(result);
+            setter(result);
             setStock(result);
         }
     }
 
     useEffect(() => {
-        console.log('useeffect')
-        console.log(item)
         
             setTimeout(() => {
                 

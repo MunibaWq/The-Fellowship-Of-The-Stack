@@ -64,7 +64,6 @@ const Inventory = (currentProduct) => {
     };
     const showModal = (id) => {
         setVisible(!visible);
-        console.log(`showing screen x`, window.innerWidth);
         setCurrentId(id);
     };
     return (

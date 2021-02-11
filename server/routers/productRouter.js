@@ -208,7 +208,7 @@ router.put("/edit/:id", auth, async (req, res) => {
         res.status(500).send('Not Authorized')
     }
     const { id } = req.params;
-    let checkOwner = await pool.query('SELECT artist_id from products WHERE product_id = ' + id)
+    let checkOwner = await pool.query('SELECT artist_id from products WHERE id = ' + id)
     if (checkOwner.rows[0].artist_id !== req.user.id) {
         res.status(500).send('Not Authorized')
     }

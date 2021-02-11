@@ -16,8 +16,6 @@ const EditStockTable = ({ item, setter }) => {
     //     quantity: 1,
     // }
     function mapColorsAndSizes(stock) {
-        console.log(stock);
-        console.log(item);
         let result = [];
         for (let color of item.colours) {
             for (let size of item.sizes) {
@@ -35,7 +33,7 @@ const EditStockTable = ({ item, setter }) => {
                 result.push(temp);
             }
         }
-        // setter(result);
+        setter(result);
         setStock(result);
     }
 
@@ -44,17 +42,14 @@ const EditStockTable = ({ item, setter }) => {
         const getProductStock = async () => {
             const res = await axios.get("/api/stock/get/" + id);
             setStock(res.data);
-            console.log(res);
         };
         getProductStock();
-        console.log("1st useefft");
         return () => {
             setStock([]);
         };
     }, []);
 
     useEffect(() => {
-        console.log("2nd useeffect");
         if (item.length !== 0 && stock.length > 0) {
             setTimeout(() => {
                 

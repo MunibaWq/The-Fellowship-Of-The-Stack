@@ -205,7 +205,20 @@ const ProductForm = (props) => {
                         flexDirection: "column",
                         alignItems: "center",
                     }}>
-                    <h2>Colours</h2>
+                        <h2>Colours</h2>
+                        <div style = {{display:"flex", width: "7em",justifyContent:"space-around", alignItems:"baseline"}}>
+                        <label htmlFor="oneColour">One colour</label>
+                            <input onChange={(e) => {
+                               
+                                dispatch(setFormInputs('product', 'oneColour', e.target.checked))
+                                if (e.target.checked) {
+                                    dispatch(setFormInputs('product', 'colours', [{ label: "O", value: "#44444455" }]))
+                                } else {
+                                    dispatch(setFormInputs('product', 'colours', []))
+
+                                }
+                                
+                        }} id="oneColour" type="checkbox"/></div>
                     <div
                         style={{
                             display: "flex",
@@ -219,17 +232,18 @@ const ProductForm = (props) => {
                         modalToggle={modalToggle}
                         dispatch={dispatch}
                         setColorLabelAndValue={setColorLabelAndValue}
-                    />
-                    <Button
-                        secondary
-                        onClick={() => {
-                            dispatch(
-                                setVisible("productForm", "colours", true)
-                            );
-                        }}>
-                        Add
+                        />
+                        {input.oneColour ? null :
+                            <Button
+                                secondary
+                                onClick={() => {
+                                    dispatch(
+                                        setVisible("productForm", "colours", true)
+                                    );
+                                }}>
+                                Add
                         <AddIcon stroke={theme.primary} />
-                    </Button>
+                            </Button>}
                 </ColorDiv>
                 <SizeDiv
                     style={{
@@ -237,7 +251,20 @@ const ProductForm = (props) => {
                         flexDirection: "column",
                         alignItems: "center",
                     }}>
-                    <h2>Sizes</h2>
+                        <h2>Sizes</h2>
+                        <div style = {{display:"flex", width: "7em",justifyContent:"space-around", alignItems:"baseline"}}>
+                        <label htmlFor="oneSize">One size</label>
+                            <input onChange={(e) => {
+                               
+                                dispatch(setFormInputs('product', 'oneSize', e.target.checked))
+                                if (e.target.checked) {
+                                    dispatch(setFormInputs('product', 'sizes', [{ label: "O", price: 0 }]))
+                                } else {
+                                    dispatch(setFormInputs('product', 'sizes', []))
+
+                                }
+                                
+                        }} id="oneSize" type="checkbox"/></div>
                     <div
                         style={{
                             display: "flex",
@@ -252,15 +279,16 @@ const ProductForm = (props) => {
                         modalToggle={modalToggle}
                         dispatch={dispatch}
                         setSizeValue={setSizeValue}
-                    />
-                    <Button
-                        secondary
-                        onClick={() => {
-                            dispatch(setVisible("productForm", "sizes", true));
-                        }}>
-                        Add
+                        />
+                        {input.oneSize ? null :
+                            <Button
+                                secondary
+                                onClick={() => {
+                                    dispatch(setVisible("productForm", "sizes", true));
+                                }}>
+                                Add
                         <AddIcon stroke={theme.primary} />
-                    </Button>
+                            </Button>}
                 </SizeDiv>
             </RowContainer>
             <Instruction>Set the level of stock for each variation</Instruction>
@@ -305,7 +333,7 @@ const ProductForm = (props) => {
                     </Button>
                     <Button
                         primary
-                        onClick={() => {
+                            onClick={() => {
                             submitData(
                                 _.cloneDeep(input),
                                 _.cloneDeep(images),
