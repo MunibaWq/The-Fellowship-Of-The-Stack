@@ -27,9 +27,9 @@ import OrderItems from "./OrderItems";
 
 const Dashboard = () => {
     const [navWidth, setNavWidth] = useState(0);
-    const params = useParams();
-    let id = params.id;
-    let orderid = params.orderid;
+    // const params = useParams();
+    // let id = params.id;
+    // let orderid = params.orderid;
     return (
         <Router>
             <Container width={navWidth}>

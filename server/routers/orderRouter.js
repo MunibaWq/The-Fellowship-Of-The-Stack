@@ -146,30 +146,7 @@ router.get("/recent-orders/:id/:orderid", async (req, res) => {
             WHERE s.artist_id = ${req.params.id} AND o.id = ${req.params.orderid}`
         );
         const orderInfo = result.rows;
-        for (order of orderInfo) {
-            let options = {
-                weekday: "long",
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-            };
 
-            let ordersDate = new Date(order.date);
-
-            let orderDate = ordersDate.toLocaleDateString("en-US", options);
-
-            let orderTime = ordersDate.toLocaleTimeString([], {
-                hour: "2-digit",
-                minute: "2-digit",
-            });
-            order.orderTime = orderTime;
-            order.orderDate = orderDate;
-
-            let orderShipDate = new Date(order.ship_date);
-
-            let shipDate = orderShipDate.toLocaleDateString("en-US", options);
-            order.orderShipDate = order.ship_date === null ? null : shipDate;
-        }
         res.json(orderInfo);
     } catch (err) {
         console.error(err.message);
