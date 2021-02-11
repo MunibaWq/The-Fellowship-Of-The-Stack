@@ -40,12 +40,12 @@ const AccountForm = (props) => {
         };
         const sendData = async () => {
             if (props.type === "Add") {
-                axios.post("/users/create", {
+                axios.post("/api/users/create", {
                     data: userInfo,
                 });
             } else {
                 axios.put(
-                    "/users/update/",
+                    "/api/users/update/",
                     {
                         data: userInfo,
                     },
@@ -84,8 +84,7 @@ const AccountForm = (props) => {
                     label="Name"
                     // value={inputName}
                     form="account"
-                    name="name"
-                ></TextField>
+                    name="name"></TextField>
             </RowContainer1>
             <Instruction2>
                 What is your store called?
@@ -106,8 +105,7 @@ const AccountForm = (props) => {
                     ]}
                     label="Store Name"
                     form="account"
-                    name="storeName"
-                ></TextField>
+                    name="storeName"></TextField>
                 <TextField
                     multi={true}
                     tests={[
@@ -118,8 +116,7 @@ const AccountForm = (props) => {
                     ]}
                     label="Address"
                     form="account"
-                    name="address"
-                ></TextField>
+                    name="address"></TextField>
             </RowContainer2>
             <Instruction3>
                 Enter the email address for you account
@@ -137,14 +134,14 @@ const AccountForm = (props) => {
                         },
                         {
                             test: (input) =>
-                                input.search(/^[\w\d]+@[\w\d]+\.\w\w+$/) === -1,
+                                input.search(/^[\w\d\.]+@[\w\d\.]+\.\w\w+$/) ===
+                                -1,
                             error: "Enter a valid email address",
                         },
                     ]}
                     label="Email"
                     form="account"
-                    name="email"
-                ></TextField>
+                    name="email"></TextField>
                 <TextField
                     multi={false}
                     password={true}
@@ -162,8 +159,7 @@ const AccountForm = (props) => {
                     ]}
                     label="Password"
                     form="account"
-                    name="password"
-                ></TextField>
+                    name="password"></TextField>
             </RowContainer3>
             <Instruction5>
                 Get started adding products to your store

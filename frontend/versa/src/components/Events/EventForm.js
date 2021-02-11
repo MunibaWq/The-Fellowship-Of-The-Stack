@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { FieldContainer, Input, Label, TextField } from "../Reusable/Input";
@@ -15,6 +15,8 @@ import {
 } from "../ProductForm/styledComponents";
 import { ImageInput } from "../ProductForm/ImageInput";
 import { mapImages } from "../ProductForm/maps/mapImages";
+import { userGoing, createEvent } from "../../axios/posts";
+
 const options = [
     "Select one:",
     "Artist showcase",
@@ -22,15 +24,22 @@ const options = [
     "Exhibition",
     "Other",
 ];
+
 const statusOptions = ["Select one:", "Active", "Inactive", "Pending"];
+
 const EventForm = (props) => {
+    const [artistID, setArtistID] = useState();
+
     const params = useParams();
+    //this is event id
     const id = params.id;
+    console.log(id);
     const formError = useSelector((state) => state.formErrors.event.form);
     const input = useSelector((state) => state.formInputs.event);
     const images = useSelector((state) => state.images.eventForm);
     const redirect = useSelector((state) => state.redirect.eventForm);
     const dispatch = useDispatch();
+
     useEffect(() => {
         const getUserData = async () => {
             let data = await getEventByID(id);
@@ -51,7 +60,7 @@ const EventForm = (props) => {
 
     const submitData = (e) => {
         e.preventDefault();
-        const userInfo = {
+        const eventInfo = {
             name: input.name,
             description: input.description,
             capacity: input.capacity,
@@ -61,21 +70,26 @@ const EventForm = (props) => {
             location: input.location,
             status: input.status,
         };
+        console.log(eventInfo.status);
+        console.log(id);
+
         const sendData = async () => {
             if (props.type === "Add") {
-                axios.post("/events/create", {
-                    data: userInfo,
-                });
+                const response = await createEvent(eventInfo);
+                const eventID = response.data;
+                console.log(response);
+
+                console.log(eventID);
+                await userGoing(eventID);
             } else {
                 axios.put(
-                    "/events/edit/" + id,
+                    "/api/events/edit/" + id,
                     {
-                        data: userInfo,
+                        data: eventInfo,
                     },
                     { withCredentials: true }
                 );
             }
-            // window.location.href = "/";
         };
         let error = document.getElementById("error");
         if (!error) {
@@ -250,7 +264,7 @@ const EventForm = (props) => {
                     <select
                         onChange={(e) => {
                             dispatch(
-                                setFormInputs("event", "type", e.target.value)
+                                setFormInputs("event", "status", e.target.value)
                             );
                         }}>
                         {statusOptions.map((one) => {
