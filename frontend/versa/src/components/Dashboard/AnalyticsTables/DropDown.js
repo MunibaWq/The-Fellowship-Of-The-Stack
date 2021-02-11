@@ -3,8 +3,6 @@ import styled from "styled-components";
 import { updateOrderStatus, updateOrderShipDate } from "../../../axios/puts";
 import theme from "../../Reusable/Colors";
 
-
-
 const Status = styled.select`
     padding: 8px;
     outline: none;
@@ -54,18 +52,17 @@ const DropDown = ({ order }) => {
     const [status, setStatus] = useState(order.status);
     const [confirmation, setConfirmation] = useState(false);
 
-
-    
     const handleChange = (e) => {
         setStatus(e.target.value);
         setConfirmation(true);
-        console.log(status)
-        e.target.value === "Picked Up" ? updateOrderShipDate(e.target.value,new Date(), order.id) :
-        e.target.value === "Delivered" ? updateOrderShipDate(e.target.value,new Date(), order.id) :
-        updateOrderStatus(order.status, order.id)
+        console.log(status);
+        e.target.value === "Picked Up"
+            ? updateOrderShipDate(e.target.value, new Date(), order.id)
+            : e.target.value === "Delivered"
+            ? updateOrderShipDate(e.target.value, new Date(), order.id)
+            : updateOrderStatus(order.status, order.id);
     };
-    console.log("s", status);
-    console.log("c", confirmation);
+
     return (
         <Status
             name="status"
@@ -78,7 +75,11 @@ const DropDown = ({ order }) => {
                     <option value={option.value}>{option.label}</option>
                 </>
             ))}
-            {order.pickup === true ? <option value="Ready For Pick Up">Ready For Pick Up</option> : <option value="Ready For Delivery">Ready For Delivery</option>}
+            {order.pickup === true ? (
+                <option value="Ready For Pick Up">Ready For Pick Up</option>
+            ) : (
+                <option value="Ready For Delivery">Ready For Delivery</option>
+            )}
         </Status>
     );
 };

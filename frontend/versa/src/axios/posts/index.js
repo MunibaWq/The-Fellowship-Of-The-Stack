@@ -1,12 +1,11 @@
 import Axios from "axios";
-let host = process.env.NODE_ENV === "production" ? "" : "";
 
 export const axiosLogin = async (email, password) => {
-    let res = await Axios.post(host + "/users/login", { email, password });
+    let res = await Axios.post("/api/users/login", { email, password });
     return res.data;
 };
 export const addProduct = async (productInfo, images, thumbImg) => {
-    let res = await Axios.post(host + "/products/create", {
+    let res = await Axios.post("/api/products/create", {
         data: productInfo,
     });
     let productID = +res.data.id;
@@ -34,7 +33,7 @@ export const addImage = async (image, label, imageSize, productID) => {
         data.append("imageSize", imageSize);
         data.append("productID", productID);
         data.append("file", image);
-        const response = await Axios.post(host + "/images/add", data);
+        const response = await Axios.post("/api/images/add", data);
         if (response.status === 201) {
             return true;
         }
@@ -46,8 +45,8 @@ export const addImage = async (image, label, imageSize, productID) => {
     }
 };
 
-export const userGoing = async (eventID, userID, status) => {
-    let res = await Axios.post(`/events/join/${eventID}/${userID}`, {
+export const userGoing = async (eventID) => {
+    let res = await Axios.post(`api/events/join/${eventID}`, {
         status: "attending",
         reminder: true,
     });
@@ -56,7 +55,7 @@ export const userGoing = async (eventID, userID, status) => {
 
 export const addStock = async (id, quant) => {
     try {
-        const response = await Axios.post("/stock/post", {
+        const response = await Axios.post("/api/stock/post", {
             quant,
             id,
         });
@@ -101,7 +100,7 @@ export const addStock = async (id, quant) => {
 //     //success
 //     if (data) {
 //         console.log("Uploaded in:", data.Location);
-//         let response = await Axios.post("/images/add", {
+//         let response = await Axios.post("/api/images/add", {
 //             filename: filename,
 //             label: label,
 //             image_size: imageSize,

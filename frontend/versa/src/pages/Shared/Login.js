@@ -8,7 +8,9 @@ import { axiosLogin } from "../../axios/posts";
 // import { setEmail, setPassword } from "../../redux/actions/LoginPage";
 import Button from "../../components/Reusable/Button";
 import { setFormErrors } from "../../redux/actions/Errors";
-
+import Cookies from "universal-cookie";
+import { login } from "../../redux/actions/actions";
+const cookies = new Cookies()
 const Login = (props) => {
     const loggedInUser = useSelector((state) => state.user);
     const input = useSelector((state) => state.formInputs.login);
@@ -20,8 +22,11 @@ const Login = (props) => {
         let error = document.getElementById("error");
         if (!error) {
             try {
+                
                 const user = await axiosLogin(input.email, input.password);
-                dispatch(loginAction(user));
+                if (user) {
+                    dispatch(login());
+                }
             } catch (e) {
                 dispatch(
                     setFormErrors(
@@ -44,7 +49,7 @@ const Login = (props) => {
     // const password = useSelector((state) => state.loginPassword);
     return (
         <Container>
-            {loggedInUser && loggedInUser.username && (
+            {cookies.get('token') && (
                 <Redirect to={"/dashboard"} />
             )}
             <h2>Log In</h2>

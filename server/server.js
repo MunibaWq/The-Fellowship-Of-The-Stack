@@ -2,14 +2,8 @@ let express = require("express");
 let cors = require("cors");
 const crypto = require("crypto");
 const path = require("path");
-const userRouter = require("./routers/userRouter");
 const PORT = process.env.PORT || 5000;
-const stockRouter = require("./routers/stockRouter");
-const imageRouter = require("./routers/imageRouter");
-const productRouter = require("./routers/productRouter");
-const dashboardRouter = require("./routers/dashboardRouter");
-const eventRouter = require("./routers/eventRouter");
-const orderRouter = require("./routers/orderRouter");
+const apiRouter = require('./routers/apiRouter')
 var cookieParser = require("cookie-parser");
 const {
     emailsSent,
@@ -19,7 +13,7 @@ const pool = require("./db");
 let app = express();
 app.use(cookieParser());
 app.use(express.json());
-app.use(cors({ credentials: true }));
+// app.use(cors({ credentials: true }));
 
 app.use(express.static(path.join(__dirname, "../frontend/versa/build")));
 
@@ -46,13 +40,8 @@ app.use("*", async (req, res, next) => {
     next();
 });
 
-app.use("/stock", stockRouter);
-app.use("/images", imageRouter);
-app.use("/products", productRouter);
-app.use("/users", userRouter);
-app.use("/events", eventRouter);
-app.use("/dashboard", dashboardRouter);
-app.use("/orders", orderRouter);
+app.use('/api', apiRouter)
+
 app.get("*", (req, res) => {
     res.sendFile(
         path.resolve(__dirname, "../frontend/versa/build", "index.html")
