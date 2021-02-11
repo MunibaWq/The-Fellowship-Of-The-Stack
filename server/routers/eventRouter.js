@@ -92,7 +92,7 @@ router.get("/artistsEvents/:id", async (req, res) => {
 
         res.json(results);
     } catch (e) {
-        console.log(e);
+        console.log(e, "/artistsEvents/:id");
         res.send("error");
     }
 });
@@ -117,7 +117,7 @@ router.get("/allEvents", async (req, res) => {
 
         res.json(results);
     } catch (e) {
-        console.log(e);
+        console.log(e, "/allEvents");
         res.send("error");
     }
 });
@@ -246,7 +246,7 @@ router.put("/edit/:id", auth, async (req, res) => {
         );
         res.json(response.rows[0].id);
     } catch (err) {
-        console.error(err.message);
+        console.error(err.message, "/edit/:id");
         res.send({
             message: "error",
         });
@@ -277,7 +277,7 @@ router.delete("/delete/:id", auth, async (req, res) => {
         await pool.query("DELETE FROM events WHERE id = $1", [id]);
         res.json({ msg: "Event Deleted!" });
     } catch (err) {
-        console.error(err.message);
+        console.error(err.message, "/delete/:id");
         res.send({
             message: "error",
         });
@@ -334,11 +334,12 @@ router.delete("/not-attending/:event", auth, async (req, res) => {
             [event_id, req.user.id]
         );
         attendees = await pool.query(
-            `SELECT h.username as host_name, e.name as event_name, e.description, e.start_time, e.end_time, e.location, a.event_id, u.email, u.name from events_attendees a INNER JOIN users u ON a.attendee = u.id INNER JOIN events e ON e.id=a.event_id INNER JOIN users h ON h.id=e.host WHERE a.event_id = ${req.params.eventid} AND u.id = ${req.user.id}`
+            `SELECT h.username as host_name, e.name as event_name, e.description, e.start_time, e.end_time, e.location, a.event_id, u.email, u.name from events_attendees a INNER JOIN users u ON a.attendee = u.id INNER JOIN events e ON e.id=a.event_id INNER JOIN users h ON h.id=e.host WHERE a.event_id = ${+req
+                .params.event} AND u.id = ${req.user.id}`
         );
         res.json({ msg: "User Deleted from event!" });
     } catch (err) {
-        console.error(err.message);
+        console.error(err.message, "/not-attending/:event");
         res.send({
             message: "error",
         });
@@ -378,7 +379,7 @@ router.get("/not-attending/email/:eventid/:id", async (req, res) => {
 
         res.status(200).send("Successssssssssss");
     } catch (e) {
-        console.log(e);
+        console.log(e, "/not-attending/email/:eventid/:id");
         res.send("error");
     }
 });
@@ -392,7 +393,7 @@ router.get("/amIGoing/:eventid", auth, async (req, res) => {
         const going = response.rows.length === 1;
         res.send(going);
     } catch (e) {
-        console.log(e);
+        console.log(e, "/amIGoing/:eventid");
         res.send("error");
     }
 });

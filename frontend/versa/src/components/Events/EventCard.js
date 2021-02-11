@@ -21,18 +21,18 @@ const EventCard = ({ theEvent }) => {
                 setGoing(true);
             } else setGoing(false);
         };
-        attendStatus()
-    },[]);
+        attendStatus();
+    }, []);
 
-    useEffect(() => {
-        if (going !== "unset") {
-            if (!going) {
-                deleteUserFromEventByID(currentEvent);
-            } else {
-                userGoing(currentEvent);
-            }
-        }
-    }, [going, currentEvent]);
+    // useEffect(() => {
+    //     if (going !== "unset") {
+    //         if (!going) {
+    //             deleteUserFromEventByID(currentEvent);
+    //         } else {
+    //             userGoing(currentEvent);
+    //         }
+    //     }
+    // }, [going, currentEvent]);
 
     console.log("results", theEvent);
     let options = {
@@ -117,6 +117,11 @@ const EventCard = ({ theEvent }) => {
                 </ActionButton>**/}
                 <ActionButton
                     onClick={() => {
+                        if (going) {
+                            deleteUserFromEventByID(currentEvent);
+                        } else {
+                            userGoing(currentEvent);
+                        }
                         setGoing((curr) => !curr);
                     }}>
                     {!going && (
