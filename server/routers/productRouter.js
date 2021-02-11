@@ -58,6 +58,31 @@ router.get("/get/:id", async (req, res) => {
     }
 });
 
+router.get("/myProducts",auth, async (req, res) => {
+    try {
+        const client = await pool.connect();
+        const result = await client.query(
+            "SELECT * FROM products WHERE artist_id=" + req.user.id
+        );
+        const results = result.rows;
+        const productsToSend = [];
+        for (product of results) {
+            const stockReq = await pool.query(
+                "SELECT * FROM stock where product_id = " + product["id"]
+            );
+            const stock = stockReq.rows;
+            const artist = req.user.username
+            product["stock"] = stock;
+            product["artist"] = artist;
+            productsToSend.push(product);
+        }
+        client.release(true);
+        res.json(productsToSend);
+    } catch (e) {
+        console.log(e);
+        res.send("error");
+    }
+});
 router.get("/artistsProducts/:id", async (req, res) => {
     try {
         const client = await pool.connect();

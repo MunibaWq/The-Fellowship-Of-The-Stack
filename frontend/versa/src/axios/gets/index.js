@@ -22,8 +22,8 @@ export const getAllProducts = async () => {
     });
     return res.data;
 };
-export const getAllArtistProducts = async (id) => {
-    let res = await Axios.get("/api/products/artistsProducts/" + id);
+export const getAllMyProducts = async () => {
+    let res = await Axios.get("/api/products/myProducts/");
     return res.data;
 };
 
