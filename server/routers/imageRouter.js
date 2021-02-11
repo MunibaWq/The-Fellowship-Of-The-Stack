@@ -3,6 +3,8 @@ const multer = require('multer');
 const AWS = require('aws-sdk');
 const { v4: uuid } = require("uuid");
 const pool = require("../db");
+const auth = require('../middleware/auth');
+
 require('dotenv').config()
 
 const router = express.Router();
@@ -17,8 +19,16 @@ const accessKeyId = process.env.REACT_APP_AWS_ACCESS_KEY_ID
 
 const secretKey = process.env.REACT_APP_AWS_SECRET_ACCESS_KEY
 
-router.put('/update', async (req, res) => {
-    const { label, imageSize, productID, filename} = req.body
+router.put('/update', auth, async (req, res) => {
+    
+    const { label, imageSize, productID, filename } = req.body
+    if (req.user.type !== 1) {
+        res.status(500).send('Not Authorized')
+    }
+    let checkOwner = await pool.query('SELECT artist_id from products WHERE product_id = ' + productID)
+    if (checkOwner.rows[0].artist_id !== req.user.id) {
+        res.status(500).send('Not Authorized')
+    }
     try {
         //make a query to insert the image info into the db
         let query = `UPDATE images SET label = '${label}', img_size = '${imageSize}' WHERE product_id = ${productID} AND filename = '${filename}';`
@@ -41,7 +51,7 @@ router.put('/update', async (req, res) => {
 })
 
 
-router.post('/add', multipleUpload, async function (req, res) {
+router.post('/add', auth, multipleUpload, async function (req, res) {
     const filename = uuid();
     const file = req.files
     const { label, imageSize, productID } = req.body
@@ -51,6 +61,13 @@ router.post('/add', multipleUpload, async function (req, res) {
         bucketName: BUCKET_NAME,
         dirName: 'images'
     });
+    if (req.user.type !== 1) {
+        res.status(500).send('Not Authorized')
+    }
+    let checkOwner = await pool.query('SELECT artist_id from products WHERE product_id = ' + productID)
+    if (checkOwner.rows[0].artist_id !== req.user.id) {
+        res.status(500).send('Not Authorized')
+    }
     s3bucket.createBucket(function () {
         var ResponseData = [];
 
@@ -110,9 +127,15 @@ router.get('/byPID/:id', async (req, res) => {
 
 //delete image
 
-router.delete("/delete/:id", async (req, res) => {
+router.delete("/delete/:id", auth, async (req, res) => {
     const id = req.params.id;
-
+    if (req.user.type !== 1) {
+        res.status(500).send('Not Authorized')
+    }
+    let checkOwner = await pool.query('SELECT p.artist_id from products p INNER JOIN images i ON i.product_id = p.product_id WHERE i.id = ' + id)
+    if (checkOwner.rows[0].artist_id !== req.user.id) {
+        res.status(500).send('Not Authorized')
+    }
     if (Object.keys(req.params).length === 0) {
         console.log("no id");
     }

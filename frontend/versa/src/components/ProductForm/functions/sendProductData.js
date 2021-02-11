@@ -5,14 +5,12 @@ import { setRedirect } from "../../../redux/actions/Redirects";
 import { thumbImg } from "../maps/mapImages";
 
 export async function sendProductData(
-    stock,
     images,
     dispatch,
     props,
     productInfo,
     id,
     quant,
-    input
 ) {
     console.log("sendProductData happened");
     if (images.length === 0) {

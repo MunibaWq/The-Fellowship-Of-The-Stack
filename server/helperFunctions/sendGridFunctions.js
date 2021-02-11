@@ -280,7 +280,6 @@ const notGoingToEvent = (attendee) => {
         .send(data)
         .then((res) => {
             console.log("Email sent");
-            console.log(res);
         })
         .catch((error) => {
             console.error(error);

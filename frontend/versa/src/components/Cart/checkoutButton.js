@@ -61,7 +61,7 @@ const CheckoutButton = ({ price, artistName, items, custPref, custNote }) => {
                 name={artistName} // the pop-in header title
                 description={`Total: ${price}`} // the pop-in header subtitle
                 // the pop-in header image (default none)
-                panelLabel="Give Money" // prepended to the amount in the bottom pay button
+                panelLabel='Pay' // prepended to the amount in the bottom pay button
                 amount={priceForStripe} // cents
                 currency="CAD"
                 stripeKey={publishableKey}

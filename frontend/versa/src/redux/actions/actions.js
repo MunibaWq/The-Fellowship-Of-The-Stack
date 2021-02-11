@@ -1,13 +1,18 @@
 import { getProductByID } from "../../axios/gets";
-export const login = (user) => {
+export const login = () => {
     return async (dispatch) => {
         dispatch({
             type: "LOGIN",
-            paylod: user,
         });
     };
 };
-
+export const logout = () => {
+    return async (dispatch) => {
+        dispatch({
+            type: "LOGOUT"
+        })
+    }
+}
 export const fetchProduct = (id) => {
     return async (dispatch, getState) => {
         const data = getProductByID(id);

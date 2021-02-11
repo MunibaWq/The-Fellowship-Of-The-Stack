@@ -3,6 +3,9 @@ const router = new express.Router();
 const pool = require("../db");
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const { orderConfirmation } = require("../helperFunctions/sendGridFunctions");
+const auth = require("../middleware/auth");
+const optionalAuth = require("../middleware/optionalAuth");
+
 router.post("/stripe/payment", (req, res) => {
     const body = {
         source: req.body.token.id,
@@ -18,7 +21,8 @@ router.post("/stripe/payment", (req, res) => {
     });
 });
 
-router.post("/paid", async (req, res) => {
+router.post("/paid", optionalAuth, async (req, res) => {
+    const buyerID = req.user.id || 9999
     console.log("success", req.body.success);
     console.log("payment", req.body.payment);
     const { email } = req.body.success;
@@ -41,7 +45,7 @@ router.post("/paid", async (req, res) => {
         [
             new Date().toLocaleString().replace(/\./g, ""),
             "paid",
-            1,
+            buyerID,
             payment.amount / 100,
             email,
             name,
@@ -90,7 +94,7 @@ router.post("/paid", async (req, res) => {
         );
     }
     const getBuyerName = await pool.query(
-        `SELECT username, email FROM users where id=1`
+        `SELECT username, email FROM users where id=${buyerID}`
     );
     const user = getBuyerName.rows[0];
     const orderID = orderResponse.rows[0].id;
@@ -134,7 +138,7 @@ router.put("/edit/:id", async (req, res) => {
     }
 });
 
-router.get("/recent-orders/:id/:orderid", async (req, res) => {
+router.get("/recent-orders/:orderid", auth, async (req, res) => {
     try {
         const result = await pool.query(
             `SELECT o.order_total, o.id, o.shipping_address, o.name, o.date, o.ship_date, o.phone, o.pickup, o.delivery_notes, s.artist_id, s.product_id, s.quantity, s.color, s.size, p.title
@@ -143,7 +147,7 @@ router.get("/recent-orders/:id/:orderid", async (req, res) => {
             ON o.id = s.order_id
             INNER JOIN products p
             ON s.product_id = p.id
-            WHERE s.artist_id = ${req.params.id} AND o.id = ${req.params.orderid}`
+            WHERE s.artist_id = ${req.user.id} AND o.id = ${req.params.orderid}`
         );
         const orderInfo = result.rows;
 

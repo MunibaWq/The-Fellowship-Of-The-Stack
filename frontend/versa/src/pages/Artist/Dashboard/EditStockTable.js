@@ -35,7 +35,7 @@ const EditStockTable = ({ item, setter }) => {
                 result.push(temp);
             }
         }
-        setter(result);
+        // setter(result);
         setStock(result);
     }
 
@@ -56,21 +56,13 @@ const EditStockTable = ({ item, setter }) => {
     useEffect(() => {
         console.log("2nd useeffect");
         if (item.length !== 0 && stock.length > 0) {
-            mapColorsAndSizes(stock);
+            setTimeout(() => {
+                
+                mapColorsAndSizes(stock);
+            }, 1000)
         }
-    }, [item.length]);
+    }, [item,stock.length]);
 
-    // useEffect(() => {
-    //     const updateStock = () => {
-    //         setStock(...[tempIncoming]);
-    //     };
-    //     updateStock();
-    // }, []);
-
-    // console.log(tempColour);
-    // console.log(tempSize);
-    // console.log(tempIncoming);
-    // console.log(tempIncoming);
 
     function mapTable(arr) {
         if (arr.length > 0) {
@@ -115,6 +107,7 @@ const EditStockTable = ({ item, setter }) => {
                     secondary
                     onClick={() => {
                         axios.put("/stock/update", {
+                            id,
                             stock,
                         });
                     }}>
@@ -125,7 +118,7 @@ const EditStockTable = ({ item, setter }) => {
     );
 };
 const TableStyle = styled.table`
-    width:100%
+    width:100%;
     text-align: left;
     padding: 1%;
     margin-top: 10%;
