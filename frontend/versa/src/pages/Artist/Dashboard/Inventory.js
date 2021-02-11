@@ -27,7 +27,7 @@ const Inventory = (currentProduct) => {
 
     useEffect(() => {
         const getStock = async () => {
-            let data = await axios.get("/stock/getAll");
+            let data = await axios.get("api/stock/getAll");
             setInventory(data.data);
         };
         getStock();
@@ -54,7 +54,7 @@ const Inventory = (currentProduct) => {
 
     const updateStatus = async (result, status) => {
         result.status = status;
-        await axios.put("/products/edit/" + result.id, {
+        await axios.put("api/products/edit/" + result.id, {
             headers: {
                 "Access-Control-Allow-Origin": "*",
             },

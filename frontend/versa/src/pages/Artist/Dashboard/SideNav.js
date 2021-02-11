@@ -95,7 +95,7 @@ const SideNav = ({ setNavWidth }) => {
                                 </MenuLink>
                             </li>
                         </Link>
-                        <Link to="/dashboard/recent-orders/1">
+                        <Link to="/dashboard/recent-orders/">
                             <li>
                                 <MenuLink>
                                     <Orders />

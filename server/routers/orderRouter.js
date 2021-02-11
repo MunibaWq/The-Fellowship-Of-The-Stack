@@ -140,17 +140,19 @@ router.put("/edit/:id", async (req, res) => {
 
 router.get("/recent-orders/:orderid", auth, async (req, res) => {
     try {
+        const orderResult = await pool.query(`SELECT order_total, o.id, o.shipping_address, o.name, o.date, o.phone, o.pickup
+        FROM orders o
+ 
+        WHERE  o.id = ${req.params.orderid} `)
         const result = await pool.query(
-            `SELECT o.order_total, o.id, o.shipping_address, o.name, o.date, o.ship_date, o.phone, o.pickup, o.delivery_notes, s.artist_id, s.product_id, s.quantity, s.color, s.size, p.title
-            FROM orders o
-            INNER JOIN sales_by_product s
-            ON o.id = s.order_id
+            `SELECT s.artist_id, s.product_id, s.quantity, s.color, s.size, p.title
+            FROM sales_by_product s
             INNER JOIN products p
             ON s.product_id = p.id
-            WHERE s.artist_id = ${req.user.id} AND o.id = ${req.params.orderid}`
+            WHERE s.artist_id = ${req.user.id}`
         );
-        const orderInfo = result.rows;
 
+        const orderInfo = { order: orderResult.rows, orderItems: result.rows };
         res.json(orderInfo);
     } catch (err) {
         console.error(err.message);

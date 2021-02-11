@@ -42,7 +42,7 @@ const EditStockTable = ({ item, setter }) => {
     //function to get quant and map to each row
     useEffect(() => {
         const getProductStock = async () => {
-            const res = await axios.get("/stock/get/" + id);
+            const res = await axios.get("/api/stock/get/" + id);
             setStock(res.data);
             console.log(res);
         };
@@ -106,7 +106,7 @@ const EditStockTable = ({ item, setter }) => {
                 <Button
                     secondary
                     onClick={() => {
-                        axios.put("/stock/update", {
+                        axios.put("/api/stock/update", {
                             id,
                             stock,
                         });

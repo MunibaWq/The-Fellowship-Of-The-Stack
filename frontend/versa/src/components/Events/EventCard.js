@@ -21,7 +21,8 @@ const EventCard = ({ theEvent }) => {
                 setGoing(true);
             } else setGoing(false);
         };
-    });
+        attendStatus()
+    },[]);
 
     useEffect(() => {
         if (going !== "unset") {
