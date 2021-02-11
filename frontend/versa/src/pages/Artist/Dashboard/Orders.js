@@ -11,8 +11,7 @@ const Orders = () => {
     const currentUser = params.id;
 
     useEffect(() => {
-        const fetchData = async () => {
-            console.log(currentUser);
+        const fetchData = async (currentUser) => {
             const data = await getRecentOrders(currentUser);
             setOrderData(data);
         };

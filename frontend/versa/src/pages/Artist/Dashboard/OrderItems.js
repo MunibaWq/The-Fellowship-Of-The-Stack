@@ -14,7 +14,7 @@ const OrderItems = () => {
     const [orderData, setOrderData] = useState();
     const [buyerDetails, setBuyerDetails] = useState();
     useEffect(() => {
-        const fetchData = async () => {
+        const fetchData = async (id, orderID) => {
             const data = await getOneOrder(id, orderID);
             setBuyerDetails(data[0]);
             setOrderData(data);
