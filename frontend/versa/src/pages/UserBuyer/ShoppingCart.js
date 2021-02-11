@@ -22,8 +22,8 @@ import FreeDelivery from "../../components/Cart/FreeDelivery";
 const ShoppingCart = () => {
     // const dispatch = useDispatch();
     const [preference, setPreference] = useState(null);
-    const cart = useSelector((state) => state.cart);
-    const error = useSelector((state) => state.formErrors.cart.form);
+    const cart = useSelector(state => state.cart);
+    const error = useSelector(state => state.formErrors.cart.form);
     const [cartItems, setCartItems] = useState();
     const [needToUpdate, setNeedToUpdate] = useState();
     const dispatch = useDispatch();
@@ -35,76 +35,83 @@ const ShoppingCart = () => {
         return total.toFixed(2);
     };
 
-    useEffect(() => {
-        async function checkStock(id, colour, size) {
-            let newQuantity = size[1];
-            const response = await axios.get(
-                `/stock/getByVariation/${id}/${colour[0]}/${size[0]}`
-            );
-            if (response.data[0].quantity < size[1]) {
-                newQuantity = response.data[0].quantity;
-                dispatch(changeQuantity(id, colour[0], size[0], newQuantity));
-                dispatch(
-                    setFormErrors(
-                        "cart",
-                        "Some order quantities have been reduced to match stock available"
-                    )
+    useEffect(
+        () => {
+            async function checkStock(id, colour, size) {
+                let newQuantity = size[1];
+                const response = await axios.get(
+                    `/stock/getByVariation/${id}/${colour[0]}/${size[0]}`
                 );
+                if (response.data[0].quantity < size[1]) {
+                    newQuantity = response.data[0].quantity;
+                    dispatch(
+                        changeQuantity(id, colour[0], size[0], newQuantity)
+                    );
+                    dispatch(
+                        setFormErrors(
+                            "cart",
+                            "Some order quantities have been reduced to match stock available"
+                        )
+                    );
+                }
+                return newQuantity;
             }
-            return newQuantity;
-        }
-        const getCartContents = async () => {
-            let cartContents = [];
-            for (let product of Object.entries(cart)) {
-                console.log("product", product);
-                const res = await getProductByID(product[0]);
-                console.log("response from getProdByID", res);
-                for (let colour of Object.entries(product[1])) {
-                    for (let size of Object.entries(colour[1])) {
-                        size[1] = await checkStock(res.id, colour, size);
+            const getCartContents = async () => {
+                let cartContents = [];
+                for (let product of Object.entries(cart)) {
+                    console.log("product", product);
+                    const res = await getProductByID(product[0]);
+                    console.log("response from getProdByID", res);
+                    for (let colour of Object.entries(product[1])) {
+                        for (let size of Object.entries(colour[1])) {
+                            size[1] = await checkStock(res.id, colour, size);
 
-                        const variation = `${res.title} - ${colour[0]} - ${size[0]}`;
-                        const itemQuantity = size[1];
-                        const itemPrice =
-                            res.price +
-                            +res.sizes.filter(
-                                //grab the additional price for the size
-                                (sizeOp) => sizeOp.label === size[0]
-                            )[0].price;
-                        const thumbnail = res.thumbnail;
-                        dispatch(
-                            setCartInput(
-                                {
-                                    variation,
-                                    itemQuantity,
-                                    itemPrice,
-                                    thumbnail,
-                                    productID: res.id,
-                                    colour: colour[0],
-                                    size: size[0],
-                                    artistID: res.artist_id,
-                                },
-                                itemQuantity
-                            )
-                        );
-                        cartContents.push({
-                            variation,
-                            itemQuantity,
-                            itemPrice,
-                            thumbnail,
-                            productID: res.id,
-                            colour: colour[0],
-                            size: size[0],
-                            artistID: res.artist_id,
-                        });
+                            const variation = `${res.title} - ${colour[0]} - ${
+                                size[0]
+                            }`;
+                            const itemQuantity = size[1];
+                            const itemPrice =
+                                +res.price +
+                                +res.sizes.filter(
+                                    //grab the additional price for the size
+                                    sizeOp => sizeOp.label === size[0]
+                                )[0].price;
+                            const thumbnail = res.thumbnail;
+                            dispatch(
+                                setCartInput(
+                                    {
+                                        variation,
+                                        itemQuantity,
+                                        itemPrice,
+                                        thumbnail,
+                                        productID: res.id,
+                                        colour: colour[0],
+                                        size: size[0],
+                                        artistID: res.artist_id,
+                                    },
+                                    itemQuantity
+                                )
+                            );
+                            cartContents.push({
+                                variation,
+                                itemQuantity,
+                                itemPrice,
+                                thumbnail,
+                                productID: res.id,
+                                colour: colour[0],
+                                size: size[0],
+                                artistID: res.artist_id,
+                            });
+                        }
                     }
                 }
-            }
 
-            return cartContents;
-        };
-        getCartContents().then((res) => setCartItems(res));
-    }, [cart]);
+                return cartContents;
+            };
+            getCartContents().then(res => setCartItems(res));
+        },
+        [cart]
+    );
     useEffect(() => {
         return () => {
             dispatch(setFormErrors("cart", ""));
@@ -131,14 +138,14 @@ const ShoppingCart = () => {
                 {cartItems && cartItems.length > 0 ? (
                     <>
                         <CartItem>
-                            <div style={{ gridColumn: "1/3" }}>Item</div>
+                            <div style={{ gridColumn: "1 / 3" }}>Item</div>
 
                             <div>Quantity</div>
                             <Price>Each</Price>
                             <Price>Total</Price>
                         </CartItem>
                         {cartItems &&
-                            cartItems.map((cartItem) => {
+                            cartItems.map(cartItem => {
                                 return (
                                     <CartItem>
                                         <img
@@ -256,16 +263,18 @@ const ShoppingCart = () => {
                     setPreference={setPreference}
                 />
             </Cart>
-            {cartItems && cartItems.length > 0 && (
-                <CheckoutButton
-                    items={cartItems}
-                    artistName="Versa"
-                    price={
-                        preference === "delivery"
-                            ? (calcCartTotal() * 1.05).toFixed(2) + 10
-                            : (calcCartTotal() * 1.05).toFixed(2)
-                    }></CheckoutButton>
-            )}
+            {cartItems &&
+                cartItems.length > 0 && (
+                    <CheckoutButton
+                        items={cartItems}
+                        artistName="Versa"
+                        price={
+                            preference === "delivery"
+                                ? (calcCartTotal() * 1.05).toFixed(2) + 10
+                                : (calcCartTotal() * 1.05).toFixed(2)
+                        }
+                    />
+                )}
         </Container>
     );
 };

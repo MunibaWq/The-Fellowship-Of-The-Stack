@@ -9,26 +9,29 @@ import { setFormErrors } from "../redux/actions/Errors";
 import { setFormInputs } from "../redux/actions/Forms";
 import { getUserByID } from "../axios/gets";
 
-const AccountForm = (props) => {
+const AccountForm = props => {
     const params = useParams();
     const id = params.id;
-    const formError = useSelector((state) => state.formErrors.account.form);
-    const input = useSelector((state) => state.formInputs.account);
+    const formError = useSelector(state => state.formErrors.account.form);
+    const input = useSelector(state => state.formInputs.account);
     const dispatch = useDispatch();
-    useEffect(() => {
-        const getUserData = async () => {
-            let data = await getUserByID(id);
-            dispatch(setFormInputs("account", "name", data.name));
-            dispatch(setFormInputs("account", "address", data.address));
-            dispatch(setFormInputs("account", "email", data.email));
-            dispatch(setFormInputs("account", "storeName", data.username));
-        };
-        if (props.type === "Edit") {
-            getUserData();
-        }
-    }, [dispatch, props.type, id]);
+    useEffect(
+        () => {
+            const getUserData = async () => {
+                let data = await getUserByID(id);
+                dispatch(setFormInputs("account", "name", data.name));
+                dispatch(setFormInputs("account", "address", data.address));
+                dispatch(setFormInputs("account", "email", data.email));
+                dispatch(setFormInputs("account", "storeName", data.username));
+            };
+            if (props.type === "Edit") {
+                getUserData();
+            }
+        },
+        [dispatch, props.type, id]
+    );
 
-    const submitData = (e) => {
+    const submitData = e => {
         e.preventDefault();
         const userInfo = {
             name: input.name,
@@ -68,16 +71,15 @@ const AccountForm = (props) => {
         <Form onSubmit={submitData}>
             <Instruction1>Hello, what is your name?</Instruction1>
             <RowContainer1>
-                {"Hello" + JSON.stringify(input)}
                 <TextField
                     multi={false}
                     tests={[
                         {
-                            test: (input) => input.length < 1,
+                            test: input => input.length < 1,
                             error: "Required",
                         },
                         {
-                            test: (input) => input.length < 2,
+                            test: input => input.length < 2,
                             error: "Minimum 2 characters.",
                         },
                     ]}
@@ -85,7 +87,7 @@ const AccountForm = (props) => {
                     // value={inputName}
                     form="account"
                     name="name"
-                ></TextField>
+                />
             </RowContainer1>
             <Instruction2>
                 What is your store called?
@@ -100,26 +102,26 @@ const AccountForm = (props) => {
                     multi={false}
                     tests={[
                         {
-                            test: (input) => input.length < 3,
+                            test: input => input.length < 3,
                             error: "Minimum 2 characters",
                         },
                     ]}
                     label="Store Name"
                     form="account"
                     name="storeName"
-                ></TextField>
+                />
                 <TextField
                     multi={true}
                     tests={[
                         {
-                            test: (input) => input.length < 10,
+                            test: input => input.length < 10,
                             error: "Minimum 10 characters",
                         },
                     ]}
                     label="Address"
                     form="account"
                     name="address"
-                ></TextField>
+                />
             </RowContainer2>
             <Instruction3>
                 Enter the email address for you account
@@ -132,11 +134,11 @@ const AccountForm = (props) => {
                     multi={false}
                     tests={[
                         {
-                            test: (input) => input.length < 6,
+                            test: input => input.length < 6,
                             error: "Minimum 6 characters",
                         },
                         {
-                            test: (input) =>
+                            test: input =>
                                 input.search(/^[\w\d]+@[\w\d]+\.\w\w+$/) === -1,
                             error: "Enter a valid email address",
                         },
@@ -144,17 +146,17 @@ const AccountForm = (props) => {
                     label="Email"
                     form="account"
                     name="email"
-                ></TextField>
+                />
                 <TextField
                     multi={false}
                     password={true}
                     tests={[
                         {
-                            test: (input) => input.length < 9,
+                            test: input => input.length < 9,
                             error: "Minimum 10 characters",
                         },
                         {
-                            test: (input) =>
+                            test: input =>
                                 input.search(/[A-Z]/) === -1 ||
                                 input.search(/\d/) === -1,
                             error: "Uppercase letter and number required",
@@ -163,7 +165,7 @@ const AccountForm = (props) => {
                     label="Password"
                     form="account"
                     name="password"
-                ></TextField>
+                />
             </RowContainer3>
             <Instruction5>
                 Get started adding products to your store
