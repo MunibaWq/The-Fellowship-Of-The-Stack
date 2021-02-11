@@ -46,7 +46,8 @@ export const addImage = async (image, label, imageSize, productID) => {
 };
 
 export const userGoing = async (eventID) => {
-    let res = await Axios.post(`api/events/join/${eventID}`, {
+    let res = await Axios.post(`/api/events/join`, {
+        eventID,
         status: "attending",
         reminder: true,
     });
@@ -68,6 +69,13 @@ export const addStock = async (id, quant) => {
         return false;
     }
 };
+
+export const createEvent = async (eventInfo) => {
+    return await Axios.post("/api/events/create", {
+        data: eventInfo,
+    });
+};
+
 /**
  * {
  *   Response: {

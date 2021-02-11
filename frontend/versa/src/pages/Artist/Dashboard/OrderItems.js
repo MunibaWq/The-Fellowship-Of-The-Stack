@@ -20,8 +20,6 @@ const OrderItems = () => {
         };
         fetchData();
     }, []);
-    console.log("i", orderData);
-    console.log("i", buyerDetails);
 
     return (
         <Container>
@@ -33,27 +31,31 @@ const OrderItems = () => {
 
                     <OrderItemContainer>
                         <BuyerDetails>
-                            <h2>Customer</h2>
-                            <p>{buyerDetails.name}</p>
-                            <h2>Phone Number</h2>
-                            <p>{buyerDetails.phone}</p>
-                            {buyerDetails.pickup === false ? (
-                                <>
-                                    <h2>Shipping Address</h2>
-                                    <p>{buyerDetails.shipping_address}</p>
-                                </>
-                            ) : (
-                                <>
-                                    <h2>Note</h2>
-                                    <p>Customer will pick this order up</p>
-                                </>
-                            )}
-                            {buyerDetails.delivery_notes && (
-                                <>
-                                    <h2>Note</h2>
-                                    <p>{buyerDetails.delivery_notes}</p>
-                                </>
-                            )}
+                            <NumItems>
+                                <p>Profile Image</p>
+                            </NumItems>
+                            <Buyer>
+                                <h2>{buyerDetails.name}</h2>
+                                <h4>Phone Number</h4>
+                                <p>{buyerDetails.phone}</p>
+                                {buyerDetails.pickup === false ? (
+                                    <>
+                                        <h4>Shipping Address</h4>
+                                        <p>{buyerDetails.shipping_address}</p>
+                                    </>
+                                ) : (
+                                    <>
+                                        <h4>Note</h4>
+                                        <p>Customer will pick this order up</p>
+                                    </>
+                                )}
+                                {buyerDetails.delivery_notes && (
+                                    <>
+                                        <h2>Note</h2>
+                                        <p>{buyerDetails.delivery_notes}</p>
+                                    </>
+                                )}
+                            </Buyer>
                         </BuyerDetails>
                         {orderData.map((order) => {
                             return (
@@ -85,14 +87,48 @@ const Container = styled.div`
 `;
 
 const BuyerDetails = styled.article`
-    position: sticky;
-    top: 0;
-    background: #fff;
-    padding: 1em;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background: #6495ed60;
+
+    padding: 2em;
     box-shadow: 3px 3px 10px rgba(27, 49, 66, 0.13);
     border-radius: 15px;
     :hover {
         box-shadow: 7px 7px 30px rgba(27, 49, 66, 0.13);
+    }
+`;
+
+const NumItems = styled.div`
+    display: grid;
+    place-items: center;
+    background-color: ${theme.secondary};
+    min-width: 100px;
+    min-height: 100px;
+    -moz-border-radius: 50px;
+    -webkit-border-radius: 50px;
+    border-radius: 50%;
+    p {
+        margin: 0;
+    }
+    margin: 0 1em 0 0;
+`;
+
+const Buyer = styled.div`
+    h2 {
+        margin-bottom: 0.8em;
+        font-weight: 700;
+        letter-spacing: 0.03em;
+    }
+    h4 {
+        font-weight: 700;
+        margin-bottom: 0.3em;
+    }
+    p {
+        :last-of-type {
+            margin-bottom: 0;
+        }
     }
 `;
 

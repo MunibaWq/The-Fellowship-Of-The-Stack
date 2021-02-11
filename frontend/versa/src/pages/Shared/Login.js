@@ -10,7 +10,7 @@ import Button from "../../components/Reusable/Button";
 import { setFormErrors } from "../../redux/actions/Errors";
 import Cookies from "universal-cookie";
 import { login } from "../../redux/actions/actions";
-const cookies = new Cookies()
+const cookies = new Cookies();
 const Login = (props) => {
     const loggedInUser = useSelector((state) => state.user);
     const input = useSelector((state) => state.formInputs.login);
@@ -22,7 +22,6 @@ const Login = (props) => {
         let error = document.getElementById("error");
         if (!error) {
             try {
-                
                 const user = await axiosLogin(input.email, input.password);
                 if (user) {
                     dispatch(login());
@@ -49,9 +48,7 @@ const Login = (props) => {
     // const password = useSelector((state) => state.loginPassword);
     return (
         <Container>
-            {cookies.get('token') && (
-                <Redirect to={"/dashboard"} />
-            )}
+            {cookies.get("token") && <Redirect to={"/dashboard"} />}
             <h2>Log In</h2>
             <TextField
                 multi={false}
@@ -63,14 +60,13 @@ const Login = (props) => {
                     },
                     {
                         test: (input) =>
-                            input.search(/^[\w\d]+@[\w\d]+\.\w\w+$/) === -1,
+                            input.search(/^[\w\d\.]+@[\w\d\.]+\.\w\w+$/) === -1,
                         error: "Enter a valid email address.",
                     },
                 ]}
                 label="Email"
                 form="login"
-                name="email"
-            ></TextField>
+                name="email"></TextField>
             <TextField
                 multi={false}
                 password={true}
@@ -89,8 +85,7 @@ const Login = (props) => {
                 ]}
                 label="Password"
                 form="login"
-                name="password"
-            ></TextField>
+                name="password"></TextField>
             <Button primary onClick={sendLogin}>
                 Log In
             </Button>

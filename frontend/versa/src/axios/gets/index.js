@@ -89,3 +89,8 @@ export const getOneOrder = async (orderid) => {
     const response = await Axios.get(`/api/orders/recent-orders/${orderid}`);
     return response.data;
 };
+
+export const amIGoing = async (eventID) => {
+    const response = await Axios.get(`api/events/amIGoing/${eventID}`);
+    return response.data;
+};

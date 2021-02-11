@@ -17,10 +17,7 @@ const Events = () => {
     const [searchQuery, setSearchQuery] = useState();
     const [date1, setDate1] = useState();
     const [date2, setDate2] = useState();
-    const [dateResults, setDateResults] = useState();
 
-    console.log("date 1 " + date1);
-    console.log("date 2 " + date2);
     useEffect(() => {
         const getEvents = async () => {
             let data = await getAllEvents();

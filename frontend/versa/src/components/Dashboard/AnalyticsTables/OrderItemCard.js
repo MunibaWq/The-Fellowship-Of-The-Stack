@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
-import theme from "../../Reusable/Colors";
 
 const OrderItemCard = ({ order }) => {
     const { title, color, quantity, size } = order;
