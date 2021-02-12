@@ -3,6 +3,9 @@ const router = new express.Router();
 const pool = require("../db");
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const { orderConfirmation } = require("../helperFunctions/sendGridFunctions");
+const auth = require("../middleware/auth");
+const optionalAuth = require("../middleware/optionalAuth");
+
 router.post("/stripe/payment", (req, res) => {
     const body = {
         source: req.body.token.id,
@@ -18,7 +21,8 @@ router.post("/stripe/payment", (req, res) => {
     });
 });
 
-router.post("/paid", async (req, res) => {
+router.post("/paid", optionalAuth, async (req, res) => {
+    const buyerID = req.user.id || 9999
     console.log("success", req.body.success);
     console.log("payment", req.body.payment);
     const { email } = req.body.success;
@@ -41,7 +45,7 @@ router.post("/paid", async (req, res) => {
         [
             new Date().toLocaleString().replace(/\./g, ""),
             "paid",
-            1,
+            buyerID,
             payment.amount / 100,
             email,
             name,
@@ -90,7 +94,7 @@ router.post("/paid", async (req, res) => {
         );
     }
     const getBuyerName = await pool.query(
-        `SELECT username, email FROM users where id=1`
+        `SELECT username, email FROM users where id=${buyerID}`
     );
     const user = getBuyerName.rows[0];
     const orderID = orderResponse.rows[0].id;
@@ -126,6 +130,30 @@ router.put("/edit/:id", async (req, res) => {
             [updatedOrder.status, updatedOrder.ship_date, req.params.id]
         );
         res.status(200).send();
+    } catch (err) {
+        console.error(err.message);
+        res.send({
+            message: "error",
+        });
+    }
+});
+
+router.get("/recent-orders/:orderid", auth, async (req, res) => {
+    try {
+        const orderResult = await pool.query(`SELECT order_total, o.id, o.shipping_address, o.name, o.date, o.phone, o.pickup
+        FROM orders o
+ 
+        WHERE  o.id = ${req.params.orderid} `)
+        const result = await pool.query(
+            `SELECT s.artist_id, s.product_id, s.quantity, s.color, s.size, p.title
+            FROM sales_by_product s
+            INNER JOIN products p
+            ON s.product_id = p.id
+            WHERE s.artist_id = ${req.user.id}`
+        );
+
+        const orderInfo = { order: orderResult.rows, orderItems: result.rows };
+        res.json(orderInfo);
     } catch (err) {
         console.error(err.message);
         res.send({

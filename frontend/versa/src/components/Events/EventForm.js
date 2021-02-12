@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { FieldContainer, Input, Label, TextField } from "../Reusable/Input";
@@ -7,6 +7,7 @@ import axios from "axios";
 import { Redirect, useParams } from "react-router";
 import { setFormErrors } from "../../redux/actions/Errors";
 import { setFormInputs } from "../../redux/actions/Forms";
+import { setImages } from "../../redux/actions/Images";
 import { getEventByID } from "../../axios/gets";
 import {
     ImageList,
@@ -15,6 +16,8 @@ import {
 } from "../ProductForm/styledComponents";
 import { ImageInput } from "../ProductForm/ImageInput";
 import { mapImages } from "../ProductForm/maps/mapImages";
+import { userGoing, createEvent } from "../../axios/posts";
+
 const options = [
     "Select one:",
     "Artist showcase",
@@ -22,27 +25,34 @@ const options = [
     "Exhibition",
     "Other",
 ];
+
 const statusOptions = ["Select one:", "Active", "Inactive", "Pending"];
+
 const EventForm = (props) => {
     const params = useParams();
+    //this is event id
     const id = params.id;
+    console.log(id);
     const formError = useSelector((state) => state.formErrors.event.form);
     const input = useSelector((state) => state.formInputs.event);
     const images = useSelector((state) => state.images.eventForm);
     const redirect = useSelector((state) => state.redirect.eventForm);
     const dispatch = useDispatch();
+
     useEffect(() => {
         const getUserData = async () => {
             let data = await getEventByID(id);
+            console.log(data)
             dispatch(setFormInputs("event", "name", data.name));
             dispatch(setFormInputs("event", "description", data.description));
             dispatch(setFormInputs("event", "capacity", data.capacity));
-            dispatch(setFormInputs("event", "startTime", data.startTime));
-            dispatch(setFormInputs("event", "endTime", data.endTime));
+            dispatch(setFormInputs("event", "startTime", data.start_time.substr(0,data.start_time.length-5)));
+            dispatch(setFormInputs("event", "endTime", data.end_time.substr(0,data.end_time.length-5)));
             dispatch(setFormInputs("event", "type", data.type));
             dispatch(setFormInputs("event", "location", data.location));
             dispatch(setFormInputs("event", "status", data.status));
             dispatch(setFormInputs("event", "type", data.type));
+            dispatch(setImages("eventForm", data.images));
         };
         if (props.type === "Edit") {
             getUserData();
@@ -51,7 +61,7 @@ const EventForm = (props) => {
 
     const submitData = (e) => {
         e.preventDefault();
-        const userInfo = {
+        const eventInfo = {
             name: input.name,
             description: input.description,
             capacity: input.capacity,
@@ -61,21 +71,26 @@ const EventForm = (props) => {
             location: input.location,
             status: input.status,
         };
+        console.log(eventInfo.status);
+        console.log(id);
+
         const sendData = async () => {
             if (props.type === "Add") {
-                axios.post("/events/create", {
-                    data: userInfo,
-                });
+                const response = await createEvent(eventInfo);
+                const eventID = response.data;
+                console.log(response);
+
+                console.log(eventID);
+                await userGoing(eventID);
             } else {
                 axios.put(
-                    "/events/edit/" + id,
+                    "/api/events/edit/" + id,
                     {
-                        data: userInfo,
+                        data: eventInfo,
                     },
                     { withCredentials: true }
                 );
             }
-            // window.location.href = "/";
         };
         let error = document.getElementById("error");
         if (!error) {
@@ -84,7 +99,7 @@ const EventForm = (props) => {
             dispatch(setFormErrors("event", "Please check all input is valid"));
         }
     };
-
+    console.log('starttime',input)
     return redirect ? (
         <Redirect to={redirect} />
     ) : (
@@ -113,6 +128,7 @@ const EventForm = (props) => {
                 <FieldContainer>
                     <Label>Category</Label>
                     <select
+                        value={input.type}
                         onChange={(e) => {
                             dispatch(
                                 setFormInputs("event", "type", e.target.value)
@@ -195,6 +211,7 @@ const EventForm = (props) => {
                 <FieldContainer>
                     <Label>Start Time</Label>
                     <Input
+                        value={input.startTime}
                         onChange={(e) => {
                             dispatch(
                                 setFormInputs(
@@ -211,7 +228,8 @@ const EventForm = (props) => {
                 <FieldContainer>
                     <Label> End Time</Label>
                     <Input
-                        onChange={(e) => {
+                        value={input.endTime}
+                            onChange={(e) => {
                             dispatch(
                                 setFormInputs(
                                     "event",
@@ -248,9 +266,10 @@ const EventForm = (props) => {
                     <Label>Status</Label>
 
                     <select
+                        value={input.status}
                         onChange={(e) => {
                             dispatch(
-                                setFormInputs("event", "type", e.target.value)
+                                setFormInputs("event", "status", e.target.value)
                             );
                         }}>
                         {statusOptions.map((one) => {

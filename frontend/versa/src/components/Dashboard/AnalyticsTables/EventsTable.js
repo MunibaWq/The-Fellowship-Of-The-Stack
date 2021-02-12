@@ -52,10 +52,18 @@ const EventsTable = ({ eventsData }) => {
                                     <p>{event.name}</p>
                                 </td>
                                 <td>
-                                    <p>{Date(event.start_time)}</p>
+                                    <p>
+                                        {new Date(
+                                            event.start_time
+                                        ).toLocaleString()}
+                                    </p>
                                 </td>
                                 <td>
-                                    <p>{Date(event.end_time)}</p>
+                                    <p>
+                                        {new Date(
+                                            event.end_time
+                                        ).toLocaleString()}
+                                    </p>
                                 </td>
                                 <td>{event.num_attendees}</td>
                                 <td style={{ width: "17%" }}>

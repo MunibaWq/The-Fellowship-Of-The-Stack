@@ -1,13 +1,13 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import Button from "../Reusable/Button";
-import Pill from '../Reusable/Pill'
+import Pill from "../Reusable/Pill";
 import { Link, useParams } from "react-router-dom";
 import theme from "../Reusable/Colors";
 import { LeftIcon, Star, LineCloseIcon, EditIcon } from "../../images/icons";
 import ImageTest from "../../images/imageTest.png";
 import { useDispatch, useSelector } from "react-redux";
-import { setChoices } from "../../redux/actions/ProductPage";
+import { clearChoices, setChoices } from "../../redux/actions/ProductPage";
 import { setRedirect } from "../../redux/actions/Redirects";
 import { addToCart } from "../../redux/actions/Cart";
 
@@ -22,27 +22,39 @@ const ProductPage = ({
     num_stars,
     image,
     stock,
-    id
+    id,
 }) => {
-    const choices = useSelector((state) => state.productChoices);
+    const choices = useSelector(state => state.productChoices);
     const dispatch = useDispatch();
-    const cart = useSelector(state=>state.cart)
+    const cart = useSelector(state => state.cart);
     let params = useParams();
-    console.log(stock)
-    useEffect(() => {
-        dispatch(setRedirect("productForm", ""));
-    }, [dispatch]);
+    useEffect(
+        () => {
+            dispatch(setRedirect("productForm", ""));
+            return () => {
+                dispatch(clearChoices());
+            };
+        },
+
+        [dispatch]
+    );
     const showProductTotal = () => {
-        return Object.keys(cart[id]).reduce((colourTotal, currColour, cIndex) => {
-            colourTotal = colourTotal + Object.keys(cart[id][currColour]).reduce((sizeTotal, currSize, sIndex) => {
-                sizeTotal += cart[id][currColour][currSize]
-                console.log(cart[id][currColour][currSize])
-                return sizeTotal
-            },0)
-            return colourTotal
-        }, 0)
-        
-    }
+        return Object.keys(cart[id]).reduce(
+            (colourTotal, currColour, cIndex) => {
+                colourTotal =
+                    colourTotal +
+                    Object.keys(cart[id][currColour]).reduce(
+                        (sizeTotal, currSize, sIndex) => {
+                            sizeTotal += cart[id][currColour][currSize];
+                            return sizeTotal;
+                        },
+                        0
+                    );
+                return colourTotal;
+            },
+            0
+        );
+    };
     return (
         <Container>
             <Link to="/">
@@ -58,13 +70,13 @@ const ProductPage = ({
                             image
                                 ? "/images/" + image + ".jpeg"
                                 : images && images.length > 0
-                                ? `https://versabucket.s3.us-east-2.amazonaws.com/images/${
-                                      images[choices.image].filename
-                                  }.jpeg`
-                                : ImageTest
+                                    ? `https://versabucket.s3.us-east-2.amazonaws.com/images/${
+                                          images[choices.image].filename
+                                      }.jpeg`
+                                    : ImageTest
                         }
                         alt={"image"}
-                    ></MainImage>
+                    />
                     <OtherImages>
                         {images &&
                             images.length > 0 &&
@@ -72,7 +84,9 @@ const ProductPage = ({
                                 return (
                                     <Image
                                         key={index}
-                                        src={`https://versabucket.s3.us-east-2.amazonaws.com/images/${image.filename}.jpeg`}
+                                        src={`https://versabucket.s3.us-east-2.amazonaws.com/images/${
+                                            image.filename
+                                        }.jpeg`}
                                         alt="image"
                                         onClick={() => {
                                             dispatch(
@@ -80,7 +94,7 @@ const ProductPage = ({
                                             );
                                             // setChosenImage(index);
                                         }}
-                                    ></Image>
+                                    />
                                 );
                             })}
                     </OtherImages>
@@ -102,82 +116,100 @@ const ProductPage = ({
                             ))}
                     </Stars>
 
-                    <h2>${price ? price + +sizes[choices.size].price : 0}</h2>
-                    {colours && colours.length > 0 && (
-                        <Colours>
-                            <SelectedColour>
-                                <h3>Colour:</h3>
-                                <h4>
-                                    {colours[choices.colour].label === "O"
-                                        ? "One Colour"
-                                        : colours[choices.colour].label}
-                                    
-                                </h4>{stock.map((variation) => {
-                                        console.log(sizes[choices.size].price)
-                                        if (variation.color === colours[choices.colour].label && 
-                                            variation.size === sizes[choices.size].label) {
+                    <h2>${price ? +price + +sizes[choices.size].price : 0}</h2>
+                    {colours &&
+                        colours.length > 0 && (
+                            <Colours>
+                                <SelectedColour>
+                                    <h3>Colour:</h3>
+                                    <h4>
+                                        {colours[choices.colour].label === "O"
+                                            ? "One Colour"
+                                            : colours[choices.colour].label}
+                                    </h4>
+                                    {stock.map(variation => {
+                                        if (
+                                            variation.color ===
+                                                colours[choices.colour].label &&
+                                            variation.size ===
+                                                sizes[choices.size].label
+                                        ) {
                                             if (variation.quantity < 3) {
-                                                return <Pill><p>{variation.quantity + " left"}</p></Pill>
-                                                }
-                                        }
-                                        return ""
-                                    })}
-                            </SelectedColour>
-                            <ColourOptions>
-                                {colours.map((colour, index) => {
-                                    return (
-                                        <ColourPreview
-                                            key={index}
-                                            colour={colour.value}
-                                            chosen={choices.colour === index}
-                                            onClick={() => {
-                                                dispatch(
-                                                    setChoices("colour", index)
+                                                return (
+                                                    <Pill>
+                                                        <p>
+                                                            {variation.quantity +
+                                                                " left"}
+                                                        </p>
+                                                    </Pill>
                                                 );
-                                                // setChosenColor(index);
-                                            }}
-                                        />
-                                    );
-                                })}
-                            </ColourOptions>
-                        </Colours>
-                    )}
-                    {sizes && sizes.length > 0 && (
-                        <Sizes>
-                            <SelectedSize>
-                                <h3>Size:</h3>
-                                <h4>
-                                    {sizes[choices.size].label === "O"
-                                        ? "One Size"
-                                        : sizes[choices.size].label}
-                                </h4>
-                            </SelectedSize>
-                            <SizeOptions>
-                                {sizes.map((size, index) => {
-                                    return (
-                                        size && (
-                                            <SizeOption
+                                            }
+                                        }
+                                        return "";
+                                    })}
+                                </SelectedColour>
+                                <ColourOptions>
+                                    {colours.map((colour, index) => {
+                                        return (
+                                            <ColourPreview
                                                 key={index}
-                                                chosen={choices.size === index}
+                                                colour={colour.value}
+                                                chosen={
+                                                    choices.colour === index
+                                                }
                                                 onClick={() => {
-                                                    // setPriceDiff(+size.price);
                                                     dispatch(
                                                         setChoices(
-                                                            "size",
+                                                            "colour",
                                                             index
                                                         )
                                                     );
-                                                    // setChosenSize(index);
+                                                    // setChosenColor(index);
                                                 }}
-                                            >
-                                                <p>{size.label}</p>
-                                            </SizeOption>
-                                        )
-                                    );
-                                })}
-                            </SizeOptions>
-                        </Sizes>
-                    )}
+                                            />
+                                        );
+                                    })}
+                                </ColourOptions>
+                            </Colours>
+                        )}
+                    {sizes &&
+                        sizes.length > 0 && (
+                            <Sizes>
+                                <SelectedSize>
+                                    <h3>Size:</h3>
+                                    <h4>
+                                        {sizes[choices.size].label === "O"
+                                            ? "One Size"
+                                            : sizes[choices.size].label}
+                                    </h4>
+                                </SelectedSize>
+                                <SizeOptions>
+                                    {sizes.map((size, index) => {
+                                        return (
+                                            size && (
+                                                <SizeOption
+                                                    key={index}
+                                                    chosen={
+                                                        choices.size === index
+                                                    }
+                                                    onClick={() => {
+                                                        // setPriceDiff(+size.price);
+                                                        dispatch(
+                                                            setChoices(
+                                                                "size",
+                                                                index
+                                                            )
+                                                        );
+                                                        // setChosenSize(index);
+                                                    }}>
+                                                    <p>{size.label}</p>
+                                                </SizeOption>
+                                            )
+                                        );
+                                    })}
+                                </SizeOptions>
+                            </Sizes>
+                        )}
                     {sizes &&
                         sizes.length > 0 &&
                         colours &&
@@ -189,8 +221,7 @@ const ProductPage = ({
                                     // setChosenColor(0);
                                     // setChosenSize(0);
                                     // setPriceDiff(0);
-                                }}
-                            >
+                                }}>
                                 <LineCloseIcon
                                     stroke={theme.primary}
                                     width="26"
@@ -212,14 +243,22 @@ const ProductPage = ({
                         <p>{materials ? materials : "Loading materials..."}</p>
                     </Materials>
 
-                    <Button primary onClick={() => {
-                        dispatch(addToCart(id, colours[choices.colour].label, sizes[choices.size].label, 1))
-                        
-                    }}>Add to Cart</Button>
-                    
-                    {cart && cart[id] && "In your cart: "+showProductTotal()}
-                        
-                    
+                    <Button
+                        primary
+                        onClick={() => {
+                            dispatch(
+                                addToCart(
+                                    id,
+                                    colours[choices.colour].label,
+                                    sizes[choices.size].label,
+                                    1
+                                )
+                            );
+                        }}>
+                        Add to Cart
+                    </Button>
+
+                    {cart && cart[id] && "In your cart: " + showProductTotal()}
                 </ProductDetail>
             </MainInfo>
         </Container>
@@ -382,12 +421,12 @@ const Colours = styled.div`
 const SelectedColour = styled.div`
     display: flex;
     flex-direction: row;
-    h4{
+    h4 {
         margin-right: 8px;
     }
-    align-items:flex-start;
-    div{
-        background-color:red;
+    align-items: flex-start;
+    div {
+        background-color: red;
         margin-top: -3px;
     }
 `;
@@ -405,12 +444,12 @@ const ColourPreview = styled.button.attrs({
     height: 2em;
     margin: 0 10px 0 0;
     padding: 20px;
-    border: ${(props) =>
+    border: ${props =>
         props.chosen
             ? `3px solid ${theme.primaryHover}`
             : `3px solid rgba(68, 68, 68, 0.2)`};
     border-radius: 50px;
-    background-color: ${(props) => props.colour};
+    background-color: ${props => props.colour};
     cursor: pointer;
     :hover,
     :focus {
@@ -451,7 +490,7 @@ const SizeOption = styled.button.attrs({
     type: "button",
 })`
     border: 3px solid
-        ${(props) => (props.chosen ? theme.primaryHover : theme.secondary)};
+        ${props => (props.chosen ? theme.primaryHover : theme.secondary)};
     background-color: ${theme.tertiary};
     height: 2em;
     width: 2em;

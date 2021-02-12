@@ -1,8 +1,7 @@
 import { setFormErrors } from "../../redux/actions/Errors";
 import { sendProductData } from "./functions/sendProductData";
 
-export function submitData(stock, input, images, dispatch, props, id, quant) {
-    console.log("submitData happened");
+export function submitData(input, images, dispatch, props, id, quant) {
     const productInfo = {
         title: input.title,
         price: input.price,
@@ -13,19 +12,16 @@ export function submitData(stock, input, images, dispatch, props, id, quant) {
         materials: input.materials,
     };
 
-    if (input.title && input.desc && input.price) {
+    if (input.title && input.desc && input.price && input.colours && input.sizes) {
         let error = document.getElementById("error");
         if (!error) {
-            console.log(quant);
             sendProductData(
-                stock,
                 images,
                 dispatch,
                 props,
                 productInfo,
                 id,
                 quant,
-                input
             );
         } else {
             dispatch(

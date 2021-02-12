@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Button from "../../../components/Reusable/Button";
 import { AddIcon } from "../../../images/icons";
 
-import { getAllArtistEvents } from "../../../axios/gets";
+import { getMyArtistEvents } from "../../../axios/gets";
 import Loading from "../../../components/Reusable/Loading";
 import styled from "styled-components";
 
@@ -13,12 +13,13 @@ const DashboardEvents = () => {
     const [eventsData, setEventsData] = useState([]);
 
     useEffect(() => {
-        const getArtistEvents = async () => {
-            let data = await getAllArtistEvents(22);
+        const getMyEvents = async () => {
+            let data = await getMyArtistEvents();
             setEventsData(data);
         };
-        getArtistEvents();
+        getMyEvents();
     }, []);
+
     console.log(eventsData);
     return (
         <div>

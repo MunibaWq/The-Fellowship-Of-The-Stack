@@ -1,5 +1,10 @@
 import styled from "styled-components";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import {
+    BrowserRouter as Router,
+    Route,
+    Switch,
+    useParams,
+} from "react-router-dom";
 import DashboardMain from "./DashboardMain";
 import SideNav from "./SideNav";
 import Orders from "./Orders";
@@ -20,9 +25,11 @@ import EditEvent from "../EditEvent";
 import CreateEvent from "../CreateEvent";
 import OrderItems from "./OrderItems";
 
-
 const Dashboard = () => {
     const [navWidth, setNavWidth] = useState(0);
+    // const params = useParams();
+    // let id = params.id;
+    // let orderid = params.orderid;
     return (
         <Router>
             <Container width={navWidth}>
@@ -43,7 +50,7 @@ const Dashboard = () => {
                         component={Categories}
                     />
                     <Route
-                        path="/dashboard/recent-orders/1"
+                        path="/dashboard/recent-orders/"
                         exact
                         component={Orders}
                     />
@@ -68,22 +75,22 @@ const Dashboard = () => {
                         component={DashboardEvents}
                     />
                     <Route
-                        path="/dashboard/total-sales/1"
+                        path="/dashboard/total-sales/"
                         exact
                         component={TotalSales}
                     />
                     <Route
-                        path="/dashboard/total-orders/1"
+                        path="/dashboard/total-orders/"
                         exact
                         component={TotalOrders}
                     />
                     <Route
-                        path="/dashboard/average-order-value/1"
+                        path="/dashboard/average-order-value/"
                         exact
                         component={AvgOrderValue}
                     />
                     <Route
-                        path="/dashboard/sales-by-products/1"
+                        path="/dashboard/sales-by-products/"
                         exact
                         component={SalesByProduct}
                     />
@@ -105,7 +112,7 @@ const Dashboard = () => {
                         component={EditEvent}
                     />
                     <Route
-                        path="/dashboard/recent-orders/:id/:orderid"
+                        path="/dashboard/recent-orders/:orderid"
                         component={OrderItems}
                     />
                 </Switch>

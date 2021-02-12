@@ -5,18 +5,17 @@ import { setRedirect } from "../../../redux/actions/Redirects";
 import { thumbImg } from "../maps/mapImages";
 
 export async function sendProductData(
-    stock,
     images,
     dispatch,
     props,
     productInfo,
     id,
     quant,
-    input
 ) {
-    console.log("sendProductData happened");
     if (images.length === 0) {
         dispatch(setFormErrors("product", "Please add at least 1 image"));
+    } else if (!quant) {
+        dispatch(setFormErrors('product','Please choose some initial stock values for your products'))
     } else {
         if (props.type === "Add") {
             const test = async () => {

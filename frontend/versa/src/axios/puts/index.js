@@ -2,7 +2,7 @@ import Axios from "axios";
 import { addImage } from "../posts";
 
 export const editProduct = async (productInfo, images, id, thumbImg) => {
-    await Axios.put("/products/edit/" + id, {
+    await Axios.put("/api/products/edit/" + id, {
         data: productInfo,
     });
     let productID = +id;
@@ -37,7 +37,7 @@ export const editProduct = async (productInfo, images, id, thumbImg) => {
 };
 export const updateImage = async (label, imageSize, productID, filename) => {
     try {
-        const response = await Axios.put("/images/update", {
+        const response = await Axios.put("/api/images/update", {
             imageSize,
             productID,
             label,
@@ -56,7 +56,7 @@ export const updateImage = async (label, imageSize, productID, filename) => {
 // created a put request for editStock part of product form and passed stock prop from productForm to submitData to sendProductData to here
 export const editStock = async (id, quant) => {
     try {
-        const response = await Axios.put("/stock/put", {
+        const response = await Axios.put("/api/stock/update", {
             quant,
             id,
         });
@@ -74,7 +74,7 @@ export const editStock = async (id, quant) => {
 
 export const updateOrderStatus = async (orderStatus, id) => {
     try {
-        const response = await Axios.put("/orders/edit/" + id, {
+        const response = await Axios.put("/api/orders/edit/" + id, {
             orderStatus: orderStatus,
         });
 
@@ -89,7 +89,7 @@ export const updateOrderStatus = async (orderStatus, id) => {
 
 export const updateOrderShipDate = async (orderStatus, shipDate, id) => {
     try {
-        const response = await Axios.put("/orders/edit/" + id, {
+        const response = await Axios.put("/api/orders/edit/" + id, {
             orderStatus: orderStatus,
             shipDate: shipDate,
         });
@@ -107,7 +107,7 @@ export const updateOrderShipDate = async (orderStatus, shipDate, id) => {
 
 export const updateEventStatus = async (status, id) => {
     try {
-        const response = await Axios.put("/events/edit/" + id, {
+        const response = await Axios.put("/api/events/edit/" + id, {
             data: { status },
         });
 
@@ -122,7 +122,7 @@ export const updateEventStatus = async (status, id) => {
 
 export const editEvent = async (event) => {
     try {
-        const response = await Axios.put("/events/edit/" + event.id, {
+        const response = await Axios.put("/api/events/edit/" + event.id, {
             data: event,
         });
 

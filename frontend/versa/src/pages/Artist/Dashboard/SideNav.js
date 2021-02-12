@@ -38,8 +38,8 @@ const SideNav = ({ setNavWidth }) => {
                 <NavBar>
                     <Header>
                         <UserInfo>
-                            <Name>Fudge Doe</Name>
-                            <UserType>Artist</UserType>
+                            <Name>Artist Name</Name>
+                            <UserType>User Type</UserType>
                         </UserInfo>
                         <Close
                             onClick={() => {
@@ -95,7 +95,7 @@ const SideNav = ({ setNavWidth }) => {
                                 </MenuLink>
                             </li>
                         </Link>
-                        <Link to="/dashboard/recent-orders/1">
+                        <Link to="/dashboard/recent-orders/">
                             <li>
                                 <MenuLink>
                                     <Orders />
@@ -148,7 +148,7 @@ const SideNav = ({ setNavWidth }) => {
 
                         {visibleASub && (
                             <SubMenu>
-                                <Link to="/dashboard/total-sales/1">
+                                <Link to="/dashboard/total-sales/">
                                     <li>
                                         <SubMenuLink>
                                             <h4>Total Sales</h4>
@@ -156,7 +156,7 @@ const SideNav = ({ setNavWidth }) => {
                                         </SubMenuLink>
                                     </li>
                                 </Link>
-                                <Link to="/dashboard/total-orders/1">
+                                <Link to="/dashboard/total-orders/">
                                     <li>
                                         <SubMenuLink>
                                             <h4>Total Orders</h4>
@@ -164,7 +164,7 @@ const SideNav = ({ setNavWidth }) => {
                                         </SubMenuLink>
                                     </li>
                                 </Link>
-                                <Link to="/dashboard/average-order-value/1">
+                                <Link to="/dashboard/average-order-value/">
                                     <li>
                                         <SubMenuLink>
                                             <h4>Average Order Value</h4>
@@ -172,7 +172,7 @@ const SideNav = ({ setNavWidth }) => {
                                         </SubMenuLink>
                                     </li>
                                 </Link>
-                                <Link to="/dashboard/sales-by-products/1">
+                                <Link to="/dashboard/sales-by-products/">
                                     <li>
                                         <SubMenuLink>
                                             <h4>Sales by Product</h4>

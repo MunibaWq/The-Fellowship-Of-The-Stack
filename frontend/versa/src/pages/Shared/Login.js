@@ -8,7 +8,9 @@ import { axiosLogin } from "../../axios/posts";
 // import { setEmail, setPassword } from "../../redux/actions/LoginPage";
 import Button from "../../components/Reusable/Button";
 import { setFormErrors } from "../../redux/actions/Errors";
-
+import Cookies from "universal-cookie";
+import { login } from "../../redux/actions/actions";
+const cookies = new Cookies();
 const Login = (props) => {
     const loggedInUser = useSelector((state) => state.user);
     const input = useSelector((state) => state.formInputs.login);
@@ -21,7 +23,9 @@ const Login = (props) => {
         if (!error) {
             try {
                 const user = await axiosLogin(input.email, input.password);
-                dispatch(loginAction(user));
+                if (user) {
+                    dispatch(login());
+                }
             } catch (e) {
                 dispatch(
                     setFormErrors(
@@ -44,9 +48,7 @@ const Login = (props) => {
     // const password = useSelector((state) => state.loginPassword);
     return (
         <Container>
-            {loggedInUser && loggedInUser.username && (
-                <Redirect to={"/dashboard"} />
-            )}
+            {cookies.get("token") && <Redirect to={"/dashboard"} />}
             <h2>Log In</h2>
             <TextField
                 multi={false}
@@ -58,14 +60,13 @@ const Login = (props) => {
                     },
                     {
                         test: (input) =>
-                            input.search(/^[\w\d]+@[\w\d]+\.\w\w+$/) === -1,
+                            input.search(/^[\w\d\.]+@[\w\d\.]+\.\w\w+$/) === -1,
                         error: "Enter a valid email address.",
                     },
                 ]}
                 label="Email"
                 form="login"
-                name="email"
-            ></TextField>
+                name="email"></TextField>
             <TextField
                 multi={false}
                 password={true}
@@ -84,8 +85,7 @@ const Login = (props) => {
                 ]}
                 label="Password"
                 form="login"
-                name="password"
-            ></TextField>
+                name="password"></TextField>
             <Button primary onClick={sendLogin}>
                 Log In
             </Button>

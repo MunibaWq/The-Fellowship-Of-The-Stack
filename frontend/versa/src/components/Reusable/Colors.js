@@ -10,6 +10,7 @@ const theme = {
     logoCircle: "#C5C3FF",
     logoRect: "#FF5C00",
     green: "#00C55A",
-    red: "FF3535"
+    red: "FF3535",
+    background: "#eff3fe",
 };
 export default theme;

@@ -7,19 +7,32 @@ import { deleteUserFromEventByID } from "../../axios/deletes";
 import imageTest from "../../images/imageTest.png";
 import Button from "../Reusable/Button";
 import theme from "../Reusable/Colors";
+import { amIGoing } from "../../axios/gets";
 
 const EventCard = ({ theEvent }) => {
     //const [interested, setInterested] = useState(false);
-    const [going, setGoing] = useState(false);
+    const [going, setGoing] = useState("unset");
     let currentEvent = theEvent.id;
 
     useEffect(() => {
-        if (!going) {
-            deleteUserFromEventByID(currentEvent, 1);
-        } else {
-            userGoing(currentEvent, 1);
-        }
-    }, [going, currentEvent]);
+        const attendStatus = async () => {
+            const response = await amIGoing(currentEvent);
+            if (response) {
+                setGoing(true);
+            } else setGoing(false);
+        };
+        attendStatus();
+    }, []);
+
+    // useEffect(() => {
+    //     if (going !== "unset") {
+    //         if (!going) {
+    //             deleteUserFromEventByID(currentEvent);
+    //         } else {
+    //             userGoing(currentEvent);
+    //         }
+    //     }
+    // }, [going, currentEvent]);
 
     console.log("results", theEvent);
     let options = {
@@ -104,6 +117,11 @@ const EventCard = ({ theEvent }) => {
                 </ActionButton>**/}
                 <ActionButton
                     onClick={() => {
+                        if (going) {
+                            deleteUserFromEventByID(currentEvent);
+                        } else {
+                            userGoing(currentEvent);
+                        }
                         setGoing((curr) => !curr);
                     }}>
                     {!going && (
