@@ -86,23 +86,23 @@ const SideNav = ({ setNavWidth }) => {
                         </Menu>
                     </ToolBar>
                     <Menu>
-                        <Link to="/dashboard">
+                        <Link to="/driver-dashboard">
                             <li>
                                 <MenuLink>
                                     <ShopHome />
-                                    <h3>Dashboard</h3>
+                                    <h3>Driver Dashboard</h3>
                                     <RightIcon stroke={theme.primary} />
                                 </MenuLink>
                             </li>
                         </Link>
-                        <Link to="/dashboard/recent-orders/">
+                        <Link to="/driver-dashboard/delivery">
                             <li>
                                 <MenuLink>
                                     <Orders />
                                     <NotiCount>
                                         <p>3</p>
                                     </NotiCount>
-                                    <h3>Orders</h3>
+                                    <h3>Delivery</h3>
 
                                     <RightIcon stroke={theme.primary} />
                                 </MenuLink>
@@ -112,7 +112,7 @@ const SideNav = ({ setNavWidth }) => {
                             <MenuLink
                                 onClick={() => setVisiblePSub(!visiblePSub)}>
                                 <Products />
-                                <h3>Products</h3>
+                                <h3>Orders</h3>
                                 <DownIcon stroke={theme.primary} />
                             </MenuLink>
                         </li>
@@ -121,15 +121,15 @@ const SideNav = ({ setNavWidth }) => {
                                 <Link to="/dashboard/inventory">
                                     <li>
                                         <SubMenuLink>
-                                            <h4>Inventory</h4>
+                                            <h4>Completed orders</h4>
                                             <RightIcon stroke={theme.primary} />
                                         </SubMenuLink>
                                     </li>
                                 </Link>
-                                <Link to="/dashboard/categories">
+                                <Link to="/driver-dashboard/allOrders">
                                     <li>
                                         <SubMenuLink>
-                                            <h4>Categories</h4>
+                                            <h4>Orders to fulfill</h4>
                                             <RightIcon stroke={theme.primary} />
                                         </SubMenuLink>
                                     </li>
@@ -142,46 +142,9 @@ const SideNav = ({ setNavWidth }) => {
                                 onClick={() => setVisibleASub(!visibleASub)}>
                                 <Dashboard />
                                 <h3>Analytics</h3>
-                                <DownIcon stroke={theme.primary} />
+                                <RightIcon stroke={theme.primary} />
                             </MenuLink>
                         </li>
-
-                        {visibleASub && (
-                            <SubMenu>
-                                <Link to="/dashboard/total-sales/">
-                                    <li>
-                                        <SubMenuLink>
-                                            <h4>Total Sales</h4>
-                                            <RightIcon stroke={theme.primary} />
-                                        </SubMenuLink>
-                                    </li>
-                                </Link>
-                                <Link to="/dashboard/total-orders/">
-                                    <li>
-                                        <SubMenuLink>
-                                            <h4>Total Orders</h4>
-                                            <RightIcon stroke={theme.primary} />
-                                        </SubMenuLink>
-                                    </li>
-                                </Link>
-                                <Link to="/dashboard/average-order-value/">
-                                    <li>
-                                        <SubMenuLink>
-                                            <h4>Average Order Value</h4>
-                                            <RightIcon stroke={theme.primary} />
-                                        </SubMenuLink>
-                                    </li>
-                                </Link>
-                                <Link to="/dashboard/sales-by-products/">
-                                    <li>
-                                        <SubMenuLink>
-                                            <h4>Sales by Product</h4>
-                                            <RightIcon stroke={theme.primary} />
-                                        </SubMenuLink>
-                                    </li>
-                                </Link>
-                            </SubMenu>
-                        )}
                         <Link to="/dashboard/manage-events">
                             <li>
                                 <MenuLink>

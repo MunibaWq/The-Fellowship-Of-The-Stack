@@ -6,8 +6,8 @@ import {
 } from "react-router-dom";
 import DriverDashboardMain from "./DriverDashboarMain";
 import SideNav from "./SideNav";
-import Orders from "./Orders";
-import Categories from "./Categories";
+import Delivery from "./Delivery";
+import AllOrders from "./AllOrders";
 import Inventory from "./Inventory";
 import AvgOrderValue from "./AvgOrderValue";
 import Messages from "./Messages";
@@ -41,21 +41,21 @@ const DriverDashboard = () => {
                         exact
                         component={DriverDashboardMain}
                     />
-                    <Route path="/dashboard/orders" exact component={Orders} />
+                    <Route path="/dashboard/orders" exact />
                     <Route
                         path="/dashboard/inventory"
                         exact
                         component={Inventory}
                     />
                     <Route
-                        path="/dashboard/categories"
+                        path="/driver-dashboard/allOrders"
                         exact
-                        component={Categories}
+                        component={AllOrders}
                     />
                     <Route
-                        path="/dashboard/recent-orders/"
+                        path="/driver-dashboard/delivery/:slug"
                         exact
-                        component={Orders}
+                        component={Delivery}
                     />
                     <Route
                         path="/dashboard/notifications"

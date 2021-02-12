@@ -45,32 +45,6 @@ const OrdersTable = ({ user, orderData }) => {
         sortArray(sortType);
     }, [sortType]);
 
-    const toLocaleOrderDate = (date) => {
-        let options = {
-            weekday: "long",
-            year: "numeric",
-            month: "long",
-            day: "numeric",
-        };
-
-        let ordersDate = new Date(date);
-
-        let orderDate = ordersDate.toLocaleDateString("en-US", options);
-        setOrderDate(orderDate);
-    };
-    const toLocaleShipDate = (ship_date) => {
-        let options = {
-            weekday: "long",
-            year: "numeric",
-            month: "long",
-            day: "numeric",
-        };
-        let orderShipDate = new Date(ship_date);
-
-        let shipDate = orderShipDate.toLocaleDateString("en-US", options);
-        setShipDate(shipDate);
-    };
-
     let headers = [
         "Order ID",
         "Buyer Name",
