@@ -126,9 +126,9 @@ const OrdersTable = ({ user, orderData }) => {
                                             )
                                         }>
                                         <p>
-                                            {order.date === null
+                                            {order.orderDate === null
                                                 ? "Error Loading Order Date"
-                                                : order.date}
+                                                : order.orderDate}
                                         </p>
                                     </td>
                                     <td>
@@ -141,9 +141,9 @@ const OrdersTable = ({ user, orderData }) => {
                                             )
                                         }>
                                         <p>
-                                            {order.ship_date === null
+                                            {order.shipDate === null
                                                 ? "Not Received Yet"
-                                                : order.ship_date}
+                                                : order.shipDate}
                                         </p>
                                     </td>
                                 </BodyRows>
