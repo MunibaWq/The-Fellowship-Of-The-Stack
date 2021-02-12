@@ -5,6 +5,8 @@ import { getOneOrder } from "../../../axios/gets";
 import OrderItemCard from "../../../components/Dashboard/AnalyticsTables/OrderItemCard";
 import Loading from "../../../components/Reusable/Loading";
 import theme from "../../../components/Reusable/Colors";
+import { StyledLink } from "../../../components/Reusable/Link";
+import { LeftIcon } from "../../../images/icons";
 
 const OrderItems = () => {
     let params = useParams();
@@ -27,6 +29,10 @@ const OrderItems = () => {
                 <Loading />
             ) : (
                 <>
+                    <StyledLink to="/dashboard/recent-orders/">
+                        <LeftIcon stroke={theme.primary} />
+                        Back to Orders
+                    </StyledLink>
                     <h1>Order #{orderID}</h1>
 
                     <OrderItemContainer>
