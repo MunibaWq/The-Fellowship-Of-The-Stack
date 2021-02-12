@@ -29,7 +29,7 @@ const DriverDashboardMain = () => {
                     graphData={ordersData}
                     total="123"
                     totalLabel="orders"
-                    title="Orders"
+                    title="Purchases"
                     link="/dashboard/total-orders"></Orders>
                 <RecentOrders
                     buttonText="View"
@@ -37,7 +37,7 @@ const DriverDashboardMain = () => {
                     tableData={recentOrders}
                     total="12"
                     totalLabel="Unfulfilled"
-                    title="Recent Orders"
+                    title="Deliveries"
                     link="/dashboard/recent-orders"></RecentOrders>
                 <SalesPerOrder
                     buttonText="Reports"
@@ -45,7 +45,7 @@ const DriverDashboardMain = () => {
                     total="$107.23"
                     totalLabel="Average"
                     graphData={avgOrderData}
-                    title={`Sales Per Order`}
+                    title={`Daily Earnings`}
                     link="/dashboard/average-order-value"></SalesPerOrder>
                 <Inventory
                     buttonText="View"
@@ -53,24 +53,16 @@ const DriverDashboardMain = () => {
                     total="7"
                     totalLabel="Low stock"
                     tableData={productData}
-                    title="Inventory"
+                    title="Events"
                     link="/dashboard/inventory"></Inventory>
-                <SalesByProduct
-                    buttonText="Reports"
-                    dataTitle="Top 5 products"
-                    total="$3.5k"
-                    totalLabel="Top Product Sales"
-                    pieData={salesByProductData}
-                    title="Sales By Product"
-                    link="/dashboard/sales-by-products"
-                />
+
                 {/* <Profit>Small Card with number of total profit</Profit> */}
                 <MonthlySales
                     buttonText="Reports"
                     dataTitle="Sales per week"
                     total="$37.5k"
                     totalLabel="Total"
-                    title="Monthly Sales"
+                    title="Monthly Earnings"
                     graphData={salesData}
                     link="/dashboard/total-sales"></MonthlySales>
                 {/* <Events>card showing 5 cards inside of upcoming events</Events> */}
