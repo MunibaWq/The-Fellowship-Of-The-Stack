@@ -2,7 +2,6 @@ const jwt = require("jsonwebtoken");
 const pool = require("../db");
 
 const auth = async (req, res, next) => {
-    
     try {
         const token = req.cookies.token
         const decoded = jwt.verify(token, process.env.JWT); //gets user id, that gets saved into decoded.id
@@ -20,7 +19,7 @@ const auth = async (req, res, next) => {
         console.log('error')
         if (req.cookies.token) {
             console.log('something')
-            res.cookie("token", "", { maxAge: 0 }).json({ error: "Please authenticate" });
+            res.cookie("token", "", { maxAge: 0 }).status(401).json({ error: "Please authenticate" });
         } else {
             res.status(401).json({ error: "Please authenticate" });
         }

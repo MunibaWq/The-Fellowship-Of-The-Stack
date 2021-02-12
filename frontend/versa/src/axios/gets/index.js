@@ -23,8 +23,16 @@ export const getAllProducts = async () => {
     return res.data;
 };
 export const getAllMyProducts = async () => {
-    let res = await Axios.get("/api/products/myProducts/");
-    return res.data;
+    
+    try {
+        let res = await Axios.get("/api/products/myProducts/");
+        return res.data;
+    }
+        catch (e) {
+        if (e.response.status === 401) {
+            throw new Error('not authorized')
+        }
+        }
 };
 
 export const searchProducts = async (query) => {

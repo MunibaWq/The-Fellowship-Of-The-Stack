@@ -7,6 +7,8 @@ import theme from "../../../components/Reusable/Colors";
 import { AddIcon, EditIcon, DeleteIcon } from "../../../images/icons";
 import axios from "axios";
 import { DeleteProductModal } from "../../../components/Dashboard/DeleteProductModal";
+import Cookies from 'universal-cookie'
+const cookies = new Cookies()
 
 const Inventory = (currentProduct) => {
     const [results, setResults] = useState([]);
@@ -16,9 +18,14 @@ const Inventory = (currentProduct) => {
     const [currentId, setCurrentId] = useState(null);
 
     useEffect(() => {
+        
         const getProducts = async () => {
-            let data = await getAllMyProducts();
-            setResults(data);
+            try {
+                let data = await getAllMyProducts();
+                setResults(data);
+            } catch (e) {
+                //window.location = '/account'
+            }
         };
         getProducts();
     }, []);

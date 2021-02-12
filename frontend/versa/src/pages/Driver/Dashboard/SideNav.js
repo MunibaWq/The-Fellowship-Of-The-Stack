@@ -14,6 +14,7 @@ import {
     DownIcon,
     RightIcon,
     HamburgerIcon,
+    CarIcon,
 } from "../../../images/icons";
 import theme from "../../../components/Reusable/Colors";
 import Pill from "../../../components/Reusable/Pill";
@@ -89,7 +90,7 @@ const SideNav = ({ setNavWidth }) => {
                         <Link to="/driver-dashboard">
                             <li>
                                 <MenuLink>
-                                    <ShopHome />
+                                    <CarIcon />
                                     <h3>Driver Dashboard</h3>
                                     <RightIcon stroke={theme.primary} />
                                 </MenuLink>
