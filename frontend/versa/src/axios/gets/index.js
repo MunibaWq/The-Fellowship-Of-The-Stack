@@ -91,7 +91,7 @@ export const getRecentOrders = async () => {
 };
 
 export const getOneOrder = async (orderid) => {
-    const response = await Axios.get(`/api/orders/order/${orderid}`);
+    const response = await Axios.get(`/api/dashboard/order/${orderid}`);
     return response.data;
 };
 
