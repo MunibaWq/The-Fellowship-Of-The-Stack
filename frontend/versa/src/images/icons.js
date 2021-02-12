@@ -185,7 +185,17 @@ export const ShopHome = ({ width, height, stroke }) => {
         </svg>
     );
 };
+export const PaintBrushIcon = ({ width, height, stroke }) => {
+    return (
+        <svg width={width || "32"} height={height || "32"} viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M9 4H26C26.2652 4 26.5196 4.10536 26.7071 4.29289C26.8946 4.48043 27 4.73478 27 5V18C27 18.2652 26.8946 18.5196 26.7071 18.7071C26.5196 18.8946 26.2652 19 26 19H6C5.73478 19 5.48043 18.8946 5.29289 18.7071C5.10536 18.5196 5 18.2652 5 18V8C5 6.93913 5.42143 5.92172 6.17157 5.17157C6.92172 4.42143 7.93913 4 9 4V4Z" stroke={stroke || "black"} stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M14 19L13 26C13 26.7956 13.3161 27.5587 13.8787 28.1213C14.4413 28.6839 15.2044 29 16 29C16.7956 29 17.5587 28.6839 18.1213 28.1213C18.6839 27.5587 19 26.7956 19 26L18 19" stroke={stroke || "black"} stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M5 14H27" stroke={stroke || "black"} stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M21 4V9" stroke={stroke || "black"} stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
 
+    )
+}
 export const Products = ({ width, height, stroke }) => {
     return (
         <svg
@@ -617,12 +627,22 @@ export const ShoppingCart = ({ width, height, stroke, fill }) => {
         </svg>
     );
 };
-
+export const CarIcon = ({ width, height, stroke, fill }) => {
+    return (<svg width={width || "32"} height={height || "32"} viewBox="0 0 32 32" fill={fill || "none"} xmlns="http://www.w3.org/2000/svg">
+    <path d="M2 15H30" stroke={stroke || "black"} stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M28 23V26C28 26.2652 27.8946 26.5196 27.7071 26.7071C27.5196 26.8946 27.2652 27 27 27H24C23.7348 27 23.4804 26.8946 23.2929 26.7071C23.1054 26.5196 23 26.2652 23 26V23" stroke={stroke || "black"} stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M9 23V26C9 26.2652 8.89464 26.5196 8.70711 26.7071C8.51957 26.8946 8.26522 27 8 27H5C4.73478 27 4.48043 26.8946 4.29289 26.7071C4.10536 26.5196 4 26.2652 4 26V23" stroke={stroke || "black"} stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M8 19H10" stroke={stroke || "black"} stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M22 19H24" stroke={stroke || "black"} stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M28 15L24.2639 6.59386C24.1854 6.4171 24.0572 6.26691 23.895 6.16151C23.7328 6.0561 23.5436 6 23.3501 6H8.64987C8.45644 6 8.26716 6.0561 8.10496 6.16151C7.94277 6.26691 7.81463 6.4171 7.73606 6.59386L4 15V23H28V15Z" stroke={stroke || "black"} stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    )
+}
 export const HomeIcon = ({ width, height, stroke, fill }) => {
     return (
         <svg
-            width={width || "26"}
-            height={height || "26"}
+            width={width || "32"}
+            height={height || "32"}
             viewBox="0 0 32 32"
             fill={fill || "none"}
             xmlns="http://www.w3.org/2000/svg">
