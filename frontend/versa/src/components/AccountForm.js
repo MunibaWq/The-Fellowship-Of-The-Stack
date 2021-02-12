@@ -9,29 +9,26 @@ import { setFormErrors } from "../redux/actions/Errors";
 import { setFormInputs } from "../redux/actions/Forms";
 import { getUserByID } from "../axios/gets";
 
-const AccountForm = props => {
+const AccountForm = (props) => {
     const params = useParams();
     const id = params.id;
-    const formError = useSelector(state => state.formErrors.account.form);
-    const input = useSelector(state => state.formInputs.account);
+    const formError = useSelector((state) => state.formErrors.account.form);
+    const input = useSelector((state) => state.formInputs.account);
     const dispatch = useDispatch();
-    useEffect(
-        () => {
-            const getUserData = async () => {
-                let data = await getUserByID(id);
-                dispatch(setFormInputs("account", "name", data.name));
-                dispatch(setFormInputs("account", "address", data.address));
-                dispatch(setFormInputs("account", "email", data.email));
-                dispatch(setFormInputs("account", "storeName", data.username));
-            };
-            if (props.type === "Edit") {
-                getUserData();
-            }
-        },
-        [dispatch, props.type, id]
-    );
+    useEffect(() => {
+        const getUserData = async () => {
+            let data = await getUserByID(id);
+            dispatch(setFormInputs("account", "name", data.name));
+            dispatch(setFormInputs("account", "address", data.address));
+            dispatch(setFormInputs("account", "email", data.email));
+            dispatch(setFormInputs("account", "storeName", data.username));
+        };
+        if (props.type === "Edit") {
+            getUserData();
+        }
+    }, [dispatch, props.type, id]);
 
-    const submitData = e => {
+    const submitData = (e) => {
         e.preventDefault();
         const userInfo = {
             name: input.name,
@@ -43,7 +40,7 @@ const AccountForm = props => {
         };
         const sendData = async () => {
             if (props.type === "Add") {
-                axios.post("/users/create", {
+                axios.post("/api/users/create", {
                     data: userInfo,
                 });
             } else {
@@ -75,11 +72,11 @@ const AccountForm = props => {
                     multi={false}
                     tests={[
                         {
-                            test: input => input.length < 1,
+                            test: (input) => input.length < 1,
                             error: "Required",
                         },
                         {
-                            test: input => input.length < 2,
+                            test: (input) => input.length < 2,
                             error: "Minimum 2 characters.",
                         },
                     ]}
@@ -102,7 +99,7 @@ const AccountForm = props => {
                     multi={false}
                     tests={[
                         {
-                            test: input => input.length < 3,
+                            test: (input) => input.length < 3,
                             error: "Minimum 2 characters",
                         },
                     ]}
@@ -114,7 +111,7 @@ const AccountForm = props => {
                     multi={true}
                     tests={[
                         {
-                            test: input => input.length < 10,
+                            test: (input) => input.length < 10,
                             error: "Minimum 10 characters",
                         },
                     ]}
@@ -134,11 +131,11 @@ const AccountForm = props => {
                     multi={false}
                     tests={[
                         {
-                            test: input => input.length < 6,
+                            test: (input) => input.length < 6,
                             error: "Minimum 6 characters",
                         },
                         {
-                            test: input =>
+                            test: (input) =>
                                 input.search(/^[\w\d]+@[\w\d]+\.\w\w+$/) === -1,
                             error: "Enter a valid email address",
                         },
@@ -152,11 +149,11 @@ const AccountForm = props => {
                     password={true}
                     tests={[
                         {
-                            test: input => input.length < 9,
+                            test: (input) => input.length < 9,
                             error: "Minimum 10 characters",
                         },
                         {
-                            test: input =>
+                            test: (input) =>
                                 input.search(/[A-Z]/) === -1 ||
                                 input.search(/\d/) === -1,
                             error: "Uppercase letter and number required",
