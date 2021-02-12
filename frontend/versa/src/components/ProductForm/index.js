@@ -51,25 +51,25 @@ const ProductForm = (props) => {
     const [quant, setQuant] = useState(null);
 
     const id = params.id;
-    function clearField() {
-        window.scrollTo({
-            top: 0,
-            left: 0,
-            behavior: "smooth",
-        });
-        dispatch(clearFormInputs("product"));
-        dispatch(setImages("productForm", []));
-    }
+    
 
     useEffect(() => {
+        function clearField() {
+            window.scrollTo({
+                top: 0,
+                left: 0,
+                behavior: "smooth",
+            });
+            dispatch(clearFormInputs("product"));
+            dispatch(setImages("productForm", []));
+        }
         loadPage(id, dispatch, props.type);
-    }, [dispatch, id, props.type]);
-    useEffect(() => {
         return () => {
             dispatch(setRedirect("productForm", ""));
             clearField()
         };
-    }, []);
+    }, [dispatch, id, props.type]);
+   
     function setColorLabelAndValue() {
         let colorToAdd = document.querySelector("#colorToAdd").value;
         let colorLabelToAdd = document.querySelector("#colorLabelToAdd").value;
@@ -328,7 +328,7 @@ const ProductForm = (props) => {
             </Instruction>
             <RowContainer>
                 <Container>
-                    <Button onClick={clearField}>
+                    <Button >
                         Cancel
                         <LineCloseIcon stroke={theme.primary} />
                     </Button>

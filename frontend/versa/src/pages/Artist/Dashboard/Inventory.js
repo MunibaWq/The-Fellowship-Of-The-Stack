@@ -1,19 +1,17 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { getAllMyProducts } from "../../../axios/gets";
-import { getImagesByPID } from "../../../axios/gets";
 import { Link } from "react-router-dom";
 import Button from "../../../components/Reusable/Button";
 import theme from "../../../components/Reusable/Colors";
 import { AddIcon, EditIcon, DeleteIcon } from "../../../images/icons";
 import axios from "axios";
-import Loading from "../../../components/Reusable/Loading";
 import { DeleteProductModal } from "../../../components/Dashboard/DeleteProductModal";
 
 const Inventory = (currentProduct) => {
     const [results, setResults] = useState([]);
     const [inventory, setInventory] = useState([]);
-    const [status, setStatus] = useState("");
+    // const [status, setStatus] = useState("");
     const [visible, setVisible] = useState(false);
     const [currentId, setCurrentId] = useState(null);
 
@@ -60,7 +58,6 @@ const Inventory = (currentProduct) => {
             },
             data: result,
         });
-        return status;
     };
     const showModal = (id) => {
         setVisible(!visible);
@@ -75,6 +72,7 @@ const Inventory = (currentProduct) => {
                 </Button>
             </Link>
             <TableStyle>
+                <thead>
                 <tr>
                     <th>PIC</th>
                     <th>TITLE</th>
@@ -82,11 +80,13 @@ const Inventory = (currentProduct) => {
                     <th>INVENTORY</th>
                     <th>EDIT</th>
                     <th>DELETE</th>
-                </tr>
+                    </tr>
+                </thead>
+                <tbody>
                 {results.length > 0 && inventory.length > 0 ? (
-                    results.map((result) => {
+                    results.map((result, index) => {
                         return (
-                            <tr style={{ padding: "10%" }}>
+                            <tr key={'inventory' + index} style={{ padding: "10%" }}>
                                 <td
                                     style={{
                                         width: "100px",
@@ -110,11 +110,11 @@ const Inventory = (currentProduct) => {
                                     {result.status} <br />
                                     <select
                                         onChange={(e) => {
-                                            const newStatus = updateStatus(
+                                            updateStatus(
                                                 result,
                                                 e.target.value
                                             );
-                                            setStatus(newStatus);
+                                            // setStatus(newStatus);
                                         }}>
                                         <option value={result.status}>
                                             Select Status
@@ -151,9 +151,10 @@ const Inventory = (currentProduct) => {
                             </tr>
                         );
                     })
-                ) : (
-                    <td>Loading...</td>
-                )}
+                    ) : (
+                            <tr>
+                    <td>Loading...</td></tr>
+                )}</tbody>
             </TableStyle>
             {visible ? (
                 <DeleteProductModal

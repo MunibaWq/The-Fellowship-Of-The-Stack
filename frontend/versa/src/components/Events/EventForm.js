@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { FieldContainer, Input, Label, TextField } from "../Reusable/Input";
@@ -70,13 +70,14 @@ const EventForm = (props) => {
         if (props.type === "Edit") {
             getUserData();
         }
-    }, [dispatch, props.type, id]);
-
-    useEffect(() => {
         return () => {
             dispatch(clearFormInputs("event"));
         };
-    }, []);
+    }, [dispatch, props.type, id]);
+
+
+
+    
 
     const submitData = (e) => {
         e.preventDefault();

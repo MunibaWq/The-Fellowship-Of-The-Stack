@@ -81,8 +81,8 @@ const OrdersTable = ({ user, orderData }) => {
                     <Table>
                         <thead>
                             <Headers>
-                                {headers.map((header) => (
-                                    <th>
+                                {headers.map((header,index) => (
+                                    <th key={`header${index}`}>
                                         <h2>{header}</h2>
                                     </th>
                                 ))}

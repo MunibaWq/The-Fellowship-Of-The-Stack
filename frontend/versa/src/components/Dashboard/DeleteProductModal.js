@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import Button from "../Reusable/Button";
 import { Modal, ModalTitle } from "../Reusable/Modal";
-import { setVisible } from "../../redux/actions/Modals";
 import axios from "axios";
 import styled from "styled-components";
 
@@ -24,8 +23,10 @@ export function DeleteProductModal({ display, value, setter, id }) {
                 </ModalTitle>
                 <Button
                     onClick={() => {
-                        {
-                            value ? setter(false) : setter(true);
+                        if (value) {
+                            setter(false);
+                        } else {
+                            setter(true);
                         }
                     }}>
                     Cancel
