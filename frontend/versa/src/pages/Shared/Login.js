@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
-import { loginAction } from "../../redux/actions";
 import { TextField } from "../../components/Reusable/Input";
 import { axiosLogin } from "../../axios/posts";
 // import { setEmail, setPassword } from "../../redux/actions/LoginPage";
@@ -12,7 +11,6 @@ import Cookies from "universal-cookie";
 import { login } from "../../redux/actions/actions";
 const cookies = new Cookies();
 const Login = (props) => {
-    const loggedInUser = useSelector((state) => state.user);
     const input = useSelector((state) => state.formInputs.login);
     const formError = useSelector((state) => state.formErrors.login);
 

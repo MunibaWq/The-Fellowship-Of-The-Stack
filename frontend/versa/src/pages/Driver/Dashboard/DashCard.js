@@ -205,12 +205,13 @@ const VTable = ({ data }) => {
     return (
         <table>
             <thead>
+                <tr>
                 {data.table.headers.map((header) => (
-                    <td>{header}</td>
-                ))}
+                    <th key={header}>{header}</th>
+                ))}</tr>
             </thead>
             {data.table.values.map((row, index) => (
-                <tr>
+                <tr key={index}>
                     {row.map((data) => (
                         <td>{data}</td>
                     ))}

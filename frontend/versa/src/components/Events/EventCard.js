@@ -22,7 +22,7 @@ const EventCard = ({ theEvent }) => {
             } else setGoing(false);
         };
         attendStatus();
-    }, []);
+    }, [currentEvent]);
 
     // useEffect(() => {
     //     if (going !== "unset") {

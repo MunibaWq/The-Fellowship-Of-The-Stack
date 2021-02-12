@@ -3,16 +3,14 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { getProductByID } from "../../axios/gets";
 import CheckoutButton from "../../components/Cart/checkoutButton";
-import { Error, Input } from "../../components/Reusable/Input";
+import { Error } from "../../components/Reusable/Input";
 import {
     changeQuantity,
-    removeFromCart,
     setCartInput,
     updateCart,
 } from "../../redux/actions/Cart";
 import axios from "axios";
 import { setFormErrors } from "../../redux/actions/Errors";
-import { setFormInputs } from "../../redux/actions/Forms";
 import QuantityInput from "../../components/Cart/QuantityInput";
 import Button from "../../components/Reusable/Button";
 import { RefreshIcon } from "../../images/icons";
@@ -26,7 +24,6 @@ const ShoppingCart = () => {
     const cart = useSelector((state) => state.cart);
     const error = useSelector((state) => state.formErrors.cart.form);
     const [cartItems, setCartItems] = useState();
-    const [needToUpdate, setNeedToUpdate] = useState();
     const dispatch = useDispatch();
     const calcCartTotal = () => {
         if (!cartItems) return 0;
@@ -35,7 +32,7 @@ const ShoppingCart = () => {
         }, 0);
         return total.toFixed(2);
     };
-
+    console.log(preference, 'this is the preference')
     useEffect(() => {
         async function checkStock(id, colour, size) {
             let newQuantity = size[1];
@@ -115,6 +112,7 @@ const ShoppingCart = () => {
 
     function deliveryFee() {
         const total = calcCartTotal();
+        console.log(total, 'this is the total')
         if (isNaN(total)) {
             return;
         }
@@ -190,7 +188,6 @@ const ShoppingCart = () => {
                                 }}
                                 onClick={() => {
                                     dispatch(updateCart());
-                                    setNeedToUpdate(true);
                                 }}>
                                 <RefreshIcon stroke={theme.primary} /> Update
                                 Cart
@@ -270,9 +267,9 @@ const ShoppingCart = () => {
                     custPref={preference}
                     custNote={extraInstructions}
                     price={
-                        preference === "pickup"
-                            ? (calcCartTotal() * 1.05).toFixed(2)
-                            : ((calcCartTotal() + deliveryFee()) * 1.05).toFixed(2)
+                        
+                            (calcCartTotal() * 1.05).toFixed(2)
+                            
                     }></CheckoutButton>
             )}
         </Container>

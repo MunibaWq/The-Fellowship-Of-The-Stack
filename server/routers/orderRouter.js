@@ -40,7 +40,7 @@ router.post("/paid", optionalAuth, async (req, res) => {
     const { items, payment } = req.body;
     let orderResponse = await pool.query(
         `INSERT INTO orders
-    (date, status, buyer_id, order_total, email, name, pickup, billing_address, delivery_notes)
+    (date, status, buyer_id, order_total, email, name, pickup, billing_address,shipping_address, delivery_notes)
     VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9) returning id`,
         [
             new Date().toLocaleString().replace(/\./g, ""),
@@ -50,6 +50,7 @@ router.post("/paid", optionalAuth, async (req, res) => {
             email,
             name,
             pickup,
+            `${address_line1} ${address_zip} ${address_city}, ${address_country}`,
             `${address_line1} ${address_zip} ${address_city}, ${address_country}`,
             deliveryNote,
         ]

@@ -3,7 +3,6 @@ import {
     BrowserRouter as Router,
     Route,
     Switch,
-    useParams,
 } from "react-router-dom";
 import DashboardMain from "./DashboardMain";
 import SideNav from "./SideNav";
