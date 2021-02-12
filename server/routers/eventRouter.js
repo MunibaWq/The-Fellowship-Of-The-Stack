@@ -55,7 +55,8 @@ router.get("/get/:id", async (req, res) => {
         );
 
         const eventInfo = result.rows[0];
-
+      
+        
         client.release(true);
         res.json(eventInfo);
     } catch (e) {
