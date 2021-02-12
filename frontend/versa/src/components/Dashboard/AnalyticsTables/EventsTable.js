@@ -84,9 +84,10 @@ const EventsTable = ({ eventsData }) => {
                                     </Link>
                                 </td>
                                 <td>
-                                    <Button onClick={() => showModal(event.id)}>
+                                    <DeleteButton
+                                        onClick={() => showModal(event.id)}>
                                         <DeleteIcon stroke={theme.primary} />
-                                    </Button>
+                                    </DeleteButton>
                                 </td>
                             </BodyRows>
                         ))}
@@ -165,4 +166,9 @@ const BodyRows = styled.tr`
     :last-of-type {
         border-bottom: 2px solid ${theme.primary};
     }
+`;
+
+const DeleteButton = styled(Button)`
+    background: none;
+    border: none;
 `;
