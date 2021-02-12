@@ -11,7 +11,6 @@ export const StyledLink = styled(Link)`
     border: none;
     background-color: none;
     border-bottom: 3px solid none;
-    padding: 5px 15px 5px 8px;
     font-weight: 700;
     letter-spacing: 5%;
     margin: 5px;

@@ -29,10 +29,10 @@ const OrderItems = () => {
                 <Loading />
             ) : (
                 <>
-                    <StyledLink to="/dashboard/recent-orders/">
+                    <BackToOrder to="/dashboard/recent-orders/">
                         <LeftIcon stroke={theme.primary} />
                         Back to Orders
-                    </StyledLink>
+                    </BackToOrder>
                     <h1>Order #{orderID}</h1>
 
                     <OrderItemContainer>
@@ -88,8 +88,12 @@ const Container = styled.div`
     flex-direction: column;
     padding: 2em 2em 2em calc(2em + 66px);
     h1 {
-        margin: 0 1em 2em 1em;
+        margin: 0 1em 2em 0em;
     }
+`;
+
+const BackToOrder = styled(StyledLink)`
+    margin-left: -0.5em;
 `;
 
 const BuyerDetails = styled.article`
