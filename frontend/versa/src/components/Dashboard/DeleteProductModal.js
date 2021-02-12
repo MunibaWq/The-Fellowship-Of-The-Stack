@@ -39,6 +39,7 @@ export function DeleteProductModal({ display, value, setter, id }) {
                             setter(true);
                         }
                         deleteItem(id);
+                        window.location.reload(false)
                     }}>
                     Accept
                 </Button>

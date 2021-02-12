@@ -30,6 +30,7 @@ export function DeleteEventModal({ display, value, setter, id }) {
                             setter(true);
                         }
                         deleteArtistEvent(id);
+                        window.location.reload(false)
                     }}>
                     Accept
                 </Button>

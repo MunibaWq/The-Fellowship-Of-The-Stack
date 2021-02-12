@@ -21,7 +21,8 @@ const Account = () => {
             {user && (
               
                 <Button onClick={() => {
-                    cookies.remove('token')
+                    cookies.remove('token',{ path: '/' })
+
                     dispatch(logout())
                     }} secondary>
                         <AddIcon stroke={theme.primary} />
