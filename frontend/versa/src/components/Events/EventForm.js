@@ -7,6 +7,7 @@ import axios from "axios";
 import { Redirect, useParams } from "react-router";
 import { setFormErrors } from "../../redux/actions/Errors";
 import { setFormInputs } from "../../redux/actions/Forms";
+import { setImages } from "../../redux/actions/Images";
 import { getEventByID } from "../../axios/gets";
 import {
     ImageList,
@@ -28,8 +29,6 @@ const options = [
 const statusOptions = ["Select one:", "Active", "Inactive", "Pending"];
 
 const EventForm = (props) => {
-    const [artistID, setArtistID] = useState();
-
     const params = useParams();
     //this is event id
     const id = params.id;
@@ -52,6 +51,7 @@ const EventForm = (props) => {
             dispatch(setFormInputs("event", "location", data.location));
             dispatch(setFormInputs("event", "status", data.status));
             dispatch(setFormInputs("event", "type", data.type));
+            dispatch(setImages("eventForm", data.images));
         };
         if (props.type === "Edit") {
             getUserData();
@@ -127,6 +127,7 @@ const EventForm = (props) => {
                 <FieldContainer>
                     <Label>Category</Label>
                     <select
+                        value={input.type}
                         onChange={(e) => {
                             dispatch(
                                 setFormInputs("event", "type", e.target.value)
@@ -209,6 +210,7 @@ const EventForm = (props) => {
                 <FieldContainer>
                     <Label>Start Time</Label>
                     <Input
+                        value={input.startTime}
                         onChange={(e) => {
                             dispatch(
                                 setFormInputs(
@@ -225,6 +227,7 @@ const EventForm = (props) => {
                 <FieldContainer>
                     <Label> End Time</Label>
                     <Input
+                        value={input.endTime}
                         onChange={(e) => {
                             dispatch(
                                 setFormInputs(
@@ -262,6 +265,7 @@ const EventForm = (props) => {
                     <Label>Status</Label>
 
                     <select
+                        value={input.status}
                         onChange={(e) => {
                             dispatch(
                                 setFormInputs("event", "status", e.target.value)
