@@ -94,7 +94,7 @@ const OrdersTable = ({ user, orderData }) => {
                                     <td
                                         onClick={() =>
                                             history.push(
-                                                `/dashboard/recent-orders/${user}/${order.id}`
+                                                `/dashboard/recent-orders/${order.id}`
                                             )
                                         }>
                                         <p>{order.id}</p>
@@ -102,7 +102,7 @@ const OrdersTable = ({ user, orderData }) => {
                                     <td
                                         onClick={() =>
                                             history.push(
-                                                `/dashboard/recent-orders/${user}/${order.id}`
+                                                `/dashboard/recent-orders/${order.id}`
                                             )
                                         }>
                                         <p>{order.name}</p>
@@ -110,7 +110,7 @@ const OrdersTable = ({ user, orderData }) => {
                                     <td
                                         onClick={() =>
                                             history.push(
-                                                `/dashboard/recent-orders/${user}/${order.id}`
+                                                `/dashboard/recent-orders/${order.id}`
                                             )
                                         }>
                                         <p>
@@ -122,7 +122,7 @@ const OrdersTable = ({ user, orderData }) => {
                                     <td
                                         onClick={() =>
                                             history.push(
-                                                `/dashboard/recent-orders/${user}/${order.id}`
+                                                `/dashboard/recent-orders/${order.id}`
                                             )
                                         }>
                                         <p>
