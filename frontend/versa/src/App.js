@@ -11,6 +11,7 @@ import CreateAccount from "./pages/Artist/CreateAccount";
 import ArtistLogIn from "./pages/Artist/ArtistLogIn";
 import Dashboard from "./pages/Artist/Dashboard/Dashboard";
 import EventPage from "./components/Events/EventPage";
+import DriverDashboard from "./pages/Driver/Dashboard/DriverDashboard";
 
 function App() {
     return (
@@ -38,6 +39,10 @@ function App() {
                         component={CreateAccount}
                     />
                     <Route path="/artists/log-in" component={ArtistLogIn} />
+                    <Route
+                        path="/driver-dashboard"
+                        component={DriverDashboard}
+                    />
                     <Route path="/dashboard" component={Dashboard} />
                 </Switch>
             </div>
