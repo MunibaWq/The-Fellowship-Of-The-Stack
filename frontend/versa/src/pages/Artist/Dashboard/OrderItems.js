@@ -5,6 +5,8 @@ import { getOneOrder } from "../../../axios/gets";
 import OrderItemCard from "../../../components/Dashboard/AnalyticsTables/OrderItemCard";
 import Loading from "../../../components/Reusable/Loading";
 import theme from "../../../components/Reusable/Colors";
+import { StyledLink } from "../../../components/Reusable/Link";
+import { LeftIcon } from "../../../images/icons";
 
 const OrderItems = () => {
     let params = useParams();
@@ -20,13 +22,17 @@ const OrderItems = () => {
         };
         fetchData();
     }, [orderID]);
-
+    console.log("bD", buyerDetails);
     return (
         <Container>
             {!orderData ? (
                 <Loading />
             ) : (
                 <>
+                    <BackToOrder to="/dashboard/recent-orders/">
+                        <LeftIcon stroke={theme.primary} />
+                        Back to Orders
+                    </BackToOrder>
                     <h1>Order #{orderID}</h1>
 
                     <OrderItemContainer>
@@ -82,8 +88,12 @@ const Container = styled.div`
     flex-direction: column;
     padding: 2em 2em 2em calc(2em + 66px);
     h1 {
-        margin: 0 1em 2em 1em;
+        margin: 0 1em 2em 0em;
     }
+`;
+
+const BackToOrder = styled(StyledLink)`
+    margin-left: -0.5em;
 `;
 
 const BuyerDetails = styled.article`

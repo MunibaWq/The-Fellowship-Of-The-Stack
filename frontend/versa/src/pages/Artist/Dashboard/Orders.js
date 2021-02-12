@@ -9,16 +9,19 @@ const Orders = () => {
     const [orderData, setOrderData] = useState();
     let params = useParams();
     const currentUser = params.id;
+    const [buyerDetails, setBuyerDetails] = useState();
 
     useEffect(() => {
         const fetchData = async (currentUser) => {
             const data = await getRecentOrders(currentUser);
+
             setOrderData(data);
         };
         fetchData();
     }, []);
 
     console.log("o", orderData);
+
     return (
         <OrderContainer>
             <h1>Recent Orders</h1>

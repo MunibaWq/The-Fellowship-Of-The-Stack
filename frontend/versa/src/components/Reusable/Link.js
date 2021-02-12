@@ -9,9 +9,8 @@ export const StyledLink = styled(Link)`
     align-items: center;
     color: ${theme.primary};
     border: none;
-    background-color: ${theme.secondary};
-    border-bottom: 3px solid ${theme.secondary};
-    padding: 5px 15px 5px 8px;
+    background-color: none;
+    border-bottom: 3px solid none;
     font-weight: 700;
     letter-spacing: 5%;
     margin: 5px;

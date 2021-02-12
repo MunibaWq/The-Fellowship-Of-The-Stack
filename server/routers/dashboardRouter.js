@@ -94,17 +94,22 @@ router.get("/average-order-value", auth, async (req, res) => {
 router.get("/recent-orders", auth, async (req, res) => {
     try {
         const result = await pool.query(
-            `SELECT * from orders WHERE s.artist_id = ${req.user.id}
-            
-            
-            , s.artist_id, s.product_id, s.quantity, s.color, s.size, p.title
-            FROM orders o
-            INNER JOIN sales_by_product s
-            ON o.id = s.order_id
-            INNER JOIN products p
-            ON s.product_id = p.id
-            WHERE s.artist_id = ${req.user.id}`
+            `SELECT * FROM orders o INNER JOIN
+            (SELECT order_id FROM sales_by_product
+                WHERE artist_id = ${req.user.id}
+                GROUP BY order_id) x ON x.order_id = o.id`
+            // `SELECT o.order_total, o.id, o.shipping_address, o.name, o.date, o.ship_date, o.delivery_notes, o.phone, o.pickup, o.status, s.artist_id, s.product_id, s.quantity, s.color, s.size, p.title
+            // FROM orders o
+            // INNER JOIN sales_by_product s
+            // ON o.id = s.order_id
+            // INNER JOIN products p
+            // ON s.product_id = p.id
+            // WHERE s.artist_id = ${req.user.id}`
         );
+        // const orderResult = await pool.query(`SELECT order_total, id, shipping_address, name, date, phone, pickup, delivery_notes
+        // FROM orders
+        // WHERE  artist_id = ${req.user.id}`);
+
         const orderInfo = result.rows;
         for (order of orderInfo) {
             let options = {
@@ -130,6 +135,8 @@ router.get("/recent-orders", auth, async (req, res) => {
             let shipDate = orderShipDate.toLocaleDateString("en-US", options);
             order.orderShipDate = order.ship_date === null ? null : shipDate;
         }
+
+        console.log(orderInfo);
         res.json(orderInfo);
     } catch (e) {
         console.log("error", e);
