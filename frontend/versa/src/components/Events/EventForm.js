@@ -9,6 +9,7 @@ import { setFormErrors } from "../../redux/actions/Errors";
 import { setFormInputs } from "../../redux/actions/Forms";
 import { setImages } from "../../redux/actions/Images";
 import { getEventByID } from "../../axios/gets";
+import { clearFormInputs } from "../../redux/actions/Forms";
 import {
     ImageList,
     ImagesDiv,
@@ -42,12 +43,24 @@ const EventForm = (props) => {
     useEffect(() => {
         const getUserData = async () => {
             let data = await getEventByID(id);
-            console.log(data)
+            console.log(data);
             dispatch(setFormInputs("event", "name", data.name));
             dispatch(setFormInputs("event", "description", data.description));
             dispatch(setFormInputs("event", "capacity", data.capacity));
-            dispatch(setFormInputs("event", "startTime", data.start_time.substr(0,data.start_time.length-5)));
-            dispatch(setFormInputs("event", "endTime", data.end_time.substr(0,data.end_time.length-5)));
+            dispatch(
+                setFormInputs(
+                    "event",
+                    "startTime",
+                    data.start_time.substr(0, data.start_time.length - 5)
+                )
+            );
+            dispatch(
+                setFormInputs(
+                    "event",
+                    "endTime",
+                    data.end_time.substr(0, data.end_time.length - 5)
+                )
+            );
             dispatch(setFormInputs("event", "type", data.type));
             dispatch(setFormInputs("event", "location", data.location));
             dispatch(setFormInputs("event", "status", data.status));
@@ -58,6 +71,12 @@ const EventForm = (props) => {
             getUserData();
         }
     }, [dispatch, props.type, id]);
+
+    useEffect(() => {
+        return () => {
+            dispatch(clearFormInputs("event"));
+        };
+    }, []);
 
     const submitData = (e) => {
         e.preventDefault();
@@ -99,7 +118,7 @@ const EventForm = (props) => {
             dispatch(setFormErrors("event", "Please check all input is valid"));
         }
     };
-    console.log('starttime',input)
+    console.log("starttime", input);
     return redirect ? (
         <Redirect to={redirect} />
     ) : (
@@ -229,7 +248,7 @@ const EventForm = (props) => {
                     <Label> End Time</Label>
                     <Input
                         value={input.endTime}
-                            onChange={(e) => {
+                        onChange={(e) => {
                             dispatch(
                                 setFormInputs(
                                     "event",
