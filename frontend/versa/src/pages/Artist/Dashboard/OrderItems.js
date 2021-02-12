@@ -94,6 +94,7 @@ const Container = styled.div`
 
 const BackToOrder = styled(StyledLink)`
     margin-left: -0.5em;
+    margin-bottom: 1em;
 `;
 
 const BuyerDetails = styled.article`
