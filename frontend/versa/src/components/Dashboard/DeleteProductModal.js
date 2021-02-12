@@ -6,7 +6,7 @@ import axios from "axios";
 import styled from "styled-components";
 
 const deleteItem = async (id) => {
-    let url = `/products/delete/${id}`;
+    let url = `/api/products/delete/${id}`;
     const resp = await axios.delete(url, {
         headers: {
             "Access-Control-Allow-Origin": "*",
@@ -27,8 +27,7 @@ export function DeleteProductModal({ display, value, setter, id }) {
                         {
                             value ? setter(false) : setter(true);
                         }
-                    }}
-                >
+                    }}>
                     Cancel
                 </Button>
                 <Button
@@ -39,8 +38,7 @@ export function DeleteProductModal({ display, value, setter, id }) {
                             setter(true);
                         }
                         deleteItem(id);
-                    }}
-                >
+                    }}>
                     Accept
                 </Button>
             </Modal>

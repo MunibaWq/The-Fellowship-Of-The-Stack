@@ -11,13 +11,13 @@ let onClosed = (message) => {
     // console.log(message)
 };
 const CheckoutButton = ({ price, artistName, items, custPref, custNote }) => {
-    console.log(items, price);
+    console.log(items, price, custPref);
     const priceForStripe = price * 100;
     const publishableKey =
         "pk_test_51ICnpqINw7U5M31CEDkye0SmruSOvRzTQiiX8ObajGYJr2uONQKzqPpmQXmj98jJUKWCFDvAhlU76oJT2XpM0HUc00GbQtAjta";
     let onToken = async (token, args) => {
         try {
-            const res = await axios.post("/orders/stripe/payment", {
+            const res = await axios.post("/api/orders/stripe/payment", {
                 token,
                 amount: priceForStripe,
             });
@@ -25,7 +25,7 @@ const CheckoutButton = ({ price, artistName, items, custPref, custNote }) => {
             purchaseInfo.deliveryType = custPref;
             purchaseInfo.deliveryNote = custNote;
             console.log(purchaseInfo);
-            axios.post("/orders/paid", {
+            axios.post("/api/orders/paid", {
                 success: token,
                 items: items,
                 payment: purchaseInfo,

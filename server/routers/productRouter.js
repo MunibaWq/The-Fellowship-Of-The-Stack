@@ -58,7 +58,7 @@ router.get("/get/:id", async (req, res) => {
     }
 });
 
-router.get("/myProducts",auth, async (req, res) => {
+router.get("/myProducts", auth, async (req, res) => {
     try {
         const client = await pool.connect();
         const result = await client.query(
@@ -71,7 +71,7 @@ router.get("/myProducts",auth, async (req, res) => {
                 "SELECT * FROM stock where product_id = " + product["id"]
             );
             const stock = stockReq.rows;
-            const artist = req.user.username
+            const artist = req.user.username;
             product["stock"] = stock;
             product["artist"] = artist;
             productsToSend.push(product);
@@ -143,9 +143,9 @@ router.get("/allProducts", async (req, res) => {
 
 router.post("/create", auth, async (req, res) => {
     if (req.user.type !== 1) {
-        res.status(500).send('Not Authorized')
+        res.status(500).send("Not Authorized");
     }
-    
+
     try {
         let {
             title,
@@ -182,18 +182,7 @@ router.post("/create", auth, async (req, res) => {
                 materials,
             ]
         );
-        let productID = productInfo.rows[0].id;
-        let query = [];
-        for (colour of colours) {
-            for (size of sizes) {
-                query.push(
-                    `INSERT INTO "stock" ("product_id", "color", "size") VALUES ('${productID}', '${
-                        colour.label
-                    }', '${size.label}');`
-                );
-            }
-        }
-        pool.query(query.join(" "));
+
         res.json(productInfo.rows[0]);
     } catch (err) {
         console.error(err.message);
@@ -205,12 +194,14 @@ router.post("/create", auth, async (req, res) => {
 
 router.put("/edit/:id", auth, async (req, res) => {
     if (req.user.type !== 1) {
-        res.status(500).send('Not Authorized')
+        res.status(500).send("Not Authorized");
     }
     const { id } = req.params;
-    let checkOwner = await pool.query('SELECT artist_id from products WHERE id = ' + id)
+    let checkOwner = await pool.query(
+        "SELECT artist_id from products WHERE id = " + id
+    );
     if (checkOwner.rows[0].artist_id !== req.user.id) {
-        res.status(500).send('Not Authorized')
+        res.status(500).send("Not Authorized");
     }
     if (Object.keys(req.body).length === 0) {
         res.send({
@@ -218,7 +209,6 @@ router.put("/edit/:id", auth, async (req, res) => {
         });
     }
     try {
-        
         let {
             title,
             price,
@@ -243,7 +233,7 @@ router.put("/edit/:id", auth, async (req, res) => {
         });
 
         let response = await pool.query(
-            "UPDATE products SET title = $1, price = $2, description = $3, colours = $4, sizes = $6, materials = $7, status=$8 WHERE id = $9 RETURNING id",
+            "UPDATE products SET title = $1, price = $2, description = $3, colours = $4, sizes = $5, materials = $6, status=$7 WHERE id = $8 RETURNING id",
             [
                 title,
                 price,
@@ -274,11 +264,13 @@ router.put("/edit/:id", auth, async (req, res) => {
 router.delete("/delete/:id", auth, async (req, res) => {
     const id = req.params.id;
     if (req.user.type !== 1) {
-        res.status(500).send('Not Authorized')
+        res.status(500).send("Not Authorized");
     }
-    let checkOwner = await pool.query('SELECT artist_id from products WHERE product_id = ' + id)
+    let checkOwner = await pool.query(
+        "SELECT artist_id from products WHERE id = " + id
+    );
     if (checkOwner.rows[0].artist_id !== req.user.id) {
-        res.status(500).send('Not Authorized')
+        res.status(500).send("Not Authorized");
     }
     if (Object.keys(req.params).length === 0) {
         console.log("no id");
