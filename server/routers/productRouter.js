@@ -182,18 +182,9 @@ router.post("/create", auth, async (req, res) => {
                 materials,
             ]
         );
-        let productID = productInfo.rows[0].id;
-        let query = [];
-        for (colour of colours) {
-            for (size of sizes) {
-                query.push(
-                    `INSERT INTO "stock" ("product_id", "color", "size") VALUES ('${productID}', '${
-                        colour.label
-                    }', '${size.label}');`
-                );
-            }
-        }
-        pool.query(query.join(" "));
+    
+        
+        
         res.json(productInfo.rows[0]);
     } catch (err) {
         console.error(err.message);
@@ -243,7 +234,7 @@ router.put("/edit/:id", auth, async (req, res) => {
         });
 
         let response = await pool.query(
-            "UPDATE products SET title = $1, price = $2, description = $3, colours = $4, sizes = $6, materials = $7, status=$8 WHERE id = $9 RETURNING id",
+            "UPDATE products SET title = $1, price = $2, description = $3, colours = $4, sizes = $5, materials = $6, status=$7 WHERE id = $8 RETURNING id",
             [
                 title,
                 price,
