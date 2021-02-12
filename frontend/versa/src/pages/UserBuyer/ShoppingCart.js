@@ -3,16 +3,14 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { getProductByID } from "../../axios/gets";
 import CheckoutButton from "../../components/Cart/checkoutButton";
-import { Error, Input } from "../../components/Reusable/Input";
+import { Error } from "../../components/Reusable/Input";
 import {
     changeQuantity,
-    removeFromCart,
     setCartInput,
     updateCart,
 } from "../../redux/actions/Cart";
 import axios from "axios";
 import { setFormErrors } from "../../redux/actions/Errors";
-import { setFormInputs } from "../../redux/actions/Forms";
 import QuantityInput from "../../components/Cart/QuantityInput";
 import Button from "../../components/Reusable/Button";
 import { RefreshIcon } from "../../images/icons";
@@ -26,7 +24,6 @@ const ShoppingCart = () => {
     const cart = useSelector((state) => state.cart);
     const error = useSelector((state) => state.formErrors.cart.form);
     const [cartItems, setCartItems] = useState();
-    const [needToUpdate, setNeedToUpdate] = useState();
     const dispatch = useDispatch();
     const calcCartTotal = () => {
         if (!cartItems) return 0;
@@ -35,7 +32,7 @@ const ShoppingCart = () => {
         }, 0);
         return total.toFixed(2);
     };
-
+    console.log(preference, 'this is the preference')
     useEffect(() => {
         async function checkStock(id, colour, size) {
             let newQuantity = size[1];
@@ -67,7 +64,7 @@ const ShoppingCart = () => {
                         const variation = `${res.title} - ${colour[0]} - ${size[0]}`;
                         const itemQuantity = size[1];
                         const itemPrice =
-                            res.price +
+                            +res.price +
                             +res.sizes.filter(
                                 //grab the additional price for the size
                                 (sizeOp) => sizeOp.label === size[0]
@@ -115,11 +112,12 @@ const ShoppingCart = () => {
 
     function deliveryFee() {
         const total = calcCartTotal();
+        console.log(total, 'this is the total')
         if (isNaN(total)) {
             return;
         }
         if (total >= 100) {
-            return "Free";
+            return 0;
         } else {
             return 10;
         }
@@ -190,7 +188,6 @@ const ShoppingCart = () => {
                                 }}
                                 onClick={() => {
                                     dispatch(updateCart());
-                                    setNeedToUpdate(true);
                                 }}>
                                 <RefreshIcon stroke={theme.primary} /> Update
                                 Cart
@@ -225,7 +222,10 @@ const ShoppingCart = () => {
                                 <Price>{deliveryFee()}</Price>
                             </CartItem>
                         ) : (
-                            <></>
+                                <CartItem>
+                            <div style={{ gridColumn: "3 / 5" }}>
+                                    
+                                </div></CartItem>
                         )}
                         <CartItem>
                             <div style={{ gridColumn: "3 / 5" }}>Total:</div>
@@ -240,7 +240,7 @@ const ShoppingCart = () => {
                                       )
                                     : (
                                           calcCartTotal() * 1.05 +
-                                          10
+                                          deliveryFee()
                                       ).toLocaleString("us-US", {
                                           style: "currency",
                                           currency: "USD",
@@ -252,13 +252,13 @@ const ShoppingCart = () => {
                 ) : (
                     <div style={{ marginTop: "10px" }}>No items in cart</div>
                 )}
-
+                    <CartItem>
                 <RadioButton
                     preference={preference}
                     setPreference={setPreference}
                     instructions={extraInstructions}
                     setInstructions={setExtraInstructions}
-                />
+                /></CartItem>
             </Cart>
             {cartItems && cartItems.length > 0 && (
                 <CheckoutButton
@@ -267,9 +267,9 @@ const ShoppingCart = () => {
                     custPref={preference}
                     custNote={extraInstructions}
                     price={
-                        preference === "delivery"
-                            ? ((calcCartTotal() + 10) * 1.05).toFixed(2)
-                            : (calcCartTotal() * 1.05).toFixed(2)
+                        
+                            (calcCartTotal() * 1.05).toFixed(2)
+                            
                     }></CheckoutButton>
             )}
         </Container>

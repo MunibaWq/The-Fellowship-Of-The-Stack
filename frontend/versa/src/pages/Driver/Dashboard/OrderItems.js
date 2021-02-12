@@ -19,7 +19,7 @@ const OrderItems = () => {
             setOrderData(data);
         };
         fetchData();
-    }, [orderID]);
+    }, []);
 
     return (
         <Container>

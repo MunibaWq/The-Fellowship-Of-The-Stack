@@ -4,10 +4,10 @@ import {
     Route,
     Switch,
 } from "react-router-dom";
-import DashboardMain from "./DashboardMain";
+import DriverDashboardMain from "./DriverDashboarMain";
 import SideNav from "./SideNav";
-import Orders from "./Orders";
-import Categories from "./Categories";
+import Delivery from "./Delivery";
+import AllOrders from "./AllOrders";
 import Inventory from "./Inventory";
 import AvgOrderValue from "./AvgOrderValue";
 import Messages from "./Messages";
@@ -24,7 +24,7 @@ import EditEvent from "../EditEvent";
 import CreateEvent from "../CreateEvent";
 import OrderItems from "./OrderItems";
 
-const Dashboard = () => {
+const DriverDashboard = () => {
     const [navWidth, setNavWidth] = useState(0);
     // const params = useParams();
     // let id = params.id;
@@ -36,22 +36,26 @@ const Dashboard = () => {
                     <SideNav setNavWidth={setNavWidth} />
                 </SideNavDiv>
                 <Switch>
-                    <Route path="/dashboard" exact component={DashboardMain} />
-                    <Route path="/dashboard/orders" exact component={Orders} />
+                    <Route
+                        path="/driver-dashboard"
+                        exact
+                        component={DriverDashboardMain}
+                    />
+                    <Route path="/dashboard/orders" exact />
                     <Route
                         path="/dashboard/inventory"
                         exact
                         component={Inventory}
                     />
                     <Route
-                        path="/dashboard/categories"
+                        path="/driver-dashboard/allOrders"
                         exact
-                        component={Categories}
+                        component={AllOrders}
                     />
                     <Route
-                        path="/dashboard/recent-orders/"
+                        path="/driver-dashboard/delivery/:slug"
                         exact
-                        component={Orders}
+                        component={Delivery}
                     />
                     <Route
                         path="/dashboard/notifications"
@@ -120,7 +124,7 @@ const Dashboard = () => {
     );
 };
 
-export default Dashboard;
+export default DriverDashboard;
 const Container = styled.div`
     display: grid;
     grid-template-columns: ${(props) => props.width}px auto;

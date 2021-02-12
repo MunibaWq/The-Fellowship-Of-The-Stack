@@ -1,12 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import Button from "../Reusable/Button";
 import { Modal, ModalTitle } from "../Reusable/Modal";
-import { setVisible } from "../../redux/actions/Modals";
 import axios from "axios";
 import styled from "styled-components";
 
 const deleteItem = async (id) => {
-    let url = `/products/delete/${id}`;
+    let url = `/api/products/delete/${id}`;
     const resp = await axios.delete(url, {
         headers: {
             "Access-Control-Allow-Origin": "*",
@@ -24,11 +23,12 @@ export function DeleteProductModal({ display, value, setter, id }) {
                 </ModalTitle>
                 <Button
                     onClick={() => {
-                        {
-                            value ? setter(false) : setter(true);
+                        if (value) {
+                            setter(false);
+                        } else {
+                            setter(true);
                         }
-                    }}
-                >
+                    }}>
                     Cancel
                 </Button>
                 <Button
@@ -39,8 +39,8 @@ export function DeleteProductModal({ display, value, setter, id }) {
                             setter(true);
                         }
                         deleteItem(id);
-                    }}
-                >
+                        window.location.reload(false)
+                    }}>
                     Accept
                 </Button>
             </Modal>

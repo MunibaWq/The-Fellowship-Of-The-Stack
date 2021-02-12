@@ -22,7 +22,7 @@ const EventCard = ({ theEvent }) => {
             } else setGoing(false);
         };
         attendStatus();
-    }, []);
+    }, [currentEvent]);
 
     // useEffect(() => {
     //     if (going !== "unset") {
@@ -175,6 +175,7 @@ const Actions = styled.div`
     flex-direction: row;
     justify-content: space-between;
     width: 250px;
+    height: 32px;
 `;
 
 const ActionButton = styled(Button)`

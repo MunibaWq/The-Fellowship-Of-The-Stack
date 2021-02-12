@@ -46,7 +46,7 @@ const SearchResults = () => {
                             search();
                         }
                     }}
-                    onChange={(e) => setQuery(e.target.value)}
+                    onChange={(e) => setQuery(e.target.value.replace(/[.?]/g, ''))}
                     placeholder="Search"
                     type="text"
                 />

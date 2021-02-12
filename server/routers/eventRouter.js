@@ -310,7 +310,7 @@ router.delete("/delete/:id", auth, async (req, res) => {
         res.status(500).send("Not Authorized");
     }
     let checkOwner = await pool.query(
-        "SELECT e.host from events WHERE id = " + id
+        "SELECT host from events WHERE id = " + id
     );
     if (checkOwner.rows[0].host !== req.user.id) {
         res.status(500).send("Not Authorized");

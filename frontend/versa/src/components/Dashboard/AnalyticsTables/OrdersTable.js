@@ -45,32 +45,6 @@ const OrdersTable = ({ user, orderData }) => {
         sortArray(sortType);
     }, [sortType]);
 
-    const toLocaleOrderDate = (date) => {
-        let options = {
-            weekday: "long",
-            year: "numeric",
-            month: "long",
-            day: "numeric",
-        };
-
-        let ordersDate = new Date(date);
-
-        let orderDate = ordersDate.toLocaleDateString("en-US", options);
-        setOrderDate(orderDate);
-    };
-    const toLocaleShipDate = (ship_date) => {
-        let options = {
-            weekday: "long",
-            year: "numeric",
-            month: "long",
-            day: "numeric",
-        };
-        let orderShipDate = new Date(ship_date);
-
-        let shipDate = orderShipDate.toLocaleDateString("en-US", options);
-        setShipDate(shipDate);
-    };
-
     let headers = [
         "Order ID",
         "Buyer Name",
@@ -107,8 +81,8 @@ const OrdersTable = ({ user, orderData }) => {
                     <Table>
                         <thead>
                             <Headers>
-                                {headers.map((header) => (
-                                    <th>
+                                {headers.map((header,index) => (
+                                    <th key={`header${index}`}>
                                         <h2>{header}</h2>
                                     </th>
                                 ))}
@@ -152,9 +126,9 @@ const OrdersTable = ({ user, orderData }) => {
                                             )
                                         }>
                                         <p>
-                                            {order.date === null
+                                            {order.orderDate === null
                                                 ? "Error Loading Order Date"
-                                                : order.date}
+                                                : order.orderDate}
                                         </p>
                                     </td>
                                     <td>
@@ -167,9 +141,9 @@ const OrdersTable = ({ user, orderData }) => {
                                             )
                                         }>
                                         <p>
-                                            {order.ship_date === null
+                                            {order.shipDate === null
                                                 ? "Not Received Yet"
-                                                : order.ship_date}
+                                                : order.shipDate}
                                         </p>
                                     </td>
                                 </BodyRows>

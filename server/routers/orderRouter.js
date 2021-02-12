@@ -22,7 +22,7 @@ router.post("/stripe/payment", (req, res) => {
 });
 
 router.post("/paid", optionalAuth, async (req, res) => {
-    const buyerID = req.user.id || 9999
+    const buyerID = req.user.id || 9999;
     console.log("success", req.body.success);
     console.log("payment", req.body.payment);
     const { email } = req.body.success;
@@ -40,8 +40,8 @@ router.post("/paid", optionalAuth, async (req, res) => {
     const { items, payment } = req.body;
     let orderResponse = await pool.query(
         `INSERT INTO orders
-    (date, status, buyer_id, order_total, email, name, pickup, billing_address, delivery_notes)
-    VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9) returning id`,
+    (date, status, buyer_id, order_total, email, name, pickup, billing_address,shipping_address, delivery_notes)
+    VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10) returning id`,
         [
             new Date().toLocaleString().replace(/\./g, ""),
             "paid",
@@ -50,6 +50,7 @@ router.post("/paid", optionalAuth, async (req, res) => {
             email,
             name,
             pickup,
+            `${address_line1} ${address_zip} ${address_city}, ${address_country}`,
             `${address_line1} ${address_zip} ${address_city}, ${address_country}`,
             deliveryNote,
         ]
@@ -143,7 +144,7 @@ router.get("/recent-orders/:orderid", auth, async (req, res) => {
         const orderResult = await pool.query(`SELECT order_total, o.id, o.shipping_address, o.name, o.date, o.phone, o.pickup
         FROM orders o
  
-        WHERE  o.id = ${req.params.orderid} `)
+        WHERE  o.id = ${req.params.orderid} `);
         const result = await pool.query(
             `SELECT s.artist_id, s.product_id, s.quantity, s.color, s.size, p.title
             FROM sales_by_product s
@@ -159,6 +160,30 @@ router.get("/recent-orders/:orderid", auth, async (req, res) => {
         res.send({
             message: "error",
         });
+    }
+});
+
+router.get("/getOrders", async (req, res, next) => {
+    try {
+        const dat = await pool.query(`SELECT * FROM orders`);
+        res.json(dat.rows);
+    } catch (error) {
+        console.log(error);
+        res.json("you have encountered an error");
+    }
+});
+
+router.get("/getOrderItems/:id", async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        const dat = await pool.query(
+            `SELECT * FROM order_items WHERE order_id = $1`,
+            [id]
+        );
+        res.json(dat.rows);
+    } catch (error) {
+        console.log(error);
+        res.json("you have encountered an error");
     }
 });
 

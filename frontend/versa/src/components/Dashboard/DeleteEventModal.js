@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import Button from "../Reusable/Button";
 import { Modal, ModalTitle } from "../Reusable/Modal";
-import { setVisible } from "../../redux/actions/Modals";
 
 import styled from "styled-components";
 import { deleteArtistEvent } from "../../axios/deletes";
@@ -15,8 +14,10 @@ export function DeleteEventModal({ display, value, setter, id }) {
                 </ModalTitle>
                 <Button
                     onClick={() => {
-                        {
-                            value ? setter(false) : setter(true);
+                        if (value) {
+                            setter(false);
+                        } else {
+                            setter(true);
                         }
                     }}>
                     Cancel
@@ -29,6 +30,7 @@ export function DeleteEventModal({ display, value, setter, id }) {
                             setter(true);
                         }
                         deleteArtistEvent(id);
+                        window.location.reload(false)
                     }}>
                     Accept
                 </Button>

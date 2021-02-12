@@ -206,19 +206,17 @@ const VTable = ({ data }) => {
         <table>
             <thead>
                 <tr>
-                {data.table.headers.map((header, index) => (
+                {data.table.headers.map((header) => (
                     <th key={header}>{header}</th>
-                ))}
-                </tr>
+                ))}</tr>
             </thead>
-            <tbody>
             {data.table.values.map((row, index) => (
-                <tr key={`data${index}`}>
-                    {row.map((data, index) => (
-                        <td key={index}>{data}</td>
+                <tr key={index}>
+                    {row.map((data) => (
+                        <td>{data}</td>
                     ))}
                 </tr>
-            ))}</tbody>
+            ))}
         </table>
     );
 };

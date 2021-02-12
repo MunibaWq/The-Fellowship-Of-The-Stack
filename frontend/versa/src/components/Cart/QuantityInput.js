@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setCartInput, updateCart } from "../../redux/actions/Cart";
-import Button from "../Reusable/Button";
+import { setCartInput } from "../../redux/actions/Cart";
 import { Input } from "../Reusable/Input";
 const QuantityInput = ({ cartItem }) => {
     const cartUpdate = useSelector(state=>state.cartUpdate)
