@@ -8,8 +8,6 @@ import DropDown from "./DropDown";
 const OrdersTable = ({ user, orderData }) => {
     const [data, setData] = useState(orderData);
     const [sortType, setSortType] = useState();
-    const [orderDate, setOrderDate] = useState();
-    const [shipDate, setShipDate] = useState();
 
     const sortOptions = [
         {
@@ -30,13 +28,13 @@ const OrdersTable = ({ user, orderData }) => {
         const sortArray = (type) => {
             const types = {
                 status: "status",
-                orderdate: "orderdate",
-                shipdate: "shipdate",
+                orderdate: "orderDate",
+                shipdate: "orderShipDate",
             };
             const sortProperty = types[type];
 
             const sorted = [...orderData].sort(
-                (a, b) => b[sortProperty] - a[sortProperty]
+                (a, b) => b[sortProperty] < a[sortProperty]
             );
             console.log(sorted);
             setData(sorted);
@@ -81,7 +79,7 @@ const OrdersTable = ({ user, orderData }) => {
                     <Table>
                         <thead>
                             <Headers>
-                                {headers.map((header,index) => (
+                                {headers.map((header, index) => (
                                     <th key={`header${index}`}>
                                         <h2>{header}</h2>
                                     </th>
@@ -94,7 +92,7 @@ const OrdersTable = ({ user, orderData }) => {
                                     <td
                                         onClick={() =>
                                             history.push(
-                                                `/dashboard/recent-orders/${user}/${order.id}`
+                                                `/dashboard/recent-orders/${order.id}`
                                             )
                                         }>
                                         <p>{order.id}</p>
@@ -102,7 +100,7 @@ const OrdersTable = ({ user, orderData }) => {
                                     <td
                                         onClick={() =>
                                             history.push(
-                                                `/dashboard/recent-orders/${user}/${order.id}`
+                                                `/dashboard/recent-orders/${order.id}`
                                             )
                                         }>
                                         <p>{order.name}</p>
@@ -110,7 +108,7 @@ const OrdersTable = ({ user, orderData }) => {
                                     <td
                                         onClick={() =>
                                             history.push(
-                                                `/dashboard/recent-orders/${user}/${order.id}`
+                                                `/dashboard/recent-orders/${order.id}`
                                             )
                                         }>
                                         <p>
@@ -122,7 +120,7 @@ const OrdersTable = ({ user, orderData }) => {
                                     <td
                                         onClick={() =>
                                             history.push(
-                                                `/dashboard/recent-orders/${user}/${order.id}`
+                                                `/dashboard/recent-orders/${order.id}`
                                             )
                                         }>
                                         <p>
@@ -137,13 +135,13 @@ const OrdersTable = ({ user, orderData }) => {
                                     <td
                                         onClick={() =>
                                             history.push(
-                                                `/dashboard/recent-orders/${user}/${order.id}`
+                                                `/dashboard/recent-orders/${order.id}`
                                             )
                                         }>
                                         <p>
-                                            {order.shipDate === null
+                                            {order.orderShipDate === null
                                                 ? "Not Received Yet"
-                                                : order.shipDate}
+                                                : order.orderShipDate}
                                         </p>
                                     </td>
                                 </BodyRows>

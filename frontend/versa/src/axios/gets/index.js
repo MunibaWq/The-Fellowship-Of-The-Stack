@@ -86,12 +86,12 @@ export const getAvgOrderValue = async () => {
 };
 
 export const getRecentOrders = async () => {
-    const response = await Axios.get(`/api/dashboard/recent-orders/`);
+    const response = await Axios.get(`/api/dashboard/recent-orders`);
     return response.data;
 };
 
 export const getOneOrder = async (orderid) => {
-    const response = await Axios.get(`/api/orders/recent-orders/${orderid}`);
+    const response = await Axios.get(`/api/orders/order/${orderid}`);
     return response.data;
 };
 

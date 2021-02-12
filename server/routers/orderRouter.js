@@ -139,21 +139,57 @@ router.put("/edit/:id", async (req, res) => {
     }
 });
 
-router.get("/recent-orders/:orderid", auth, async (req, res) => {
+router.get("/order/:orderid", auth, async (req, res) => {
     try {
-        const orderResult = await pool.query(`SELECT order_total, o.id, o.shipping_address, o.name, o.date, o.phone, o.pickup
-        FROM orders o
- 
-        WHERE  o.id = ${req.params.orderid} `);
+        // const orderResult = await pool.query(`SELECT order_total, id, shipping_address, name, date, phone, pickup, delivery_notes
+        // FROM orders
+        // WHERE  id = ${req.params.orderid} `);
+        // const result = await pool.query(
+        //     `SELECT s.artist_id, s.product_id, s.quantity, s.color, s.size, p.title
+        //     FROM sales_by_product s
+        //     INNER JOIN products p
+        //     ON s.product_id = p.id
+        //     WHERE s.artist_id = ${req.user.id}`
+        // );
+        // const orderInfo = orderResult.rows;
+        console.log("orderid", req.params.orderid);
         const result = await pool.query(
-            `SELECT s.artist_id, s.product_id, s.quantity, s.color, s.size, p.title
-            FROM sales_by_product s
+            `SELECT o.order_total, o.id, o.shipping_address, o.name, o.date, o.ship_date, o.delivery_notes, o.phone, o.pickup, s.artist_id, s.product_id, s.quantity, s.color, s.size, p.title
+            FROM orders o
+            INNER JOIN sales_by_product s
+            ON o.id = s.order_id
             INNER JOIN products p
             ON s.product_id = p.id
-            WHERE s.artist_id = ${req.user.id}`
+            WHERE s.artist_id = ${req.user.id} and o.id = ${req.params.orderid}`
         );
+        const orderInfo = result.rows;
+        for (order of orderInfo) {
+            let options = {
+                weekday: "long",
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+            };
 
-        const orderInfo = { order: orderResult.rows, orderItems: result.rows };
+            let ordersDate = new Date(order.date);
+
+            let orderDate = ordersDate.toLocaleDateString("en-US", options);
+
+            let orderTime = ordersDate.toLocaleTimeString([], {
+                hour: "2-digit",
+                minute: "2-digit",
+            });
+            order.orderTime = orderTime;
+            order.orderDate = orderDate;
+
+            let orderShipDate = new Date(order.ship_date);
+
+            let shipDate = orderShipDate.toLocaleDateString("en-US", options);
+            order.orderShipDate = order.ship_date === null ? null : shipDate;
+        }
+
+        // const orderItems = result.rows;
+        // console.log({ order: orderInfo, items: orderItems });
         res.json(orderInfo);
     } catch (err) {
         console.error(err.message);

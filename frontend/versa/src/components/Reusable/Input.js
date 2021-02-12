@@ -15,7 +15,7 @@ export const TextField = ({
 }) => {
     const dispatch = useDispatch();
     const input = useSelector((state) => state.formInputs[form][name]);
-    const error = useSelector((state)=>state.formErrors[form][name])
+    const error = useSelector((state) => state.formErrors[form][name]);
     return (
         <div>
             <FieldContainer>
@@ -33,18 +33,17 @@ export const TextField = ({
                                 }
                             }
                             if (error) {
-                                dispatch(setInputErrors(form,name,error))
+                                dispatch(setInputErrors(form, name, error));
                                 // setShowError(error);
                             } else {
-                                dispatch(setInputErrors(form,name,false))
+                                dispatch(setInputErrors(form, name, false));
                             }
                             dispatch(setFormInputs(form, name, e.target.value));
                         }}
-                        value={input||''}
-                    ></TextArea>
+                        value={input || ""}></TextArea>
                 ) : (
                     <Input
-                            value={input||''}
+                        value={input || ""}
                         type={password ? "password" : "text"}
                         onChange={(e) => {
                             let error = "";
@@ -54,14 +53,13 @@ export const TextField = ({
                                 }
                             }
                             if (error) {
-                                dispatch(setInputErrors(form,name,error))
+                                dispatch(setInputErrors(form, name, error));
                                 // setShowError(error);
                             } else {
-                                dispatch(setInputErrors(form,name,false))
+                                dispatch(setInputErrors(form, name, false));
                             }
                             dispatch(setFormInputs(form, name, e.target.value));
-                        }}
-                    ></Input>
+                        }}></Input>
                 )}
                 <Error id={error && "error"}>{error}</Error>
             </FieldContainer>
@@ -74,6 +72,7 @@ export const TextArea = styled.textarea`
     border-radius: 5px;
     border-style: none;
     height: 100px;
+    font-family: Inter;
     background-color: rgba(80, 80, 80, 15%);
 
     &:focus {
@@ -86,6 +85,7 @@ export const Label = styled.label`
     margin-left: 3px;
     margin-bottom: 8px;
     text-align: left;
+    font-family: Inter;
 `;
 
 export const Error = styled.p`
@@ -93,6 +93,7 @@ export const Error = styled.p`
     margin-left: 3px;
     margin-bottom: 1.5em;
     height: 10px;
+    font-family: Inter;
 `;
 
 export const Input = styled.input`
@@ -100,7 +101,7 @@ export const Input = styled.input`
     border-radius: 5px;
     border: 3px solid ${theme.secondary};
     height: 35px;
-
+    font-family: Inter;
     background-color: rgba(80, 80, 80, 15%);
 
     &:focus {
