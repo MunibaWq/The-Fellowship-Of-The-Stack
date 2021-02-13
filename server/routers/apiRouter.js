@@ -14,5 +14,5 @@ router.use("/users", userRouter);
 router.use("/events", eventRouter);
 router.use("/dashboard", dashboardRouter);
 router.use("/orders", orderRouter);
-
+router.use('/cart',cartRouter)
 module.exports = router;

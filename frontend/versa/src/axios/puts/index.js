@@ -134,3 +134,6 @@ export const editEvent = async (event) => {
         return false;
     }
 };
+export const modifyCart = (cartProduct, colour, size, quantity, session) => {
+    Axios.put('/api/cart/edit', { cartProduct, colour, size, quantity, session })
+}

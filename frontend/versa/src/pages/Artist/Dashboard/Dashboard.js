@@ -36,9 +36,10 @@ const Dashboard = () => {
                     <SideNav setNavWidth={setNavWidth} />
                 </SideNavDiv>
                 <Switch>
-                    <Route path="/dashboard" exact component={DashboardMain} />
-                    <Route path="/dashboard/orders" exact component={Orders} />
-                    <Route
+                    <PrivateRoute path="/dashboard" exact component={DashboardLanding} />
+                    <PrivateRoute path="/artistDashboard" exact component={DashboardMain} />
+                    <PrivateRoute path="/dashboard/orders" exact component={Orders} />
+                    <PrivateRoute
                         path="/dashboard/inventory"
                         exact
                         component={Inventory}

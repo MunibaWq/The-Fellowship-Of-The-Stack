@@ -12,7 +12,10 @@ import ArtistLogIn from "./pages/Artist/ArtistLogIn";
 import Dashboard from "./pages/Artist/Dashboard/Dashboard";
 import EventPage from "./components/Events/EventPage";
 import DriverDashboard from "./pages/Driver/Dashboard/DriverDashboard";
-
+import { PrivateRoute } from "./components/Reusable/PrivateRoute";
+if (!window.localStorage.getItem('session')) {
+    window.localStorage.setItem('session', Math.random().toString(36).substr(2, 9))
+}
 function App() {
     return (
         <Router>
@@ -24,7 +27,7 @@ function App() {
                     <Route path="/shop" exact component={SearchResults} />
                     <Route path="/events" exact component={Events} />
                     <Route path="/account" exact component={Account} />
-                    <Route path="/wishlist" exact component={Wishlist} />
+                    <PrivateRoute path="/wishlist" exact component={Wishlist} />
                     <Route
                         path="/shopping-cart"
                         exact

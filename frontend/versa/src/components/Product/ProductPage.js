@@ -9,7 +9,8 @@ import ImageTest from "../../images/imageTest.png";
 import { useDispatch, useSelector } from "react-redux";
 import { clearChoices, setChoices } from "../../redux/actions/ProductPage";
 import { setRedirect } from "../../redux/actions/Redirects";
-import { addToCart } from "../../redux/actions/Cart";
+import { addToCart } from "../../axios/posts";
+// import { addToCart } from "../../redux/actions/Cart";
 
 const ProductPage = ({
     images,
@@ -39,6 +40,7 @@ const ProductPage = ({
         [dispatch]
     );
     const showProductTotal = () => {
+        
         return Object.keys(cart[id]).reduce(
             (colourTotal, currColour, cIndex) => {
                 colourTotal =
@@ -246,19 +248,24 @@ const ProductPage = ({
                     <Button
                         primary
                         onClick={() => {
-                            dispatch(
-                                addToCart(
-                                    id,
+                           
+                            addToCart(id,
                                     colours[choices.colour].label,
                                     sizes[choices.size].label,
-                                    1
-                                )
-                            );
+                                    1,window.localStorage.getItem('session'))
+                            // dispatch(
+                            //     addToCart(
+                            //         id,
+                            //         colours[choices.colour].label,
+                            //         sizes[choices.size].label,
+                            //         1
+                            //     )
+                            // );
                         }}>
                         Add to Cart
                     </Button>
 
-                    {cart && cart[id] && "In your cart: " + showProductTotal()}
+                    {showProductTotal()}
                 </ProductDetail>
             </MainInfo>
         </Container>

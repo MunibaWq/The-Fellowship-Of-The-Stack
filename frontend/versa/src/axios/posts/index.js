@@ -4,6 +4,13 @@ export const axiosLogin = async (email, password) => {
     let res = await Axios.post("/api/users/login", { email, password });
     return res.data;
 };
+export const axiosLogout = async () => {
+    Axios.post('/api/users/logout')
+}
+export const addToCart = (cartProduct, colour, size, quantity, session) => {
+    Axios.post('/api/cart/add', { cartProduct, colour, size, quantity, session })
+}
+
 export const addProduct = async (productInfo, images, thumbImg) => {
     let res = await Axios.post("/api/products/create", {
         data: productInfo,

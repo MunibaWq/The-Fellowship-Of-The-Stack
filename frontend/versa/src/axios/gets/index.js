@@ -99,3 +99,14 @@ export const amIGoing = async (eventID) => {
     const response = await Axios.get(`api/events/amIGoing/${eventID}`);
     return response.data;
 };
+
+export const getCartItem = async (cartProduct, colour, size, session) => {
+    const response = await Axios.get(`/api/cart/${session}/item/${cartProduct}/${colour}/${size}`)
+    return response.data;
+    
+}
+export const getCart = async (session) => {
+    const response = await Axios.get(`/api/cart/${session}`)
+    return response.data
+    
+}
