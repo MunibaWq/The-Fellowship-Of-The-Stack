@@ -13,6 +13,7 @@ import Dashboard from "./pages/Artist/Dashboard/Dashboard";
 import EventPage from "./components/Events/EventPage";
 import DriverDashboard from "./pages/Driver/Dashboard/DriverDashboard";
 import Login from "./pages/Shared/Login";
+import { PrivateRoute } from "./components/Reusable/PrivateRoute";
 
 function App() {
     return (
@@ -25,7 +26,7 @@ function App() {
                     <Route path="/shop" exact component={SearchResults} />
                     <Route path="/events" exact component={Events} />
                     <Route path="/account" exact component={Account} />
-                    <Route path="/wishlist" exact component={Wishlist} />
+                    <PrivateRoute path="/wishlist" exact component={Wishlist} />
                     <Route
                         path="/shopping-cart"
                         exact
@@ -40,17 +41,17 @@ function App() {
                         component={CreateAccount}
                     />
                     
-                    <Route
+                    <PrivateRoute
                         path="/edit-account"
                         component={EditAccount}
                     />
                     <Route path="/log-in" component={Login} />
                     
-                    <Route
+                    <PrivateRoute
                         path="/driver-dashboard"
                         component={DriverDashboard}
                     />
-                    <Route path="/dashboard" component={Dashboard} />
+                    <PrivateRoute path="/dashboard" component={Dashboard} />
                 </Switch>
             </div>
         </Router>

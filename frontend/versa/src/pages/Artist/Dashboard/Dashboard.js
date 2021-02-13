@@ -27,6 +27,7 @@ import OrderItems from "./OrderItems";
 import Cookies from 'universal-cookie'
 import DriverDashboardMain from "../../Driver/Dashboard/DriverDashboarMain";
 import Delivery from "../../Driver/Dashboard/Delivery";
+import { PrivateRoute } from "../../../components/Reusable/PrivateRoute";
 const cookies = new Cookies()
 const Redirecter = () => {
     window.location = '/account'
@@ -46,94 +47,95 @@ const Dashboard = () => {
                     <SideNav setNavWidth={setNavWidth} />
                 </SideNavDiv>
                 <Switch>
-                    <Route path="/dashboard" exact component={cookies.get('token') ? DashboardLanding : Redirecter} />
-                    <Route path="/artistDashboard" exact component={cookies.get('token') ? DashboardMain : Redirecter} />
-                    <Route path="/dashboard/orders" exact component={Orders} />
-                    <Route
+                    <PrivateRoute path="/dashboard/blah" exact component={Orders} />
+                    <PrivateRoute path="/dashboard" exact component={cookies.get('token') ? DashboardLanding : Redirecter} />
+                    <PrivateRoute path="/artistDashboard" exact component={cookies.get('token') ? DashboardMain : Redirecter} />
+                    <PrivateRoute path="/dashboard/orders" exact component={Orders} />
+                    <PrivateRoute
                         path="/dashboard/inventory"
                         exact
                         component={Inventory}
                     />
                     
-                    <Route
+                    <PrivateRoute
                         path="/driverDashboard"
                         exact
                         component={DriverDashboardMain}
                     />
                    
-                    <Route
+                    <PrivateRoute
                         path="/driverDashboard/delivery/:slug"
                         exact
                         component={Delivery}
                     />
-                    <Route
+                    <PrivateRoute
                         path="/dashboard/categories"
                         exact
                         component={Categories}
                     />
-                    <Route
+                    <PrivateRoute
                         path="/dashboard/recent-orders/"
                         exact
                         component={Orders}
                     />
-                    <Route
+                    <PrivateRoute
                         path="/dashboard/notifications"
                         exact
                         component={Notifications}
                     />
-                    <Route
+                    <PrivateRoute
                         path="/dashboard/messages"
                         exact
                         component={Messages}
                     />
-                    <Route
+                    <PrivateRoute
                         path="/dashboard/settings"
                         exact
                         component={Settings}
                     />
-                    <Route
+                    <PrivateRoute
                         path="/dashboard/manage-events"
                         exact
                         component={DashboardEvents}
                     />
-                    <Route
+                    <PrivateRoute
                         path="/dashboard/total-sales/"
                         exact
                         component={TotalSales}
                     />
-                    <Route
+                    <PrivateRoute
                         path="/dashboard/total-orders/"
                         exact
                         component={TotalOrders}
                     />
-                    <Route
+                    <PrivateRoute
                         path="/dashboard/average-order-value/"
                         exact
                         component={AvgOrderValue}
                     />
-                    <Route
+                    <PrivateRoute
                         path="/dashboard/sales-by-products/"
                         exact
                         component={SalesByProduct}
                     />
 
-                    <Route
+                    <PrivateRoute
                         path="/dashboard/products/create"
                         component={AddProduct}
                     />
-                    <Route
+                    <PrivateRoute
                         path="/dashboard/products/edit/:id"
                         component={EditProduct}
                     />
-                    <Route
+                    <PrivateRoute
                         path="/dashboard/events/create"
                         component={CreateEvent}
                     />
-                    <Route
+                    <PrivateRoute
                         path="/dashboard/events/edit/:id"
                         component={EditEvent}
                     />
-                    <Route
+                    <PrivateRoute
                         path="/dashboard/recent-orders/:orderid"
                         component={OrderItems}
                     />
