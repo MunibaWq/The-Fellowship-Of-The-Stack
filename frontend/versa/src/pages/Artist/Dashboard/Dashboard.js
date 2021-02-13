@@ -27,6 +27,8 @@ import OrderItems from "./OrderItems";
 import Cookies from 'universal-cookie'
 import DriverDashboardMain from "../../Driver/Dashboard/DriverDashboarMain";
 import Delivery from "../../Driver/Dashboard/Delivery";
+import { PrivateRoute } from "../../../components/Reusable/PrivateRoute";
+
 const cookies = new Cookies()
 const Redirecter = () => {
     window.location = '/account'

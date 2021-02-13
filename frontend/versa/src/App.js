@@ -9,10 +9,13 @@ import ShoppingCart from "./pages/UserBuyer/ShoppingCart";
 import ProductItem from "./pages/UserBuyer/ProductItem";
 import CreateAccount from "./pages/Shared/CreateAccount";
 import EditAccount from "./pages/Shared/EditAccount";
+import Login from "./pages/Shared/Login";
 import Dashboard from "./pages/Artist/Dashboard/Dashboard";
 import EventPage from "./components/Events/EventPage";
 import DriverDashboard from "./pages/Driver/Dashboard/DriverDashboard";
 import { PrivateRoute } from "./components/Reusable/PrivateRoute";
+
+
 if (!window.localStorage.getItem('session')) {
     window.localStorage.setItem('session', Math.random().toString(36).substr(2, 9))
 }
@@ -46,6 +49,7 @@ function App() {
                         path="/edit-account"
                         component={EditAccount}
                     />
+                    
                     <Route path="/log-in" component={Login} />
                     
                     <Route

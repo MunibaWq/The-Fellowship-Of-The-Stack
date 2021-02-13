@@ -24,7 +24,7 @@ router.get(
         user_id = ${userID} AND product_id = ${cartProduct} 
         AND colour=${colour} AND size=${size}`)
         const quantity = itemQuery.rows[0].quantity
-        res.status(200).send(quantityfdsv                                           m)
+        res.status(200).send(quantity)
     }
 );
 router.post("/add", optionalAuth, async (req, res) => {
