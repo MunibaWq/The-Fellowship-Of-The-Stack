@@ -32,7 +32,14 @@ router.post("/create", async (req, res, next) => {
     delete createUser.password;
     res.cookie("token", token).json(createUser);
 });
+router.post('/logout', auth, async (req, res) => {
+    pool.query(`DELETE FROM tokens WHERE token =  '${req.cookies.token}'`)
+    res.cookie("token", "", { maxAge: 0 })
+    res.cookie("name", "", { maxAge: 0 })
+    res.cookie("isArtist", "", { maxAge: 0 })
+    res.cookie("isDriver", "", { maxAge: 0 }).status(200).json({ message:"Signed out" });
 
+})
 router.post("/login", async (req, res, next) => {
     try {
         const user = await findByCredentials(req.body.email, req.body.password);
@@ -46,6 +53,7 @@ router.post("/login", async (req, res, next) => {
         res.cookie("token", token, { maxAge: Infinity + 1 });
         res.cookie("isArtist", user.is_artist, { maxAge: Infinity + 1 });
         res.cookie("isDriver", user.is_driver, { maxAge: Infinity + 1 });
+        res.cookie("name", user.name, { maxAge: Infinity + 1 });
         res.json(user);
     } catch (e) {
         res.status(400).send();
@@ -71,8 +79,18 @@ router.put("/update", auth, async (req, res, next) => {
     updatedUser.email = req.body.data.email || user.email;
     updatedUser.address = req.body.data.address || user.address;
     updatedUser.storeAddress = req.body.data.storeAddress || user.storeAddress;
-    updatedUser.isArtist = req.body.data.isArtist || user.is_artist;
-    updatedUser.isDriver = req.body.data.isDriver || user.is_driver;
+    updatedUser.isArtist =
+        req.body.data.isArtist === false
+            ? false
+            : req.body.data.isArtist === true
+            ? true
+            : user.is_artist;
+    updatedUser.isDriver =
+        req.body.data.isDriver === false
+            ? false
+            : req.body.data.isDriver === true
+            ? true
+            : user.is_driver;
     console.log(updatedUser);
     //now we need to change whats in the updatedUser array, this does the update
     const data = await pool.query(
@@ -88,6 +106,9 @@ router.put("/update", auth, async (req, res, next) => {
             user.id,
         ]
     );
+    res.cookie("isArtist", user.is_artist, { maxAge: Infinity + 1 });
+    res.cookie("isDriver", user.is_driver, { maxAge: Infinity + 1 });
+    res.cookie("name", user.name, { maxAge: Infinity + 1 });
     res.json(data.rows[0]);
 });
 
