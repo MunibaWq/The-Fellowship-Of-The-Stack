@@ -6,7 +6,9 @@ import theme from "../components/Reusable/Colors";
 import { AddIcon, EditIcon } from "../images/icons";
 import Cookies from 'universal-cookie'
 import { login, logout } from "../redux/actions/actions";
+import { axiosLogout } from "../axios/posts";
 const cookies = new Cookies()
+
 const Account = () => {
     const dispatch = useDispatch()
     const user = useSelector((state) => state.user);
@@ -20,13 +22,14 @@ const Account = () => {
         <div>
             {user && (
               <>
-                <Button onClick={() => {
-                    cookies.remove('token',{ path: '/' })
-
+                    <Button onClick={() => {
+                        
+                    axiosLogout()
                     dispatch(logout())
+                    cookies.remove('token')
                     }} secondary>
                         <AddIcon stroke={theme.primary} />
-                        Clicking me TOTALLY logs you out
+                        Sign Out
                 </Button>
                 <Link to="/edit-account">
                         <Button secondary>
