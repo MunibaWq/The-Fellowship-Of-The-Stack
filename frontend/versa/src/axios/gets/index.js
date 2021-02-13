@@ -10,8 +10,8 @@ export const getProductByID = async (currentProduct) => {
     const response = await Axios.get(`/api/products/get/${currentProduct}`);
     return response.data;
 };
-export const getUserByID = async (id) => {
-    const response = await Axios.get("/api/users/get/" + id);
+export const getUser = async () => {
+    const response = await Axios.get("/api/users/get");
     return response.data;
 };
 export const getAllProducts = async () => {
@@ -23,8 +23,16 @@ export const getAllProducts = async () => {
     return res.data;
 };
 export const getAllMyProducts = async () => {
-    let res = await Axios.get("/api/products/myProducts/");
-    return res.data;
+    
+    try {
+        let res = await Axios.get("/api/products/myProducts/");
+        return res.data;
+    }
+        catch (e) {
+        if (e.response.status === 401) {
+            throw new Error('not authorized')
+        }
+        }
 };
 
 export const searchProducts = async (query) => {

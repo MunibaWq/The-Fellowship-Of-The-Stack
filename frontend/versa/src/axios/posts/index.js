@@ -12,24 +12,28 @@ export const addToCart = (cartProduct, colour, size, quantity, session) => {
 }
 
 export const addProduct = async (productInfo, images, thumbImg) => {
-    let res = await Axios.post("/api/products/create", {
-        data: productInfo,
-    });
-    let productID = +res.data.id;
-    images.forEach(async (image, index) => {
-        if (index === thumbImg) {
-            image.size = "thumb";
-        }
+    try {
+        let res = await Axios.post("/api/products/create", {
+            data: productInfo,
+        });
+        let productID = +res.data.id;
+        images.forEach(async (image, index) => {
+            if (index === thumbImg) {
+                image.size = "thumb";
+            }
 
-        let { imageFile, label, size } = image;
-        let res = await addImage(imageFile, label, size, productID);
-        if (!res)
-            alert(
-                JSON.stringify(imageFile) +
+            let { imageFile, label, size } = image;
+            let res = await addImage(imageFile, label, size, productID);
+            if (!res)
+                alert(
+                    JSON.stringify(imageFile) +
                     " failed to upload, go to edit product to try to add picture again"
-            );
-    });
-    return productID;
+                );
+        });
+        return productID;
+    } catch (e) {
+        console.log(e)
+    }
 };
 export const addImage = async (image, label, imageSize, productID) => {
     try {

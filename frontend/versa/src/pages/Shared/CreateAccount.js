@@ -5,7 +5,7 @@ import AccountForm from "../../components/AccountForm";
 const CreateAccount = () => {
     return (
         <Container>
-            <h1>Bring Your Business Online!</h1>
+            <h1>Create an account to get started!</h1>
          
             <AccountForm type={"Add"} />
         </Container>
