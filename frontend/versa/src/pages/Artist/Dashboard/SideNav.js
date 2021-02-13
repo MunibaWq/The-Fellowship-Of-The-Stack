@@ -21,7 +21,18 @@ import {
 } from "../../../images/icons";
 import theme from "../../../components/Reusable/Colors";
 import Pill from "../../../components/Reusable/Pill";
-
+import Cookies from "universal-cookie";
+const cookies = new Cookies();
+const isDriver = cookies.get("isDriver") === "true";
+const isArtist = cookies.get("isArtist") === "true";
+const userTypes = [];
+if (isArtist) {
+    userTypes.push("Artist");
+}
+if (isDriver) {
+    userTypes.push("Driver");
+}
+console.log(isArtist);
 const SideNav = ({ setNavWidth }) => {
     const [visiblePSub, setVisiblePSub] = useState(false);
     const [visibleASub, setVisibleASub] = useState(false);
@@ -45,8 +56,8 @@ const SideNav = ({ setNavWidth }) => {
                 <NavBar>
                     <Header>
                         <UserInfo>
-                            <Name>Artist Name</Name>
-                            <UserType>User Type</UserType>
+                            <Name>{cookies.get("name")}</Name>
+                            <UserType>{userTypes.join(", ")}</UserType>
                         </UserInfo>
                         <Close
                             onClick={() => {
@@ -102,143 +113,176 @@ const SideNav = ({ setNavWidth }) => {
                                 </MenuLink>
                             </li>
                         </Link>
-                        <li>
-                            <MenuLink
-                                onClick={() =>
-                                    setVisibleADSub((curr) => !curr)
-                                }>
-                                <PaintBrushIcon />
-                                <h3>Artist Dashboard</h3>
-                                <DownIcon stroke={theme.primary} />
-                            </MenuLink>
-                        </li>
-                        {visibleADSub && (
-                            <SubMenu>
-                                <Link to="/artistDashboard">
-                                    <li>
-                                        <MenuLink>
-                                            <ShopHome />
-                                            <h3>Overview</h3>
-                                            <RightIcon stroke={theme.primary} />
-                                        </MenuLink>
-                                    </li>
-                                </Link>
-                                <Link to="/dashboard/recent-orders/">
-                                    <li>
-                                        <MenuLink>
-                                            <Orders />
-                                            <NotiCount>
-                                                <p>3</p>
-                                            </NotiCount>
-                                            <h3>Orders</h3>
-
-                                            <RightIcon stroke={theme.primary} />
-                                        </MenuLink>
-                                    </li>
-                                </Link>
+                        {isArtist && (
+                            <>
                                 <li>
                                     <MenuLink
                                         onClick={() =>
-                                            setVisiblePSub(!visiblePSub)
+                                            setVisibleADSub((curr) => !curr)
                                         }>
-                                        <Products />
-                                        <h3>Products</h3>
+                                        <PaintBrushIcon />
+                                        <h3>Artist Dashboard</h3>
                                         <DownIcon stroke={theme.primary} />
                                     </MenuLink>
                                 </li>
-                                {visiblePSub && (
+                                {visibleADSub && (
                                     <SubMenu>
-                                        <Link to="/dashboard/inventory">
+                                        <Link to="/artistDashboard">
                                             <li>
-                                                <SubMenuLink>
-                                                    <h4>Inventory</h4>
+                                                <MenuLink>
+                                                    <ShopHome />
+                                                    <h3>Overview</h3>
                                                     <RightIcon
                                                         stroke={theme.primary}
                                                     />
-                                                </SubMenuLink>
+                                                </MenuLink>
                                             </li>
                                         </Link>
-                                        <Link to="/dashboard/categories">
+                                        <Link to="/dashboard/recent-orders/">
                                             <li>
-                                                <SubMenuLink>
-                                                    <h4>Categories</h4>
+                                                <MenuLink>
+                                                    <Orders />
+                                                    <NotiCount>
+                                                        <p>3</p>
+                                                    </NotiCount>
+                                                    <h3>Orders</h3>
+
                                                     <RightIcon
                                                         stroke={theme.primary}
                                                     />
-                                                </SubMenuLink>
+                                                </MenuLink>
+                                            </li>
+                                        </Link>
+                                        <li>
+                                            <MenuLink
+                                                onClick={() =>
+                                                    setVisiblePSub(!visiblePSub)
+                                                }>
+                                                <Products />
+                                                <h3>Products</h3>
+                                                <DownIcon
+                                                    stroke={theme.primary}
+                                                />
+                                            </MenuLink>
+                                        </li>
+                                        {visiblePSub && (
+                                            <SubMenu>
+                                                <Link to="/dashboard/inventory">
+                                                    <li>
+                                                        <SubMenuLink>
+                                                            <h4>Inventory</h4>
+                                                            <RightIcon
+                                                                stroke={
+                                                                    theme.primary
+                                                                }
+                                                            />
+                                                        </SubMenuLink>
+                                                    </li>
+                                                </Link>
+                                                <Link to="/dashboard/categories">
+                                                    <li>
+                                                        <SubMenuLink>
+                                                            <h4>Categories</h4>
+                                                            <RightIcon
+                                                                stroke={
+                                                                    theme.primary
+                                                                }
+                                                            />
+                                                        </SubMenuLink>
+                                                    </li>
+                                                </Link>
+                                            </SubMenu>
+                                        )}
+
+                                        <li>
+                                            <MenuLink
+                                                onClick={() =>
+                                                    setVisibleASub(!visibleASub)
+                                                }>
+                                                <Dashboard />
+                                                <h3>Analytics</h3>
+                                                <DownIcon
+                                                    stroke={theme.primary}
+                                                />
+                                            </MenuLink>
+                                        </li>
+
+                                        {visibleASub && (
+                                            <SubMenu>
+                                                <Link to="/dashboard/total-sales/">
+                                                    <li>
+                                                        <SubMenuLink>
+                                                            <h4>Total Sales</h4>
+                                                            <RightIcon
+                                                                stroke={
+                                                                    theme.primary
+                                                                }
+                                                            />
+                                                        </SubMenuLink>
+                                                    </li>
+                                                </Link>
+                                                <Link to="/dashboard/total-orders/">
+                                                    <li>
+                                                        <SubMenuLink>
+                                                            <h4>
+                                                                Total Orders
+                                                            </h4>
+                                                            <RightIcon
+                                                                stroke={
+                                                                    theme.primary
+                                                                }
+                                                            />
+                                                        </SubMenuLink>
+                                                    </li>
+                                                </Link>
+                                                <Link to="/dashboard/average-order-value/">
+                                                    <li>
+                                                        <SubMenuLink>
+                                                            <h4>
+                                                                Average Order
+                                                                Value
+                                                            </h4>
+                                                            <RightIcon
+                                                                stroke={
+                                                                    theme.primary
+                                                                }
+                                                            />
+                                                        </SubMenuLink>
+                                                    </li>
+                                                </Link>
+                                                <Link to="/dashboard/sales-by-products/">
+                                                    <li>
+                                                        <SubMenuLink>
+                                                            <h4>
+                                                                Sales by Product
+                                                            </h4>
+                                                            <RightIcon
+                                                                stroke={
+                                                                    theme.primary
+                                                                }
+                                                            />
+                                                        </SubMenuLink>
+                                                    </li>
+                                                </Link>
+                                            </SubMenu>
+                                        )}
+                                        <Link to="/dashboard/manage-events">
+                                            <li>
+                                                <MenuLink>
+                                                    <NotiCount>
+                                                        <p>3</p>
+                                                    </NotiCount>
+                                                    <EventsIcon />
+                                                    <h3>Events</h3>
+                                                    <RightIcon
+                                                        stroke={theme.primary}
+                                                    />
+                                                </MenuLink>
                                             </li>
                                         </Link>
                                     </SubMenu>
                                 )}
-
-                                <li>
-                                    <MenuLink
-                                        onClick={() =>
-                                            setVisibleASub(!visibleASub)
-                                        }>
-                                        <Dashboard />
-                                        <h3>Analytics</h3>
-                                        <DownIcon stroke={theme.primary} />
-                                    </MenuLink>
-                                </li>
-
-                                {visibleASub && (
-                                    <SubMenu>
-                                        <Link to="/dashboard/total-sales/">
-                                            <li>
-                                                <SubMenuLink>
-                                                    <h4>Total Sales</h4>
-                                                    <RightIcon
-                                                        stroke={theme.primary}
-                                                    />
-                                                </SubMenuLink>
-                                            </li>
-                                        </Link>
-                                        <Link to="/dashboard/total-orders/">
-                                            <li>
-                                                <SubMenuLink>
-                                                    <h4>Total Orders</h4>
-                                                    <RightIcon
-                                                        stroke={theme.primary}
-                                                    />
-                                                </SubMenuLink>
-                                            </li>
-                                        </Link>
-                                        <Link to="/dashboard/average-order-value/">
-                                            <li>
-                                                <SubMenuLink>
-                                                    <h4>Average Order Value</h4>
-                                                    <RightIcon
-                                                        stroke={theme.primary}
-                                                    />
-                                                </SubMenuLink>
-                                            </li>
-                                        </Link>
-                                        <Link to="/dashboard/sales-by-products/">
-                                            <li>
-                                                <SubMenuLink>
-                                                    <h4>Sales by Product</h4>
-                                                    <RightIcon
-                                                        stroke={theme.primary}
-                                                    />
-                                                </SubMenuLink>
-                                            </li>
-                                        </Link>
-                                    </SubMenu>
-                                )}
-                                <Link to="/dashboard/manage-events">
-                                    <li>
-                                        <MenuLink>
-                                            <NotiCount>
-                                                <p>3</p>
-                                            </NotiCount>
-                                            <EventsIcon />
-                                            <h3>Events</h3>
-                                            <RightIcon stroke={theme.primary} />
-                                        </MenuLink>
-                                    </li>
-                                </Link>
-                            </SubMenu>
+                            </>
                         )}
                         <li>
                             <MenuLink
@@ -369,99 +413,122 @@ const SideNav = ({ setNavWidth }) => {
                                 </Link>
                             </SubMenu>
                         )}
-                        <li>
-                            <MenuLink
-                                onClick={() =>
-                                    setVisibleDDSub((curr) => !curr)
-                                }>
-                                <CarIcon />
-                                <h3>Driver Dashboard</h3>
-                                <DownIcon stroke={theme.primary} />
-                            </MenuLink>
-                        </li>
-                        {visibleDDSub && (
-                            <SubMenu>
-                                <Link to="/driverDashboard">
-                                    <li>
-                                        <MenuLink>
-                                            <AccountIcon/>
-                                           
-                                            <h3>Overview</h3>
-                                            <RightIcon stroke={theme.primary} />
-                                        </MenuLink>
-                                    </li>
-                                </Link>
-                                <Link to="/driverDashboard/delivery">
-                                    <li>
-                                        <MenuLink>
-                                            <Orders />
-                                            <NotiCount>
-                                                <p>3</p>
-                                            </NotiCount>
-                                            <h3>Delivery</h3>
-
-                                            <RightIcon stroke={theme.primary} />
-                                        </MenuLink>
-                                    </li>
-                                </Link>
+                        {isDriver && (
+                            <>
                                 <li>
                                     <MenuLink
                                         onClick={() =>
-                                            setVisiblePSub(!visiblePSub)
+                                            setVisibleDDSub((curr) => !curr)
                                         }>
-                                        <Products />
-                                        <h3>Orders</h3>
+                                        <CarIcon />
+                                        <h3>Driver Dashboard</h3>
                                         <DownIcon stroke={theme.primary} />
                                     </MenuLink>
                                 </li>
-                                {visiblePSub && (
+                                {visibleDDSub && (
                                     <SubMenu>
-                                        <Link to="/dashboard/inventory">
+                                        <Link to="/driverDashboard">
                                             <li>
-                                                <SubMenuLink>
-                                                    <h4>Completed orders</h4>
+                                                <MenuLink>
+                                                    <AccountIcon />
+
+                                                    <h3>Overview</h3>
                                                     <RightIcon
                                                         stroke={theme.primary}
                                                     />
-                                                </SubMenuLink>
+                                                </MenuLink>
                                             </li>
                                         </Link>
-                                        <Link to="/driverDashboard/allOrders">
+                                        <Link to="/driverDashboard/delivery">
                                             <li>
-                                                <SubMenuLink>
-                                                    <h4>Orders to fulfill</h4>
+                                                <MenuLink>
+                                                    <Orders />
+                                                    <NotiCount>
+                                                        <p>3</p>
+                                                    </NotiCount>
+                                                    <h3>Delivery</h3>
+
                                                     <RightIcon
                                                         stroke={theme.primary}
                                                     />
-                                                </SubMenuLink>
+                                                </MenuLink>
+                                            </li>
+                                        </Link>
+                                        <li>
+                                            <MenuLink
+                                                onClick={() =>
+                                                    setVisiblePSub(!visiblePSub)
+                                                }>
+                                                <Products />
+                                                <h3>Orders</h3>
+                                                <DownIcon
+                                                    stroke={theme.primary}
+                                                />
+                                            </MenuLink>
+                                        </li>
+                                        {visiblePSub && (
+                                            <SubMenu>
+                                                <Link to="/dashboard/inventory">
+                                                    <li>
+                                                        <SubMenuLink>
+                                                            <h4>
+                                                                Completed orders
+                                                            </h4>
+                                                            <RightIcon
+                                                                stroke={
+                                                                    theme.primary
+                                                                }
+                                                            />
+                                                        </SubMenuLink>
+                                                    </li>
+                                                </Link>
+                                                <Link to="/driverDashboard/allOrders">
+                                                    <li>
+                                                        <SubMenuLink>
+                                                            <h4>
+                                                                Orders to
+                                                                fulfill
+                                                            </h4>
+                                                            <RightIcon
+                                                                stroke={
+                                                                    theme.primary
+                                                                }
+                                                            />
+                                                        </SubMenuLink>
+                                                    </li>
+                                                </Link>
+                                            </SubMenu>
+                                        )}
+
+                                        <li>
+                                            <MenuLink
+                                                onClick={() =>
+                                                    setVisibleASub(!visibleASub)
+                                                }>
+                                                <Dashboard />
+                                                <h3>Analytics</h3>
+                                                <RightIcon
+                                                    stroke={theme.primary}
+                                                />
+                                            </MenuLink>
+                                        </li>
+                                        <Link to="/dashboard/manage-events">
+                                            <li>
+                                                <MenuLink>
+                                                    <NotiCount>
+                                                        <p>3</p>
+                                                    </NotiCount>
+                                                    <EventsIcon />
+                                                    <h3>Events</h3>
+                                                    <RightIcon
+                                                        stroke={theme.primary}
+                                                    />
+                                                </MenuLink>
                                             </li>
                                         </Link>
                                     </SubMenu>
                                 )}
-
-                                <li>
-                                    <MenuLink
-                                        onClick={() =>
-                                            setVisibleASub(!visibleASub)
-                                        }>
-                                        <Dashboard />
-                                        <h3>Analytics</h3>
-                                        <RightIcon stroke={theme.primary} />
-                                    </MenuLink>
-                                </li>
-                                <Link to="/dashboard/manage-events">
-                                    <li>
-                                        <MenuLink>
-                                            <NotiCount>
-                                                <p>3</p>
-                                            </NotiCount>
-                                            <EventsIcon />
-                                            <h3>Events</h3>
-                                            <RightIcon stroke={theme.primary} />
-                                        </MenuLink>
-                                    </li>
-                                </Link>
-                            </SubMenu>
+                            </>
                         )}
                     </Menu>
                 </NavBar>
@@ -592,12 +659,12 @@ const SubMenu = styled.div`
     -o-transition: all 0.3s ease;
     transition: all 0.3s ease;
     li {
-        display:flex;
-        align-items:center;
+        display: flex;
+        align-items: center;
         padding-left: 30px;
         ::before {
-            content:"-";
-            place-content:center;
+            content: "-";
+            place-content: center;
         }
     }
 `;

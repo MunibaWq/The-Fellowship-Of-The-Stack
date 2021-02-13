@@ -10,7 +10,9 @@ import { setFormErrors } from "../../redux/actions/Errors";
 import Cookies from "universal-cookie";
 import { login } from "../../redux/actions/actions";
 const cookies = new Cookies();
+
 const Login = (props) => {
+    if (cookies.get("token")) window.location = '/dashboard'
     const input = useSelector((state) => state.formInputs.login);
     const formError = useSelector((state) => state.formErrors.login);
 
@@ -49,7 +51,7 @@ const Login = (props) => {
             <h1>Welcome back!</h1>
 
             <Container>
-                {cookies.get("token") && <Redirect to={"/dashboard"} />}
+                
                 <h2>Log In</h2>
                 <TextField
                     multi={false}
