@@ -17,6 +17,7 @@ import {
     PaintBrushIcon,
     HomeIcon,
     CarIcon,
+    AccountIcon,
 } from "../../../images/icons";
 import theme from "../../../components/Reusable/Colors";
 import Pill from "../../../components/Reusable/Pill";
@@ -369,7 +370,6 @@ const SideNav = ({ setNavWidth }) => {
                             </SubMenu>
                         )}
                         <li>
-                        
                             <MenuLink
                                 onClick={() =>
                                     setVisibleDDSub((curr) => !curr)
@@ -381,71 +381,88 @@ const SideNav = ({ setNavWidth }) => {
                         </li>
                         {visibleDDSub && (
                             <SubMenu>
-                            <Link to="/driverDashboard/delivery">
-                            <li>
-                                <MenuLink>
-                                    <Orders />
-                                    <NotiCount>
-                                        <p>3</p>
-                                    </NotiCount>
-                                    <h3>Delivery</h3>
-
-                                    <RightIcon stroke={theme.primary} />
-                                </MenuLink>
-                            </li>
-                        </Link>
-                        <li>
-                            <MenuLink
-                                onClick={() => setVisiblePSub(!visiblePSub)}>
-                                <Products />
-                                <h3>Orders</h3>
-                                <DownIcon stroke={theme.primary} />
-                            </MenuLink>
-                        </li>
-                        {visiblePSub && (
-                            <SubMenu>
-                                <Link to="/dashboard/inventory">
+                                <Link to="/driverDashboard">
                                     <li>
-                                        <SubMenuLink>
-                                            <h4>Completed orders</h4>
+                                        <MenuLink>
+                                            <AccountIcon/>
+                                           
+                                            <h3>Overview</h3>
                                             <RightIcon stroke={theme.primary} />
-                                        </SubMenuLink>
+                                        </MenuLink>
                                     </li>
                                 </Link>
-                                <Link to="/driverDashboard/allOrders">
+                                <Link to="/driverDashboard/delivery">
                                     <li>
-                                        <SubMenuLink>
-                                            <h4>Orders to fulfill</h4>
+                                        <MenuLink>
+                                            <Orders />
+                                            <NotiCount>
+                                                <p>3</p>
+                                            </NotiCount>
+                                            <h3>Delivery</h3>
+
                                             <RightIcon stroke={theme.primary} />
-                                        </SubMenuLink>
+                                        </MenuLink>
+                                    </li>
+                                </Link>
+                                <li>
+                                    <MenuLink
+                                        onClick={() =>
+                                            setVisiblePSub(!visiblePSub)
+                                        }>
+                                        <Products />
+                                        <h3>Orders</h3>
+                                        <DownIcon stroke={theme.primary} />
+                                    </MenuLink>
+                                </li>
+                                {visiblePSub && (
+                                    <SubMenu>
+                                        <Link to="/dashboard/inventory">
+                                            <li>
+                                                <SubMenuLink>
+                                                    <h4>Completed orders</h4>
+                                                    <RightIcon
+                                                        stroke={theme.primary}
+                                                    />
+                                                </SubMenuLink>
+                                            </li>
+                                        </Link>
+                                        <Link to="/driverDashboard/allOrders">
+                                            <li>
+                                                <SubMenuLink>
+                                                    <h4>Orders to fulfill</h4>
+                                                    <RightIcon
+                                                        stroke={theme.primary}
+                                                    />
+                                                </SubMenuLink>
+                                            </li>
+                                        </Link>
+                                    </SubMenu>
+                                )}
+
+                                <li>
+                                    <MenuLink
+                                        onClick={() =>
+                                            setVisibleASub(!visibleASub)
+                                        }>
+                                        <Dashboard />
+                                        <h3>Analytics</h3>
+                                        <RightIcon stroke={theme.primary} />
+                                    </MenuLink>
+                                </li>
+                                <Link to="/dashboard/manage-events">
+                                    <li>
+                                        <MenuLink>
+                                            <NotiCount>
+                                                <p>3</p>
+                                            </NotiCount>
+                                            <EventsIcon />
+                                            <h3>Events</h3>
+                                            <RightIcon stroke={theme.primary} />
+                                        </MenuLink>
                                     </li>
                                 </Link>
                             </SubMenu>
                         )}
-
-                        <li>
-                            <MenuLink
-                                onClick={() => setVisibleASub(!visibleASub)}>
-                                <Dashboard />
-                                <h3>Analytics</h3>
-                                <RightIcon stroke={theme.primary} />
-                            </MenuLink>
-                        </li>
-                        <Link to="/dashboard/manage-events">
-                            <li>
-                                <MenuLink>
-                                    <NotiCount>
-                                        <p>3</p>
-                                    </NotiCount>
-                                    <EventsIcon />
-                                    <h3>Events</h3>
-                                    <RightIcon stroke={theme.primary} />
-                                </MenuLink>
-                            </li>
-                        </Link>
-                            </SubMenu>
-                        )}
-                        
                     </Menu>
                 </NavBar>
             )}
@@ -574,6 +591,15 @@ const SubMenu = styled.div`
     -ms-transition: all 0.3s ease;
     -o-transition: all 0.3s ease;
     transition: all 0.3s ease;
+    li {
+        display:flex;
+        align-items:center;
+        padding-left: 30px;
+        ::before {
+            content:"-";
+            place-content:center;
+        }
+    }
 `;
 const SubMenuLink = styled.button`
     border: none;
