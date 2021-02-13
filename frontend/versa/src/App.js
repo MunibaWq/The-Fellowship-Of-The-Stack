@@ -7,11 +7,12 @@ import Account from "./pages/Account";
 import Wishlist from "./pages/UserBuyer/Wishlist";
 import ShoppingCart from "./pages/UserBuyer/ShoppingCart";
 import ProductItem from "./pages/UserBuyer/ProductItem";
-import CreateAccount from "./pages/Artist/CreateAccount";
-import ArtistLogIn from "./pages/Artist/ArtistLogIn";
+import CreateAccount from "./pages/Shared/CreateAccount";
+import EditAccount from "./pages/Shared/EditAccount";
 import Dashboard from "./pages/Artist/Dashboard/Dashboard";
 import EventPage from "./components/Events/EventPage";
 import DriverDashboard from "./pages/Driver/Dashboard/DriverDashboard";
+import Login from "./pages/Shared/Login";
 
 function App() {
     return (
@@ -35,10 +36,16 @@ function App() {
                     <Route path="/events/:id" component={EventPage} />
 
                     <Route
-                        path="/artists/create-account"
+                        path="/create-account"
                         component={CreateAccount}
                     />
-                    <Route path="/artists/log-in" component={ArtistLogIn} />
+                    
+                    <Route
+                        path="/edit-account"
+                        component={EditAccount}
+                    />
+                    <Route path="/log-in" component={Login} />
+                    
                     <Route
                         path="/driver-dashboard"
                         component={DriverDashboard}

@@ -1,32 +1,33 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-import { TextField } from "./Reusable/Input";
+import { FieldContainer, Input, Label, TextField } from "./Reusable/Input";
 import Button from "./Reusable/Button";
 import axios from "axios";
-import { useParams } from "react-router";
 import { setFormErrors } from "../redux/actions/Errors";
 import { setFormInputs } from "../redux/actions/Forms";
-import { getUserByID } from "../axios/gets";
-
+import { getUser } from "../axios/gets";
+import Cookies from 'universal-cookie'
+import { Redirect } from "react-router";
+const cookies = new Cookies()
 const AccountForm = (props) => {
-    const params = useParams();
-    const id = params.id;
     const formError = useSelector((state) => state.formErrors.account.form);
     const input = useSelector((state) => state.formInputs.account);
     const dispatch = useDispatch();
     useEffect(() => {
         const getUserData = async () => {
-            let data = await getUserByID(id);
+            let data = await getUser();
             dispatch(setFormInputs("account", "name", data.name));
-            dispatch(setFormInputs("account", "address", data.address));
+            dispatch(setFormInputs("account", "storeAddress", data.store_address));
             dispatch(setFormInputs("account", "email", data.email));
             dispatch(setFormInputs("account", "storeName", data.username));
+            dispatch(setFormInputs('account', 'isArtist', data.is_artist))
+            dispatch(setFormInputs('account', 'address', data.address))
         };
         if (props.type === "Edit") {
             getUserData();
         }
-    }, [dispatch, props.type, id]);
+    }, [dispatch, props.type]);
 
     const submitData = (e) => {
         e.preventDefault();
@@ -36,7 +37,8 @@ const AccountForm = (props) => {
             username: input.storeName,
             password: input.password,
             address: input.address,
-            type: 1,
+            isArtist: input.isArtist,
+            storeAddress: input.storeAddress
         };
         const sendData = async () => {
             if (props.type === "Add") {
@@ -45,13 +47,14 @@ const AccountForm = (props) => {
                 });
             } else {
                 axios.put(
-                    "/users/update/",
+                    "/api/users/update/",
                     {
                         data: userInfo,
                     },
                     { withCredentials: true }
                 );
             }
+            window.location = "/dashboard"
             // window.location.href = "/";
         };
         let error = document.getElementById("error");
@@ -66,8 +69,9 @@ const AccountForm = (props) => {
 
     return (
         <Form onSubmit={submitData}>
-            <Instruction1>Hello, what is your name?</Instruction1>
-            <RowContainer1>
+            
+            <Instruction>{props.type === 'Edit' ? "Change the name on your account" : "Hello, what is your name?"}</Instruction>
+            <RowContainer>
                 <TextField
                     multi={false}
                     tests={[
@@ -85,16 +89,28 @@ const AccountForm = (props) => {
                     form="account"
                     name="name"
                 />
-            </RowContainer1>
-            <Instruction2>
+            </RowContainer>
+            <Instruction>Are you an artist?  Want to sell your products on Versa?</Instruction>
+            <RowContainer>
+                <FieldContainer>
+                    <Label>Sign up as an artist?</Label>
+                </FieldContainer>
+                <CheckedContainer>
+                    <input checked={input.isArtist} onChange={(e) => {
+                        dispatch(setFormInputs('account','isArtist',e.target.checked))
+                    } } id="artist" type='checkbox' />
+                    <label htmlFor="artist">Yes</label>
+                    </CheckedContainer>
+            </RowContainer>
+            {input.isArtist && <><Instruction>
                 What is your store called?
                 <br /> <br />
                 Which address will you be shipping your products from? Include
                 the postal code
                 <br />
                 <br />
-            </Instruction2>
-            <RowContainer2>
+            </Instruction>
+            <RowContainer>
                 <TextField
                     multi={false}
                     tests={[
@@ -117,16 +133,39 @@ const AccountForm = (props) => {
                     ]}
                     label="Address"
                     form="account"
+                    name="storeAddress"
+                />
+                </RowContainer></>}
+                <Instruction>
+                
+                Where would you like products that you purchase to go to? Include
+                the postal code
+                <br />
+                <br />
+            </Instruction>
+            <RowContainer>
+                
+                <TextField
+                    multi={true}
+                    tests={[
+                        {
+                            test: (input) => input.length < 10,
+                            error: "Minimum 10 characters",
+                        },
+                    ]}
+                    label="Address"
+                    form="account"
                     name="address"
                 />
-            </RowContainer2>
-            <Instruction3>
-                Enter the email address for you account
+            </RowContainer>
+            <Instruction>
+                    {props.type === 'Edit' ? "Change your accounts email address" : "Enter the email address for you account"}
                 <br /> <br />
+                {props.type !== 'Edit' && `
                 Your password must be at least 8 characters long and include a
-                number and an upper case letter
-            </Instruction3>
-            <RowContainer3>
+                number and an upper case letter`}
+            </Instruction>
+            <RowContainer>
                 <TextField
                     multi={false}
                     tests={[
@@ -144,42 +183,55 @@ const AccountForm = (props) => {
                     form="account"
                     name="email"
                 />
-                <TextField
-                    multi={false}
-                    password={true}
-                    tests={[
-                        {
-                            test: (input) => input.length < 9,
-                            error: "Minimum 10 characters",
-                        },
-                        {
-                            test: (input) =>
-                                input.search(/[A-Z]/) === -1 ||
-                                input.search(/\d/) === -1,
-                            error: "Uppercase letter and number required",
-                        },
-                    ]}
-                    label="Password"
-                    form="account"
-                    name="password"
-                />
-            </RowContainer3>
-            <Instruction5>
-                Get started adding products to your store
-            </Instruction5>
-            <RowContainer5>
+                {props.type !== 'Edit' &&
+                    <TextField
+                        multi={false}
+                        password={true}
+                        tests={[
+                            {
+                                test: (input) => input.length < 9,
+                                error: "Minimum 10 characters",
+                            },
+                            {
+                                test: (input) =>
+                                    input.search(/[A-Z]/) === -1 ||
+                                    input.search(/\d/) === -1,
+                                error: "Uppercase letter and number required",
+                            },
+                        ]}
+                        label="Password"
+                        form="account"
+                        name="password"
+                    />}
+            </RowContainer>
+            <Instruction>
+                {input.isArtist ? "Get started adding products to your store" :  "Head over to your dashboard to set up some preferences"}
+            </Instruction>
+            <RowContainer>
                 <Container>
                     <Button primary onClick={submitData}>
                         Submit
                     </Button>
                 </Container>
                 {formError && <Error>{formError}</Error>}
-            </RowContainer5>
+            </RowContainer>
         </Form>
     );
 };
 
 export default AccountForm;
+const CheckedContainer = styled.div`
+    margin-top: 5px;
+    display:flex;
+    align-items: center;
+    label {
+        margin-bottom:0px;
+        margin-left: 8px;
+    }
+    input {
+        margin-left: 3px;
+    }
+`
 const Form = styled.form`
     margin-top: 40px;
     grid-template-columns: 30% 65%;
@@ -191,16 +243,14 @@ const Form = styled.form`
      } */
 `;
 
-const RowContainer1 = styled.div`
+const RowContainer = styled.div`
     padding: 20px 0 20px 0;
     border-bottom: 2px dashed #ccc;
-    grid-row: 1;
     grid-column: 2;
 `;
 
-const Instruction1 = styled.div`
+const Instruction = styled.div`
     padding: 20px 20px 20px 0;
-    grid-row: 1;
     grid-column: 1;
     border-bottom: 2px dashed #ccc;
     text-align: left;
@@ -209,56 +259,6 @@ const Instruction1 = styled.div`
     justify-content: center;
 `;
 
-const RowContainer2 = styled.div`
-    padding: 20px 0 20px 0;
-    border-bottom: 2px dashed #ccc;
-    grid-row: 2;
-    grid-column: 2;
-`;
-const Instruction2 = styled.div`
-    padding: 20px 0 20px 0;
-    border-bottom: 2px dashed #ccc;
-    grid-row: 2;
-    grid-column: 1;
-    text-align: left;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-`;
-const RowContainer3 = styled.div`
-    padding: 20px 0 20px 0;
-    border-bottom: 2px dashed #ccc;
-    grid-row: 3;
-    grid-column: 2;
-`;
-const Instruction3 = styled.div`
-    padding: 20px 0 20px 0;
-    border-bottom: 2px dashed #ccc;
-    grid-row: 3;
-    grid-column: 1;
-    text-align: left;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-`;
-const RowContainer5 = styled.div`
-    padding: 20px 0 20px 0;
-    border-bottom: 2px dashed #ccc;
-    grid-row: 5;
-    grid-column: 2;
-    align-items: center;
-`;
-const Instruction5 = styled.div`
-    padding: 20px 0 20px 0;
-    border-bottom: 2px dashed #ccc;
-    grid-row: 5;
-    grid-column: 1;
-    text-align: left;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-`;
 const Container = styled.div`
     display: flex;
     justify-content: center;

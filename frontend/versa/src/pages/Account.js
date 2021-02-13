@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Button from "../components/Reusable/Button";
 import theme from "../components/Reusable/Colors";
-import { AddIcon } from "../images/icons";
+import { AddIcon, EditIcon } from "../images/icons";
 import Cookies from 'universal-cookie'
 import { login, logout } from "../redux/actions/actions";
 const cookies = new Cookies()
@@ -19,7 +19,7 @@ const Account = () => {
     return (
         <div>
             {user && (
-              
+              <>
                 <Button onClick={() => {
                     cookies.remove('token',{ path: '/' })
 
@@ -27,23 +27,31 @@ const Account = () => {
                     }} secondary>
                         <AddIcon stroke={theme.primary} />
                         Clicking me TOTALLY logs you out
-                    </Button>
+                </Button>
+                <Link to="/edit-account">
+                        <Button secondary>
+                            <EditIcon stroke={theme.primary} />
+                            Edit your account
+                        </Button>
+                    </Link></>
           
             )}
             {!user && (
                 <div>
-                    <Link to="/artists/create-account">
+                    <Link to="/create-account">
                         <Button secondary>
                             <AddIcon stroke={theme.primary} />
                             Create a new account
                         </Button>
                     </Link>
-                    <Link to="/artists/log-in">
+                    
+                    <Link to="/log-in">
                         <Button secondary>
                             <AddIcon stroke={theme.primary} />
                             Log In
                         </Button>
                     </Link>
+
                 </div>
             )}
         </div>
