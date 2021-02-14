@@ -120,7 +120,9 @@ const SideNav = ({ setNavWidth }) => {
                                         onClick={() =>
                                             setVisibleADSub((curr) => !curr)
                                         }>
-                                        <PaintBrushIcon />
+                                        <PaintBrushIcon
+                                            stroke={theme.tertiary}
+                                        />
                                         <h3>Artist Dashboard</h3>
                                         <DownIcon stroke={theme.primary} />
                                     </MenuLink>
@@ -420,7 +422,7 @@ const SideNav = ({ setNavWidth }) => {
                                         onClick={() =>
                                             setVisibleDDSub((curr) => !curr)
                                         }>
-                                        <CarIcon />
+                                        <CarIcon stroke={theme.tertiary} />
                                         <h3>Driver Dashboard</h3>
                                         <DownIcon stroke={theme.primary} />
                                     </MenuLink>
