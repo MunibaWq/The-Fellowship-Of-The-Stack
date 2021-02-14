@@ -23,7 +23,6 @@ const Delivery = () => {
     }
     return (
         <div>
-            <div>THis is the delivery page</div>
             <div>{mapOrderItems()}</div>
         </div>
     );

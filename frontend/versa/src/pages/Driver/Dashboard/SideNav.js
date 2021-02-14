@@ -146,18 +146,6 @@ const SideNav = ({ setNavWidth }) => {
                                 <RightIcon stroke={theme.primary} />
                             </MenuLink>
                         </li>
-                        <Link to="/dashboard/manage-events">
-                            <li>
-                                <MenuLink>
-                                    <NotiCount>
-                                        <p>3</p>
-                                    </NotiCount>
-                                    <EventsIcon />
-                                    <h3>Events</h3>
-                                    <RightIcon stroke={theme.primary} />
-                                </MenuLink>
-                            </li>
-                        </Link>
                     </Menu>
                 </NavBar>
             )}
