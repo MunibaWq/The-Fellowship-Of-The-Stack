@@ -156,7 +156,7 @@ router.get("/order/:orderid", auth, async (req, res) => {
         // );
         // const orderInfo = orderResult.rows;
         const result = await pool.query(
-            `SELECT o.order_total, o.id, o.shipping_address, o.name, o.date, o.ship_date, o.delivery_notes, o.phone, o.pickup, s.artist_id, s.product_id, s.quantity, s.color, s.size, p.title
+            `SELECT o.order_total, o.id, o.shipping_address, o.billing_address, o.name, o.date, o.ship_date, o.delivery_notes, o.phone, o.pickup, s.artist_id, s.product_id, s.quantity, s.color, s.size, p.title
             FROM orders o
             INNER JOIN sales_by_product s
             ON o.id = s.order_id

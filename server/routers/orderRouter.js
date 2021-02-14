@@ -47,7 +47,7 @@ router.post("/paid", optionalAuth, async (req, res) => {
     VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10) returning id`,
         [
             new Date().toLocaleString().replace(/\./g, ""),
-            "paid",
+            "Unfulfilled",
             buyerID,
             payment.amount / 100,
             email,
@@ -157,30 +157,6 @@ router.put("/edit/:orderid", auth, async (req, res) => {
         res.send({
             message: "error",
         });
-    }
-});
-
-router.get("/getOrders", async (req, res, next) => {
-    try {
-        const dat = await pool.query(`SELECT * FROM orders`);
-        res.json(dat.rows);
-    } catch (error) {
-        console.log(error);
-        res.json("you have encountered an error");
-    }
-});
-
-router.get("/getOrderItems/:id", async (req, res, next) => {
-    try {
-        const { id } = req.params;
-        const dat = await pool.query(
-            `SELECT * FROM order_items WHERE order_id = $1`,
-            [id]
-        );
-        res.json(dat.rows);
-    } catch (error) {
-        console.log(error);
-        res.json("you have encountered an error");
     }
 });
 

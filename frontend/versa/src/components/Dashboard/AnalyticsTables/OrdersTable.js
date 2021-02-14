@@ -63,9 +63,9 @@ const OrdersTable = ({ user, orderData }) => {
             return data;
         }
 
-        return data.filter((data) => {
-            const dataValue = Object.values(data).toString().toLowerCase();
-            return dataValue.includes(query);
+        return data.filter((order) => {
+            let dataValue = Object.values(order).toString().toLowerCase();
+            return dataValue.includes(query.toLowerCase());
         });
     };
 
@@ -117,7 +117,8 @@ const OrdersTable = ({ user, orderData }) => {
                                             history.push(
                                                 `/dashboard/recent-orders/${order.id}`
                                             )
-                                        }>
+                                        }
+                                        data-title="Order ID">
                                         <p>{order.id}</p>
                                     </td>
                                     <td
@@ -125,7 +126,8 @@ const OrdersTable = ({ user, orderData }) => {
                                             history.push(
                                                 `/dashboard/recent-orders/${order.id}`
                                             )
-                                        }>
+                                        }
+                                        data-title="Buyer Name">
                                         <p>{order.name}</p>
                                     </td>
                                     <td
@@ -133,7 +135,8 @@ const OrdersTable = ({ user, orderData }) => {
                                             history.push(
                                                 `/dashboard/recent-orders/${order.id}`
                                             )
-                                        }>
+                                        }
+                                        data-title="Buyer Address">
                                         <p>
                                             {order.pickup === true
                                                 ? "for Pickup"
@@ -145,14 +148,15 @@ const OrdersTable = ({ user, orderData }) => {
                                             history.push(
                                                 `/dashboard/recent-orders/${order.id}`
                                             )
-                                        }>
+                                        }
+                                        data-title="Date">
                                         <p>
                                             {order.orderDate === null
                                                 ? "Error Loading Order Date"
                                                 : order.orderDate}
                                         </p>
                                     </td>
-                                    <td>
+                                    <td data-title="Status">
                                         <DropDown order={order} />
                                     </td>
                                     <td
@@ -160,7 +164,8 @@ const OrdersTable = ({ user, orderData }) => {
                                             history.push(
                                                 `/dashboard/recent-orders/${order.id}`
                                             )
-                                        }>
+                                        }
+                                        data-title="Date Received by Buyer">
                                         <p>
                                             {order.orderShipDate === null
                                                 ? "Not Received Yet"
@@ -211,6 +216,19 @@ const Sort = styled.div`
                     : `2px solid ${theme.primaryHover}`};
         }
     }
+    @media screen and (max-width: 600px) {
+        flex-direction: column;
+        align-items: flex-start;
+        h2 {
+            margin-bottom: 16px;
+        }
+        select {
+            margin-bottom: 16px;
+        }
+        input {
+            margin-bottom: 16px;
+        }
+    }
 `;
 
 const Table = styled.table`
@@ -218,7 +236,6 @@ const Table = styled.table`
     border-collapse: collapse;
     margin: 0 1em 2em 1em;
     font-size: 0.9em;
-    min-width: 400px;
     box-shadow: 3px 3px 10px rgba(27, 49, 66, 0.13);
     border-radius: 15px 15px 0px 0px;
     thead th {
