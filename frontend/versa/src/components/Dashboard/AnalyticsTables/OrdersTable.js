@@ -8,6 +8,7 @@ import DropDown from "./DropDown";
 const OrdersTable = ({ user, orderData }) => {
     const [data, setData] = useState(orderData);
     const [sortType, setSortType] = useState();
+    const [filter, setFilter] = useState();
 
     const sortOptions = [
         {
@@ -15,27 +16,25 @@ const OrdersTable = ({ user, orderData }) => {
             label: "Order Date",
         },
         {
-            value: "status",
-            label: "Order Status",
-        },
-        {
-            value: "shipdate",
-            label: "Date Received by Buyer",
+            value: "id",
+            label: "Order ID",
         },
     ];
 
     useEffect(() => {
         const sortArray = (type) => {
             const types = {
-                status: "status",
-                orderdate: "orderDate",
-                shipdate: "orderShipDate",
+                orderdate: (a, b) => {
+                    if (a.orderDate < b.orderDate) {
+                        return -1;
+                    }
+                },
+                id: (a, b) => {
+                    return a.id - b.id;
+                },
             };
             const sortProperty = types[type];
-
-            const sorted = [...orderData].sort(
-                (a, b) => b[sortProperty] < a[sortProperty]
-            );
+            const sorted = [...orderData].sort(sortProperty);
             console.log(sorted);
             setData(sorted);
         };
@@ -53,6 +52,11 @@ const OrdersTable = ({ user, orderData }) => {
     ];
 
     const history = useHistory();
+
+    const handleChange = (e) => {
+        e.preventDefault();
+        setFilter(e.target.value);
+    };
 
     return (
         <TableContainer>
@@ -75,6 +79,12 @@ const OrdersTable = ({ user, orderData }) => {
                                 </>
                             ))}
                         </SortChoice>
+                        <h2>Filter: </h2>
+                        <input
+                            type="text"
+                            placeholder="Search..."
+                            onChange={handleChange}
+                            value={filter || ""}></input>
                     </Sort>
                     <Table>
                         <thead>
@@ -169,6 +179,24 @@ const Sort = styled.div`
         font-size: 1em;
         font-weight: 700;
         text-transform: uppercase;
+        color: ${theme.primary};
+    }
+    input {
+        padding: 8px;
+        outline: none;
+        min-width: 150px;
+        border: ${(props) =>
+            props.border === true
+                ? `2px solid ${theme.primaryHover}`
+                : `2px solid ${theme.primary}`};
+        :active,
+        :hover,
+        :focus {
+            border: ${(props) =>
+                props.border === true
+                    ? `2px solid #77dd77`
+                    : `2px solid ${theme.primaryHover}`};
+        }
     }
 `;
 
@@ -228,16 +256,17 @@ const SortChoice = styled.select`
     outline: none;
     min-width: 150px;
     cursor: pointer;
+    margin-right: 32px;
     border: ${(props) =>
         props.border === true
-            ? `2px solid #77dd77`
+            ? `2px solid ${theme.primaryHover}`
             : `2px solid ${theme.primary}`};
     :active,
     :hover,
     :focus {
         border: ${(props) =>
             props.border === true
-                ? `2px solid #77dd77`
+                ? `2px solid ${theme.primaryHover}`
                 : `2px solid ${theme.primaryHover}`};
     }
 `;

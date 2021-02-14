@@ -7,6 +7,7 @@ const {
     generateAuthToken,
     findByCredentials,
 } = require("../helperFunctions/index");
+const { newAccount } = require("../helperFunctions/sendGridFunctions");
 
 router.post("/create", async (req, res, next) => {
     const user = req.body.data;
@@ -23,23 +24,27 @@ router.post("/create", async (req, res, next) => {
             user.name,
         ]
     );
+
+    newAccount(user.name, user.email);
     const token = generateAuthToken(data.rows[0]);
     pool.query(`INSERT INTO tokens (user_id, token) VALUES ($1, $2)`, [
         data.rows[0].id,
         token,
     ]);
+
     const createUser = data.rows[0];
     delete createUser.password;
     res.cookie("token", token).json(createUser);
 });
-router.post('/logout', auth, async (req, res) => {
-    pool.query(`DELETE FROM tokens WHERE token =  '${req.cookies.token}'`)
-    res.cookie("token", "", { maxAge: 0 })
-    res.cookie("name", "", { maxAge: 0 })
-    res.cookie("isArtist", "", { maxAge: 0 })
-    res.cookie("isDriver", "", { maxAge: 0 }).status(200).json({ message:"Signed out" });
-
-})
+router.post("/logout", auth, async (req, res) => {
+    pool.query(`DELETE FROM tokens WHERE token =  '${req.cookies.token}'`);
+    res.cookie("token", "", { maxAge: 0 });
+    res.cookie("name", "", { maxAge: 0 });
+    res.cookie("isArtist", "", { maxAge: 0 });
+    res.cookie("isDriver", "", { maxAge: 0 })
+        .status(200)
+        .json({ message: "Signed out" });
+});
 router.post("/login", async (req, res, next) => {
     try {
         const user = await findByCredentials(req.body.email, req.body.password);

@@ -136,7 +136,6 @@ router.get("/recent-orders", auth, async (req, res) => {
             order.orderShipDate = order.ship_date === null ? null : shipDate;
         }
 
-        console.log(orderInfo);
         res.json(orderInfo);
     } catch (e) {
         console.log("error", e);
@@ -156,7 +155,6 @@ router.get("/order/:orderid", auth, async (req, res) => {
         //     WHERE s.artist_id = ${req.user.id}`
         // );
         // const orderInfo = orderResult.rows;
-        console.log("orderid", req.params.orderid);
         const result = await pool.query(
             `SELECT o.order_total, o.id, o.shipping_address, o.name, o.date, o.ship_date, o.delivery_notes, o.phone, o.pickup, s.artist_id, s.product_id, s.quantity, s.color, s.size, p.title
             FROM orders o

@@ -339,6 +339,89 @@ const orderConfirmation = (total, username, email, orderID) => {
         });
 };
 
+const orderReadyForPickup = (buyer) => {
+    let options = {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+    };
+    let orderDate = new Date(buyer.date);
+    let orderPlacedDate = orderDate.toLocaleDateString("en-US", options);
+
+    let data = {
+        personalizations: [
+            {
+                to: [
+                    {
+                        email: buyer.email,
+                        name: buyer.name,
+                    },
+                ],
+                dynamic_template_data: {
+                    username: buyer.name,
+                    email: buyer.email,
+                    artistName: buyer.username,
+                    orderID: buyer.id,
+                    orderDate: orderPlacedDate,
+                    artistAddress: buyer.address,
+                },
+            },
+        ],
+        from: {
+            email: "versayyc@gmail.com",
+            name: "Versa",
+        },
+        reply_to: {
+            email: "versayyc@gmail.com",
+            name: "Versa",
+        },
+        template_id: "d-f19e16700d444a6b95466023328aef26",
+    };
+    sgMail
+        .send(data)
+        .then(() => {
+            console.log("Email sent");
+        })
+        .catch((error) => {
+            console.error(error);
+        });
+};
+const newAccount = (name, email) => {
+    let data = {
+        personalizations: [
+            {
+                to: [
+                    {
+                        email: email,
+                        name: name,
+                    },
+                ],
+                dynamic_template_data: {
+                    name: name,
+                },
+            },
+        ],
+        from: {
+            email: "versayyc@gmail.com",
+            name: "Versa",
+        },
+        reply_to: {
+            email: "versayyc@gmail.com",
+            name: "Versa",
+        },
+        template_id: "d-c29c378b4bba461e8c72171335fae7a8",
+    };
+    sgMail
+        .send(data)
+        .then(() => {
+            console.log("Email sent");
+        })
+        .catch((error) => {
+            console.error(error);
+        });
+};
+
 module.exports = {
     sendReminder,
     emailsSent,
@@ -346,4 +429,6 @@ module.exports = {
     notGoingToEvent,
     changesToEvent,
     orderConfirmation,
+    orderReadyForPickup,
+    newAccount,
 };
