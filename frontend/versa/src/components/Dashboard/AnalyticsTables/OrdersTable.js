@@ -8,7 +8,7 @@ import DropDown from "./DropDown";
 const OrdersTable = ({ user, orderData }) => {
     const [data, setData] = useState(orderData);
     const [sortType, setSortType] = useState();
-    const [filter, setFilter] = useState();
+    const [query, setQuery] = useState();
 
     const sortOptions = [
         {
@@ -55,8 +55,21 @@ const OrdersTable = ({ user, orderData }) => {
 
     const handleChange = (e) => {
         e.preventDefault();
-        setFilter(e.target.value);
+        setQuery(e.target.value);
     };
+
+    const filterData = (data, query) => {
+        if (!query) {
+            return data;
+        }
+
+        return data.filter((data) => {
+            const dataValue = Object.values(data).toString().toLowerCase();
+            return dataValue.includes(query);
+        });
+    };
+
+    const filteredData = filterData(data, query);
 
     return (
         <TableContainer>
@@ -84,7 +97,7 @@ const OrdersTable = ({ user, orderData }) => {
                             type="text"
                             placeholder="Search..."
                             onChange={handleChange}
-                            value={filter || ""}></input>
+                            value={query || ""}></input>
                     </Sort>
                     <Table>
                         <thead>
@@ -96,8 +109,8 @@ const OrdersTable = ({ user, orderData }) => {
                                 ))}
                             </Headers>
                         </thead>
-                        {data &&
-                            data.map((order, index) => (
+                        {filteredData &&
+                            filteredData.map((order, index) => (
                                 <BodyRows key={order.name + index}>
                                     <td
                                         onClick={() =>
