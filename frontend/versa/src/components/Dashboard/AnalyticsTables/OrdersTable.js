@@ -117,8 +117,7 @@ const OrdersTable = ({ user, orderData }) => {
                                             history.push(
                                                 `/dashboard/recent-orders/${order.id}`
                                             )
-                                        }
-                                        data-title="Order ID">
+                                        }>
                                         <p>{order.id}</p>
                                     </td>
                                     <td
@@ -126,8 +125,7 @@ const OrdersTable = ({ user, orderData }) => {
                                             history.push(
                                                 `/dashboard/recent-orders/${order.id}`
                                             )
-                                        }
-                                        data-title="Buyer Name">
+                                        }>
                                         <p>{order.name}</p>
                                     </td>
                                     <td
@@ -135,8 +133,7 @@ const OrdersTable = ({ user, orderData }) => {
                                             history.push(
                                                 `/dashboard/recent-orders/${order.id}`
                                             )
-                                        }
-                                        data-title="Buyer Address">
+                                        }>
                                         <p>{order.shipping_address}</p>
                                     </td>
                                     <td
@@ -152,7 +149,7 @@ const OrdersTable = ({ user, orderData }) => {
                                                 : order.orderDate}
                                         </p>
                                     </td>
-                                    <td data-title="Status">
+                                    <td>
                                         <DropDown order={order} />
                                     </td>
                                     <td
@@ -160,10 +157,11 @@ const OrdersTable = ({ user, orderData }) => {
                                             history.push(
                                                 `/dashboard/recent-orders/${order.id}`
                                             )
-                                        }
-                                        data-title="Date Received by Buyer">
+                                        }>
                                         <p>
                                             {order.orderShipDate === null
+                                                ? "Not Received Yet"
+                                                : order.status !== "Picked Up"
                                                 ? "Not Received Yet"
                                                 : order.orderShipDate}
                                         </p>
