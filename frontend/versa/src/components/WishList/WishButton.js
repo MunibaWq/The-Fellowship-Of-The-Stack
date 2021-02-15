@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { FilledHeartIcon, HeartIcon, WishListIcon } from "../../images/icons";
 import Button from "../Reusable/Button";
@@ -8,19 +8,34 @@ const WishButton = ({ productID }) => {
     const [clicked, setClicked] = useState(false);
     console.log({ clicked });
 
-    const addToWishList = (productID) => {
-        //need to add product to wishlist in db
-    };
+    useEffect(() => {
+        const addToWish = async () => {
+            const resp = await addToWishList(productID);
+            if (resp) {
+                setClicked(true);
+            } else {
+                setClicked(false);
+            }
+        };
+    }, [clicked]);
 
-    const deleteFromWishList = (productID) => {
-        //need to remove product from wishlist in db
-    };
+    useEffect(() => {
+        const deleteFromWish = async () => {
+            const resp = await removeFromWishList(productID);
+            if (resp) {
+                setClicked(false);
+            } else {
+                setClicked(true);
+            }
+        };
+    }, [clicked]);
+
     console.log(productID);
     return (
         <ActionButton
             onClick={() => {
                 if (clicked) {
-                    addToWishList(productID);
+                    addToWish();
                 } else {
                     deleteFromWishList(productID);
                 }
