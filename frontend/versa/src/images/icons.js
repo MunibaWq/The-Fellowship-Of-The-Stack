@@ -616,11 +616,23 @@ export const ArrowRight = ({ width, height, stroke, fill }) => {
     );
 };
 export const MinusIcon = ({ width, height, stroke, fill }) => {
-    return (<svg width={width || "32"} height={height || "32"} viewBox="0 0 32 32" fill={fill||"none"} xmlns="http://www.w3.org/2000/svg">
-    <path d="M5 16H27" stroke={stroke||"black"} stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
-    )
-}
+    return (
+        <svg
+            width={width || "32"}
+            height={height || "32"}
+            viewBox="0 0 32 32"
+            fill={fill || "none"}
+            xmlns="http://www.w3.org/2000/svg">
+            <path
+                d="M5 16H27"
+                stroke={stroke || "black"}
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            />
+        </svg>
+    );
+};
 export const ShoppingCart = ({ width, height, stroke, fill }) => {
     return (
         <svg
@@ -899,6 +911,25 @@ export const SearchIcon = ({ width, height, stroke, fill }) => {
     );
 };
 export const HeartIcon = ({ width, height, stroke, fill }) => {
+    return (
+        <svg
+            width={width || "26"}
+            height={height || "26"}
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path
+                fillRule="evenodd"
+                clipRule="evenodd"
+                d="M12 21.35L10.55 20.03C5.4 15.36 2 12.28 2 8.5C2 5.42 4.42 3 7.5 3C9.24 3 10.91 3.81 12 5.09C13.09 3.81 14.76 3 16.5 3C19.58 3 22 5.42 22 8.5C22 12.28 18.6 15.36 13.45 20.04L12 21.35Z"
+                fill={stroke}
+                fillOpacity="0.87"
+            />
+        </svg>
+    );
+};
+
+export const FilledHeartIcon = ({ width, height, stroke, fill }) => {
     return (
         <svg
             width={width || "26"}
