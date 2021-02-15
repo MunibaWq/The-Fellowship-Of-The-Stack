@@ -1,9 +1,5 @@
 import styled from "styled-components";
-import {
-    BrowserRouter as Router,
-    Route,
-    Switch,
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import DriverDashboardMain from "./DriverDashboarMain";
 import SideNav from "./SideNav";
 import Delivery from "./Delivery";
@@ -53,7 +49,7 @@ const DriverDashboard = () => {
                         component={AllOrders}
                     />
                     <Route
-                        path="/driver-dashboard/delivery/:slug"
+                        path="/driver-dashboard/delivery"
                         exact
                         component={Delivery}
                     />

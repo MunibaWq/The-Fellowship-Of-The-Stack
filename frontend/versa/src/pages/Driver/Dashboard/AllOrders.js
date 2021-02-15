@@ -17,17 +17,32 @@ const AllOrders = () => {
         if (orders.length > 0) {
             return orders.map((order) => {
                 return (
-                    <Link to={"/driver-dashboard/delivery/" + order.id}>
-                        <tr>
-                            <td>{order.date}</td>
-                            <td>{order.pickup ? "pickup" : "delivery"}</td>
-                            <td>{order.shipping_address}</td>
-                            <td>{order.name}</td>
-                            <td>{order.emai}l</td>
-                            <td>{order.phone}</td>
-                            <td>{order.delivery_notes}</td>
-                        </tr>
-                    </Link>
+                    <tr style={{ display: "flex" }}>
+                        <Link
+                            to={{
+                                pathname: `/driver-dashboard/delivery`,
+                                state: {
+                                    id: order.id,
+                                    person: order.name,
+                                    email: order.email,
+                                },
+                            }}>
+                            <td
+                                style={{
+                                    alignSelf: "center",
+                                    width: "100px",
+                                    height: "30px",
+                                    background: "#468670",
+                                }}></td>
+                        </Link>
+                        <td>{order.date}</td>
+                        <td>{order.pickup ? "pickup" : "delivery"}</td>
+                        <td>{order.shipping_address}</td>
+                        <td>{order.name}</td>
+                        <td>{order.email}</td>
+                        <td>{order.phone}</td>
+                        <td>{order.delivery_notes}</td>
+                    </tr>
                 );
             });
         }
