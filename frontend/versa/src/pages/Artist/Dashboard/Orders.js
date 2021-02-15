@@ -40,6 +40,7 @@ const OrderContainer = styled.div`
     padding: 2em 2em 2em calc(2em + 66px);
     display: grid;
     grid-template-rows: auto auto;
+    justify-items: start;
 
     h1 {
         margin: 0 1em 2em 1em;
