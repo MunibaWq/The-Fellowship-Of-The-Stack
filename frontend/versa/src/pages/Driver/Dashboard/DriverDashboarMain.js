@@ -30,7 +30,15 @@ const DriverDashboardMain = () => {
                     tableData={recentOrders}
                     total="12"
                     totalLabel="Unfulfilled"
-                    title="Deliveries"
+                    title="Daily deliveries"
+                    link="/dashboard/recent-orders"></RecentOrders>
+                <RecentOrders
+                    buttonText="View"
+                    dataTitle="5 most recent"
+                    tableData={recentOrders}
+                    total="12"
+                    totalLabel="Unfulfilled"
+                    title="Monthly deliveries"
                     link="/dashboard/recent-orders"></RecentOrders>
                 <SalesPerOrder
                     buttonText="Reports"
