@@ -15,7 +15,7 @@ const WishButton = ({ productID }) => {
     const deleteFromWishList = (productID) => {
         //need to remove product from wishlist in db
     };
-
+    console.log(productID);
     return (
         <ActionButton
             onClick={() => {

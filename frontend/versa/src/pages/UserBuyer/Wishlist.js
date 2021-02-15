@@ -6,7 +6,6 @@ const Wishlist = () => {
     return (
         <div>
             <WishCard />
-            <WishListIcon />
         </div>
     );
 };

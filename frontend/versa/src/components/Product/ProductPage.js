@@ -103,7 +103,7 @@ const ProductPage = ({
                         {/* <Link to={"/products/edit/" + params.id}>
                             <EditIcon stroke={theme.primary} />
                         </Link> */}
-                        <WishButton />
+                        <WishButton productID={id} />
                     </h1>
 
                     <Stars>
