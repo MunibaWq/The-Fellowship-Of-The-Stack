@@ -55,8 +55,7 @@ router.get("/get/:id", async (req, res) => {
         );
 
         const eventInfo = result.rows[0];
-      
-        
+
         client.release(true);
         res.json(eventInfo);
     } catch (e) {
@@ -204,7 +203,11 @@ router.post("/create", auth, async (req, res) => {
                 type,
             ]
         );
-
+        pool.query(
+            `INSERT INTO events_attendees(attendee, event_id, status, reminder )
+        VALUES ($1, $2, $3, $4 )`,
+            [req.user.id, eventInfo.rows[0].id, "attending", true]
+        );
         res.json(eventInfo.rows[0].id);
     } catch (err) {
         res.send(err);
