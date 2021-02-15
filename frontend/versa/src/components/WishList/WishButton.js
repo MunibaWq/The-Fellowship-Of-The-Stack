@@ -8,27 +8,23 @@ const WishButton = ({ productID }) => {
     const [clicked, setClicked] = useState(false);
     console.log({ clicked });
 
-    useEffect(() => {
-        const addToWish = async () => {
-            const resp = await addToWishList(productID);
-            if (resp) {
-                setClicked(true);
-            } else {
-                setClicked(false);
-            }
-        };
-    }, [clicked]);
+    const addToWish = async () => {
+        const resp = await addToWishList(productID);
+        if (resp) {
+            setClicked(true);
+        } else {
+            setClicked(false);
+        }
+    };
 
-    useEffect(() => {
-        const deleteFromWish = async () => {
-            const resp = await removeFromWishList(productID);
-            if (resp) {
-                setClicked(false);
-            } else {
-                setClicked(true);
-            }
-        };
-    }, [clicked]);
+    const deleteFromWish = async () => {
+        const resp = await removeFromWishList(productID);
+        if (resp) {
+            setClicked(false);
+        } else {
+            setClicked(true);
+        }
+    };
 
     console.log(productID);
     return (
@@ -37,7 +33,7 @@ const WishButton = ({ productID }) => {
                 if (clicked) {
                     addToWish();
                 } else {
-                    deleteFromWishList(productID);
+                    deleteFromWish();
                 }
                 setClicked((curr) => !curr);
             }}>
