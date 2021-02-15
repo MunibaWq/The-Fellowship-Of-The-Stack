@@ -137,11 +137,7 @@ const OrdersTable = ({ user, orderData }) => {
                                             )
                                         }
                                         data-title="Buyer Address">
-                                        <p>
-                                            {order.pickup === true
-                                                ? "for Pickup"
-                                                : order.shipping_address}
-                                        </p>
+                                        <p>{order.shipping_address}</p>
                                     </td>
                                     <td
                                         onClick={() =>
