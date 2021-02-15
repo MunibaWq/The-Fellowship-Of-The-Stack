@@ -8,6 +8,8 @@ import ItemCard from "../Reusable/ItemCard";
 import styled from "styled-components";
 import Pill from "../Reusable/Pill";
 
+import WishButton from "../WishList/WishButton";
+
 function calcTotalStock(product) {
     return product.stock.reduce((total, curr) => {
         total += curr.quantity;
@@ -49,18 +51,20 @@ const ProductCard = ({ product }) => {
                 </ProductInfo>
             </ImageCard> */}
             <ItemCard title={product.title} price={product.price}>
-                {
-                    product.stock.reduce((total, curr) => {
-                        total += curr.quantity;
-                        return total;
-                    }, 0) === 0 &&
-                    <OOSPill><p>Out of Stock</p></OOSPill>}
+                {product.stock.reduce((total, curr) => {
+                    total += curr.quantity;
+                    return total;
+                }, 0) === 0 && (
+                    <OOSPill>
+                        <p>Out of Stock</p>
+                    </OOSPill>
+                )}
+
                 <ProductImage
                     stock={calcTotalStock(product)}
                     style={{
                         width: "100%",
                     }}
-                    
                     alt="product"
                     src={
                         product.image
@@ -71,19 +75,22 @@ const ProductCard = ({ product }) => {
                     }
                 />
             </ItemCard>
+            <WishButton productID={product.id} />
         </Link>
     );
 };
+
 const OOSPill = styled(Pill)`
-position:absolute;
-z-index:9;
-margin:5px;
-background-color:black;
-`
+    position: absolute;
+    z-index: 9;
+    margin: 5px;
+    background-color: black;
+`;
 
 const ProductImage = styled.img`
     width: 100%;
-    filter: ${props=>props.stock===0?"grayscale(100%)":"grayscale(0%)"};
+    filter: ${(props) =>
+        props.stock === 0 ? "grayscale(100%)" : "grayscale(0%)"};
 `;
 // const ImageCard = styled.div`
 //     margin-bottom: 10%;
@@ -117,4 +124,3 @@ const ProductImage = styled.img`
 //     }
 // `;
 export default ProductCard;
-

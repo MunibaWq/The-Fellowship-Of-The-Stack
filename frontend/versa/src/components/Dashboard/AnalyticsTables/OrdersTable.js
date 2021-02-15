@@ -46,7 +46,7 @@ const OrdersTable = ({ user, orderData }) => {
         "Order ID",
         "Buyer Name",
         "Buyer Address",
-        "Date",
+        "Order Date",
         "Status",
         "Date Received by Buyer",
     ];
@@ -137,11 +137,7 @@ const OrdersTable = ({ user, orderData }) => {
                                             )
                                         }
                                         data-title="Buyer Address">
-                                        <p>
-                                            {order.pickup === true
-                                                ? "for Pickup"
-                                                : order.shipping_address}
-                                        </p>
+                                        <p>{order.shipping_address}</p>
                                     </td>
                                     <td
                                         onClick={() =>
@@ -174,6 +170,16 @@ const OrdersTable = ({ user, orderData }) => {
                                     </td>
                                 </BodyRows>
                             ))}
+                        {!filteredData && (
+                            <BodyRows>
+                                <td>
+                                    <p>
+                                        No orders found. Please try searching
+                                        again.
+                                    </p>
+                                </td>
+                            </BodyRows>
+                        )}
                     </Table>
                 </>
             )}
@@ -185,6 +191,10 @@ export default OrdersTable;
 
 const TableContainer = styled.div`
     justify-self: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    min-height: 600px;
 `;
 
 const Sort = styled.div`
@@ -236,6 +246,7 @@ const Table = styled.table`
     border-collapse: collapse;
     margin: 0 1em 2em 1em;
     font-size: 0.9em;
+
     box-shadow: 3px 3px 10px rgba(27, 49, 66, 0.13);
     border-radius: 15px 15px 0px 0px;
     thead th {
@@ -245,6 +256,24 @@ const Table = styled.table`
     th,
     td {
         padding: 12px 15px;
+        :nth-of-type(1) {
+            min-width: 80px;
+        }
+        :nth-of-type(2) {
+            min-width: 170px;
+        }
+        :nth-of-type(3) {
+            min-width: 300px;
+        }
+        :nth-of-type(4) {
+            min-width: 190px;
+        }
+        :nth-of-type(5) {
+            min-width: 180px;
+        }
+        :nth-of-type(6) {
+            min-width: 190px;
+        }
     }
 `;
 const Headers = styled.tr`

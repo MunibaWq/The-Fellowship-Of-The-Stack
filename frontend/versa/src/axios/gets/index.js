@@ -113,8 +113,8 @@ export const getCartItem = async (cartProduct, colour, size, session) => {
     return response.data;
     
 }
-export const getCart = async (session) => {
-    const response = await Axios.get(`/api/cart/${session}`)
+export const getCart = async () => {
+    const response = await Axios.get(`/api/cart`)
     return response.data
     
 }

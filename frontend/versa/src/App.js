@@ -14,10 +14,13 @@ import Dashboard from "./pages/Artist/Dashboard/Dashboard";
 import EventPage from "./components/Events/EventPage";
 import DriverDashboard from "./pages/Driver/Dashboard/DriverDashboard";
 import { PrivateRoute } from "./components/Reusable/PrivateRoute";
+import NotFound from "./pages/NotFound";
 
-
-if (!window.localStorage.getItem('session')) {
-    window.localStorage.setItem('session', Math.random().toString(36).substr(2, 9))
+if (!window.localStorage.getItem("session")) {
+    window.localStorage.setItem(
+        "session",
+        Math.random().toString(36).substr(2, 9)
+    );
 }
 function App() {
     return (
@@ -26,7 +29,7 @@ function App() {
 
             <div style={{ overflowX: "hidden" }}>
                 <Switch>
-                    <Route path="/" exact component={SearchResults} />
+                    <Route exact path="/" exact component={SearchResults} />
                     <Route path="/shop" exact component={SearchResults} />
                     <Route path="/events" exact component={Events} />
                     <Route path="/account" exact component={Account} />
@@ -40,23 +43,18 @@ function App() {
                     <Route path="/product-item/:id" component={ProductItem} />
                     <Route path="/events/:id" component={EventPage} />
 
-                    <Route
-                        path="/create-account"
-                        component={CreateAccount}
-                    />
-                    
-                    <Route
-                        path="/edit-account"
-                        component={EditAccount}
-                    />
-                    
+                    <Route path="/create-account" component={CreateAccount} />
+
+                    <Route path="/edit-account" component={EditAccount} />
+
                     <Route path="/log-in" component={Login} />
-                    
+
                     <Route
                         path="/driver-dashboard"
                         component={DriverDashboard}
                     />
                     <Route path="/dashboard" component={Dashboard} />
+                    <Route component={NotFound} />
                 </Switch>
             </div>
         </Router>
