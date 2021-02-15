@@ -54,7 +54,7 @@ router.post("/paid", optionalAuth, async (req, res) => {
             name,
             pickup,
             `${address_line1} ${address_zip} ${address_city}, ${address_country}`,
-            `${address_line1} ${address_zip} ${address_city}, ${address_country}`,
+            pickup?`For pickup`:`${address_line1} ${address_zip} ${address_city}, ${address_country}`,
             deliveryNote,
         ]
     );
@@ -96,16 +96,19 @@ router.post("/paid", optionalAuth, async (req, res) => {
         UPDATE stock set quantity=quantity-$1 where product_id=$2 AND color=$3 AND size=$4`,
             [item.itemQuantity, item.productID, item.colour, item.size]
         );
+        item.itemPrice = item.itemPrice.toFixed(2)
+        console.log(item)
+        item.itemTotal = (item.itemPrice * item.itemQuantity).toFixed(2)
     }
-    const getBuyerName = await pool.query(
-        `SELECT username, email FROM users where id=${buyerID}`
-    );
-    const user = getBuyerName.rows[0];
+    
+   
     const orderID = orderResponse.rows[0].id;
 
     const total = payment.amount / 100;
+    console.log(items, name, email, orderID, deliveryType)
+    orderConfirmation(items, name, email, orderID, deliveryType);
     res.status(200).send("payment complete");
-    //orderConfirmation(total, user.username, user.email, orderID);
+    
 });
 
 router.put("/edit/:orderid", auth, async (req, res) => {

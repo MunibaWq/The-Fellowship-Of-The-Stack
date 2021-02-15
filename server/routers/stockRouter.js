@@ -4,7 +4,6 @@ const pool = require("../db");
 const auth = require("../middleware/auth");
 //get all variations of specific product in stock db
 router.get("/getByVariation/:id/:colour/:size", async (req, res) => {
- 
     const { id, colour, size } = req.params;
     const result = await pool.query(
         `SELECT * FROM stock 
@@ -35,62 +34,67 @@ router.get("/getAll", async (req, res, next) => {
 //edit stock
 
 router.put("/update", auth, async (req, res, next) => {
-    if (req.user.type !== 1) {
-        res.status(500).send('Not Authorized')
-    }
-    const { id } = req.body;
-    let checkOwner = await pool.query('SELECT artist_id from products WHERE id = ' + id)
-    if (checkOwner.rows[0].artist_id !== req.user.id) {
-        res.status(500).send('Not Authorized')
-    }
-    try {
-        
-        const client = await pool.connect();
-        
-        await client.query(
-            `
-        DELETE FROM stock WHERE product_id = $1`,
-            [id]
+    if (!req.user.is_artist) {
+        res.status(500).send("Not Authorized");
+    } else {
+        const { id } = req.body;
+        let checkOwner = await pool.query(
+            "SELECT artist_id from products WHERE id = " + id
         );
-        for (const obj of req.body.quant) {
-            const { color, size, quantity } = obj;
-            await client.query(
-                `INSERT INTO stock (product_id, color, size, quantity) VALUES ($1, $2, $3, $4)`,
-                [id, color, size, quantity]
-            );
+        if (checkOwner.rows[0].artist_id !== req.user.id) {
+            res.status(500).send("Not Authorized");
         }
-        client.release(true);
-        res.json({ msg: "all good" });
-    } catch (error) {
-        console.log(error);
-        res.send("error request failed");
+        try {
+            const client = await pool.connect();
+
+            await client.query(
+                `
+        DELETE FROM stock WHERE product_id = $1`,
+                [id]
+            );
+            for (const obj of req.body.quant) {
+                const { color, size, quantity } = obj;
+                await client.query(
+                    `INSERT INTO stock (product_id, color, size, quantity) VALUES ($1, $2, $3, $4)`,
+                    [id, color, size, quantity]
+                );
+            }
+            client.release(true);
+            res.json({ msg: "all good" });
+        } catch (error) {
+            console.log(error);
+            res.send("error request failed");
+        }
     }
 });
 
 router.post("/post", auth, async (req, res, next) => {
-    if (req.user.type !== 1) {
-        res.status(500).send('Not Authorized')
-    }
-    const { id } = req.body;
-    let checkOwner = await pool.query('SELECT artist_id from products WHERE id = ' + id)
-    if (checkOwner.rows[0].artist_id !== req.user.id) {
-        res.status(500).send('Not Authorized')
-    }
-    try {
-        const client = await pool.connect();
-  
-        for (const obj of req.body.quant) {
-            const { color, size, quantity } = obj;
-            await client.query(
-                `INSERT INTO stock (product_id, color, size, quantity) VALUES ($1, $2, $3, $4)`,
-                [id, color, size, quantity]
-            );
+    if (!req.user.is_artist) {
+        res.status(500).send("Not Authorized");
+    } else {
+        const { id } = req.body;
+        let checkOwner = await pool.query(
+            "SELECT artist_id from products WHERE id = " + id
+        );
+        if (checkOwner.rows[0].artist_id !== req.user.id) {
+            res.status(500).send("Not Authorized");
         }
-        client.release(true);
-        res.json({ msg: "all good" });
-    } catch (error) {
-        console.log(error);
-        res.send("error request failed");
+        try {
+            const client = await pool.connect();
+
+            for (const obj of req.body.quant) {
+                const { color, size, quantity } = obj;
+                await client.query(
+                    `INSERT INTO stock (product_id, color, size, quantity) VALUES ($1, $2, $3, $4)`,
+                    [id, color, size, quantity]
+                );
+            }
+            client.release(true);
+            res.json({ msg: "all good" });
+        } catch (error) {
+            console.log(error);
+            res.send("error request failed");
+        }
     }
 });
 

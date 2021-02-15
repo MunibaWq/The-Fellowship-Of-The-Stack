@@ -1,0 +1,98 @@
+<style>
+    .table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .td,
+    .th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    .tr:nth-child(even) {
+        background-color: #dddddd;
+    }
+</style>
+<div class="container">
+    <table class="table">
+        <thead>
+            <tr class="tr">
+                <th class="th">Item</th>
+
+                <th class="th">Quantity</th>
+                <th class="th">Each</th>
+                <th class="th">Total</th>
+            </tr>
+        </thead>
+
+        {{#each items}}
+
+        <tr class="tr">
+            <td class="td">{{this.variation}}</td>
+
+            <td class="td">{{this.itemQuantity}}</td>
+            <td class="td">{{this.itemPrice}}</td>
+            <td class="td">{{this.total}}</td>
+        </tr>
+
+        {{/each}}
+
+        <tr class="tr">
+            <td class="td"></td>
+            <td class="td"></td>
+            <td class="td">Subtotal:</td>
+            <td class="td">{{subtotal}}</td>
+        </tr>
+        <tr class="tr">
+            <td class="td"></td>
+            <td class="td"></td>
+            <td class="td">GST (5%):</td>
+            <td class="td">{{gst}}</td>
+        </tr>
+        {{#if delivery}}
+        <tr class="tr">
+            <td class="td"></td>
+            <td class="td"></td>
+            <td class="td">Delivery:</td>
+            <td class="td">$10</td>
+        </tr>
+        {{/if}}
+        <tr class="tr">
+            <td class="td"></td>
+            <td class="td"></td>
+            <td class="td">Total</td>
+            <td class="td">{{total}}</td>
+        </tr>
+    </table>
+</div>
+
+<script>
+    let data = {
+        "username": "username",
+        "email": "email",
+        "orderDate": "startDate",
+        "orderTime": "startTime",
+        "total": 62.84,
+        "orderID": "orderID",
+        "items": [
+            {
+                "variation": "Blob",
+                "itemPrice": 3.99,
+                "itemQuantity": 5,
+                "total": 19.95
+            },
+            {
+                "variation": "Blob",
+                "itemPrice": 3.99,
+                "itemQuantity": 5,
+                "total": 19.95
+            }
+        ],
+        "delivery": false,
+        "gst": 2.99,
+        "subtotal": 59.85
+    };
+</script>
