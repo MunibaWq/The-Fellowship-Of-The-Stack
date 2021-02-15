@@ -15,6 +15,7 @@ import EventPage from "./components/Events/EventPage";
 import DriverDashboard from "./pages/Driver/Dashboard/DriverDashboard";
 import { PrivateRoute } from "./components/Reusable/PrivateRoute";
 import NotFound from "./pages/NotFound";
+import Footer from "./components/Footer";
 
 if (!window.localStorage.getItem("session")) {
     window.localStorage.setItem(
@@ -57,6 +58,7 @@ function App() {
                     <Route component={NotFound} />
                 </Switch>
             </div>
+            <Footer />
         </Router>
     );
 }
