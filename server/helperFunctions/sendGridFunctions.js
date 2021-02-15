@@ -286,7 +286,7 @@ const notGoingToEvent = (attendee) => {
         });
 };
 
-const orderConfirmation = (total, username, email, orderID) => {
+const orderConfirmation = ( items, name, email, orderID, deliveryType) => {
     let options = {
         weekday: "long",
         year: "numeric",
@@ -299,6 +299,14 @@ const orderConfirmation = (total, username, email, orderID) => {
         hour: "2-digit",
         minute: "2-digit",
     });
+    let subtotal = items.reduce((total, curr) => {
+        total += curr.itemQuantity * curr.itemPrice
+        return total
+    }, 0)
+    let delivery
+    if (subtotal < 100 && deliveryType === 'delivery') {
+        delivery = 10;
+    } 
 
     let data = {
         personalizations: [
@@ -310,12 +318,16 @@ const orderConfirmation = (total, username, email, orderID) => {
                     },
                 ],
                 dynamic_template_data: {
-                    username: username,
-                    email: email,
+                    username:name,
+                    email,
                     orderDate: startDate,
                     orderTime: startTime,
-                    total: total,
-                    orderID: orderID,
+                    items,
+                    total: (subtotal + (delivery ? 10 : 0))* 1.05 ,
+                    subtotal,
+                    gst: (subtotal+(delivery ? 10 : 0 )) * 0.05,
+                    delivery,
+                    orderID,
                 },
             },
         ],

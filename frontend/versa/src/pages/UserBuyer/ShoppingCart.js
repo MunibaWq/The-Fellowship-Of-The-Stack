@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { getProductByID } from "../../axios/gets";
+import { getCart, getProductByID } from "../../axios/gets";
 import CheckoutButton from "../../components/Cart/checkoutButton";
 import { Error } from "../../components/Reusable/Input";
 import {
@@ -11,9 +11,8 @@ import {
 } from "../../redux/actions/Cart";
 import axios from "axios";
 import { setFormErrors } from "../../redux/actions/Errors";
-import QuantityInput from "../../components/Cart/QuantityInput";
 import Button from "../../components/Reusable/Button";
-import { RefreshIcon } from "../../images/icons";
+import { AddIcon, LineCloseIcon, MinusIcon, RefreshIcon } from "../../images/icons";
 import theme from "../../components/Reusable/Colors";
 import RadioButton from "../../components/Reusable/RadioButton";
 import FreeDelivery from "../../components/Cart/FreeDelivery";
@@ -32,7 +31,7 @@ const ShoppingCart = () => {
         }, 0);
         return total.toFixed(2);
     };
-    console.log(preference, 'this is the preference')
+    console.log(preference, "this is the preference");
     useEffect(() => {
         async function checkStock(id, colour, size) {
             let newQuantity = size[1];
@@ -52,54 +51,22 @@ const ShoppingCart = () => {
             return newQuantity;
         }
         const getCartContents = async () => {
-            let cartContents = [];
-            for (let product of Object.entries(cart)) {
-                console.log("product", product);
-                const res = await getProductByID(product[0]);
-                console.log("response from getProdByID", res);
-                for (let colour of Object.entries(product[1])) {
-                    for (let size of Object.entries(colour[1])) {
-                        size[1] = await checkStock(res.id, colour, size);
-
-                        const variation = `${res.title} - ${colour[0]} - ${size[0]}`;
-                        const itemQuantity = size[1];
-                        const itemPrice =
-                            +res.price +
-                            +res.sizes.filter(
-                                //grab the additional price for the size
-                                (sizeOp) => sizeOp.label === size[0]
-                            )[0].price;
-                        const thumbnail = res.thumbnail;
-                        dispatch(
-                            setCartInput(
-                                {
-                                    variation,
-                                    itemQuantity,
-                                    itemPrice,
-                                    thumbnail,
-                                    productID: res.id,
-                                    colour: colour[0],
-                                    size: size[0],
-                                    artistID: res.artist_id,
-                                },
-                                itemQuantity
-                            )
-                        );
-                        cartContents.push({
-                            variation,
-                            itemQuantity,
-                            itemPrice,
-                            thumbnail,
-                            productID: res.id,
-                            colour: colour[0],
-                            size: size[0],
-                            artistID: res.artist_id,
-                        });
-                    }
-                }
-            }
-
-            return cartContents;
+            const cartContents = await getCart();
+            let cc = cartContents.map((item) => {
+                let sizePrice = item.sizes
+                    .filter((size) => {
+                        return size === item.size;
+                    })
+                    .map((size) => size.price);
+                return {
+                    itemPrice: +item.price + +sizePrice,
+                    itemQuantity: item.quantity,
+                    variation: `${item.title} ${item.colour} ${item.size}`,
+                    thumbnail: item.thumbnail,
+                };
+            });
+            console.log("cartContents", cc);
+            return cc;
         };
         getCartContents().then((res) => setCartItems(res));
     }, [cart]);
@@ -112,7 +79,7 @@ const ShoppingCart = () => {
 
     function deliveryFee() {
         const total = calcCartTotal();
-        console.log(total, 'this is the total')
+        console.log(total, "this is the total");
         if (isNaN(total)) {
             return;
         }
@@ -152,11 +119,15 @@ const ShoppingCart = () => {
                                         />
                                         <div>{cartItem.variation}</div>
 
-                                        <div>
-                                            <QuantityInput
-                                                cartItem={cartItem}
-                                            />
+                                        <QuantityInput>
+                                            <div>
+                                                <MinusIcon width={21} height={21} stroke="#444"/>
                                         </div>
+                                            {cartItem.itemQuantity}
+                                            <div>
+                                            <AddIcon width={21} height={21} stroke="#444"/>
+                                            </div>
+                                        </QuantityInput>
                                         <Price>
                                             {cartItem.itemPrice.toLocaleString(
                                                 "us-US",
@@ -222,10 +193,9 @@ const ShoppingCart = () => {
                                 <Price>{deliveryFee()}</Price>
                             </CartItem>
                         ) : (
-                                <CartItem>
-                            <div style={{ gridColumn: "3 / 5" }}>
-                                    
-                                </div></CartItem>
+                            <CartItem>
+                                <div style={{ gridColumn: "3 / 5" }}></div>
+                            </CartItem>
                         )}
                         <CartItem>
                             <div style={{ gridColumn: "3 / 5" }}>Total:</div>
@@ -252,13 +222,14 @@ const ShoppingCart = () => {
                 ) : (
                     <div style={{ marginTop: "10px" }}>No items in cart</div>
                 )}
-                    <CartItem>
-                <RadioButton
-                    preference={preference}
-                    setPreference={setPreference}
-                    instructions={extraInstructions}
-                    setInstructions={setExtraInstructions}
-                /></CartItem>
+                <CartItem>
+                    <RadioButton
+                        preference={preference}
+                        setPreference={setPreference}
+                        instructions={extraInstructions}
+                        setInstructions={setExtraInstructions}
+                    />
+                </CartItem>
             </Cart>
             {cartItems && cartItems.length > 0 && (
                 <CheckoutButton
@@ -266,15 +237,17 @@ const ShoppingCart = () => {
                     artistName="Versa"
                     custPref={preference}
                     custNote={extraInstructions}
-                    price={
-                        
-                            (calcCartTotal() * 1.05).toFixed(2)
-                            
-                    }></CheckoutButton>
+                    price={(calcCartTotal() * 1.05).toFixed(
+                        2
+                    )}></CheckoutButton>
             )}
         </Container>
     );
 };
+const QuantityInput = styled.div`
+    display: flex;
+    justify-content: space-around;
+`
 const TooMany = styled(Error)`
     margin: 0;
     padding: 0;

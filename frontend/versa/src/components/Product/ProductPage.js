@@ -41,7 +41,7 @@ const ProductPage = ({
     );
     const showProductTotal = () => {
         
-        return Object.keys(cart[id]).reduce(
+        return cart && cart[id] && Object.keys(cart[id]).reduce(
             (colourTotal, currColour, cIndex) => {
                 colourTotal =
                     colourTotal +
