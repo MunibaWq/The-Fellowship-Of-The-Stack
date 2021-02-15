@@ -53,13 +53,15 @@ const ShoppingCart = () => {
         const getCartContents = async () => {
             const cartContents = await getCart();
             let cc = cartContents.map((item) => {
+                console.log(item)
                 let sizePrice = item.sizes
                     .filter((size) => {
-                        return size === item.size;
+                        return size.label === item.size;
                     })
                     .map((size) => size.price);
+                console.log(sizePrice)
                 return {
-                    itemPrice: +item.price + +sizePrice,
+                    itemPrice: +item.price + +sizePrice[0],
                     itemQuantity: item.quantity,
                     variation: `${item.title} ${item.colour} ${item.size}`,
                     thumbnail: item.thumbnail,
