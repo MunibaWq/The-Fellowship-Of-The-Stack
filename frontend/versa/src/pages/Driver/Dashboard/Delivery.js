@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { getOneOrder, getProductByID } from "../../../axios/gets";
+import OrdersTable from "../../../components/Dashboard/AnalyticsTables/OrdersTable";
+import OrderContainer from "../../Artist/Dashboard/Orders";
 
 const Delivery = (props) => {
     let id;
