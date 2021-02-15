@@ -75,10 +75,6 @@ const EventForm = (props) => {
         };
     }, [dispatch, props.type, id]);
 
-
-
-    
-
     const submitData = (e) => {
         e.preventDefault();
         const eventInfo = {
@@ -101,7 +97,7 @@ const EventForm = (props) => {
                 console.log(response);
 
                 console.log(eventID);
-                await userGoing(eventID);
+                // await userGoing(eventID);
             } else {
                 axios.put(
                     "/api/events/edit/" + id,

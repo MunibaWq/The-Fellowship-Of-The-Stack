@@ -142,120 +142,121 @@ router.get("/allProducts", async (req, res) => {
 // Create a product ON FRONT END - NEED TO SEND sizes AS OBJECT-> sizes:PRICE
 
 router.post("/create", auth, async (req, res) => {
-    if (req.user.type !== 1) {
+    if (!req.user.is_artist) {
         res.status(500).send("Not Authorized");
-    }
-
-    try {
-        let {
-            title,
-            price,
-            description,
-            colours,
-            sizes,
-            materials,
-        } = req.body.data;
-        if (!colours || colours.length === 0) {
-            colours = [{ label: "O", value: "#444" }];
-        }
-        if (!sizes || sizes.length === 0) {
-            sizes = [{ label: "O", price: "0" }];
-        }
-        // To sort the sizes entered in the correct order
-        // Will sort numerical sizes numerically
-        let sizesOrder = ["XS", "S", "M", "L", "XL", "XXL"];
-        sizes.sort((a, b) => {
-            return (
-                sizesOrder.indexOf(a.label) - sizesOrder.indexOf(b.label) ||
-                +a.label - +b.label
-            );
-        });
-        let productInfo = await pool.query(
-            "INSERT INTO products (title, price, description, colours, artist_id, sizes, materials) VALUES ($1, $2, $3,$4, $5,$6,$7) RETURNING id",
-            [
+    } else {
+        try {
+            let {
                 title,
-                +price,
+                price,
                 description,
-                JSON.stringify(colours),
-                +req.user.id,
-                JSON.stringify(sizes),
+                colours,
+                sizes,
                 materials,
-            ]
-        );
+            } = req.body.data;
+            if (!colours || colours.length === 0) {
+                colours = [{ label: "O", value: "#444" }];
+            }
+            if (!sizes || sizes.length === 0) {
+                sizes = [{ label: "O", price: "0" }];
+            }
+            // To sort the sizes entered in the correct order
+            // Will sort numerical sizes numerically
+            let sizesOrder = ["XS", "S", "M", "L", "XL", "XXL"];
+            sizes.sort((a, b) => {
+                return (
+                    sizesOrder.indexOf(a.label) - sizesOrder.indexOf(b.label) ||
+                    +a.label - +b.label
+                );
+            });
+            let productInfo = await pool.query(
+                "INSERT INTO products (title, price, description, colours, artist_id, sizes, materials) VALUES ($1, $2, $3,$4, $5,$6,$7) RETURNING id",
+                [
+                    title,
+                    +price,
+                    description,
+                    JSON.stringify(colours),
+                    +req.user.id,
+                    JSON.stringify(sizes),
+                    materials,
+                ]
+            );
 
-        res.json(productInfo.rows[0]);
-    } catch (err) {
-        console.error(err.message);
-        res.send("error");
+            res.json(productInfo.rows[0]);
+        } catch (err) {
+            console.error(err.message);
+            res.send("error");
+        }
     }
 });
 
 // Update a product
 
 router.put("/edit/:id", auth, async (req, res) => {
-    if (req.user.type !== 1) {
+    if (!req.user.is_artist) {
         res.status(500).send("Not Authorized");
-    }
-    const { id } = req.params;
-    let checkOwner = await pool.query(
-        "SELECT artist_id from products WHERE id = " + id
-    );
-    if (checkOwner.rows[0].artist_id !== req.user.id) {
-        res.status(500).send("Not Authorized");
-    }
-    if (Object.keys(req.body).length === 0) {
-        res.send({
-            message: "Theres nobody!",
-        });
-    }
-    try {
-        let {
-            title,
-            price,
-            description,
-            colours,
-            sizes,
-            materials,
-            status,
-        } = req.body.data; //For use in set
-        if (colours.length === 0) {
-            colours = [{ label: "O", value: "#444" }];
+    } else {
+        const { id } = req.params;
+        let checkOwner = await pool.query(
+            "SELECT artist_id from products WHERE id = " + id
+        );
+        if (checkOwner.rows[0].artist_id !== req.user.id) {
+            res.status(500).send("Not Authorized");
         }
-        if (sizes.length === 0) {
-            sizes = [{ label: "O", price: "0" }];
+        if (Object.keys(req.body).length === 0) {
+            res.send({
+                message: "Theres nobody!",
+            });
         }
-        let sizesOrder = ["XS", "S", "M", "L", "XL", "XXL"];
-        sizes.sort((a, b) => {
-            return (
-                sizesOrder.indexOf(a.label) - sizesOrder.indexOf(b.label) ||
-                +a.label - +b.label
-            );
-        });
-
-        let response = await pool.query(
-            "UPDATE products SET title = $1, price = $2, description = $3, colours = $4, sizes = $5, materials = $6, status=$7 WHERE id = $8 RETURNING id",
-            [
+        try {
+            let {
                 title,
                 price,
                 description,
-                JSON.stringify(colours),
-                JSON.stringify(sizes),
+                colours,
+                sizes,
                 materials,
                 status,
-                id,
-            ]
-        );
-        if (status === "Backorder" || status === "Discontinue") {
-            const changeStockToZero = pool.query(
-                "UPDATE stock set quantity = 0 where product_id =" + id
+            } = req.body.data; //For use in set
+            if (colours.length === 0) {
+                colours = [{ label: "O", value: "#444" }];
+            }
+            if (sizes.length === 0) {
+                sizes = [{ label: "O", price: "0" }];
+            }
+            let sizesOrder = ["XS", "S", "M", "L", "XL", "XXL"];
+            sizes.sort((a, b) => {
+                return (
+                    sizesOrder.indexOf(a.label) - sizesOrder.indexOf(b.label) ||
+                    +a.label - +b.label
+                );
+            });
+
+            let response = await pool.query(
+                "UPDATE products SET title = $1, price = $2, description = $3, colours = $4, sizes = $5, materials = $6, status=$7 WHERE id = $8 RETURNING id",
+                [
+                    title,
+                    price,
+                    description,
+                    JSON.stringify(colours),
+                    JSON.stringify(sizes),
+                    materials,
+                    status,
+                    id,
+                ]
             );
+            if (status === "Backorder" || status === "Discontinue") {
+                const changeStockToZero = pool.query(
+                    "UPDATE stock set quantity = 0 where product_id =" + id
+                );
+            }
+            res.json(response.rows[0].id);
+        } catch (err) {
+            console.error(err.message);
+            res.send({
+                message: "error",
+            });
         }
-        res.json(response.rows[0].id);
-    } catch (err) {
-        console.error(err.message);
-        res.send({
-            message: "error",
-        });
     }
 });
 
@@ -263,28 +264,29 @@ router.put("/edit/:id", auth, async (req, res) => {
 
 router.delete("/delete/:id", auth, async (req, res) => {
     const id = req.params.id;
-    if (req.user.type !== 1) {
+    if (!req.user.is_artist) {
         res.status(500).send("Not Authorized");
-    }
-    let checkOwner = await pool.query(
-        "SELECT artist_id from products WHERE id = " + id
-    );
-    if (checkOwner.rows[0].artist_id !== req.user.id) {
-        res.status(500).send("Not Authorized");
-    }
-    if (Object.keys(req.params).length === 0) {
-        console.log("no id");
-    }
-    try {
-        await pool.query("DELETE FROM images WHERE product_id = $1", [id]);
-        await pool.query("DELETE FROM stock WHERE product_id = $1", [id]);
-        await pool.query("DELETE FROM products WHERE id = $1", [id]);
-        res.json({ msg: "Product Deleted!" });
-    } catch (err) {
-        console.error(err.message);
-        res.send({
-            message: "error",
-        });
+    } else {
+        let checkOwner = await pool.query(
+            "SELECT artist_id from products WHERE id = " + id
+        );
+        if (checkOwner.rows[0].artist_id !== req.user.id) {
+            res.status(500).send("Not Authorized");
+        }
+        if (Object.keys(req.params).length === 0) {
+            console.log("no id");
+        }
+        try {
+            await pool.query("DELETE FROM images WHERE product_id = $1", [id]);
+            await pool.query("DELETE FROM stock WHERE product_id = $1", [id]);
+            await pool.query("DELETE FROM products WHERE id = $1", [id]);
+            res.json({ msg: "Product Deleted!" });
+        } catch (err) {
+            console.error(err.message);
+            res.send({
+                message: "error",
+            });
+        }
     }
 });
 module.exports = router;
