@@ -4,13 +4,17 @@ import { FilledHeartIcon, HeartIcon, WishListIcon } from "../../images/icons";
 import Button from "../Reusable/Button";
 import theme from "../Reusable/Colors";
 
-const addToWishList = (productID) => {};
-
-const deleteFromWishList = (productID) => {};
-
 const WishButton = ({ productID }) => {
     const [clicked, setClicked] = useState(false);
     console.log({ clicked });
+
+    const addToWishList = (productID) => {
+        //need to add product to wishlist in db
+    };
+
+    const deleteFromWishList = (productID) => {
+        //need to remove product from wishlist in db
+    };
 
     return (
         <ActionButton
