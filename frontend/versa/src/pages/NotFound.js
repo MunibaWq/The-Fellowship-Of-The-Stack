@@ -41,12 +41,12 @@ const NotFound = () => {
                     <h2>Grow</h2>
                     <img src={grow} alt="grow" />
 
-                    <StyledLink to="/log-in">
-                        Grow your business as an artist
+                    <StyledLink to="/driverDashboard">
+                        Earn a living as a driver
                         <RightIcon stroke={theme.primary} />
                     </StyledLink>
-                    <StyledLink to="/driverDashboard">
-                        Earn more as a driver
+                    <StyledLink to="/log-in">
+                        Grow your business as an artist
                         <RightIcon stroke={theme.primary} />
                     </StyledLink>
                 </ActionLinks>

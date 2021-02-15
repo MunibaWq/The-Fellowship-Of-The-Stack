@@ -170,6 +170,16 @@ const OrdersTable = ({ user, orderData }) => {
                                     </td>
                                 </BodyRows>
                             ))}
+                        {!filteredData && (
+                            <BodyRows>
+                                <td>
+                                    <p>
+                                        No orders found. Please try searching
+                                        again.
+                                    </p>
+                                </td>
+                            </BodyRows>
+                        )}
                     </Table>
                 </>
             )}
@@ -181,6 +191,10 @@ export default OrdersTable;
 
 const TableContainer = styled.div`
     justify-self: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    min-height: 600px;
 `;
 
 const Sort = styled.div`
@@ -232,6 +246,7 @@ const Table = styled.table`
     border-collapse: collapse;
     margin: 0 1em 2em 1em;
     font-size: 0.9em;
+
     box-shadow: 3px 3px 10px rgba(27, 49, 66, 0.13);
     border-radius: 15px 15px 0px 0px;
     thead th {
@@ -241,6 +256,7 @@ const Table = styled.table`
     th,
     td {
         padding: 12px 15px;
+        width: 200px;
     }
 `;
 const Headers = styled.tr`
