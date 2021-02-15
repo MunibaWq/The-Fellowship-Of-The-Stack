@@ -306,7 +306,9 @@ const orderConfirmation = ( items, name, email, orderID, deliveryType) => {
     let delivery
     if (subtotal < 100 && deliveryType === 'delivery') {
         delivery = 10;
-    } 
+    } else {
+        delivery = 0;
+    }
 
     let data = {
         personalizations: [
@@ -314,7 +316,7 @@ const orderConfirmation = ( items, name, email, orderID, deliveryType) => {
                 to: [
                     {
                         email: email,
-                        name: username,
+                        name: name,
                     },
                 ],
                 dynamic_template_data: {
@@ -323,10 +325,10 @@ const orderConfirmation = ( items, name, email, orderID, deliveryType) => {
                     orderDate: startDate,
                     orderTime: startTime,
                     items,
-                    total: (subtotal + (delivery ? 10 : 0))* 1.05 ,
-                    subtotal,
-                    gst: (subtotal+(delivery ? 10 : 0 )) * 0.05,
-                    delivery,
+                    total: ((subtotal + (delivery ? 10 : 0))* 1.05).toFixed(2) ,
+                    subtotal: subtotal.toFixed(2),
+                    gst: ((subtotal+(delivery ? 10 : 0 )) * 0.05).toFixed(2),
+                    delivery:delivery.toFixed(2),
                     orderID,
                 },
             },

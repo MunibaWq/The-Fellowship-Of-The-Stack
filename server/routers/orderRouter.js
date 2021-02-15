@@ -96,6 +96,9 @@ router.post("/paid", optionalAuth, async (req, res) => {
         UPDATE stock set quantity=quantity-$1 where product_id=$2 AND color=$3 AND size=$4`,
             [item.itemQuantity, item.productID, item.colour, item.size]
         );
+        item.itemPrice = item.itemPrice.toFixed(2)
+        console.log(item)
+        item.itemTotal = (item.itemPrice * item.itemQuantity).toFixed(2)
     }
     
    
