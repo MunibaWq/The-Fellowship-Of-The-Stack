@@ -46,7 +46,7 @@ const OrdersTable = ({ user, orderData }) => {
         "Order ID",
         "Buyer Name",
         "Buyer Address",
-        "Date",
+        "Order Date",
         "Status",
         "Date Received by Buyer",
     ];
@@ -256,7 +256,24 @@ const Table = styled.table`
     th,
     td {
         padding: 12px 15px;
-        width: 200px;
+        :nth-of-type(1) {
+            min-width: 80px;
+        }
+        :nth-of-type(2) {
+            min-width: 170px;
+        }
+        :nth-of-type(3) {
+            min-width: 300px;
+        }
+        :nth-of-type(4) {
+            min-width: 190px;
+        }
+        :nth-of-type(5) {
+            min-width: 180px;
+        }
+        :nth-of-type(6) {
+            min-width: 190px;
+        }
     }
 `;
 const Headers = styled.tr`
