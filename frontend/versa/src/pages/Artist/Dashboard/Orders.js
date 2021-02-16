@@ -9,16 +9,19 @@ const Orders = () => {
     const [orderData, setOrderData] = useState();
     let params = useParams();
     const currentUser = params.id;
+    const [buyerDetails, setBuyerDetails] = useState();
 
     useEffect(() => {
         const fetchData = async (currentUser) => {
             const data = await getRecentOrders(currentUser);
+
             setOrderData(data);
         };
         fetchData();
     }, []);
 
     console.log("o", orderData);
+
     return (
         <OrderContainer>
             <h1>Recent Orders</h1>
@@ -36,12 +39,14 @@ export default Orders;
 const OrderContainer = styled.div`
     padding: 2em 2em 2em calc(2em + 66px);
     display: grid;
-    grid-template-rows: auto auto;
+    grid-template-rows: 60px auto;
 
     h1 {
         margin: 0 1em 2em 1em;
+        justify-self: start;
     }
     :last-of-type {
-        place-self: center;
+        place-self: start;
+        align-self: center;
     }
 `;

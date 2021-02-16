@@ -286,7 +286,7 @@ const notGoingToEvent = (attendee) => {
         });
 };
 
-const orderConfirmation = (total, username, email, orderID) => {
+const orderConfirmation = ( items, name, email, orderID, deliveryType) => {
     let options = {
         weekday: "long",
         year: "numeric",
@@ -299,6 +299,16 @@ const orderConfirmation = (total, username, email, orderID) => {
         hour: "2-digit",
         minute: "2-digit",
     });
+    let subtotal = items.reduce((total, curr) => {
+        total += curr.itemQuantity * curr.itemPrice
+        return total
+    }, 0)
+    let delivery
+    if (subtotal < 100 && deliveryType === 'delivery') {
+        delivery = 10;
+    } else {
+        delivery = 0;
+    }
 
     let data = {
         personalizations: [
@@ -306,16 +316,20 @@ const orderConfirmation = (total, username, email, orderID) => {
                 to: [
                     {
                         email: email,
-                        name: username,
+                        name: name,
                     },
                 ],
                 dynamic_template_data: {
-                    username: username,
-                    email: email,
+                    username:name,
+                    email,
                     orderDate: startDate,
                     orderTime: startTime,
-                    total: total,
-                    orderID: orderID,
+                    items,
+                    total: ((subtotal + (delivery ? 10 : 0))* 1.05).toFixed(2) ,
+                    subtotal: subtotal.toFixed(2),
+                    gst: ((subtotal+(delivery ? 10 : 0 )) * 0.05).toFixed(2),
+                    delivery:delivery.toFixed(2),
+                    orderID,
                 },
             },
         ],
@@ -339,6 +353,89 @@ const orderConfirmation = (total, username, email, orderID) => {
         });
 };
 
+const orderReadyForPickup = (buyer) => {
+    let options = {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+    };
+    let orderDate = new Date(buyer.date);
+    let orderPlacedDate = orderDate.toLocaleDateString("en-US", options);
+
+    let data = {
+        personalizations: [
+            {
+                to: [
+                    {
+                        email: buyer.email,
+                        name: buyer.name,
+                    },
+                ],
+                dynamic_template_data: {
+                    username: buyer.name,
+                    email: buyer.email,
+                    artistName: buyer.username,
+                    orderID: buyer.id,
+                    orderDate: orderPlacedDate,
+                    artistAddress: buyer.address,
+                },
+            },
+        ],
+        from: {
+            email: "versayyc@gmail.com",
+            name: "Versa",
+        },
+        reply_to: {
+            email: "versayyc@gmail.com",
+            name: "Versa",
+        },
+        template_id: "d-f19e16700d444a6b95466023328aef26",
+    };
+    sgMail
+        .send(data)
+        .then(() => {
+            console.log("Email sent");
+        })
+        .catch((error) => {
+            console.error(error);
+        });
+};
+const newAccount = (name, email) => {
+    let data = {
+        personalizations: [
+            {
+                to: [
+                    {
+                        email: email,
+                        name: name,
+                    },
+                ],
+                dynamic_template_data: {
+                    name: name,
+                },
+            },
+        ],
+        from: {
+            email: "versayyc@gmail.com",
+            name: "Versa",
+        },
+        reply_to: {
+            email: "versayyc@gmail.com",
+            name: "Versa",
+        },
+        template_id: "d-c29c378b4bba461e8c72171335fae7a8",
+    };
+    sgMail
+        .send(data)
+        .then(() => {
+            console.log("Email sent");
+        })
+        .catch((error) => {
+            console.error(error);
+        });
+};
+
 module.exports = {
     sendReminder,
     emailsSent,
@@ -346,4 +443,6 @@ module.exports = {
     notGoingToEvent,
     changesToEvent,
     orderConfirmation,
+    orderReadyForPickup,
+    newAccount,
 };

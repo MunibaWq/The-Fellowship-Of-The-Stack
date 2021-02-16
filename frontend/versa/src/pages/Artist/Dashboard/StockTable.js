@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 // import { TableStyle } from "./Inventory";
 import styled from 'styled-components'
 const StockTable = ({ item, setter }) => {
-    const [stock, setStock] = useState([]);
+    let [stock, setStock] = useState([]);
 
     
 
@@ -37,6 +36,7 @@ const StockTable = ({ item, setter }) => {
                 
                 mapOverColorAndSize(stock);
             }, 1000)
+        
         
     }, [item, stock.length]);
 

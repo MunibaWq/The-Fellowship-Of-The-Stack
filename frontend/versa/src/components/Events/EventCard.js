@@ -22,7 +22,7 @@ const EventCard = ({ theEvent }) => {
             } else setGoing(false);
         };
         attendStatus();
-    }, []);
+    }, [currentEvent]);
 
     // useEffect(() => {
     //     if (going !== "unset") {
@@ -54,13 +54,6 @@ const EventCard = ({ theEvent }) => {
         hour: "2-digit",
         minute: "2-digit",
     });
-
-    //TO DO:
-    //function to send data
-    //get user data
-    //create a variable that contains the user name, email, status (going, not going, interested), event name, event start date, event start time
-    // axios post to /mail/send
-    // event button, if user status = going, render the not going button. if user status = not going. render going button
 
     return (
         <CardContainer>
@@ -175,6 +168,7 @@ const Actions = styled.div`
     flex-direction: row;
     justify-content: space-between;
     width: 250px;
+    height: 32px;
 `;
 
 const ActionButton = styled(Button)`

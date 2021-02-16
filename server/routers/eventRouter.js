@@ -55,8 +55,7 @@ router.get("/get/:id", async (req, res) => {
         );
 
         const eventInfo = result.rows[0];
-      
-        
+
         client.release(true);
         res.json(eventInfo);
     } catch (e) {
@@ -157,42 +156,22 @@ router.get("/allEvents", async (req, res) => {
 //create event
 
 router.post("/create", auth, async (req, res) => {
-    if (req.user.type !== 1) {
-        res.status(500).send("Not Authorized");
-    }
-    console.log(req.user);
-    try {
-        let {
-            name,
-            description,
-            status,
-            capacity,
-            startTime,
-            endTime,
-            location,
-            type,
-        } = req.body.data;
-        console.log(
-            name,
-            req.user.id,
-            description,
-            status,
-            capacity,
-            startTime,
-            endTime,
-            location,
-            type
-        );
-        let eventInfo = await pool.query(
-            `
-            INSERT INTO events(
-                name, host, description, status, capacity, 
-                start_time, end_time, location, type
-                ) 
-            VALUES 
-                ($1,$2,$3,$4,$5,$6,$7,$8,$9) RETURNING ID
-            `,
-            [
+    console.log(req.user.is_artist);
+    if (!req.user.is_artist) {
+        res.status(501).send("Not Authorized");
+    } else {
+        try {
+            let {
+                name,
+                description,
+                status,
+                capacity,
+                startTime,
+                endTime,
+                location,
+                type,
+            } = req.body.data;
+            console.log(
                 name,
                 req.user.id,
                 description,
@@ -201,13 +180,38 @@ router.post("/create", auth, async (req, res) => {
                 startTime,
                 endTime,
                 location,
-                type,
-            ]
-        );
-
-        res.json(eventInfo.rows[0].id);
-    } catch (err) {
-        res.send(err);
+                type
+            );
+            let eventInfo = await pool.query(
+                `
+            INSERT INTO events(
+                name, host, description, status, capacity, 
+                start_time, end_time, location, type
+                ) 
+            VALUES 
+                ($1,$2,$3,$4,$5,$6,$7,$8,$9) RETURNING ID
+            `,
+                [
+                    name,
+                    req.user.id,
+                    description,
+                    status,
+                    capacity,
+                    startTime,
+                    endTime,
+                    location,
+                    type,
+                ]
+            );
+            pool.query(
+                `INSERT INTO events_attendees(attendee, event_id, status, reminder )
+        VALUES ($1, $2, $3, $4 )`,
+                [req.user.id, eventInfo.rows[0].id, "attending", true]
+            );
+            res.json(eventInfo.rows[0].id);
+        } catch (err) {
+            res.send(err);
+        }
     }
 });
 
@@ -216,71 +220,36 @@ router.post("/create", auth, async (req, res) => {
 router.put("/edit/:eventId", auth, async (req, res) => {
     const { eventId } = req.params;
     console.log(eventId);
-    if (req.user.type !== 1) {
+    if (!req.user.is_artist) {
         res.status(500).send("Not Authorized");
-    }
-    let checkOwner = await pool.query(
-        "SELECT host from events WHERE id = " + eventId
-    );
-    if (checkOwner.rows[0].host !== req.user.id) {
-        res.status(500).send("Not Authorized");
-    }
-    if (Object.keys(req.body).length === 0) {
-        res.send({
-            message: "Theres nobody!",
-        });
-    }
-    try {
-        let {
-            name,
-
-            description,
-            status,
-            capacity,
-            startTime,
-            endTime,
-            location,
-            type,
-        } = req.body.data;
-
-        console.log(
-            name,
-
-            req.user.id,
-            description,
-            status,
-            capacity,
-            startTime,
-            endTime,
-            location,
-            type,
-            eventId
+    } else {
+        let checkOwner = await pool.query(
+            "SELECT host from events WHERE id = " + eventId
         );
-        console.log(eventId);
-
-        let current = await pool.query(`SELECT * FROM events WHERE id = $1 `, [
-            eventId,
-        ]);
-        const currentEvent = current.rows[0];
-
-        name = name || currentEvent.name;
-        // host = host || currentEvent.host;
-        description = description || currentEvent.description;
-        status = status || currentEvent.status;
-        capacity = capacity || currentEvent.capacity;
-        startTime = startTime || currentEvent.start_time;
-        endTime = endTime || currentEvent.end_time;
-        location = location || currentEvent.location;
-        type = type || currentEvent.type;
-
-        let response = await pool.query(
-            `UPDATE events SET 
-            name = $1, host = $2, description = $3, 
-            status = $4, capacity = $5, start_time = $6, 
-            end_time = $7, location = $8, type = $9 
-            WHERE id = $10 RETURNING id`,
-            [
+        if (checkOwner.rows[0].host !== req.user.id) {
+            res.status(500).send("Not Authorized");
+        }
+        if (Object.keys(req.body).length === 0) {
+            res.send({
+                message: "Theres nobody!",
+            });
+        }
+        try {
+            let {
                 name,
+
+                description,
+                status,
+                capacity,
+                startTime,
+                endTime,
+                location,
+                type,
+            } = req.body.data;
+
+            console.log(
+                name,
+
                 req.user.id,
                 description,
                 status,
@@ -289,16 +258,53 @@ router.put("/edit/:eventId", auth, async (req, res) => {
                 endTime,
                 location,
                 type,
-                eventId,
-            ]
-        );
+                eventId
+            );
+            console.log(eventId);
 
-        res.json(response.rows[0].id);
-    } catch (err) {
-        console.error(err.message, "/edit/:id");
-        res.send({
-            message: "error",
-        });
+            let current = await pool.query(
+                `SELECT * FROM events WHERE id = $1 `,
+                [eventId]
+            );
+            const currentEvent = current.rows[0];
+
+            name = name || currentEvent.name;
+            // host = host || currentEvent.host;
+            description = description || currentEvent.description;
+            status = status || currentEvent.status;
+            capacity = capacity || currentEvent.capacity;
+            startTime = startTime || currentEvent.start_time;
+            endTime = endTime || currentEvent.end_time;
+            location = location || currentEvent.location;
+            type = type || currentEvent.type;
+
+            let response = await pool.query(
+                `UPDATE events SET 
+            name = $1, host = $2, description = $3, 
+            status = $4, capacity = $5, start_time = $6, 
+            end_time = $7, location = $8, type = $9 
+            WHERE id = $10 RETURNING id`,
+                [
+                    name,
+                    req.user.id,
+                    description,
+                    status,
+                    capacity,
+                    startTime,
+                    endTime,
+                    location,
+                    type,
+                    eventId,
+                ]
+            );
+
+            res.json(response.rows[0].id);
+        } catch (err) {
+            console.error(err.message, "/edit/:id");
+            res.send({
+                message: "error",
+            });
+        }
     }
 });
 
@@ -306,30 +312,34 @@ router.put("/edit/:eventId", auth, async (req, res) => {
 
 router.delete("/delete/:id", auth, async (req, res) => {
     const id = req.params.id;
-    if (req.user.type !== 1) {
+    if (!req.user.is_artist) {
         res.status(500).send("Not Authorized");
-    }
-    let checkOwner = await pool.query(
-        "SELECT e.host from events WHERE id = " + id
-    );
-    if (checkOwner.rows[0].host !== req.user.id) {
-        res.status(500).send("Not Authorized");
-    }
-    if (Object.keys(req.params).length === 0) {
-        console.log("no id");
-    }
-    try {
-        await pool.query("DELETE FROM event_images WHERE event_id = $1", [id]);
-        await pool.query("DELETE FROM events_attendees WHERE event_id = $1", [
-            id,
-        ]);
-        await pool.query("DELETE FROM events WHERE id = $1", [id]);
-        res.json({ msg: "Event Deleted!" });
-    } catch (err) {
-        console.error(err.message, "/delete/:id");
-        res.send({
-            message: "error",
-        });
+    } else {
+        let checkOwner = await pool.query(
+            "SELECT host from events WHERE id = " + id
+        );
+        if (checkOwner.rows[0].host !== req.user.id) {
+            res.status(500).send("Not Authorized");
+        }
+        if (Object.keys(req.params).length === 0) {
+            console.log("no id");
+        }
+        try {
+            await pool.query("DELETE FROM event_images WHERE event_id = $1", [
+                id,
+            ]);
+            await pool.query(
+                "DELETE FROM events_attendees WHERE event_id = $1",
+                [id]
+            );
+            await pool.query("DELETE FROM events WHERE id = $1", [id]);
+            res.json({ msg: "Event Deleted!" });
+        } catch (err) {
+            console.error(err.message, "/delete/:id");
+            res.send({
+                message: "error",
+            });
+        }
     }
 });
 //change to auth and use auth for id instead of req.params
@@ -382,10 +392,10 @@ router.delete("/not-attending/:event", auth, async (req, res) => {
             "DELETE FROM events_attendees WHERE event_id = $1 AND attendee =$2",
             [event_id, req.user.id]
         );
-        attendees = await pool.query(
-            `SELECT h.username as host_name, e.name as event_name, e.description, e.start_time, e.end_time, e.location, a.event_id, u.email, u.name from events_attendees a INNER JOIN users u ON a.attendee = u.id INNER JOIN events e ON e.id=a.event_id INNER JOIN users h ON h.id=e.host WHERE a.event_id = ${+req
-                .params.event} AND u.id = ${req.user.id}`
-        );
+        // attendees = await pool.query(
+        //     `SELECT h.username as host_name, e.name as event_name, e.description, e.start_time, e.end_time, e.location, a.event_id, u.email, u.name from events_attendees a INNER JOIN users u ON a.attendee = u.id INNER JOIN events e ON e.id=a.event_id INNER JOIN users h ON h.id=e.host WHERE a.event_id = ${+req
+        //         .params.event} AND u.id = ${req.user.id}`
+        // );
         res.json({ msg: "User Deleted from event!" });
     } catch (err) {
         console.error(err.message, "/not-attending/:event");

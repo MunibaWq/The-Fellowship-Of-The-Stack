@@ -6,10 +6,8 @@ import { Magnifying } from "../images/icons";
 import Loading from "../components/Reusable/Loading";
 import theme from "../components/Reusable/Colors.js";
 import {
-    FieldContainer,
     Input,
     Label,
-    TextField,
 } from "../components/Reusable/Input";
 
 const Events = () => {
@@ -86,9 +84,9 @@ const Events = () => {
                             let eventDate1 = new Date(event1.start_time);
                             let eventDate2 = new Date(event2.start_time);
 
-                            {
+                            
                                 console.log("eventTime " + eventDate1);
-                            }
+                            
                             if (new Date() - eventDate1 > 0) {
                                 return 1;
                             } else if (new Date() - eventDate2 > 0) {

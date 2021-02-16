@@ -14,7 +14,7 @@ import {
     ShapesLogo,
     Dashboard,
 } from "../images/icons";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch} from "react-redux";
 import { login } from "../redux/actions/actions";
 const cookies = new Cookies()
 const Navbar = () => {
@@ -22,8 +22,7 @@ const Navbar = () => {
     const loggedIn = cookies.get('token')
     useEffect(() => {
         dispatch(login)
-    },[loggedIn])
-    const user = useSelector(state=>state.user)
+    },[loggedIn, dispatch])
     return (
         <Nav colors={theme}>
             <NavLink color={theme.secondary} to="/">

@@ -94,13 +94,75 @@ router.get("/average-order-value", auth, async (req, res) => {
 router.get("/recent-orders", auth, async (req, res) => {
     try {
         const result = await pool.query(
-            `SELECT o.order_total, o.id, o.shipping_address, o.name, o.date, o.ship_date, o.delivery_notes, o.phone, o.pickup, s.artist_id, s.product_id, s.quantity, s.color, s.size, p.title
+            `SELECT * FROM orders o INNER JOIN
+            (SELECT order_id FROM sales_by_product
+            WHERE artist_id = ${req.user.id}
+            GROUP BY order_id) x ON x.order_id = o.id`
+            // `SELECT o.order_total, o.id, o.shipping_address, o.name, o.date, o.ship_date, o.delivery_notes, o.phone, o.pickup, o.status, s.artist_id, s.product_id, s.quantity, s.color, s.size, p.title
+            // FROM orders o
+            // INNER JOIN sales_by_product s
+            // ON o.id = s.order_id
+            // INNER JOIN products p
+            // ON s.product_id = p.id
+            // WHERE s.artist_id = ${req.user.id}`
+        );
+        // const orderResult = await pool.query(`SELECT order_total, id, shipping_address, name, date, phone, pickup, delivery_notes
+        // FROM orders
+        // WHERE  artist_id = ${req.user.id}`);
+
+        const orderInfo = result.rows;
+        for (order of orderInfo) {
+            let options = {
+                weekday: "long",
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+            };
+
+            let ordersDate = new Date(order.date);
+
+            let orderDate = ordersDate.toLocaleDateString("en-US", options);
+
+            let orderTime = ordersDate.toLocaleTimeString([], {
+                hour: "2-digit",
+                minute: "2-digit",
+            });
+            order.orderTime = orderTime;
+            order.orderDate = orderDate;
+
+            let orderShipDate = new Date(order.ship_date);
+
+            let shipDate = orderShipDate.toLocaleDateString("en-US", options);
+            order.orderShipDate = order.ship_date === null ? null : shipDate;
+        }
+
+        res.json(orderInfo);
+    } catch (e) {
+        console.log("error", e);
+        res.send(e);
+    }
+});
+router.get("/order/:orderid", auth, async (req, res) => {
+    try {
+        // const orderResult = await pool.query(`SELECT order_total, id, shipping_address, name, date, phone, pickup, delivery_notes
+        // FROM orders
+        // WHERE  id = ${req.params.orderid} `);
+        // const result = await pool.query(
+        //     `SELECT s.artist_id, s.product_id, s.quantity, s.color, s.size, p.title
+        //     FROM sales_by_product s
+        //     INNER JOIN products p
+        //     ON s.product_id = p.id
+        //     WHERE s.artist_id = ${req.user.id}`
+        // );
+        // const orderInfo = orderResult.rows;
+        const result = await pool.query(
+            `SELECT o.order_total, o.id, o.shipping_address, o.billing_address, o.name, o.date, o.ship_date, o.delivery_notes, o.phone, o.pickup, s.artist_id, s.product_id, s.quantity, s.color, s.size, p.title
             FROM orders o
             INNER JOIN sales_by_product s
             ON o.id = s.order_id
             INNER JOIN products p
             ON s.product_id = p.id
-            WHERE s.artist_id = ${req.user.id}`
+            WHERE s.artist_id = ${req.user.id} and o.id = ${req.params.orderid}`
         );
         const orderInfo = result.rows;
         for (order of orderInfo) {
@@ -127,10 +189,63 @@ router.get("/recent-orders", auth, async (req, res) => {
             let shipDate = orderShipDate.toLocaleDateString("en-US", options);
             order.orderShipDate = order.ship_date === null ? null : shipDate;
         }
+
+        // const orderItems = result.rows;
+        // console.log({ order: orderInfo, items: orderItems });
         res.json(orderInfo);
-    } catch (e) {
-        console.log("error", e);
-        res.send(e);
+    } catch (err) {
+        console.error(err.message);
+        res.send({
+            message: "error",
+        });
+    }
+});
+
+router.get("/ready-for-delivery", auth, async (req, res) => {
+    try {
+        const result = await pool.query(
+            `SELECT o.order_total, o.id, o.shipping_address, o.status, o.name, o.date, o.ship_date, u.address, u.username, o.delivery_notes, o.phone, o.pickup, s.artist_id, s.product_id, s.quantity, s.color, s.size, p.title
+            FROM orders o
+            INNER JOIN sales_by_product s
+            ON o.id = s.order_id
+            INNER JOIN products p
+            ON s.product_id = p.id
+            INNER JOIN users u
+            ON u.id = s.artist_id
+            WHERE o.status = 'Ready for Delivery'`
+        );
+        const orderInfo = result.rows;
+        for (order of orderInfo) {
+            let options = {
+                weekday: "long",
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+            };
+
+            let ordersDate = new Date(order.date);
+
+            let orderDate = ordersDate.toLocaleDateString("en-US", options);
+
+            let orderTime = ordersDate.toLocaleTimeString([], {
+                hour: "2-digit",
+                minute: "2-digit",
+            });
+            order.orderTime = orderTime;
+            order.orderDate = orderDate;
+
+            let orderShipDate = new Date(order.ship_date);
+
+            let shipDate = orderShipDate.toLocaleDateString("en-US", options);
+            order.orderShipDate = order.ship_date === null ? null : shipDate;
+        }
+        console.log("orders ready to deliver", orderInfo);
+        res.json(orderInfo);
+    } catch (err) {
+        console.error(err.message);
+        res.send({
+            message: "error",
+        });
     }
 });
 

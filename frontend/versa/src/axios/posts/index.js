@@ -4,25 +4,36 @@ export const axiosLogin = async (email, password) => {
     let res = await Axios.post("/api/users/login", { email, password });
     return res.data;
 };
-export const addProduct = async (productInfo, images, thumbImg) => {
-    let res = await Axios.post("/api/products/create", {
-        data: productInfo,
-    });
-    let productID = +res.data.id;
-    images.forEach(async (image, index) => {
-        if (index === thumbImg) {
-            image.size = "thumb";
-        }
+export const axiosLogout = async () => {
+    Axios.post('/api/users/logout')
+}
+export const addToCart = (cartProduct, colour, size, quantity, session) => {
+    Axios.post('/api/cart/add', { cartProduct, colour, size, quantity, session })
+}
 
-        let { imageFile, label, size } = image;
-        let res = await addImage(imageFile, label, size, productID);
-        if (!res)
-            alert(
-                JSON.stringify(imageFile) +
+export const addProduct = async (productInfo, images, thumbImg) => {
+    try {
+        let res = await Axios.post("/api/products/create", {
+            data: productInfo,
+        });
+        let productID = +res.data.id;
+        images.forEach(async (image, index) => {
+            if (index === thumbImg) {
+                image.size = "thumb";
+            }
+
+            let { imageFile, label, size } = image;
+            let res = await addImage(imageFile, label, size, productID);
+            if (!res)
+                alert(
+                    JSON.stringify(imageFile) +
                     " failed to upload, go to edit product to try to add picture again"
-            );
-    });
-    return productID;
+                );
+        });
+        return productID;
+    } catch (e) {
+        console.log(e)
+    }
 };
 export const addImage = async (image, label, imageSize, productID) => {
     try {

@@ -1,16 +1,16 @@
-import {css} from 'styled-components';
+import { Link } from "react-router-dom";
+import styled, { css } from "styled-components";
 import theme from "./Colors";
 
-export const LinkCSS = css`
+export const StyledLink = styled(Link)`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     color: ${theme.primary};
     border: none;
-    background-color: ${theme.secondary};
-    border-bottom: 3px solid ${theme.secondary};
-    padding: 5px 15px 5px 8px;
+    background-color: none;
+    border-bottom: 3px solid none;
     font-weight: 700;
     letter-spacing: 5%;
     margin: 5px;
@@ -26,11 +26,12 @@ export const LinkCSS = css`
             fill: ${theme.primary};
         }
     }
-    :focus{
-    outline: none;
+    :focus {
+        outline: none;
     }
 
-    :hover, :active {
+    :hover,
+    :active {
         outline: none;
         transition: 0.1s ease;
         color: ${theme.primaryHover};
@@ -39,8 +40,6 @@ export const LinkCSS = css`
                 fill: ${theme.primaryHover};
             }
         }
-        
-        
     }
 
     ${(props) =>
@@ -76,8 +75,8 @@ export const LinkCSS = css`
             padding: 5px 20px;
             border-radius: 15px;
             color: ${theme.secondary};
-            :focus{
-            outline: none;
+            :focus {
+                outline: none;
             }
             svg {
                 path {
@@ -85,7 +84,8 @@ export const LinkCSS = css`
                 }
             }
 
-            :hover, :active {
+            :hover,
+            :active {
                 background-color: ${theme.primaryHover};
                 border: 3px solid ${theme.primaryHover};
                 color: ${theme.secondary};
@@ -96,7 +96,5 @@ export const LinkCSS = css`
                     }
                 }
             }
-            
-            
         `}
 `;

@@ -37,6 +37,14 @@ const DropDown = ({ order }) => {
             label: "Picked Up",
         },
         {
+            value: "Ready for Pickup",
+            label: "Ready for Pickup",
+        },
+        {
+            value: "Ready for Delivery",
+            label: "Ready for Delivery",
+        },
+        {
             value: "On Hold",
             label: "On Hold",
         },
@@ -60,6 +68,8 @@ const DropDown = ({ order }) => {
             ? updateOrderShipDate(e.target.value, new Date(), order.id)
             : e.target.value === "Delivered"
             ? updateOrderShipDate(e.target.value, new Date(), order.id)
+            : e.target.value === "Ready for Pickup"
+            ? updateOrderStatus(e.target.value, order.id)
             : updateOrderStatus(order.status, order.id);
     };
 
@@ -75,11 +85,6 @@ const DropDown = ({ order }) => {
                     <option value={option.value}>{option.label}</option>
                 </>
             ))}
-            {order.pickup === true ? (
-                <option value="Ready For Pick Up">Ready For Pick Up</option>
-            ) : (
-                <option value="Ready For Delivery">Ready For Delivery</option>
-            )}
         </Status>
     );
 };

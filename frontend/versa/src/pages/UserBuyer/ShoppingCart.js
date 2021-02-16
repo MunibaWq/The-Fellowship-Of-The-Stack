@@ -1,24 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { getProductByID } from "../../axios/gets";
+import { getCart, getProductByID } from "../../axios/gets";
 import CheckoutButton from "../../components/Cart/checkoutButton";
-import { Error, Input } from "../../components/Reusable/Input";
-import {
-    changeQuantity,
-    removeFromCart,
-    setCartInput,
-    updateCart,
-} from "../../redux/actions/Cart";
+import { Error } from "../../components/Reusable/Input";
+import { updateCart } from '../../redux/actions/Cart'
 import axios from "axios";
 import { setFormErrors } from "../../redux/actions/Errors";
-import { setFormInputs } from "../../redux/actions/Forms";
-import QuantityInput from "../../components/Cart/QuantityInput";
 import Button from "../../components/Reusable/Button";
-import { RefreshIcon } from "../../images/icons";
+import { AddIcon,MinusIcon} from "../../images/icons";
 import theme from "../../components/Reusable/Colors";
 import RadioButton from "../../components/Reusable/RadioButton";
 import FreeDelivery from "../../components/Cart/FreeDelivery";
+import { modifyCart } from "../../axios/puts";
+const session = window.localStorage.getItem('session')
 const ShoppingCart = () => {
     // const dispatch = useDispatch();
     const [preference, setPreference] = useState("delivery");
@@ -26,7 +21,6 @@ const ShoppingCart = () => {
     const cart = useSelector((state) => state.cart);
     const error = useSelector((state) => state.formErrors.cart.form);
     const [cartItems, setCartItems] = useState();
-    const [needToUpdate, setNeedToUpdate] = useState();
     const dispatch = useDispatch();
     const calcCartTotal = () => {
         if (!cartItems) return 0;
@@ -35,74 +29,39 @@ const ShoppingCart = () => {
         }, 0);
         return total.toFixed(2);
     };
-
+    console.log(preference, "this is the preference");
+    const changeQuantity = (cartItem, quantity) => {
+        console.log('changeQ', cartItem, quantity)
+        
+        let { id: productID, colour, size } = cartItem
+       
+        console.log(productID, colour, size, )
+        modifyCart(productID, colour, size, quantity, localStorage.getItem('session')).then(() => { dispatch(updateCart()) })
+       
+    }
     useEffect(() => {
-        async function checkStock(id, colour, size) {
-            let newQuantity = size[1];
-            const response = await axios.get(
-                `/stock/getByVariation/${id}/${colour[0]}/${size[0]}`
-            );
-            if (response.data[0].quantity < size[1]) {
-                newQuantity = response.data[0].quantity;
-                dispatch(changeQuantity(id, colour[0], size[0], newQuantity));
-                dispatch(
-                    setFormErrors(
-                        "cart",
-                        "Some order quantities have been reduced to match stock available"
-                    )
-                );
-            }
-            return newQuantity;
-        }
+        console.log('hey')
         const getCartContents = async () => {
-            let cartContents = [];
-            for (let product of Object.entries(cart)) {
-                console.log("product", product);
-                const res = await getProductByID(product[0]);
-                console.log("response from getProdByID", res);
-                for (let colour of Object.entries(product[1])) {
-                    for (let size of Object.entries(colour[1])) {
-                        size[1] = await checkStock(res.id, colour, size);
-
-                        const variation = `${res.title} - ${colour[0]} - ${size[0]}`;
-                        const itemQuantity = size[1];
-                        const itemPrice =
-                            res.price +
-                            +res.sizes.filter(
-                                //grab the additional price for the size
-                                (sizeOp) => sizeOp.label === size[0]
-                            )[0].price;
-                        const thumbnail = res.thumbnail;
-                        dispatch(
-                            setCartInput(
-                                {
-                                    variation,
-                                    itemQuantity,
-                                    itemPrice,
-                                    thumbnail,
-                                    productID: res.id,
-                                    colour: colour[0],
-                                    size: size[0],
-                                    artistID: res.artist_id,
-                                },
-                                itemQuantity
-                            )
-                        );
-                        cartContents.push({
-                            variation,
-                            itemQuantity,
-                            itemPrice,
-                            thumbnail,
-                            productID: res.id,
-                            colour: colour[0],
-                            size: size[0],
-                            artistID: res.artist_id,
-                        });
-                    }
-                }
-            }
-
-            return cartContents;
+            const cartContents = await getCart(session);
+            let cc = cartContents.map((item) => {
+                console.log(item)
+                let sizePrice = item.sizes
+                    .filter((size) => {
+                        return size.label === item.size;
+                    })
+                    .map((size) => size.price);
+                console.log(sizePrice)
+                return {
+                    itemPrice: +item.price + +sizePrice[0],
+                    itemQuantity: item.quantity,
+                    colour: item.colour,
+                    size: item.size,
+                    variation: `${item.title} ${item.colour} ${item.size}`,
+                    thumbnail: item.thumbnail,
+                    id: item.product_id
+                };
+            });
+            return cc;
         };
         getCartContents().then((res) => setCartItems(res));
     }, [cart]);
@@ -110,16 +69,17 @@ const ShoppingCart = () => {
         return () => {
             dispatch(setFormErrors("cart", ""));
         };
-    }, []);
-    // console.log(cart)
+    }, [dispatch]);
+    
 
     function deliveryFee() {
         const total = calcCartTotal();
+        console.log(total, "this is the total");
         if (isNaN(total)) {
             return;
         }
         if (total >= 100) {
-            return "Free";
+            return 0;
         } else {
             return 10;
         }
@@ -154,11 +114,15 @@ const ShoppingCart = () => {
                                         />
                                         <div>{cartItem.variation}</div>
 
-                                        <div>
-                                            <QuantityInput
-                                                cartItem={cartItem}
-                                            />
-                                        </div>
+                                        <QuantityInput>
+                                            <ChangeButton onClick={()=>{changeQuantity(cartItem, cartItem.itemQuantity-1)}}>
+                                                <MinusIcon width={21} height={21} stroke="#444"/>
+                                        </ChangeButton>
+                                            {cartItem.itemQuantity}
+                                            <ChangeButton onClick={()=>{changeQuantity(cartItem, cartItem.itemQuantity+1)}}>
+                                            <AddIcon width={21} height={21} stroke="#444"/>
+                                            </ChangeButton>
+                                        </QuantityInput>
                                         <Price>
                                             {cartItem.itemPrice.toLocaleString(
                                                 "us-US",
@@ -180,22 +144,6 @@ const ShoppingCart = () => {
                                     </CartItem>
                                 );
                             })}
-                        <CartItem>
-                            <Button
-                                tertiary
-                                style={{
-                                    gridColumn: "4 / 6",
-                                    placeSelf: "end",
-                                    marginRight: "0px",
-                                }}
-                                onClick={() => {
-                                    dispatch(updateCart());
-                                    setNeedToUpdate(true);
-                                }}>
-                                <RefreshIcon stroke={theme.primary} /> Update
-                                Cart
-                            </Button>
-                        </CartItem>
                         <CartItem>
                             <div style={{ gridColumn: "3 / 5" }}>Subtotal:</div>
                             <Price>
@@ -225,7 +173,9 @@ const ShoppingCart = () => {
                                 <Price>{deliveryFee()}</Price>
                             </CartItem>
                         ) : (
-                            <></>
+                            <CartItem>
+                                <div style={{ gridColumn: "3 / 5" }}></div>
+                            </CartItem>
                         )}
                         <CartItem>
                             <div style={{ gridColumn: "3 / 5" }}>Total:</div>
@@ -240,7 +190,7 @@ const ShoppingCart = () => {
                                       )
                                     : (
                                           calcCartTotal() * 1.05 +
-                                          10
+                                          deliveryFee()
                                       ).toLocaleString("us-US", {
                                           style: "currency",
                                           currency: "USD",
@@ -252,13 +202,14 @@ const ShoppingCart = () => {
                 ) : (
                     <div style={{ marginTop: "10px" }}>No items in cart</div>
                 )}
-
-                <RadioButton
-                    preference={preference}
-                    setPreference={setPreference}
-                    instructions={extraInstructions}
-                    setInstructions={setExtraInstructions}
-                />
+                <Delivery>
+                    <RadioButton
+                        preference={preference}
+                        setPreference={setPreference}
+                        instructions={extraInstructions}
+                        setInstructions={setExtraInstructions}
+                    />
+                </Delivery>
             </Cart>
             {cartItems && cartItems.length > 0 && (
                 <CheckoutButton
@@ -266,32 +217,39 @@ const ShoppingCart = () => {
                     artistName="Versa"
                     custPref={preference}
                     custNote={extraInstructions}
-                    price={
-                        preference === "delivery"
-                            ? ((calcCartTotal() + 10) * 1.05).toFixed(2)
-                            : (calcCartTotal() * 1.05).toFixed(2)
-                    }></CheckoutButton>
+                    price={(calcCartTotal() * 1.05).toFixed(
+                        2
+                    )}></CheckoutButton>
             )}
         </Container>
     );
 };
+const ChangeButton = styled.div`
+    cursor:pointer;
+    `
+const QuantityInput = styled.div`
+    display: flex;
+    justify-content: space-around;
+    `
 const TooMany = styled(Error)`
     margin: 0;
     padding: 0;
-`;
+    `;
 const Price = styled.div`
     text-align: right;
-`;
+    `;
 const Cart = styled.div`
-    display: grid;
-    grid-auto-rows: 50px;
+    
     margin: 5px;
+    display: grid;
+    grid-auto-rows: auto;
+    grid-row-gap: 20px;
 `;
 const Container = styled.div`
     display: flex;
     flex-direction: column;
     padding: 2em;
-`;
+    `;
 const CartItem = styled.div`
     display: grid;
     grid-template-columns: 60px auto 15% 15% 15%;
@@ -301,4 +259,7 @@ const CartItem = styled.div`
         width: 50px;
     }
 `;
+const Delivery = styled(CartItem)`
+    grid-template-columns: 160px auto 15% 15% 15%;
+`
 export default ShoppingCart;

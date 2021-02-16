@@ -8,8 +8,7 @@ import DropDown from "./DropDown";
 const OrdersTable = ({ user, orderData }) => {
     const [data, setData] = useState(orderData);
     const [sortType, setSortType] = useState();
-    const [orderDate, setOrderDate] = useState();
-    const [shipDate, setShipDate] = useState();
+    const [query, setQuery] = useState();
 
     const sortOptions = [
         {
@@ -17,27 +16,25 @@ const OrdersTable = ({ user, orderData }) => {
             label: "Order Date",
         },
         {
-            value: "status",
-            label: "Order Status",
-        },
-        {
-            value: "shipdate",
-            label: "Date Received by Buyer",
+            value: "id",
+            label: "Order ID",
         },
     ];
 
     useEffect(() => {
         const sortArray = (type) => {
             const types = {
-                status: "status",
-                orderdate: "orderdate",
-                shipdate: "shipdate",
+                orderdate: (a, b) => {
+                    if (a.orderDate < b.orderDate) {
+                        return -1;
+                    }
+                },
+                id: (a, b) => {
+                    return a.id - b.id;
+                },
             };
             const sortProperty = types[type];
-
-            const sorted = [...orderData].sort(
-                (a, b) => b[sortProperty] - a[sortProperty]
-            );
+            const sorted = [...orderData].sort(sortProperty);
             console.log(sorted);
             setData(sorted);
         };
@@ -45,42 +42,34 @@ const OrdersTable = ({ user, orderData }) => {
         sortArray(sortType);
     }, [sortType]);
 
-    const toLocaleOrderDate = (date) => {
-        let options = {
-            weekday: "long",
-            year: "numeric",
-            month: "long",
-            day: "numeric",
-        };
-
-        let ordersDate = new Date(date);
-
-        let orderDate = ordersDate.toLocaleDateString("en-US", options);
-        setOrderDate(orderDate);
-    };
-    const toLocaleShipDate = (ship_date) => {
-        let options = {
-            weekday: "long",
-            year: "numeric",
-            month: "long",
-            day: "numeric",
-        };
-        let orderShipDate = new Date(ship_date);
-
-        let shipDate = orderShipDate.toLocaleDateString("en-US", options);
-        setShipDate(shipDate);
-    };
-
     let headers = [
         "Order ID",
         "Buyer Name",
         "Buyer Address",
-        "Date",
+        "Order Date",
         "Status",
         "Date Received by Buyer",
     ];
 
     const history = useHistory();
+
+    const handleChange = (e) => {
+        e.preventDefault();
+        setQuery(e.target.value);
+    };
+
+    const filterData = (data, query) => {
+        if (!query) {
+            return data;
+        }
+
+        return data.filter((order) => {
+            let dataValue = Object.values(order).toString().toLowerCase();
+            return dataValue.includes(query.toLowerCase());
+        });
+    };
+
+    const filteredData = filterData(data, query);
 
     return (
         <TableContainer>
@@ -103,24 +92,30 @@ const OrdersTable = ({ user, orderData }) => {
                                 </>
                             ))}
                         </SortChoice>
+                        <h2>Filter: </h2>
+                        <input
+                            type="text"
+                            placeholder="Search..."
+                            onChange={handleChange}
+                            value={query || ""}></input>
                     </Sort>
                     <Table>
                         <thead>
                             <Headers>
-                                {headers.map((header) => (
-                                    <th>
+                                {headers.map((header, index) => (
+                                    <th key={`header${index}`}>
                                         <h2>{header}</h2>
                                     </th>
                                 ))}
                             </Headers>
                         </thead>
-                        {data &&
-                            data.map((order, index) => (
+                        {filteredData &&
+                            filteredData.map((order, index) => (
                                 <BodyRows key={order.name + index}>
                                     <td
                                         onClick={() =>
                                             history.push(
-                                                `/dashboard/recent-orders/${user}/${order.id}`
+                                                `/dashboard/recent-orders/${order.id}`
                                             )
                                         }>
                                         <p>{order.id}</p>
@@ -128,7 +123,7 @@ const OrdersTable = ({ user, orderData }) => {
                                     <td
                                         onClick={() =>
                                             history.push(
-                                                `/dashboard/recent-orders/${user}/${order.id}`
+                                                `/dashboard/recent-orders/${order.id}`
                                             )
                                         }>
                                         <p>{order.name}</p>
@@ -136,25 +131,22 @@ const OrdersTable = ({ user, orderData }) => {
                                     <td
                                         onClick={() =>
                                             history.push(
-                                                `/dashboard/recent-orders/${user}/${order.id}`
+                                                `/dashboard/recent-orders/${order.id}`
                                             )
                                         }>
-                                        <p>
-                                            {order.pickup === true
-                                                ? "for Pickup"
-                                                : order.shipping_address}
-                                        </p>
+                                        <p>{order.shipping_address}</p>
                                     </td>
                                     <td
                                         onClick={() =>
                                             history.push(
-                                                `/dashboard/recent-orders/${user}/${order.id}`
+                                                `/dashboard/recent-orders/${order.id}`
                                             )
-                                        }>
+                                        }
+                                        data-title="Date">
                                         <p>
-                                            {order.date === null
+                                            {order.orderDate === null
                                                 ? "Error Loading Order Date"
-                                                : order.date}
+                                                : order.orderDate}
                                         </p>
                                     </td>
                                     <td>
@@ -163,17 +155,29 @@ const OrdersTable = ({ user, orderData }) => {
                                     <td
                                         onClick={() =>
                                             history.push(
-                                                `/dashboard/recent-orders/${user}/${order.id}`
+                                                `/dashboard/recent-orders/${order.id}`
                                             )
                                         }>
                                         <p>
-                                            {order.ship_date === null
+                                            {order.orderShipDate === null
                                                 ? "Not Received Yet"
-                                                : order.ship_date}
+                                                : order.status !== "Picked Up"
+                                                ? "Not Received Yet"
+                                                : order.orderShipDate}
                                         </p>
                                     </td>
                                 </BodyRows>
                             ))}
+                        {!filteredData && (
+                            <BodyRows>
+                                <td>
+                                    <p>
+                                        No orders found. Please try searching
+                                        again.
+                                    </p>
+                                </td>
+                            </BodyRows>
+                        )}
                     </Table>
                 </>
             )}
@@ -185,6 +189,10 @@ export default OrdersTable;
 
 const TableContainer = styled.div`
     justify-self: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    min-height: 600px;
 `;
 
 const Sort = styled.div`
@@ -197,6 +205,37 @@ const Sort = styled.div`
         font-size: 1em;
         font-weight: 700;
         text-transform: uppercase;
+        color: ${theme.primary};
+    }
+    input {
+        padding: 8px;
+        outline: none;
+        min-width: 150px;
+        border: ${(props) =>
+            props.border === true
+                ? `2px solid ${theme.primaryHover}`
+                : `2px solid ${theme.primary}`};
+        :active,
+        :hover,
+        :focus {
+            border: ${(props) =>
+                props.border === true
+                    ? `2px solid #77dd77`
+                    : `2px solid ${theme.primaryHover}`};
+        }
+    }
+    @media screen and (max-width: 600px) {
+        flex-direction: column;
+        align-items: flex-start;
+        h2 {
+            margin-bottom: 16px;
+        }
+        select {
+            margin-bottom: 16px;
+        }
+        input {
+            margin-bottom: 16px;
+        }
     }
 `;
 
@@ -205,7 +244,7 @@ const Table = styled.table`
     border-collapse: collapse;
     margin: 0 1em 2em 1em;
     font-size: 0.9em;
-    min-width: 400px;
+
     box-shadow: 3px 3px 10px rgba(27, 49, 66, 0.13);
     border-radius: 15px 15px 0px 0px;
     thead th {
@@ -215,6 +254,36 @@ const Table = styled.table`
     th,
     td {
         padding: 12px 15px;
+        :nth-of-type(1) {
+            min-width: 80px;
+            @media screen and (max-width: 600px) {
+                display: none;
+            }
+        }
+        :nth-of-type(2) {
+            min-width: 170px;
+        }
+        :nth-of-type(3) {
+            min-width: 300px;
+            @media screen and (max-width: 600px) {
+                display: none;
+            }
+        }
+        :nth-of-type(4) {
+            min-width: 190px;
+            @media screen and (max-width: 600px) {
+                display: none;
+            }
+        }
+        :nth-of-type(5) {
+            min-width: 180px;
+        }
+        :nth-of-type(6) {
+            min-width: 190px;
+            @media screen and (max-width: 600px) {
+                display: none;
+            }
+        }
     }
 `;
 const Headers = styled.tr`
@@ -256,16 +325,17 @@ const SortChoice = styled.select`
     outline: none;
     min-width: 150px;
     cursor: pointer;
+    margin-right: 32px;
     border: ${(props) =>
         props.border === true
-            ? `2px solid #77dd77`
+            ? `2px solid ${theme.primaryHover}`
             : `2px solid ${theme.primary}`};
     :active,
     :hover,
     :focus {
         border: ${(props) =>
             props.border === true
-                ? `2px solid #77dd77`
+                ? `2px solid ${theme.primaryHover}`
                 : `2px solid ${theme.primaryHover}`};
     }
 `;
