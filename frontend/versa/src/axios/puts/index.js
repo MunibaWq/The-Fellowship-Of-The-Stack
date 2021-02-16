@@ -1,5 +1,4 @@
 import Axios from "axios";
-import { response } from "express";
 import { addImage } from "../posts";
 
 export const editProduct = async (productInfo, images, id, thumbImg) => {
@@ -154,29 +153,5 @@ export const editEvent = async (event) => {
     }
 };
 export const modifyCart = (cartProduct, colour, size, quantity, session) => {
-    Axios.put("/api/cart/edit", {
-        cartProduct,
-        colour,
-        size,
-        quantity,
-        session,
-    });
-};
-
-export const updateDeliveryStatus = async (id, status) => {
-    Axios.patch("/api/delivery/update-status", {
-        order_id: id,
-        status: status,
-    });
-};
-
-export const getCurrentDelivery = async () => {
-    try {
-        const response = await Axios.get("/api/delivery/current-order");
-
-        return response.data;
-    } catch (error) {
-        console.log(error);
-        return false;
-    }
-};
+    Axios.put('/api/cart/edit', { cartProduct, colour, size, quantity, session })
+}
