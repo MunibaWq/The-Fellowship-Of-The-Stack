@@ -74,7 +74,7 @@ const SideNav = ({ setNavWidth }) => {
                         </Close>
                     </Header>
 
-                    <ToolBar>
+                    {/*<ToolBar>
                         <Menu>
                             <Link to="/dashboard/notifications">
                                 <li>
@@ -104,7 +104,7 @@ const SideNav = ({ setNavWidth }) => {
                                 </li>
                             </Link>
                         </Menu>
-                    </ToolBar>
+                        </ToolBar>*/}
                     <Menu>
                         <Link to="/dashboard">
                             <li>
