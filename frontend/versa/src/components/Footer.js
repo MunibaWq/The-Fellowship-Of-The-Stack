@@ -1,17 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Button from "./Reusable/Button";
 import theme from "./Reusable/Colors";
 import { StyledLink } from "./Reusable/Link";
+import { addToNewsletterList } from "../axios/posts";
 
 const Footer = () => {
+    const [email, setEmail] = useState();
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        addToNewsletterList(email);
+    };
     return (
         <Container>
             <Newsletter>
                 <h6>Stay connected with us</h6>
                 <Input>
-                    <NewsletterInput placeholder="Enter your email" />
-                    <NewsletterSubmit primary>Subscribe</NewsletterSubmit>
+                    <NewsletterInput
+                        placeholder="Enter your email"
+                        onChange={(e) => setEmail(e.target.value)}
+                    />
+                    <NewsletterSubmit primary onClick={handleSubmit}>
+                        Subscribe
+                    </NewsletterSubmit>
                 </Input>
             </Newsletter>
 

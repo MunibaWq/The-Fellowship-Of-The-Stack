@@ -7,7 +7,10 @@ const {
     generateAuthToken,
     findByCredentials,
 } = require("../helperFunctions/index");
-const { newAccount } = require("../helperFunctions/sendGridFunctions");
+const {
+    newAccount,
+    addToNewsletter,
+} = require("../helperFunctions/sendGridFunctions");
 
 router.post("/create", async (req, res, next) => {
     const user = req.body.data;
@@ -115,6 +118,21 @@ router.put("/update", auth, async (req, res, next) => {
     res.cookie("isDriver", user.is_driver, { maxAge: Infinity + 1 });
     res.cookie("name", user.name, { maxAge: Infinity + 1 });
     res.json(data.rows[0]);
+});
+
+router.post("/newsletter-signup", (req, res) => {
+    try {
+        const { email } = req.body;
+
+        pool.query(`INSERT INTO newsletter(email) VALUES ($1)`, [email]);
+        res.json("Added to newsletter sign ups!");
+        console.log(email);
+        addToNewsletter(email);
+    } catch (e) {
+        console.log("error", e);
+
+        res.send(e);
+    }
 });
 
 module.exports = router;

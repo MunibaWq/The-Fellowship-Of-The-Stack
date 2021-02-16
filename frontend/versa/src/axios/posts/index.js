@@ -5,11 +5,17 @@ export const axiosLogin = async (email, password) => {
     return res.data;
 };
 export const axiosLogout = async () => {
-    Axios.post('/api/users/logout')
-}
+    Axios.post("/api/users/logout");
+};
 export const addToCart = (cartProduct, colour, size, quantity, session) => {
-    Axios.post('/api/cart/add', { cartProduct, colour, size, quantity, session })
-}
+    Axios.post("/api/cart/add", {
+        cartProduct,
+        colour,
+        size,
+        quantity,
+        session,
+    });
+};
 
 export const addProduct = async (productInfo, images, thumbImg) => {
     try {
@@ -27,12 +33,12 @@ export const addProduct = async (productInfo, images, thumbImg) => {
             if (!res)
                 alert(
                     JSON.stringify(imageFile) +
-                    " failed to upload, go to edit product to try to add picture again"
+                        " failed to upload, go to edit product to try to add picture again"
                 );
         });
         return productID;
     } catch (e) {
-        console.log(e)
+        console.log(e);
     }
 };
 export const addImage = async (image, label, imageSize, productID) => {
@@ -81,11 +87,21 @@ export const addStock = async (id, quant) => {
 };
 
 export const createEvent = async (eventInfo) => {
-    const createEvent =  await Axios.post("/api/events/create", {
+    const createEvent = await Axios.post("/api/events/create", {
         data: eventInfo,
     });
-    window.location = '/dashboard'
-    return createEvent
+    window.location = "/dashboard";
+    return createEvent;
+};
+export const addToNewsletterList = async (email) => {
+    try {
+        let res = await Axios.post("/api/users/newsletter-signup", {
+            email: email,
+        });
+        return res.email;
+    } catch (err) {
+        console.log(err);
+    }
 };
 
 /**
