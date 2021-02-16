@@ -116,7 +116,7 @@ const DriversOrdersTable = ({ user, orderData }) => {
                                     <td
                                         onClick={() =>
                                             history.push(
-                                                `/dashboard/recent-orders/${order.id}`
+                                                `/driver/orders/${order.id}`
                                             )
                                         }>
                                         <p>{order.id}</p>
@@ -124,7 +124,7 @@ const DriversOrdersTable = ({ user, orderData }) => {
                                     <td
                                         onClick={() =>
                                             history.push(
-                                                `/dashboard/recent-orders/${order.id}`
+                                                `/driver/orders/${order.id}`
                                             )
                                         }>
                                         <p>{order.username}</p>
@@ -132,7 +132,7 @@ const DriversOrdersTable = ({ user, orderData }) => {
                                     <td
                                         onClick={() =>
                                             history.push(
-                                                `/dashboard/recent-orders/${order.id}`
+                                                `/driver/orders/${order.id}`
                                             )
                                         }>
                                         <p>{order.address}</p>
@@ -140,7 +140,7 @@ const DriversOrdersTable = ({ user, orderData }) => {
                                     <td
                                         onClick={() =>
                                             history.push(
-                                                `/dashboard/recent-orders/${order.id}`
+                                                `/driver/orders/${order.id}`
                                             )
                                         }>
                                         <p>
@@ -157,7 +157,7 @@ const DriversOrdersTable = ({ user, orderData }) => {
                                     <td
                                         onClick={() =>
                                             history.push(
-                                                `/dashboard/recent-orders/${order.id}`
+                                                `/driver/orders/${order.id}`
                                             )
                                         }>
                                         <p>{order.shipping_address}</p>
