@@ -156,12 +156,14 @@ router.get("/order/:orderid", auth, async (req, res) => {
         // );
         // const orderInfo = orderResult.rows;
         const result = await pool.query(
-            `SELECT o.order_total, o.id, o.shipping_address, o.billing_address, o.name, o.date, o.ship_date, o.delivery_notes, o.phone, o.pickup, s.artist_id, s.product_id, s.quantity, s.color, s.size, p.title
+            `SELECT o.order_total, o.id, o.shipping_address, a.store_address, a.username, o.billing_address, o.name, o.date, o.ship_date, o.delivery_notes, o.phone, o.pickup, s.artist_id, s.product_id, s.quantity, s.color, s.size, p.title
             FROM orders o
             INNER JOIN sales_by_product s
             ON o.id = s.order_id
             INNER JOIN products p
             ON s.product_id = p.id
+            INNER JOIN users a
+            ON a.id = p.artist_id
             WHERE s.artist_id = ${req.user.id} and o.id = ${req.params.orderid}`
         );
         const orderInfo = result.rows;

@@ -7,7 +7,9 @@ const eventRouter = require("./eventRouter");
 const orderRouter = require("./orderRouter");
 const userRouter = require("./userRouter");
 const cartRouter = require("./cartRouter");
+const deliveryRouter = require("./deliveryRouter");
 
+router.use("/delivery", deliveryRouter);
 router.use("/stock", stockRouter);
 router.use("/images", imageRouter);
 router.use("/products", productRouter);
