@@ -23,21 +23,22 @@ const DriverDashboardMain = () => {
                     They can toggle the date to go to past day version of
                     dashbord. eg to see yesterdays orders, sales etc
                 </History> */}
-                <Orders
-                    buttonText="Reports"
-                    dataTitle="Orders this month"
-                    graphData={ordersData}
-                    total="123"
-                    totalLabel="orders"
-                    title="Purchases"
-                    link="/dashboard/total-orders"></Orders>
+
                 <RecentOrders
                     buttonText="View"
                     dataTitle="5 most recent"
                     tableData={recentOrders}
                     total="12"
                     totalLabel="Unfulfilled"
-                    title="Deliveries"
+                    title="Daily deliveries"
+                    link="/dashboard/recent-orders"></RecentOrders>
+                <RecentOrders
+                    buttonText="View"
+                    dataTitle="5 most recent"
+                    tableData={recentOrders}
+                    total="12"
+                    totalLabel="Unfulfilled"
+                    title="Monthly deliveries"
                     link="/dashboard/recent-orders"></RecentOrders>
                 <SalesPerOrder
                     buttonText="Reports"
@@ -47,15 +48,6 @@ const DriverDashboardMain = () => {
                     graphData={avgOrderData}
                     title={`Daily Earnings`}
                     link="/dashboard/average-order-value"></SalesPerOrder>
-                <Inventory
-                    buttonText="View"
-                    dataTitle="5 lowest in stock"
-                    total="7"
-                    totalLabel="Low stock"
-                    tableData={productData}
-                    title="Events"
-                    link="/dashboard/inventory"></Inventory>
-
                 {/* <Profit>Small Card with number of total profit</Profit> */}
                 <MonthlySales
                     buttonText="Reports"

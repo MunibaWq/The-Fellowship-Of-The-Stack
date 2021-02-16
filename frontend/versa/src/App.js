@@ -9,12 +9,20 @@ import ShoppingCart from "./pages/UserBuyer/ShoppingCart";
 import ProductItem from "./pages/UserBuyer/ProductItem";
 import CreateAccount from "./pages/Shared/CreateAccount";
 import EditAccount from "./pages/Shared/EditAccount";
+import Login from "./pages/Shared/Login";
 import Dashboard from "./pages/Artist/Dashboard/Dashboard";
 import EventPage from "./components/Events/EventPage";
 import DriverDashboard from "./pages/Driver/Dashboard/DriverDashboard";
-import Login from "./pages/Shared/Login";
 import { PrivateRoute } from "./components/Reusable/PrivateRoute";
+import NotFound from "./pages/NotFound";
+import Footer from "./components/Footer";
 
+if (!window.localStorage.getItem("session")) {
+    window.localStorage.setItem(
+        "session",
+        Math.random().toString(36).substr(2, 9)
+    );
+}
 function App() {
     return (
         <Router>
@@ -22,7 +30,7 @@ function App() {
 
             <div style={{ overflowX: "hidden" }}>
                 <Switch>
-                    <Route path="/" exact component={SearchResults} />
+                    <Route exact path="/" component={SearchResults} />
                     <Route path="/shop" exact component={SearchResults} />
                     <Route path="/events" exact component={Events} />
                     <Route path="/account" exact component={Account} />
@@ -36,24 +44,21 @@ function App() {
                     <Route path="/product-item/:id" component={ProductItem} />
                     <Route path="/events/:id" component={EventPage} />
 
-                    <Route
-                        path="/create-account"
-                        component={CreateAccount}
-                    />
-                    
-                    <PrivateRoute
-                        path="/edit-account"
-                        component={EditAccount}
-                    />
+                    <Route path="/create-account" component={CreateAccount} />
+
+                    <PrivateRoute path="/edit-account" component={EditAccount} />
+
                     <Route path="/log-in" component={Login} />
-                    
-                    <PrivateRoute
+
+                    <Route
                         path="/driver-dashboard"
                         component={DriverDashboard}
                     />
-                    <PrivateRoute path="/dashboard" component={Dashboard} />
+                    <Route path="/dashboard" component={Dashboard} />
+                    {/*<Route component={NotFound} />*/}
                 </Switch>
             </div>
+            <Footer />
         </Router>
     );
 }

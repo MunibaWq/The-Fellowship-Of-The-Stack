@@ -39,12 +39,14 @@ export default Orders;
 const OrderContainer = styled.div`
     padding: 2em 2em 2em calc(2em + 66px);
     display: grid;
-    grid-template-rows: auto auto;
+    grid-template-rows: 60px auto;
 
     h1 {
         margin: 0 1em 2em 1em;
+        justify-self: start;
     }
     :last-of-type {
-        place-self: center;
+        place-self: start;
+        align-self: center;
     }
 `;

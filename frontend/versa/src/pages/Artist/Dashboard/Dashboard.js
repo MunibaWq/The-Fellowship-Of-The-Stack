@@ -24,17 +24,27 @@ import EditProduct from "../EditProduct";
 import EditEvent from "../EditEvent";
 import CreateEvent from "../CreateEvent";
 import OrderItems from "./OrderItems";
-import Cookies from 'universal-cookie'
+import Cookies from "universal-cookie";
 import DriverDashboardMain from "../../Driver/Dashboard/DriverDashboarMain";
 import Delivery from "../../Driver/Dashboard/Delivery";
 import { PrivateRoute } from "../../../components/Reusable/PrivateRoute";
-const cookies = new Cookies()
+import DriverMap from "../../../components/Dashboard/DriverMap";
+import AllOrders from "../../Driver/Dashboard/AllOrders";
+import DriversOrders from "../../Driver/Dashboard/DriversOrders";
+import DriversOrderItems from "../../Driver/Dashboard/DriversOrderItems";
+
+const cookies = new Cookies();
 const Redirecter = () => {
-    window.location = '/account'
-}
+    window.location = "/account";
+};
 const DashboardLanding = () => {
-    return <h1>Here we can give information about the dashboard and have useful links for all user types</h1>
-}
+    return (
+        <h1>
+            Here we can give information about the dashboard and have useful
+            links for all user types
+        </h1>
+    );
+};
 const Dashboard = () => {
     const [navWidth, setNavWidth] = useState(0);
     // const params = useParams();
@@ -47,26 +57,37 @@ const Dashboard = () => {
                     <SideNav setNavWidth={setNavWidth} />
                 </SideNavDiv>
                 <Switch>
-                    <PrivateRoute path="/dashboard/blah" exact component={Orders} />
-                    <PrivateRoute path="/dashboard" exact component={cookies.get('token') ? DashboardLanding : Redirecter} />
-                    <PrivateRoute path="/artistDashboard" exact component={cookies.get('token') ? DashboardMain : Redirecter} />
-                    <PrivateRoute path="/dashboard/orders" exact component={Orders} />
+                    <PrivateRoute
+                        path="/dashboard"
+                        exact
+                        component={DashboardLanding}
+                    />
+                    <PrivateRoute
+                        path="/artistDashboard"
+                        exact
+                        component={DashboardMain}
+                    />
+                    <PrivateRoute
+                        path="/dashboard/orders"
+                        exact
+                        component={Orders}
+                    />
                     <PrivateRoute
                         path="/dashboard/inventory"
                         exact
                         component={Inventory}
                     />
-                    
-                    <PrivateRoute
-                        path="/driverDashboard"
+
+                    <Route
+                        path="/driver"
                         exact
                         component={DriverDashboardMain}
                     />
-                   
-                    <PrivateRoute
-                        path="/driverDashboard/delivery/:slug"
+
+                    <Route
+                        path="/driver/delivery"
                         exact
-                        component={Delivery}
+                        component={DriverMap}
                     />
                     <PrivateRoute
                         path="/dashboard/categories"
@@ -138,6 +159,15 @@ const Dashboard = () => {
                     <PrivateRoute
                         path="/dashboard/recent-orders/:orderid"
                         component={OrderItems}
+                    />
+                    <Route path="/driver/orders" component={DriversOrders} />
+                    <Route
+                        path="/driver/order-history"
+                        component={DriversOrders}
+                    />
+                    <Route
+                        path="/driver/orders/:orderid"
+                        component={DriversOrderItems}
                     />
                 </Switch>
             </Container>

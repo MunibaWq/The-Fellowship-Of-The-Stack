@@ -7,6 +7,10 @@ export const axiosLogin = async (email, password) => {
 export const axiosLogout = async () => {
     Axios.post('/api/users/logout')
 }
+export const addToCart = (cartProduct, colour, size, quantity, session) => {
+    Axios.post('/api/cart/add', { cartProduct, colour, size, quantity, session })
+}
+
 export const addProduct = async (productInfo, images, thumbImg) => {
     try {
         let res = await Axios.post("/api/products/create", {
@@ -77,9 +81,11 @@ export const addStock = async (id, quant) => {
 };
 
 export const createEvent = async (eventInfo) => {
-    return await Axios.post("/api/events/create", {
+    const createEvent =  await Axios.post("/api/events/create", {
         data: eventInfo,
     });
+    window.location = '/dashboard'
+    return createEvent
 };
 
 /**

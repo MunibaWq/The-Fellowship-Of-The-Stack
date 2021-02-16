@@ -23,16 +23,14 @@ export const getAllProducts = async () => {
     return res.data;
 };
 export const getAllMyProducts = async () => {
-    
     try {
         let res = await Axios.get("/api/products/myProducts/");
         return res.data;
-    }
-        catch (e) {
+    } catch (e) {
         if (e.response.status === 401) {
-            throw new Error('not authorized')
+            throw new Error("not authorized");
         }
-        }
+    }
 };
 
 export const searchProducts = async (query) => {
@@ -105,5 +103,20 @@ export const getOneOrder = async (orderid) => {
 
 export const amIGoing = async (eventID) => {
     const response = await Axios.get(`api/events/amIGoing/${eventID}`);
+    return response.data;
+};
+
+export const getCartItem = async (cartProduct, colour, size, session) => {
+    const response = await Axios.get(
+        `/api/cart/${session}/item/${cartProduct}/${colour}/${size}`
+    );
+    return response.data;
+};
+export const getCart = async (session) => {
+    const response = await Axios.get(`/api/cart/${session}`);
+    return response.data;
+};
+export const getOrdersReadyForDelivery = async () => {
+    const response = await Axios.get(`/api/dashboard/ready-for-delivery`);
     return response.data;
 };

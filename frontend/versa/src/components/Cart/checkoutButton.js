@@ -33,6 +33,8 @@ const CheckoutButton = ({ price, artistName, items, custPref, custNote }) => {
                 items: items,
                 payment: purchaseInfo,
             });
+            axios.delete('/api/cart/clear', { session: localStorage.getItem('session') })
+            window.location = '/'
         } catch (error) {
             if (error.response.status === 500) {
                 switch (error.response.data.error.code) {

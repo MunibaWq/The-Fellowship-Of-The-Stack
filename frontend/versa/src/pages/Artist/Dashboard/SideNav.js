@@ -120,7 +120,9 @@ const SideNav = ({ setNavWidth }) => {
                                         onClick={() =>
                                             setVisibleADSub((curr) => !curr)
                                         }>
-                                        <PaintBrushIcon />
+                                        <PaintBrushIcon
+                                            stroke={theme.tertiary}
+                                        />
                                         <h3>Artist Dashboard</h3>
                                         <DownIcon stroke={theme.primary} />
                                     </MenuLink>
@@ -420,7 +422,7 @@ const SideNav = ({ setNavWidth }) => {
                                         onClick={() =>
                                             setVisibleDDSub((curr) => !curr)
                                         }>
-                                        <CarIcon />
+                                        <CarIcon stroke={theme.tertiary} />
                                         <h3>Driver Dashboard</h3>
                                         <DownIcon stroke={theme.primary} />
                                     </MenuLink>
@@ -439,7 +441,7 @@ const SideNav = ({ setNavWidth }) => {
                                                 </MenuLink>
                                             </li>
                                         </Link>
-                                        <Link to="/driverDashboard/delivery">
+                                        <Link to="/driver/delivery">
                                             <li>
                                                 <MenuLink>
                                                     <Orders />
@@ -468,11 +470,12 @@ const SideNav = ({ setNavWidth }) => {
                                         </li>
                                         {visiblePSub && (
                                             <SubMenu>
-                                                <Link to="/dashboard/inventory">
+                                                <Link to="/driver/orders">
                                                     <li>
                                                         <SubMenuLink>
                                                             <h4>
-                                                                Completed orders
+                                                                Orders to
+                                                                fulfill
                                                             </h4>
                                                             <RightIcon
                                                                 stroke={
@@ -482,12 +485,11 @@ const SideNav = ({ setNavWidth }) => {
                                                         </SubMenuLink>
                                                     </li>
                                                 </Link>
-                                                <Link to="/driverDashboard/allOrders">
+                                                <Link to="/driver/order-history">
                                                     <li>
                                                         <SubMenuLink>
                                                             <h4>
-                                                                Orders to
-                                                                fulfill
+                                                                Order History
                                                             </h4>
                                                             <RightIcon
                                                                 stroke={

@@ -96,6 +96,11 @@ const Button = styled.button.attrs((props) => ({
                     }
                 }
             }
+            :active {
+    
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
+    transition: all 0.2s;
+}
         `}
 `;
 

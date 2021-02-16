@@ -1,9 +1,5 @@
 import styled from "styled-components";
-import {
-    BrowserRouter as Router,
-    Route,
-    Switch,
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import DriverDashboardMain from "./DriverDashboarMain";
 import SideNav from "./SideNav";
 import Delivery from "./Delivery";
@@ -22,7 +18,7 @@ import AddProduct from "../AddProduct";
 import EditProduct from "../EditProduct";
 import EditEvent from "../EditEvent";
 import CreateEvent from "../CreateEvent";
-import OrderItems from "./OrderItems";
+import DriversOrderItems from "./DriversOrderItems";
 
 const DriverDashboard = () => {
     const [navWidth, setNavWidth] = useState(0);
@@ -53,7 +49,7 @@ const DriverDashboard = () => {
                         component={AllOrders}
                     />
                     <Route
-                        path="/driver-dashboard/delivery/:slug"
+                        path="/driver-dashboard/delivery"
                         exact
                         component={Delivery}
                     />
@@ -115,8 +111,8 @@ const DriverDashboard = () => {
                         component={EditEvent}
                     />
                     <Route
-                        path="/dashboard/recent-orders/:orderid"
-                        component={OrderItems}
+                        path="/driver/orders/:orderid"
+                        component={DriversOrderItems}
                     />
                 </Switch>
             </Container>
