@@ -48,23 +48,23 @@ const Footer = () => {
                 </LinkGroup>
                 <LinkGroup>
                     <h6>Versa</h6>
-                    <LinkItem>About</LinkItem>
-                    <LinkItem>Careers</LinkItem>
-                    <LinkItem>Contact Us</LinkItem>
-                    <LinkItem>Terms & Conditions</LinkItem>
-                    <LinkItem>Cookies</LinkItem>
+                    <LinkItem to="/">About</LinkItem>
+                    <LinkItem to="/">Careers</LinkItem>
+                    <LinkItem to="/">Contact Us</LinkItem>
+                    <LinkItem to="/">Terms & Conditions</LinkItem>
+                    <LinkItem to="/">Cookies</LinkItem>
                 </LinkGroup>
                 <LinkGroup>
                     <h6>Support</h6>
-                    <LinkItem>Help Centre</LinkItem>
-                    <LinkItem>Business Education</LinkItem>
-                    <LinkItem>Lifestyle Tips</LinkItem>
+                    <LinkItem to="/">Help Centre</LinkItem>
+                    <LinkItem to="/">Business Education</LinkItem>
+                    <LinkItem to="/">Lifestyle Tips</LinkItem>
                 </LinkGroup>
                 <LinkGroup>
                     <h6>Community</h6>
-                    <LinkItem>For Artists</LinkItem>
-                    <LinkItem>For Drivers</LinkItem>
-                    <LinkItem>For Locals</LinkItem>
+                    <LinkItem to="/">For Artists</LinkItem>
+                    <LinkItem to="/">For Drivers</LinkItem>
+                    <LinkItem to="/">For Locals</LinkItem>
                 </LinkGroup>
             </Links>
         </Container>
@@ -79,6 +79,7 @@ const Container = styled.div`
     justify-content: center;
     background-color: ${theme.primary};
     padding: 2em 4em 1em 4em;
+    width: 100%;
     h6 {
         font-weight: 700;
         margin: 5px 5px 12px 5px;
@@ -104,12 +105,18 @@ const Input = styled.div`
     display: flex;
     justify-content: center;
     flex-direction: row;
+    @media screen and (max-width: 420px) {
+        flex-direction: column;
+        input {
+            margin-bottom: 16px;
+        }
+    }
 `;
 
 const NewsletterInput = styled.input`
     padding: 8px;
     outline: none;
-    min-width: 600px;
+    width: 60%;
     margin-right: 0.5em;
     border: ${(props) =>
         props.border === true
@@ -123,11 +130,11 @@ const NewsletterInput = styled.input`
                 ? `2px solid #77dd77`
                 : `2px solid ${theme.primaryHover}`};
     }
-    @media screen and (max-width: 768px) {
-        min-width: 400px;
-    }
     @media screen and (max-width: 420px) {
-        width: 150px;
+        width: 60%;
+    }
+    @media screen and (max-width: 768px) {
+        width: 60%;
     }
 `;
 
@@ -138,8 +145,9 @@ const NewsletterSubmit = styled(Button)`
     :hover,
     :focus {
         background: ${theme.secondary};
-    border: 4px solid ${theme.secondary};
-color: ${theme.primaryHover}
+        border: 4px solid ${theme.secondary};
+        color: ${theme.primaryHover};
+    }
 `;
 
 const LinkGroup = styled.div`
@@ -155,13 +163,28 @@ const LinkGroup = styled.div`
         margin: 0;
         min-width: 80px;
     }
+    @media screen and (max-width: 420px) {
+        margin: 1em 0;
+    }
+    @media screen and (max-width: 768px) {
+        margin: 1em 0;
+    }
 `;
 
 const Links = styled.div`
     display: flex;
     flex-direction: row;
     align-items: flex-start;
-    justify-content: space-between;
+    width: 80%;
+    justify-content: space-around;
+    @media screen and (max-width: 420px) {
+        width: 80%;
+        flex-direction: column;
+    }
+    @media screen and (max-width: 768px) {
+        flex-direction: column;
+        width: 80%;
+    }
 `;
 
 const LinkItem = styled(StyledLink)`
