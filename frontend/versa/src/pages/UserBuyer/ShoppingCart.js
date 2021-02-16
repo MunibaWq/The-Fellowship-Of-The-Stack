@@ -4,18 +4,16 @@ import styled from "styled-components";
 import { getCart, getProductByID } from "../../axios/gets";
 import CheckoutButton from "../../components/Cart/checkoutButton";
 import { Error } from "../../components/Reusable/Input";
-import {
-    changeQuantity,
-    setCartInput,
-    updateCart,
-} from "../../redux/actions/Cart";
+import { updateCart } from '../../redux/actions/Cart'
 import axios from "axios";
 import { setFormErrors } from "../../redux/actions/Errors";
 import Button from "../../components/Reusable/Button";
-import { AddIcon, LineCloseIcon, MinusIcon, RefreshIcon } from "../../images/icons";
+import { AddIcon,MinusIcon} from "../../images/icons";
 import theme from "../../components/Reusable/Colors";
 import RadioButton from "../../components/Reusable/RadioButton";
 import FreeDelivery from "../../components/Cart/FreeDelivery";
+import { modifyCart } from "../../axios/puts";
+const session = window.localStorage.getItem('session')
 const ShoppingCart = () => {
     // const dispatch = useDispatch();
     const [preference, setPreference] = useState("delivery");
@@ -32,26 +30,19 @@ const ShoppingCart = () => {
         return total.toFixed(2);
     };
     console.log(preference, "this is the preference");
+    const changeQuantity = (cartItem, quantity) => {
+        console.log('changeQ', cartItem, quantity)
+        
+        let { id: productID, colour, size } = cartItem
+       
+        console.log(productID, colour, size, )
+        modifyCart(productID, colour, size, quantity, localStorage.getItem('session')).then(() => { dispatch(updateCart()) })
+       
+    }
     useEffect(() => {
-        async function checkStock(id, colour, size) {
-            let newQuantity = size[1];
-            const response = await axios.get(
-                `/stock/getByVariation/${id}/${colour[0]}/${size[0]}`
-            );
-            if (response.data[0].quantity < size[1]) {
-                newQuantity = response.data[0].quantity;
-                dispatch(changeQuantity(id, colour[0], size[0], newQuantity));
-                dispatch(
-                    setFormErrors(
-                        "cart",
-                        "Some order quantities have been reduced to match stock available"
-                    )
-                );
-            }
-            return newQuantity;
-        }
+        console.log('hey')
         const getCartContents = async () => {
-            const cartContents = await getCart();
+            const cartContents = await getCart(session);
             let cc = cartContents.map((item) => {
                 console.log(item)
                 let sizePrice = item.sizes
@@ -63,11 +54,13 @@ const ShoppingCart = () => {
                 return {
                     itemPrice: +item.price + +sizePrice[0],
                     itemQuantity: item.quantity,
+                    colour: item.colour,
+                    size: item.size,
                     variation: `${item.title} ${item.colour} ${item.size}`,
                     thumbnail: item.thumbnail,
+                    id: item.product_id
                 };
             });
-            console.log("cartContents", cc);
             return cc;
         };
         getCartContents().then((res) => setCartItems(res));
@@ -76,8 +69,8 @@ const ShoppingCart = () => {
         return () => {
             dispatch(setFormErrors("cart", ""));
         };
-    }, []);
-    // console.log(cart)
+    }, [dispatch]);
+    
 
     function deliveryFee() {
         const total = calcCartTotal();
@@ -122,13 +115,13 @@ const ShoppingCart = () => {
                                         <div>{cartItem.variation}</div>
 
                                         <QuantityInput>
-                                            <div>
+                                            <ChangeButton onClick={()=>{changeQuantity(cartItem, cartItem.itemQuantity-1)}}>
                                                 <MinusIcon width={21} height={21} stroke="#444"/>
-                                        </div>
+                                        </ChangeButton>
                                             {cartItem.itemQuantity}
-                                            <div>
+                                            <ChangeButton onClick={()=>{changeQuantity(cartItem, cartItem.itemQuantity+1)}}>
                                             <AddIcon width={21} height={21} stroke="#444"/>
-                                            </div>
+                                            </ChangeButton>
                                         </QuantityInput>
                                         <Price>
                                             {cartItem.itemPrice.toLocaleString(
@@ -151,21 +144,6 @@ const ShoppingCart = () => {
                                     </CartItem>
                                 );
                             })}
-                        <CartItem>
-                            <Button
-                                tertiary
-                                style={{
-                                    gridColumn: "4 / 6",
-                                    placeSelf: "end",
-                                    marginRight: "0px",
-                                }}
-                                onClick={() => {
-                                    dispatch(updateCart());
-                                }}>
-                                <RefreshIcon stroke={theme.primary} /> Update
-                                Cart
-                            </Button>
-                        </CartItem>
                         <CartItem>
                             <div style={{ gridColumn: "3 / 5" }}>Subtotal:</div>
                             <Price>
@@ -224,14 +202,14 @@ const ShoppingCart = () => {
                 ) : (
                     <div style={{ marginTop: "10px" }}>No items in cart</div>
                 )}
-                <CartItem>
+                <Delivery>
                     <RadioButton
                         preference={preference}
                         setPreference={setPreference}
                         instructions={extraInstructions}
                         setInstructions={setExtraInstructions}
                     />
-                </CartItem>
+                </Delivery>
             </Cart>
             {cartItems && cartItems.length > 0 && (
                 <CheckoutButton
@@ -246,27 +224,32 @@ const ShoppingCart = () => {
         </Container>
     );
 };
+const ChangeButton = styled.div`
+    cursor:pointer;
+    `
 const QuantityInput = styled.div`
     display: flex;
     justify-content: space-around;
-`
+    `
 const TooMany = styled(Error)`
     margin: 0;
     padding: 0;
-`;
+    `;
 const Price = styled.div`
     text-align: right;
-`;
+    `;
 const Cart = styled.div`
-    display: grid;
-    grid-auto-rows: 50px;
+    
     margin: 5px;
+    display: grid;
+    grid-auto-rows: auto;
+    grid-row-gap: 20px;
 `;
 const Container = styled.div`
     display: flex;
     flex-direction: column;
     padding: 2em;
-`;
+    `;
 const CartItem = styled.div`
     display: grid;
     grid-template-columns: 60px auto 15% 15% 15%;
@@ -276,4 +259,7 @@ const CartItem = styled.div`
         width: 50px;
     }
 `;
+const Delivery = styled(CartItem)`
+    grid-template-columns: 160px auto 15% 15% 15%;
+`
 export default ShoppingCart;
