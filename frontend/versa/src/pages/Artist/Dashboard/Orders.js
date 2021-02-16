@@ -40,6 +40,7 @@ const OrderContainer = styled.div`
     padding: 2em 2em 2em calc(2em + 66px);
     display: grid;
     grid-template-rows: 60px auto;
+    min-height: 100vh;
 
     h1 {
         margin: 0 1em 2em 1em;

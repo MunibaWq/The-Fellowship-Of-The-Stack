@@ -20,7 +20,7 @@ const Footer = () => {
                 {!success && (
                     <Input>
                         <NewsletterInput
-                            placeholder="Enter your email"
+                            placeholder="Email"
                             onChange={(e) => setEmail(e.target.value)}
                         />
                         <NewsletterSubmit primary onClick={handleSubmit}>
@@ -62,9 +62,9 @@ const Footer = () => {
                 </LinkGroup>
                 <LinkGroup>
                     <h6>Community</h6>
-                    <LinkItem to="/">For Artists</LinkItem>
-                    <LinkItem to="/">For Drivers</LinkItem>
-                    <LinkItem to="/">For Locals</LinkItem>
+                    <LinkItem to="/">Landing for Artists</LinkItem>
+                    <LinkItem to="/">Landing for Drivers</LinkItem>
+                    <LinkItem to="/">Landing for Locals</LinkItem>
                 </LinkGroup>
             </Links>
         </Container>
@@ -78,12 +78,18 @@ const Container = styled.div`
     flex-direction: column;
     justify-content: center;
     background-color: ${theme.primary};
-    padding: 2em 4em 1em 4em;
+    padding: 2em 0;
     width: 100%;
     h6 {
         font-weight: 700;
         margin: 5px 5px 12px 5px;
         color: ${theme.secondary};
+    }
+    @media screen and (max-width: 420px) {
+        margin: 1em 0;
+    }
+    @media screen and (max-width: 768px) {
+        margin: 1em 0;
     }
 `;
 
@@ -116,7 +122,7 @@ const Input = styled.div`
 const NewsletterInput = styled.input`
     padding: 8px;
     outline: none;
-    width: 60%;
+    width: 75%;
     margin-right: 0.5em;
     border: ${(props) =>
         props.border === true
@@ -129,12 +135,6 @@ const NewsletterInput = styled.input`
             props.border === true
                 ? `2px solid #77dd77`
                 : `2px solid ${theme.primaryHover}`};
-    }
-    @media screen and (max-width: 420px) {
-        width: 60%;
-    }
-    @media screen and (max-width: 768px) {
-        width: 60%;
     }
 `;
 
@@ -175,15 +175,16 @@ const Links = styled.div`
     display: flex;
     flex-direction: row;
     align-items: flex-start;
-    width: 80%;
+    width: 90%;
     justify-content: space-around;
     @media screen and (max-width: 420px) {
-        width: 80%;
+        width: 90%;
         flex-direction: column;
+        align-items: center;
     }
     @media screen and (max-width: 768px) {
-        flex-direction: column;
-        width: 80%;
+        width: 90%;
+        flex-wrap: wrap;
     }
 `;
 
