@@ -31,6 +31,7 @@ import { PrivateRoute } from "../../../components/Reusable/PrivateRoute";
 import DriverMap from "../../../components/Dashboard/DriverMap";
 import AllOrders from "../../Driver/Dashboard/AllOrders";
 import DriversOrders from "../../Driver/Dashboard/DriversOrders";
+import DriversOrderItems from "../../Driver/Dashboard/DriversOrderItems";
 
 const cookies = new Cookies();
 const Redirecter = () => {
@@ -162,7 +163,11 @@ const Dashboard = () => {
                     <Route path="/driver/orders" component={DriversOrders} />
                     <Route
                         path="/driver/order-history"
-                        component={OrderItems}
+                        component={DriversOrders}
+                    />
+                    <Route
+                        path="/driver/orders/:orderid"
+                        component={DriversOrderItems}
                     />
                 </Switch>
             </Container>
