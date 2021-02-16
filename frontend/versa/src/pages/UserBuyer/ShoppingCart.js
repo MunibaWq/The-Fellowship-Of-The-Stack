@@ -58,7 +58,7 @@ const ShoppingCart = () => {
                     size: item.size,
                     variation: `${item.title} ${item.colour} ${item.size}`,
                     thumbnail: item.thumbnail,
-                    id: item.product_id
+                    id: item.product_id,
                 };
             });
             return cc;
