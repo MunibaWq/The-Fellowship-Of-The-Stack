@@ -122,6 +122,7 @@ export default AvgOrderValue;
 
 const SBPContainer = styled.div`
     padding: 2em 2em 2em calc(2em + 66px);
+    min-height: 100vh;
 
     h1 {
         margin: 0 1em 2em 1em;

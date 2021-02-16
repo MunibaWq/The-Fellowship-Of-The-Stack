@@ -18,10 +18,12 @@ import {
     HomeIcon,
     CarIcon,
     AccountIcon,
+    InventoryIcon,
 } from "../../../images/icons";
 import theme from "../../../components/Reusable/Colors";
 import Pill from "../../../components/Reusable/Pill";
 import Cookies from "universal-cookie";
+import Inventory from "./Inventory";
 const cookies = new Cookies();
 const isDriver = cookies.get("isDriver") === "true";
 const isArtist = cookies.get("isArtist") === "true";
@@ -72,7 +74,7 @@ const SideNav = ({ setNavWidth }) => {
                         </Close>
                     </Header>
 
-                    <ToolBar>
+                    {/*<ToolBar>
                         <Menu>
                             <Link to="/dashboard/notifications">
                                 <li>
@@ -102,7 +104,7 @@ const SideNav = ({ setNavWidth }) => {
                                 </li>
                             </Link>
                         </Menu>
-                    </ToolBar>
+                        </ToolBar>*/}
                     <Menu>
                         <Link to="/dashboard">
                             <li>
@@ -155,47 +157,17 @@ const SideNav = ({ setNavWidth }) => {
                                                 </MenuLink>
                                             </li>
                                         </Link>
-                                        <li>
-                                            <MenuLink
-                                                onClick={() =>
-                                                    setVisiblePSub(!visiblePSub)
-                                                }>
-                                                <Products />
-                                                <h3>Products</h3>
-                                                <DownIcon
-                                                    stroke={theme.primary}
-                                                />
-                                            </MenuLink>
-                                        </li>
-                                        {visiblePSub && (
-                                            <SubMenu>
-                                                <Link to="/dashboard/inventory">
-                                                    <li>
-                                                        <SubMenuLink>
-                                                            <h4>Inventory</h4>
-                                                            <RightIcon
-                                                                stroke={
-                                                                    theme.primary
-                                                                }
-                                                            />
-                                                        </SubMenuLink>
-                                                    </li>
-                                                </Link>
-                                                <Link to="/dashboard/categories">
-                                                    <li>
-                                                        <SubMenuLink>
-                                                            <h4>Categories</h4>
-                                                            <RightIcon
-                                                                stroke={
-                                                                    theme.primary
-                                                                }
-                                                            />
-                                                        </SubMenuLink>
-                                                    </li>
-                                                </Link>
-                                            </SubMenu>
-                                        )}
-
+                                        <Link to="/dashboard/inventory">
+                                            <li>
+                                                <MenuLink>
+                                                    <InventoryIcon />
+                                                    <h3>Inventory</h3>
+                                                    <RightIcon
+                                                        stroke={theme.primary}
+                                                    />
+                                                </MenuLink>
+                                            </li>
+                                        </Link>
                                         <li>
                                             <MenuLink
                                                 onClick={() =>
@@ -327,16 +299,6 @@ const SideNav = ({ setNavWidth }) => {
                                             <li>
                                                 <SubMenuLink>
                                                     <h4>Inventory</h4>
-                                                    <RightIcon
-                                                        stroke={theme.primary}
-                                                    />
-                                                </SubMenuLink>
-                                            </li>
-                                        </Link>
-                                        <Link to="/dashboard/categories">
-                                            <li>
-                                                <SubMenuLink>
-                                                    <h4>Categories</h4>
                                                     <RightIcon
                                                         stroke={theme.primary}
                                                     />
@@ -664,10 +626,10 @@ const SubMenu = styled.div`
         display: flex;
         align-items: center;
         padding-left: 30px;
-        ::before {
+        /* ::before {
             content: "-";
             place-content: center;
-        }
+        } */
     }
 `;
 const SubMenuLink = styled.button`
