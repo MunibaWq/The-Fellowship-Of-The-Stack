@@ -7,23 +7,33 @@ import { addToNewsletterList } from "../axios/posts";
 
 const Footer = () => {
     const [email, setEmail] = useState();
+    const [success, setSuccess] = useState();
     const handleSubmit = (e) => {
         e.preventDefault();
         addToNewsletterList(email);
+        setSuccess(true);
     };
     return (
         <Container>
             <Newsletter>
                 <h6>Stay connected with us</h6>
-                <Input>
-                    <NewsletterInput
-                        placeholder="Enter your email"
-                        onChange={(e) => setEmail(e.target.value)}
-                    />
-                    <NewsletterSubmit primary onClick={handleSubmit}>
-                        Subscribe
-                    </NewsletterSubmit>
-                </Input>
+                {!success && (
+                    <Input>
+                        <NewsletterInput
+                            placeholder="Enter your email"
+                            onChange={(e) => setEmail(e.target.value)}
+                        />
+                        <NewsletterSubmit primary onClick={handleSubmit}>
+                            Subscribe
+                        </NewsletterSubmit>
+                    </Input>
+                )}
+                {success && (
+                    <p>
+                        Success! You have been added to our newsletter list.
+                        Check your email!
+                    </p>
+                )}
             </Newsletter>
 
             <Links>
@@ -84,6 +94,9 @@ const Newsletter = styled.div`
     margin-bottom: 1.5em;
     h6 {
         margin: 0 0 1em 0;
+    }
+    p {
+        color: ${theme.secondary};
     }
 `;
 
