@@ -81,9 +81,11 @@ export const addStock = async (id, quant) => {
 };
 
 export const createEvent = async (eventInfo) => {
-    return await Axios.post("/api/events/create", {
+    const createEvent =  await Axios.post("/api/events/create", {
         data: eventInfo,
     });
+    window.location = '/dashboard'
+    return createEvent
 };
 
 /**
