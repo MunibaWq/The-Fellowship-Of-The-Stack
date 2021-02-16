@@ -54,7 +54,9 @@ router.post("/paid", optionalAuth, async (req, res) => {
             name,
             pickup,
             `${address_line1} ${address_zip} ${address_city}, ${address_country}`,
-            pickup?`For pickup`:`${address_line1} ${address_zip} ${address_city}, ${address_country}`,
+            pickup
+                ? `For pickup`
+                : `${address_line1} ${address_zip} ${address_city}, ${address_country}`,
             deliveryNote,
         ]
     );
@@ -67,13 +69,17 @@ router.post("/paid", optionalAuth, async (req, res) => {
         VALUES ($1,$2,$3,$4,$5)`,
             [
                 orderResponse.rows[0].id,
-                item.productID,
+                item.id,
                 item.itemQuantity,
                 item.colour,
                 item.size,
             ]
         );
         console.log(new Date().toLocaleString().replace(/\./g, ""));
+        const artistIDRes = await pool.query(
+            "SELECT artist_id FROM products where id = " + item.id
+        );
+        const artistID = artistIDRes.rows[0].artist_id;
         const salesByProduct = await pool.query(
             `
         INSERT INTO sales_by_product
@@ -81,10 +87,10 @@ router.post("/paid", optionalAuth, async (req, res) => {
         VALUES ($1,$2,$3,$4,$5,$6,$7,$8)`,
             [
                 orderResponse.rows[0].id,
-                item.productID,
+                item.id,
                 item.itemQuantity,
                 item.itemPrice,
-                item.artistID,
+                artistID,
                 item.colour,
                 item.size,
                 new Date().toLocaleString().replace(/\./g, ""),
@@ -94,21 +100,19 @@ router.post("/paid", optionalAuth, async (req, res) => {
         const reduceStock = await pool.query(
             `
         UPDATE stock set quantity=quantity-$1 where product_id=$2 AND color=$3 AND size=$4`,
-            [item.itemQuantity, item.productID, item.colour, item.size]
+            [item.itemQuantity, item.id, item.colour, item.size]
         );
-        item.itemPrice = item.itemPrice.toFixed(2)
-        console.log(item)
-        item.itemTotal = (item.itemPrice * item.itemQuantity).toFixed(2)
+        item.itemPrice = item.itemPrice.toFixed(2);
+        console.log(item);
+        item.itemTotal = (item.itemPrice * item.itemQuantity).toFixed(2);
     }
-    
-   
+
     const orderID = orderResponse.rows[0].id;
 
     const total = payment.amount / 100;
-    console.log(items, name, email, orderID, deliveryType)
+    console.log(items, name, email, orderID, deliveryType);
     orderConfirmation(items, name, email, orderID, deliveryType);
     res.status(200).send("payment complete");
-    
 });
 
 router.put("/edit/:orderid", auth, async (req, res) => {
