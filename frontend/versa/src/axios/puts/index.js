@@ -152,6 +152,7 @@ export const editEvent = async (event) => {
         return false;
     }
 };
-export const modifyCart = (cartProduct, colour, size, quantity, session) => {
-    Axios.put('/api/cart/edit', { cartProduct, colour, size, quantity, session })
+export const modifyCart = async (cartProduct, colour, size, quantity, session) => {
+    const modCartResponse = await Axios.put('/api/cart/edit', { cartProduct, colour, size, quantity, session })
+    return modCartResponse.data
 }
