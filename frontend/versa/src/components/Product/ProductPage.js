@@ -1,10 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Button from "../Reusable/Button";
 import Pill from "../Reusable/Pill";
 import { Link, useParams } from "react-router-dom";
 import theme from "../Reusable/Colors";
-import { LeftIcon, Star, LineCloseIcon, EditIcon } from "../../images/icons";
+import { LeftIcon, Star, LineCloseIcon, EditIcon, CheckedBoxIcon, CheckMarkIcon, AddIcon } from "../../images/icons";
 import ImageTest from "../../images/imageTest.png";
 import { useDispatch, useSelector } from "react-redux";
 import { clearChoices, setChoices } from "../../redux/actions/ProductPage";
@@ -27,6 +27,8 @@ const ProductPage = ({
     id,
 }) => {
     const choices = useSelector((state) => state.productChoices);
+    const [clicked, setClicked] = useState(false);
+
     const dispatch = useDispatch();
     const cart = useSelector((state) => state.cart);
     let params = useParams();
@@ -232,9 +234,13 @@ const ProductPage = ({
                         <p>{materials ? materials : "Loading materials..."}</p>
                     </Materials>
 
-                    <Button
+                    <AddToCart
+                        width="200px"
+                        clicked={clicked}
                         primary
                         onClick={() => {
+                            console.log(clicked);
+                            setClicked((curr) => !curr);
                             addToCart(
                                 id,
                                 colours[choices.colour].label,
@@ -242,6 +248,10 @@ const ProductPage = ({
                                 1,
                                 window.localStorage.getItem("session")
                             );
+                            setTimeout(() => {
+                                
+                            setClicked((curr) => !curr);
+                            },1000)
                             // dispatch(
                             //     addToCart(
                             //         id,
@@ -250,9 +260,7 @@ const ProductPage = ({
                             //         1
                             //     )
                             // );
-                        }}>
-                        Add to Cart
-                    </Button>
+                        }}>{clicked? <CheckMarkIcon height="20px" stroke={theme.secondary}/>:<AddIcon height="20px" stroke={theme.secondary}/>}</AddToCart>
 
                     {showProductTotal()}
                 </ProductDetail>
@@ -262,7 +270,13 @@ const ProductPage = ({
 };
 
 export default ProductPage;
+const AddToCart = styled(Button)`
 
+   ::after {
+       content: " ${props=>props.clicked ? "Added Item": "Add to Cart"}";
+}
+ 
+`;
 const Container = styled.div`
     display: flex;
     flex-direction: column;
