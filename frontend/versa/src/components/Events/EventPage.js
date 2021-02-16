@@ -7,21 +7,33 @@ import { userGoing } from "../../axios/posts";
 import theme from "../Reusable/Colors";
 import { LeftIcon, Going, NotGoing } from "../../images/icons";
 import { deleteUserFromEventByID } from "../../axios/deletes";
+import { amIGoing } from "../../axios/gets";
+import imageTest from "../../images/imageTest.png";
 
 const EventPage = () => {
-    const [going, setGoing] = useState(false);
+    const [going, setGoing] = useState("unset");
     let params = useParams();
     const currentEvent = params.id;
     const [eventData, setEventData] = useState([]);
     const [dateTime, setDateTime] = useState();
 
     useEffect(() => {
-        if (!going) {
+        const attendStatus = async () => {
+            const response = await amIGoing(currentEvent);
+            if (response) {
+                setGoing(true);
+            } else setGoing(false);
+        };
+        attendStatus();
+    }, [currentEvent]);
+
+    useEffect(() => {
+        if (going === false) {
             deleteUserFromEventByID(currentEvent);
         } else {
             userGoing(currentEvent);
         }
-    }, [going, currentEvent]);
+    }, []);
 
     useEffect(() => {
         const fetchEvent = async () => {
@@ -70,9 +82,7 @@ const EventPage = () => {
             </Link>
             <MainInfo>
                 <EventImages>
-                    <MainImage
-                        src="https://source.unsplash.com/random/250x250/?party"
-                        alt={"image"}></MainImage>
+                    <MainImage src={imageTest} alt={"image"}></MainImage>
                 </EventImages>
 
                 <EventDetail>
@@ -127,22 +137,22 @@ const EventPage = () => {
                         </p>
                     </Description>
 
-                    {!going && (
+                    {going === "unset" && (
                         <Button
                             primary
                             onClick={() => {
-                                setGoing((curr) => !curr);
+                                setGoing(true);
                             }}>
                             <Going stroke={theme.secondary} />
                             Attend Event
                         </Button>
                     )}
 
-                    {going && (
+                    {going === true && (
                         <Button
                             primary
                             onClick={() => {
-                                setGoing((curr) => !curr);
+                                setGoing(false);
                             }}>
                             <NotGoing stroke={theme.secondary} />
                             Not Going

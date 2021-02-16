@@ -392,10 +392,10 @@ router.delete("/not-attending/:event", auth, async (req, res) => {
             "DELETE FROM events_attendees WHERE event_id = $1 AND attendee =$2",
             [event_id, req.user.id]
         );
-        attendees = await pool.query(
-            `SELECT h.username as host_name, e.name as event_name, e.description, e.start_time, e.end_time, e.location, a.event_id, u.email, u.name from events_attendees a INNER JOIN users u ON a.attendee = u.id INNER JOIN events e ON e.id=a.event_id INNER JOIN users h ON h.id=e.host WHERE a.event_id = ${+req
-                .params.event} AND u.id = ${req.user.id}`
-        );
+        // attendees = await pool.query(
+        //     `SELECT h.username as host_name, e.name as event_name, e.description, e.start_time, e.end_time, e.location, a.event_id, u.email, u.name from events_attendees a INNER JOIN users u ON a.attendee = u.id INNER JOIN events e ON e.id=a.event_id INNER JOIN users h ON h.id=e.host WHERE a.event_id = ${+req
+        //         .params.event} AND u.id = ${req.user.id}`
+        // );
         res.json({ msg: "User Deleted from event!" });
     } catch (err) {
         console.error(err.message, "/not-attending/:event");

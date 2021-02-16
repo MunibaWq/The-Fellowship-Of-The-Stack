@@ -4,8 +4,9 @@ import { useHistory } from "react-router-dom";
 import theme from "../../Reusable/Colors";
 import Loading from "../../Reusable/Loading";
 import DropDown from "./DropDown";
+import DriversDropDown from "./DriversDropDown";
 
-const OrdersTable = ({ user, orderData }) => {
+const DriversOrdersTable = ({ user, orderData }) => {
     const [data, setData] = useState(orderData);
     const [sortType, setSortType] = useState();
     const [query, setQuery] = useState();
@@ -44,11 +45,11 @@ const OrdersTable = ({ user, orderData }) => {
 
     let headers = [
         "Order ID",
-        "Buyer Name",
-        "Buyer Address",
-        "Order Date",
+        "Artist",
+        "Pick Up Address",
+        "Delivery Notes",
         "Status",
-        "Date Received by Buyer",
+        "Delivery Address",
     ];
 
     const history = useHistory();
@@ -126,7 +127,32 @@ const OrdersTable = ({ user, orderData }) => {
                                                 `/dashboard/recent-orders/${order.id}`
                                             )
                                         }>
-                                        <p>{order.name}</p>
+                                        <p>{order.username}</p>
+                                    </td>
+                                    <td
+                                        onClick={() =>
+                                            history.push(
+                                                `/dashboard/recent-orders/${order.id}`
+                                            )
+                                        }>
+                                        <p>{order.address}</p>
+                                    </td>
+                                    <td
+                                        onClick={() =>
+                                            history.push(
+                                                `/dashboard/recent-orders/${order.id}`
+                                            )
+                                        }>
+                                        <p>
+                                            {!order.delivery_notes
+                                                ? "No delivery notes"
+                                                : order.delivery_notes === null
+                                                ? "No delivery notes"
+                                                : order.delivery_notes}
+                                        </p>
+                                    </td>
+                                    <td>
+                                        <DriversDropDown order={order} />
                                     </td>
                                     <td
                                         onClick={() =>
@@ -135,36 +161,6 @@ const OrdersTable = ({ user, orderData }) => {
                                             )
                                         }>
                                         <p>{order.shipping_address}</p>
-                                    </td>
-                                    <td
-                                        onClick={() =>
-                                            history.push(
-                                                `/dashboard/recent-orders/${order.id}`
-                                            )
-                                        }
-                                        data-title="Date">
-                                        <p>
-                                            {order.orderDate === null
-                                                ? "Error Loading Order Date"
-                                                : order.orderDate}
-                                        </p>
-                                    </td>
-                                    <td>
-                                        <DropDown order={order} />
-                                    </td>
-                                    <td
-                                        onClick={() =>
-                                            history.push(
-                                                `/dashboard/recent-orders/${order.id}`
-                                            )
-                                        }>
-                                        <p>
-                                            {order.orderShipDate === null
-                                                ? "Not Received Yet"
-                                                : order.status !== "Picked Up"
-                                                ? "Not Received Yet"
-                                                : order.orderShipDate}
-                                        </p>
                                     </td>
                                 </BodyRows>
                             ))}
@@ -185,7 +181,7 @@ const OrdersTable = ({ user, orderData }) => {
     );
 };
 
-export default OrdersTable;
+export default DriversOrdersTable;
 
 const TableContainer = styled.div`
     justify-self: center;

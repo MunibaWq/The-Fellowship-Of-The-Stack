@@ -30,7 +30,7 @@ function App() {
 
             <div style={{ overflowX: "hidden" }}>
                 <Switch>
-                    <Route exact path="/" exact component={SearchResults} />
+                    <Route exact path="/" component={SearchResults} />
                     <Route path="/shop" exact component={SearchResults} />
                     <Route path="/events" exact component={Events} />
                     <Route path="/account" exact component={Account} />
@@ -55,7 +55,7 @@ function App() {
                         component={DriverDashboard}
                     />
                     <Route path="/dashboard" component={Dashboard} />
-                    <Route component={NotFound} />
+                    {/*<Route component={NotFound} />*/}
                 </Switch>
             </div>
             <Footer />

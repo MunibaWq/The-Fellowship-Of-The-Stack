@@ -56,7 +56,6 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
-    width: 100%;
     background-color: ${theme.primary};
     padding: 2em 4em 1em 4em;
     h6 {
@@ -99,6 +98,12 @@ const NewsletterInput = styled.input`
             props.border === true
                 ? `2px solid #77dd77`
                 : `2px solid ${theme.primaryHover}`};
+    }
+    @media screen and (max-width: 768px) {
+        min-width: 400px;
+    }
+    @media screen and (max-width: 420px) {
+        width: 150px;
     }
 `;
 
