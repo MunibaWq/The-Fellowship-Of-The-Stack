@@ -5,8 +5,10 @@ import { getOneOrder } from "../../../axios/gets";
 import OrderItemCard from "../../../components/Dashboard/AnalyticsTables/OrderItemCard";
 import Loading from "../../../components/Reusable/Loading";
 import theme from "../../../components/Reusable/Colors";
+import { LeftIcon } from "../../../images/icons";
+import { StyledLink } from "../../../components/Reusable/Link";
 
-const OrderItems = () => {
+const DriversOrderItems = () => {
     let params = useParams();
     let orderID = params.orderid;
 
@@ -19,7 +21,7 @@ const OrderItems = () => {
             setOrderData(data);
         };
         fetchData();
-    }, []);
+    }, [orderID]);
 
     return (
         <Container>
@@ -27,6 +29,10 @@ const OrderItems = () => {
                 <Loading />
             ) : (
                 <>
+                    <BackToOrder to="/driver/orders">
+                        <LeftIcon stroke={theme.primary} />
+                        Back to Orders
+                    </BackToOrder>
                     <h1>Order #{orderID}</h1>
 
                     <OrderItemContainer>
@@ -74,7 +80,12 @@ const OrderItems = () => {
     );
 };
 
-export default OrderItems;
+export default DriversOrderItems;
+
+const BackToOrder = styled(StyledLink)`
+    margin-left: -0.5em;
+    margin-bottom: 1em;
+`;
 
 const Container = styled.div`
     background: ${theme.background};

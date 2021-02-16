@@ -3,7 +3,7 @@ import styled from "styled-components";
 import grow from "../images/grow.svg";
 import connect from "../images/connect.svg";
 import support from "../images/support.svg";
-import { StyledLink } from "../components/Reusable/Link";
+import { Link } from "react-router-dom";
 import { RightIcon } from "../images/icons";
 import theme from "../components/Reusable/Colors";
 
@@ -61,17 +61,30 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 3em;
-    width: 100%;
+    margin: 3em 0;
     h1 {
         margin-bottom: 1em;
     }
+    @media screen and (max-width: 768px) {
+        p{
+            padding: 0 0.8em;
+        }
+    @media screen and (max-width: 420px) {
+        p{
+            padding: 0 0.8em;
+        }
 `;
 
 const Actions = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    @media screen and (max-width: 420px) {
+        flex-direction: column;
+    }
+    @media screen and (max-width: 768px) {
+        flex-direction: column;
+    }
 `;
 
 const ActionLinks = styled.div`
@@ -79,7 +92,7 @@ const ActionLinks = styled.div`
     flex-direction: column;
     align-items: center;
     img {
-        width: 400px;
+        max-width: 300px;
     }
     justify-content: flex-start;
     h2 {
@@ -87,4 +100,31 @@ const ActionLinks = styled.div`
         font-weight: 700;
         margin: 1em;
     }
+    @media screen and (max-width: 768px) {
+        align-items: flex-start;
+        img {
+            width: 300px;
+        }
+    }
+    @media screen and (max-width: 768px) {
+        align-items: flex-start;
+        img {
+            width: 200px;
+        }
+    }
+    @media screen and (max-width: 420px) {
+        img {
+            width: 150px;
+        }
+    }
+`;
+
+const StyledLink = styled(Link)`
+    font-size: 1em;
+    font-weight: 700;
+    color: ${theme.primary};
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin: 8px;
 `;

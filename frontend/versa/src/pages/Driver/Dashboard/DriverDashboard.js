@@ -18,7 +18,7 @@ import AddProduct from "../AddProduct";
 import EditProduct from "../EditProduct";
 import EditEvent from "../EditEvent";
 import CreateEvent from "../CreateEvent";
-import OrderItems from "./OrderItems";
+import DriversOrderItems from "./DriversOrderItems";
 
 const DriverDashboard = () => {
     const [navWidth, setNavWidth] = useState(0);
@@ -111,8 +111,8 @@ const DriverDashboard = () => {
                         component={EditEvent}
                     />
                     <Route
-                        path="/dashboard/recent-orders/:orderid"
-                        component={OrderItems}
+                        path="/driver/orders/:orderid"
+                        component={DriversOrderItems}
                     />
                 </Switch>
             </Container>

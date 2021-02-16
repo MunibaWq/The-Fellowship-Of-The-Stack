@@ -2,9 +2,8 @@ import React from "react";
 
 const TextArea = ({ setter, getter }) => {
     return (
-        <div>
+        <div style={{gridColumn: "4 / 6", display:"flex", flexDirection:"row"}}>
             <label htmlFor="deliveryTextBox">Additional Order/Delivery Instructions:</label>
-
             <textarea
                 value={getter}
                 id="deliveryTextBox"

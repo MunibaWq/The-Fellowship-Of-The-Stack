@@ -203,4 +203,52 @@ router.get("/order/:orderid", auth, async (req, res) => {
     }
 });
 
+router.get("/ready-for-delivery", auth, async (req, res) => {
+    try {
+        const result = await pool.query(
+            `SELECT o.order_total, o.id, o.shipping_address, o.status, o.name, o.date, o.ship_date, u.address, u.username, o.delivery_notes, o.phone, o.pickup, s.artist_id, s.product_id, s.quantity, s.color, s.size, p.title
+            FROM orders o
+            INNER JOIN sales_by_product s
+            ON o.id = s.order_id
+            INNER JOIN products p
+            ON s.product_id = p.id
+            INNER JOIN users u
+            ON u.id = s.artist_id
+            WHERE o.status = 'Ready for Delivery'`
+        );
+        const orderInfo = result.rows;
+        for (order of orderInfo) {
+            let options = {
+                weekday: "long",
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+            };
+
+            let ordersDate = new Date(order.date);
+
+            let orderDate = ordersDate.toLocaleDateString("en-US", options);
+
+            let orderTime = ordersDate.toLocaleTimeString([], {
+                hour: "2-digit",
+                minute: "2-digit",
+            });
+            order.orderTime = orderTime;
+            order.orderDate = orderDate;
+
+            let orderShipDate = new Date(order.ship_date);
+
+            let shipDate = orderShipDate.toLocaleDateString("en-US", options);
+            order.orderShipDate = order.ship_date === null ? null : shipDate;
+        }
+        console.log("orders ready to deliver", orderInfo);
+        res.json(orderInfo);
+    } catch (err) {
+        console.error(err.message);
+        res.send({
+            message: "error",
+        });
+    }
+});
+
 module.exports = router;

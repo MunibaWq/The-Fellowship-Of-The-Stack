@@ -15,7 +15,7 @@ const RadioButton = ({
                     <h3>
                         Your order will be processed by the artist and you will
                         be notified by email with pickup information.
-                    </h3>
+                    </h3><div></div>
                     <TextArea setter={setInstructions} getter={instructions} />
                 </>
             );
@@ -25,7 +25,7 @@ const RadioButton = ({
                     <h3>
                         Your order will be processed by the artist and delivered
                         in 24-48 hours
-                    </h3>
+                    </h3><div></div>
                     <TextArea setter={setInstructions} getter={instructions} />
                 </>
             );

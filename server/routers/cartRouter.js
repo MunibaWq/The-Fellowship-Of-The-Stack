@@ -3,10 +3,10 @@ const router = new express.Router();
 const pool = require("../db");
 const optionalAuth = require("../middleware/optionalAuth");
 
-router.get("/", optionalAuth, async (req, res) => {
+router.get("/:session", optionalAuth, async (req, res) => {
     const userID = req.user.id || req.params.session;
     const cartQuery = await pool.query(
-        "SELECT * FROM carts WHERE user_id = " + userID
+        `SELECT * FROM carts WHERE user_id = '${userID}'`
     );
     const cartID = cartQuery.rows[0].id;
     const itemsQuery = await pool.query(
@@ -25,7 +25,7 @@ router.get(
         const { session, cartProduct, colour, size } = req.params;
         const userID = req.user.id || session;
         const itemQuery = await pool.query(`SELECT quantity FROM cart_items WHERE
-        user_id = ${userID} AND product_id = ${cartProduct} 
+        user_id = '${userID}' AND product_id = ${cartProduct} 
         AND colour=${colour} AND size=${size}`);
         const quantity = itemQuery.rows[0].quantity;
         res.status(200).send(quantity);
@@ -35,14 +35,14 @@ router.post("/add", optionalAuth, async (req, res) => {
     const { cartProduct, colour, size, quantity, session } = req.body;
     const userID = req.user.id || session;
     let checkForCart = await pool.query(
-        `SELECT id from carts WHERE user_id = ${userID}`
+        `SELECT id from carts WHERE user_id = '${userID}'`
     );
     let cartID;
     if (checkForCart.rows.length > 0) {
         cartID = checkForCart.rows[0].id;
     } else {
         let cartResponse = await pool.query(
-            `INSERT INTO carts (user_id) values (${userID}) RETURNING id`
+            `INSERT INTO carts (user_id) values ('${userID}') RETURNING id`
         );
         cartID = cartResponse.rows[0].id;
     }
@@ -63,6 +63,15 @@ router.post("/add", optionalAuth, async (req, res) => {
 router.put("/edit", optionalAuth, async (req, res) => {
     const { cartProduct, colour, size, quantity, session } = req.body;
     const userID = req.user.id || session;
+    let checkForCart = await pool.query(
+        `SELECT id from carts WHERE user_id = '${userID}'`
+    );
+    let cartID = checkForCart.rows[0].id;
+        console.log(cartID)
+    const update = await pool.query(`UPDATE cart_items SET quantity = ${quantity}
+    WHERE product_id=${cartProduct} AND colour='${colour}' 
+    AND size='${size}' AND cart_id='${cartID}'`);
+    res.status(200).send();
 });
 
 router.delete("/remove", optionalAuth, async (req, res) => {

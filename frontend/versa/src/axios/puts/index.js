@@ -88,6 +88,24 @@ export const updateOrderStatus = async (orderStatus, id) => {
     }
 };
 
+export const addToDeliveries = async (id) => {
+    try {
+        const response = await Axios.put(
+            "/api/dashboard/ready-to-deliver" + id,
+            {
+                orderStatus: "Driver Assigned",
+            }
+        );
+
+        if (response.status === 201) {
+            return true;
+        }
+    } catch (err) {
+        console.log(err);
+        return false;
+    }
+};
+
 export const updateOrderShipDate = async (orderStatus, shipDate, id) => {
     try {
         const response = await Axios.put("/api/orders/edit/" + id, {
