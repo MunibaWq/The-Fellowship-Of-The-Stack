@@ -1,5 +1,5 @@
 import Axios from "axios";
-import { response } from "express";
+
 import { addImage } from "../posts";
 
 export const editProduct = async (productInfo, images, id, thumbImg) => {
