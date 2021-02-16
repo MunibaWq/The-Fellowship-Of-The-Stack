@@ -78,5 +78,13 @@ router.delete("/remove", optionalAuth, async (req, res) => {
     const { cartProduct, colour, size, quantity, session } = req.body;
     const userID = req.user.id || session;
 });
-
+router.delete('/clear', optionalAuth, async (req, res) => {
+    const { session } = req.body;
+    const userID = req.user.id || session;
+    let checkForCart = await pool.query(
+        `SELECT id from carts WHERE user_id = '${userID}'`
+    );
+    let cartID = checkForCart.rows[0].id;
+    let clearCart = await pool.query(`DELETE FROM cart_items WHERE cart_id = ${cartID};DELETE FROM carts WHERE id=${cartID}`)
+})
 module.exports = router;
