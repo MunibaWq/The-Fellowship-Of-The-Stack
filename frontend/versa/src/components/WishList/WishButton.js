@@ -9,21 +9,21 @@ const WishButton = ({ productID }) => {
     console.log({ clicked });
 
     const addToWish = async () => {
-        const resp = await addToWishList(productID);
-        if (resp) {
-            setClicked(true);
-        } else {
-            setClicked(false);
-        }
+        // const resp = await addToWishList(productID);
+        // if (resp) {
+        //     setClicked(true);
+        // } else {
+        //     setClicked(false);
+        // }
     };
 
     const deleteFromWish = async () => {
-        const resp = await removeFromWishList(productID);
-        if (resp) {
-            setClicked(false);
-        } else {
-            setClicked(true);
-        }
+        // const resp = await removeFromWishList(productID);
+        // if (resp) {
+        //     setClicked(false);
+        // } else {
+        //     setClicked(true);
+        // }
     };
 
     console.log(productID);
