@@ -159,7 +159,12 @@ const EventPage = () => {
                         <Button
                             primary
                             onClick={() => {
-                                setGoing(true);
+                                if (isUser) {
+                                    setGoing(true);
+                                    console.log("true");
+                                } else {
+                                    routeChange();
+                                }
                             }}>
                             <Going stroke={theme.secondary} />
                             Attend Event
