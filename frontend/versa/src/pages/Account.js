@@ -3,13 +3,12 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import theme from "../components/Reusable/Colors";
-import { AddIcon, EditIcon } from "../images/icons";
+import { AddIcon, EditIcon, ShapesLogo } from "../images/icons";
 import Cookies from "universal-cookie";
 import { login, logout } from "../redux/actions/actions";
 import { axiosLogout } from "../axios/posts";
 import styled from "styled-components";
 import { StyledLink } from "../components/Reusable/Link";
-import Loading from "../components/Reusable/Loading";
 
 const cookies = new Cookies();
 
@@ -24,6 +23,16 @@ const Account = () => {
     }, [dispatch, user]);
     return (
         <>
+            <Logo>
+                <ShapesLogo
+                    width="170"
+                    height="170"
+                    circle={theme.logoCircle}
+                    rectangle={theme.logoRect}
+                    triangle={theme.logoTriangle}
+                    alt="Versa Logo"
+                />
+            </Logo>
             {user && (
                 <Container>
                     <LeftContainer>
@@ -100,4 +109,11 @@ const Container = styled.div`
 const TextLine = styled.h1`
     font-weight: 700;
     padding: 5px;
+`;
+
+const Logo = styled.svg`
+    position: absolute;
+
+    top: 30%;
+    left: 41.3%;
 `;
