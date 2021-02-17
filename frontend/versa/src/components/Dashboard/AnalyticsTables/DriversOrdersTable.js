@@ -70,7 +70,7 @@ const DriversOrdersTable = ({ user, orderData }) => {
     };
 
     const filteredData = filterData(data, query);
-
+    console.log(orderData);
     return (
         <TableContainer>
             {!orderData ? (
@@ -117,7 +117,8 @@ const DriversOrdersTable = ({ user, orderData }) => {
                                             history.push(
                                                 `/dashboard/driver/orders/${order.id}`
                                             )
-                                        }>
+                                        }
+                                        key={order.name + index}>
                                         <p>{order.id}</p>
                                     </td>
                                     <td
@@ -125,7 +126,8 @@ const DriversOrdersTable = ({ user, orderData }) => {
                                             history.push(
                                                 `/dashboard/driver/orders/${order.id}`
                                             )
-                                        }>
+                                        }
+                                        key={order.name + index}>
                                         <p>{order.username}</p>
                                     </td>
                                     <td
@@ -133,7 +135,8 @@ const DriversOrdersTable = ({ user, orderData }) => {
                                             history.push(
                                                 `/dashboard/driver/orders/${order.id}`
                                             )
-                                        }>
+                                        }
+                                        key={order.name + index}>
                                         <p>{order.address}</p>
                                     </td>
                                     <td
@@ -141,7 +144,8 @@ const DriversOrdersTable = ({ user, orderData }) => {
                                             history.push(
                                                 `/dashboard/driver/orders/${order.id}`
                                             )
-                                        }>
+                                        }
+                                        key={order.name + index}>
                                         <p>
                                             {!order.delivery_notes
                                                 ? "No delivery notes"
@@ -158,21 +162,12 @@ const DriversOrdersTable = ({ user, orderData }) => {
                                             history.push(
                                                 `/dashboard/driver/orders/${order.id}`
                                             )
-                                        }>
+                                        }
+                                        key={order.name + index}>
                                         <p>{order.shipping_address}</p>
                                     </td>
                                 </BodyRows>
                             ))}
-                        {!filteredData && (
-                            <BodyRows>
-                                <td>
-                                    <p>
-                                        No orders found. Please try searching
-                                        again.
-                                    </p>
-                                </td>
-                            </BodyRows>
-                        )}
                     </Table>
                 </>
             )}
@@ -259,7 +254,7 @@ const Table = styled.table`
             min-width: 170px;
         }
         :nth-of-type(3) {
-            min-width: 300px;
+            min-width: 20px;
             @media screen and (max-width: 600px) {
                 display: none;
             }
@@ -271,7 +266,7 @@ const Table = styled.table`
             }
         }
         :nth-of-type(5) {
-            min-width: 180px;
+            min-width: 250px;
         }
         :nth-of-type(6) {
             min-width: 190px;

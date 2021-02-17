@@ -23,16 +23,6 @@ const Account = () => {
     }, [dispatch, user]);
     return (
         <>
-            {/* <Logo>
-                <ShapesLogo
-                    width="150"
-                    height="150"
-                    circle={theme.logoCircle}
-                    rectangle={theme.logoRect}
-                    triangle={theme.logoTriangle}
-                    alt="Versa Logo"
-                />
-            </Logo> */}
             {user && (
                 <Container>
                     <LeftContainer>
@@ -111,33 +101,3 @@ const TextLine = styled.h1`
     font-weight: 700;
     padding: 5px;
 `;
-
-const Logo = styled.svg`
-    position: absolute;
-
-    top: 30%;
-    left: 43.5%;
-
-    @media screen and (max-width: 420px) {
-        top: 50%;
-        left: 30%;
-        overflow-x: hidden;
-        // width: ${(props) => (props.width = 100)};
-        // height: ${(props) => (props.height = 100)};
-    }
-
-    @media (max-width: 768px) {
-        top: 50%;
-        left: 20%;
-        overflow-x: hidden;
-    }
-`;
-
-// const Item = styled(ShapesLogo)`
-//     width: 150;
-//     height: 150;
-//     @media screen and (max-width: 420px) {
-//         width: 50px;
-//         height: 50px;
-//     }
-// `;

@@ -255,28 +255,28 @@ const Table = styled.table`
     td {
         padding: 12px 15px;
         :nth-of-type(1) {
-            min-width: 80px;
+            min-width: 50px;
             @media screen and (max-width: 600px) {
                 display: none;
             }
         }
         :nth-of-type(2) {
-            min-width: 170px;
+            min-width: 130px;
         }
         :nth-of-type(3) {
-            min-width: 300px;
+            min-width: 120px;
             @media screen and (max-width: 600px) {
                 display: none;
             }
         }
         :nth-of-type(4) {
-            min-width: 190px;
+            min-width: 250px;
             @media screen and (max-width: 600px) {
                 display: none;
             }
         }
         :nth-of-type(5) {
-            min-width: 180px;
+            min-width: 230px;
         }
         :nth-of-type(6) {
             min-width: 190px;

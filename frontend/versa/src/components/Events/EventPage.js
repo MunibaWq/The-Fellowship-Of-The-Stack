@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Button from "../Reusable/Button";
 import { Link, useParams, useHistory } from "react-router-dom";
-import { getEventByID, getUser } from "../../axios/gets";
+import { getCollabsByEventID, getEventByID, getUser } from "../../axios/gets";
 import { userGoing } from "../../axios/posts";
 import theme from "../Reusable/Colors";
 import { LeftIcon, Going, NotGoing } from "../../images/icons";
@@ -11,18 +11,23 @@ import { amIGoing } from "../../axios/gets";
 import imageTest from "../../images/imageTest.png";
 
 const EventPage = () => {
-    const [going, setGoing] = useState("unset");
+    const [going, setGoing] = useState(false);
     let params = useParams();
     const currentEvent = params.id;
+
     const [eventData, setEventData] = useState([]);
     const [dateTime, setDateTime] = useState();
     const [isUser, setIsUser] = useState();
+    const [collabs, setCollabs] = useState();
+
+    //state to update attending number when user attends/unattends event
+    const [attending, setAttending] = useState();
 
     useEffect(() => {
         const findUser = async () => {
             const response = await getUser();
             setIsUser(response);
-            console.log(response);
+            // console.log(response);
         };
         findUser();
     }, []);
@@ -30,6 +35,8 @@ const EventPage = () => {
     useEffect(() => {
         const attendStatus = async () => {
             const response = await amIGoing(currentEvent);
+            console.log(response);
+
             if (response) {
                 setGoing(true);
             } else setGoing(false);
@@ -38,20 +45,17 @@ const EventPage = () => {
     }, [currentEvent]);
 
     useEffect(() => {
-        if (going === false) {
-            deleteUserFromEventByID(currentEvent);
-        } else {
-            userGoing(currentEvent);
-        }
-    }, []);
-
-    useEffect(() => {
         const fetchEvent = async () => {
             const data = await getEventByID(currentEvent);
             setEventData(data);
-            console.log(data);
+            setAttending(data.num_attending);
+            const collaborators = await getCollabsByEventID(currentEvent);
+            setCollabs(collaborators);
+            console.log(collaborators);
+
             return data;
         };
+        console.log(attending);
         fetchEvent().then((data) => {
             let options = {
                 weekday: "long",
@@ -73,6 +77,10 @@ const EventPage = () => {
                 hour: "2-digit",
                 minute: "2-digit",
             });
+
+            console.log(startTime);
+            console.log(endTime);
+
             setDateTime({
                 startDate,
                 endDate,
@@ -116,7 +124,15 @@ const EventPage = () => {
                             ? "  " + eventData.username
                             : "Loading Host Name"}
                     </h2>
-
+                    <Details>
+                        <h3>In collaboration with: </h3>
+                        {/*collabs &&
+                            collabs.map((collaborator, index) => {
+                                return (
+                                    <p key={index}>{collaborator.username}</p>
+                                );
+                            })*/}
+                    </Details>
                     <Details>
                         <h3>Date: </h3>
                         <p>
@@ -125,7 +141,6 @@ const EventPage = () => {
                                 : "Loading dates"}
                         </p>
                     </Details>
-
                     <Details>
                         <h3>Time: </h3>
                         <p>
@@ -140,17 +155,14 @@ const EventPage = () => {
                     </Details>
                     <Details>
                         <h3>Interested: </h3>
-                        <Stats>
-                            <p>{eventData ? eventData.num_interested : "0"} </p>
-                        </Stats>
+
+                        <p>{eventData ? eventData.num_interested : "0"} </p>
                     </Details>
                     <Details>
                         <h3>Attending: </h3>
-                        <Stats>
-                            <p>{eventData ? eventData.num_attending : "0"} </p>
-                        </Stats>
-                    </Details>
 
+                        <p>{eventData ? attending : "0"} </p>
+                    </Details>
                     <Description>
                         <h3>Description</h3>
                         <p>
@@ -159,36 +171,40 @@ const EventPage = () => {
                                 : "Loading description..."}
                         </p>
                     </Description>
-
-                    {going === "unset" && (
+                    {!going && (
                         <Button
                             primary
                             onClick={() => {
                                 if (isUser) {
-                                    setGoing(true);
-                                    console.log("true");
+                                    userGoing(currentEvent);
+                                    setAttending(attending + 1);
                                 } else {
                                     routeChange();
                                 }
+                                // }
+                                setGoing((curr) => !curr);
                             }}>
                             <Going stroke={theme.secondary} />
                             Attend Event
                         </Button>
                     )}
-
-                    {going === true && (
+                    {going && (
                         <Button
                             primary
                             onClick={() => {
                                 if (isUser) {
-                                    setGoing(false);
+                                    deleteUserFromEventByID(currentEvent);
+                                    setAttending(attending - 1);
+
                                     console.log("true");
                                 } else {
                                     routeChange();
                                 }
+
+                                setGoing((curr) => !curr);
                             }}>
                             <NotGoing stroke={theme.secondary} />
-                            Not Going
+                            Remove Event
                         </Button>
                     )}
                 </EventDetail>
@@ -304,22 +320,31 @@ const Details = styled.div`
     flex-direction: row;
     align-items: center;
     justify-content: center;
-`;
-
-const Stats = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 2em;
-    height: 2em;
-    margin: 0 0px 20px 0px;
-    padding: 20px;
-    border: ${theme.tertiary};
-    border-radius: 50px;
-    background-color: ${theme.tertiary};
+    margin-bottom: 1em;
+    h3,
     p {
-        margin: 0;
-        font-size: 0.8em;
-        color: white;
+        margin-bottom: 0;
+    }
+
+    p {
+        font-size: 0.9em;
     }
 `;
+
+// const Stats = styled.div`
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//     width: 2em;
+//     height: 2em;
+//     margin: 0 0px 20px 0px;
+//     padding: 20px;
+//     border: ${theme.tertiary};
+//     border-radius: 50px;
+//     background-color: ${theme.tertiary};
+//     p {
+//         margin: 0;
+//         font-size: 0.8em;
+//         color: white;
+//     }
+// `;

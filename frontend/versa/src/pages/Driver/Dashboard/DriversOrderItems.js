@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import { getOneOrder } from "../../../axios/gets";
+import { getOrdersReadyForDelivery } from "../../../axios/gets";
 import OrderItemCard from "../../../components/Dashboard/AnalyticsTables/OrderItemCard";
 import Loading from "../../../components/Reusable/Loading";
 import theme from "../../../components/Reusable/Colors";
@@ -11,17 +11,18 @@ import { StyledLink } from "../../../components/Reusable/Link";
 const DriversOrderItems = () => {
     let params = useParams();
     let orderID = params.orderid;
-
     const [orderData, setOrderData] = useState();
     const [buyerDetails, setBuyerDetails] = useState();
+
     useEffect(() => {
         const fetchData = async () => {
-            const data = await getOneOrder(orderID);
+            const data = await getOrdersReadyForDelivery();
             setBuyerDetails(data[0]);
+
             setOrderData(data);
         };
         fetchData();
-    }, [orderID]);
+    }, []);
 
     return (
         <Container>
@@ -29,7 +30,7 @@ const DriversOrderItems = () => {
                 <Loading />
             ) : (
                 <>
-                    <BackToOrder to="/driver/orders">
+                    <BackToOrder to="/dashboard/driver/orders">
                         <LeftIcon stroke={theme.primary} />
                         Back to Orders
                     </BackToOrder>
@@ -85,11 +86,15 @@ export default DriversOrderItems;
 const BackToOrder = styled(StyledLink)`
     margin-left: -0.5em;
     margin-bottom: 1em;
+
+    background: none;
+    border-bottom: none;
 `;
 
 const Container = styled.div`
     background: ${theme.background};
     display: flex;
+    width: 100vw;
     flex-direction: column;
     padding: 2em 2em 2em calc(2em + 66px);
     h1 {
