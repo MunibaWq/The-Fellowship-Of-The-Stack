@@ -11,7 +11,7 @@ import { amIGoing } from "../../axios/gets";
 import imageTest from "../../images/imageTest.png";
 
 const EventPage = () => {
-    const [going, setGoing] = useState("unset");
+    const [going, setGoing] = useState(false);
     let params = useParams();
     const currentEvent = params.id;
 
@@ -40,16 +40,6 @@ const EventPage = () => {
         };
         attendStatus();
     }, [currentEvent]);
-
-    // useEffect(() => {
-    //     if (going === false) {
-    //         deleteUserFromEventByID(currentEvent);
-    //         console.log("going is false" + going);
-    //     } else {
-    //         userGoing(currentEvent);
-    //         console.log("going is false" + going);
-    //     }
-    // }, []);
 
     useEffect(() => {
         const fetchEvent = async () => {
@@ -179,21 +169,12 @@ const EventPage = () => {
                         <Button
                             primary
                             onClick={() => {
-                                if (going) {
-                                    if (isUser) {
-                                        deleteUserFromEventByID(currentEvent);
-
-                                        console.log("true");
-                                    } else {
-                                        routeChange();
-                                    }
+                                if (isUser) {
+                                    userGoing(currentEvent);
                                 } else {
-                                    if (isUser) {
-                                        userGoing(currentEvent);
-                                    } else {
-                                        routeChange();
-                                    }
+                                    routeChange();
                                 }
+                                // }
                                 setGoing((curr) => !curr);
                             }}>
                             <Going stroke={theme.secondary} />
@@ -204,21 +185,14 @@ const EventPage = () => {
                         <Button
                             primary
                             onClick={() => {
-                                if (going) {
-                                    if (isUser) {
-                                        deleteUserFromEventByID(currentEvent);
-                                        // userGoing(currentEvent);
-                                        console.log("true");
-                                    } else {
-                                        routeChange();
-                                    }
+                                if (isUser) {
+                                    deleteUserFromEventByID(currentEvent);
+
+                                    console.log("true");
                                 } else {
-                                    if (isUser) {
-                                        userGoing(currentEvent);
-                                    } else {
-                                        routeChange();
-                                    }
+                                    routeChange();
                                 }
+
                                 setGoing((curr) => !curr);
                             }}>
                             <NotGoing stroke={theme.secondary} />
