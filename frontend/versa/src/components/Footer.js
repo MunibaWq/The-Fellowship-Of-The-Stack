@@ -86,7 +86,7 @@ const Container = styled.div`
         color: ${theme.secondary};
     }
     @media screen and (max-width: 420px) {
-        margin: 1em 0;
+        /* margin: 1em 0; */
     }
     @media screen and (max-width: 768px) {
         /* margin: 1em 0; */
