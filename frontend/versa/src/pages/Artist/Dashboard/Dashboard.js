@@ -31,6 +31,8 @@ import DriverMap from "../../../components/Dashboard/DriverMap";
 import DriversOrders from "../../Driver/Dashboard/DriversOrders";
 import DriversOrderItems from "../../Driver/Dashboard/DriversOrderItems";
 import NotFound from "../../NotFound";
+import EventsAttending from "../../UserBuyer/Dashboard/EventsAttending";
+import OrderTracking from "../../UserBuyer/Dashboard/OrderTracking";
 
 const cookies = new Cookies();
 const Redirecter = () => {
@@ -170,6 +172,14 @@ const Dashboard = () => {
                     <Route
                         path="/dashboard/driver/orders/:orderid"
                         component={DriversOrderItems}
+                    />
+                    <Route
+                        path="/dashboard/shopper/events-attending"
+                        component={EventsAttending}
+                    />
+                    <Route
+                        path="/dashboard/shopper/order-tracking/"
+                        component={OrderTracking}
                     />
                     <Route component={NotFound} />
                 </Switch>
