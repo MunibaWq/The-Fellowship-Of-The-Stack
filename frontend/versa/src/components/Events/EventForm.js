@@ -144,6 +144,7 @@ const EventForm = (props) => {
                 <FieldContainer>
                     <Label>Category</Label>
                     <select
+                        style={{ height: "35px" }}
                         value={input.type}
                         onChange={(e) => {
                             dispatch(
