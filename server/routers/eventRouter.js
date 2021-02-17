@@ -457,4 +457,19 @@ router.get("/amIGoing/:eventid", auth, async (req, res) => {
     }
 });
 
+router.get("/collabs/:eventid", async (req, res) => {
+    try {
+        const collabs = await pool.query(
+            `SELECT u.username FROM users u INNER JOIN events_attendees a ON u.id = a.attendee WHERE a.type = 'collab' AND a.event_id = ${req.params.eventid}`
+        );
+        const collaborators = [];
+        collabs.rows.map((collab) => collaborators.push(collab.username));
+
+        res.json(collabs);
+    } catch (e) {
+        console.log(e, "collabs");
+        res.send("error");
+    }
+});
+
 module.exports = router;

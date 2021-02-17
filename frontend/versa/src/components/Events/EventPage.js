@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Button from "../Reusable/Button";
 import { Link, useParams, useHistory } from "react-router-dom";
-import { getEventByID, getUser } from "../../axios/gets";
+import { getCollabsByEventID, getEventByID, getUser } from "../../axios/gets";
 import { userGoing } from "../../axios/posts";
 import theme from "../Reusable/Colors";
 import { LeftIcon, Going, NotGoing } from "../../images/icons";
@@ -17,12 +17,13 @@ const EventPage = () => {
     const [eventData, setEventData] = useState([]);
     const [dateTime, setDateTime] = useState();
     const [isUser, setIsUser] = useState();
+    const [collabs, setCollabs] = useState();
 
     useEffect(() => {
         const findUser = async () => {
             const response = await getUser();
             setIsUser(response);
-            console.log(response);
+            // console.log(response);
         };
         findUser();
     }, []);
@@ -49,7 +50,9 @@ const EventPage = () => {
         const fetchEvent = async () => {
             const data = await getEventByID(currentEvent);
             setEventData(data);
-            console.log(data);
+            const collaborators = await getCollabsByEventID(currentEvent);
+            setCollabs(collaborators);
+            console.log(collaborators);
             return data;
         };
         fetchEvent().then((data) => {
@@ -118,6 +121,15 @@ const EventPage = () => {
                     </h2>
 
                     <Details>
+                        <h3>In collaboration with: </h3>
+                        {/*collabs &&
+                            collabs.map((collaborator, index) => {
+                                return (
+                                    <p key={index}>{collaborator.username}</p>
+                                );
+                            })*/}
+                    </Details>
+                    <Details>
                         <h3>Date: </h3>
                         <p>
                             {dateTime
@@ -140,15 +152,13 @@ const EventPage = () => {
                     </Details>
                     <Details>
                         <h3>Interested: </h3>
-                        <Stats>
-                            <p>{eventData ? eventData.num_interested : "0"} </p>
-                        </Stats>
+
+                        <p>{eventData ? eventData.num_interested : "0"} </p>
                     </Details>
                     <Details>
                         <h3>Attending: </h3>
-                        <Stats>
-                            <p>{eventData ? eventData.num_attending : "0"} </p>
-                        </Stats>
+
+                        <p>{eventData ? eventData.num_attending : "0"} </p>
                     </Details>
 
                     <Description>
@@ -304,22 +314,31 @@ const Details = styled.div`
     flex-direction: row;
     align-items: center;
     justify-content: center;
-`;
-
-const Stats = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 2em;
-    height: 2em;
-    margin: 0 0px 20px 0px;
-    padding: 20px;
-    border: ${theme.tertiary};
-    border-radius: 50px;
-    background-color: ${theme.tertiary};
+    margin-bottom: 1em;
+    h3,
     p {
-        margin: 0;
-        font-size: 0.8em;
-        color: white;
+        margin-bottom: 0;
+    }
+
+    p {
+        font-size: 0.9em;
     }
 `;
+
+// const Stats = styled.div`
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//     width: 2em;
+//     height: 2em;
+//     margin: 0 0px 20px 0px;
+//     padding: 20px;
+//     border: ${theme.tertiary};
+//     border-radius: 50px;
+//     background-color: ${theme.tertiary};
+//     p {
+//         margin: 0;
+//         font-size: 0.8em;
+//         color: white;
+//     }
+// `;
