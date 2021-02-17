@@ -1,18 +1,36 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { Going, NotGoing } from "../../images/icons";
 import { userGoing } from "../../axios/posts";
 import { deleteUserFromEventByID } from "../../axios/deletes";
 import imageTest from "../../images/imageTest.png";
 import Button from "../Reusable/Button";
 import theme from "../Reusable/Colors";
-import { amIGoing } from "../../axios/gets";
+import { amIGoing, getUser } from "../../axios/gets";
 
 const EventCard = ({ theEvent }) => {
     //const [interested, setInterested] = useState(false);
     const [going, setGoing] = useState("unset");
+    const [isUser, setIsUser] = useState();
+
     let currentEvent = theEvent.id;
+    const history = useHistory();
+
+    const routeChange = () => {
+        let path = `/account`;
+        history.push(path);
+        console.log(history);
+    };
+
+    useEffect(() => {
+        const findUser = async () => {
+            const response = await getUser();
+            setIsUser(response);
+            console.log(response);
+        };
+        findUser();
+    }, []);
 
     useEffect(() => {
         const attendStatus = async () => {
@@ -111,9 +129,17 @@ const EventCard = ({ theEvent }) => {
                 <ActionButton
                     onClick={() => {
                         if (going) {
-                            deleteUserFromEventByID(currentEvent);
+                            if (isUser) {
+                                deleteUserFromEventByID(currentEvent);
+                            } else {
+                                routeChange();
+                            }
                         } else {
-                            userGoing(currentEvent);
+                            if (isUser) {
+                                userGoing(currentEvent);
+                            } else {
+                                routeChange();
+                            }
                         }
                         setGoing((curr) => !curr);
                     }}>

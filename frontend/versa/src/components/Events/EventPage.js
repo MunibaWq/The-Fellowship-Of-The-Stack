@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Button from "../Reusable/Button";
-import { Link, useParams } from "react-router-dom";
-import { getEventByID } from "../../axios/gets";
+import { Link, useParams, useHistory } from "react-router-dom";
+import { getEventByID, getUser } from "../../axios/gets";
 import { userGoing } from "../../axios/posts";
 import theme from "../Reusable/Colors";
 import { LeftIcon, Going, NotGoing } from "../../images/icons";
@@ -16,6 +16,16 @@ const EventPage = () => {
     const currentEvent = params.id;
     const [eventData, setEventData] = useState([]);
     const [dateTime, setDateTime] = useState();
+    const [isUser, setIsUser] = useState();
+
+    useEffect(() => {
+        const findUser = async () => {
+            const response = await getUser();
+            setIsUser(response);
+            console.log(response);
+        };
+        findUser();
+    }, []);
 
     useEffect(() => {
         const attendStatus = async () => {
@@ -71,6 +81,14 @@ const EventPage = () => {
             });
         });
     }, [currentEvent]);
+
+    const history = useHistory();
+
+    const routeChange = () => {
+        let path = `/account`;
+        history.push(path);
+        console.log(history);
+    };
 
     return (
         <Container>
@@ -141,7 +159,12 @@ const EventPage = () => {
                         <Button
                             primary
                             onClick={() => {
-                                setGoing(true);
+                                if (isUser) {
+                                    setGoing(true);
+                                    console.log("true");
+                                } else {
+                                    routeChange();
+                                }
                             }}>
                             <Going stroke={theme.secondary} />
                             Attend Event
@@ -152,7 +175,12 @@ const EventPage = () => {
                         <Button
                             primary
                             onClick={() => {
-                                setGoing(false);
+                                if (isUser) {
+                                    setGoing(false);
+                                    console.log("true");
+                                } else {
+                                    routeChange();
+                                }
                             }}>
                             <NotGoing stroke={theme.secondary} />
                             Not Going
