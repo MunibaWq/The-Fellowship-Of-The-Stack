@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 import theme from "../../Reusable/Colors";
 import Loading from "../../Reusable/Loading";
-import DropDown from "./DropDown";
 import DriversDropDown from "./DriversDropDown";
 
 const DriversOrdersTable = ({ user, orderData }) => {
@@ -26,9 +25,9 @@ const DriversOrdersTable = ({ user, orderData }) => {
         const sortArray = (type) => {
             const types = {
                 orderdate: (a, b) => {
-                    if (a.orderDate < b.orderDate) {
-                        return -1;
-                    }
+                    const dateA = new Date(a.orderdate);
+                    const dateB = new Date(b.orderdate);
+                    return dateA - dateB;
                 },
                 id: (a, b) => {
                     return a.id - b.id;
@@ -116,7 +115,7 @@ const DriversOrdersTable = ({ user, orderData }) => {
                                     <td
                                         onClick={() =>
                                             history.push(
-                                                `/driver/orders/${order.id}`
+                                                `/dashboard/driver/orders/${order.id}`
                                             )
                                         }>
                                         <p>{order.id}</p>
@@ -124,7 +123,7 @@ const DriversOrdersTable = ({ user, orderData }) => {
                                     <td
                                         onClick={() =>
                                             history.push(
-                                                `/driver/orders/${order.id}`
+                                                `/dashboard/driver/orders/${order.id}`
                                             )
                                         }>
                                         <p>{order.username}</p>
@@ -132,7 +131,7 @@ const DriversOrdersTable = ({ user, orderData }) => {
                                     <td
                                         onClick={() =>
                                             history.push(
-                                                `/driver/orders/${order.id}`
+                                                `/dashboard/driver/orders/${order.id}`
                                             )
                                         }>
                                         <p>{order.address}</p>
@@ -140,7 +139,7 @@ const DriversOrdersTable = ({ user, orderData }) => {
                                     <td
                                         onClick={() =>
                                             history.push(
-                                                `/driver/orders/${order.id}`
+                                                `/dashboard/driver/orders/${order.id}`
                                             )
                                         }>
                                         <p>
@@ -157,7 +156,7 @@ const DriversOrdersTable = ({ user, orderData }) => {
                                     <td
                                         onClick={() =>
                                             history.push(
-                                                `/driver/orders/${order.id}`
+                                                `/dashboard/driver/orders/${order.id}`
                                             )
                                         }>
                                         <p>{order.shipping_address}</p>
