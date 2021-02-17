@@ -539,9 +539,10 @@ const NavBar = styled.div`
     -ms-transition: all 0.3s ease;
     -o-transition: all 0.3s ease;
     transition: all 0.3s ease;
-    left: -300px;
     background: white;
-    position: sticky;
+    position: absolute;
+    z-index: 999;
+    top: 6vh;
 `;
 
 const Close = styled.div`

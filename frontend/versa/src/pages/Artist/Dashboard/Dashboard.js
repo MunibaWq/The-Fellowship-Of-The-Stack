@@ -179,13 +179,10 @@ const Dashboard = () => {
 
 export default Dashboard;
 const Container = styled.div`
-    display: grid;
-    grid-template-columns: ${(props) => props.width}px auto;
+    display: flex;
 `;
 // const DashboardMainDiv = styled.div`
 //     grid-column: 2;
 // `;
 
-const SideNavDiv = styled.div`
-    grid-column: 1;
-`;
+const SideNavDiv = styled.div``;
