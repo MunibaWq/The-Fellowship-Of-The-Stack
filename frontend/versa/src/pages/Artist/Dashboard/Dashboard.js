@@ -25,11 +25,9 @@ import EditEvent from "../EditEvent";
 import CreateEvent from "../CreateEvent";
 import OrderItems from "./OrderItems";
 import Cookies from "universal-cookie";
-import DriverDashboardMain from "../../Driver/Dashboard/DriverDashboarMain";
-import Delivery from "../../Driver/Dashboard/Delivery";
+import DriverDashboardMain from "../../Driver/Dashboard/DriverDashboardMain";
 import { PrivateRoute } from "../../../components/Reusable/PrivateRoute";
 import DriverMap from "../../../components/Dashboard/DriverMap";
-import AllOrders from "../../Driver/Dashboard/AllOrders";
 import DriversOrders from "../../Driver/Dashboard/DriversOrders";
 import DriversOrderItems from "../../Driver/Dashboard/DriversOrderItems";
 import NotFound from "../../NotFound";
@@ -64,39 +62,39 @@ const Dashboard = () => {
                         component={DashboardLanding}
                     />
                     <PrivateRoute
-                        path="/artistDashboard"
+                        path="/dashboard/artist"
                         exact
                         component={DashboardMain}
                     />
                     <PrivateRoute
-                        path="/dashboard/orders"
+                        path="/dashboard/artist/orders"
                         exact
                         component={Orders}
                     />
                     <PrivateRoute
-                        path="/dashboard/inventory"
+                        path="/dashboard/artist/inventory"
                         exact
                         component={Inventory}
                     />
 
                     <Route
-                        path="/driver"
+                        path="/dashboard/driver"
                         exact
                         component={DriverDashboardMain}
                     />
 
                     <Route
-                        path="/driver/delivery"
+                        path="/dashboard/driver/delivery"
                         exact
                         component={DriverMap}
                     />
                     <Route
-                        path="/dashboard/categories"
+                        path="/dashboard/artist/categories"
                         exact
                         component={Categories}
                     />
                     <Route
-                        path="/dashboard/recent-orders/"
+                        path="/dashboard/artist/recent-orders/"
                         exact
                         component={Orders}
                     />
@@ -116,58 +114,61 @@ const Dashboard = () => {
                         component={Settings}
                     />
                     <Route
-                        path="/dashboard/manage-events"
+                        path="/dashboard/artist/manage-events"
                         exact
                         component={DashboardEvents}
                     />
                     <Route
-                        path="/dashboard/total-sales/"
+                        path="/dashboard/artist/total-sales/"
                         exact
                         component={TotalSales}
                     />
                     <Route
-                        path="/dashboard/total-orders/"
+                        path="/dashboard/artist/total-orders/"
                         exact
                         component={TotalOrders}
                     />
                     <Route
-                        path="/dashboard/average-order-value/"
+                        path="/dashboard/artist/average-order-value/"
                         exact
                         component={AvgOrderValue}
                     />
                     <Route
-                        path="/dashboard/sales-by-products/"
+                        path="/dashboard/artist/sales-by-products/"
                         exact
                         component={SalesByProduct}
                     />
 
                     <Route
-                        path="/dashboard/products/create"
+                        path="/dashboard/artist/products/create"
                         component={AddProduct}
                     />
                     <Route
-                        path="/dashboard/products/edit/:id"
+                        path="/dashboard/artist/products/edit/:id"
                         component={EditProduct}
                     />
                     <Route
-                        path="/dashboard/events/create"
+                        path="/dashboard/artist/events/create"
                         component={CreateEvent}
                     />
                     <Route
-                        path="/dashboard/events/edit/:id"
+                        path="/dashboard/artist/events/edit/:id"
                         component={EditEvent}
                     />
                     <Route
-                        path="/dashboard/recent-orders/:orderid"
+                        path="/dashboard/artist/recent-orders/:orderid"
                         component={OrderItems}
                     />
-                    <Route path="/driver/orders" component={DriversOrders} />
                     <Route
-                        path="/driver/order-history"
+                        path="/dashboard/driver/orders"
                         component={DriversOrders}
                     />
                     <Route
-                        path="/driver/orders/:orderid"
+                        path="/dashboard/driver/order-history"
+                        component={DriversOrders}
+                    />
+                    <Route
+                        path="/dashboard/driver/orders/:orderid"
                         component={DriversOrderItems}
                     />
                     <Route component={NotFound} />

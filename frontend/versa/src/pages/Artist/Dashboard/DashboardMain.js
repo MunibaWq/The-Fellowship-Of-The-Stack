@@ -32,7 +32,7 @@ const DashboardMain = () => {
                     total="123"
                     totalLabel="orders"
                     title="Orders"
-                    link="/dashboard/total-orders"></Orders>
+                    link="/dashboard/artist/total-orders"></Orders>
                 <RecentOrders
                     buttonText="View"
                     dataTitle="5 most recent"
@@ -40,7 +40,7 @@ const DashboardMain = () => {
                     total="12"
                     totalLabel="Unfulfilled"
                     title="Recent Orders"
-                    link="/dashboard/recent-orders"></RecentOrders>
+                    link="/dashboard/artist/recent-orders"></RecentOrders>
                 <SalesPerOrder
                     buttonText="Reports"
                     dataTitle="Average per week"
@@ -48,7 +48,7 @@ const DashboardMain = () => {
                     totalLabel="Average"
                     graphData={avgOrderData}
                     title={`Sales Per Order`}
-                    link="/dashboard/average-order-value"></SalesPerOrder>
+                    link="/dashboard/artist/average-order-value"></SalesPerOrder>
                 <Inventory
                     buttonText="View"
                     dataTitle="5 lowest in stock"
@@ -56,7 +56,7 @@ const DashboardMain = () => {
                     totalLabel="Low stock"
                     tableData={productData}
                     title="Inventory"
-                    link="/dashboard/inventory"></Inventory>
+                    link="/dashboard/artist/inventory"></Inventory>
                 <SalesByProduct
                     buttonText="Reports"
                     dataTitle="Top 5 products"
@@ -64,7 +64,7 @@ const DashboardMain = () => {
                     totalLabel="Top Product Sales"
                     pieData={salesByProductData}
                     title="Sales By Product"
-                    link="/dashboard/sales-by-products"
+                    link="/dashboard/artist/sales-by-products"
                 />
                 {/* <Profit>Small Card with number of total profit</Profit> */}
                 <MonthlySales
@@ -74,7 +74,7 @@ const DashboardMain = () => {
                     totalLabel="Total"
                     title="Monthly Sales"
                     graphData={salesData}
-                    link="/dashboard/total-sales"></MonthlySales>
+                    link="/dashboard/artist/total-sales"></MonthlySales>
                 {/* <Events>card showing 5 cards inside of upcoming events</Events> */}
             </StoreDash>
         </DashboardContainer>

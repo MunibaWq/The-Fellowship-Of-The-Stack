@@ -24,13 +24,14 @@ const DashboardEvents = () => {
     console.log(eventsData);
     return (
         <EventsContainer>
-            <StyledLink     style={{placeSelf:"end", height: "fit-content"}} secondary to="/dashboard/events/create">
-                
-                    <AddIcon />
-                    Create Event
-              
+            <StyledLink
+                style={{ placeSelf: "end", height: "fit-content" }}
+                secondary
+                to="/dashboard/artist/events/create">
+                <AddIcon />
+                Create Event
             </StyledLink>
- 
+
             <h1>Dashboard Events</h1>
             {!eventsData ? (
                 <Loading />
@@ -44,7 +45,7 @@ const DashboardEvents = () => {
 export default DashboardEvents;
 
 const EventsContainer = styled.div`
-width:100vw;
+    width: 100vw;
     padding: 5em 2em;
     display: grid;
     grid-template-rows: 40px auto;
@@ -55,7 +56,6 @@ width:100vw;
         justify-self: start;
     }
     :last-of-type {
-               
-               align-self: center;
+        align-self: center;
     }
 `;

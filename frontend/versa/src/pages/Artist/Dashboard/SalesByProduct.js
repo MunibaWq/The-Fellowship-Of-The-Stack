@@ -4,6 +4,7 @@ import * as V from "victory";
 import { getSalesByProduct } from "../../../axios/gets";
 import Loading from "../../../components/Reusable/Loading";
 import theme from "../../../components/Reusable/Colors";
+import Button from "../../../components/Reusable/Button";
 
 const SalesByProduct = () => {
     const [productData, setProductData] = useState();
@@ -21,7 +22,7 @@ const SalesByProduct = () => {
     let headers = ["Product Name", "Price", "# Sold", "Total Sales"];
     return (
         <SBPContainer>
-            {/*<Button to="/dashboard">Back to Dashboard</Button>*/}
+            <Button to="/dashboard/artist">Back to Dashboard</Button>
             <h1>Sales By Product</h1>
             {!productData ? (
                 <Loading />

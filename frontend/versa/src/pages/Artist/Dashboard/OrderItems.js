@@ -29,7 +29,7 @@ const OrderItems = () => {
                 <Loading />
             ) : (
                 <>
-                    <BackToOrder to="/dashboard/recent-orders/">
+                    <BackToOrder to="/dashboard/artist/recent-orders/">
                         <LeftIcon stroke={theme.primary} />
                         Back to Orders
                     </BackToOrder>

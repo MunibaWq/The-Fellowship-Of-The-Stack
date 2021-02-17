@@ -12,7 +12,6 @@ import EditAccount from "./pages/Shared/EditAccount";
 import Login from "./pages/Shared/Login";
 import Dashboard from "./pages/Artist/Dashboard/Dashboard";
 import EventPage from "./components/Events/EventPage";
-import DriverDashboard from "./pages/Driver/Dashboard/DriverDashboard";
 import { PrivateRoute } from "./components/Reusable/PrivateRoute";
 import NotFound from "./pages/NotFound";
 import Footer from "./components/Footer";
@@ -50,10 +49,6 @@ function App() {
 
                     <Route path="/log-in" component={Login} />
 
-                    <Route
-                        path="/driver-dashboard"
-                        component={DriverDashboard}
-                    />
                     <Route path="/dashboard" component={Dashboard} />
                     <Route component={NotFound} />
                 </Switch>
