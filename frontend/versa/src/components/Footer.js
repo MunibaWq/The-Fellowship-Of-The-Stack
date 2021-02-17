@@ -89,7 +89,7 @@ const Container = styled.div`
         margin: 1em 0;
     }
     @media screen and (max-width: 768px) {
-        margin: 1em 0;
+        /* margin: 1em 0; */
     }
 `;
 

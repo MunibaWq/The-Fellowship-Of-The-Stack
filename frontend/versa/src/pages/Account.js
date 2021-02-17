@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import Button from "../components/Reusable/Button";
+
 import theme from "../components/Reusable/Colors";
 import { AddIcon, EditIcon } from "../images/icons";
 import Cookies from "universal-cookie";
@@ -27,6 +27,7 @@ const Account = () => {
                 <Container>
                     <LeftContainer>
                         <StyledLink
+                            style={{ width: "10rem" }}
                             onClick={() => {
                                 axiosLogout();
                                 dispatch(logout());
@@ -50,14 +51,14 @@ const Account = () => {
                     <LeftContainer>
                         JOIN USSS..
                         <StyledLink secondary to="/create-account">
-                            {/* <AddIcon stroke={theme.primary} /> */}
+                            <AddIcon stroke={theme.primary} />
                             Create a new account
                         </StyledLink>
                     </LeftContainer>
                     <RightContainer>
                         Welcome BACK!
                         <StyledLink secondary to="/log-in">
-                            {/* <AddIcon stroke={theme.primary} /> */}
+                            <AddIcon stroke={theme.primary} />
                             Log In
                         </StyledLink>
                     </RightContainer>
@@ -85,10 +86,11 @@ const RightContainer = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    overflow-y: hidden;
 `;
 
 const Container = styled.div`
-    min-height: 70vh;
+    height: 70vh;
 
     display: grid;
     grid-template-columns: repeat(2, 1fr);
