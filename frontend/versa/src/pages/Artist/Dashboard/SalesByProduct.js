@@ -39,10 +39,18 @@ const SalesByProduct = () => {
                         display: "flex",
                         flexDirection: "row",
                         flexWrap: "wrap",
+                        justifyContent: "center",
                     }}>
                     <PieContainer>
                         <V.VictoryPie
-                            padding={{ top: 0, left: 90, right: 90 }}
+                            height={250}
+                            width={350}
+                            //padding={{
+                            //    top: 0,
+                            //    left: 0,
+                            //    right: 0,
+                            //    bottom: 0,
+                            //}}
                             padAngle={2}
                             innerRadius={25}
                             style={{ labels: { fontSize: 15 } }}
