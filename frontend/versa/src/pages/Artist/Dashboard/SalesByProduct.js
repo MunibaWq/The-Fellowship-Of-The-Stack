@@ -52,8 +52,9 @@ const SalesByProduct = () => {
                             //    bottom: 0,
                             //}}
                             padAngle={2}
-                            innerRadius={25}
-                            style={{ labels: { fontSize: 15 } }}
+                            innerRadius={125}
+                            labelRadius={150}
+                            labelComponent={<CustomLabel />}
                             labels={({ datum }) => `${datum.x}: $${+datum.y}`}
                             colorScale={[
                                 theme.primaryHover,
@@ -98,9 +99,11 @@ const SalesByProduct = () => {
                     </PieContainer>
                     <SBPTable>
                         <thead>
-                            {headers.map((header, index) => (
-                                <th key={header + index}>{header}</th>
-                            ))}
+                            <tr>
+                                {headers.map((header, index) => (
+                                    <th key={header + index}>{header}</th>
+                                ))}
+                            </tr>
                         </thead>
                         <tbody>
                             {productData.map((product, index) => (
@@ -130,7 +133,48 @@ const SalesByProduct = () => {
 };
 
 export default SalesByProduct;
+class CustomLabel extends React.Component {
+    render() {
+        return (
+            <g>
+                <V.VictoryTooltip
+                    {...this.props}
+                    x={175}
+                    y={175}
+                    orientation="top"
+                    pointerLength={0}
+                    cornerRadius={50}
+                    flyoutWidth={100}
+                    flyoutHeight={100}
+                    flyoutStyle={{ fill: theme.primary }}
+                />
+            </g>
+        );
+    }
+}
 
+CustomLabel.defaultEvents = V.VictoryTooltip.defaultEvents;
+
+//class App extends React.Component {
+//    render() {
+//        return (
+//            <VictoryPie
+//                style={{ labels: { fill: "white" } }}
+//                innerRadius={100}
+//                labelRadius={120}
+//                labels={({ datum }) => `# ${datum.y}`}
+//                labelComponent={<CustomLabel />}
+//                data={[
+//                    { x: 1, y: 5 },
+//                    { x: 2, y: 4 },
+//                    { x: 3, y: 2 },
+//                    { x: 4, y: 3 },
+//                    { x: 5, y: 1 },
+//                ]}
+//            />
+//        );
+//    }
+//}
 const SBPContainer = styled.div`
     width: 100vw;
     padding: 5em 2em;

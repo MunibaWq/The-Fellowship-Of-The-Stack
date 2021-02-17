@@ -1,12 +1,12 @@
 import Axios from "axios";
 Axios.defaults.withCredentials = true;
 
-export const getImagesByPID = async (currentProduct) => {
+export const getImagesByPID = async currentProduct => {
     const response = await Axios.get(`/api/images/byPID/${currentProduct}`);
     let images = await response.data;
     return images;
 };
-export const getProductByID = async (currentProduct) => {
+export const getProductByID = async currentProduct => {
     const response = await Axios.get(`/api/products/get/${currentProduct}`);
     return response.data;
 };
@@ -38,7 +38,7 @@ export const getAllMyProducts = async () => {
     }
 };
 
-export const searchProducts = async (query) => {
+export const searchProducts = async query => {
     if (!query) {
         return await getAllProducts();
     }
@@ -46,7 +46,7 @@ export const searchProducts = async (query) => {
     return res.data;
 };
 
-export const searchEvents = async (searchQuery) => {
+export const searchEvents = async searchQuery => {
     if (!searchQuery) {
         return await getAllEvents();
     }
@@ -63,23 +63,25 @@ export const getAllEvents = async () => {
     return res.data;
 };
 
-export const getAllArtistEvents = async (id) => {
+export const getAllArtistEvents = async id => {
     let res = await Axios.get("/api/events/artistsEvents/" + id);
     return res.data;
 };
-
-export const getMyArtistEvents = async () => {
-    let res = await Axios.get("/api/events/myArtistsEvents/");
-    return res.data;
-};
-
-export const getEventByID = async (id) => {
-    const response = await Axios.get(`/api/events/get/${id}`);
+export const getCollabsByEventID = async eventid => {
+    const response = await Axios.get(`/api/events/collabs/${eventid}`);
     return response.data;
 };
+export const getMyArtistEvents = async () => {
+    try {
+        let res = await Axios.get("/api/events/myArtistsEvents/");
+        return res.data;
+    } catch (e) {
+        console.log(e);
+    }
+};
 
-export const getCollabsByEventID = async (eventid) => {
-    const response = await Axios.get(`/api/events/collabs/${eventid}`);
+export const getEventByID = async id => {
+    const response = await Axios.get(`/api/events/get/${id}`);
     return response.data;
 };
 
@@ -106,12 +108,12 @@ export const getRecentOrders = async () => {
     return response.data;
 };
 
-export const getOneOrder = async (orderid) => {
+export const getOneOrder = async orderid => {
     const response = await Axios.get(`/api/dashboard/order/${orderid}`);
     return response.data;
 };
 
-export const amIGoing = async (eventID) => {
+export const amIGoing = async eventID => {
     const response = await Axios.get(`api/events/amIGoing/${eventID}`);
     return response.data;
 };
@@ -122,9 +124,13 @@ export const getCartItem = async (cartProduct, colour, size, session) => {
     );
     return response.data;
 };
-export const getCart = async (session) => {
-    const response = await Axios.get(`/api/cart/${session}`);
-    return response.data;
+export const getCart = async session => {
+    try {
+        const response = await Axios.get(`/api/cart/${session}`);
+        return response.data;
+    } catch (e) {
+        console.log(e);
+    }
 };
 
 export const getOrdersReadyForDelivery = async () => {

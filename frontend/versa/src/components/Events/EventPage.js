@@ -11,13 +11,17 @@ import { amIGoing } from "../../axios/gets";
 import imageTest from "../../images/imageTest.png";
 
 const EventPage = () => {
-    const [going, setGoing] = useState("unset");
+    const [going, setGoing] = useState(false);
     let params = useParams();
     const currentEvent = params.id;
+
     const [eventData, setEventData] = useState([]);
     const [dateTime, setDateTime] = useState();
     const [isUser, setIsUser] = useState();
     const [collabs, setCollabs] = useState();
+
+    //state to update attending number when user attends/unattends event
+    const [attending, setAttending] = useState();
 
     useEffect(() => {
         const findUser = async () => {
@@ -31,6 +35,8 @@ const EventPage = () => {
     useEffect(() => {
         const attendStatus = async () => {
             const response = await amIGoing(currentEvent);
+            console.log(response);
+
             if (response) {
                 setGoing(true);
             } else setGoing(false);
@@ -38,25 +44,18 @@ const EventPage = () => {
         attendStatus();
     }, [currentEvent]);
 
-    // useEffect(() => {
-    //     if (going === false) {
-    //         deleteUserFromEventByID(currentEvent);
-    //         console.log("going is false" + going);
-    //     } else {
-    //         userGoing(currentEvent);
-    //         console.log("going is false" + going);
-    //     }
-    // }, []);
-
     useEffect(() => {
         const fetchEvent = async () => {
             const data = await getEventByID(currentEvent);
             setEventData(data);
+            setAttending(data.num_attending);
             const collaborators = await getCollabsByEventID(currentEvent);
             setCollabs(collaborators);
             console.log(collaborators);
+
             return data;
         };
+        console.log(attending);
         fetchEvent().then((data) => {
             let options = {
                 weekday: "long",
@@ -162,7 +161,7 @@ const EventPage = () => {
                     <Details>
                         <h3>Attending: </h3>
 
-                        <p>{eventData ? eventData.num_attending : "0"} </p>
+                        <p>{eventData ? attending : "0"} </p>
                     </Details>
                     <Description>
                         <h3>Description</h3>
@@ -172,49 +171,36 @@ const EventPage = () => {
                                 : "Loading description..."}
                         </p>
                     </Description>
-                    {going && (
+                    {!going && (
                         <Button
                             primary
                             onClick={() => {
-                                if (going) {
-                                    if (isUser) {
-                                        userGoing(currentEvent);
-
-                                        console.log("true");
-                                    } else {
-                                        routeChange();
-                                    }
+                                if (isUser) {
+                                    userGoing(currentEvent);
+                                    setAttending(attending + 1);
                                 } else {
-                                    if (isUser) {
-                                        deleteUserFromEventByID(currentEvent);
-                                    } else {
-                                        routeChange();
-                                    }
+                                    routeChange();
                                 }
+                                // }
                                 setGoing((curr) => !curr);
                             }}>
                             <Going stroke={theme.secondary} />
                             Attend Event
                         </Button>
                     )}
-                    {!going && (
+                    {going && (
                         <Button
                             primary
                             onClick={() => {
-                                if (going) {
-                                    if (isUser) {
-                                        userGoing(currentEvent);
-                                        console.log("true");
-                                    } else {
-                                        routeChange();
-                                    }
+                                if (isUser) {
+                                    deleteUserFromEventByID(currentEvent);
+                                    setAttending(attending - 1);
+
+                                    console.log("true");
                                 } else {
-                                    if (isUser) {
-                                        deleteUserFromEventByID(currentEvent);
-                                    } else {
-                                        routeChange();
-                                    }
+                                    routeChange();
                                 }
+
                                 setGoing((curr) => !curr);
                             }}>
                             <NotGoing stroke={theme.secondary} />

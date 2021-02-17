@@ -14,6 +14,9 @@ const EventCard = ({ theEvent }) => {
     const [going, setGoing] = useState("unset");
     const [isUser, setIsUser] = useState();
 
+    //state to update attending number when user attends/unattends event
+    const [attending, setAttending] = useState(Number(theEvent.num_attending));
+
     let currentEvent = theEvent.id;
     const history = useHistory();
 
@@ -27,7 +30,7 @@ const EventCard = ({ theEvent }) => {
         const findUser = async () => {
             const response = await getUser();
             setIsUser(response);
-            console.log(response);
+            // console.log(response);
         };
         findUser();
     }, []);
@@ -35,6 +38,7 @@ const EventCard = ({ theEvent }) => {
     useEffect(() => {
         const attendStatus = async () => {
             const response = await amIGoing(currentEvent);
+            // console.log(reponse);
             if (response) {
                 setGoing(true);
             } else setGoing(false);
@@ -99,7 +103,7 @@ const EventCard = ({ theEvent }) => {
                     <NumInterested>
                         {theEvent.num_interested} Interested
                     </NumInterested>
-                    <NumGoing>{theEvent.num_attending} Going</NumGoing>
+                    <NumGoing>{attending} Going</NumGoing>
                 </Stats>
             </Link>
             <Actions>
@@ -131,12 +135,14 @@ const EventCard = ({ theEvent }) => {
                         if (going) {
                             if (isUser) {
                                 deleteUserFromEventByID(currentEvent);
+                                setAttending(attending - 1);
                             } else {
                                 routeChange();
                             }
                         } else {
                             if (isUser) {
                                 userGoing(currentEvent);
+                                setAttending(attending + 1);
                             } else {
                                 routeChange();
                             }
