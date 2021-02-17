@@ -3,9 +3,6 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import {
     LineCloseIcon,
-    Notification,
-    Message,
-    Setting,
     Dashboard,
     Orders,
     Products,
@@ -21,9 +18,9 @@ import {
     InventoryIcon,
 } from "../../../images/icons";
 import theme from "../../../components/Reusable/Colors";
-import Pill from "../../../components/Reusable/Pill";
+// import Pill from "../../../components/Reusable/Pill";
 import Cookies from "universal-cookie";
-import Inventory from "./Inventory";
+// import Inventory from "./Inventory";
 const cookies = new Cookies();
 const isDriver = cookies.get("isDriver") === "true";
 const isArtist = cookies.get("isArtist") === "true";
@@ -681,16 +678,16 @@ const SubMenuLink = styled.button`
         font-size: 0.8em;
     }
 `;
-const ToolBar = styled.div`
-    ul {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-    }
+// const ToolBar = styled.div`
+//     ul {
+//         display: flex;
+//         flex-direction: row;
+//         justify-content: space-between;
+//     }
 
-    -webkit-transition: all 0.3s ease;
-    -moz-transition: all 0.3s ease;
-    -ms-transition: all 0.3s ease;
-    -o-transition: all 0.3s ease;
-    transition: all 0.3s ease;
-`;
+//     -webkit-transition: all 0.3s ease;
+//     -moz-transition: all 0.3s ease;
+//     -ms-transition: all 0.3s ease;
+//     -o-transition: all 0.3s ease;
+//     transition: all 0.3s ease;
+// `;
