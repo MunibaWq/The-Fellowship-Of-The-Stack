@@ -28,7 +28,7 @@ function App() {
         <Router>
             <Navbar />
 
-            <div style={{ overflowX: "hidden" }}>
+            <div style={{ minHeight: "49vh" }}>
                 <Switch>
                     <Route exact path="/" component={SearchResults} />
                     <Route path="/shop" exact component={SearchResults} />
