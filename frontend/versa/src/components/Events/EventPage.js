@@ -172,20 +172,21 @@ const EventPage = () => {
                                 : "Loading description..."}
                         </p>
                     </Description>
-                    {!going && (
+                    {going && (
                         <Button
                             primary
                             onClick={() => {
                                 if (going) {
                                     if (isUser) {
-                                        deleteUserFromEventByID(currentEvent);
+                                        userGoing(currentEvent);
+
                                         console.log("true");
                                     } else {
                                         routeChange();
                                     }
                                 } else {
                                     if (isUser) {
-                                        userGoing(currentEvent);
+                                        deleteUserFromEventByID(currentEvent);
                                     } else {
                                         routeChange();
                                     }
@@ -196,20 +197,20 @@ const EventPage = () => {
                             Attend Event
                         </Button>
                     )}
-                    {going && (
+                    {!going && (
                         <Button
                             primary
                             onClick={() => {
                                 if (going) {
                                     if (isUser) {
-                                        deleteUserFromEventByID(currentEvent);
+                                        userGoing(currentEvent);
                                         console.log("true");
                                     } else {
                                         routeChange();
                                     }
                                 } else {
                                     if (isUser) {
-                                        userGoing(currentEvent);
+                                        deleteUserFromEventByID(currentEvent);
                                     } else {
                                         routeChange();
                                     }
