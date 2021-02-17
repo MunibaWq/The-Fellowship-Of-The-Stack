@@ -78,6 +78,10 @@ const EventPage = () => {
                 hour: "2-digit",
                 minute: "2-digit",
             });
+
+            console.log(startTime);
+            console.log(endTime);
+
             setDateTime({
                 startDate,
                 endDate,
@@ -168,20 +172,21 @@ const EventPage = () => {
                                 : "Loading description..."}
                         </p>
                     </Description>
-                    {going === "unset" && (
+                    {going && (
                         <Button
                             primary
                             onClick={() => {
                                 if (going) {
                                     if (isUser) {
-                                        setGoing(true);
+                                        userGoing(currentEvent);
+
                                         console.log("true");
                                     } else {
                                         routeChange();
                                     }
                                 } else {
                                     if (isUser) {
-                                        userGoing(currentEvent);
+                                        deleteUserFromEventByID(currentEvent);
                                     } else {
                                         routeChange();
                                     }
@@ -192,20 +197,20 @@ const EventPage = () => {
                             Attend Event
                         </Button>
                     )}
-                    {going === true && (
+                    {!going && (
                         <Button
                             primary
                             onClick={() => {
                                 if (going) {
                                     if (isUser) {
-                                        setGoing(true);
+                                        userGoing(currentEvent);
                                         console.log("true");
                                     } else {
                                         routeChange();
                                     }
                                 } else {
                                     if (isUser) {
-                                        userGoing(currentEvent);
+                                        deleteUserFromEventByID(currentEvent);
                                     } else {
                                         routeChange();
                                     }
@@ -213,7 +218,7 @@ const EventPage = () => {
                                 setGoing((curr) => !curr);
                             }}>
                             <NotGoing stroke={theme.secondary} />
-                            Not Going
+                            Remove Event
                         </Button>
                     )}
                 </EventDetail>
