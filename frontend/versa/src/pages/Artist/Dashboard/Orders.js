@@ -41,10 +41,11 @@ const OrderContainer = styled.div`
     display: grid;
     grid-template-rows: auto auto;
     min-height: 100vh;
+    width: 100vw;
 
     h1 {
-        margin: 0 0 0 .55em;
-        
+        margin: 0 0 0 1.3em;
+
         justify-self: start;
     }
 

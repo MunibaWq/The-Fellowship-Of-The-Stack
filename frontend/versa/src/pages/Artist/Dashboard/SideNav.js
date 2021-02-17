@@ -52,6 +52,7 @@ const SideNav = ({ navWidth, setNavWidth }) => {
                         setExpanded(true);
                     }}>
                     <HamburgerIcon stroke={theme.secondary} />
+                    MENU
                 </Toggle>
             )}
             {expanded && (
@@ -535,6 +536,10 @@ const Toggle = styled.div`
     align-items: center;
     svg {
         margin-right: 8px;
+    }
+    :last-child {
+        font-weight: 700;
+        letter-spacing: 0.05em;
     }
 `;
 
