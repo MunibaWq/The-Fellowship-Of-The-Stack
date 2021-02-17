@@ -37,15 +37,18 @@ const Orders = () => {
 export default Orders;
 
 const OrderContainer = styled.div`
-    padding: 2em 2em 2em calc(2em + 66px);
+    padding: 5em 2em;
     display: grid;
-    grid-template-rows: 60px auto;
+    grid-template-rows: auto auto;
+    min-height: 100vh;
 
     h1 {
-        margin: 0 1em 2em 1em;
+        margin: 0 0 0 .55em;
+        
         justify-self: start;
     }
-    :last-of-type {
+
+    :last-child {
         place-self: start;
         align-self: center;
     }

@@ -55,7 +55,7 @@ function App() {
                         component={DriverDashboard}
                     />
                     <Route path="/dashboard" component={Dashboard} />
-                    {/*<Route component={NotFound} />*/}
+                    <Route component={NotFound} />
                 </Switch>
             </div>
             <Footer />

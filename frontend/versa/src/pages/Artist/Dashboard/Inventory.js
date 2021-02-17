@@ -7,8 +7,8 @@ import theme from "../../../components/Reusable/Colors";
 import { AddIcon, EditIcon, DeleteIcon } from "../../../images/icons";
 import axios from "axios";
 import { DeleteProductModal } from "../../../components/Dashboard/DeleteProductModal";
-import Cookies from 'universal-cookie'
-const cookies = new Cookies()
+import Cookies from "universal-cookie";
+const cookies = new Cookies();
 
 const Inventory = (currentProduct) => {
     const [results, setResults] = useState([]);
@@ -18,7 +18,6 @@ const Inventory = (currentProduct) => {
     const [currentId, setCurrentId] = useState(null);
 
     useEffect(() => {
-        
         const getProducts = async () => {
             try {
                 let data = await getAllMyProducts();
@@ -71,7 +70,7 @@ const Inventory = (currentProduct) => {
         setCurrentId(id);
     };
     return (
-        <div style={{ padding: "2%" }}>
+        <Container>
             <Link to="/dashboard/products/create">
                 <Button secondary style={{ float: "right" }}>
                     Create a new product
@@ -80,88 +79,98 @@ const Inventory = (currentProduct) => {
             </Link>
             <TableStyle>
                 <thead>
-                <tr>
-                    <th>PIC</th>
-                    <th>TITLE</th>
-                    <th>STATUS</th>
-                    <th>INVENTORY</th>
-                    <th>EDIT</th>
-                    <th>DELETE</th>
+                    <tr>
+                        <th>PIC</th>
+                        <th>TITLE</th>
+                        <th>STATUS</th>
+                        <th>INVENTORY</th>
+                        <th>EDIT</th>
+                        <th>DELETE</th>
                     </tr>
                 </thead>
                 <tbody>
-                {results.length > 0 && inventory.length > 0 ? (
-                    results.map((result, index) => {
-                        return (
-                            <tr key={'inventory' + index} style={{ padding: "10%" }}>
-                                <td
-                                    style={{
-                                        width: "100px",
-                                        height: "100px",
-                                    }}>
-                                    <img
-                                        alt={result.title}
-                                        src={
-                                            "https://versabucket.s3.us-east-2.amazonaws.com/images/" +
-                                            result.thumbnail +
-                                            ".jpeg"
-                                        }
+                    {results.length > 0 && inventory.length > 0 ? (
+                        results.map((result, index) => {
+                            return (
+                                <tr
+                                    key={"inventory" + index}
+                                    style={{ padding: "10%" }}>
+                                    <td
                                         style={{
-                                            width: "100%",
-                                            objectFit: "cover",
-                                        }}
-                                    />
-                                </td>
-                                <td>{result.title}</td>
-                                <td>
-                                    {result.status} <br />
-                                    <select
-                                        onChange={(e) => {
-                                            updateStatus(
-                                                result,
-                                                e.target.value
-                                            );
-                                            // setStatus(newStatus);
+                                            width: "100px",
+                                            height: "100px",
                                         }}>
-                                        <option value={result.status}>
-                                            Select Status
-                                        </option>
-                                        <option label="Active">Active</option>
-                                        <option label="Backorder">
-                                            Backorder
-                                        </option>
-                                        <option label="Discontinue">
-                                            Discontinue
-                                        </option>
-                                    </select>
-                                </td>
-                                <td>
-                                    {countInv(
-                                        groupStockObj(inventory, result.id)
-                                    )}
-                                </td>
-                                <td>
-                                    <Link
-                                        to={
-                                            "/dashboard/products/edit/" +
-                                            result.id
-                                        }>
-                                        <EditIcon stroke={theme.primary} />
-                                    </Link>
-                                </td>
-                                <td>
-                                    <Button
-                                        onClick={() => showModal(result.id)}>
-                                        <DeleteIcon stroke={theme.primary} />
-                                    </Button>
-                                </td>
-                            </tr>
-                        );
-                    })
+                                        <img
+                                            alt={result.title}
+                                            src={
+                                                "https://versabucket.s3.us-east-2.amazonaws.com/images/" +
+                                                result.thumbnail +
+                                                ".jpeg"
+                                            }
+                                            style={{
+                                                width: "100%",
+                                                objectFit: "cover",
+                                            }}
+                                        />
+                                    </td>
+                                    <td>{result.title}</td>
+                                    <td>
+                                        {result.status} <br />
+                                        <select
+                                            onChange={(e) => {
+                                                updateStatus(
+                                                    result,
+                                                    e.target.value
+                                                );
+                                                // setStatus(newStatus);
+                                            }}>
+                                            <option value={result.status}>
+                                                Select Status
+                                            </option>
+                                            <option label="Active">
+                                                Active
+                                            </option>
+                                            <option label="Backorder">
+                                                Backorder
+                                            </option>
+                                            <option label="Discontinue">
+                                                Discontinue
+                                            </option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        {countInv(
+                                            groupStockObj(inventory, result.id)
+                                        )}
+                                    </td>
+                                    <td>
+                                        <Link
+                                            to={
+                                                "/dashboard/products/edit/" +
+                                                result.id
+                                            }>
+                                            <EditIcon stroke={theme.primary} />
+                                        </Link>
+                                    </td>
+                                    <td>
+                                        <Button
+                                            onClick={() =>
+                                                showModal(result.id)
+                                            }>
+                                            <DeleteIcon
+                                                stroke={theme.primary}
+                                            />
+                                        </Button>
+                                    </td>
+                                </tr>
+                            );
+                        })
                     ) : (
-                            <tr>
-                    <td>Loading...</td></tr>
-                )}</tbody>
+                        <tr>
+                            <td>Loading...</td>
+                        </tr>
+                    )}
+                </tbody>
             </TableStyle>
             {visible ? (
                 <DeleteProductModal
@@ -178,11 +187,17 @@ const Inventory = (currentProduct) => {
                     display="none"
                 />
             )}
-        </div>
+        </Container>
     );
 };
 
 export default Inventory;
+
+const Container = styled.div`
+    padding: 2em;
+    min-height: 100vh;
+    width:100vw;
+`;
 
 export const TableStyle = styled.table`
     min-width: 655px;

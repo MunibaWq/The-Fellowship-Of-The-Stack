@@ -10,8 +10,9 @@ router.get("/:session", optionalAuth, async (req, res) => {
     );
     const cartID = cartQuery.rows[0].id;
     const itemsQuery = await pool.query(
-        `SELECT c.*, p.thumbnail, p.sizes, p.title, p.price FROM cart_items C 
+        `SELECT s.quantity AS num_left, C.*, p.thumbnail, p.sizes, p.title, p.price FROM cart_items C 
         INNER JOIN products p ON p.id = c.product_id 
+        INNER JOIN stock s ON p.id=s.product_id AND c.colour = s.color AND c.size = s.size
         WHERE c.cart_id = ${cartID}`
     );
     const items = itemsQuery.rows;

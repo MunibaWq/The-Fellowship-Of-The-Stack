@@ -18,10 +18,12 @@ import {
     HomeIcon,
     CarIcon,
     AccountIcon,
+    InventoryIcon,
 } from "../../../images/icons";
 import theme from "../../../components/Reusable/Colors";
 import Pill from "../../../components/Reusable/Pill";
 import Cookies from "universal-cookie";
+import Inventory from "./Inventory";
 const cookies = new Cookies();
 const isDriver = cookies.get("isDriver") === "true";
 const isArtist = cookies.get("isArtist") === "true";
@@ -33,7 +35,7 @@ if (isDriver) {
     userTypes.push("Driver");
 }
 console.log(isArtist);
-const SideNav = ({ setNavWidth }) => {
+const SideNav = ({ navWidth, setNavWidth }) => {
     const [visiblePSub, setVisiblePSub] = useState(false);
     const [visibleASub, setVisibleASub] = useState(false);
     const [visibleSDSub, setVisibleSDSub] = useState(false);
@@ -42,14 +44,14 @@ const SideNav = ({ setNavWidth }) => {
     const [expanded, setExpanded] = useState(false);
 
     return (
-        <Container>
+        <Container navWidth={navWidth}>
             {!expanded && (
                 <Toggle
                     onClick={() => {
                         setNavWidth(300);
                         setExpanded(true);
                     }}>
-                    <HamburgerIcon stroke={theme.secondary} />
+                    <HamburgerIcon stroke={theme.secondary} />MENU
                 </Toggle>
             )}
             {expanded && (
@@ -72,7 +74,7 @@ const SideNav = ({ setNavWidth }) => {
                         </Close>
                     </Header>
 
-                    <ToolBar>
+                    {/*<ToolBar>
                         <Menu>
                             <Link to="/dashboard/notifications">
                                 <li>
@@ -102,7 +104,7 @@ const SideNav = ({ setNavWidth }) => {
                                 </li>
                             </Link>
                         </Menu>
-                    </ToolBar>
+                        </ToolBar>*/}
                     <Menu>
                         <Link to="/dashboard">
                             <li>
@@ -155,47 +157,17 @@ const SideNav = ({ setNavWidth }) => {
                                                 </MenuLink>
                                             </li>
                                         </Link>
-                                        <li>
-                                            <MenuLink
-                                                onClick={() =>
-                                                    setVisiblePSub(!visiblePSub)
-                                                }>
-                                                <Products />
-                                                <h3>Products</h3>
-                                                <DownIcon
-                                                    stroke={theme.primary}
-                                                />
-                                            </MenuLink>
-                                        </li>
-                                        {visiblePSub && (
-                                            <SubMenu>
-                                                <Link to="/dashboard/inventory">
-                                                    <li>
-                                                        <SubMenuLink>
-                                                            <h4>Inventory</h4>
-                                                            <RightIcon
-                                                                stroke={
-                                                                    theme.primary
-                                                                }
-                                                            />
-                                                        </SubMenuLink>
-                                                    </li>
-                                                </Link>
-                                                <Link to="/dashboard/categories">
-                                                    <li>
-                                                        <SubMenuLink>
-                                                            <h4>Categories</h4>
-                                                            <RightIcon
-                                                                stroke={
-                                                                    theme.primary
-                                                                }
-                                                            />
-                                                        </SubMenuLink>
-                                                    </li>
-                                                </Link>
-                                            </SubMenu>
-                                        )}
-
+                                        <Link to="/dashboard/inventory">
+                                            <li>
+                                                <MenuLink>
+                                                    <InventoryIcon />
+                                                    <h3>Inventory</h3>
+                                                    <RightIcon
+                                                        stroke={theme.primary}
+                                                    />
+                                                </MenuLink>
+                                            </li>
+                                        </Link>
                                         <li>
                                             <MenuLink
                                                 onClick={() =>
@@ -327,16 +299,6 @@ const SideNav = ({ setNavWidth }) => {
                                             <li>
                                                 <SubMenuLink>
                                                     <h4>Inventory</h4>
-                                                    <RightIcon
-                                                        stroke={theme.primary}
-                                                    />
-                                                </SubMenuLink>
-                                            </li>
-                                        </Link>
-                                        <Link to="/dashboard/categories">
-                                            <li>
-                                                <SubMenuLink>
-                                                    <h4>Categories</h4>
                                                     <RightIcon
                                                         stroke={theme.primary}
                                                     />
@@ -547,8 +509,8 @@ const NotiCount = styled(Pill)`
 `;
 
 const Container = styled.div`
-    margin: 20px 20px 0px 20px;
-    background: none;
+    padding: ${props=>props.navWidth !== 300 ? "0px": "20px 20px 0px 20px"};
+    background: white;
     max-width: 300px;
     height: calc(100vh - 84px);
 `;
@@ -560,8 +522,9 @@ const Toggle = styled.div`
     -o-transition: all 0.3s ease;
     transition: all 0.3s ease;
     background-color: ${theme.primary};
-    padding: 10px 10px 6px 10px;
-    width: 46px;
+    padding: 6px 10px;
+    width: auto;
+    color: ${theme.secondary};
     border-radius: 15px;
     position: absolute;
     margin: 10px;
@@ -569,6 +532,11 @@ const Toggle = styled.div`
         transform: scale(1.05);
     }
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    svg {
+        margin-right:8px;
+    }
 `;
 
 const NavBar = styled.div`
@@ -664,10 +632,10 @@ const SubMenu = styled.div`
         display: flex;
         align-items: center;
         padding-left: 30px;
-        ::before {
+        /* ::before {
             content: "-";
             place-content: center;
-        }
+        } */
     }
 `;
 const SubMenuLink = styled.button`

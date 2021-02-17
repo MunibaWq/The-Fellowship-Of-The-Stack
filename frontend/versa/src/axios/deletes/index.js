@@ -2,6 +2,9 @@ import Axios from "axios";
 export const removeFromCart = (cartProduct, colour, size, quantity, session) => {
     Axios.delete('/api/cart/remove', { cartProduct, colour, size, quantity, session })
 }
+export const deleteImage = (id) => {
+    Axios.delete('/api/images/delete/' + id)
+}
 //import S3 from "react-aws-s3";
 //import { accessKeyId, secretKey } from "../posts/secret";
 //This file needs to be redone to move the S3 stuff to the server

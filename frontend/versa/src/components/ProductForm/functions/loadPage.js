@@ -22,6 +22,7 @@ export function loadPage(id, dispatch, type) {
                         imageFile: "update",
                         size: "full",
                         filename: picture.filename,
+                        id: picture.id
                     };
                 })
             )

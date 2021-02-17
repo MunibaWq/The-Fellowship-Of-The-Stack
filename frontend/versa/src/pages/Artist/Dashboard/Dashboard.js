@@ -32,6 +32,7 @@ import DriverMap from "../../../components/Dashboard/DriverMap";
 import AllOrders from "../../Driver/Dashboard/AllOrders";
 import DriversOrders from "../../Driver/Dashboard/DriversOrders";
 import DriversOrderItems from "../../Driver/Dashboard/DriversOrderItems";
+import NotFound from "../../NotFound";
 
 const cookies = new Cookies();
 const Redirecter = () => {
@@ -54,7 +55,7 @@ const Dashboard = () => {
         <Router>
             <Container width={navWidth}>
                 <SideNavDiv>
-                    <SideNav setNavWidth={setNavWidth} />
+                    <SideNav navWidth={navWidth} setNavWidth={setNavWidth} />
                 </SideNavDiv>
                 <Switch>
                     <PrivateRoute
@@ -169,6 +170,7 @@ const Dashboard = () => {
                         path="/driver/orders/:orderid"
                         component={DriversOrderItems}
                     />
+                    <Route component={NotFound} />
                 </Switch>
             </Container>
         </Router>
@@ -186,4 +188,6 @@ const Container = styled.div`
 
 const SideNavDiv = styled.div`
     grid-column: 1;
+    position:absolute;
+    z-index: 50;
 `;
