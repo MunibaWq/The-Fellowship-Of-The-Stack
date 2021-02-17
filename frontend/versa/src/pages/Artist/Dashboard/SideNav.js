@@ -35,7 +35,7 @@ if (isDriver) {
     userTypes.push("Driver");
 }
 console.log(isArtist);
-const SideNav = ({ setNavWidth }) => {
+const SideNav = ({ navWidth, setNavWidth }) => {
     const [visiblePSub, setVisiblePSub] = useState(false);
     const [visibleASub, setVisibleASub] = useState(false);
     const [visibleSDSub, setVisibleSDSub] = useState(false);
@@ -44,14 +44,14 @@ const SideNav = ({ setNavWidth }) => {
     const [expanded, setExpanded] = useState(false);
 
     return (
-        <Container>
+        <Container navWidth={navWidth}>
             {!expanded && (
                 <Toggle
                     onClick={() => {
                         setNavWidth(300);
                         setExpanded(true);
                     }}>
-                    <HamburgerIcon stroke={theme.secondary} />
+                    <HamburgerIcon stroke={theme.secondary} />MENU
                 </Toggle>
             )}
             {expanded && (
@@ -509,8 +509,8 @@ export default SideNav;
 // `;
 
 const Container = styled.div`
-    margin: 20px 20px 0px 20px;
-    background: none;
+    padding: ${props=>props.navWidth !== 300 ? "0px": "20px 20px 0px 20px"};
+    background: white;
     max-width: 300px;
     height: calc(100vh - 84px);
 `;
@@ -522,8 +522,9 @@ const Toggle = styled.div`
     -o-transition: all 0.3s ease;
     transition: all 0.3s ease;
     background-color: ${theme.primary};
-    padding: 10px 10px 6px 10px;
-    width: 46px;
+    padding: 6px 10px;
+    width: auto;
+    color: ${theme.secondary};
     border-radius: 15px;
     position: absolute;
     margin: 10px;
@@ -531,6 +532,11 @@ const Toggle = styled.div`
         transform: scale(1.05);
     }
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    svg {
+        margin-right:8px;
+    }
 `;
 
 const NavBar = styled.div`

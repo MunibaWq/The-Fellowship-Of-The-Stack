@@ -32,7 +32,7 @@ const SideNav = ({ setNavWidth }) => {
                         setNavWidth(300);
                         setExpanded(true);
                     }}>
-                    <HamburgerIcon stroke={theme.secondary} />
+                    <HamburgerIcon stroke={theme.secondary} />Menu
                 </Toggle>
             )}
             {expanded && (
@@ -175,7 +175,7 @@ const Toggle = styled.div`
     transition: all 0.3s ease;
     background-color: ${theme.primary};
     padding: 10px 10px 6px 10px;
-    width: 46px;
+    width: auto;
     border-radius: 15px;
     position: absolute;
     margin: 10px;

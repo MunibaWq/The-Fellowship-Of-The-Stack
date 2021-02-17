@@ -142,6 +142,7 @@ const TotalSales = () => {
 export default TotalSales;
 
 const SBPContainer = styled.div`
+    width: 100vw;
     padding: 2em 2em 2em calc(2em + 66px);
 
     h1 {
