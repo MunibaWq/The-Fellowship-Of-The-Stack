@@ -24,8 +24,8 @@ const Account = () => {
     return (
         <>
             {user && (
-                <>
-                    <Container>
+                <Container>
+                    <LeftContainer>
                         <StyledLink
                             onClick={() => {
                                 axiosLogout();
@@ -36,27 +36,28 @@ const Account = () => {
                             <AddIcon stroke={theme.primary} />
                             Sign Out
                         </StyledLink>
-
+                    </LeftContainer>
+                    <RightContainer>
                         <StyledLink secondary to="/edit-account">
                             <EditIcon stroke={theme.primary} />
                             Edit your account
                         </StyledLink>
-                    </Container>
-                </>
+                    </RightContainer>
+                </Container>
             )}
             {!user && (
                 <Container>
                     <LeftContainer>
                         JOIN USSS..
                         <StyledLink secondary to="/create-account">
-                            <AddIcon stroke={theme.primary} />
+                            {/* <AddIcon stroke={theme.primary} /> */}
                             Create a new account
                         </StyledLink>
                     </LeftContainer>
                     <RightContainer>
                         Welcome BACK!
                         <StyledLink secondary to="/log-in">
-                            <AddIcon stroke={theme.primary} />
+                            {/* <AddIcon stroke={theme.primary} /> */}
                             Log In
                         </StyledLink>
                     </RightContainer>
