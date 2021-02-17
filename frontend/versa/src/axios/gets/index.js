@@ -69,8 +69,12 @@ export const getAllArtistEvents = async id => {
 };
 
 export const getMyArtistEvents = async () => {
-    let res = await Axios.get("/api/events/myArtistsEvents/");
-    return res.data;
+    try {
+        let res = await Axios.get("/api/events/myArtistsEvents/");
+        return res.data;
+    } catch (e) {
+        console.log(e);
+    }
 };
 
 export const getEventByID = async id => {
@@ -118,8 +122,12 @@ export const getCartItem = async (cartProduct, colour, size, session) => {
     return response.data;
 };
 export const getCart = async session => {
-    const response = await Axios.get(`/api/cart/${session}`);
-    return response.data;
+    try {
+        const response = await Axios.get(`/api/cart/${session}`);
+        return response.data;
+    } catch (e) {
+        console.log(e);
+    }
 };
 export const getOrdersReadyForDelivery = async () => {
     const response = await Axios.get(`/api/dashboard/ready-for-delivery`);

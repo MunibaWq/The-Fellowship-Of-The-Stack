@@ -8,7 +8,6 @@ const auth = async (req, res, next) => {
         const user = await pool.query(`SELECT * FROM users WHERE id = $1`, [
             decoded.id,
         ]);
-        //const user = await User.findOne({ _id: decoded._id });
         if (!user.rows) {
             throw new Error("no user");
         }
@@ -24,14 +23,15 @@ const auth = async (req, res, next) => {
         res.cookie("name", req.user.name, { maxAge: Infinity + 1 });
         next(); //next just means that we are done here so send it off to the endpoint function, so this fxn goes to the next router fxn
     } catch (e) {
-        console.log("error");
+        console.log(e);
 
         res.cookie("token", "", { maxAge: 0 });
         res.cookie("name", "", { maxAge: 0 });
         res.cookie("isArtist", "", { maxAge: 0 });
-        res.cookie("isDriver", "", { maxAge: 0 })
+        res
+            .cookie("isDriver", "", { maxAge: 0 })
             .status(401)
-            .json({ error: "Please authenticate" });
+            .json({ error: "Please authenticate", details: e });
     }
 };
 

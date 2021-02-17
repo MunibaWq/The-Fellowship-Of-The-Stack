@@ -15,8 +15,12 @@ const DashboardEvents = () => {
 
     useEffect(() => {
         const getMyEvents = async () => {
-            let data = await getMyArtistEvents();
-            setEventsData(data);
+            try {
+                let data = await getMyArtistEvents();
+                setEventsData(data);
+            } catch (e) {
+                console.log(e);
+            }
         };
         getMyEvents();
     }, []);
