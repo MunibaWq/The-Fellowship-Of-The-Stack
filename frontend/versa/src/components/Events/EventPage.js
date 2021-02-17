@@ -22,7 +22,6 @@ const EventPage = () => {
         const findUser = async () => {
             const response = await getUser();
             setIsUser(response);
-            console.log(response);
         };
         findUser();
     }, []);
@@ -37,19 +36,21 @@ const EventPage = () => {
         attendStatus();
     }, [currentEvent]);
 
-    useEffect(() => {
-        if (going === false) {
-            deleteUserFromEventByID(currentEvent);
-        } else {
-            userGoing(currentEvent);
-        }
-    }, []);
+    // useEffect(() => {
+    //     if (going === false) {
+    //         deleteUserFromEventByID(currentEvent);
+    //         console.log("going is false" + going);
+    //     } else {
+    //         userGoing(currentEvent);
+    //         console.log("going is false" + going);
+    //     }
+    // }, []);
 
     useEffect(() => {
         const fetchEvent = async () => {
             const data = await getEventByID(currentEvent);
             setEventData(data);
-            console.log(data);
+            // console.log(data);
             return data;
         };
         fetchEvent().then((data) => {
@@ -116,7 +117,6 @@ const EventPage = () => {
                             ? "  " + eventData.username
                             : "Loading Host Name"}
                     </h2>
-
                     <Details>
                         <h3>Date: </h3>
                         <p>
@@ -125,7 +125,6 @@ const EventPage = () => {
                                 : "Loading dates"}
                         </p>
                     </Details>
-
                     <Details>
                         <h3>Time: </h3>
                         <p>
@@ -150,7 +149,6 @@ const EventPage = () => {
                             <p>{eventData ? eventData.num_attending : "0"} </p>
                         </Stats>
                     </Details>
-
                     <Description>
                         <h3>Description</h3>
                         <p>
@@ -159,33 +157,49 @@ const EventPage = () => {
                                 : "Loading description..."}
                         </p>
                     </Description>
-
                     {going === "unset" && (
                         <Button
                             primary
                             onClick={() => {
-                                if (isUser) {
-                                    setGoing(true);
-                                    console.log("true");
+                                if (going) {
+                                    if (isUser) {
+                                        setGoing(true);
+                                        console.log("true");
+                                    } else {
+                                        routeChange();
+                                    }
                                 } else {
-                                    routeChange();
+                                    if (isUser) {
+                                        userGoing(currentEvent);
+                                    } else {
+                                        routeChange();
+                                    }
                                 }
+                                setGoing((curr) => !curr);
                             }}>
                             <Going stroke={theme.secondary} />
                             Attend Event
                         </Button>
                     )}
-
                     {going === true && (
                         <Button
                             primary
                             onClick={() => {
-                                if (isUser) {
-                                    setGoing(false);
-                                    console.log("true");
+                                if (going) {
+                                    if (isUser) {
+                                        setGoing(true);
+                                        console.log("true");
+                                    } else {
+                                        routeChange();
+                                    }
                                 } else {
-                                    routeChange();
+                                    if (isUser) {
+                                        userGoing(currentEvent);
+                                    } else {
+                                        routeChange();
+                                    }
                                 }
+                                setGoing((curr) => !curr);
                             }}>
                             <NotGoing stroke={theme.secondary} />
                             Not Going
