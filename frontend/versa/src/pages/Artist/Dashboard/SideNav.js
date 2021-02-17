@@ -35,7 +35,7 @@ if (isDriver) {
     userTypes.push("Driver");
 }
 console.log(isArtist);
-const SideNav = ({ setNavWidth }) => {
+const SideNav = ({ navWidth, setNavWidth }) => {
     const [visiblePSub, setVisiblePSub] = useState(false);
     const [visibleASub, setVisibleASub] = useState(false);
     const [visibleSDSub, setVisibleSDSub] = useState(false);
@@ -44,7 +44,7 @@ const SideNav = ({ setNavWidth }) => {
     const [expanded, setExpanded] = useState(false);
 
     return (
-        <Container>
+        <Container navWidth={navWidth}>
             {!expanded && (
                 <Toggle
                     onClick={() => {
@@ -110,7 +110,7 @@ const SideNav = ({ setNavWidth }) => {
                             <li>
                                 <MenuLink>
                                     <HomeIcon />
-                                    <h3>Home</h3>
+                                    <h4>Home</h4>
                                     <RightIcon stroke={theme.primary} />
                                 </MenuLink>
                             </li>
@@ -125,7 +125,7 @@ const SideNav = ({ setNavWidth }) => {
                                         <PaintBrushIcon
                                             stroke={theme.tertiary}
                                         />
-                                        <h3>Artist Dashboard</h3>
+                                        <h4>Artist Dashboard</h4>
                                         <DownIcon stroke={theme.primary} />
                                     </MenuLink>
                                 </li>
@@ -146,9 +146,9 @@ const SideNav = ({ setNavWidth }) => {
                                             <li>
                                                 <MenuLink>
                                                     <Orders />
-                                                    <NotiCount>
+                                                    {/*<NotiCount>
                                                         <p>3</p>
-                                                    </NotiCount>
+                                                    </NotiCount>*/}
                                                     <h3>Orders</h3>
 
                                                     <RightIcon
@@ -243,9 +243,9 @@ const SideNav = ({ setNavWidth }) => {
                                         <Link to="/dashboard/manage-events">
                                             <li>
                                                 <MenuLink>
-                                                    <NotiCount>
+                                                    {/*<NotiCount>
                                                         <p>3</p>
-                                                    </NotiCount>
+                                                    </NotiCount>*/}
                                                     <EventsIcon />
                                                     <h3>Events</h3>
                                                     <RightIcon
@@ -264,7 +264,7 @@ const SideNav = ({ setNavWidth }) => {
                                     setVisibleSDSub((curr) => !curr)
                                 }>
                                 <Products />
-                                <h3>Shop Dashboard</h3>
+                                <h4>Shop Dashboard</h4>
                                 <DownIcon stroke={theme.primary} />
                             </MenuLink>
                         </li>
@@ -274,9 +274,9 @@ const SideNav = ({ setNavWidth }) => {
                                     <li>
                                         <MenuLink>
                                             <Orders />
-                                            <NotiCount>
+                                            {/*<NotiCount>
                                                 <p>3</p>
-                                            </NotiCount>
+                                            </NotiCount>*/}
                                             <h3>Orders</h3>
 
                                             <RightIcon stroke={theme.primary} />
@@ -366,9 +366,9 @@ const SideNav = ({ setNavWidth }) => {
                                 <Link to="/dashboard/manage-events">
                                     <li>
                                         <MenuLink>
-                                            <NotiCount>
+                                            {/*<NotiCount>
                                                 <p>3</p>
-                                            </NotiCount>
+                                            </NotiCount>*/}
                                             <EventsIcon />
                                             <h3>Events</h3>
                                             <RightIcon stroke={theme.primary} />
@@ -385,7 +385,7 @@ const SideNav = ({ setNavWidth }) => {
                                             setVisibleDDSub((curr) => !curr)
                                         }>
                                         <CarIcon stroke={theme.tertiary} />
-                                        <h3>Driver Dashboard</h3>
+                                        <h4>Driver Dashboard</h4>
                                         <DownIcon stroke={theme.primary} />
                                     </MenuLink>
                                 </li>
@@ -407,9 +407,9 @@ const SideNav = ({ setNavWidth }) => {
                                             <li>
                                                 <MenuLink>
                                                     <Orders />
-                                                    <NotiCount>
+                                                    {/*<NotiCount>
                                                         <p>3</p>
-                                                    </NotiCount>
+                                                    </NotiCount>*/}
                                                     <h3>Delivery</h3>
 
                                                     <RightIcon
@@ -479,9 +479,9 @@ const SideNav = ({ setNavWidth }) => {
                                         <Link to="/dashboard/manage-events">
                                             <li>
                                                 <MenuLink>
-                                                    <NotiCount>
+                                                    {/* <NotiCount>
                                                         <p>3</p>
-                                                    </NotiCount>
+                                            </NotiCount>*/}
                                                     <EventsIcon />
                                                     <h3>Events</h3>
                                                     <RightIcon
@@ -503,16 +503,15 @@ const SideNav = ({ setNavWidth }) => {
 
 export default SideNav;
 
-const NotiCount = styled(Pill)`
-    position: absolute;
-    transform: translate(20px, -10px);
-`;
+// const NotiCount = styled(Pill)`
+//     position: absolute;
+//     transform: translate(20px, -10px);
+// `;
 
 const Container = styled.div`
-    margin: 20px 20px 0px 20px;
-    background: none;
-    max-width: 300px;
-    height: calc(100vh - 84px);
+    padding: ${(props) => (props.navWidth !== 300 ? "0px" : "1em")};
+    background: white;
+    height: fit-content;
 `;
 
 const Toggle = styled.div`
@@ -522,8 +521,9 @@ const Toggle = styled.div`
     -o-transition: all 0.3s ease;
     transition: all 0.3s ease;
     background-color: ${theme.primary};
-    padding: 10px 10px 6px 10px;
-    width: 46px;
+    padding: 6px 10px;
+    width: auto;
+    color: ${theme.secondary};
     border-radius: 15px;
     position: absolute;
     margin: 10px;
@@ -531,6 +531,11 @@ const Toggle = styled.div`
         transform: scale(1.05);
     }
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    svg {
+        margin-right: 8px;
+    }
 `;
 
 const NavBar = styled.div`
@@ -540,9 +545,9 @@ const NavBar = styled.div`
     -o-transition: all 0.3s ease;
     transition: all 0.3s ease;
     background: white;
-    position: absolute;
-    z-index: 999;
-    top: 6vh;
+    position: sticky;
+    min-width: 300px;
+    left: -300px;
 `;
 
 const Close = styled.div`
@@ -580,6 +585,7 @@ const UserType = styled.p`
 `;
 const Menu = styled.ul`
     list-style: none;
+
     -webkit-transition: all 0.3s ease;
     -moz-transition: all 0.3s ease;
     -ms-transition: all 0.3s ease;
@@ -591,6 +597,7 @@ const MenuLink = styled.button`
     border: none;
     background-color: white;
     width: 100%;
+
     padding: 10px;
     display: flex;
     flex-direction: row;
@@ -608,13 +615,14 @@ const MenuLink = styled.button`
     :active {
         background-color: #d0dfff;
         outline: none;
-        h3 {
-            font-weight: 700;
-        }
     }
-
     h3 {
-        font-size: 1em;
+        font-size: 0.9em;
+    }
+    h4 {
+        text-transform: uppercase;
+        font-weight: 700;
+        font-size: 0.8em;
     }
 `;
 const SubMenu = styled.div`
@@ -623,6 +631,8 @@ const SubMenu = styled.div`
     -ms-transition: all 0.3s ease;
     -o-transition: all 0.3s ease;
     transition: all 0.3s ease;
+    background: ${theme.secondary};
+    min-width: 300px;
     li {
         display: flex;
         align-items: center;
@@ -639,10 +649,12 @@ const SubMenuLink = styled.button`
     background-color: white;
     width: 100%;
     padding: 8px 8px 8px 10px;
+
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+
     -webkit-transition: all 0.3s ease;
     -moz-transition: all 0.3s ease;
     -ms-transition: all 0.3s ease;

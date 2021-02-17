@@ -11,9 +11,14 @@ export const getProductByID = async (currentProduct) => {
     return response.data;
 };
 export const getUser = async () => {
-    const response = await Axios.get("/api/users/get");
-    return response.data;
+    try {
+        const response = await Axios.get("/api/users/get");
+        return response.data;
+    } catch {
+        return false;
+    }
 };
+
 export const getAllProducts = async () => {
     let res = await Axios.get("/api/products/allProducts/", {
         headers: {

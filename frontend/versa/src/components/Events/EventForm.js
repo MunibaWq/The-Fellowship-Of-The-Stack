@@ -18,6 +18,9 @@ import {
 import { ImageInput } from "../ProductForm/ImageInput";
 import { mapImages } from "../ProductForm/maps/mapImages";
 import { userGoing, createEvent } from "../../axios/posts";
+import { StyledLink } from "../Reusable/Link";
+import { LineCloseIcon } from "../../images/icons";
+import theme from "../Reusable/Colors";
 
 const options = [
     "Select one:",
@@ -310,7 +313,15 @@ const EventForm = (props) => {
                 Post your event so people can see your event!
             </Instruction>
             <RowContainer>
-                <Container>
+                    <Container>
+                    <StyledLink to="/dashboard">
+                        <LineCloseIcon
+                            width="32"
+                            height="32"
+                            stroke={theme.primary}
+                        />
+                        Cancel
+                    </StyledLink>
                     <Button primary onClick={submitData}>
                         Submit
                     </Button>

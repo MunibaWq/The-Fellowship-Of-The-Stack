@@ -55,7 +55,7 @@ const Dashboard = () => {
         <Router>
             <Container width={navWidth}>
                 <SideNavDiv>
-                    <SideNav setNavWidth={setNavWidth} />
+                    <SideNav navWidth={navWidth} setNavWidth={setNavWidth} />
                 </SideNavDiv>
                 <Switch>
                     <PrivateRoute
@@ -185,4 +185,8 @@ const Container = styled.div`
 //     grid-column: 2;
 // `;
 
-const SideNavDiv = styled.div``;
+const SideNavDiv = styled.div`
+    grid-column: 1;
+    position: absolute;
+    z-index: 50;
+`;

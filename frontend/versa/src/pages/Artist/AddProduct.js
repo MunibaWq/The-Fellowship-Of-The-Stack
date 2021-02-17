@@ -14,6 +14,7 @@ const AddProduct = () => {
 export default AddProduct;
 
 const Container = styled.div`
+width:90vw;
     margin: 2em;
     display: flex;
     flex-direction: column;

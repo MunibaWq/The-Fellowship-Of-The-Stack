@@ -121,6 +121,7 @@ const AvgOrderValue = () => {
 export default AvgOrderValue;
 
 const SBPContainer = styled.div`
+    width:100vw;
     padding: 2em 2em 2em calc(2em + 66px);
     min-height: 100vh;
 
