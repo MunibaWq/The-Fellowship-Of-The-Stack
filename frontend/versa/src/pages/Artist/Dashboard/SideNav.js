@@ -110,7 +110,7 @@ const SideNav = ({ navWidth, setNavWidth }) => {
                             <li>
                                 <MenuLink>
                                     <HomeIcon />
-                                    <h4>Home</h4>
+                                    <h3>Home</h3>
                                     <RightIcon stroke={theme.primary} />
                                 </MenuLink>
                             </li>
@@ -125,7 +125,7 @@ const SideNav = ({ navWidth, setNavWidth }) => {
                                         <PaintBrushIcon
                                             stroke={theme.tertiary}
                                         />
-                                        <h4>Artist Dashboard</h4>
+                                        <h3>Artist Dashboard</h3>
                                         <DownIcon stroke={theme.primary} />
                                     </MenuLink>
                                 </li>
@@ -146,9 +146,9 @@ const SideNav = ({ navWidth, setNavWidth }) => {
                                             <li>
                                                 <MenuLink>
                                                     <Orders />
-                                                    {/*<NotiCount>
+                                                    <NotiCount>
                                                         <p>3</p>
-                                                    </NotiCount>*/}
+                                                    </NotiCount>
                                                     <h3>Orders</h3>
 
                                                     <RightIcon
@@ -243,9 +243,9 @@ const SideNav = ({ navWidth, setNavWidth }) => {
                                         <Link to="/dashboard/manage-events">
                                             <li>
                                                 <MenuLink>
-                                                    {/*<NotiCount>
+                                                    <NotiCount>
                                                         <p>3</p>
-                                                    </NotiCount>*/}
+                                                    </NotiCount>
                                                     <EventsIcon />
                                                     <h3>Events</h3>
                                                     <RightIcon
@@ -264,7 +264,7 @@ const SideNav = ({ navWidth, setNavWidth }) => {
                                     setVisibleSDSub((curr) => !curr)
                                 }>
                                 <Products />
-                                <h4>Shop Dashboard</h4>
+                                <h3>Shop Dashboard</h3>
                                 <DownIcon stroke={theme.primary} />
                             </MenuLink>
                         </li>
@@ -274,9 +274,9 @@ const SideNav = ({ navWidth, setNavWidth }) => {
                                     <li>
                                         <MenuLink>
                                             <Orders />
-                                            {/*<NotiCount>
+                                            <NotiCount>
                                                 <p>3</p>
-                                            </NotiCount>*/}
+                                            </NotiCount>
                                             <h3>Orders</h3>
 
                                             <RightIcon stroke={theme.primary} />
@@ -366,9 +366,9 @@ const SideNav = ({ navWidth, setNavWidth }) => {
                                 <Link to="/dashboard/manage-events">
                                     <li>
                                         <MenuLink>
-                                            {/*<NotiCount>
+                                            <NotiCount>
                                                 <p>3</p>
-                                            </NotiCount>*/}
+                                            </NotiCount>
                                             <EventsIcon />
                                             <h3>Events</h3>
                                             <RightIcon stroke={theme.primary} />
@@ -385,7 +385,7 @@ const SideNav = ({ navWidth, setNavWidth }) => {
                                             setVisibleDDSub((curr) => !curr)
                                         }>
                                         <CarIcon stroke={theme.tertiary} />
-                                        <h4>Driver Dashboard</h4>
+                                        <h3>Driver Dashboard</h3>
                                         <DownIcon stroke={theme.primary} />
                                     </MenuLink>
                                 </li>
@@ -407,9 +407,9 @@ const SideNav = ({ navWidth, setNavWidth }) => {
                                             <li>
                                                 <MenuLink>
                                                     <Orders />
-                                                    {/*<NotiCount>
+                                                    <NotiCount>
                                                         <p>3</p>
-                                                    </NotiCount>*/}
+                                                    </NotiCount>
                                                     <h3>Delivery</h3>
 
                                                     <RightIcon
@@ -479,9 +479,9 @@ const SideNav = ({ navWidth, setNavWidth }) => {
                                         <Link to="/dashboard/manage-events">
                                             <li>
                                                 <MenuLink>
-                                                    {/* <NotiCount>
+                                                    <NotiCount>
                                                         <p>3</p>
-                                            </NotiCount>*/}
+                                                    </NotiCount>
                                                     <EventsIcon />
                                                     <h3>Events</h3>
                                                     <RightIcon
@@ -503,10 +503,10 @@ const SideNav = ({ navWidth, setNavWidth }) => {
 
 export default SideNav;
 
-// const NotiCount = styled(Pill)`
-//     position: absolute;
-//     transform: translate(20px, -10px);
-// `;
+const NotiCount = styled(Pill)`
+    position: absolute;
+    transform: translate(20px, -10px);
+`;
 
 const Container = styled.div`
     padding: ${props=>props.navWidth !== 300 ? "0px": "20px 20px 0px 20px"};
@@ -548,8 +548,6 @@ const NavBar = styled.div`
     left: -300px;
     background: white;
     position: sticky;
-    margin: 20px 20px 0px 20px;
-    position: absolute;
 `;
 
 const Close = styled.div`
@@ -621,12 +619,7 @@ const MenuLink = styled.button`
     }
 
     h3 {
-        font-size: 0.9em;
-    }
-    h4 {
-        text-transform: uppercase;
-        font-weight: 700;
-        font-size: 0.8em;
+        font-size: 1em;
     }
 `;
 const SubMenu = styled.div`
@@ -638,7 +631,7 @@ const SubMenu = styled.div`
     li {
         display: flex;
         align-items: center;
-        /* padding-left: 30px; */
+        padding-left: 30px;
         /* ::before {
             content: "-";
             place-content: center;
