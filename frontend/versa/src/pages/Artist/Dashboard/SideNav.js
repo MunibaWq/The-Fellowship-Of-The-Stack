@@ -129,7 +129,7 @@ const SideNav = ({ navWidth, setNavWidth }) => {
                                 </li>
                                 {visibleADSub && (
                                     <SubMenu>
-                                        <Link to="/artistDashboard">
+                                        <Link to="/dashboard/artist">
                                             <li>
                                                 <MenuLink>
                                                     <ShopHome />
@@ -140,7 +140,7 @@ const SideNav = ({ navWidth, setNavWidth }) => {
                                                 </MenuLink>
                                             </li>
                                         </Link>
-                                        <Link to="/dashboard/recent-orders/">
+                                        <Link to="/dashboard/artist/recent-orders/">
                                             <li>
                                                 <MenuLink>
                                                     <Orders />
@@ -155,7 +155,7 @@ const SideNav = ({ navWidth, setNavWidth }) => {
                                                 </MenuLink>
                                             </li>
                                         </Link>
-                                        <Link to="/dashboard/inventory">
+                                        <Link to="/dashboard/artist/inventory">
                                             <li>
                                                 <MenuLink>
                                                     <InventoryIcon />
@@ -181,7 +181,7 @@ const SideNav = ({ navWidth, setNavWidth }) => {
 
                                         {visibleASub && (
                                             <SubMenu>
-                                                <Link to="/dashboard/total-sales/">
+                                                <Link to="/dashboard/artist/total-sales/">
                                                     <li>
                                                         <SubMenuLink>
                                                             <h4>Total Sales</h4>
@@ -193,7 +193,7 @@ const SideNav = ({ navWidth, setNavWidth }) => {
                                                         </SubMenuLink>
                                                     </li>
                                                 </Link>
-                                                <Link to="/dashboard/total-orders/">
+                                                <Link to="/dashboard/artist/total-orders/">
                                                     <li>
                                                         <SubMenuLink>
                                                             <h4>
@@ -207,7 +207,7 @@ const SideNav = ({ navWidth, setNavWidth }) => {
                                                         </SubMenuLink>
                                                     </li>
                                                 </Link>
-                                                <Link to="/dashboard/average-order-value/">
+                                                <Link to="/dashboard/artist/average-order-value/">
                                                     <li>
                                                         <SubMenuLink>
                                                             <h4>
@@ -222,7 +222,7 @@ const SideNav = ({ navWidth, setNavWidth }) => {
                                                         </SubMenuLink>
                                                     </li>
                                                 </Link>
-                                                <Link to="/dashboard/sales-by-products/">
+                                                <Link to="/dashboard/artist/sales-by-products/">
                                                     <li>
                                                         <SubMenuLink>
                                                             <h4>
@@ -238,7 +238,7 @@ const SideNav = ({ navWidth, setNavWidth }) => {
                                                 </Link>
                                             </SubMenu>
                                         )}
-                                        <Link to="/dashboard/manage-events">
+                                        <Link to="/dashboard/artist/manage-events">
                                             <li>
                                                 <MenuLink>
                                                     {/*<NotiCount>
@@ -262,13 +262,13 @@ const SideNav = ({ navWidth, setNavWidth }) => {
                                     setVisibleSDSub((curr) => !curr)
                                 }>
                                 <Products />
-                                <h4>Shop Dashboard</h4>
+                                <h4>Shopper Dashboard</h4>
                                 <DownIcon stroke={theme.primary} />
                             </MenuLink>
                         </li>
                         {visibleSDSub && (
                             <SubMenu>
-                                <Link to="/dashboard/recent-orders/">
+                                <Link to="/dashboard/shopper/order-tracking/">
                                     <li>
                                         <MenuLink>
                                             <Orders />
@@ -281,87 +281,8 @@ const SideNav = ({ navWidth, setNavWidth }) => {
                                         </MenuLink>
                                     </li>
                                 </Link>
-                                <li>
-                                    <MenuLink
-                                        onClick={() =>
-                                            setVisiblePSub(!visiblePSub)
-                                        }>
-                                        <Products />
-                                        <h3>Products</h3>
-                                        <DownIcon stroke={theme.primary} />
-                                    </MenuLink>
-                                </li>
-                                {visiblePSub && (
-                                    <SubMenu>
-                                        <Link to="/dashboard/inventory">
-                                            <li>
-                                                <SubMenuLink>
-                                                    <h4>Inventory</h4>
-                                                    <RightIcon
-                                                        stroke={theme.primary}
-                                                    />
-                                                </SubMenuLink>
-                                            </li>
-                                        </Link>
-                                    </SubMenu>
-                                )}
 
-                                <li>
-                                    <MenuLink
-                                        onClick={() =>
-                                            setVisibleASub(!visibleASub)
-                                        }>
-                                        <Dashboard />
-                                        <h3>Analytics</h3>
-                                        <DownIcon stroke={theme.primary} />
-                                    </MenuLink>
-                                </li>
-
-                                {visibleASub && (
-                                    <SubMenu>
-                                        <Link to="/dashboard/total-sales/">
-                                            <li>
-                                                <SubMenuLink>
-                                                    <h4>Total Sales</h4>
-                                                    <RightIcon
-                                                        stroke={theme.primary}
-                                                    />
-                                                </SubMenuLink>
-                                            </li>
-                                        </Link>
-                                        <Link to="/dashboard/total-orders/">
-                                            <li>
-                                                <SubMenuLink>
-                                                    <h4>Total Orders</h4>
-                                                    <RightIcon
-                                                        stroke={theme.primary}
-                                                    />
-                                                </SubMenuLink>
-                                            </li>
-                                        </Link>
-                                        <Link to="/dashboard/average-order-value/">
-                                            <li>
-                                                <SubMenuLink>
-                                                    <h4>Average Order Value</h4>
-                                                    <RightIcon
-                                                        stroke={theme.primary}
-                                                    />
-                                                </SubMenuLink>
-                                            </li>
-                                        </Link>
-                                        <Link to="/dashboard/sales-by-products/">
-                                            <li>
-                                                <SubMenuLink>
-                                                    <h4>Sales by Product</h4>
-                                                    <RightIcon
-                                                        stroke={theme.primary}
-                                                    />
-                                                </SubMenuLink>
-                                            </li>
-                                        </Link>
-                                    </SubMenu>
-                                )}
-                                <Link to="/dashboard/manage-events">
+                                <Link to="/dashboard/shopper/events-attending">
                                     <li>
                                         <MenuLink>
                                             {/*<NotiCount>
@@ -389,7 +310,7 @@ const SideNav = ({ navWidth, setNavWidth }) => {
                                 </li>
                                 {visibleDDSub && (
                                     <SubMenu>
-                                        <Link to="/driverDashboard">
+                                        <Link to="/dashboard/driver">
                                             <li>
                                                 <MenuLink>
                                                     <AccountIcon />
@@ -401,7 +322,7 @@ const SideNav = ({ navWidth, setNavWidth }) => {
                                                 </MenuLink>
                                             </li>
                                         </Link>
-                                        <Link to="/driver/delivery">
+                                        <Link to="/dashboard/driver/delivery">
                                             <li>
                                                 <MenuLink>
                                                     <Orders />
@@ -430,7 +351,7 @@ const SideNav = ({ navWidth, setNavWidth }) => {
                                         </li>
                                         {visiblePSub && (
                                             <SubMenu>
-                                                <Link to="/driver/orders">
+                                                <Link to="/dashboard/driver/orders">
                                                     <li>
                                                         <SubMenuLink>
                                                             <h4>
@@ -445,7 +366,7 @@ const SideNav = ({ navWidth, setNavWidth }) => {
                                                         </SubMenuLink>
                                                     </li>
                                                 </Link>
-                                                <Link to="/driver/order-history">
+                                                <Link to="/dashboard/driver/order-history">
                                                     <li>
                                                         <SubMenuLink>
                                                             <h4>
@@ -461,33 +382,6 @@ const SideNav = ({ navWidth, setNavWidth }) => {
                                                 </Link>
                                             </SubMenu>
                                         )}
-
-                                        <li>
-                                            <MenuLink
-                                                onClick={() =>
-                                                    setVisibleASub(!visibleASub)
-                                                }>
-                                                <Dashboard />
-                                                <h3>Analytics</h3>
-                                                <RightIcon
-                                                    stroke={theme.primary}
-                                                />
-                                            </MenuLink>
-                                        </li>
-                                        <Link to="/dashboard/manage-events">
-                                            <li>
-                                                <MenuLink>
-                                                    {/* <NotiCount>
-                                                        <p>3</p>
-                                            </NotiCount>*/}
-                                                    <EventsIcon />
-                                                    <h3>Events</h3>
-                                                    <RightIcon
-                                                        stroke={theme.primary}
-                                                    />
-                                                </MenuLink>
-                                            </li>
-                                        </Link>
                                     </SubMenu>
                                 )}
                             </>

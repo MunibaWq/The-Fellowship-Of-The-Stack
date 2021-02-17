@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { getRecentOrders } from "../../../axios/gets";
 import Loading from "../../../components/Reusable/Loading";
 import OrdersTable from "../../../components/Dashboard/AnalyticsTables/OrdersTable";
+import { StyledLink } from "../../../components/Reusable/Link";
 
 const Orders = () => {
     const [orderData, setOrderData] = useState();
@@ -24,6 +25,7 @@ const Orders = () => {
 
     return (
         <OrderContainer>
+            <StyledLink to="/dashboard/artist" />
             <h1>Recent Orders</h1>
             {!orderData ? (
                 <Loading />

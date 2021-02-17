@@ -5,6 +5,7 @@ import { getAvgOrderValue } from "../../../axios/gets";
 import Loading from "../../../components/Reusable/Loading";
 import theme from "../../../components/Reusable/Colors";
 import { Circle } from "../../../images/icons";
+import Button from "../../../components/Reusable/Button";
 
 const AvgOrderValue = () => {
     const [salesData, setSalesData] = useState();
@@ -32,7 +33,7 @@ const AvgOrderValue = () => {
 
     return (
         <SBPContainer>
-            {/*<Button to="/dashboard">Back to Dashboard</Button>*/}
+            <Button to="/dashboard/artist">Back to Dashboard</Button>
             <h1>Average Order Value Per Day</h1>
             {!salesData ? (
                 <Loading />
@@ -121,7 +122,7 @@ const AvgOrderValue = () => {
 export default AvgOrderValue;
 
 const SBPContainer = styled.div`
-    width:100vw;
+    width: 100vw;
     padding: 2em 2em 2em calc(2em + 66px);
     min-height: 100vh;
 

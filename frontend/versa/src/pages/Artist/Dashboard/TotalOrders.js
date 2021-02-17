@@ -5,6 +5,7 @@ import { getTotalOrders } from "../../../axios/gets";
 import Loading from "../../../components/Reusable/Loading";
 import theme from "../../../components/Reusable/Colors";
 import { Circle } from "../../../images/icons";
+import Button from "../../../components/Reusable/Button";
 
 const TotalOrders = () => {
     const [salesData, setSalesData] = useState();
@@ -44,7 +45,7 @@ const TotalOrders = () => {
 
     return (
         <SBPContainer>
-            {/*<Button to="/dashboard">Back to Dashboard</Button>*/}
+            <Button to="/dashboard/artist">Back to Dashboard</Button>
             <h1>Order Totals per Day</h1>
             {!salesData ? (
                 <Loading />
@@ -156,7 +157,7 @@ const TotalOrders = () => {
 export default TotalOrders;
 
 const SBPContainer = styled.div`
-width: 100vw;
+    width: 100vw;
     padding: 2em 2em 2em calc(2em + 66px);
 
     h1 {

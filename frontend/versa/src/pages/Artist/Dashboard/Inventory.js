@@ -71,7 +71,7 @@ const Inventory = (currentProduct) => {
     };
     return (
         <Container>
-            <Link to="/dashboard/products/create">
+            <Link to="/dashboard/artist/products/create">
                 <Button secondary style={{ float: "right" }}>
                     Create a new product
                     <AddIcon stroke={theme.primary} />
@@ -196,7 +196,7 @@ export default Inventory;
 const Container = styled.div`
     padding: 2em;
     min-height: 100vh;
-    width:100vw;
+    width: 100vw;
 `;
 
 export const TableStyle = styled.table`
