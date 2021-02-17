@@ -24,7 +24,7 @@ const DriversOrders = () => {
 
     return (
         <OrderContainer>
-            <h1>Orders to Fulfill</h1>
+            <h1>Orders to Deliver</h1>
             {!orderData ? (
                 <Loading />
             ) : (

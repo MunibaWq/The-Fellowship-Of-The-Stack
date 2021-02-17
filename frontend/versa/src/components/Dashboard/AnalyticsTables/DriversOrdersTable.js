@@ -117,7 +117,8 @@ const DriversOrdersTable = ({ user, orderData }) => {
                                             history.push(
                                                 `/dashboard/driver/orders/${order.id}`
                                             )
-                                        }>
+                                        }
+                                        key={order.name + index}>
                                         <p>{order.id}</p>
                                     </td>
                                     <td
@@ -125,7 +126,8 @@ const DriversOrdersTable = ({ user, orderData }) => {
                                             history.push(
                                                 `/dashboard/driver/orders/${order.id}`
                                             )
-                                        }>
+                                        }
+                                        key={order.name + index}>
                                         <p>{order.username}</p>
                                     </td>
                                     <td
@@ -133,7 +135,8 @@ const DriversOrdersTable = ({ user, orderData }) => {
                                             history.push(
                                                 `/dashboard/driver/orders/${order.id}`
                                             )
-                                        }>
+                                        }
+                                        key={order.name + index}>
                                         <p>{order.address}</p>
                                     </td>
                                     <td
@@ -141,7 +144,8 @@ const DriversOrdersTable = ({ user, orderData }) => {
                                             history.push(
                                                 `/dashboard/driver/orders/${order.id}`
                                             )
-                                        }>
+                                        }
+                                        key={order.name + index}>
                                         <p>
                                             {!order.delivery_notes
                                                 ? "No delivery notes"
@@ -158,21 +162,12 @@ const DriversOrdersTable = ({ user, orderData }) => {
                                             history.push(
                                                 `/dashboard/driver/orders/${order.id}`
                                             )
-                                        }>
+                                        }
+                                        key={order.name + index}>
                                         <p>{order.shipping_address}</p>
                                     </td>
                                 </BodyRows>
                             ))}
-                        {!filteredData && (
-                            <BodyRows>
-                                <td>
-                                    <p>
-                                        No orders found. Please try searching
-                                        again.
-                                    </p>
-                                </td>
-                            </BodyRows>
-                        )}
                     </Table>
                 </>
             )}
