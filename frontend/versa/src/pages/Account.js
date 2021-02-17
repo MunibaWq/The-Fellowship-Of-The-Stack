@@ -4,61 +4,91 @@ import { useDispatch, useSelector } from "react-redux";
 import Button from "../components/Reusable/Button";
 import theme from "../components/Reusable/Colors";
 import { AddIcon, EditIcon } from "../images/icons";
-import Cookies from 'universal-cookie'
+import Cookies from "universal-cookie";
 import { login, logout } from "../redux/actions/actions";
 import { axiosLogout } from "../axios/posts";
-const cookies = new Cookies()
+import styled from "styled-components";
+import { StyledLink } from "../components/Reusable/Link";
+
+const cookies = new Cookies();
 
 const Account = () => {
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
     const user = useSelector((state) => state.user);
     useEffect(() => {
-        const userToken = cookies.get('token')
+        const userToken = cookies.get("token");
         if (userToken) {
-            dispatch(login())
+            dispatch(login());
         }
-    },[dispatch, user])
+    }, [dispatch, user]);
     return (
-        <div>
+        <>
             {user && (
-              <>
-                    <Button onClick={() => {
-                        
-                    axiosLogout()
-                    dispatch(logout())
-                    cookies.remove('token')
-                    }} secondary>
-                        <AddIcon stroke={theme.primary} />
-                        Sign Out
-                </Button>
-                <Link to="/edit-account">
-                        <Button secondary>
+                <>
+                    <Container>
+                        <StyledLink
+                            onClick={() => {
+                                axiosLogout();
+                                dispatch(logout());
+                                cookies.remove("token");
+                            }}
+                            secondary>
+                            <AddIcon stroke={theme.primary} />
+                            Sign Out
+                        </StyledLink>
+
+                        <StyledLink secondary to="/edit-account">
                             <EditIcon stroke={theme.primary} />
                             Edit your account
-                        </Button>
-                    </Link></>
-          
+                        </StyledLink>
+                    </Container>
+                </>
             )}
             {!user && (
-                <div>
-                    <Link to="/create-account">
-                        <Button secondary>
+                <Container>
+                    <LeftContainer>
+                        JOIN USSS..
+                        <StyledLink secondary to="/create-account">
                             <AddIcon stroke={theme.primary} />
                             Create a new account
-                        </Button>
-                    </Link>
-                    
-                    <Link to="/log-in">
-                        <Button secondary>
+                        </StyledLink>
+                    </LeftContainer>
+                    <RightContainer>
+                        Welcome BACK!
+                        <StyledLink secondary to="/log-in">
                             <AddIcon stroke={theme.primary} />
                             Log In
-                        </Button>
-                    </Link>
-
-                </div>
+                        </StyledLink>
+                    </RightContainer>
+                </Container>
             )}
-        </div>
+        </>
     );
 };
 
 export default Account;
+
+const LeftContainer = styled.div`
+    width: 50vw;
+    background-color: #dfdeff;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+`;
+const RightContainer = styled.div`
+    width: 50vw;
+    background-color: #fefefe;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+`;
+
+const Container = styled.div`
+    min-height: 70vh;
+
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+`;
