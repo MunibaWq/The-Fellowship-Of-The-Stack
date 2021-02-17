@@ -191,6 +191,10 @@ const Links = styled.div`
 const LinkItem = styled(StyledLink)`
     font-size: 16px;
     color: ${theme.secondary};
+    background: none;
+    border-bottom: none;
+    margin: 0;
+    padding: 5px;
     font-weight: 500;
     :hover,
     :active:active,
