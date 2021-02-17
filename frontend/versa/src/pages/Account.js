@@ -115,5 +115,15 @@ const Logo = styled.svg`
     position: absolute;
 
     top: 30%;
-    left: 41.3%;
+    left: 43.5%;
+
+    @media (max-width: 600px) {
+        top: 50%;
+        left: 30%;
+    }
+
+    @media (max-width: 800px) {
+        top: 47%;
+        left: 37%;
+    }
 `;
