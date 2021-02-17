@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 // import Icon from "../Reusable/Icons";
 import theme from "./Reusable/Colors";
-import Cookies from 'universal-cookie'
+import Cookies from "universal-cookie";
 import {
     EventsIcon,
     AccountIcon,
@@ -14,15 +14,15 @@ import {
     ShapesLogo,
     Dashboard,
 } from "../images/icons";
-import { useDispatch} from "react-redux";
+import { useDispatch } from "react-redux";
 import { login } from "../redux/actions/actions";
-const cookies = new Cookies()
+const cookies = new Cookies();
 const Navbar = () => {
-    const dispatch = useDispatch()
-    const loggedIn = cookies.get('token')
+    const dispatch = useDispatch();
+    const loggedIn = cookies.get("token");
     useEffect(() => {
-        dispatch(login)
-    },[loggedIn, dispatch])
+        dispatch(login);
+    }, [loggedIn, dispatch]);
     return (
         <Nav colors={theme}>
             <NavLink color={theme.secondary} to="/">
@@ -44,8 +44,7 @@ const Navbar = () => {
                     width="30px"
                     height="30px"
                     color={theme.secondary}
-                    to="/events"
-                >
+                    to="/events">
                     <EventsIcon stroke={theme.secondary} />
                     <WordLink>Events</WordLink>
                 </NavLink>
@@ -84,7 +83,7 @@ export const Nav = styled.nav`
     display: flex;
     justify-content: space-between;
     padding: 10px 20px;
-    z-index: 10;
+    z-index: infinity;
     position: -webkit-sticky; /* for Safari */
     position: sticky;
     top: 0;
