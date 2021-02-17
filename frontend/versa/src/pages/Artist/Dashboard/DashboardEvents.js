@@ -24,7 +24,7 @@ const DashboardEvents = () => {
     console.log(eventsData);
     return (
         <EventsContainer>
-            <StyledLink secondary to="/dashboard/events/create">
+            <StyledLink     style={{placeSelf:"end", height: "fit-content"}} secondary to="/dashboard/events/create">
                 
                     <AddIcon />
                     Create Event
@@ -47,7 +47,7 @@ const EventsContainer = styled.div`
 width:100vw;
     padding: 5em 2em;
     display: grid;
-    grid-template-rows: auto auto;
+    grid-template-rows: fit-content auto;
     /* justify-content:center; */
     min-height: 100vh;
     h1 {
