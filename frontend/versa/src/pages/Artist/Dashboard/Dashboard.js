@@ -200,5 +200,5 @@ const Container = styled.div`
 const SideNavDiv = styled.div`
     grid-column: 1;
     position: absolute;
-    z-index: 50;
+    z-index: 9;
 `;
