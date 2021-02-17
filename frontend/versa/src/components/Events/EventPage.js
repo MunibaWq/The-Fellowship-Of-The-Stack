@@ -20,6 +20,9 @@ const EventPage = () => {
     const [isUser, setIsUser] = useState();
     const [collabs, setCollabs] = useState();
 
+    //state to update attending number when user attends/unattends event
+    const [attending, setAttending] = useState();
+
     useEffect(() => {
         const findUser = async () => {
             const response = await getUser();
@@ -45,11 +48,14 @@ const EventPage = () => {
         const fetchEvent = async () => {
             const data = await getEventByID(currentEvent);
             setEventData(data);
+            setAttending(data.num_attending);
             const collaborators = await getCollabsByEventID(currentEvent);
             setCollabs(collaborators);
             console.log(collaborators);
+
             return data;
         };
+        console.log(attending);
         fetchEvent().then((data) => {
             let options = {
                 weekday: "long",
@@ -155,7 +161,7 @@ const EventPage = () => {
                     <Details>
                         <h3>Attending: </h3>
 
-                        <p>{eventData ? eventData.num_attending : "0"} </p>
+                        <p>{eventData ? attending : "0"} </p>
                     </Details>
                     <Description>
                         <h3>Description</h3>
@@ -171,6 +177,7 @@ const EventPage = () => {
                             onClick={() => {
                                 if (isUser) {
                                     userGoing(currentEvent);
+                                    setAttending(attending + 1);
                                 } else {
                                     routeChange();
                                 }
@@ -187,6 +194,7 @@ const EventPage = () => {
                             onClick={() => {
                                 if (isUser) {
                                     deleteUserFromEventByID(currentEvent);
+                                    setAttending(attending - 1);
 
                                     console.log("true");
                                 } else {
