@@ -11,13 +11,15 @@ import {
     salesByProductData,
     recentOrders,
 } from "./data";
+import Cookies from "universal-cookie";
+const cookies = new Cookies();
 const DashboardMain = () => {
     // const dispatch = useDispatch();
     // const user = useSelector((state) => state.user);
     console.log(salesData);
     return (
         <DashboardContainer>
-            <Greeting>Hello, Danielle</Greeting>
+            <Greeting>Hello, {cookies.get("name")}</Greeting>
             <StoreDash>
                 {/* <History>
                     They can toggle the date to go to past day version of
@@ -82,7 +84,7 @@ export default DashboardMain;
 const DashboardContainer = styled.div`
     padding: 2em 2em 2em calc(2em + 66px);
     background-color: #eff3fe;
-    width:100vw;
+    width: 100vw;
 `;
 
 const Orders = styled(DashCard)``;
