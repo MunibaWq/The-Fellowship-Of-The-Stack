@@ -18,7 +18,14 @@ const SalesByProduct = () => {
 
         fetchData();
     }, []);
-    let headers = ["Product Name", "Price", "# Sold", "Total Sales"];
+    let headers = [
+        "Product Name",
+        "Color",
+        "Size",
+        "Price",
+        "# Sold",
+        "Total Sales",
+    ];
     return (
         <SBPContainer>
             {/*<Button to="/dashboard">Back to Dashboard</Button>*/}
@@ -26,14 +33,19 @@ const SalesByProduct = () => {
             {!productData ? (
                 <Loading />
             ) : (
-                <div>
+                <div
+                    style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        flexWrap: "wrap",
+                    }}>
                     <PieContainer>
                         <V.VictoryPie
-                            padding={{ top: 0, left: 150, right: 150 }}
+                            padding={{ top: 0, left: 90, right: 90 }}
                             padAngle={2}
                             innerRadius={25}
-                            style={{ labels: { fontSize: 5 } }}
-                            labels={({ datum }) => `${datum.x}: $${datum.y}`}
+                            style={{ labels: { fontSize: 15 } }}
+                            labels={({ datum }) => `${datum.x}: $${+datum.y}`}
                             colorScale={[
                                 theme.primaryHover,
                                 theme.primaryHover + "cc",
@@ -42,12 +54,37 @@ const SalesByProduct = () => {
                                 theme.primaryHover + "33",
                                 theme.primaryHover + "18",
                             ]}
-                            data={productData.map((product) => {
-                                return {
-                                    x: product.title.split(" ").join(`\n`),
-                                    y: product.sum,
-                                };
-                            })}
+                            data={productData
+                                .reduce((array, product, index) => {
+                                    if (index < 4) {
+                                        array.push(product);
+                                    } else {
+                                        array[3].title = "Other";
+                                        array[3].sum =
+                                            +array[3].sum + +product.sum;
+                                    }
+
+                                    return array;
+                                }, [])
+                                .map(product => {
+                                    console.log(product);
+                                    return {
+                                        x:
+                                            product.title
+                                                .split(" ")
+                                                .join(`\n`) +
+                                            `\n${
+                                                product.size !== "O"
+                                                    ? product.size + " "
+                                                    : ""
+                                            }${
+                                                product.color !== "O"
+                                                    ? product.color
+                                                    : ""
+                                            }`,
+                                        y: +product.sum,
+                                    };
+                                })}
                         />
                     </PieContainer>
                     <SBPTable>
@@ -60,9 +97,19 @@ const SalesByProduct = () => {
                             {productData.map((product, index) => (
                                 <tr key={product.title + index}>
                                     <td>{product.title}</td>
-                                    <td>{product.sale_price}</td>
+                                    <td>
+                                        {product.color === "O"
+                                            ? "One Size"
+                                            : product.color}
+                                    </td>
+                                    <td>
+                                        {product.size === "O"
+                                            ? "One Size"
+                                            : product.size}
+                                    </td>
+                                    <td>{(+product.sale_price).toFixed(2)}</td>
                                     <td>{product.quantity}</td>
-                                    <td>{product.sum}</td>
+                                    <td>{(+product.sum).toFixed(2)}</td>
                                 </tr>
                             ))}
                         </tbody>
@@ -77,7 +124,7 @@ export default SalesByProduct;
 
 const SBPContainer = styled.div`
     width: 100vw;
-    padding: 2em 2em 2em calc(2em + 66px);
+    padding: 5em 2em;
 
     h1 {
         margin: 0 1em 2em 1em;
@@ -111,6 +158,7 @@ const SBPTable = styled.table`
 `;
 
 const PieContainer = styled.div`
+    width: 500px;
     svg {
         width: fit-content;
         height: fit-content;
