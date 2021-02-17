@@ -9,6 +9,7 @@ import { login, logout } from "../redux/actions/actions";
 import { axiosLogout } from "../axios/posts";
 import styled from "styled-components";
 import { StyledLink } from "../components/Reusable/Link";
+import Loading from "../components/Reusable/Loading";
 
 const cookies = new Cookies();
 
@@ -49,14 +50,14 @@ const Account = () => {
             {!user && (
                 <Container>
                     <LeftContainer>
-                        JOIN USSS..
+                        <TextLine>Join the Community</TextLine>
                         <StyledLink secondary to="/create-account">
                             <AddIcon stroke={theme.primary} />
                             Create a new account
                         </StyledLink>
                     </LeftContainer>
                     <RightContainer>
-                        Welcome BACK!
+                        <TextLine>Welcome Back!</TextLine>
                         <StyledLink secondary to="/log-in">
                             <AddIcon stroke={theme.primary} />
                             Log In
@@ -94,4 +95,9 @@ const Container = styled.div`
 
     display: grid;
     grid-template-columns: repeat(2, 1fr);
+`;
+
+const TextLine = styled.h1`
+    font-weight: 700;
+    padding: 5px;
 `;
