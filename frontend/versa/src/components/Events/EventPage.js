@@ -125,6 +125,7 @@ const EventPage = () => {
                                 : "Loading dates"}
                         </p>
                     </Details>
+
                     <Details>
                         <h3>Time: </h3>
                         <p>
@@ -132,6 +133,10 @@ const EventPage = () => {
                                 ? dateTime.startTime + "-" + dateTime.endTime
                                 : "Loading times"}
                         </p>
+                    </Details>
+                    <Details>
+                        <h3>Location:</h3>
+                        <p>{eventData.location}</p>
                     </Details>
                     <Details>
                         <h3>Interested: </h3>
