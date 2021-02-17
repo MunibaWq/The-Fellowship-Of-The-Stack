@@ -259,7 +259,7 @@ const Table = styled.table`
             min-width: 170px;
         }
         :nth-of-type(3) {
-            min-width: 300px;
+            min-width: 20px;
             @media screen and (max-width: 600px) {
                 display: none;
             }
@@ -271,7 +271,7 @@ const Table = styled.table`
             }
         }
         :nth-of-type(5) {
-            min-width: 180px;
+            min-width: 250px;
         }
         :nth-of-type(6) {
             min-width: 190px;
