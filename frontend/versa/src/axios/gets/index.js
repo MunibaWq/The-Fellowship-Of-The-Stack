@@ -67,7 +67,10 @@ export const getAllArtistEvents = async id => {
     let res = await Axios.get("/api/events/artistsEvents/" + id);
     return res.data;
 };
-
+export const getCollabsByEventID = async eventid => {
+    const response = await Axios.get(`/api/events/collabs/${eventid}`);
+    return response.data;
+};
 export const getMyArtistEvents = async () => {
     try {
         let res = await Axios.get("/api/events/myArtistsEvents/");
