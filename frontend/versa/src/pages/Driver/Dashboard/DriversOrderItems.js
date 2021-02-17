@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import { getOneOrder } from "../../../axios/gets";
+import { getOrdersReadyForDelivery } from "../../../axios/gets";
 import OrderItemCard from "../../../components/Dashboard/AnalyticsTables/OrderItemCard";
 import Loading from "../../../components/Reusable/Loading";
 import theme from "../../../components/Reusable/Colors";
@@ -11,17 +11,18 @@ import { StyledLink } from "../../../components/Reusable/Link";
 const DriversOrderItems = () => {
     let params = useParams();
     let orderID = params.orderid;
-
     const [orderData, setOrderData] = useState();
     const [buyerDetails, setBuyerDetails] = useState();
+
     useEffect(() => {
         const fetchData = async () => {
-            const data = await getOneOrder(orderID);
+            const data = await getOrdersReadyForDelivery();
             setBuyerDetails(data[0]);
+
             setOrderData(data);
         };
         fetchData();
-    }, [orderID]);
+    }, []);
 
     return (
         <Container>

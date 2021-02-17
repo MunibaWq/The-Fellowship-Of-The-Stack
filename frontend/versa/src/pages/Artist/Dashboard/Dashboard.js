@@ -96,8 +96,8 @@ const Dashboard = () => {
                         component={Categories}
                     />
                     <Route
-                        path="/dashboard/artist/recent-orders/"
                         exact
+                        path="/dashboard/artist/recent-orders/"
                         component={Orders}
                     />
                     <Route
@@ -162,6 +162,7 @@ const Dashboard = () => {
                         component={OrderItems}
                     />
                     <Route
+                        exact
                         path="/dashboard/driver/orders"
                         component={DriversOrders}
                     />
