@@ -450,6 +450,7 @@ router.get("/amIGoing/:eventid", auth, async (req, res) => {
             [req.params.eventid, req.user.id]
         );
         const going = response.rows.length === 1;
+        console.log("this is going " + going);
         res.send(going);
     } catch (e) {
         console.log(e, "/amIGoing/:eventid");

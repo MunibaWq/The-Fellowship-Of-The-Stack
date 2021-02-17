@@ -14,6 +14,7 @@ const EventPage = () => {
     const [going, setGoing] = useState("unset");
     let params = useParams();
     const currentEvent = params.id;
+
     const [eventData, setEventData] = useState([]);
     const [dateTime, setDateTime] = useState();
     const [isUser, setIsUser] = useState();
@@ -31,6 +32,8 @@ const EventPage = () => {
     useEffect(() => {
         const attendStatus = async () => {
             const response = await amIGoing(currentEvent);
+            console.log(response);
+
             if (response) {
                 setGoing(true);
             } else setGoing(false);
@@ -172,13 +175,13 @@ const EventPage = () => {
                                 : "Loading description..."}
                         </p>
                     </Description>
-                    {going && (
+                    {!going && (
                         <Button
                             primary
                             onClick={() => {
                                 if (going) {
                                     if (isUser) {
-                                        userGoing(currentEvent);
+                                        deleteUserFromEventByID(currentEvent);
 
                                         console.log("true");
                                     } else {
@@ -186,7 +189,7 @@ const EventPage = () => {
                                     }
                                 } else {
                                     if (isUser) {
-                                        deleteUserFromEventByID(currentEvent);
+                                        userGoing(currentEvent);
                                     } else {
                                         routeChange();
                                     }
@@ -197,20 +200,21 @@ const EventPage = () => {
                             Attend Event
                         </Button>
                     )}
-                    {!going && (
+                    {going && (
                         <Button
                             primary
                             onClick={() => {
                                 if (going) {
                                     if (isUser) {
-                                        userGoing(currentEvent);
+                                        deleteUserFromEventByID(currentEvent);
+                                        // userGoing(currentEvent);
                                         console.log("true");
                                     } else {
                                         routeChange();
                                     }
                                 } else {
                                     if (isUser) {
-                                        deleteUserFromEventByID(currentEvent);
+                                        userGoing(currentEvent);
                                     } else {
                                         routeChange();
                                     }

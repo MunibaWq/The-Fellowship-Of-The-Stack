@@ -112,7 +112,8 @@ export const getOneOrder = async (orderid) => {
 };
 
 export const amIGoing = async (eventID) => {
-    const response = await Axios.get(`api/events/amIGoing/${eventID}`);
+    const response = await Axios.get(`/api/events/amIGoing/${eventID}`);
+    console.log(response.data);
     return response.data;
 };
 

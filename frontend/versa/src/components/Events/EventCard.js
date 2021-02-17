@@ -27,7 +27,7 @@ const EventCard = ({ theEvent }) => {
         const findUser = async () => {
             const response = await getUser();
             setIsUser(response);
-            console.log(response);
+            // console.log(response);
         };
         findUser();
     }, []);
@@ -35,6 +35,7 @@ const EventCard = ({ theEvent }) => {
     useEffect(() => {
         const attendStatus = async () => {
             const response = await amIGoing(currentEvent);
+            // console.log(reponse);
             if (response) {
                 setGoing(true);
             } else setGoing(false);
