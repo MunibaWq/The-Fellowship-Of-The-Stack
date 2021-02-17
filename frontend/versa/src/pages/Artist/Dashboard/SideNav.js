@@ -511,7 +511,6 @@ export default SideNav;
 const Container = styled.div`
     padding: ${(props) => (props.navWidth !== 300 ? "0px" : "1em")};
     background: white;
-
     height: fit-content;
 `;
 
@@ -619,7 +618,9 @@ const MenuLink = styled.button`
         background-color: #d0dfff;
         outline: none;
     }
-
+    h3 {
+        font-size: 0.9em;
+    }
     h4 {
         text-transform: uppercase;
         font-weight: 700;
