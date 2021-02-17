@@ -85,6 +85,7 @@ export default OrderItems;
 const Container = styled.div`
     background: ${theme.background};
     display: flex;
+    width: 100vw;
     flex-direction: column;
     padding: 2em 2em 2em calc(2em + 66px);
     h1 {
@@ -95,6 +96,8 @@ const Container = styled.div`
 const BackToOrder = styled(StyledLink)`
     margin-left: -0.5em;
     margin-bottom: 1em;
+    background: none;
+    border-bottom: none;
 `;
 
 const BuyerDetails = styled.article`

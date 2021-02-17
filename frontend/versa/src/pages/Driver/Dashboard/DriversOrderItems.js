@@ -29,7 +29,7 @@ const DriversOrderItems = () => {
                 <Loading />
             ) : (
                 <>
-                    <BackToOrder to="/driver/orders">
+                    <BackToOrder to="/dashboard/driver/orders">
                         <LeftIcon stroke={theme.primary} />
                         Back to Orders
                     </BackToOrder>
@@ -85,11 +85,15 @@ export default DriversOrderItems;
 const BackToOrder = styled(StyledLink)`
     margin-left: -0.5em;
     margin-bottom: 1em;
+
+    background: none;
+    border-bottom: none;
 `;
 
 const Container = styled.div`
     background: ${theme.background};
     display: flex;
+    width: 100vw;
     flex-direction: column;
     padding: 2em 2em 2em calc(2em + 66px);
     h1 {
