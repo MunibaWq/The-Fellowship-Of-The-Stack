@@ -80,6 +80,7 @@ const MonthlySales = styled(DashCard)``;
 // const Wishlist = styled(DashCard)``;
 const StoreDash = styled.div`
     display: grid;
+    width: 100vw;
     margin: 1em;
     grid-row-gap: 30px;
     grid-column-gap: 50px;
