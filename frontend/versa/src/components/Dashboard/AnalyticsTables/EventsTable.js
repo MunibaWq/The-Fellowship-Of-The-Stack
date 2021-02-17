@@ -116,6 +116,7 @@ export default EventsTable;
 
 const TableContainer = styled.div`
     justify-self: center;
+    
 `;
 
 const Table = styled.table`
@@ -132,8 +133,13 @@ const Table = styled.table`
     }
     th,
     td {
+        min-width:150px;
         padding: 12px 15px;
+        :nth-last-child(-n+2) {
+            min-width:80px;
+        }
     }
+    
 `;
 const Headers = styled.tr`
     background-color: ${theme.primary};

@@ -10,6 +10,7 @@ import theme from "./Colors";
 const Button = styled.button.attrs((props) => ({
     type: props.type || "button",
 }))`
+    font-family: "Inter", sans-serif;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -75,6 +76,7 @@ const Button = styled.button.attrs((props) => ({
             padding: 10px 20px;
             border-radius: 10px;
             color: ${theme.secondary};
+
             svg {
                 margin: 0 4px;
                 path {
@@ -97,10 +99,9 @@ const Button = styled.button.attrs((props) => ({
                 }
             }
             :active {
-    
-    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
-    transition: all 0.2s;
-}
+                box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
+                transition: all 0.2s;
+            }
         `}
 `;
 

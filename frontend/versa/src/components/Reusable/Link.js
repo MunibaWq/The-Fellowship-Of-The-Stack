@@ -9,8 +9,9 @@ export const StyledLink = styled(Link)`
     align-items: center;
     color: ${theme.primary};
     border: none;
-    background-color: none;
-    border-bottom: 3px solid none;
+    background-color: ${theme.secondary};
+    padding: 5px 15px 5px 8px;
+    border-bottom: 4px solid ${theme.secondary};
     font-weight: 700;
     letter-spacing: 5%;
     margin: 5px;
@@ -19,25 +20,24 @@ export const StyledLink = styled(Link)`
     max-width: fit-content;
 
     svg {
-        width: 24px;
-        height: 24px;
+        width: 28px;
+        height: 28px;
 
         path {
-            fill: ${theme.primary};
+            stroke: ${theme.primary};
         }
     }
-    :focus {
-        outline: none;
-    }
+
 
     :hover,
+    :focus,
     :active {
         outline: none;
         transition: 0.1s ease;
         color: ${theme.primaryHover};
         svg {
             path {
-                fill: ${theme.primaryHover};
+                stroke: ${theme.primaryHover};
             }
         }
     }
@@ -46,24 +46,19 @@ export const StyledLink = styled(Link)`
         props.secondary &&
         css`
             background: ${theme.secondary};
-            border: 3px solid ${theme.primary};
+            border: 4px solid ${theme.primary};
             color: ${theme.primary};
-            border-radius: 15px;
-            :hover, :active{
+            border-radius: 10px;
+            :hover, :focus, :active{
                 outline: none;
             transition: 0.1s ease;
             color: ${theme.primaryHover};
-            border: 3px solid ${theme.primaryHover};
+            border: 4px solid ${theme.primaryHover};
             transform: scale(1.02);
-
-            :focus{
-            outline: none;
-            }
-            svg{
-                path{
-                    fill: ${theme.primaryHover};
-                }
-            }
+            padding: 5px 15px 5px 8px;
+                
+            
+           
             
            
         `}
@@ -71,23 +66,24 @@ export const StyledLink = styled(Link)`
         props.primary &&
         css`
             background: ${theme.primary};
-            border: 3px solid ${theme.primary};
-            padding: 5px 20px;
-            border-radius: 15px;
+            border: 4px solid ${theme.primary};
+            padding: 10px 20px;
+            border-radius: 10px;
             color: ${theme.secondary};
-            :focus {
-                outline: none;
-            }
+            
             svg {
+                margin: 0 4px;
                 path {
                     fill: ${theme.secondary};
                 }
             }
 
             :hover,
+            :focus,
             :active {
+                outline: none;
                 background-color: ${theme.primaryHover};
-                border: 3px solid ${theme.primaryHover};
+                border: 4px solid ${theme.primaryHover};
                 color: ${theme.secondary};
                 transform: scale(1.02);
                 svg {
@@ -95,6 +91,10 @@ export const StyledLink = styled(Link)`
                         fill: ${theme.secondary};
                     }
                 }
+            }
+            :active {
+                box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
+                transition: all 0.2s;
             }
         `}
 `;

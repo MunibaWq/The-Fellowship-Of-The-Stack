@@ -82,6 +82,7 @@ export default DashboardMain;
 const DashboardContainer = styled.div`
     padding: 2em 2em 2em calc(2em + 66px);
     background-color: #eff3fe;
+    width:100vw;
 `;
 
 const Orders = styled(DashCard)``;
