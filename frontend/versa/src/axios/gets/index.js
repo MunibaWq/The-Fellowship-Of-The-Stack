@@ -126,7 +126,27 @@ export const getCart = async (session) => {
     const response = await Axios.get(`/api/cart/${session}`);
     return response.data;
 };
+
 export const getOrdersReadyForDelivery = async () => {
-    const response = await Axios.get(`/api/dashboard/ready-for-delivery`);
+    const response = await Axios.get(
+        `/api/dashboard/driver/ready-for-delivery`
+    );
+    return response.data;
+};
+
+export const getOneDelivery = async (orderid) => {
+    const response = await Axios.get(
+        `/api/dashboard/driver/ready-for-delivery/${orderid}`
+    );
+    return response.data;
+};
+
+export const getPastDeliveries = async () => {
+    const response = await Axios.get(`/api/dashboard/driver/past-deliveries`);
+    return response.data;
+};
+
+export const getOnePastDelivery = async (orderid) => {
+    const response = await Axios.get(`/api/dashboard/driver/past/${orderid}`);
     return response.data;
 };

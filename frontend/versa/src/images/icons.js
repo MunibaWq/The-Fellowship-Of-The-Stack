@@ -1187,13 +1187,55 @@ export const AlarmBellErrorIcon = ({ width, height, stroke, fill }) => {
     );
 };
 
+export const PlusIcon = ({ width, height, stroke, fill }) => {
+    return (
+        <svg
+            width={width || "32"}
+            height={height || "32"}
+            viewBox="0 0 32 32"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path
+                d="M5 16H27"
+                stroke={stroke || "#444"}
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            />
+            <path
+                d="M16 5V27"
+                stroke={stroke || "#444"}
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            />
+        </svg>
+    );
+};
+
 export const AddIcon = ({ width, height, stroke, fill }) => {
     return (
-        <svg width={width || "32"} height={height || "32"} viewBox="0 0 32 32" fill={fill || "none"} xmlns="http://www.w3.org/2000/svg">
-<path d="M5 16H27" stroke="#444" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M16 5V27" stroke="#444" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-</svg>
-
+        <svg
+            width={width || "32"}
+            height={height || "32"}
+            viewBox="0 0 32 32"
+            fill={fill || "#444"}
+            xmlns="http://www.w3.org/2000/svg">
+            <path
+                d="M5 16H27"
+                stroke={stroke || "#444"}
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            />
+            <path
+                d="M16 5V27"
+                stroke={stroke || "#444"}
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            />
+        </svg>
     );
 };
 
@@ -1676,11 +1718,23 @@ export const ShareIcon = ({ width, height, stroke, fill }) => {
     );
 };
 export const CheckMarkIcon = ({ width, height, stroke, fill }) => {
-    return (<svg width={width || "32"} height={height || "32"} viewBox="0 0 32 32" fill={fill||"none"} xmlns="http://www.w3.org/2000/svg">
-    <path d="M27 9.00061L13 23L6 16.0006" stroke={stroke||theme.primary} stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
-    )
-}
+    return (
+        <svg
+            width={width || "32"}
+            height={height || "32"}
+            viewBox="0 0 32 32"
+            fill={fill || "none"}
+            xmlns="http://www.w3.org/2000/svg">
+            <path
+                d="M27 9.00061L13 23L6 16.0006"
+                stroke={stroke || theme.primary}
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            />
+        </svg>
+    );
+};
 
 export const RemoveIcon = ({ width, height, stroke, fill }) => {
     return (
