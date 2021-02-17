@@ -9,7 +9,7 @@ const Orders = () => {
     const [orderData, setOrderData] = useState();
     let params = useParams();
     const currentUser = params.id;
-    const [buyerDetails, setBuyerDetails] = useState();
+    // const [buyerDetails, setBuyerDetails] = useState();
 
     useEffect(() => {
         const fetchData = async (currentUser) => {
