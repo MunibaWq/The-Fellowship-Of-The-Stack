@@ -368,7 +368,7 @@ const SideNav = ({ navWidth, setNavWidth }) => {
                                                 </Link>
                                             </SubMenu>
                                         )}
-                                        <Link to="/dashboard/driver/delivery">
+                                        <Link to="/dashboard/driver/assigned-deliveries/">
                                             <li>
                                                 <MenuLink>
                                                     <Orders />

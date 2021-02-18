@@ -1,14 +1,14 @@
 import React from "react";
 import styled from "styled-components";
 
-const DeliveryItems = ({ order }) => {
+const AssignedDeliveryCard = ({ order }) => {
     const {
+        name,
         title,
         color,
         quantity,
         size,
-        username,
-        address,
+        shipping_address,
         driver_status,
     } = order;
 
@@ -19,11 +19,11 @@ const DeliveryItems = ({ order }) => {
                 <p>{quantity}</p>
             </Quantity>
             <ItemDetails>
-                <h3>{username}</h3>
+                <h3>{name}</h3>
                 <Variation>
-                    <h4>Artist address:</h4>
+                    <h4>Delivery address:</h4>
 
-                    <p>{address}</p>
+                    <p>{shipping_address}</p>
                 </Variation>
 
                 <Variation>
@@ -51,7 +51,7 @@ const DeliveryItems = ({ order }) => {
     );
 };
 
-export default DeliveryItems;
+export default AssignedDeliveryCard;
 
 const Card = styled.article`
     border-radius: 15px;

@@ -3,9 +3,9 @@ import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 import theme from "../../Reusable/Colors";
 import Loading from "../../Reusable/Loading";
-import DriversDropDown from "../../../components/Dashboard/AnalyticsTables/DriversDropDown";
+import OrdersDropDown from "../../../components/Dashboard/Driver/OrdersDropDown";
 
-const DriversOrdersTable = ({ user, orderData }) => {
+const OrdersToDeliverTable = ({ user, orderData }) => {
     const [data, setData] = useState(orderData);
     const [sortType, setSortType] = useState("id");
     const [query, setQuery] = useState();
@@ -151,7 +151,7 @@ const DriversOrdersTable = ({ user, orderData }) => {
                                         </p>
                                             </td>*/}
                                     <td key="driver drop down">
-                                        <DriversDropDown order={order} />
+                                        <OrdersDropDown order={order} />
                                     </td>
                                 </BodyRows>
                             ))}
@@ -167,7 +167,7 @@ const DriversOrdersTable = ({ user, orderData }) => {
     );
 };
 
-export default DriversOrdersTable;
+export default OrdersToDeliverTable;
 
 const TableContainer = styled.div`
     justify-self: center;
@@ -258,7 +258,7 @@ const Table = styled.table`
             }
         }
         :nth-of-type(5) {
-            min-width: 250px;
+            min-width: 280px;
         }
         :nth-of-type(6) {
             min-width: 190px;

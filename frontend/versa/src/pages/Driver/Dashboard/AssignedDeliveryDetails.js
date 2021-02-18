@@ -1,28 +1,30 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import { getOnePastDelivery } from "../../../axios/gets";
-import OrderItemCard from "../../../components/Dashboard/AnalyticsTables/OrderItemCard";
+import { getOneAssignedDelivery } from "../../../axios/gets";
 import Loading from "../../../components/Reusable/Loading";
 import theme from "../../../components/Reusable/Colors";
 import { LeftIcon } from "../../../images/icons";
 import { StyledLink } from "../../../components/Reusable/Link";
+import AssignedDeliveryCard from "../../../components/Dashboard/Driver/AssignedDeliveryCard";
 
-const PastDeliveryDetails = () => {
+const AssignedDeliveryDetails = () => {
     let params = useParams();
-    let orderID = params.orderid;
+    let artistID = params.artistid;
     const [orderData, setOrderData] = useState();
-    const [buyerDetails, setBuyerDetails] = useState();
+    const [artistDetails, setArtistDetails] = useState();
 
     useEffect(() => {
         const fetchData = async () => {
-            const data = await getOnePastDelivery(orderID);
-            setBuyerDetails(data[0]);
+            const data = await getOneAssignedDelivery(artistID);
+            setArtistDetails(data[0]);
 
             setOrderData(data);
         };
         fetchData();
     }, []);
+    console.log("od", orderData);
+    console.log("bd", artistDetails);
 
     return (
         <Container>
@@ -30,44 +32,27 @@ const PastDeliveryDetails = () => {
                 <Loading />
             ) : (
                 <>
-                    <BackToOrder to="/dashboard/driver/order-history">
+                    <BackToOrder to="/dashboard/driver/assigned-deliveries">
                         <LeftIcon stroke={theme.primary} />
                         Back to Orders
                     </BackToOrder>
-                    <h1>Order #{orderID}</h1>
+                    <h1>Artist #{artistID}</h1>
 
                     <OrderItemContainer>
-                        <BuyerDetails>
+                        <ArtistDetails>
                             <NumItems>
                                 <p>Profile Image</p>
                             </NumItems>
-                            <Buyer>
-                                <h2>{buyerDetails.name}</h2>
-                                <h4>Phone Number</h4>
-                                <p>{buyerDetails.phone}</p>
-                                {buyerDetails.pickup === false ? (
-                                    <>
-                                        <h4>Shipping Address</h4>
-                                        <p>{buyerDetails.shipping_address}</p>
-                                    </>
-                                ) : (
-                                    <>
-                                        <h4>Note</h4>
-                                        <p>Customer will pick this order up</p>
-                                    </>
-                                )}
-                                {buyerDetails.delivery_notes && (
-                                    <>
-                                        <h2>Note</h2>
-                                        <p>{buyerDetails.delivery_notes}</p>
-                                    </>
-                                )}
-                            </Buyer>
-                        </BuyerDetails>
+                            <Artist>
+                                <h2>{artistDetails.username}</h2>
+                                <h4>Pickup Address</h4>
+                                <p>{artistDetails.address}</p>
+                            </Artist>
+                        </ArtistDetails>
                         {orderData.map((order) => {
                             return (
                                 <div>
-                                    <OrderItemCard
+                                    <AssignedDeliveryCard
                                         order={order}
                                         key={order.orderID}
                                     />
@@ -81,7 +66,7 @@ const PastDeliveryDetails = () => {
     );
 };
 
-export default PastDeliveryDetails;
+export default AssignedDeliveryDetails;
 
 const BackToOrder = styled(StyledLink)`
     margin-left: -0.5em;
@@ -102,7 +87,7 @@ const Container = styled.div`
     }
 `;
 
-const BuyerDetails = styled.article`
+const ArtistDetails = styled.article`
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -131,7 +116,7 @@ const NumItems = styled.div`
     margin: 0 1em 0 0;
 `;
 
-const Buyer = styled.div`
+const Artist = styled.div`
     h2 {
         margin-bottom: 0.8em;
         font-weight: 700;
