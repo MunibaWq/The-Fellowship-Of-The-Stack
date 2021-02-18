@@ -25,18 +25,12 @@ import EditEvent from "../EditEvent";
 import CreateEvent from "../CreateEvent";
 import OrderItems from "./OrderItems";
 import Cookies from "universal-cookie";
-import DashboardHome from "../../Driver/Dashboard/DashboardHome";
+import DriverDashboardMain from "../../Driver/Dashboard/DashboardHome";
 import { PrivateRoute } from "../../../components/Reusable/PrivateRoute";
 import DriverMap from "../../../components/Dashboard/DriverMap";
-import OrdersToDeliver from "../../Driver/Dashboard/OrdersToDeliver";
-import OrdersToFulfillDetails from "../../Driver/Dashboard/OrdersToFulfillDetails";
-import PastDeliveries from "../../Driver/Dashboard/PastDeliveries";
+import DriversOrders from "../../Driver/Dashboard/OrdersToDeliver";
+import DriversOrderItems from "../../Driver/Dashboard/OrdersToFulfillDetails";
 import NotFound from "../../NotFound";
-import EventsAttending from "../../UserBuyer/Dashboard/EventsAttending";
-import OrderTracking from "../../UserBuyer/Dashboard/OrderTracking";
-import PastDeliveryDetails from "../../Driver/Dashboard/PastDeliveryDetails";
-import AssignedDeliveries from "../../Driver/Dashboard/AssignedDeliveries";
-import AssignedDeliveryDetails from "../../Driver/Dashboard/AssignedDeliveryDetails";
 
 const cookies = new Cookies();
 const Redirecter = () => {
@@ -86,17 +80,22 @@ const Dashboard = () => {
                     <Route
                         path="/dashboard/driver"
                         exact
-                        component={DashboardHome}
+                        component={DriverDashboardMain}
                     />
 
+                    <Route
+                        path="/dashboard/driver/delivery"
+                        exact
+                        component={DriverMap}
+                    />
                     <Route
                         path="/dashboard/artist/categories"
                         exact
                         component={Categories}
                     />
                     <Route
-                        exact
                         path="/dashboard/artist/recent-orders/"
+                        exact
                         component={Orders}
                     />
                     <Route
@@ -161,38 +160,16 @@ const Dashboard = () => {
                         component={OrderItems}
                     />
                     <Route
-                        exact
                         path="/dashboard/driver/orders"
-                        component={OrdersToDeliver}
-                    />
-                    <Route
-                        path="/dashboard/driver/orders/:orderid"
-                        component={OrdersToFulfillDetails}
+                        component={DriversOrders}
                     />
                     <Route
                         path="/dashboard/driver/order-history"
-                        component={PastDeliveries}
+                        component={DriversOrders}
                     />
                     <Route
-                        path="/dashboard/driver/past/:orderid"
-                        component={PastDeliveryDetails}
-                    />
-                    <Route
-                        exact
-                        path="/dashboard/driver/assigned-deliveries/"
-                        component={AssignedDeliveries}
-                    />
-                    <Route
-                        path="/dashboard/driver/assigned-deliveries/:artistid"
-                        component={AssignedDeliveryDetails}
-                    />
-                    <Route
-                        path="/dashboard/shopper/events-attending"
-                        component={EventsAttending}
-                    />
-                    <Route
-                        path="/dashboard/shopper/order-tracking/"
-                        component={OrderTracking}
+                        path="/dashboard/driver/orders/:orderid"
+                        component={DriversOrderItems}
                     />
                     <Route component={NotFound} />
                 </Switch>
@@ -212,5 +189,5 @@ const Container = styled.div`
 const SideNavDiv = styled.div`
     grid-column: 1;
     position: absolute;
-    z-index: 9;
+    z-index: 50;
 `;

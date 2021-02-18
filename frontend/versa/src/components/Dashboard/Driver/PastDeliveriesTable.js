@@ -27,7 +27,7 @@ const DriverPastDeliveriesTable = ({ user, orderData }) => {
                     return a.id - b.id;
                 },
                 ordername: (a, b) => {
-                    a.name.localeCompare(b.name);
+                    return a.name.localeCompare(b.name);
                 },
             };
             const sortProperty = types[type];
@@ -135,7 +135,7 @@ const DriverPastDeliveriesTable = ({ user, orderData }) => {
                                         <td
                                             onClick={() =>
                                                 history.push(
-                                                    `/dashboard/driver/orders/${order.id}`
+                                                    `/dashboard/driver/past/${order.id}`
                                                 )
                                             }
                                             key={order.name + order.id + 34}>
@@ -144,7 +144,7 @@ const DriverPastDeliveriesTable = ({ user, orderData }) => {
                                         <td
                                             onClick={() =>
                                                 history.push(
-                                                    `/dashboard/driver/orders/${order.id}`
+                                                    `/dashboard/driver/past/${order.id}`
                                                 )
                                             }>
                                             <p>

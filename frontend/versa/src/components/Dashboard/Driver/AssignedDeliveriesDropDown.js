@@ -22,7 +22,7 @@ const Status = styled.select`
     }
 `;
 
-const DriversDropDown = ({ order }) => {
+const DriversAssignedDeliveriesDropDown = ({ order }) => {
     const statusOptions = [
         {
             value: "Ready for Delivery",
@@ -34,7 +34,7 @@ const DriversDropDown = ({ order }) => {
         },
         {
             value: "Driver Assigned",
-            label: "Assigned to you",
+            label: "Available in Delivery Page",
         },
         {
             value: "Remove from Deliveries",
@@ -59,11 +59,6 @@ const DriversDropDown = ({ order }) => {
         setStatus(e.target.value);
         setConfirmation(true);
         console.log(status);
-        // e.target.value === "Add to Deliveries"
-        //     ? addDriverID(order.id)
-        //     : e.target.value === "Remove from Deliveries"
-        //     ? removeDriverID(order.id)
-        //     : console.log("No updates were done.");
     };
 
     return (
@@ -84,4 +79,4 @@ const DriversDropDown = ({ order }) => {
     );
 };
 
-export default DriversDropDown;
+export default DriversAssignedDeliveriesDropDown;

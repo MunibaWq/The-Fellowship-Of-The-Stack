@@ -3,9 +3,9 @@ import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import { getPastDeliveries } from "../../../axios/gets";
 import Loading from "../../../components/Reusable/Loading";
-import DriverPastDeliveriesTable from "../../../components/Dashboard/AnalyticsTables/DriverPastDeliveriesTable";
+import PastDeliveriesTable from "../../../components/Dashboard/Driver/PastDeliveriesTable";
 
-const DriversPastDeliveries = () => {
+const PastDeliveries = () => {
     const [orderData, setOrderData] = useState();
     let params = useParams();
     const currentUser = params.id;
@@ -25,16 +25,13 @@ const DriversPastDeliveries = () => {
             {!orderData ? (
                 <Loading />
             ) : (
-                <DriverPastDeliveriesTable
-                    orderData={orderData}
-                    user={currentUser}
-                />
+                <PastDeliveriesTable orderData={orderData} user={currentUser} />
             )}
         </OrderContainer>
     );
 };
 
-export default DriversPastDeliveries;
+export default PastDeliveries;
 
 const OrderContainer = styled.div`
     padding: 2em 2em 2em calc(2em + 66px);

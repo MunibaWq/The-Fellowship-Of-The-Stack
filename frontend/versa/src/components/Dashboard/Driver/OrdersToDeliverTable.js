@@ -3,12 +3,13 @@ import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 import theme from "../../Reusable/Colors";
 import Loading from "../../Reusable/Loading";
-import DriversDropDown from "../../../components/Dashboard/AnalyticsTables/DriversDropDown";
+import OrdersDropDown from "../../../components/Dashboard/Driver/OrdersDropDown";
 
-const DriversOrdersTable = ({ user, orderData }) => {
+const OrdersToDeliverTable = ({ user, orderData }) => {
     const [data, setData] = useState(orderData);
-    const [sortType, setSortType] = useState();
+    const [sortType, setSortType] = useState("id");
     const [query, setQuery] = useState();
+    const [filteredData, setFilteredData] = useState(data);
 
     const sortOptions = [
         {
@@ -28,7 +29,7 @@ const DriversOrdersTable = ({ user, orderData }) => {
                     return a.id - b.id;
                 },
                 ordername: (a, b) => {
-                    a.name.localeCompare(b.name);
+                    return a.name.localeCompare(b.name);
                 },
             };
             const sortProperty = types[type];
@@ -49,23 +50,21 @@ const DriversOrdersTable = ({ user, orderData }) => {
         setQuery(e.target.value);
     };
 
-    const filterData = (data, query) => {
-        if (!query) {
-            return data;
-        }
+    useEffect(() => {
+        const filterData = (data, query) => {
+            if (!query) {
+                return data;
+            }
 
-        return data.filter((order) => {
-            let dataValue = Object.values(order).toString().toLowerCase();
-            return dataValue.includes(query.toLowerCase());
-        });
-    };
-    const filteredData = filterData(data, query);
+            return data.filter((order) => {
+                let dataValue = Object.values(order).toString().toLowerCase();
+                return dataValue.includes(query.toLowerCase());
+            });
+        };
 
-    console.log(
-        "sorted",
-        [...orderData].sort((a, b) => a.name.localeCompare(b.name))
-    );
-    // console.log(filteredData, "f");
+        setFilteredData(filterData(data, query));
+    }, [data, query]);
+
     return (
         <TableContainer>
             {!orderData ? (
@@ -106,38 +105,38 @@ const DriversOrdersTable = ({ user, orderData }) => {
                                 ))}
                             </Headers>
                         </thead>
-                        <tbody>
-                            {filteredData &&
-                                filteredData.map((order, index) => (
-                                    <BodyRows key={order.name + order.status}>
-                                        <td
-                                            onClick={() =>
-                                                history.push(
-                                                    `/dashboard/driver/orders/${order.id}`
-                                                )
-                                            }
-                                            key={order.name + order.name}>
-                                            <p>{order.id}</p>
-                                        </td>
-                                        <td
-                                            onClick={() =>
-                                                history.push(
-                                                    `/dashboard/driver/orders/${order.id}`
-                                                )
-                                            }
-                                            key={order.name + order.id}>
-                                            <p>{order.name}</p>
-                                        </td>
-                                        <td
-                                            onClick={() =>
-                                                history.push(
-                                                    `/dashboard/driver/orders/${order.id}`
-                                                )
-                                            }
-                                            key={order.name + order.id + 34}>
-                                            <p>{order.shipping_address}</p>
-                                        </td>
-                                        {/* <td
+
+                        {filteredData &&
+                            filteredData.map((order, index) => (
+                                <BodyRows key={order.name + order.status}>
+                                    <td
+                                        onClick={() =>
+                                            history.push(
+                                                `/dashboard/driver/orders/${order.id}`
+                                            )
+                                        }
+                                        key={order.name + order.name}>
+                                        <p>{order.id}</p>
+                                    </td>
+                                    <td
+                                        onClick={() =>
+                                            history.push(
+                                                `/dashboard/driver/orders/${order.id}`
+                                            )
+                                        }
+                                        key={order.name + order.id}>
+                                        <p>{order.name}</p>
+                                    </td>
+                                    <td
+                                        onClick={() =>
+                                            history.push(
+                                                `/dashboard/driver/orders/${order.id}`
+                                            )
+                                        }
+                                        key={order.name + order.id + 34}>
+                                        <p>{order.shipping_address}</p>
+                                    </td>
+                                    {/* <td
                                         onClick={() =>
                                             history.push(
                                                 `/dashboard/driver/orders/${order.id}`
@@ -151,17 +150,16 @@ const DriversOrdersTable = ({ user, orderData }) => {
                                                 : order.delivery_notes}
                                         </p>
                                             </td>*/}
-                                        <td key="driver drop down">
-                                            <DriversDropDown order={order} />
-                                        </td>
-                                    </BodyRows>
-                                ))}
-                            {filteredData.length === 0 && (
-                                <BodyRows key="no row">
-                                    <td key="No results">No Results Found</td>
+                                    <td key="driver drop down">
+                                        <OrdersDropDown order={order} />
+                                    </td>
                                 </BodyRows>
-                            )}
-                        </tbody>
+                            ))}
+                        {filteredData.length === 0 && (
+                            <BodyRows key="no row">
+                                <td key="No results">No Results Found</td>
+                            </BodyRows>
+                        )}
                     </Table>
                 </>
             )}
@@ -169,7 +167,7 @@ const DriversOrdersTable = ({ user, orderData }) => {
     );
 };
 
-export default DriversOrdersTable;
+export default OrdersToDeliverTable;
 
 const TableContainer = styled.div`
     justify-self: center;
@@ -260,7 +258,7 @@ const Table = styled.table`
             }
         }
         :nth-of-type(5) {
-            min-width: 250px;
+            min-width: 280px;
         }
         :nth-of-type(6) {
             min-width: 190px;
