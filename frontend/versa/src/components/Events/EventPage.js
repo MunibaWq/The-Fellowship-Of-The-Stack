@@ -35,7 +35,7 @@ const EventPage = () => {
     useEffect(() => {
         const attendStatus = async () => {
             const response = await amIGoing(currentEvent);
-            console.log(response);
+            // console.log(response);
 
             if (response) {
                 setGoing(true);
@@ -78,8 +78,8 @@ const EventPage = () => {
                 minute: "2-digit",
             });
 
-            console.log(startTime);
-            console.log(endTime);
+            // console.log(startTime);
+            // console.log(endTime);
 
             setDateTime({
                 startDate,
@@ -125,13 +125,13 @@ const EventPage = () => {
                             : "Loading Host Name"}
                     </h2>
                     <Details>
-                        <h3>In collaboration with: </h3>
-                        {/*collabs &&
-                            collabs.map((collaborator, index) => {
-                                return (
-                                    <p key={index}>{collaborator.username}</p>
-                                );
-                            })*/}
+                        {collabs && collabs.length > 0 && (
+                            <h3>In collaboration with: </h3>
+                        )}
+                        {collabs &&
+                            collabs.map((collab, index) => {
+                                return <p key={index}>{collab.username}</p>;
+                            })}
                     </Details>
                     <Details>
                         <h3>Date: </h3>

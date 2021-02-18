@@ -463,10 +463,11 @@ router.get("/collabs/:eventid", async (req, res) => {
         const collabs = await pool.query(
             `SELECT u.username FROM users u INNER JOIN events_attendees a ON u.id = a.attendee WHERE a.type = 'collab' AND a.event_id = ${req.params.eventid}`
         );
-        const collaborators = [];
-        collabs.rows.map((collab) => collaborators.push(collab.username));
+        // const collaborators = [];
+        // collabs.rows.map((collab) => collaborators.push(collab.username));
 
         res.json(collabs.rows);
+        console.log(collabs.rows);
     } catch (e) {
         console.log(e, "collabs");
         res.send("error");
