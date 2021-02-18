@@ -1,73 +1,65 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import { getOnePastDelivery } from "../../../axios/gets";
-import OrderItemCard from "../../../components/Dashboard/AnalyticsTables/OrderItemCard";
+import { getOneShopperOrder } from "../../../axios/gets";
+import UserOrderItemCard from "../../../components/Dashboard/AnalyticsTables/UserOrderItemCard";
 import Loading from "../../../components/Reusable/Loading";
 import theme from "../../../components/Reusable/Colors";
-import { LeftIcon } from "../../../images/icons";
 import { StyledLink } from "../../../components/Reusable/Link";
+import { LeftIcon } from "../../../images/icons";
 
-const PastDeliveryDetails = () => {
+const OrderItems = () => {
     let params = useParams();
     let orderID = params.orderid;
-    const [orderData, setOrderData] = useState();
-    const [buyerDetails, setBuyerDetails] = useState();
 
+    const [orderData, setOrderData] = useState();
     useEffect(() => {
         const fetchData = async () => {
-            const data = await getOnePastDelivery(orderID);
-            setBuyerDetails(data[0]);
+            const data = await getOneShopperOrder(orderID);
 
             setOrderData(data);
         };
         fetchData();
-    }, []);
-
+    }, [orderID]);
     return (
         <Container>
             {!orderData ? (
                 <Loading />
             ) : (
                 <>
-                    <BackToOrder to="/dashboard/driver/order-history">
+                    <BackToOrder to="/dashboard/shopper/order-tracking/">
                         <LeftIcon stroke={theme.primary} />
                         Back to Orders
                     </BackToOrder>
-                    <h1>Order #{orderID}</h1>
+                
 
                     <OrderItemContainer>
                         <BuyerDetails>
-                            <NumItems>
-                                <p>Profile Image</p>
-                            </NumItems>
-                            <Buyer>
-                                <h2>{buyerDetails.name}</h2>
-                                <h4>Phone Number</h4>
-                                <p>{buyerDetails.phone}</p>
-                                {buyerDetails.pickup === false ? (
-                                    <>
-                                        <h4>Shipping Address</h4>
-                                        <p>{buyerDetails.shipping_address}</p>
-                                    </>
-                                ) : (
-                                    <>
-                                        <h4>Note</h4>
-                                        <p>Customer will pick this order up</p>
-                                    </>
-                                )}
-                                {buyerDetails.delivery_notes && (
+                            
+                                <OrderInfo>
+                                    <h2>Order #{orderData[0].id}</h2>
+                                <h4>Total</h4>
+
+                                <p>${orderData[0].order_total}</p>
+                                <h4>Shipping Address</h4>
+
+                                <p>{orderData[0].shipping_address}</p>
+                                {/* {orderData[0].orderDate}
+                                {orderData[0].shipping_address}
+                                {orderData[0].delivery_notes} */}
+
+                                {orderData[0].delivery_notes && (
                                     <>
                                         <h2>Note</h2>
-                                        <p>{buyerDetails.delivery_notes}</p>
+                                        <p>{orderData[0].delivery_notes}</p>
                                     </>
                                 )}
-                            </Buyer>
+                            </OrderInfo>
                         </BuyerDetails>
                         {orderData.map((order) => {
                             return (
                                 <div>
-                                    <OrderItemCard
+                                    <UserOrderItemCard
                                         order={order}
                                         key={order.orderID}
                                     />
@@ -81,25 +73,24 @@ const PastDeliveryDetails = () => {
     );
 };
 
-export default PastDeliveryDetails;
-
-const BackToOrder = styled(StyledLink)`
-    margin-left: -0.5em;
-    margin-bottom: 1em;
-
-    background: none;
-    border-bottom: none;
-`;
+export default OrderItems;
 
 const Container = styled.div`
     background: ${theme.background};
     display: flex;
     width: 100vw;
     flex-direction: column;
-    padding: 2em 2em 2em calc(2em + 66px);
+    padding: 5em 2em;
     h1 {
-        margin: 0 1em 2em 1em;
+        margin: 0 1em 2em 0em;
     }
+`;
+
+const BackToOrder = styled(StyledLink)`
+    margin-left: -0.5em;
+    margin-bottom: 1em;
+    background: none;
+    border-bottom: none;
 `;
 
 const BuyerDetails = styled.article`
@@ -131,7 +122,7 @@ const NumItems = styled.div`
     margin: 0 1em 0 0;
 `;
 
-const Buyer = styled.div`
+const OrderInfo = styled.div`
     h2 {
         margin-bottom: 0.8em;
         font-weight: 700;

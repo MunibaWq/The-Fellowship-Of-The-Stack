@@ -35,7 +35,7 @@ const EventPage = () => {
     useEffect(() => {
         const attendStatus = async () => {
             const response = await amIGoing(currentEvent);
-            console.log(response);
+            // console.log(response);
 
             if (response) {
                 setGoing(true);
@@ -78,8 +78,8 @@ const EventPage = () => {
                 minute: "2-digit",
             });
 
-            console.log(startTime);
-            console.log(endTime);
+            // console.log(startTime);
+            // console.log(endTime);
 
             setDateTime({
                 startDate,
@@ -124,15 +124,16 @@ const EventPage = () => {
                             ? "  " + eventData.username
                             : "Loading Host Name"}
                     </h2>
-                    <Details>
-                        <h3>In collaboration with: </h3>
-                        {/*collabs &&
-                            collabs.map((collaborator, index) => {
-                                return (
-                                    <p key={index}>{collaborator.username}</p>
-                                );
-                            })*/}
-                    </Details>
+                    <Collabs>
+                        {collabs && collabs.length > 0 && (
+                            <h3>In collaboration with: </h3>
+                        )}
+                        {collabs &&
+                            collabs.length > 0 &&
+                            collabs.map((collab, index) => {
+                                return <p key={index}>{collab.username}</p>;
+                            })}
+                    </Collabs>
                     <Details>
                         <h3>Date: </h3>
                         <p>
@@ -153,11 +154,7 @@ const EventPage = () => {
                         <h3>Location:</h3>
                         <p>{eventData.location}</p>
                     </Details>
-                    <Details>
-                        <h3>Interested: </h3>
-
-                        <p>{eventData ? eventData.num_interested : "0"} </p>
-                    </Details>
+                    
                     <Details>
                         <h3>Attending: </h3>
 
@@ -204,7 +201,7 @@ const EventPage = () => {
                                 setGoing((curr) => !curr);
                             }}>
                             <NotGoing stroke={theme.secondary} />
-                            Remove Event
+                            Unattend Event
                         </Button>
                     )}
                 </EventDetail>
@@ -328,6 +325,20 @@ const Details = styled.div`
 
     p {
         font-size: 0.9em;
+    }
+`;
+
+const Collabs = styled(Details)`
+    p {
+        :first-of-type {
+            ::before {
+                content: "";
+            }
+        }
+
+        ::before {
+            content: ", ";
+        }
     }
 `;
 

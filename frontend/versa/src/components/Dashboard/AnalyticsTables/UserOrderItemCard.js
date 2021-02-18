@@ -1,16 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
-const DeliveryItems = ({ order }) => {
-    const {
-        title,
-        color,
-        quantity,
-        size,
-        username,
-        address,
-        driver_status,
-    } = order;
+const UserOrderItemCard = ({ order }) => {
+    const { title, color, quantity, size, sale_price } = order;
 
     console.log("c", order);
     return (
@@ -19,18 +11,7 @@ const DeliveryItems = ({ order }) => {
                 <p>{quantity}</p>
             </Quantity>
             <ItemDetails>
-                <h3>{username}</h3>
-                <Variation>
-                    <h4>Artist address:</h4>
-
-                    <p>{address}</p>
-                </Variation>
-
-                <Variation>
-                    <h4>Product:</h4>
-
-                    <p>{title}</p>
-                </Variation>
+                <h3>{title}</h3>
                 <Variation>
                     <h4>Colour:</h4>
 
@@ -42,16 +23,21 @@ const DeliveryItems = ({ order }) => {
                     <p>{size}</p>
                 </Variation>
                 <Variation>
-                    <h4>Status:</h4>
+                    <h4>Each:</h4>
 
-                    <p>{driver_status === null ? "Not set" : driver_status}</p>
+                    <p>${(+sale_price).toFixed(2)}</p>
+                </Variation>
+                <Variation>
+                    <h4>Total:</h4>
+
+                    <p>${(+sale_price * +quantity).toFixed(2)}</p>
                 </Variation>
             </ItemDetails>
         </Card>
     );
 };
 
-export default DeliveryItems;
+export default UserOrderItemCard;
 
 const Card = styled.article`
     border-radius: 15px;
@@ -88,9 +74,11 @@ const Variation = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
-    :first-of-type {
-        margin-bottom: 0.3em;
+    margin-bottom: 0.3em;
+    :last-of-type {
+        margin-bottom: 0;
     }
+    
 
     h4 {
         margin-right: 8px;

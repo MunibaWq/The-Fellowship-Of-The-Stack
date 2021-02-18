@@ -14,8 +14,8 @@ const EventsTable = ({ eventsData }) => {
     let headers = [
         // "Event ID",
         "Event Name",
-        "Start Date",
-        "End Date/Time",
+        "Start",
+        "End",
         "Attendees",
         "Status",
         "Edit",
@@ -52,18 +52,10 @@ const EventsTable = ({ eventsData }) => {
                                     <p>{event.name}</p>
                                 </td>
                                 <td>
-                                    <p>
-                                        {new Date(
-                                            event.start_time
-                                        ).toLocaleString()}
-                                    </p>
+                                    <p>{event.start_time}</p>
                                 </td>
                                 <td>
-                                    <p>
-                                        {new Date(
-                                            event.end_time
-                                        ).toLocaleString()}
-                                    </p>
+                                    <p>{event.end_time}</p>
                                 </td>
                                 <td>{event.num_attendees}</td>
                                 <td style={{ width: "17%" }}>
@@ -116,6 +108,7 @@ const EventsTable = ({ eventsData }) => {
 export default EventsTable;
 
 const TableContainer = styled.div`
+    grid-column: 1 / 3;
     justify-self: center;
 `;
 

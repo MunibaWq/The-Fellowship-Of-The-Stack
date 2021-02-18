@@ -79,6 +79,14 @@ export const getMyArtistEvents = async () => {
         console.log(e);
     }
 };
+export const getAttendingEvents = async () => {
+    try {
+        let res = await Axios.get("/api/events/attending/");
+        return res.data;
+    } catch (e) {
+        console.log(e);
+    }
+};
 
 export const getEventByID = async (id) => {
     const response = await Axios.get(`/api/events/get/${id}`);
@@ -107,11 +115,20 @@ export const getRecentOrders = async () => {
     const response = await Axios.get(`/api/dashboard/recent-orders`);
     return response.data;
 };
+export const getCustomerOrders = async () => {
+    const response = await Axios.get('/api/dashboard/customer-orders')
+    return response.data
+}
 
 export const getOneOrder = async (orderid) => {
     const response = await Axios.get(`/api/dashboard/order/${orderid}`);
     return response.data;
 };
+
+export const getOneShopperOrder = async (orderid) => {
+    const response = await Axios.get(`/api/dashboard/shopper-order/${orderid}`)
+    return response.data
+}
 
 export const amIGoing = async (eventID) => {
     const response = await Axios.get(`/api/events/amIGoing/${eventID}`);
@@ -154,5 +171,19 @@ export const getPastDeliveries = async () => {
 
 export const getOnePastDelivery = async (orderid) => {
     const response = await Axios.get(`/api/dashboard/driver/past/${orderid}`);
+    return response.data;
+};
+
+export const getAssignedDeliveries = async () => {
+    const response = await Axios.get(
+        `/api/dashboard/driver/assigned-deliveries`
+    );
+    return response.data;
+};
+
+export const getOneAssignedDelivery = async (artistid) => {
+    const response = await Axios.get(
+        `/api/dashboard/driver/assigned-deliveries/${artistid}`
+    );
     return response.data;
 };

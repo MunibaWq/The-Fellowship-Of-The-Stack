@@ -1,56 +1,54 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
-import { getRecentOrders } from "../../../axios/gets";
+import { getOrdersReadyForDelivery } from "../../../axios/gets";
 import Loading from "../../../components/Reusable/Loading";
-import OrdersTable from "../../../components/Dashboard/AnalyticsTables/OrdersTable";
-import { StyledLink } from "../../../components/Reusable/Link";
+import OrdersToDeliverTable from "../../../components/Dashboard/Driver/OrdersToDeliverTable";
 
-const Orders = () => {
+const OrdersToDeliver = () => {
     const [orderData, setOrderData] = useState();
     let params = useParams();
     const currentUser = params.id;
-    // const [buyerDetails, setBuyerDetails] = useState();
+    const [buyerDetails, setBuyerDetails] = useState();
 
     useEffect(() => {
-        const fetchData = async (currentUser) => {
-            const data = await getRecentOrders(currentUser);
+        const fetchData = async () => {
+            const data = await getOrdersReadyForDelivery();
 
             setOrderData(data);
         };
         fetchData();
     }, []);
 
-    console.log("o", orderData);
+    // console.log("o", orderData);
 
     return (
         <OrderContainer>
-            <h1>Recent Orders</h1>
+            <h1>Orders to Deliver</h1>
             {!orderData ? (
                 <Loading />
             ) : (
-                <OrdersTable orderData={orderData} user={currentUser} />
+                <OrdersToDeliverTable
+                    orderData={orderData}
+                    user={currentUser}
+                />
             )}
         </OrderContainer>
     );
 };
 
-export default Orders;
+export default OrdersToDeliver;
 
 const OrderContainer = styled.div`
-    padding: 5em 2em;
+    padding: 2em 2em 2em calc(2em + 66px);
     display: grid;
-    grid-template-rows: 80px auto;
-    min-height: 100vh;
-    width: 90vw;
+    grid-template-rows: 60px auto;
 
     h1 {
-        /* margin: 0 0 0 1.3em; */
-
+        margin: 0 1em 2em 1em;
         justify-self: start;
     }
-
-    :last-child {
+    :last-of-type {
         place-self: start;
         align-self: center;
     }

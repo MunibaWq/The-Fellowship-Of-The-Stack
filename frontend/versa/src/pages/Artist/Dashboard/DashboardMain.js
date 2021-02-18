@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 // import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
@@ -12,11 +12,41 @@ import {
     recentOrders,
 } from "./data";
 import Cookies from "universal-cookie";
+import { getMyArtistEvents } from "../../../axios/gets";
 const cookies = new Cookies();
 const DashboardMain = () => {
-    // const dispatch = useDispatch();
-    // const user = useSelector((state) => state.user);
-    console.log(salesData);
+    const [eventsData, setEventsData] = useState();
+
+    useEffect(() => {
+        const fetchData = async (currentUser) => {
+            let data = await getMyArtistEvents();
+            setEventsData(data);
+        };
+        fetchData();
+    }, []);
+    console.log(eventsData);
+    let eventsTableData = {};
+    eventsData
+        ? (eventsTableData = {
+              table: {
+                  headers: ["Event", "Date", "Location"],
+                  values: [],
+              },
+          }) &&
+          eventsData.map((event) =>
+              eventsTableData.table.values.push([
+                  event.name,
+                  event.start_time,
+                  event.location,
+              ])
+          )
+        : (eventsTableData = {
+              table: {
+                  headers: ["Events"],
+                  values: [["No upcoming events"]],
+              },
+          });
+
     return (
         <DashboardContainer>
             <Greeting>Hello, {cookies.get("name")}</Greeting>
@@ -75,7 +105,14 @@ const DashboardMain = () => {
                     title="Monthly Sales"
                     graphData={salesData}
                     link="/dashboard/artist/total-sales"></MonthlySales>
-                {/* <Events>card showing 5 cards inside of upcoming events</Events> */}
+                <DashCard
+                    buttonText="Manage"
+                    dataTitle="Hosted Events"
+                    total={eventsTableData.table.values.length}
+                    totalLabel="Upcoming"
+                    title="Events"
+                    tableData={eventsTableData}
+                    link="/dashboard/artist/manage-events"></DashCard>
             </StoreDash>
         </DashboardContainer>
     );

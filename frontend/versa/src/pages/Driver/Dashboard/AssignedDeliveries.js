@@ -1,40 +1,36 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
-import { getOrdersReadyForDelivery } from "../../../axios/gets";
+import { getAssignedDeliveries } from "../../../axios/gets";
 import Loading from "../../../components/Reusable/Loading";
-import DriversOrdersTable from "../../../components/Dashboard/AnalyticsTables/DriversOrdersTable";
+import AssignedDeliveriesTable from "../../../components/Dashboard/Driver/AssignedDeliveriestable";
 
-const DriversOrders = () => {
+const AssignedDeliveries = () => {
     const [orderData, setOrderData] = useState();
     let params = useParams();
-    const currentUser = params.id;
-    const [buyerDetails, setBuyerDetails] = useState();
+    const artist = params.artistid;
 
     useEffect(() => {
         const fetchData = async () => {
-            const data = await getOrdersReadyForDelivery();
-
+            const data = await getAssignedDeliveries();
             setOrderData(data);
         };
         fetchData();
     }, []);
 
-    // console.log("o", orderData);
-
     return (
         <OrderContainer>
-            <h1>Orders to Deliver</h1>
+            <h1>Deliveries Assigned</h1>
             {!orderData ? (
                 <Loading />
             ) : (
-                <DriversOrdersTable orderData={orderData} user={currentUser} />
+                <AssignedDeliveriesTable orderData={orderData} />
             )}
         </OrderContainer>
     );
 };
 
-export default DriversOrders;
+export default AssignedDeliveries;
 
 const OrderContainer = styled.div`
     padding: 2em 2em 2em calc(2em + 66px);
