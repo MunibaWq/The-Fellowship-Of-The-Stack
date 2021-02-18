@@ -152,7 +152,42 @@ export const editEvent = async (event) => {
         return false;
     }
 };
-export const modifyCart = async (cartProduct, colour, size, quantity, session) => {
-    const modCartResponse = await Axios.put('/api/cart/edit', { cartProduct, colour, size, quantity, session })
-    return modCartResponse.data
-}
+export const modifyCart = async (
+    cartProduct,
+    colour,
+    size,
+    quantity,
+    session
+) => {
+    const modCartResponse = await Axios.put("/api/cart/edit", {
+        cartProduct,
+        colour,
+        size,
+        quantity,
+        session,
+    });
+    return modCartResponse.data;
+};
+
+export const addDriverID = (orderid) => {
+    try {
+        let response = Axios.put(
+            `/api/dashboard/driver/ready-for-delivery/add/${orderid}`
+        );
+        return response.status;
+    } catch (err) {
+        console.log(err);
+        return false;
+    }
+};
+export const removeDriverID = (orderid) => {
+    try {
+        let response = Axios.put(
+            `/api/dashboard/driver/ready-for-delivery/remove/${orderid}`
+        );
+        return response.status;
+    } catch (err) {
+        console.log(err);
+        return false;
+    }
+};

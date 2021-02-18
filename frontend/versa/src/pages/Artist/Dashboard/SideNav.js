@@ -370,7 +370,7 @@ const SideNav = ({ navWidth, setNavWidth }) => {
                                                     <li>
                                                         <SubMenuLink>
                                                             <h4>
-                                                                Order History
+                                                                Delivery History
                                                             </h4>
                                                             <RightIcon
                                                                 stroke={

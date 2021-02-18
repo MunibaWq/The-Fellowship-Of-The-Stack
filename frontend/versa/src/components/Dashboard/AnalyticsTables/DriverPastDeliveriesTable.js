@@ -3,13 +3,12 @@ import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 import theme from "../../Reusable/Colors";
 import Loading from "../../Reusable/Loading";
-import DriversDropDown from "../../../components/Dashboard/AnalyticsTables/DriversDropDown";
 
-const DriversOrdersTable = ({ user, orderData }) => {
+const DriverPastDeliveriesTable = ({ user, orderData }) => {
     const [data, setData] = useState(orderData);
     const [sortType, setSortType] = useState();
     const [query, setQuery] = useState();
-
+    console.log("p", orderData);
     const sortOptions = [
         {
             value: "id",
@@ -40,7 +39,12 @@ const DriversOrdersTable = ({ user, orderData }) => {
         sortArray(sortType);
     }, [sortType]);
 
-    let headers = ["Order ID", "Buyer Name", "Delivery Address", "Status"];
+    let headers = [
+        "Order ID",
+        "Buyer Name",
+        "Delivery Address",
+        "Date Received by Buyer",
+    ];
 
     const history = useHistory();
 
@@ -113,7 +117,7 @@ const DriversOrdersTable = ({ user, orderData }) => {
                                         <td
                                             onClick={() =>
                                                 history.push(
-                                                    `/dashboard/driver/orders/${order.id}`
+                                                    `/dashboard/driver/past/${order.id}`
                                                 )
                                             }
                                             key={order.name + order.name}>
@@ -122,7 +126,7 @@ const DriversOrdersTable = ({ user, orderData }) => {
                                         <td
                                             onClick={() =>
                                                 history.push(
-                                                    `/dashboard/driver/orders/${order.id}`
+                                                    `/dashboard/driver/past/${order.id}`
                                                 )
                                             }
                                             key={order.name + order.id}>
@@ -137,22 +141,20 @@ const DriversOrdersTable = ({ user, orderData }) => {
                                             key={order.name + order.id + 34}>
                                             <p>{order.shipping_address}</p>
                                         </td>
-                                        {/* <td
-                                        onClick={() =>
-                                            history.push(
-                                                `/dashboard/driver/orders/${order.id}`
-                                            )
-                                        }>
-                                        <p>
-                                            {!order.delivery_notes
-                                                ? "No delivery notes"
-                                                : order.delivery_notes === null
-                                                ? "No delivery notes"
-                                                : order.delivery_notes}
-                                        </p>
-                                            </td>*/}
-                                        <td key="driver drop down">
-                                            <DriversDropDown order={order} />
+                                        <td
+                                            onClick={() =>
+                                                history.push(
+                                                    `/dashboard/driver/orders/${order.id}`
+                                                )
+                                            }>
+                                            <p>
+                                                {!order.orderShipDate
+                                                    ? "No ship date available"
+                                                    : order.orderShipDate ===
+                                                      null
+                                                    ? "No ship date available"
+                                                    : order.orderShipDate}
+                                            </p>
                                         </td>
                                     </BodyRows>
                                 ))}
@@ -169,7 +171,7 @@ const DriversOrdersTable = ({ user, orderData }) => {
     );
 };
 
-export default DriversOrdersTable;
+export default DriverPastDeliveriesTable;
 
 const TableContainer = styled.div`
     justify-self: center;

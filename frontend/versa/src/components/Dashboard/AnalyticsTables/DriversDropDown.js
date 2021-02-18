@@ -1,10 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import {
-    updateOrderStatus,
-    updateOrderShipDate,
-    addToDeliveries,
-} from "../../../axios/puts";
+import { addDriverID, removeDriverID } from "../../../axios/puts";
 import theme from "../../Reusable/Colors";
 
 const Status = styled.select`
@@ -37,28 +33,37 @@ const DriversDropDown = ({ order }) => {
             label: "Add to Deliveries",
         },
         {
-            value: "Delivery in Progress",
-            label: "Delivery in Progress",
+            value: "Driver Assigned",
+            label: "Assigned to you",
         },
         {
-            value: "Delivered",
-            label: "Delivered",
+            value: "Remove from Deliveries",
+            label: "Remove from Deliveries",
         },
+        // {
+        //     value: "Removed from your deliveries",
+        //     label: "Removed from your deliveries",
+        // },
     ];
     const [status, setStatus] = useState(order.status);
     const [confirmation, setConfirmation] = useState(false);
 
     const handleChange = (e) => {
+        if (e.target.value === "Add to Deliveries") {
+            addDriverID(order.id);
+            window.location.reload(false);
+        } else if (e.target.value === "Remove from Deliveries") {
+            removeDriverID(order.id);
+            window.location.reload(false);
+        }
         setStatus(e.target.value);
         setConfirmation(true);
         console.log(status);
-        e.target.value === "Picked Up"
-            ? updateOrderShipDate(e.target.value, new Date(), order.id)
-            : e.target.value === "Delivered"
-            ? updateOrderShipDate(e.target.value, new Date(), order.id)
-            : e.target.value === "Add to Deliveries"
-            ? addToDeliveries(order.id)
-            : updateOrderStatus(order.status, order.id);
+        // e.target.value === "Add to Deliveries"
+        //     ? addDriverID(order.id)
+        //     : e.target.value === "Remove from Deliveries"
+        //     ? removeDriverID(order.id)
+        //     : console.log("No updates were done.");
     };
 
     return (
