@@ -12,12 +12,12 @@ const OrdersTable = ({ user, orderData }) => {
 
     const sortOptions = [
         {
-            value: "ordername",
-            label: "Buyer Name",
-        },
-        {
             value: "id",
             label: "Order ID",
+        },
+        {
+            value: "ordername",
+            label: "Buyer Name",
         },
     ];
 
