@@ -12,22 +12,20 @@ const OrdersTable = ({ user, orderData }) => {
 
     const sortOptions = [
         {
-            value: "orderdate",
-            label: "Order Date",
-        },
-        {
             value: "id",
             label: "Order ID",
+        },
+        {
+            value: "ordername",
+            label: "Buyer Name",
         },
     ];
 
     useEffect(() => {
         const sortArray = (type) => {
             const types = {
-                orderdate: (a, b) => {
-                    const dateA = new Date(a.orderDate);
-                    const dateB = new Date(b.orderDate);
-                    return dateA - dateB;
+                ordername: (a, b) => {
+                    return a.name.localeCompare(b.name);
                 },
                 id: (a, b) => {
                     return a.id - b.id;
