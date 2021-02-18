@@ -89,9 +89,11 @@ const ProductForm = (props) => {
         let sizeLabelToAdd = document.querySelector("#sizeLabelToAdd");
         let priceToAdd = document.querySelector("#priceToAdd").value;
         let sizeDropDown = document.querySelector("#sizeDropDown").value;
+        let costToAdd = document.querySelector("#costToAdd").value;
         let temp = {
             label: sizeDropDown === "N" ? sizeLabelToAdd.value : sizeDropDown,
             price: priceToAdd,
+            cost: costToAdd,
         };
 
         if (!input.sizes) {
