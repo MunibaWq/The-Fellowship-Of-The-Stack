@@ -108,7 +108,7 @@ const DashboardMain = () => {
                 <DashCard
                     buttonText="Manage"
                     dataTitle="Hosted Events"
-                    total={eventsData.length}
+                    total={eventsTableData.table.values.length}
                     totalLabel="Upcoming"
                     title="Events"
                     tableData={eventsTableData}
