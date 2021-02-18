@@ -30,9 +30,11 @@ import { PrivateRoute } from "../../../components/Reusable/PrivateRoute";
 import DriverMap from "../../../components/Dashboard/DriverMap";
 import DriversOrders from "../../Driver/Dashboard/DriversOrders";
 import DriversOrderItems from "../../Driver/Dashboard/DriversOrderItems";
+import DriversPastDeliveries from "../../Driver/Dashboard/DriversPastDeliveries";
 import NotFound from "../../NotFound";
 import EventsAttending from "../../UserBuyer/Dashboard/EventsAttending";
 import OrderTracking from "../../UserBuyer/Dashboard/OrderTracking";
+import PastDeliveryDetails from "../../Driver/Dashboard/PastDeliveryDetails";
 
 const cookies = new Cookies();
 const Redirecter = () => {
@@ -168,11 +170,15 @@ const Dashboard = () => {
                     />
                     <Route
                         path="/dashboard/driver/order-history"
-                        component={DriversOrders}
+                        component={DriversPastDeliveries}
                     />
                     <Route
                         path="/dashboard/driver/orders/:orderid"
                         component={DriversOrderItems}
+                    />
+                    <Route
+                        path="/dashboard/driver/past/:orderid"
+                        component={PastDeliveryDetails}
                     />
                     <Route
                         path="/dashboard/shopper/events-attending"

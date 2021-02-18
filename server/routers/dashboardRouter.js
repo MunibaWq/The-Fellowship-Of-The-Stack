@@ -75,9 +75,7 @@ router.get("/average-order-value", auth, async (req, res) => {
             `SELECT AVG(SUM) as average, day, MONTH, YEAR FROM 
             (SELECT SUM(sale_price), extract(day from DATE) AS DAY, 
             EXTRACT(month FROM DATE) AS month, EXTRACT(year FROM DATE) AS YEAR 
-            FROM sales_by_product where artist_id = ${
-                req.user.id
-            } GROUP BY order_id, 
+            FROM sales_by_product where artist_id = ${req.user.id} GROUP BY order_id, 
             EXTRACT(DAY FROM DATE), EXTRACT(month FROM DATE), 
             EXTRACT(year FROM DATE)) s 
             GROUP BY s.day, s.month,s.year ORDER BY s.DAY desc
@@ -204,21 +202,76 @@ router.get("/order/:orderid", auth, async (req, res) => {
     }
 });
 
-router.get("/ready-for-delivery", auth, async (req, res) => {
+// router.get("/ready-for-delivery", auth, async (req, res) => {
+//     try {
+//         const result = await pool.query(
+//             `SELECT o.order_total, o.id, o.shipping_address, o.status, o.name, o.date, o.ship_date, u.address, u.username, o.delivery_notes, o.phone, o.pickup, s.artist_id, s.product_id, s.quantity, s.color, s.size, p.title
+//             FROM orders o
+//             INNER JOIN sales_by_product s
+//             ON o.id = s.order_id
+//             INNER JOIN products p
+//             ON s.product_id = p.id
+//             INNER JOIN users u
+//             ON u.id = s.artist_id
+//             WHERE o.status = 'Ready for Delivery'`
+//         );
+//         const orderInfo = result.rows;
+//         for (order of orderInfo) {
+//             let options = {
+//                 weekday: "long",
+//                 year: "numeric",
+//                 month: "long",
+//                 day: "numeric",
+//             };
+
+//             let ordersDate = new Date(order.date);
+
+//             let orderDate = ordersDate.toLocaleDateString("en-US", options);
+
+//             let orderTime = ordersDate.toLocaleTimeString([], {
+//                 hour: "2-digit",
+//                 minute: "2-digit",
+//             });
+//             order.orderTime = orderTime;
+//             order.orderDate = orderDate;
+
+//             let orderShipDate = new Date(order.ship_date);
+
+//             let shipDate = orderShipDate.toLocaleDateString("en-US", options);
+//             order.orderShipDate = order.ship_date === null ? null : shipDate;
+//         }
+//         console.log("orders ready to deliver", orderInfo);
+//         res.json(orderInfo);
+//     } catch (err) {
+//         console.error(err.message);
+//         res.send({
+//             message: "error",
+//         });
+//     }
+// });
+
+router.get("/driver/ready-for-delivery", auth, async (req, res) => {
     try {
-        const result = await pool.query(
-            `SELECT o.order_total, o.id, o.shipping_address, o.status, o.name, o.date, o.ship_date, u.address, u.username, o.delivery_notes, o.phone, o.pickup, s.artist_id, s.product_id, s.quantity, s.color, s.size, p.title
-            FROM orders o
-            INNER JOIN sales_by_product s
-            ON o.id = s.order_id
-            INNER JOIN products p
-            ON s.product_id = p.id
-            INNER JOIN users u
-            ON u.id = s.artist_id
-            WHERE o.status = 'Ready for Delivery'`
+        let deliveries = await pool.query(
+            `SELECT o.id, o.name, o.shipping_address, o.deliverer_id, o. status FROM orders o INNER JOIN order_items i ON i.order_id = o.id WHERE o.status = 'Ready for Delivery' OR (o.status = 'Driver Assigned' AND o.deliverer_id = ${req.user.id}) GROUP BY i.order_id, o.id`
         );
-        const orderInfo = result.rows;
-        for (order of orderInfo) {
+
+        res.json(deliveries.rows);
+    } catch (err) {
+        console.error(err.message);
+        res.send({
+            message: "error",
+        });
+    }
+});
+router.get("/driver/past-deliveries", auth, async (req, res) => {
+    try {
+        let deliveries = await pool.query(
+            `SELECT * FROM orders WHERE status = 'Delivered' AND deliverer_id = ${req.user.id} GROUP BY id`
+        );
+        let pastDeliveries = deliveries.rows;
+
+        for (order of pastDeliveries) {
             let options = {
                 weekday: "long",
                 year: "numeric",
@@ -226,24 +279,42 @@ router.get("/ready-for-delivery", auth, async (req, res) => {
                 day: "numeric",
             };
 
-            let ordersDate = new Date(order.date);
-
-            let orderDate = ordersDate.toLocaleDateString("en-US", options);
-
-            let orderTime = ordersDate.toLocaleTimeString([], {
-                hour: "2-digit",
-                minute: "2-digit",
-            });
-            order.orderTime = orderTime;
-            order.orderDate = orderDate;
-
             let orderShipDate = new Date(order.ship_date);
 
             let shipDate = orderShipDate.toLocaleDateString("en-US", options);
             order.orderShipDate = order.ship_date === null ? null : shipDate;
         }
-        console.log("orders ready to deliver", orderInfo);
-        res.json(orderInfo);
+
+        res.json(pastDeliveries);
+    } catch (err) {
+        console.error(err.message);
+        res.send({
+            message: "error",
+        });
+    }
+});
+
+router.put("/driver/ready-for-delivery/add/:orderid", auth, (req, res) => {
+    try {
+        pool.query(
+            `UPDATE orders SET deliverer_id = ${req.user.id}, status = 'Driver Assigned' WHERE id = ${req.params.orderid}`
+        );
+
+        res.send("Updated");
+    } catch (err) {
+        console.error(err.message);
+        res.send({
+            message: "error",
+        });
+    }
+});
+router.put("/driver/ready-for-delivery/remove/:orderid", auth, (req, res) => {
+    try {
+        pool.query(
+            `UPDATE orders SET deliverer_id = null, status = 'Ready for Delivery' WHERE id = ${req.params.orderid}`
+        );
+
+        res.send("Updated");
     } catch (err) {
         console.error(err.message);
         res.send({
