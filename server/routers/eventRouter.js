@@ -466,7 +466,7 @@ router.get("/collabs/:eventid", async (req, res) => {
         const collaborators = [];
         collabs.rows.map((collab) => collaborators.push(collab.username));
 
-        res.json(collabs);
+        res.json(collabs.rows);
     } catch (e) {
         console.log(e, "collabs");
         res.send("error");
