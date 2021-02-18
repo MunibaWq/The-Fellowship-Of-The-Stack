@@ -11,7 +11,7 @@ import { amIGoing } from "../../axios/gets";
 import imageTest from "../../images/imageTest.png";
 
 const EventPage = () => {
-    const [going, setGoing] = useState(false);
+    const [going, setGoing] = useState("false");
     let params = useParams();
     const currentEvent = params.id;
 
@@ -55,7 +55,7 @@ const EventPage = () => {
 
             return data;
         };
-        console.log(attending);
+
         fetchEvent().then((data) => {
             let options = {
                 weekday: "long",
@@ -181,7 +181,7 @@ const EventPage = () => {
                                 } else {
                                     routeChange();
                                 }
-                                // }
+
                                 setGoing((curr) => !curr);
                             }}>
                             <Going stroke={theme.secondary} />
