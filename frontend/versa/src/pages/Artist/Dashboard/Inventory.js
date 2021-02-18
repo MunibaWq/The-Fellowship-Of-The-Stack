@@ -146,7 +146,7 @@ const Inventory = (currentProduct) => {
                                     <td>
                                         <Link
                                             to={
-                                                "/dashboard/products/edit/" +
+                                                "/dashboard/artist/products/edit/" +
                                                 result.id
                                             }>
                                             <EditIcon stroke={theme.primary} />

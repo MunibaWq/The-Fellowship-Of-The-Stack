@@ -264,6 +264,7 @@ router.get("/driver/ready-for-delivery", auth, async (req, res) => {
         });
     }
 });
+
 router.get("/driver/past-deliveries", auth, async (req, res) => {
     try {
         let deliveries = await pool.query(
