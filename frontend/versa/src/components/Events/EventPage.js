@@ -124,15 +124,16 @@ const EventPage = () => {
                             ? "  " + eventData.username
                             : "Loading Host Name"}
                     </h2>
-                    <Details>
+                    <Collabs>
                         {collabs && collabs.length > 0 && (
                             <h3>In collaboration with: </h3>
                         )}
                         {collabs &&
+                            collabs.length > 0 &&
                             collabs.map((collab, index) => {
                                 return <p key={index}>{collab.username}</p>;
                             })}
-                    </Details>
+                    </Collabs>
                     <Details>
                         <h3>Date: </h3>
                         <p>
@@ -328,6 +329,20 @@ const Details = styled.div`
 
     p {
         font-size: 0.9em;
+    }
+`;
+
+const Collabs = styled(Details)`
+    p {
+        :first-of-type {
+            ::before {
+                content: "";
+            }
+        }
+
+        ::before {
+            content: ", ";
+        }
     }
 `;
 
