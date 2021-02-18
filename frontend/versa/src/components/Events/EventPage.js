@@ -154,11 +154,7 @@ const EventPage = () => {
                         <h3>Location:</h3>
                         <p>{eventData.location}</p>
                     </Details>
-                    <Details>
-                        <h3>Interested: </h3>
-
-                        <p>{eventData ? eventData.num_interested : "0"} </p>
-                    </Details>
+                    
                     <Details>
                         <h3>Attending: </h3>
 
