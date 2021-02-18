@@ -79,6 +79,14 @@ export const getMyArtistEvents = async () => {
         console.log(e);
     }
 };
+export const getAttendingEvents = async () => {
+    try {
+        let res = await Axios.get("/api/events/attending/");
+        return res.data;
+    } catch (e) {
+        console.log(e);
+    }
+};
 
 export const getEventByID = async (id) => {
     const response = await Axios.get(`/api/events/get/${id}`);

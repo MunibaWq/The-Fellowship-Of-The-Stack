@@ -127,6 +127,36 @@ router.get("/myArtistsEvents/", auth, async (req, res) => {
         res.send("error");
     }
 });
+router.get("/attending/", auth, async (req, res) => {
+    try {
+        const result = await pool.query(
+            `SELECT 
+            CAST(c.count AS INT) AS num_attendees,
+            u.username AS host_name,
+            e.*  
+            FROM 
+            events e 
+            INNER JOIN 
+                (SELECT a.event_id,COUNT(*) 
+                FROM events_attendees a 
+                INNER JOIN events e 
+                ON a.event_id = e.id 
+                GROUP BY a.event_id) c
+            ON e.id = c.event_id
+            INNER JOIN
+            users u
+            ON u.id = e.host
+            INNER JOIN (SELECT event_id, attendee FROM events_attendees WHERE attendee = ${req.user.id}) a
+            ON a.event_id = e.id`
+        );
+        const results = result.rows;
+
+        res.json(results);
+    } catch (e) {
+        console.log(e);
+        res.send("error");
+    }
+});
 
 router.get("/allEvents", async (req, res) => {
     try {
@@ -373,7 +403,7 @@ router.post("/join", auth, async (req, res) => {
             req.user.id
     );
     attendee = attResponse.rows[0];
-
+        console.log('this is what Im looking for',attendee, collabs.rows)
     goingToEvent(attendee, collabs.rows);
 
     res.send("joined");

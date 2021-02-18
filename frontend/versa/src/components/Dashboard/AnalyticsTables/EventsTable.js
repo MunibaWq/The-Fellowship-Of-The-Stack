@@ -14,8 +14,8 @@ const EventsTable = ({ eventsData }) => {
     let headers = [
         // "Event ID",
         "Event Name",
-        "Start Date",
-        "End Date/Time",
+        "Start",
+        "End",
         "Attendees",
         "Status",
         "Edit",
@@ -116,6 +116,7 @@ const EventsTable = ({ eventsData }) => {
 export default EventsTable;
 
 const TableContainer = styled.div`
+    grid-column: 1 / 3;
     justify-self: center;
 `;
 
