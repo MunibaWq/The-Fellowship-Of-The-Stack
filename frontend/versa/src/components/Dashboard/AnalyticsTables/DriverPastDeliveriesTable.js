@@ -27,7 +27,7 @@ const DriverPastDeliveriesTable = ({ user, orderData }) => {
                     return a.id - b.id;
                 },
                 ordername: (a, b) => {
-                    a.name.localeCompare(b.name);
+                    return a.name.localeCompare(b.name);
                 },
             };
             const sortProperty = types[type];

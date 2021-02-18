@@ -324,4 +324,25 @@ router.put("/driver/ready-for-delivery/remove/:orderid", auth, (req, res) => {
     }
 });
 
+router.get("/driver/ready-for-delivery/:orderid", async (req, res) => {
+    console.log(req.params.orderid);
+    try {
+        const singleDelivery = await pool.query(`
+        SELECT o.id, o.name, o.phone, o.email, o.delivery_notes, o.shipping_address, i.order_id, i.quantity, i.color, i.size, i.driver_status, u.username, u.address, p.title
+FROM orders o 
+INNER JOIN order_items i ON o.id = i.order_id 
+INNER JOIN products p ON p.id = i.product_id 
+inner join users u ON p.artist_id = u.id 
+WHERE o.id = ${req.params.orderid}
+        `);
+        res.json(singleDelivery.rows);
+        console.log(singleDelivery.rows);
+    } catch (err) {
+        console.error(err.message);
+        res.send({
+            message: "error",
+        });
+    }
+});
+
 module.exports = router;

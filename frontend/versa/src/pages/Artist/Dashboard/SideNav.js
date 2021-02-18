@@ -322,21 +322,7 @@ const SideNav = ({ navWidth, setNavWidth }) => {
                                                 </MenuLink>
                                             </li>
                                         </Link>
-                                        <Link to="/dashboard/driver/delivery">
-                                            <li>
-                                                <MenuLink>
-                                                    <Orders />
-                                                    {/*<NotiCount>
-                                                        <p>3</p>
-                                                    </NotiCount>*/}
-                                                    <h3>Delivery</h3>
 
-                                                    <RightIcon
-                                                        stroke={theme.primary}
-                                                    />
-                                                </MenuLink>
-                                            </li>
-                                        </Link>
                                         <li>
                                             <MenuLink
                                                 onClick={() =>
@@ -382,6 +368,21 @@ const SideNav = ({ navWidth, setNavWidth }) => {
                                                 </Link>
                                             </SubMenu>
                                         )}
+                                        <Link to="/dashboard/driver/delivery">
+                                            <li>
+                                                <MenuLink>
+                                                    <Orders />
+                                                    {/*<NotiCount>
+                                                    <p>3</p>
+                                                </NotiCount>*/}
+                                                    <h3>Deliveries</h3>
+
+                                                    <RightIcon
+                                                        stroke={theme.primary}
+                                                    />
+                                                </MenuLink>
+                                            </li>
+                                        </Link>
                                     </SubMenu>
                                 )}
                             </>

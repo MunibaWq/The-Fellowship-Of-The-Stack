@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import { getOrdersReadyForDelivery } from "../../../axios/gets";
+import { getOneDelivery } from "../../../axios/gets";
 import OrderItemCard from "../../../components/Dashboard/AnalyticsTables/OrderItemCard";
 import Loading from "../../../components/Reusable/Loading";
 import theme from "../../../components/Reusable/Colors";
 import { LeftIcon } from "../../../images/icons";
 import { StyledLink } from "../../../components/Reusable/Link";
+import DeliveryItems from "../../../components/Dashboard/AnalyticsTables/DeliveryItems";
 
 const DriversOrderItems = () => {
     let params = useParams();
@@ -16,13 +17,15 @@ const DriversOrderItems = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const data = await getOrdersReadyForDelivery();
+            const data = await getOneDelivery(orderID);
             setBuyerDetails(data[0]);
 
             setOrderData(data);
         };
         fetchData();
     }, []);
+    console.log("od", orderData);
+    console.log("bd", buyerDetails);
 
     return (
         <Container>
@@ -43,19 +46,18 @@ const DriversOrderItems = () => {
                             </NumItems>
                             <Buyer>
                                 <h2>{buyerDetails.name}</h2>
+                                <h4>Order ID</h4>
+                                <p>{buyerDetails.id}</p>
                                 <h4>Phone Number</h4>
-                                <p>{buyerDetails.phone}</p>
-                                {buyerDetails.pickup === false ? (
-                                    <>
-                                        <h4>Shipping Address</h4>
-                                        <p>{buyerDetails.shipping_address}</p>
-                                    </>
-                                ) : (
-                                    <>
-                                        <h4>Note</h4>
-                                        <p>Customer will pick this order up</p>
-                                    </>
-                                )}
+                                <p>
+                                    {buyerDetails.phone === null
+                                        ? "No phone number provided"
+                                        : buyerDetails.phone}
+                                </p>
+
+                                <h4>Shipping Address</h4>
+                                <p>{buyerDetails.shipping_address}</p>
+
                                 {buyerDetails.delivery_notes && (
                                     <>
                                         <h2>Note</h2>
@@ -67,7 +69,7 @@ const DriversOrderItems = () => {
                         {orderData.map((order) => {
                             return (
                                 <div>
-                                    <OrderItemCard
+                                    <DeliveryItems
                                         order={order}
                                         key={order.orderID}
                                     />
