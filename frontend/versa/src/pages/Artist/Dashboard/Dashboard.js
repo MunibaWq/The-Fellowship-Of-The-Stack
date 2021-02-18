@@ -178,6 +178,7 @@ const Dashboard = () => {
                         component={PastDeliveryDetails}
                     />
                     <Route
+                        exact
                         path="/dashboard/driver/assigned-deliveries/"
                         component={AssignedDeliveries}
                     />

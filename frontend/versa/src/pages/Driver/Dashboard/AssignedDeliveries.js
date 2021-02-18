@@ -13,21 +13,18 @@ const AssignedDeliveries = () => {
     useEffect(() => {
         const fetchData = async () => {
             const data = await getAssignedDeliveries();
-
             setOrderData(data);
         };
         fetchData();
     }, []);
 
-    // console.log("o", orderData);
-
     return (
         <OrderContainer>
-            <h1>Orders to Deliver</h1>
+            <h1>Deliveries Assigned</h1>
             {!orderData ? (
                 <Loading />
             ) : (
-                <AssignedDeliveriesTable orderData={orderData} user={artist} />
+                <AssignedDeliveriesTable orderData={orderData} />
             )}
         </OrderContainer>
     );

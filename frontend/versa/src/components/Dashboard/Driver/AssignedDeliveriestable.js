@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 import theme from "../../Reusable/Colors";
 import Loading from "../../Reusable/Loading";
 
-const DriversAssignedDeliveriesTable = ({ user, orderData }) => {
+const DriversAssignedDeliveriesTable = ({ orderData }) => {
     const [data, setData] = useState(orderData);
     const [sortType, setSortType] = useState();
     const [query, setQuery] = useState();
@@ -41,9 +41,9 @@ const DriversAssignedDeliveriesTable = ({ user, orderData }) => {
 
     let headers = [
         "Order ID",
-        "Buyer Name",
-        "Delivery Address",
-        "Date Received by Buyer",
+        "Artist Name",
+        "Pickup Address",
+        "Number of Items",
     ];
 
     const history = useHistory();
@@ -117,34 +117,34 @@ const DriversAssignedDeliveriesTable = ({ user, orderData }) => {
                                         <td
                                             onClick={() =>
                                                 history.push(
-                                                    `/dashboard/driver/past/${order.id}`
+                                                    `/dashboard/driver/assigned-deliveries/${order.artist_id}`
                                                 )
                                             }
-                                            key={order.name + order.name}>
+                                            key={order.name + order.id}>
                                             <p>{order.id}</p>
                                         </td>
                                         <td
                                             onClick={() =>
                                                 history.push(
-                                                    `/dashboard/driver/past/${order.id}`
+                                                    `/dashboard/driver/assigned-deliveries/${order.artist_id}`
                                                 )
                                             }
                                             key={order.name + order.id}>
-                                            <p>{order.name}</p>
+                                            <p>{order.username}</p>
                                         </td>
                                         <td
                                             onClick={() =>
                                                 history.push(
-                                                    `/dashboard/driver/orders/${order.id}`
+                                                    `/dashboard/driver/assigned-deliveries/${order.artist_id}`
                                                 )
                                             }
                                             key={order.name + order.id + 34}>
-                                            <p>{order.shipping_address}</p>
+                                            <p>{order.address}</p>
                                         </td>
                                         <td
                                             onClick={() =>
                                                 history.push(
-                                                    `/dashboard/driver/orders/${order.id}`
+                                                    `/dashboard/driver/assigned-deliveries/${order.artist_id}`
                                                 )
                                             }>
                                             <p>
