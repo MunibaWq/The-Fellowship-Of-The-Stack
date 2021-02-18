@@ -87,7 +87,7 @@ const EditStockTable = ({ item, setter }) => {
                 );
             });
         } else {
-            return <tr />;
+            return <tr></tr>;
         }
     }
 
