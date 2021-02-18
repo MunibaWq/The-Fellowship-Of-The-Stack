@@ -25,7 +25,6 @@ const Orders = () => {
 
     return (
         <OrderContainer>
-            <StyledLink to="/dashboard/artist" />
             <h1>Recent Orders</h1>
             {!orderData ? (
                 <Loading />
@@ -41,7 +40,7 @@ export default Orders;
 const OrderContainer = styled.div`
     padding: 5em 2em;
     display: grid;
-    grid-template-rows: auto auto;
+    grid-template-rows: 80px auto;
     min-height: 100vh;
     width: 90vw;
 

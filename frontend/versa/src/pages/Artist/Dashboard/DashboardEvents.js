@@ -29,14 +29,14 @@ const DashboardEvents = () => {
     return (
         <EventsContainer>
             <StyledLink
-                style={{ placeSelf: "end", height: "fit-content" }}
+                style={{ gridColumn: 2, gridRow: 1, justifySelf: "end", height: "fit-content" }}
                 secondary
                 to="/dashboard/artist/events/create">
                 <AddIcon />
                 Create Event
             </StyledLink>
 
-            <h1>Dashboard Events</h1>
+            <h1 style={{gridColumn:1, gridRow: 1}}>Dashboard Events</h1>
             {!eventsData ? (
                 <Loading />
             ) : (
@@ -52,7 +52,8 @@ const EventsContainer = styled.div`
     width: 100vw;
     padding: 5em 2em;
     display: grid;
-    grid-template-rows: 40px auto;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 80px auto;
     /* justify-content:center; */
     min-height: 100vh;
     h1 {

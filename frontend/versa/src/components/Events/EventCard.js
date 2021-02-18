@@ -11,7 +11,7 @@ import { amIGoing, getUser } from "../../axios/gets";
 
 const EventCard = ({ theEvent }) => {
     //const [interested, setInterested] = useState(false);
-    const [going, setGoing] = useState("unset");
+    const [going, setGoing] = useState(false);
     const [isUser, setIsUser] = useState();
 
     //state to update attending number when user attends/unattends event
