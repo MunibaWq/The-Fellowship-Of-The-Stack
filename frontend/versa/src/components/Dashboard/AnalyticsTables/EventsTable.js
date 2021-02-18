@@ -76,7 +76,8 @@ const EventsTable = ({ eventsData }) => {
                                 <td>
                                     <Link
                                         to={
-                                            "/dashboard/events/edit/" + event.id
+                                            "/dashboard/artist/events/edit/" +
+                                            event.id
                                         }>
                                         <p>
                                             <EditIcon stroke={theme.primary} />
@@ -116,7 +117,6 @@ export default EventsTable;
 
 const TableContainer = styled.div`
     justify-self: center;
-    
 `;
 
 const Table = styled.table`
@@ -133,13 +133,12 @@ const Table = styled.table`
     }
     th,
     td {
-        min-width:150px;
+        min-width: 150px;
         padding: 12px 15px;
-        :nth-last-child(-n+2) {
-            min-width:80px;
+        :nth-last-child(-n + 2) {
+            min-width: 80px;
         }
     }
-    
 `;
 const Headers = styled.tr`
     background-color: ${theme.primary};
