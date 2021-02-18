@@ -1,20 +1,100 @@
-import React from "react";
-
-// import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
+import {
+    getAssignedDeliveries,
+    getOrdersReadyForDelivery,
+    getPastDeliveries,
+} from "../../../axios/gets";
 import styled from "styled-components";
 import DashCard from "./DashCard";
-import {
-    ordersData,
-    productData,
-    salesData,
-    avgOrderData,
-    salesByProductData,
-    recentOrders,
-} from "./data";
+
 const DriverDashboardMain = () => {
-    // const dispatch = useDispatch();
-    // const user = useSelector((state) => state.user);
-    console.log(salesData);
+    const [ordersToFulfill, setOrdersToFulfill] = useState();
+    const [assignedDeliveries, setAssignedDeliveries] = useState();
+    const [pastDeliveries, setPastDeliveries] = useState();
+
+    useEffect(() => {
+        const fetchData = async () => {
+            let toFulfillData = await getOrdersReadyForDelivery();
+            setOrdersToFulfill(toFulfillData);
+            let assignedData = await getAssignedDeliveries();
+            setAssignedDeliveries(assignedData);
+            let pastData = await getPastDeliveries();
+            setPastDeliveries(pastData);
+        };
+        fetchData();
+    }, []);
+
+    console.log(assignedDeliveries);
+    let ordersToFulfillTableData = {};
+    ordersToFulfill
+        ? (ordersToFulfillTableData = {
+              table: {
+                  headers: ["ID", "Shipping Address", "Status"],
+                  values: [],
+              },
+          }) &&
+          ordersToFulfill
+              .slice(0, 5)
+              .map((order) =>
+                  ordersToFulfillTableData.table.values.push([
+                      order.id,
+                      order.shipping_address,
+                      order.status === "Driver Assigned"
+                          ? "Assigned to you"
+                          : order.status,
+                  ])
+              )
+        : (ordersToFulfillTableData = {
+              table: {
+                  headers: ["Orders to Fulfill"],
+                  values: [["No orders yet"]],
+              },
+          });
+    let assignedDeliveriesTableData = {};
+    assignedDeliveries
+        ? (assignedDeliveriesTableData = {
+              table: {
+                  headers: ["Artist", "Pickup Address"],
+                  values: [],
+              },
+          }) &&
+          assignedDeliveries
+              .slice(0, 5)
+              .map((order) =>
+                  assignedDeliveriesTableData.table.values.push([
+                      order.username,
+                      order.address,
+                  ])
+              )
+        : (assignedDeliveriesTableData = {
+              table: {
+                  headers: ["Orders to Deliver"],
+                  values: [["No orders yet"]],
+              },
+          });
+
+    let pastDeliveriesGraphData = {};
+    pastDeliveries
+        ? (pastDeliveriesGraphData = {
+              graphActual: [],
+              graphGoal: [
+                  { x: 1, y: 1000 },
+                  { x: 2, y: 1000 },
+                  { x: 3, y: 1000 },
+                  { x: 4, y: 1000 },
+              ],
+          }) &&
+          pastDeliveries.slice(0, 5).map((order, index) =>
+              pastDeliveriesGraphData.graphActual.push({
+                  x: index,
+                  y: order.order_total,
+              })
+          )
+        : (pastDeliveriesGraphData = {
+              graphGoal: [{ x: 0, y: 0 }],
+              graphActual: [{ x: 0, y: 0 }],
+          });
+
     return (
         <DashboardContainer>
             <Greeting>Hello, Driver</Greeting>
@@ -23,41 +103,41 @@ const DriverDashboardMain = () => {
                     They can toggle the date to go to past day version of
                     dashbord. eg to see yesterdays orders, sales etc
                 </History> */}
-
                 <RecentOrders
                     buttonText="View"
-                    dataTitle="5 most recent"
-                    tableData={recentOrders}
-                    total="12"
-                    totalLabel="Unfulfilled"
-                    title="Daily deliveries"
-                    link="/dashboard/recent-orders"></RecentOrders>
+                    dataTitle="Ready To Pickup & Deliver"
+                    tableData={assignedDeliveriesTableData}
+                    total={assignedDeliveriesTableData.table.values.length}
+                    totalLabel={
+                        assignedDeliveriesTableData.table.values.length > 1
+                            ? "Deliveries To Do"
+                            : "Delivery To Do"
+                    }
+                    title="Today's Deliveries"
+                    link="/dashboard/driver/assigned-deliveries"
+                />
                 <RecentOrders
                     buttonText="View"
-                    dataTitle="5 most recent"
-                    tableData={recentOrders}
-                    total="12"
+                    dataTitle="Ready To Add To Deliveries"
+                    tableData={ordersToFulfillTableData}
+                    total={ordersToFulfillTableData.table.values.length}
                     totalLabel="Unfulfilled"
-                    title="Monthly deliveries"
-                    link="/dashboard/recent-orders"></RecentOrders>
-                <SalesPerOrder
-                    buttonText="Reports"
-                    dataTitle="Average per week"
-                    total="$107.23"
-                    totalLabel="Average"
-                    graphData={avgOrderData}
-                    title={`Daily Earnings`}
-                    link="/dashboard/average-order-value"></SalesPerOrder>
-                {/* <Profit>Small Card with number of total profit</Profit> */}
-                <MonthlySales
-                    buttonText="Reports"
-                    dataTitle="Sales per week"
-                    total="$37.5k"
-                    totalLabel="Total"
-                    title="Monthly Earnings"
-                    graphData={salesData}
-                    link="/dashboard/total-sales"></MonthlySales>
-                {/* <Events>card showing 5 cards inside of upcoming events</Events> */}
+                    title="Orders to Fulfill"
+                    link="/dashboard/driver/orders"
+                />
+                <RecentOrders
+                    buttonText="View"
+                    dataTitle="Orders Delivered"
+                    graphData={pastDeliveriesGraphData}
+                    total={pastDeliveriesGraphData.graphActual.length}
+                    totalLabel={
+                        pastDeliveriesGraphData.graphActual.length > 1
+                            ? "Deliveries"
+                            : "Delivery"
+                    }
+                    title="Value of Past Deliveries"
+                    link="/dashboard/driver/order-history"
+                />
             </StoreDash>
         </DashboardContainer>
     );
