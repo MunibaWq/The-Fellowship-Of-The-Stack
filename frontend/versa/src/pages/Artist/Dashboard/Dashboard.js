@@ -37,7 +37,7 @@ import OrderTracking from "../../UserBuyer/Dashboard/OrderTracking";
 import PastDeliveryDetails from "../../Driver/Dashboard/PastDeliveryDetails";
 import AssignedDeliveries from "../../Driver/Dashboard/AssignedDeliveries";
 import AssignedDeliveryDetails from "../../Driver/Dashboard/AssignedDeliveryDetails";
-
+import ShopperOrderItems from '../../UserBuyer/Dashboard/OrderItems'
 const cookies = new Cookies();
 const Redirecter = () => {
     window.location = "/account";
@@ -191,8 +191,13 @@ const Dashboard = () => {
                         component={EventsAttending}
                     />
                     <Route
+                        exact
                         path="/dashboard/shopper/order-tracking/"
                         component={OrderTracking}
+                    />
+                    <Route
+                        path="/dashboard/shopper/order-tracking/:orderid"
+                        component={ShopperOrderItems}
                     />
                     <Route component={NotFound} />
                 </Switch>
