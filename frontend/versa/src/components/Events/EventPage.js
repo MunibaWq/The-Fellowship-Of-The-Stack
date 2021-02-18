@@ -204,7 +204,7 @@ const EventPage = () => {
                                 setGoing((curr) => !curr);
                             }}>
                             <NotGoing stroke={theme.secondary} />
-                            Remove Event
+                            Unattend Event
                         </Button>
                     )}
                 </EventDetail>
