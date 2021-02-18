@@ -115,11 +115,20 @@ export const getRecentOrders = async () => {
     const response = await Axios.get(`/api/dashboard/recent-orders`);
     return response.data;
 };
+export const getCustomerOrders = async () => {
+    const response = await Axios.get('/api/dashboard/customer-orders')
+    return response.data
+}
 
 export const getOneOrder = async (orderid) => {
     const response = await Axios.get(`/api/dashboard/order/${orderid}`);
     return response.data;
 };
+
+export const getOneShopperOrder = async (orderid) => {
+    const response = await Axios.get(`/api/dashboard/shopper-order/${orderid}`)
+    return response.data
+}
 
 export const amIGoing = async (eventID) => {
     const response = await Axios.get(`/api/events/amIGoing/${eventID}`);

@@ -100,10 +100,8 @@ const EventCard = ({ theEvent }) => {
                 </EventDate>
                 <Time>{startTime ? startTime + "-" + endTime : "Loading"}</Time>
                 <Stats>
-                    <NumInterested>
-                        {theEvent.num_interested} Interested
-                    </NumInterested>
-                    <NumGoing>{attending} Going</NumGoing>
+                    
+                    
                 </Stats>
             </Link>
             <Actions>
@@ -156,6 +154,7 @@ const EventCard = ({ theEvent }) => {
                     )}
                     {going && <NotGoing />}
                 </ActionButton>
+                <NumGoing>{attending} Going</NumGoing>
                 {/**} <ActionButton>
                     <Share stroke={theme.primary} />
                     </ActionButton>**/}
