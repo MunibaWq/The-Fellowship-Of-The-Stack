@@ -57,7 +57,7 @@ const EditStockTable = ({ item, setter }) => {
     }, [item, stock.length]);
     function calcMargin(base, price, cost) {
         console.log(base, price, cost);
-        if (cost && price) {
+        if (cost && price && base) {
             return parseFloat(base) + parseFloat(price) - cost;
         }
         return "N/A";
