@@ -329,14 +329,81 @@ router.get("/driver/ready-for-delivery/:orderid", async (req, res) => {
     try {
         const singleDelivery = await pool.query(`
         SELECT o.id, o.name, o.phone, o.email, o.delivery_notes, o.shipping_address, i.order_id, i.quantity, i.color, i.size, i.driver_status, u.username, u.address, p.title
-FROM orders o 
-INNER JOIN order_items i ON o.id = i.order_id 
-INNER JOIN products p ON p.id = i.product_id 
-inner join users u ON p.artist_id = u.id 
-WHERE o.id = ${req.params.orderid}
+        FROM orders o 
+        INNER JOIN order_items i ON o.id = i.order_id 
+        INNER JOIN products p ON p.id = i.product_id 
+        inner join users u ON p.artist_id = u.id 
+        WHERE o.id = ${req.params.orderid}
         `);
         res.json(singleDelivery.rows);
         console.log(singleDelivery.rows);
+    } catch (err) {
+        console.error(err.message);
+        res.send({
+            message: "error",
+        });
+    }
+});
+
+router.get("/driver/past/:orderid", auth, async (req, res) => {
+    try {
+        const pastDeliveryItems = await pool.query(
+            `
+            SELECT o.id, o.name, o.phone, o.email, o.delivery_notes, o.shipping_address, i.order_id, i.quantity, i.color,
+            i.size, p.title, i.driver_status, u.username, u.address 
+            FROM orders o 
+            INNER JOIN order_items i ON o.id = i.order_id 
+            INNER JOIN products p ON p.id = i.product_id 
+            inner join users u ON p.artist_id = u.id
+            WHERE o.status = 'Delivered' AND o.deliverer_id = ${req.user.id} AND o.id = ${req.params.orderid}
+            `
+        );
+        res.json(pastDeliveryItems.rows);
+        console.log(pastDeliveryItems);
+    } catch (err) {
+        console.error(err.message);
+        res.send({
+            message: "error",
+        });
+    }
+});
+
+router.get("/driver/assigned-deliveries", auth, async (req, res) => {
+    try {
+        const assignedDeliveries = await pool.query(
+            `
+            SELECT o.id, o.name, o.phone, o.email, o.delivery_notes, o.shipping_address, i.order_id, i.quantity, i.color,
+            i.size, p.title, i.driver_status, u.username, u.address 
+            FROM orders o 
+            INNER JOIN order_items i ON o.id = i.order_id 
+            INNER JOIN products p ON p.id = i.product_id 
+            inner join users u ON p.artist_id = u.id
+            WHERE o.status = 'Driver Assigned' AND o.deliverer_id = ${req.user.id}
+            `
+        );
+        res.json(assignedDeliveries.rows);
+    } catch (err) {
+        console.error(err.message);
+        res.send({
+            message: "error",
+        });
+    }
+});
+
+router.get("/driver/assigned-deliveries/:artistid", auth, async (req, res) => {
+    try {
+        const assignedDeliveries = await pool.query(
+            `
+            SELECT o.id, o.name, o.phone, o.email, o.delivery_notes, o.shipping_address, i.order_id, i.quantity, i.color,
+            i.size, p.title, i.driver_status, u.username, u.address 
+            FROM orders o 
+            INNER JOIN order_items i ON o.id = i.order_id 
+            INNER JOIN products p ON p.id = i.product_id 
+            inner join users u ON p.artist_id = u.id
+            WHERE o.status = 'Driver Assigned' AND o.deliverer_id = ${req.user.id} and p.artist_id = ${req.params.artistid}
+            `
+        );
+        res.json(assignedDeliveries.rows);
     } catch (err) {
         console.error(err.message);
         res.send({

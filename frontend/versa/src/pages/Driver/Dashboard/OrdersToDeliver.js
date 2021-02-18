@@ -3,9 +3,9 @@ import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import { getOrdersReadyForDelivery } from "../../../axios/gets";
 import Loading from "../../../components/Reusable/Loading";
-import DriversOrdersTable from "../../../components/Dashboard/AnalyticsTables/DriversOrdersTable";
+import OrdersToDeliverTable from "../../../components/Dashboard/Driver/OrdersToDeliverTable";
 
-const DriversOrders = () => {
+const OrdersToDeliver = () => {
     const [orderData, setOrderData] = useState();
     let params = useParams();
     const currentUser = params.id;
@@ -28,13 +28,16 @@ const DriversOrders = () => {
             {!orderData ? (
                 <Loading />
             ) : (
-                <DriversOrdersTable orderData={orderData} user={currentUser} />
+                <OrdersToDeliverTable
+                    orderData={orderData}
+                    user={currentUser}
+                />
             )}
         </OrderContainer>
     );
 };
 
-export default DriversOrders;
+export default OrdersToDeliver;
 
 const OrderContainer = styled.div`
     padding: 2em 2em 2em calc(2em + 66px);

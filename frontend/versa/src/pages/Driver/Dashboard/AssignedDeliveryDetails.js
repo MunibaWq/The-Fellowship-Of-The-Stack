@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import { getOnePastDelivery } from "../../../axios/gets";
-import OrderItemCard from "../../../components/Dashboard/AnalyticsTables/OrderItemCard";
+import { getOneDelivery } from "../../../axios/gets";
 import Loading from "../../../components/Reusable/Loading";
 import theme from "../../../components/Reusable/Colors";
 import { LeftIcon } from "../../../images/icons";
 import { StyledLink } from "../../../components/Reusable/Link";
+import OrdersToFulfillCard from "../../../components/Dashboard/Driver/OrdersToFulfillCard";
 
-const PastDeliveryDetails = () => {
+const AssignedDeliveryDetails = () => {
     let params = useParams();
     let orderID = params.orderid;
     const [orderData, setOrderData] = useState();
@@ -16,13 +16,15 @@ const PastDeliveryDetails = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const data = await getOnePastDelivery(orderID);
+            const data = await getOneDelivery(orderID);
             setBuyerDetails(data[0]);
 
             setOrderData(data);
         };
         fetchData();
     }, []);
+    console.log("od", orderData);
+    console.log("bd", buyerDetails);
 
     return (
         <Container>
@@ -30,7 +32,7 @@ const PastDeliveryDetails = () => {
                 <Loading />
             ) : (
                 <>
-                    <BackToOrder to="/dashboard/driver/order-history">
+                    <BackToOrder to="/dashboard/driver/orders">
                         <LeftIcon stroke={theme.primary} />
                         Back to Orders
                     </BackToOrder>
@@ -43,19 +45,18 @@ const PastDeliveryDetails = () => {
                             </NumItems>
                             <Buyer>
                                 <h2>{buyerDetails.name}</h2>
+                                <h4>Order ID</h4>
+                                <p>{buyerDetails.id}</p>
                                 <h4>Phone Number</h4>
-                                <p>{buyerDetails.phone}</p>
-                                {buyerDetails.pickup === false ? (
-                                    <>
-                                        <h4>Shipping Address</h4>
-                                        <p>{buyerDetails.shipping_address}</p>
-                                    </>
-                                ) : (
-                                    <>
-                                        <h4>Note</h4>
-                                        <p>Customer will pick this order up</p>
-                                    </>
-                                )}
+                                <p>
+                                    {buyerDetails.phone === null
+                                        ? "No phone number provided"
+                                        : buyerDetails.phone}
+                                </p>
+
+                                <h4>Shipping Address</h4>
+                                <p>{buyerDetails.shipping_address}</p>
+
                                 {buyerDetails.delivery_notes && (
                                     <>
                                         <h2>Note</h2>
@@ -67,7 +68,7 @@ const PastDeliveryDetails = () => {
                         {orderData.map((order) => {
                             return (
                                 <div>
-                                    <OrderItemCard
+                                    <OrdersToFulfillCard
                                         order={order}
                                         key={order.orderID}
                                     />
@@ -81,7 +82,7 @@ const PastDeliveryDetails = () => {
     );
 };
 
-export default PastDeliveryDetails;
+export default AssignedDeliveryDetails;
 
 const BackToOrder = styled(StyledLink)`
     margin-left: -0.5em;

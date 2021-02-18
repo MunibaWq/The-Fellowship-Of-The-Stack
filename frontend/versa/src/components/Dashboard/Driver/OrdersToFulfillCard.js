@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-const DeliveryItems = ({ order }) => {
+const OrdersToFulfillCard = ({ order }) => {
     const {
         title,
         color,
@@ -51,7 +51,7 @@ const DeliveryItems = ({ order }) => {
     );
 };
 
-export default DeliveryItems;
+export default OrdersToFulfillCard;
 
 const Card = styled.article`
     border-radius: 15px;

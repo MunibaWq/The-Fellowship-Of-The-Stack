@@ -2,14 +2,13 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { getOneDelivery } from "../../../axios/gets";
-import OrderItemCard from "../../../components/Dashboard/AnalyticsTables/OrderItemCard";
 import Loading from "../../../components/Reusable/Loading";
 import theme from "../../../components/Reusable/Colors";
 import { LeftIcon } from "../../../images/icons";
 import { StyledLink } from "../../../components/Reusable/Link";
-import DeliveryItems from "../../../components/Dashboard/AnalyticsTables/DeliveryItems";
+import OrdersToFulfillCard from "../../../components/Dashboard/Driver/OrdersToFulfillCard";
 
-const DriversOrderItems = () => {
+const OrdersToFulFillDetails = () => {
     let params = useParams();
     let orderID = params.orderid;
     const [orderData, setOrderData] = useState();
@@ -69,7 +68,7 @@ const DriversOrderItems = () => {
                         {orderData.map((order) => {
                             return (
                                 <div>
-                                    <DeliveryItems
+                                    <OrdersToFulfillCard
                                         order={order}
                                         key={order.orderID}
                                     />
@@ -83,7 +82,7 @@ const DriversOrderItems = () => {
     );
 };
 
-export default DriversOrderItems;
+export default OrdersToFulFillDetails;
 
 const BackToOrder = styled(StyledLink)`
     margin-left: -0.5em;
