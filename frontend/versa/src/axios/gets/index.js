@@ -93,21 +93,31 @@ export const getEventByID = async (id) => {
     return response.data;
 };
 
-export const getSalesByProduct = async () => {
-    const response = await Axios.get(`/api/dashboard/sales-by-products/`);
+export const getImagesByEID = async (currentEvent) => {
+    const response = await Axios.get(`/api/eventImages/byEID/${currentEvent}`);
+    let images = await response.data;
+    return images;
+};
+
+export const getSalesByProduct = async (query) => {
+    const response = await Axios.get(
+        `/api/dashboard/sales-by-products/${query}`
+    );
     return response.data;
 };
 
-export const getTotalSales = async () => {
-    const response = await Axios.get(`/api/dashboard/total-sales/`);
+export const getTotalSales = async (query) => {
+    const response = await Axios.get(`/api/dashboard/total-sales/${query}`);
     return response.data;
 };
-export const getTotalOrders = async () => {
-    const response = await Axios.get(`/api/dashboard/total-orders/`);
+export const getTotalOrders = async (query) => {
+    const response = await Axios.get(`/api/dashboard/total-orders/${query}`);
     return response.data;
 };
-export const getAvgOrderValue = async () => {
-    const response = await Axios.get(`/api/dashboard/average-order-value/`);
+export const getAvgOrderValue = async (query) => {
+    const response = await Axios.get(
+        `/api/dashboard/average-order-value/${query}`
+    );
     return response.data;
 };
 
@@ -116,9 +126,9 @@ export const getRecentOrders = async () => {
     return response.data;
 };
 export const getCustomerOrders = async () => {
-    const response = await Axios.get('/api/dashboard/customer-orders')
-    return response.data
-}
+    const response = await Axios.get("/api/dashboard/customer-orders");
+    return response.data;
+};
 
 export const getOneOrder = async (orderid) => {
     const response = await Axios.get(`/api/dashboard/order/${orderid}`);
@@ -126,9 +136,9 @@ export const getOneOrder = async (orderid) => {
 };
 
 export const getOneShopperOrder = async (orderid) => {
-    const response = await Axios.get(`/api/dashboard/shopper-order/${orderid}`)
-    return response.data
-}
+    const response = await Axios.get(`/api/dashboard/shopper-order/${orderid}`);
+    return response.data;
+};
 
 export const amIGoing = async (eventID) => {
     const response = await Axios.get(`/api/events/amIGoing/${eventID}`);

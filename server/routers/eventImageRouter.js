@@ -32,7 +32,7 @@ router.put("/update", auth, async (req, res) => {
         }
         try {
             //make a query to insert the image info into the db
-            let query = `UPDATE images SET label = '${label}', img_size = '${imageSize}' WHERE event_id = ${eventID} AND filename = '${filename}';`;
+            let query = `UPDATE event_images SET label = '${label}', img_size = '${imageSize}' WHERE event_id = ${eventID} AND filename = '${filename}';`;
             pool.query(query);
             if (imageSize === "thumb") {
                 const thumbnail = await pool.query(

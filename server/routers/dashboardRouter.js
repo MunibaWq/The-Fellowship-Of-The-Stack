@@ -3,34 +3,41 @@ const router = new express.Router();
 const pool = require("../db");
 const auth = require("../middleware/auth");
 
-router.get("/sales-by-products", auth, async (req, res) => {
+router.get("/sales-by-products/:query", auth, async (req, res) => {
+    const [term, start, end] = req.params.query.split('&')
+    console.log('here',term, start, end)
     try {
         const result = await pool.query(
             `SELECT s.color, s.size, s.sale_price, p.title, SUM(s.sale_price * s.quantity), SUM(s.quantity) AS quantity
             FROM sales_by_product s
             INNER JOIN products p
             ON p.id=s.product_id
-            WHERE p.artist_id = ${req.user.id}
+            WHERE p.artist_id = ${req.user.id} 
+            AND '${end}'::DATE >= DATE 
+            AND DATE >= '${start}'::DATE
+            AND UPPER(p.title) LIKE '%${term}%'
             GROUP BY title, s.sale_price, s.size, s.color
             ORDER BY SUM desc;
             `
         );
 
         const productSalesInfo = result.rows;
-
+        console.log(productSalesInfo)
         res.json(productSalesInfo);
     } catch (e) {
         console.log("error", e);
         res.send(e);
     }
 });
-router.get("/total-orders", auth, async (req, res) => {
+router.get("/total-orders/:query", auth, async (req, res) => {
+    const [start, end] = req.params.query.split('&')
+
     try {
         const result = await pool.query(
-            `SELECT sum(sale_price), EXTRACT(day FROM DATE) AS DAY, 
+            `SELECT count(sale_price) as sum, EXTRACT(day FROM DATE) AS DAY, 
             EXTRACT(month FROM DATE) AS MONTH, 
             EXTRACT(year FROM DATE) AS YEAR FROM sales_by_product 
-            WHERE artist_id = ${req.user.id}
+            WHERE artist_id = ${req.user.id} AND '${end}'::DATE >= DATE AND DATE >= '${start}'::DATE
             GROUP BY EXTRACT(day FROM DATE), 
             EXTRACT(month FROM DATE), 
             EXTRACT(year FROM DATE)
@@ -46,12 +53,15 @@ router.get("/total-orders", auth, async (req, res) => {
     }
 });
 
-router.get("/total-sales/", auth, async (req, res) => {
+router.get("/total-sales/:query", auth, async (req, res) => {
+    const [start, end] = req.params.query.split('&')
     try {
         const result = await pool.query(
             `SELECT sum(sale_price), EXTRACT(day FROM DATE) AS DAY, EXTRACT(month FROM DATE) AS month, EXTRACT(year FROM DATE) AS YEAR
             FROM sales_by_product
             WHERE artist_id = ${req.user.id}
+            AND '${end}'::DATE >= DATE 
+            AND DATE >= '${start}'::DATE
             GROUP BY EXTRACT(day FROM DATE), EXTRACT(month FROM DATE), EXTRACT(year FROM DATE)
             ORDER BY DAY desc
             `
@@ -68,14 +78,18 @@ router.get("/total-sales/", auth, async (req, res) => {
     }
 });
 
-router.get("/average-order-value", auth, async (req, res) => {
-    console.log(req.params, "fresh");
+router.get("/average-order-value/:query", auth, async (req, res) => {
+    const [start, end] = req.params.query.split('&')
+    console.log(start,end)
     try {
         const result = await pool.query(
             `SELECT AVG(SUM) as average, day, MONTH, YEAR FROM 
             (SELECT SUM(sale_price), extract(day from DATE) AS DAY, 
             EXTRACT(month FROM DATE) AS month, EXTRACT(year FROM DATE) AS YEAR 
-            FROM sales_by_product where artist_id = ${req.user.id} GROUP BY order_id, 
+            FROM sales_by_product WHERE artist_id = ${req.user.id} 
+            AND '${end}'::DATE >= DATE 
+            AND DATE >= '${start}'::DATE
+            GROUP BY order_id, 
             EXTRACT(DAY FROM DATE), EXTRACT(month FROM DATE), 
             EXTRACT(year FROM DATE)) s 
             GROUP BY s.day, s.month,s.year ORDER BY s.DAY desc
@@ -93,6 +107,7 @@ router.get("/average-order-value", auth, async (req, res) => {
     }
 });
 router.get("/customer-orders", auth, async (req, res) => {
+    
     try {
         const result = await pool.query(
             `SELECT * FROM orders

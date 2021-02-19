@@ -86,12 +86,49 @@ export const addStock = async (id, quant) => {
     }
 };
 
-export const createEvent = async (eventInfo) => {
-    const createEvent = await Axios.post("/api/events/create", {
-        data: eventInfo,
-    });
-    window.location = "/dashboard";
-    return createEvent;
+export const createEvent = async (eventInfo, images, thumbImg) => {
+    try {
+        let res = await Axios.post("/api/events/create", {
+            data: eventInfo,
+        });
+        let eventID = +res.data.id;
+        images.forEach(async (image, index) => {
+            if (index === thumbImg) {
+                image.size = "thumb";
+            }
+
+            let { imageFile, label, size } = image;
+            let res = await addImage(imageFile, label, size, eventID);
+            if (!res)
+                alert(
+                    JSON.stringify(imageFile) +
+                        " failed to upload, go to edit product to try to add picture again"
+                );
+        });
+        window.location = "/dashboard";
+        return eventID;
+    } catch (e) {
+        console.log(e);
+    }
+};
+export const addEventImage = async (image, label, imageSize, eventID) => {
+    try {
+        const data = new FormData();
+
+        data.append("label", label);
+        data.append("imageSize", imageSize);
+        data.append("eventID", eventID);
+        data.append("file", image);
+        const response = await Axios.post("/api/eventImages/add", data);
+        if (response.status === 201) {
+            return true;
+        }
+
+        return false;
+    } catch (err) {
+        console.error(err);
+        return false;
+    }
 };
 export const addToNewsletterList = async (email) => {
     try {
