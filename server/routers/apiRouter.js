@@ -20,6 +20,6 @@ router.use("/events", eventRouter);
 router.use("/dashboard", dashboardRouter);
 router.use("/orders", orderRouter);
 router.use("/cart", cartRouter);
-router.use("/messages", auth, messageRouter);
+router.use("/messages", messageRouter);
 
 module.exports = router;
