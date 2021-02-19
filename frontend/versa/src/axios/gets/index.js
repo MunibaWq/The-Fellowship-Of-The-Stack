@@ -93,21 +93,21 @@ export const getEventByID = async (id) => {
     return response.data;
 };
 
-export const getSalesByProduct = async () => {
-    const response = await Axios.get(`/api/dashboard/sales-by-products/`);
+export const getSalesByProduct = async (query) => {
+    const response = await Axios.get(`/api/dashboard/sales-by-products/${query}`);
     return response.data;
 };
 
-export const getTotalSales = async () => {
-    const response = await Axios.get(`/api/dashboard/total-sales/`);
+export const getTotalSales = async (query) => {
+    const response = await Axios.get(`/api/dashboard/total-sales/${query}`);
     return response.data;
 };
-export const getTotalOrders = async () => {
-    const response = await Axios.get(`/api/dashboard/total-orders/`);
+export const getTotalOrders = async (query) => {
+    const response = await Axios.get(`/api/dashboard/total-orders/${query}`);
     return response.data;
 };
-export const getAvgOrderValue = async () => {
-    const response = await Axios.get(`/api/dashboard/average-order-value/`);
+export const getAvgOrderValue = async (query) => {
+    const response = await Axios.get(`/api/dashboard/average-order-value/${query}`);
     return response.data;
 };
 
