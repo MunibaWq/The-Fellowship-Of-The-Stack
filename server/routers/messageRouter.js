@@ -38,8 +38,6 @@ router.post('/send', auth, (req, res) => {
     } catch(e) {
         res.status(400).send(e)
     }
-
-    
 })
 
 module.exports = router;
