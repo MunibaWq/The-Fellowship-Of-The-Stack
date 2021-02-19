@@ -3,7 +3,7 @@ const pool = require("../db");
 const auth = require("../middleware/auth");
 
 
-    router.get("/get", async (req, res) => {
+    router.get("/get", auth, async (req, res) => {
         try {
             const result = await pool.query(` SELECT m.*, ut.username, uf.username FROM messages m
             INNER JOIN users ut ON ut.id = m.to

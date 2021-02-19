@@ -198,3 +198,8 @@ export const getOneAssignedDelivery = async (artistid) => {
     );
     return response.data;
 };
+
+export const getMessages = async (messageid) => {
+    const response = await Axios.get(`/api/messages/get/${messageid}`);
+    return response.data;
+};
