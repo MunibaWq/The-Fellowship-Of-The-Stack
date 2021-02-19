@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const stockRouter = require("./stockRouter");
 const imageRouter = require("./imageRouter");
+const eventImageRouter = require("./eventImageRouter");
 const productRouter = require("./productRouter");
 const dashboardRouter = require("./dashboardRouter");
 const eventRouter = require("./eventRouter");
@@ -10,6 +11,7 @@ const cartRouter = require("./cartRouter");
 
 router.use("/stock", stockRouter);
 router.use("/images", imageRouter);
+router.use("/eventImages", eventImageRouter);
 router.use("/products", productRouter);
 router.use("/users", userRouter);
 router.use("/events", eventRouter);

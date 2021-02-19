@@ -6,13 +6,24 @@ import Loading from "../../../components/Reusable/Loading";
 import theme from "../../../components/Reusable/Colors";
 import { Circle } from "../../../images/icons";
 import { Input, Label } from "../../../components/Reusable/Input";
-
+const sorters = {
+    "Date": (one, two) => {
+        return (
+            new Date(`${one.month}/${one.day}/${one.year}`) -
+            new Date(`${two.month}/${two.day}/${two.year}`)
+        );
+    },
+    "Total Sales": (one, two) => {
+        return one.sum - two.sum;
+    },
+};
 const TotalSales = () => {
     const [salesData, setSalesData] = useState();
     const [graphData, setGraphData] = useState();
     const currentUser = 1;
     const [start, setStart] = useState("01-01-1900");
     const [end, setEnd] = useState(new Date().toUTCString());
+    const [sortBy, setSortBy] = useState("Total Sales");
     useEffect(() => {
         console.log("term,start,end", start, end);
         const fetchData = async (query) => {
@@ -36,7 +47,6 @@ const TotalSales = () => {
 
     return (
         <SBPContainer>
-            
             <h1>Total Sales Per Day</h1>
             <SearchBarDiv>
                 <Label>Date Range</Label>
@@ -59,81 +69,85 @@ const TotalSales = () => {
                     style={{ width: "20%" }}
                     onChange={(e) => {
                         let toDate = new Date(e.target.value);
-                        let date2Set = toDate.setDate(toDate.getDate()+1);
+                        let date2Set = toDate.setDate(toDate.getDate() + 1);
                         setEnd(new Date(date2Set).toUTCString());
                     }}
                     type="date"
                 />
             </SearchBarDiv>
-            
+
             {!salesData ? (
                 <Loading />
             ) : (
                 <Data>
-                <GraphContainer>
-                    <V.VictoryChart
-                        domain={
-                            graphData && {
-                                x: [
-                                    Math.min(
-                                        ...graphData.map((values) => values.x)
-                                    ),
-                                    Math.max(
-                                        ...graphData.map((values) => values.x)
-                                    ),
-                                ],
-                                y: [
-                                    0,
-                                    Math.max(
-                                        ...graphData.map((sales) => sales.y)
-                                    ),
-                                ],
+                    <GraphContainer>
+                        <V.VictoryChart
+                            domain={
+                                graphData && {
+                                    x: [
+                                        Math.min(
+                                            ...graphData.map(
+                                                (values) => values.x
+                                            )
+                                        ),
+                                        Math.max(
+                                            ...graphData.map(
+                                                (values) => values.x
+                                            )
+                                        ),
+                                    ],
+                                    y: [
+                                        0,
+                                        Math.max(
+                                            ...graphData.map((sales) => sales.y)
+                                        ),
+                                    ],
+                                }
                             }
-                        }
-                        theme={V.VictoryTheme.grayscale}
-                        containerComponent={
-                            <V.VictoryVoronoiContainer
-                                labelComponent={
-                                    <V.VictoryTooltip
-                                        border={0}
-                                        cornerRadius={5}
-                                        flyoutStyle={{
-                                            stroke: "none",
-                                            fill: "none",
-                                        }}
-                                    />
-                                }
-                                labels={({ datum }) =>
-                                    `Day ${Math.round(
-                                        datum.x,
-                                        0
-                                    )}: $${Math.round(datum.y, 2)}`
-                                }
-                            />
-                        }>
-                        <V.VictoryLine
-                            style={{
-                                labels: { fill: theme.primary },
-                                data: { stroke: theme.primary },
-                                parent: { border: "1px solid #444" },
-                            }}
-                            data={graphData}></V.VictoryLine>
+                            theme={V.VictoryTheme.grayscale}
+                            containerComponent={
+                                <V.VictoryVoronoiContainer
+                                    labelComponent={
+                                        <V.VictoryTooltip
+                                            border={0}
+                                            cornerRadius={5}
+                                            flyoutStyle={{
+                                                stroke: "none",
+                                                fill: "none",
+                                            }}
+                                        />
+                                    }
+                                    labels={({ datum }) =>
+                                        `Day ${Math.round(
+                                            datum.x,
+                                            0
+                                        )}: $${Math.round(datum.y, 2)}`
+                                    }
+                                />
+                            }>
+                            <V.VictoryLine
+                                style={{
+                                    labels: { fill: theme.primary },
+                                    data: { stroke: theme.primary },
+                                    parent: { border: "1px solid #444" },
+                                }}
+                                data={graphData}></V.VictoryLine>
                         </V.VictoryChart>
-                    <Legend>
-                        <div>
-                            <Circle
-                                width="10px"
-                                height="10px"
-                                fill={theme.primary}
-                            />
-                            Total Orders per Day
-                        </div>
+                        <Legend>
+                            <div>
+                                <Circle
+                                    width="10px"
+                                    height="10px"
+                                    fill={theme.primary}
+                                />
+                                Total Orders per Day
+                            </div>
                         </Legend>
-                        </GraphContainer>
+                    </GraphContainer>
                     <PieContainer>
-                            <V.VictoryPie
-                                width="400"
-                                height="300"
+                        <V.VictoryPie
+                            width="400"
+                            height="300"
                             padding={{ top: 0, left: 100, right: 100 }}
                             padAngle={2}
                             innerRadius={25}
@@ -146,37 +160,49 @@ const TotalSales = () => {
                                 theme.primaryHover + "66",
                                 theme.primaryHover + "33",
                             ]}
-                                data={salesData.sort((one, two) => { return +one.sum - +two.sum }).map((sales) => {
-                                return {
-                                    y: +sales.sum,
-                                    x: `${sales.day}/${sales.month}/${sales.year}`,
-                                };
-                            })}
-                            />
-                            <Legend>
-                        <div>
-                            <Circle
-                                width="10px"
-                                height="10px"
-                                fill={theme.primary}
-                            />
-                            Days with highest sales
-                        </div>
+                            data={salesData
+                                .sort((one, two) => {
+                                    return +one.sum - +two.sum;
+                                })
+                                .map((sales) => {
+                                    return {
+                                        y: +sales.sum,
+                                        x: `${sales.day}/${sales.month}/${sales.year}`,
+                                    };
+                                })}
+                        />
+                        <Legend>
+                            <div>
+                                <Circle
+                                    width="10px"
+                                    height="10px"
+                                    fill={theme.primary}
+                                />
+                                Days with highest sales
+                            </div>
                         </Legend>
                     </PieContainer>
                     <SBPTable>
                         <thead>
                             {headers.map((header, index) => (
-                                <th key={header + index}>{header}</th>
+                                <th
+                                    onClick={() => {
+                                        setSortBy(header);
+                                    }}
+                                    key={header + index}>
+                                    {header}
+                                </th>
                             ))}
                         </thead>
                         <tbody>
-                            {salesData.map((sales, index) => (
-                                <tr key={sales.sum + index}>
-                                    <td>{`February ${sales.day},${sales.year}`}</td>
-                                    <td>${sales.sum}</td>
-                                </tr>
-                            ))}
+                            {salesData
+                                .sort(sorters[sortBy])
+                                .map((sales, index) => (
+                                    <tr key={sales.sum + index}>
+                                        <td>{`${sales.day}/${sales.month}/${sales.year}`}</td>
+                                        <td>${(+sales.sum).toFixed(2)}</td>
+                                    </tr>
+                                ))}
                         </tbody>
                     </SBPTable>
                 </Data>
@@ -191,15 +217,11 @@ const SearchBarDiv = styled.div`
     margin-bottom: 40px;
 `;
 const Data = styled.div`
+    display: flex;
 
-
-        display:flex;
-      
-        flex-wrap: wrap;
-
-`
+    flex-wrap: wrap;
+`;
 const SBPContainer = styled.div`
-    
     width: 100vw;
     padding: 5em 2em;
 
@@ -233,18 +255,21 @@ const SBPTable = styled.table`
             font-weight: 700;
         }
         text-align: left;
+        th {
+            cursor: pointer;
+            text-decoration: underline;
+        }
     }
 `;
 const GraphContainer = styled.div`
-    display:flex;
+    display: flex;
     flex-direction: column;
-    width:450px;
-    `
+    width: 450px;
+`;
 const PieContainer = styled.div`
-display:flex;
+    display: flex;
     flex-direction: column;
     width: 400px;
-    
 `;
 const Legend = styled.div`
     div {

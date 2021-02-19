@@ -2,13 +2,20 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Button from "../Reusable/Button";
 import { Link, useParams, useHistory } from "react-router-dom";
-import { getCollabsByEventID, getEventByID, getUser } from "../../axios/gets";
+import {
+    getCollabsByEventID,
+    getEventByID,
+    getUser,
+    getImagesByEID,
+} from "../../axios/gets";
 import { userGoing } from "../../axios/posts";
 import theme from "../Reusable/Colors";
 import { LeftIcon, Going, NotGoing } from "../../images/icons";
 import { deleteUserFromEventByID } from "../../axios/deletes";
 import { amIGoing } from "../../axios/gets";
 import ImageTest from "../../images/imageTest.png";
+// import { clearChoices, setChoices } from "../../redux/actions/EventPage";
+import { useSelector } from "react-redux";
 
 const EventPage = () => {
     const [going, setGoing] = useState("false");
@@ -22,7 +29,8 @@ const EventPage = () => {
 
     //state to update attending number when user attends/unattends event
     const [attending, setAttending] = useState();
-    const [images, setImages] = useState([]);
+
+    const [image, setImage] = useState();
 
     useEffect(() => {
         const findUser = async () => {
@@ -47,13 +55,22 @@ const EventPage = () => {
         const fetchEvent = async () => {
             const data = await getEventByID(currentEvent);
             setEventData(data);
+            setImage(data.thumbnail);
             setAttending(data.num_attending);
             const collaborators = await getCollabsByEventID(currentEvent);
             setCollabs(collaborators);
             console.log(collaborators);
+            console.log(image);
 
             return data;
         };
+        // const fetchEventImages = async () => {
+        //     let response = await getImagesByEID(currentEvent);
+        //     setImage(response);
+        //     console.log(images);
+        // };
+
+        // fetchEventImages();
 
         fetchEvent().then((data) => {
             let options = {
@@ -104,17 +121,13 @@ const EventPage = () => {
             </Link>
             <MainInfo>
                 <EventImages>
-                    {/* <MainImage
+                    <MainImage
                         src={
                             image
-                                ? "/images/" + image + ".jpeg"
-                                : images && images.length > 0
-                                ? `https://versaeventbucket.s3.us-east-2.amazonaws.com/images/${
-                                      images[choices.image].filename
-                                  }.jpeg`
+                                ? `https://versabucket.s3.us-east-2.amazonaws.com/eventImages/${image}.jpeg`
                                 : ImageTest
                         }
-                        alt={"image"}></MainImage> */}
+                        alt={"image"}></MainImage>
                 </EventImages>
 
                 <EventDetail>
