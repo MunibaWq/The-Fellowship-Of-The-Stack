@@ -15,13 +15,12 @@ import EventPage from "./components/Events/EventPage";
 import { PrivateRoute } from "./components/Reusable/PrivateRoute";
 import NotFound from "./pages/NotFound";
 import Footer from "./components/Footer";
+import ComingSoon from "./pages/Shared/ComingSoon";
 
 if (!window.localStorage.getItem("session")) {
     window.localStorage.setItem(
         "session",
-        Math.random()
-            .toString(36)
-            .substr(2, 9)
+        Math.random().toString(36).substr(2, 9)
     );
 }
 function App() {
@@ -52,6 +51,7 @@ function App() {
                     <Route path="/log-in" component={Login} />
 
                     <Route path="/dashboard" component={Dashboard} />
+                    <Route path="/coming-soon" component={ComingSoon} />
                     <Route component={NotFound} />
                 </Switch>
             </div>
