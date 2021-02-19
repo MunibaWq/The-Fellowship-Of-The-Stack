@@ -3,18 +3,12 @@ const pool = require("../db");
 const auth = require("../middleware/auth");
 
 
-    router.get("/get", async (req, res => {
+    router.get("/get", async (req, res) => {
         try {
-            const result = await pool.query(`SELECT 
-            INNER JOIN
-            messages m
-            ON u.id= m.id
-          
-            INNER JOIN users u
-            ON u.id = m.from
-            INNER JOIN users u
-            ON u.id = m.to
-            `);
+            const result = await pool.query(` SELECT m.*, ut.username, uf.username FROM messages m
+            INNER JOIN users ut ON ut.id = m.to
+            INNER JOIN users uf ON uf.id = m.from
+            WHERE 'from'=${req.user.id} OR 'to'=${req.user.id}`);
             const results = result.rows;
     
             res.json(results);
@@ -22,7 +16,7 @@ const auth = require("../middleware/auth");
             console.log(e, "/get");
             res.send("error");
         }
-    }));
+    });
 
 
 
