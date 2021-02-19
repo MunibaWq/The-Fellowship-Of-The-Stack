@@ -81,7 +81,7 @@ const Events = () => {
                             let eventDate1 = new Date(event1.start_time);
                             let eventDate2 = new Date(event2.start_time);
 
-                            console.log("eventTime " + eventDate1);
+                            // console.log("eventTime " + eventDate1);
 
                             if (new Date() - eventDate1 > 0) {
                                 return 1;

@@ -61,12 +61,14 @@ const EventPage = () => {
             const collaborators = await getCollabsByEventID(currentEvent);
             setCollabs(collaborators);
             console.log(collaborators);
+            console.log(image);
 
             return data;
         };
         const fetchEventImages = async () => {
             let response = await getImagesByEID(currentEvent);
             setImages(response);
+            console.log(images);
         };
 
         fetchEventImages();
@@ -120,7 +122,7 @@ const EventPage = () => {
             </Link>
             <MainInfo>
                 <EventImages>
-                    <MainImage
+                    {/* <MainImage
                         src={
                             image
                                 ? "/eventImages/" + image + ".jpeg"
@@ -130,7 +132,7 @@ const EventPage = () => {
                                   }.jpeg`
                                 : ImageTest
                         }
-                        alt={"image"}></MainImage>
+                        alt={"image"}></MainImage> */}
                 </EventImages>
 
                 <EventDetail>

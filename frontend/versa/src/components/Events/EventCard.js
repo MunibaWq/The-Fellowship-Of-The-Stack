@@ -23,7 +23,7 @@ const EventCard = ({ theEvent }) => {
     const routeChange = () => {
         let path = `/account`;
         history.push(path);
-        console.log(history);
+        // console.log(history);
     };
 
     useEffect(() => {
@@ -56,7 +56,7 @@ const EventCard = ({ theEvent }) => {
     //     }
     // }, [going, currentEvent]);
 
-    console.log("results", theEvent);
+    // console.log("results", theEvent);
     let options = {
         weekday: "long",
         year: "numeric",
@@ -99,10 +99,7 @@ const EventCard = ({ theEvent }) => {
                         : "Loading"}
                 </EventDate>
                 <Time>{startTime ? startTime + "-" + endTime : "Loading"}</Time>
-                <Stats>
-                    
-                    
-                </Stats>
+                <Stats></Stats>
             </Link>
             <Actions>
                 {/**<ActionButton
