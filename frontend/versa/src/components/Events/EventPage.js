@@ -8,7 +8,7 @@ import theme from "../Reusable/Colors";
 import { LeftIcon, Going, NotGoing } from "../../images/icons";
 import { deleteUserFromEventByID } from "../../axios/deletes";
 import { amIGoing } from "../../axios/gets";
-import imageTest from "../../images/imageTest.png";
+import ImageTest from "../../images/imageTest.png";
 
 const EventPage = () => {
     const [going, setGoing] = useState("false");
@@ -22,12 +22,12 @@ const EventPage = () => {
 
     //state to update attending number when user attends/unattends event
     const [attending, setAttending] = useState();
+    const [images, setImages] = useState([]);
 
     useEffect(() => {
         const findUser = async () => {
             const response = await getUser();
             setIsUser(response);
-            // console.log(response);
         };
         findUser();
     }, []);
@@ -35,7 +35,6 @@ const EventPage = () => {
     useEffect(() => {
         const attendStatus = async () => {
             const response = await amIGoing(currentEvent);
-            // console.log(response);
 
             if (response) {
                 setGoing(true);
@@ -78,9 +77,6 @@ const EventPage = () => {
                 minute: "2-digit",
             });
 
-            // console.log(startTime);
-            // console.log(endTime);
-
             setDateTime({
                 startDate,
                 endDate,
@@ -108,7 +104,17 @@ const EventPage = () => {
             </Link>
             <MainInfo>
                 <EventImages>
-                    <MainImage src={imageTest} alt={"image"}></MainImage>
+                    {/* <MainImage
+                        src={
+                            image
+                                ? "/images/" + image + ".jpeg"
+                                : images && images.length > 0
+                                ? `https://versaeventbucket.s3.us-east-2.amazonaws.com/images/${
+                                      images[choices.image].filename
+                                  }.jpeg`
+                                : ImageTest
+                        }
+                        alt={"image"}></MainImage> */}
                 </EventImages>
 
                 <EventDetail>
@@ -154,7 +160,7 @@ const EventPage = () => {
                         <h3>Location:</h3>
                         <p>{eventData.location}</p>
                     </Details>
-                    
+
                     <Details>
                         <h3>Attending: </h3>
 
