@@ -3,8 +3,6 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 const StockTable = ({ item, setter }) => {
     let [stock, setStock] = useState([]);
-    let [cost, setCost] = useState(null);
-    let [margin, setMargin] = useState("N/A");
 
     function mapOverColorAndSize(stock) {
         if (item.colours && item.sizes) {
@@ -16,6 +14,7 @@ const StockTable = ({ item, setter }) => {
                         size: size.label,
                         price: size.price,
                         quantity: 0,
+                        cost: size.cost,
                     };
                     for (let el of stock) {
                         if (
@@ -39,12 +38,12 @@ const StockTable = ({ item, setter }) => {
         }, 1000);
     }, [item, stock.length]);
 
-    useEffect(() => {
-        setMargin(() => {
-            return item.price - cost;
-        });
-    }, [cost]);
-
+    function calcMargin(base, price, cost) {
+        if (cost && price) {
+            return parseFloat(base) + parseFloat(price) - cost;
+        }
+        return "N/A";
+    }
     function mapTable(arr) {
         if (arr.length > 0) {
             return arr.map((unit) => {
@@ -64,16 +63,8 @@ const StockTable = ({ item, setter }) => {
                                 }}
                             />
                         </td>
-                        <td>
-                            <input
-                                type="number"
-                                value={cost}
-                                onChange={(e) => {
-                                    setCost(e.target.value);
-                                }}
-                            />
-                        </td>
-                        <td>{margin}</td>
+                        <td>{unit.cost}</td>
+                        <td>{calcMargin(item.price, unit.price, unit.cost)}</td>
                     </tr>
                 );
             });
