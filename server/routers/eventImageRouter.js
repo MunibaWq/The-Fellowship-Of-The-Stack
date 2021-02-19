@@ -14,7 +14,7 @@ const storage = multer.memoryStorage({
     },
 });
 var multipleUpload = multer({ storage: storage }).array("file");
-const BUCKET_NAME = "versaeventbucket";
+const BUCKET_NAME = "versabucket";
 const accessKeyId = process.env.REACT_APP_AWS_ACCESS_KEY_ID;
 
 const secretKey = process.env.REACT_APP_AWS_SECRET_ACCESS_KEY;
@@ -73,7 +73,7 @@ router.post("/add", multipleUpload, auth, async function (req, res) {
 
             file.map((item) => {
                 var params = {
-                    Bucket: BUCKET_NAME + "/images",
+                    Bucket: BUCKET_NAME + "/eventImages",
                     Key: filename + ".jpeg",
                     Body: item.buffer,
                     ACL: "public-read",

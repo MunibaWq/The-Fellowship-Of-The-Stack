@@ -122,17 +122,17 @@ const EventPage = () => {
             </Link>
             <MainInfo>
                 <EventImages>
-                    {/* <MainImage
+                    <MainImage
                         src={
                             image
                                 ? "/eventImages/" + image + ".jpeg"
                                 : images && images.length > 0
-                                ? `https://versaeventbucket.s3.us-east-2.amazonaws.com/images/${
+                                ? `https://versabucket.s3.us-east-2.amazonaws.com/eventImages/${
                                       images[choices.image].filename
                                   }.jpeg`
                                 : ImageTest
                         }
-                        alt={"image"}></MainImage> */}
+                        alt={"image"}></MainImage>
                 </EventImages>
 
                 <EventDetail>
