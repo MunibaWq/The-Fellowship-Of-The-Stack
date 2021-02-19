@@ -48,23 +48,23 @@ const Footer = () => {
                 </LinkGroup>
                 <LinkGroup>
                     <h6>Versa</h6>
-                    <LinkItem to="/">About</LinkItem>
-                    <LinkItem to="/">Careers</LinkItem>
-                    <LinkItem to="/">Contact Us</LinkItem>
-                    <LinkItem to="/">Terms & Conditions</LinkItem>
-                    <LinkItem to="/">Cookies</LinkItem>
+                    <LinkItem to="/coming-soon">About</LinkItem>
+                    <LinkItem to="/coming-soon">Careers</LinkItem>
+                    <LinkItem to="/coming-soon">Contact Us</LinkItem>
+                    <LinkItem to="/coming-soon">Terms & Conditions</LinkItem>
+                    <LinkItem to="/coming-soon">Cookies</LinkItem>
                 </LinkGroup>
                 <LinkGroup>
                     <h6>Support</h6>
-                    <LinkItem to="/">Help Centre</LinkItem>
-                    <LinkItem to="/">Business Education</LinkItem>
-                    <LinkItem to="/">Lifestyle Tips</LinkItem>
+                    <LinkItem to="/coming-soon">Help Centre</LinkItem>
+                    <LinkItem to="/coming-soon">Business Education</LinkItem>
+                    <LinkItem to="/coming-soon">Lifestyle Tips</LinkItem>
                 </LinkGroup>
                 <LinkGroup>
                     <h6>Community</h6>
-                    <LinkItem to="/">Landing for Artists</LinkItem>
-                    <LinkItem to="/">Landing for Drivers</LinkItem>
-                    <LinkItem to="/">Landing for Locals</LinkItem>
+                    <LinkItem to="/coming-soon">Landing for Artists</LinkItem>
+                    <LinkItem to="/coming-soon">Landing for Drivers</LinkItem>
+                    <LinkItem to="/coming-soon">Landing for Locals</LinkItem>
                 </LinkGroup>
             </Links>
         </Container>
