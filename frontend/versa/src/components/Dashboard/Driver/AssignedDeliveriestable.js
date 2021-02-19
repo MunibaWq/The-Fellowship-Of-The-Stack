@@ -3,6 +3,9 @@ import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 import theme from "../../Reusable/Colors";
 import Loading from "../../Reusable/Loading";
+import Button from "../../Reusable/Button";
+import { StyledLink } from "../../Reusable/Link";
+import { RightIcon } from "../../../images/icons";
 
 const DriversAssignedDeliveriesTable = ({ orderData }) => {
     const [data, setData] = useState(orderData);
@@ -19,6 +22,8 @@ const DriversAssignedDeliveriesTable = ({ orderData }) => {
             label: "Buyer Name",
         },
     ];
+
+    const handleClick = () => {};
 
     useEffect(() => {
         const sortArray = (type) => {
@@ -39,12 +44,7 @@ const DriversAssignedDeliveriesTable = ({ orderData }) => {
         sortArray(sortType);
     }, [sortType]);
 
-    let headers = [
-        "Order ID",
-        "Artist Name",
-        "Pickup Address",
-        "Number of Items",
-    ];
+    let headers = ["Artist Name", "Pickup Address", "Status"];
 
     const history = useHistory();
 
@@ -65,11 +65,11 @@ const DriversAssignedDeliveriesTable = ({ orderData }) => {
     };
     const filteredData = filterData(data, query);
 
-    console.log(
-        "sorted",
-        [...orderData].sort((a, b) => a.name.localeCompare(b.name))
-    );
-    // console.log(filteredData, "f");
+    const uniqueArtist = Array.from(
+        new Set(filteredData.map((a) => a.name))
+    ).map((name) => {
+        return filteredData.find((a) => a.name === name);
+    });
     return (
         <TableContainer>
             {!orderData ? (
@@ -111,50 +111,23 @@ const DriversAssignedDeliveriesTable = ({ orderData }) => {
                             </Headers>
                         </thead>
                         <tbody>
-                            {filteredData &&
-                                filteredData.map((order, index) => (
+                            {uniqueArtist &&
+                                uniqueArtist.map((order, index) => (
                                     <BodyRows key={order.name + order.status}>
-                                        <td
-                                            onClick={() =>
-                                                history.push(
-                                                    `/dashboard/driver/assigned-deliveries/${order.artist_id}`
-                                                )
-                                            }
-                                            key={order.name + order.id}>
-                                            <p>{order.id}</p>
-                                        </td>
-                                        <td
-                                            onClick={() =>
-                                                history.push(
-                                                    `/dashboard/driver/assigned-deliveries/${order.artist_id}`
-                                                )
-                                            }
-                                            key={order.name + order.id}>
+                                        <td key={order.name + order.id}>
                                             <p>{order.username}</p>
                                         </td>
-                                        <td
-                                            onClick={() =>
-                                                history.push(
-                                                    `/dashboard/driver/assigned-deliveries/${order.artist_id}`
-                                                )
-                                            }
-                                            key={order.name + order.id + 34}>
+                                        <td key={order.name + order.id + 34}>
                                             <p>{order.address}</p>
                                         </td>
-                                        <td
-                                            onClick={() =>
-                                                history.push(
-                                                    `/dashboard/driver/assigned-deliveries/${order.artist_id}`
-                                                )
-                                            }>
-                                            <p>
-                                                {!order.orderShipDate
-                                                    ? "No ship date available"
-                                                    : order.orderShipDate ===
-                                                      null
-                                                    ? "No ship date available"
-                                                    : order.orderShipDate}
-                                            </p>
+                                        <td>
+                                            <StatusButton
+                                                to={`/dashboard/driver/assigned-deliveries/${order.artist_id}`}>
+                                                START PICKUP{" "}
+                                                <RightIcon
+                                                    stroke={theme.primary}
+                                                />
+                                            </StatusButton>
                                         </td>
                                     </BodyRows>
                                 ))}
@@ -287,8 +260,6 @@ const Headers = styled.tr`
 const BodyRows = styled.tr`
     border-bottom: thin solid #dddddd;
     transition: all 0.2s ease;
-
-    cursor: pointer;
     p {
         color: ${theme.tertiary};
         margin-bottom: 0;
@@ -326,4 +297,11 @@ const SortChoice = styled.select`
                 ? `2px solid ${theme.primaryHover}`
                 : `2px solid ${theme.primaryHover}`};
     }
+`;
+
+const StatusButton = styled(StyledLink)`
+    background: none;
+    padding: 0;
+    margin: 0;
+    border: none;
 `;
