@@ -22,7 +22,7 @@ const Status = styled.select`
     }
 `;
 
-const DriversAssignedDeliveriesDropDown = ({ order }) => {
+const DriversAssignedPickupsDropDown = ({ order }) => {
     const statusOptions = [
         {
             value: "Ready for Delivery",
@@ -79,4 +79,4 @@ const DriversAssignedDeliveriesDropDown = ({ order }) => {
     );
 };
 
-export default DriversAssignedDeliveriesDropDown;
+export default DriversAssignedPickupsDropDown;

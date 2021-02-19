@@ -6,7 +6,7 @@ import {
     Redirect,
 } from "react-router-dom";
 import DashboardMain from "./DashboardMain";
-import ShopperDashboardMain from '../../UserBuyer/Dashboard/DashboardMain'
+import ShopperDashboardMain from "../../UserBuyer/Dashboard/DashboardMain";
 import SideNav from "./SideNav";
 import Orders from "./Orders";
 import Categories from "./Categories";
@@ -36,9 +36,9 @@ import NotFound from "../../NotFound";
 import EventsAttending from "../../UserBuyer/Dashboard/EventsAttending";
 import OrderTracking from "../../UserBuyer/Dashboard/OrderTracking";
 import PastDeliveryDetails from "../../Driver/Dashboard/PastDeliveryDetails";
-import AssignedDeliveries from "../../Driver/Dashboard/AssignedDeliveries";
-import AssignedDeliveryDetails from "../../Driver/Dashboard/AssignedDeliveryDetails";
-import ShopperOrderItems from '../../UserBuyer/Dashboard/OrderItems'
+import AssignedPickups from "../../Driver/Dashboard/AssignedPickups";
+import ShopperOrderItems from "../../UserBuyer/Dashboard/OrderItems";
+import AssignedPickupDetails from "../../Driver/Dashboard/AssignedPickupDetails";
 const cookies = new Cookies();
 const Redirecter = () => {
     window.location = "/account";
@@ -180,12 +180,12 @@ const Dashboard = () => {
                     />
                     <PrivateRoute
                         exact
-                        path="/dashboard/driver/assigned-deliveries/"
-                        component={AssignedDeliveries}
+                        path="/dashboard/driver/assigned-pickups/"
+                        component={AssignedPickups}
                     />
                     <PrivateRoute
-                        path="/dashboard/driver/assigned-deliveries/:artistid"
-                        component={AssignedDeliveryDetails}
+                        path="/dashboard/driver/assigned-pickups/:artistid"
+                        component={AssignedPickupDetails}
                     />
                     <PrivateRoute
                         path="/dashboard/shopper/events-attending"

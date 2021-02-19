@@ -469,7 +469,7 @@ router.get("/driver/past/:orderid", auth, async (req, res) => {
     }
 });
 
-router.get("/driver/assigned-deliveries", auth, async (req, res) => {
+router.get("/driver/assigned-pickups", auth, async (req, res) => {
     try {
         const assignedDeliveries = await pool.query(
             `
@@ -491,7 +491,7 @@ router.get("/driver/assigned-deliveries", auth, async (req, res) => {
     }
 });
 
-router.get("/driver/assigned-deliveries/:artistid", auth, async (req, res) => {
+router.get("/driver/assigned-pickups/:artistid", auth, async (req, res) => {
     try {
         const assignedDeliveries = await pool.query(
             `

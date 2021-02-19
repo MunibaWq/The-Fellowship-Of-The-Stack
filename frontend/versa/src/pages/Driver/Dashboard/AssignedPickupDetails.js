@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import { getOneAssignedDelivery } from "../../../axios/gets";
+import { getOneAssignedPickup } from "../../../axios/gets";
 import Loading from "../../../components/Reusable/Loading";
 import theme from "../../../components/Reusable/Colors";
 import { DriverReceived, LeftIcon } from "../../../images/icons";
 import { StyledLink } from "../../../components/Reusable/Link";
 
-const AssignedDeliveryDetails = () => {
+const AssignedPickupDetails = () => {
     let params = useParams();
     let artistID = params.artistid;
     const [orderData, setOrderData] = useState();
@@ -15,7 +15,7 @@ const AssignedDeliveryDetails = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const data = await getOneAssignedDelivery(artistID);
+            const data = await getOneAssignedPickup(artistID);
             setArtistDetails(data[0]);
 
             setOrderData(data);
@@ -119,7 +119,7 @@ const AssignedDeliveryDetails = () => {
     );
 };
 
-export default AssignedDeliveryDetails;
+export default AssignedPickupDetails;
 
 const BackToOrder = styled(StyledLink)`
     margin-left: -0.5em;
@@ -165,7 +165,7 @@ const Address = styled.div`
     width: 50%;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-end;
 `;
 
 const BuyerContainer = styled.div`

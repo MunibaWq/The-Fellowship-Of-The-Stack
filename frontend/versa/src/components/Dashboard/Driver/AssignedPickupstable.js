@@ -7,7 +7,7 @@ import Button from "../../Reusable/Button";
 import { StyledLink } from "../../Reusable/Link";
 import { RightIcon } from "../../../images/icons";
 
-const DriversAssignedDeliveriesTable = ({ orderData }) => {
+const DriversAssignedPickupTable = ({ orderData }) => {
     const [data, setData] = useState(orderData);
     const [sortType, setSortType] = useState();
     const [query, setQuery] = useState();
@@ -144,7 +144,7 @@ const DriversAssignedDeliveriesTable = ({ orderData }) => {
     );
 };
 
-export default DriversAssignedDeliveriesTable;
+export default DriversAssignedPickupTable;
 
 const TableContainer = styled.div`
     justify-self: center;

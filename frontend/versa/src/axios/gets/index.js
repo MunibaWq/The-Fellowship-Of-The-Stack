@@ -185,16 +185,14 @@ export const getOnePastDelivery = async (orderid) => {
     return response.data;
 };
 
-export const getAssignedDeliveries = async () => {
-    const response = await Axios.get(
-        `/api/dashboard/driver/assigned-deliveries`
-    );
+export const getAssignedPickups = async () => {
+    const response = await Axios.get(`/api/dashboard/driver/assigned-pickups`);
     return response.data;
 };
 
-export const getOneAssignedDelivery = async (artistid) => {
+export const getOneAssignedPickup = async (artistid) => {
     const response = await Axios.get(
-        `/api/dashboard/driver/assigned-deliveries/${artistid}`
+        `/api/dashboard/driver/assigned-pickups/${artistid}`
     );
     return response.data;
 };
