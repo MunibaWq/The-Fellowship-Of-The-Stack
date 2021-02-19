@@ -6,13 +6,13 @@ import {
     Redirect,
 } from "react-router-dom";
 import DashboardMain from "./DashboardMain";
-import ShopperDashboardMain from '../../UserBuyer/Dashboard/DashboardMain'
+import ShopperDashboardMain from "../../UserBuyer/Dashboard/DashboardMain";
+import Messages from '../../Shared/Messages'
 import SideNav from "./SideNav";
 import Orders from "./Orders";
 import Categories from "./Categories";
 import Inventory from "./Inventory";
 import AvgOrderValue from "./AvgOrderValue";
-import Messages from "./Messages";
 import Notifications from "./Notifications";
 import SalesByProduct from "./SalesByProduct";
 import Settings from "./Settings";
@@ -38,7 +38,7 @@ import OrderTracking from "../../UserBuyer/Dashboard/OrderTracking";
 import PastDeliveryDetails from "../../Driver/Dashboard/PastDeliveryDetails";
 import AssignedDeliveries from "../../Driver/Dashboard/AssignedDeliveries";
 import AssignedDeliveryDetails from "../../Driver/Dashboard/AssignedDeliveryDetails";
-import ShopperOrderItems from '../../UserBuyer/Dashboard/OrderItems'
+import ShopperOrderItems from "../../UserBuyer/Dashboard/OrderItems";
 const cookies = new Cookies();
 const Redirecter = () => {
     window.location = "/account";
@@ -204,6 +204,10 @@ const Dashboard = () => {
                     <PrivateRoute
                         path="/dashboard/shopper/order-tracking/:orderid"
                         component={ShopperOrderItems}
+                    />
+                    <PrivateRoute
+                        path="/dashboard/messages"
+                        component={Messages}
                     />
                     <PrivateRoute component={NotFound} />
                 </Switch>

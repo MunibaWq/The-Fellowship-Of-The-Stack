@@ -16,6 +16,7 @@ import {
     CarIcon,
     AccountIcon,
     InventoryIcon,
+    MessageIcon,
 } from "../../../images/icons";
 import theme from "../../../components/Reusable/Colors";
 // import Pill from "../../../components/Reusable/Pill";
@@ -109,6 +110,15 @@ const SideNav = ({ navWidth, setNavWidth }) => {
                                 <MenuLink>
                                     <HomeIcon />
                                     <h4>Home</h4>
+                                    <RightIcon stroke={theme.primary} />
+                                </MenuLink>
+                            </li>
+                        </Link>
+                        <Link to="/dashboard/messages">
+                            <li>
+                                <MenuLink>
+                                    <MessageIcon />
+                                    <h4>Messages</h4>
                                     <RightIcon stroke={theme.primary} />
                                 </MenuLink>
                             </li>
