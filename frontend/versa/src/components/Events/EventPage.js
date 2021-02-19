@@ -29,9 +29,8 @@ const EventPage = () => {
 
     //state to update attending number when user attends/unattends event
     const [attending, setAttending] = useState();
-    const [images, setImages] = useState([]);
-    const [image, setImage] = useState([]);
-    const choices = useSelector((state) => state.eventChoices);
+
+    const [image, setImage] = useState();
 
     useEffect(() => {
         const findUser = async () => {
@@ -56,7 +55,7 @@ const EventPage = () => {
         const fetchEvent = async () => {
             const data = await getEventByID(currentEvent);
             setEventData(data);
-            setImage(data.image);
+            setImage(data.thumbnail);
             setAttending(data.num_attending);
             const collaborators = await getCollabsByEventID(currentEvent);
             setCollabs(collaborators);
@@ -65,13 +64,13 @@ const EventPage = () => {
 
             return data;
         };
-        const fetchEventImages = async () => {
-            let response = await getImagesByEID(currentEvent);
-            setImages(response);
-            console.log(images);
-        };
+        // const fetchEventImages = async () => {
+        //     let response = await getImagesByEID(currentEvent);
+        //     setImage(response);
+        //     console.log(images);
+        // };
 
-        fetchEventImages();
+        // fetchEventImages();
 
         fetchEvent().then((data) => {
             let options = {
@@ -125,11 +124,7 @@ const EventPage = () => {
                     <MainImage
                         src={
                             image
-                                ? "/eventImages/" + image + ".jpeg"
-                                : images && images.length > 0
-                                ? `https://versabucket.s3.us-east-2.amazonaws.com/eventImages/${
-                                      images[choices.image].filename
-                                  }.jpeg`
+                                ? `https://versabucket.s3.us-east-2.amazonaws.com/eventImages/${image}.jpeg`
                                 : ImageTest
                         }
                         alt={"image"}></MainImage>

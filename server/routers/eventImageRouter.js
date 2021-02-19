@@ -97,7 +97,7 @@ router.post("/add", multipleUpload, auth, async function (req, res) {
         try {
             //make a query to insert the image info into the db
             const response = await pool.query(
-                "INSERT INTO images (filename, label, img_size, event_id) VALUES ($1, $2, $3,$4) RETURNING *",
+                "INSERT INTO event_images (filename, label, img_size, event_id) VALUES ($1, $2, $3,$4) RETURNING *",
                 [filename, label, imageSize, eventID]
             );
             if (imageSize === "thumb") {

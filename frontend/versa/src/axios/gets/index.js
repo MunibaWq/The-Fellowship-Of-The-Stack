@@ -90,6 +90,7 @@ export const getAttendingEvents = async () => {
 
 export const getEventByID = async (id) => {
     const response = await Axios.get(`/api/events/get/${id}`);
+    console.log(response);
     return response.data;
 };
 
