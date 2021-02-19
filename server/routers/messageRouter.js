@@ -34,4 +34,34 @@ router.post('/send', auth, (req, res) => {
     }
 })
 
+//search messages by keyword found in title or user
+router.get("/searchMessages/:searchQuery", async (req, res) => {
+    let query = req.params.searchQuery.toUpperCase().split("&");
+    let queryString = "";
+    query.forEach((term, index) => {
+        if (index == 0) {
+            queryString = `
+            UPPER (m.topic) LIKE '%${term}%' 
+            OR UPPER (ut.username) LIKE '%${term}%'
+            OR UPPER (uf.username) LIKE '%${term}%')`;
+        } else {
+            queryString += ` AND UPPER (m.topic) LIKE '%${term}%'
+            OR UPPER (ut.username) LIKE '%${term}%')
+            OR UPPER (uf.username) LIKE '%${term}%')`;
+        }
+    });
+
+    const result = await pool.query(
+        `SELECT m.*, ut.username, uf.username FROM messages m
+        INNER JOIN users ut ON ut.id = m.to
+        INNER JOIN users uf ON uf.id = m.from
+       
+        WHERE ${queryString} AND ut.id = m.to OR uf.id = m.from`
+    );
+    const messages = result.rows;
+
+    res.json(messages);
+});
+
+
 module.exports = router;
