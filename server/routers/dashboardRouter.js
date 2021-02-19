@@ -4,8 +4,8 @@ const pool = require("../db");
 const auth = require("../middleware/auth");
 
 router.get("/sales-by-products/:query", auth, async (req, res) => {
-    const [term, start, end] = req.params.query.split('&')
-    console.log('here',term, start, end)
+    const [term, start, end] = req.params.query.split("&");
+    console.log("here", term, start, end);
     try {
         const result = await pool.query(
             `SELECT s.color, s.size, s.sale_price, p.title, SUM(s.sale_price * s.quantity), SUM(s.quantity) AS quantity
@@ -22,7 +22,7 @@ router.get("/sales-by-products/:query", auth, async (req, res) => {
         );
 
         const productSalesInfo = result.rows;
-        console.log(productSalesInfo)
+        console.log(productSalesInfo);
         res.json(productSalesInfo);
     } catch (e) {
         console.log("error", e);
@@ -30,7 +30,7 @@ router.get("/sales-by-products/:query", auth, async (req, res) => {
     }
 });
 router.get("/total-orders/:query", auth, async (req, res) => {
-    const [start, end] = req.params.query.split('&')
+    const [start, end] = req.params.query.split("&");
 
     try {
         const result = await pool.query(
@@ -54,7 +54,7 @@ router.get("/total-orders/:query", auth, async (req, res) => {
 });
 
 router.get("/total-sales/:query", auth, async (req, res) => {
-    const [start, end] = req.params.query.split('&')
+    const [start, end] = req.params.query.split("&");
     try {
         const result = await pool.query(
             `SELECT sum(sale_price), EXTRACT(day FROM DATE) AS DAY, EXTRACT(month FROM DATE) AS month, EXTRACT(year FROM DATE) AS YEAR
@@ -79,8 +79,8 @@ router.get("/total-sales/:query", auth, async (req, res) => {
 });
 
 router.get("/average-order-value/:query", auth, async (req, res) => {
-    const [start, end] = req.params.query.split('&')
-    console.log(start,end)
+    const [start, end] = req.params.query.split("&");
+    console.log(start, end);
     try {
         const result = await pool.query(
             `SELECT AVG(SUM) as average, day, MONTH, YEAR FROM 
@@ -107,7 +107,6 @@ router.get("/average-order-value/:query", auth, async (req, res) => {
     }
 });
 router.get("/customer-orders", auth, async (req, res) => {
-    
     try {
         const result = await pool.query(
             `SELECT * FROM orders
@@ -496,7 +495,7 @@ router.get("/driver/assigned-deliveries/:artistid", auth, async (req, res) => {
     try {
         const assignedDeliveries = await pool.query(
             `
-            SELECT o.id, o.name, o.phone, o.email, o.delivery_notes, o.shipping_address, i.order_id, i.quantity, i.color,
+            SELECT o.id, o.name, o.phone, o.email, o.delivery_notes, o.shipping_address, i.order_id, i.quantity, i.color, p.thumbnail,
             i.size, p.title, i.driver_status, u.username, u.address 
             FROM orders o 
             INNER JOIN order_items i ON o.id = i.order_id 
