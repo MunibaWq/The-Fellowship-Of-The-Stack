@@ -6,12 +6,24 @@ import Loading from "../../../components/Reusable/Loading";
 import theme from "../../../components/Reusable/Colors";
 import { Circle } from "../../../images/icons";
 import { Input, Label } from "../../../components/Reusable/Input";
-
+const sorters = {
+    "Date": (one, two) => {
+        return (
+            new Date(`${one.month}/${one.day}/${one.year}`) -
+            new Date(`${two.month}/${two.day}/${two.year}`)
+        );
+    },
+    "Order Total": (one, two) => {
+        return +one.sum - +two.sum;
+    },
+};
 const TotalOrders = () => {
     const [salesData, setSalesData] = useState();
     const [graphData, setGraphData] = useState();
     const [start, setStart] = useState("01-01-1900");
     const [end, setEnd] = useState(new Date().toUTCString());
+    const [sortBy, setSortBy] = useState("Order Total");
+    
     useEffect(() => {
         console.log("term,start,end", start, end);
         const fetchData = async (query) => {
@@ -171,11 +183,13 @@ const TotalOrders = () => {
                     <SBPTable>
                         <thead>
                             {headers.map((header, index) => (
-                                <th key={header + index}>{header}</th>
+                                <th  onClick={() => {
+                                        setSortBy(header);
+                                    }} key={header + index}>{header}</th>
                             ))}
                         </thead>
                         <tbody>
-                            {salesData.map((sales, index) => {
+                            {salesData.sort(sorters[sortBy]).map((sales, index) => {
                                 console.log(sales);
                                 return (
                                     <tr key={sales.sum + index}>
@@ -251,6 +265,10 @@ const SBPTable = styled.table`
             font-weight: 700;
         }
         text-align: left;
+        th {
+            cursor: pointer;
+           text-decoration: underline;
+        }
     }
 `;
 

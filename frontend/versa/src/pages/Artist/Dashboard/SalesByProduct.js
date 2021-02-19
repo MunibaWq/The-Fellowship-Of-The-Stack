@@ -6,22 +6,46 @@ import Loading from "../../../components/Reusable/Loading";
 import theme from "../../../components/Reusable/Colors";
 import Button from "../../../components/Reusable/Button";
 import { Input, Label } from "../../../components/Reusable/Input";
-
+const sorters = {
+    "Product Name": (one, two) => {
+        return one.title.localeCompare(two.title);
+    },
+    "Color": (one, two) => {
+        return one.color.localeCompare(two.color);
+    },
+    "Size": (one, two) => {
+        return one.size.localeCompare(two.size);
+    },
+    "Price": (one, two) => {
+        console.log(one,two)
+        return +one.sale_price - +two.sale_price;
+    },
+    "# Sold": (one, two) => {
+        if (one && two) {
+            return +one.quantity - +two.quantity;
+        }
+    },
+    "Total Sales": (one, two) => {
+        return +one.sum - +two.sum;
+    },
+};
 const SalesByProduct = () => {
     const [productData, setProductData] = useState();
-    const [term, setTerm] = useState('')
-    const [start, setStart] = useState('01-01-1900')
-    const [end, setEnd] = useState(new Date().toUTCString())
+    const [term, setTerm] = useState("");
+    const [start, setStart] = useState("01-01-1900");
+    const [end, setEnd] = useState(new Date().toUTCString());
+    const [sortBy, setSortBy] = useState('# Sold')
+    console.log('productData',productData)
     useEffect(() => {
-        console.log('term,start,end', term,start,end)
+        console.log("term,start,end", term, start, end);
         const fetchData = async (query) => {
             const data = await getSalesByProduct(query);
 
             setProductData(data);
         };
-        let query = `${term.toUpperCase()}&${start}&${end}`
+        let query = `${term.toUpperCase()}&${start}&${end}`;
         fetchData(query);
-    }, [term,start,end]);
+    }, [term, start, end]);
     let headers = [
         "Product Name",
         "Color",
@@ -35,14 +59,17 @@ const SalesByProduct = () => {
             <Button to="/dashboard/artist">Back to Dashboard</Button>
             <h1>Sales By Product</h1>
             <SearchBarDiv>
-            <Label>Search by Product Title</Label>
+                <Label>Search by Product Title</Label>
                 <SearchBar
                     onChange={(e) => setTerm(e.target.value)}
                     placeholder="Search"
                     type="text"
                 />
-                <br /><br />
-                <Label>Date Range</Label><br /><br/>
+                <br />
+                <br />
+                <Label>Date Range</Label>
+                <br />
+                <br />
                 <Label>From:</Label>
 
                 <Input
@@ -60,13 +87,13 @@ const SalesByProduct = () => {
                     style={{ width: "20%" }}
                     onChange={(e) => {
                         let toDate = new Date(e.target.value);
-                        let date2Set = toDate.setDate(toDate.getDate()+1);
+                        let date2Set = toDate.setDate(toDate.getDate() + 1);
                         setEnd(new Date(date2Set).toUTCString());
                     }}
                     type="date"
                 />
             </SearchBarDiv>
-          
+
             {!productData ? (
                 <Loading />
             ) : (
@@ -100,7 +127,7 @@ const SalesByProduct = () => {
                                 theme.primaryHover + "33",
                                 theme.primaryHover + "18",
                             ]}
-                            data={productData
+                            data={productData.sort(sorters['# Sold'])
                                 .reduce((array, product, index) => {
                                     if (index < 4) {
                                         array.push(product);
@@ -112,7 +139,7 @@ const SalesByProduct = () => {
 
                                     return array;
                                 }, [])
-                                .map(product => {
+                                .map((product) => {
                                     console.log(product);
                                     return {
                                         x:
@@ -137,29 +164,38 @@ const SalesByProduct = () => {
                         <thead>
                             <tr>
                                 {headers.map((header, index) => (
-                                    <th key={header + index}>{header}</th>
+                                    <th
+                                        onClick={() => {
+                                            setSortBy(header);
+                                        }}
+                                        key={header + index}>
+                                        {header}
+                                    </th>
                                 ))}
                             </tr>
                         </thead>
                         <tbody>
-                            {productData.map((product, index) => (
-                                <tr key={product.title + index}>
-                                    <td>{product.title}</td>
-                                    <td>
-                                        {product.color === "O"
-                                            ? "One Size"
-                                            : product.color}
-                                    </td>
-                                    <td>
-                                        {product.size === "O"
-                                            ? "One Size"
-                                            : product.size}
-                                    </td>
-                                    <td>{(+product.sale_price).toFixed(2)}</td>
-                                    <td>{product.quantity}</td>
-                                    <td>{(+product.sum).toFixed(2)}</td>
-                                </tr>
-                            ))}
+                                {productData && productData.sort(sorters[sortBy]).map((product, index) => {
+                                    console.log(typeof sortBy, sortBy, sorters[sortBy])
+                                    return (
+                                        <tr key={product.title + index}>
+                                            <td>{product.title}</td>
+                                            <td>
+                                                {product.color === "O"
+                                                    ? "One Size"
+                                                    : product.color}
+                                            </td>
+                                            <td>
+                                                {product.size === "O"
+                                                    ? "One Size"
+                                                    : product.size}
+                                            </td>
+                                            <td>{(+product.sale_price).toFixed(2)}</td>
+                                            <td>{product.quantity}</td>
+                                            <td>{(+product.sum).toFixed(2)}</td>
+                                        </tr>
+                                    )
+                                })}
                         </tbody>
                     </SBPTable>
                 </div>
@@ -188,6 +224,7 @@ class CustomLabel extends React.Component {
         );
     }
 }
+
 
 CustomLabel.defaultEvents = V.VictoryTooltip.defaultEvents;
 
@@ -300,6 +337,10 @@ const SBPTable = styled.table`
             font-weight: 700;
         }
         text-align: left;
+        th {
+            cursor:pointer;
+            text-decoration: underline;
+        }
     }
 `;
 

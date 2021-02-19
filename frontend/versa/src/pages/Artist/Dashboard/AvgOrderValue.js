@@ -7,12 +7,23 @@ import theme from "../../../components/Reusable/Colors";
 import { Circle } from "../../../images/icons";
 import Button from "../../../components/Reusable/Button";
 import { Input, Label } from "../../../components/Reusable/Input";
-
+const sorters = {
+    "Date": (one, two) => {
+        return (
+            new Date(`${one.month}/${one.day}/${one.year}`) -
+            new Date(`${two.month}/${two.day}/${two.year}`)
+        );
+    },
+    "Average Order Value": (one, two) => {
+        return one.average - two.average;
+    },
+};
 const AvgOrderValue = () => {
     const [salesData, setSalesData] = useState();
     const [graphData, setGraphData] = useState();
     const [start, setStart] = useState("01-01-1900");
     const [end, setEnd] = useState(new Date().toUTCString());
+    const [sortBy, setSortBy] = useState("Average Order Value");
     useEffect(() => {
         console.log("term,start,end", start, end);
         const fetchData = async (query) => {
@@ -31,7 +42,7 @@ const AvgOrderValue = () => {
         let query = `${start}&${end}`;
         fetchData(query);
     }, [start, end]);
-    
+
     let headers = ["Date", "Average Order Value"];
 
     return (
@@ -58,13 +69,13 @@ const AvgOrderValue = () => {
                     style={{ width: "20%" }}
                     onChange={(e) => {
                         let toDate = new Date(e.target.value);
-                        let date2Set = toDate.setDate(toDate.getDate()+1);
+                        let date2Set = toDate.setDate(toDate.getDate() + 1);
                         setEnd(new Date(date2Set).toUTCString());
                     }}
                     type="date"
                 />
             </SearchBarDiv>
-            
+
             {!salesData ? (
                 <Loading />
             ) : (
@@ -129,23 +140,31 @@ const AvgOrderValue = () => {
                                     height="10px"
                                     fill={theme.primary}
                                 />
-                               Average Order Value By Day
+                                Average Order Value By Day
                             </div>
                         </Legend>
                     </GraphContainer>
                     <SBPTable>
                         <thead>
                             {headers.map((header, index) => (
-                                <th key={header + index}>{header}</th>
+                                <th
+                                    onClick={() => {
+                                        setSortBy(header);
+                                    }}
+                                    key={header + index}>
+                                    {header}
+                                </th>
                             ))}
                         </thead>
                         <tbody>
-                            {salesData.map((sales, index) => (
-                                <tr key={sales.sum + index}>
-                                    <td>{`${sales.day}/${sales.month}/${sales.year}`}</td>
-                                    <td>${(+sales.average).toFixed(2)}</td>
-                                </tr>
-                            ))}
+                            {salesData
+                                .sort(sorters[sortBy])
+                                .map((sales, index) => (
+                                    <tr key={sales.sum + index}>
+                                        <td>{`${sales.day}/${sales.month}/${sales.year}`}</td>
+                                        <td>${(+sales.average).toFixed(2)}</td>
+                                    </tr>
+                                ))}
                         </tbody>
                     </SBPTable>
                 </Data>
@@ -196,6 +215,10 @@ const SBPTable = styled.table`
             font-weight: 700;
         }
         text-align: left;
+        th {
+            cursor: pointer;
+           text-decoration: underline;
+        }
     }
 `;
 
