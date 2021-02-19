@@ -3,9 +3,6 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import {
     LineCloseIcon,
-    Notification,
-    Message,
-    Setting,
     Dashboard,
     Orders,
     Products,
@@ -21,9 +18,9 @@ import {
     InventoryIcon,
 } from "../../../images/icons";
 import theme from "../../../components/Reusable/Colors";
-import Pill from "../../../components/Reusable/Pill";
+// import Pill from "../../../components/Reusable/Pill";
 import Cookies from "universal-cookie";
-import Inventory from "./Inventory";
+// import Inventory from "./Inventory";
 const cookies = new Cookies();
 const isDriver = cookies.get("isDriver") === "true";
 const isArtist = cookies.get("isArtist") === "true";
@@ -51,7 +48,8 @@ const SideNav = ({ navWidth, setNavWidth }) => {
                         setNavWidth(300);
                         setExpanded(true);
                     }}>
-                    <HamburgerIcon stroke={theme.secondary} />MENU
+                    <HamburgerIcon stroke={theme.secondary} />
+                    MENU
                 </Toggle>
             )}
             {expanded && (
@@ -110,7 +108,7 @@ const SideNav = ({ navWidth, setNavWidth }) => {
                             <li>
                                 <MenuLink>
                                     <HomeIcon />
-                                    <h3>Home</h3>
+                                    <h4>Home</h4>
                                     <RightIcon stroke={theme.primary} />
                                 </MenuLink>
                             </li>
@@ -125,13 +123,13 @@ const SideNav = ({ navWidth, setNavWidth }) => {
                                         <PaintBrushIcon
                                             stroke={theme.tertiary}
                                         />
-                                        <h3>Artist Dashboard</h3>
+                                        <h4>Artist Dashboard</h4>
                                         <DownIcon stroke={theme.primary} />
                                     </MenuLink>
                                 </li>
                                 {visibleADSub && (
                                     <SubMenu>
-                                        <Link to="/artistDashboard">
+                                        <Link to="/dashboard/artist">
                                             <li>
                                                 <MenuLink>
                                                     <ShopHome />
@@ -142,13 +140,13 @@ const SideNav = ({ navWidth, setNavWidth }) => {
                                                 </MenuLink>
                                             </li>
                                         </Link>
-                                        <Link to="/dashboard/recent-orders/">
+                                        <Link to="/dashboard/artist/recent-orders/">
                                             <li>
                                                 <MenuLink>
                                                     <Orders />
-                                                    <NotiCount>
+                                                    {/*<NotiCount>
                                                         <p>3</p>
-                                                    </NotiCount>
+                                                    </NotiCount>*/}
                                                     <h3>Orders</h3>
 
                                                     <RightIcon
@@ -157,7 +155,7 @@ const SideNav = ({ navWidth, setNavWidth }) => {
                                                 </MenuLink>
                                             </li>
                                         </Link>
-                                        <Link to="/dashboard/inventory">
+                                        <Link to="/dashboard/artist/inventory">
                                             <li>
                                                 <MenuLink>
                                                     <InventoryIcon />
@@ -183,7 +181,7 @@ const SideNav = ({ navWidth, setNavWidth }) => {
 
                                         {visibleASub && (
                                             <SubMenu>
-                                                <Link to="/dashboard/total-sales/">
+                                                <Link to="/dashboard/artist/total-sales/">
                                                     <li>
                                                         <SubMenuLink>
                                                             <h4>Total Sales</h4>
@@ -195,7 +193,7 @@ const SideNav = ({ navWidth, setNavWidth }) => {
                                                         </SubMenuLink>
                                                     </li>
                                                 </Link>
-                                                <Link to="/dashboard/total-orders/">
+                                                <Link to="/dashboard/artist/total-orders/">
                                                     <li>
                                                         <SubMenuLink>
                                                             <h4>
@@ -209,7 +207,7 @@ const SideNav = ({ navWidth, setNavWidth }) => {
                                                         </SubMenuLink>
                                                     </li>
                                                 </Link>
-                                                <Link to="/dashboard/average-order-value/">
+                                                <Link to="/dashboard/artist/average-order-value/">
                                                     <li>
                                                         <SubMenuLink>
                                                             <h4>
@@ -224,7 +222,7 @@ const SideNav = ({ navWidth, setNavWidth }) => {
                                                         </SubMenuLink>
                                                     </li>
                                                 </Link>
-                                                <Link to="/dashboard/sales-by-products/">
+                                                <Link to="/dashboard/artist/sales-by-products/">
                                                     <li>
                                                         <SubMenuLink>
                                                             <h4>
@@ -240,12 +238,12 @@ const SideNav = ({ navWidth, setNavWidth }) => {
                                                 </Link>
                                             </SubMenu>
                                         )}
-                                        <Link to="/dashboard/manage-events">
+                                        <Link to="/dashboard/artist/manage-events">
                                             <li>
                                                 <MenuLink>
-                                                    <NotiCount>
+                                                    {/*<NotiCount>
                                                         <p>3</p>
-                                                    </NotiCount>
+                                                    </NotiCount>*/}
                                                     <EventsIcon />
                                                     <h3>Events</h3>
                                                     <RightIcon
@@ -264,111 +262,45 @@ const SideNav = ({ navWidth, setNavWidth }) => {
                                     setVisibleSDSub((curr) => !curr)
                                 }>
                                 <Products />
-                                <h3>Shop Dashboard</h3>
+                                <h4>Shopper Dashboard</h4>
                                 <DownIcon stroke={theme.primary} />
                             </MenuLink>
                         </li>
                         {visibleSDSub && (
                             <SubMenu>
-                                <Link to="/dashboard/recent-orders/">
+                                <Link to="/dashboard/shopper/order-tracking/">
                                     <li>
                                         <MenuLink>
                                             <Orders />
-                                            <NotiCount>
+                                            {/*<NotiCount>
                                                 <p>3</p>
-                                            </NotiCount>
+                                            </NotiCount>*/}
                                             <h3>Orders</h3>
 
                                             <RightIcon stroke={theme.primary} />
                                         </MenuLink>
                                     </li>
                                 </Link>
-                                <li>
-                                    <MenuLink
-                                        onClick={() =>
-                                            setVisiblePSub(!visiblePSub)
-                                        }>
-                                        <Products />
-                                        <h3>Products</h3>
-                                        <DownIcon stroke={theme.primary} />
-                                    </MenuLink>
-                                </li>
-                                {visiblePSub && (
-                                    <SubMenu>
-                                        <Link to="/dashboard/inventory">
-                                            <li>
-                                                <SubMenuLink>
-                                                    <h4>Inventory</h4>
-                                                    <RightIcon
-                                                        stroke={theme.primary}
-                                                    />
-                                                </SubMenuLink>
-                                            </li>
-                                        </Link>
-                                    </SubMenu>
-                                )}
-
-                                <li>
-                                    <MenuLink
-                                        onClick={() =>
-                                            setVisibleASub(!visibleASub)
-                                        }>
-                                        <Dashboard />
-                                        <h3>Analytics</h3>
-                                        <DownIcon stroke={theme.primary} />
-                                    </MenuLink>
-                                </li>
-
-                                {visibleASub && (
-                                    <SubMenu>
-                                        <Link to="/dashboard/total-sales/">
-                                            <li>
-                                                <SubMenuLink>
-                                                    <h4>Total Sales</h4>
-                                                    <RightIcon
-                                                        stroke={theme.primary}
-                                                    />
-                                                </SubMenuLink>
-                                            </li>
-                                        </Link>
-                                        <Link to="/dashboard/total-orders/">
-                                            <li>
-                                                <SubMenuLink>
-                                                    <h4>Total Orders</h4>
-                                                    <RightIcon
-                                                        stroke={theme.primary}
-                                                    />
-                                                </SubMenuLink>
-                                            </li>
-                                        </Link>
-                                        <Link to="/dashboard/average-order-value/">
-                                            <li>
-                                                <SubMenuLink>
-                                                    <h4>Average Order Value</h4>
-                                                    <RightIcon
-                                                        stroke={theme.primary}
-                                                    />
-                                                </SubMenuLink>
-                                            </li>
-                                        </Link>
-                                        <Link to="/dashboard/sales-by-products/">
-                                            <li>
-                                                <SubMenuLink>
-                                                    <h4>Sales by Product</h4>
-                                                    <RightIcon
-                                                        stroke={theme.primary}
-                                                    />
-                                                </SubMenuLink>
-                                            </li>
-                                        </Link>
-                                    </SubMenu>
-                                )}
-                                <Link to="/dashboard/manage-events">
+                                <Link to="/dashboard/shopper/">
                                     <li>
                                         <MenuLink>
-                                            <NotiCount>
+                                            <HomeIcon />
+                                            {/*<NotiCount>
                                                 <p>3</p>
-                                            </NotiCount>
+                                            </NotiCount>*/}
+                                            <h3>Overview</h3>
+
+                                            <RightIcon stroke={theme.primary} />
+                                        </MenuLink>
+                                    </li>
+                                </Link>
+
+                                <Link to="/dashboard/shopper/events-attending">
+                                    <li>
+                                        <MenuLink>
+                                            {/*<NotiCount>
+                                                <p>3</p>
+                                            </NotiCount>*/}
                                             <EventsIcon />
                                             <h3>Events</h3>
                                             <RightIcon stroke={theme.primary} />
@@ -385,13 +317,13 @@ const SideNav = ({ navWidth, setNavWidth }) => {
                                             setVisibleDDSub((curr) => !curr)
                                         }>
                                         <CarIcon stroke={theme.tertiary} />
-                                        <h3>Driver Dashboard</h3>
+                                        <h4>Driver Dashboard</h4>
                                         <DownIcon stroke={theme.primary} />
                                     </MenuLink>
                                 </li>
                                 {visibleDDSub && (
                                     <SubMenu>
-                                        <Link to="/driverDashboard">
+                                        <Link to="/dashboard/driver">
                                             <li>
                                                 <MenuLink>
                                                     <AccountIcon />
@@ -403,21 +335,7 @@ const SideNav = ({ navWidth, setNavWidth }) => {
                                                 </MenuLink>
                                             </li>
                                         </Link>
-                                        <Link to="/driver/delivery">
-                                            <li>
-                                                <MenuLink>
-                                                    <Orders />
-                                                    <NotiCount>
-                                                        <p>3</p>
-                                                    </NotiCount>
-                                                    <h3>Delivery</h3>
 
-                                                    <RightIcon
-                                                        stroke={theme.primary}
-                                                    />
-                                                </MenuLink>
-                                            </li>
-                                        </Link>
                                         <li>
                                             <MenuLink
                                                 onClick={() =>
@@ -432,7 +350,7 @@ const SideNav = ({ navWidth, setNavWidth }) => {
                                         </li>
                                         {visiblePSub && (
                                             <SubMenu>
-                                                <Link to="/driver/orders">
+                                                <Link to="/dashboard/driver/orders">
                                                     <li>
                                                         <SubMenuLink>
                                                             <h4>
@@ -447,11 +365,11 @@ const SideNav = ({ navWidth, setNavWidth }) => {
                                                         </SubMenuLink>
                                                     </li>
                                                 </Link>
-                                                <Link to="/driver/order-history">
+                                                <Link to="/dashboard/driver/order-history">
                                                     <li>
                                                         <SubMenuLink>
                                                             <h4>
-                                                                Order History
+                                                                Delivery History
                                                             </h4>
                                                             <RightIcon
                                                                 stroke={
@@ -463,27 +381,15 @@ const SideNav = ({ navWidth, setNavWidth }) => {
                                                 </Link>
                                             </SubMenu>
                                         )}
-
-                                        <li>
-                                            <MenuLink
-                                                onClick={() =>
-                                                    setVisibleASub(!visibleASub)
-                                                }>
-                                                <Dashboard />
-                                                <h3>Analytics</h3>
-                                                <RightIcon
-                                                    stroke={theme.primary}
-                                                />
-                                            </MenuLink>
-                                        </li>
-                                        <Link to="/dashboard/manage-events">
+                                        <Link to="/dashboard/driver/assigned-deliveries/">
                                             <li>
                                                 <MenuLink>
-                                                    <NotiCount>
-                                                        <p>3</p>
-                                                    </NotiCount>
-                                                    <EventsIcon />
-                                                    <h3>Events</h3>
+                                                    <Orders />
+                                                    {/*<NotiCount>
+                                                    <p>3</p>
+                                                </NotiCount>*/}
+                                                    <h3>Deliveries</h3>
+
                                                     <RightIcon
                                                         stroke={theme.primary}
                                                     />
@@ -503,16 +409,15 @@ const SideNav = ({ navWidth, setNavWidth }) => {
 
 export default SideNav;
 
-const NotiCount = styled(Pill)`
-    position: absolute;
-    transform: translate(20px, -10px);
-`;
+// const NotiCount = styled(Pill)`
+//     position: absolute;
+//     transform: translate(20px, -10px);
+// `;
 
 const Container = styled.div`
-    padding: ${props=>props.navWidth !== 300 ? "0px": "20px 20px 0px 20px"};
+    padding: ${(props) => (props.navWidth !== 300 ? "0px" : "1em")};
     background: white;
-    max-width: 300px;
-    height: calc(100vh - 84px);
+    height: fit-content;
 `;
 
 const Toggle = styled.div`
@@ -535,7 +440,11 @@ const Toggle = styled.div`
     display: flex;
     align-items: center;
     svg {
-        margin-right:8px;
+        margin-right: 8px;
+    }
+    :last-child {
+        font-weight: 700;
+        letter-spacing: 0.05em;
     }
 `;
 
@@ -545,9 +454,10 @@ const NavBar = styled.div`
     -ms-transition: all 0.3s ease;
     -o-transition: all 0.3s ease;
     transition: all 0.3s ease;
-    left: -300px;
     background: white;
     position: sticky;
+    min-width: 300px;
+    left: -300px;
 `;
 
 const Close = styled.div`
@@ -585,6 +495,7 @@ const UserType = styled.p`
 `;
 const Menu = styled.ul`
     list-style: none;
+
     -webkit-transition: all 0.3s ease;
     -moz-transition: all 0.3s ease;
     -ms-transition: all 0.3s ease;
@@ -596,6 +507,7 @@ const MenuLink = styled.button`
     border: none;
     background-color: white;
     width: 100%;
+
     padding: 10px;
     display: flex;
     flex-direction: row;
@@ -613,13 +525,14 @@ const MenuLink = styled.button`
     :active {
         background-color: #d0dfff;
         outline: none;
-        h3 {
-            font-weight: 700;
-        }
     }
-
     h3 {
-        font-size: 1em;
+        font-size: 0.9em;
+    }
+    h4 {
+        text-transform: uppercase;
+        font-weight: 700;
+        font-size: 0.8em;
     }
 `;
 const SubMenu = styled.div`
@@ -628,6 +541,8 @@ const SubMenu = styled.div`
     -ms-transition: all 0.3s ease;
     -o-transition: all 0.3s ease;
     transition: all 0.3s ease;
+    background: ${theme.secondary};
+    min-width: 300px;
     li {
         display: flex;
         align-items: center;
@@ -644,10 +559,12 @@ const SubMenuLink = styled.button`
     background-color: white;
     width: 100%;
     padding: 8px 8px 8px 10px;
+
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+
     -webkit-transition: all 0.3s ease;
     -moz-transition: all 0.3s ease;
     -ms-transition: all 0.3s ease;
@@ -669,16 +586,16 @@ const SubMenuLink = styled.button`
         font-size: 0.8em;
     }
 `;
-const ToolBar = styled.div`
-    ul {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-    }
+// const ToolBar = styled.div`
+//     ul {
+//         display: flex;
+//         flex-direction: row;
+//         justify-content: space-between;
+//     }
 
-    -webkit-transition: all 0.3s ease;
-    -moz-transition: all 0.3s ease;
-    -ms-transition: all 0.3s ease;
-    -o-transition: all 0.3s ease;
-    transition: all 0.3s ease;
-`;
+//     -webkit-transition: all 0.3s ease;
+//     -moz-transition: all 0.3s ease;
+//     -ms-transition: all 0.3s ease;
+//     -o-transition: all 0.3s ease;
+//     transition: all 0.3s ease;
+// `;

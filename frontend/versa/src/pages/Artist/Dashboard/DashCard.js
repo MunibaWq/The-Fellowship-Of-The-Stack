@@ -93,7 +93,7 @@ const Table = styled.div`
     th,
     thead {
         padding: 6px;
-
+        font-size: 12px;
         border-collapse: collapse;
     }
     thead {
@@ -206,19 +206,20 @@ const VTable = ({ data }) => {
         <table>
             <thead>
                 <tr>
-                {data.table.headers.map((header, index) => (
-                    <th key={header}>{header}</th>
-                ))}
+                    {data.table.headers.map((header, index) => (
+                        <th key={header}>{header}</th>
+                    ))}
                 </tr>
             </thead>
             <tbody>
-            {data.table.values.map((row, index) => (
-                <tr key={`data${index}`}>
-                    {row.map((data, index) => (
-                        <td key={index}>{data}</td>
-                    ))}
-                </tr>
-            ))}</tbody>
+                {data.table.values.map((row, index) => (
+                    <tr key={`data${index}`}>
+                        {row.map((data, index) => (
+                            <td key={index}>{data}</td>
+                        ))}
+                    </tr>
+                ))}
+            </tbody>
         </table>
     );
 };

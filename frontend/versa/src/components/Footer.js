@@ -50,7 +50,7 @@ const Footer = () => {
                     <h6>Versa</h6>
                     <LinkItem to="/">About</LinkItem>
                     <LinkItem to="/">Careers</LinkItem>
-                    <LinkItem to="/">Contact Us</LinkItem>
+                    <LinkItem to="/contact">Contact Us</LinkItem>
                     <LinkItem to="/">Terms & Conditions</LinkItem>
                     <LinkItem to="/">Cookies</LinkItem>
                 </LinkGroup>
@@ -86,10 +86,10 @@ const Container = styled.div`
         color: ${theme.secondary};
     }
     @media screen and (max-width: 420px) {
-        margin: 1em 0;
+        /* margin: 1em 0; */
     }
     @media screen and (max-width: 768px) {
-        margin: 1em 0;
+        /* margin: 1em 0; */
     }
 `;
 
@@ -191,6 +191,10 @@ const Links = styled.div`
 const LinkItem = styled(StyledLink)`
     font-size: 16px;
     color: ${theme.secondary};
+    background: none;
+    border-bottom: none;
+    margin: 0;
+    padding: 5px;
     font-weight: 500;
     :hover,
     :active:active,

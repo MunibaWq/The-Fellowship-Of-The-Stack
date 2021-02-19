@@ -99,7 +99,7 @@ router.get("/artistsEvents/:id", async (req, res) => {
 
 router.get("/myArtistsEvents/", auth, async (req, res) => {
     try {
-        const result = await pool.query(
+        const eventresult = await pool.query(
             `SELECT 
             CAST(c.count AS INT) AS num_attendees,
             u.username AS host_name,
@@ -118,6 +118,55 @@ router.get("/myArtistsEvents/", auth, async (req, res) => {
             ON u.id = e.host
             WHERE e.host= ${req.user.id}
             `
+        );
+        let results = eventresult.rows;
+        for (result of results) {
+            let options = {
+                weekday: "long",
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+            };
+
+            let resultsStartDate = new Date(result.start_time);
+
+            let startDate = resultsStartDate.toLocaleDateString(
+                "en-US",
+                options
+            );
+
+            let resultsEndDate = new Date(result.end_time);
+            let endDate = resultsEndDate.toLocaleDateString("en-US", options);
+            result.start_time = startDate;
+            result.end_time = endDate;
+        }
+        res.json(results);
+    } catch (e) {
+        console.log(e);
+        res.send("error");
+    }
+});
+router.get("/attending/", auth, async (req, res) => {
+    try {
+        const result = await pool.query(
+            `SELECT 
+            CAST(c.count AS INT) AS num_attendees,
+            u.username AS host_name,
+            e.*  
+            FROM 
+            events e 
+            INNER JOIN 
+                (SELECT a.event_id,COUNT(*) 
+                FROM events_attendees a 
+                INNER JOIN events e 
+                ON a.event_id = e.id 
+                GROUP BY a.event_id) c
+            ON e.id = c.event_id
+            INNER JOIN
+            users u
+            ON u.id = e.host
+            INNER JOIN (SELECT event_id, attendee FROM events_attendees WHERE attendee = ${req.user.id}) a
+            ON a.event_id = e.id`
         );
         const results = result.rows;
 
@@ -208,6 +257,7 @@ router.post("/create", auth, async (req, res) => {
         VALUES ($1, $2, $3, $4 )`,
                 [req.user.id, eventInfo.rows[0].id, "attending", true]
             );
+            console.log(eventInfo.rows[0].id);
             res.json(eventInfo.rows[0].id);
         } catch (err) {
             res.send(err);
@@ -373,7 +423,7 @@ router.post("/join", auth, async (req, res) => {
             req.user.id
     );
     attendee = attResponse.rows[0];
-
+    console.log("this is what Im looking for", attendee, collabs.rows);
     goingToEvent(attendee, collabs.rows);
 
     res.send("joined");
@@ -450,9 +500,26 @@ router.get("/amIGoing/:eventid", auth, async (req, res) => {
             [req.params.eventid, req.user.id]
         );
         const going = response.rows.length === 1;
+        console.log("this is going " + going);
         res.send(going);
     } catch (e) {
         console.log(e, "/amIGoing/:eventid");
+        res.send("error");
+    }
+});
+
+router.get("/collabs/:eventid", async (req, res) => {
+    try {
+        const collabs = await pool.query(
+            `SELECT u.username FROM users u INNER JOIN events_attendees a ON u.id = a.attendee WHERE a.type = 'collab' AND a.event_id = ${req.params.eventid}`
+        );
+        // const collaborators = [];
+        // collabs.rows.map((collab) => collaborators.push(collab.username));
+
+        res.json(collabs.rows);
+        console.log(collabs.rows);
+    } catch (e) {
+        console.log(e, "collabs");
         res.send("error");
     }
 });

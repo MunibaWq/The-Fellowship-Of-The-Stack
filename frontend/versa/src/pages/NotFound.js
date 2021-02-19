@@ -69,10 +69,12 @@ const Container = styled.div`
         p{
             padding: 0 0.8em;
         }
+    }
     @media screen and (max-width: 420px) {
         p{
             padding: 0 0.8em;
         }
+    }
 `;
 
 const Actions = styled.div`

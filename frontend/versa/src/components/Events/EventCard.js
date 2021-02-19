@@ -11,8 +11,11 @@ import { amIGoing, getUser } from "../../axios/gets";
 
 const EventCard = ({ theEvent }) => {
     //const [interested, setInterested] = useState(false);
-    const [going, setGoing] = useState("unset");
+    const [going, setGoing] = useState(false);
     const [isUser, setIsUser] = useState();
+
+    //state to update attending number when user attends/unattends event
+    const [attending, setAttending] = useState(Number(theEvent.num_attending));
 
     let currentEvent = theEvent.id;
     const history = useHistory();
@@ -20,14 +23,14 @@ const EventCard = ({ theEvent }) => {
     const routeChange = () => {
         let path = `/account`;
         history.push(path);
-        console.log(history);
+        // console.log(history);
     };
 
     useEffect(() => {
         const findUser = async () => {
             const response = await getUser();
             setIsUser(response);
-            console.log(response);
+            // console.log(response);
         };
         findUser();
     }, []);
@@ -35,6 +38,7 @@ const EventCard = ({ theEvent }) => {
     useEffect(() => {
         const attendStatus = async () => {
             const response = await amIGoing(currentEvent);
+            // console.log(reponse);
             if (response) {
                 setGoing(true);
             } else setGoing(false);
@@ -52,7 +56,7 @@ const EventCard = ({ theEvent }) => {
     //     }
     // }, [going, currentEvent]);
 
-    console.log("results", theEvent);
+    // console.log("results", theEvent);
     let options = {
         weekday: "long",
         year: "numeric",
@@ -77,7 +81,9 @@ const EventCard = ({ theEvent }) => {
         <CardContainer>
             {theEvent.thumbnail ? (
                 <Link to={`/events/${theEvent.id}`}>
-                    <Thumbnail src={theEvent.thumbnail} />
+                    <Thumbnail
+                        src={`https://versabucket.s3.us-east-2.amazonaws.com/eventImages/${theEvent.thumbnail}.jpeg`}
+                    />
                 </Link>
             ) : (
                 <Link to={`/events/${theEvent.id}`}>
@@ -95,12 +101,7 @@ const EventCard = ({ theEvent }) => {
                         : "Loading"}
                 </EventDate>
                 <Time>{startTime ? startTime + "-" + endTime : "Loading"}</Time>
-                <Stats>
-                    <NumInterested>
-                        {theEvent.num_interested} Interested
-                    </NumInterested>
-                    <NumGoing>{theEvent.num_attending} Going</NumGoing>
-                </Stats>
+                <Stats></Stats>
             </Link>
             <Actions>
                 {/**<ActionButton
@@ -131,12 +132,14 @@ const EventCard = ({ theEvent }) => {
                         if (going) {
                             if (isUser) {
                                 deleteUserFromEventByID(currentEvent);
+                                setAttending(attending - 1);
                             } else {
                                 routeChange();
                             }
                         } else {
                             if (isUser) {
                                 userGoing(currentEvent);
+                                setAttending(attending + 1);
                             } else {
                                 routeChange();
                             }
@@ -150,6 +153,7 @@ const EventCard = ({ theEvent }) => {
                     )}
                     {going && <NotGoing />}
                 </ActionButton>
+                <NumGoing>{attending} Going</NumGoing>
                 {/**} <ActionButton>
                     <Share stroke={theme.primary} />
                     </ActionButton>**/}

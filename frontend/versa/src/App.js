@@ -12,15 +12,16 @@ import EditAccount from "./pages/Shared/EditAccount";
 import Login from "./pages/Shared/Login";
 import Dashboard from "./pages/Artist/Dashboard/Dashboard";
 import EventPage from "./components/Events/EventPage";
-import DriverDashboard from "./pages/Driver/Dashboard/DriverDashboard";
 import { PrivateRoute } from "./components/Reusable/PrivateRoute";
 import NotFound from "./pages/NotFound";
 import Footer from "./components/Footer";
-
+import Contact from './pages/Contact'
 if (!window.localStorage.getItem("session")) {
     window.localStorage.setItem(
         "session",
-        Math.random().toString(36).substr(2, 9)
+        Math.random()
+            .toString(36)
+            .substr(2, 9)
     );
 }
 function App() {
@@ -28,12 +29,13 @@ function App() {
         <Router>
             <Navbar />
 
-            <div style={{ overflowX: "hidden" }}>
+            <div style={{ minHeight: "49vh" }}>
                 <Switch>
                     <Route exact path="/" component={SearchResults} />
                     <Route path="/shop" exact component={SearchResults} />
                     <Route path="/events" exact component={Events} />
                     <Route path="/account" exact component={Account} />
+                    <Route path="/contact" exact component={Contact}/>
                     <PrivateRoute path="/wishlist" exact component={Wishlist} />
                     <Route
                         path="/shopping-cart"
@@ -50,10 +52,6 @@ function App() {
 
                     <Route path="/log-in" component={Login} />
 
-                    <Route
-                        path="/driver-dashboard"
-                        component={DriverDashboard}
-                    />
                     <Route path="/dashboard" component={Dashboard} />
                     <Route component={NotFound} />
                 </Switch>

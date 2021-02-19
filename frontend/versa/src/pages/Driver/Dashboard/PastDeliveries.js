@@ -1,40 +1,37 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
-import { getOrdersReadyForDelivery } from "../../../axios/gets";
+import { getPastDeliveries } from "../../../axios/gets";
 import Loading from "../../../components/Reusable/Loading";
-import DriversOrdersTable from "../../../components/Dashboard/AnalyticsTables/DriversOrdersTable";
+import PastDeliveriesTable from "../../../components/Dashboard/Driver/PastDeliveriesTable";
 
-const DriversOrders = () => {
+const PastDeliveries = () => {
     const [orderData, setOrderData] = useState();
     let params = useParams();
     const currentUser = params.id;
-    const [buyerDetails, setBuyerDetails] = useState();
 
     useEffect(() => {
         const fetchData = async () => {
-            const data = await getOrdersReadyForDelivery();
+            const data = await getPastDeliveries();
 
             setOrderData(data);
         };
         fetchData();
     }, []);
 
-    console.log("o", orderData);
-
     return (
         <OrderContainer>
-            <h1>Orders to Fulfill</h1>
+            <h1>Delivery History</h1>
             {!orderData ? (
                 <Loading />
             ) : (
-                <DriversOrdersTable orderData={orderData} user={currentUser} />
+                <PastDeliveriesTable orderData={orderData} user={currentUser} />
             )}
         </OrderContainer>
     );
 };
 
-export default DriversOrders;
+export default PastDeliveries;
 
 const OrderContainer = styled.div`
     padding: 2em 2em 2em calc(2em + 66px);

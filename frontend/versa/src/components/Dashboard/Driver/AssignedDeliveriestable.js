@@ -3,35 +3,36 @@ import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 import theme from "../../Reusable/Colors";
 import Loading from "../../Reusable/Loading";
-import DropDown from "./DropDown";
-import DriversDropDown from "./DriversDropDown";
+import Button from "../../Reusable/Button";
+import { StyledLink } from "../../Reusable/Link";
+import { RightIcon } from "../../../images/icons";
 
-const DriversOrdersTable = ({ user, orderData }) => {
+const DriversAssignedDeliveriesTable = ({ orderData }) => {
     const [data, setData] = useState(orderData);
     const [sortType, setSortType] = useState();
     const [query, setQuery] = useState();
-
+    console.log("p", orderData);
     const sortOptions = [
-        {
-            value: "orderdate",
-            label: "Order Date",
-        },
         {
             value: "id",
             label: "Order ID",
         },
+        {
+            value: "ordername",
+            label: "Buyer Name",
+        },
     ];
+
+    const handleClick = () => {};
 
     useEffect(() => {
         const sortArray = (type) => {
             const types = {
-                orderdate: (a, b) => {
-                    if (a.orderDate < b.orderDate) {
-                        return -1;
-                    }
-                },
                 id: (a, b) => {
                     return a.id - b.id;
+                },
+                ordername: (a, b) => {
+                    return a.name.localeCompare(b.name);
                 },
             };
             const sortProperty = types[type];
@@ -43,14 +44,7 @@ const DriversOrdersTable = ({ user, orderData }) => {
         sortArray(sortType);
     }, [sortType]);
 
-    let headers = [
-        "Order ID",
-        "Artist",
-        "Pick Up Address",
-        "Delivery Notes",
-        "Status",
-        "Delivery Address",
-    ];
+    let headers = ["Artist Name", "Pickup Address", "Status"];
 
     const history = useHistory();
 
@@ -69,9 +63,13 @@ const DriversOrdersTable = ({ user, orderData }) => {
             return dataValue.includes(query.toLowerCase());
         });
     };
-
     const filteredData = filterData(data, query);
 
+    const uniqueArtist = Array.from(
+        new Set(filteredData.map((a) => a.name))
+    ).map((name) => {
+        return filteredData.find((a) => a.name === name);
+    });
     return (
         <TableContainer>
             {!orderData ? (
@@ -87,7 +85,9 @@ const DriversOrdersTable = ({ user, orderData }) => {
                             onChange={(e) => setSortType(e.target.value)}>
                             {sortOptions.map((option) => (
                                 <>
-                                    <option value={option.value}>
+                                    <option
+                                        value={option.value}
+                                        key={option.value}>
                                         {option.label}
                                     </option>
                                 </>
@@ -110,70 +110,33 @@ const DriversOrdersTable = ({ user, orderData }) => {
                                 ))}
                             </Headers>
                         </thead>
-                        {filteredData &&
-                            filteredData.map((order, index) => (
-                                <BodyRows key={order.name + index}>
-                                    <td
-                                        onClick={() =>
-                                            history.push(
-                                                `/driver/orders/${order.id}`
-                                            )
-                                        }>
-                                        <p>{order.id}</p>
-                                    </td>
-                                    <td
-                                        onClick={() =>
-                                            history.push(
-                                                `/driver/orders/${order.id}`
-                                            )
-                                        }>
-                                        <p>{order.username}</p>
-                                    </td>
-                                    <td
-                                        onClick={() =>
-                                            history.push(
-                                                `/driver/orders/${order.id}`
-                                            )
-                                        }>
-                                        <p>{order.address}</p>
-                                    </td>
-                                    <td
-                                        onClick={() =>
-                                            history.push(
-                                                `/driver/orders/${order.id}`
-                                            )
-                                        }>
-                                        <p>
-                                            {!order.delivery_notes
-                                                ? "No delivery notes"
-                                                : order.delivery_notes === null
-                                                ? "No delivery notes"
-                                                : order.delivery_notes}
-                                        </p>
-                                    </td>
-                                    <td>
-                                        <DriversDropDown order={order} />
-                                    </td>
-                                    <td
-                                        onClick={() =>
-                                            history.push(
-                                                `/driver/orders/${order.id}`
-                                            )
-                                        }>
-                                        <p>{order.shipping_address}</p>
-                                    </td>
+                        <tbody>
+                            {uniqueArtist &&
+                                uniqueArtist.map((order, index) => (
+                                    <BodyRows key={order.name + order.status}>
+                                        <td key={order.name + order.id}>
+                                            <p>{order.username}</p>
+                                        </td>
+                                        <td key={order.name + order.id + 34}>
+                                            <p>{order.address}</p>
+                                        </td>
+                                        <td>
+                                            <StatusButton
+                                                to={`/dashboard/driver/assigned-deliveries/${order.artist_id}`}>
+                                                START PICKUP{" "}
+                                                <RightIcon
+                                                    stroke={theme.primary}
+                                                />
+                                            </StatusButton>
+                                        </td>
+                                    </BodyRows>
+                                ))}
+                            {filteredData.length === 0 && (
+                                <BodyRows key="no row">
+                                    <td key="No results">No Results Found</td>
                                 </BodyRows>
-                            ))}
-                        {!filteredData && (
-                            <BodyRows>
-                                <td>
-                                    <p>
-                                        No orders found. Please try searching
-                                        again.
-                                    </p>
-                                </td>
-                            </BodyRows>
-                        )}
+                            )}
+                        </tbody>
                     </Table>
                 </>
             )}
@@ -181,7 +144,7 @@ const DriversOrdersTable = ({ user, orderData }) => {
     );
 };
 
-export default DriversOrdersTable;
+export default DriversAssignedDeliveriesTable;
 
 const TableContainer = styled.div`
     justify-self: center;
@@ -240,7 +203,7 @@ const Table = styled.table`
     border-collapse: collapse;
     margin: 0 1em 2em 1em;
     font-size: 0.9em;
-
+    min-width: 955px;
     box-shadow: 3px 3px 10px rgba(27, 49, 66, 0.13);
     border-radius: 15px 15px 0px 0px;
     thead th {
@@ -260,7 +223,7 @@ const Table = styled.table`
             min-width: 170px;
         }
         :nth-of-type(3) {
-            min-width: 300px;
+            min-width: 20px;
             @media screen and (max-width: 600px) {
                 display: none;
             }
@@ -272,7 +235,7 @@ const Table = styled.table`
             }
         }
         :nth-of-type(5) {
-            min-width: 180px;
+            min-width: 250px;
         }
         :nth-of-type(6) {
             min-width: 190px;
@@ -296,7 +259,7 @@ const Headers = styled.tr`
 `;
 const BodyRows = styled.tr`
     border-bottom: thin solid #dddddd;
-    cursor: pointer;
+    transition: all 0.2s ease;
     p {
         color: ${theme.tertiary};
         margin-bottom: 0;
@@ -334,4 +297,11 @@ const SortChoice = styled.select`
                 ? `2px solid ${theme.primaryHover}`
                 : `2px solid ${theme.primaryHover}`};
     }
+`;
+
+const StatusButton = styled(StyledLink)`
+    background: none;
+    padding: 0;
+    margin: 0;
+    border: none;
 `;

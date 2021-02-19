@@ -8,7 +8,7 @@ import { Redirect, useParams } from "react-router";
 import { setFormErrors } from "../../redux/actions/Errors";
 import { setFormInputs } from "../../redux/actions/Forms";
 import { setImages } from "../../redux/actions/Images";
-import { getEventByID } from "../../axios/gets";
+import { getEventByID, getImagesByEID } from "../../axios/gets";
 import { clearFormInputs } from "../../redux/actions/Forms";
 import {
     ImageList,
@@ -16,8 +16,11 @@ import {
     ImageUpload,
 } from "../ProductForm/styledComponents";
 import { ImageInput } from "../ProductForm/ImageInput";
-import { mapImages } from "../ProductForm/maps/mapImages";
+import { mapImages, thumbImg } from "./mapImages";
 import { userGoing, createEvent } from "../../axios/posts";
+import { StyledLink } from "../Reusable/Link";
+import { LineCloseIcon } from "../../images/icons";
+import theme from "../Reusable/Colors";
 
 const options = [
     "Select one:",
@@ -65,8 +68,12 @@ const EventForm = (props) => {
             dispatch(setFormInputs("event", "location", data.location));
             dispatch(setFormInputs("event", "status", data.status));
             dispatch(setFormInputs("event", "type", data.type));
-            dispatch(setImages("eventForm", data.images));
+
+            let img = await getImagesByEID(id);
+            console.log(img);
+            dispatch(setImages("eventForm", img.images));
         };
+
         if (props.type === "Edit") {
             getUserData();
         }
@@ -92,9 +99,9 @@ const EventForm = (props) => {
 
         const sendData = async () => {
             if (props.type === "Add") {
-                const response = await createEvent(eventInfo);
-                const eventID = response.data;
+                const response = await createEvent(eventInfo, images, thumbImg);
                 console.log(response);
+                const eventID = response.data;
 
                 console.log(eventID);
                 // await userGoing(eventID);
@@ -115,7 +122,7 @@ const EventForm = (props) => {
             dispatch(setFormErrors("event", "Please check all input is valid"));
         }
     };
-    console.log("starttime", input);
+    // console.log("starttime", input);
     return redirect ? (
         <Redirect to={redirect} />
     ) : (
@@ -144,6 +151,7 @@ const EventForm = (props) => {
                 <FieldContainer>
                     <Label>Category</Label>
                     <select
+                        style={{ height: "35px" }}
                         value={input.type}
                         onChange={(e) => {
                             dispatch(
@@ -310,6 +318,14 @@ const EventForm = (props) => {
             </Instruction>
             <RowContainer>
                 <Container>
+                    <StyledLink to="/dashboard">
+                        <LineCloseIcon
+                            width="32"
+                            height="32"
+                            stroke={theme.primary}
+                        />
+                        Cancel
+                    </StyledLink>
                     <Button primary onClick={submitData}>
                         Submit
                     </Button>

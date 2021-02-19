@@ -15,8 +15,12 @@ const DashboardEvents = () => {
 
     useEffect(() => {
         const getMyEvents = async () => {
-            let data = await getMyArtistEvents();
-            setEventsData(data);
+            try {
+                let data = await getMyArtistEvents();
+                setEventsData(data);
+            } catch (e) {
+                console.log(e);
+            }
         };
         getMyEvents();
     }, []);
@@ -24,14 +28,15 @@ const DashboardEvents = () => {
     console.log(eventsData);
     return (
         <EventsContainer>
-            <StyledLink secondary to="/dashboard/events/create">
-                
-                    <AddIcon />
-                    Create Event
-              
+            <StyledLink
+                style={{ gridColumn: 2, gridRow: 1, justifySelf: "end", height: "fit-content" }}
+                secondary
+                to="/dashboard/artist/events/create">
+                <AddIcon />
+                Create Event
             </StyledLink>
- 
-            <h1>Dashboard Events</h1>
+
+            <h1 style={{gridColumn:1, gridRow: 1}}>Dashboard Events</h1>
             {!eventsData ? (
                 <Loading />
             ) : (
@@ -44,10 +49,11 @@ const DashboardEvents = () => {
 export default DashboardEvents;
 
 const EventsContainer = styled.div`
-width:100vw;
+    width: 100vw;
     padding: 5em 2em;
     display: grid;
-    grid-template-rows: auto auto;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 80px auto;
     /* justify-content:center; */
     min-height: 100vh;
     h1 {
@@ -55,7 +61,6 @@ width:100vw;
         justify-self: start;
     }
     :last-of-type {
-               
-               align-self: center;
+        align-self: center;
     }
 `;

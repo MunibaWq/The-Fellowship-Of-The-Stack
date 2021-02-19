@@ -4,12 +4,13 @@ import { useParams } from "react-router-dom";
 import { getRecentOrders } from "../../../axios/gets";
 import Loading from "../../../components/Reusable/Loading";
 import OrdersTable from "../../../components/Dashboard/AnalyticsTables/OrdersTable";
+import { StyledLink } from "../../../components/Reusable/Link";
 
 const Orders = () => {
     const [orderData, setOrderData] = useState();
     let params = useParams();
     const currentUser = params.id;
-    const [buyerDetails, setBuyerDetails] = useState();
+    // const [buyerDetails, setBuyerDetails] = useState();
 
     useEffect(() => {
         const fetchData = async (currentUser) => {
@@ -39,12 +40,13 @@ export default Orders;
 const OrderContainer = styled.div`
     padding: 5em 2em;
     display: grid;
-    grid-template-rows: auto auto;
+    grid-template-rows: 80px auto;
     min-height: 100vh;
+    width: 90vw;
 
     h1 {
-        margin: 0 0 0 .55em;
-        
+        /* margin: 0 0 0 1.3em; */
+
         justify-self: start;
     }
 

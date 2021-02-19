@@ -86,13 +86,66 @@ export const addStock = async (id, quant) => {
     }
 };
 
-export const createEvent = async (eventInfo) => {
-    const createEvent = await Axios.post("/api/events/create", {
-        data: eventInfo,
-    });
-    window.location = "/dashboard";
-    return createEvent;
+// export const createEvent = async (eventInfo) => {
+//     try {
+//         let createEvent = await Axios.post("/api/events/create", {
+//             data: eventInfo,
+//         });
+
+//         window.location = "/dashboard";
+//         return createEvent;
+//     } catch (e) {
+//         console.log(e);
+//     }
+// };
+
+export const createEvent = async (eventInfo, images, thumbImg) => {
+    try {
+        let res = await Axios.post("/api/events/create", {
+            data: eventInfo,
+        });
+        console.log(res);
+        let eventID = +res.data;
+        images.forEach(async (image, index) => {
+            if (index === thumbImg) {
+                image.size = "thumb";
+            }
+
+            let { imageFile, label, size } = image;
+            let res = await addEventImage(imageFile, label, size, eventID);
+            if (!res)
+                alert(
+                    JSON.stringify(imageFile) +
+                        " failed to upload, go to edit event to try to add picture again"
+                );
+        });
+        // window.location = "/dashboard";
+        return res;
+    } catch (e) {
+        console.log(e);
+    }
 };
+
+export const addEventImage = async (image, label, imageSize, eventID) => {
+    try {
+        const data = new FormData();
+
+        data.append("label", label);
+        data.append("imageSize", imageSize);
+        data.append("eventID", eventID);
+        data.append("file", image);
+        const response = await Axios.post("/api/eventImages/add", data);
+        if (response.status === 201) {
+            return true;
+        }
+
+        return false;
+    } catch (err) {
+        console.error(err);
+        return false;
+    }
+};
+
 export const addToNewsletterList = async (email) => {
     try {
         let res = await Axios.post("/api/users/newsletter-signup", {
