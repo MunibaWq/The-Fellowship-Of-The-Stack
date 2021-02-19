@@ -81,7 +81,9 @@ const EventCard = ({ theEvent }) => {
         <CardContainer>
             {theEvent.thumbnail ? (
                 <Link to={`/events/${theEvent.id}`}>
-                    <Thumbnail src={theEvent.thumbnail} />
+                    <Thumbnail
+                        src={`https://versabucket.s3.us-east-2.amazonaws.com/eventImages/${theEvent.thumbnail}.jpeg`}
+                    />
                 </Link>
             ) : (
                 <Link to={`/events/${theEvent.id}`}>
