@@ -48,7 +48,7 @@ const TotalSales = () => {
                     style={{ width: "20%" }}
                     onChange={(e) => {
                         let toDate = new Date(e.target.value);
-                        let date1Set = toDate.setDate(toDate.getDate() + 1);
+                        let date1Set = toDate.setDate(toDate.getDate());
                         setStart(new Date(date1Set).toUTCString());
                     }}
                     type="date"
@@ -59,7 +59,7 @@ const TotalSales = () => {
                     style={{ width: "20%" }}
                     onChange={(e) => {
                         let toDate = new Date(e.target.value);
-                        let date2Set = toDate.setDate(toDate.getDate() + 1);
+                        let date2Set = toDate.setDate(toDate.getDate()+1);
                         setEnd(new Date(date2Set).toUTCString());
                     }}
                     type="date"
