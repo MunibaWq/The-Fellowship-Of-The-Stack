@@ -281,6 +281,19 @@ const SideNav = ({ navWidth, setNavWidth }) => {
                                         </MenuLink>
                                     </li>
                                 </Link>
+                                <Link to="/dashboard/shopper/">
+                                    <li>
+                                        <MenuLink>
+                                            <HomeIcon />
+                                            {/*<NotiCount>
+                                                <p>3</p>
+                                            </NotiCount>*/}
+                                            <h3>Overview</h3>
+
+                                            <RightIcon stroke={theme.primary} />
+                                        </MenuLink>
+                                    </li>
+                                </Link>
 
                                 <Link to="/dashboard/shopper/events-attending">
                                     <li>

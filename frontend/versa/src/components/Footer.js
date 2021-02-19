@@ -50,7 +50,7 @@ const Footer = () => {
                     <h6>Versa</h6>
                     <LinkItem to="/">About</LinkItem>
                     <LinkItem to="/">Careers</LinkItem>
-                    <LinkItem to="/">Contact Us</LinkItem>
+                    <LinkItem to="/contact">Contact Us</LinkItem>
                     <LinkItem to="/">Terms & Conditions</LinkItem>
                     <LinkItem to="/">Cookies</LinkItem>
                 </LinkGroup>

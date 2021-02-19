@@ -5,20 +5,23 @@ import { getSalesByProduct } from "../../../axios/gets";
 import Loading from "../../../components/Reusable/Loading";
 import theme from "../../../components/Reusable/Colors";
 import Button from "../../../components/Reusable/Button";
+import { Input, Label } from "../../../components/Reusable/Input";
 
 const SalesByProduct = () => {
     const [productData, setProductData] = useState();
-    const currentUser = 1;
-
+    const [term, setTerm] = useState('')
+    const [start, setStart] = useState('01-01-1900')
+    const [end, setEnd] = useState(new Date().toUTCString())
     useEffect(() => {
-        const fetchData = async () => {
-            const data = await getSalesByProduct(currentUser);
+        console.log('term,start,end', term,start,end)
+        const fetchData = async (query) => {
+            const data = await getSalesByProduct(query);
 
             setProductData(data);
         };
-
-        fetchData();
-    }, []);
+        let query = `${term.toUpperCase()}&${start}&${end}`
+        fetchData(query);
+    }, [term,start,end]);
     let headers = [
         "Product Name",
         "Color",
@@ -31,6 +34,39 @@ const SalesByProduct = () => {
         <SBPContainer>
             <Button to="/dashboard/artist">Back to Dashboard</Button>
             <h1>Sales By Product</h1>
+            <SearchBarDiv>
+            <Label>Search by Product Title</Label>
+                <SearchBar
+                    onChange={(e) => setTerm(e.target.value)}
+                    placeholder="Search"
+                    type="text"
+                />
+                <br /><br />
+                <Label>Date Range</Label><br /><br/>
+                <Label>From:</Label>
+
+                <Input
+                    style={{ width: "20%" }}
+                    onChange={(e) => {
+                        let toDate = new Date(e.target.value);
+                        let date1Set = toDate.setDate(toDate.getDate());
+                        setStart(new Date(date1Set).toUTCString());
+                    }}
+                    type="date"
+                />
+
+                <Label style={{ paddingLeft: "3%" }}>To:</Label>
+                <Input
+                    style={{ width: "20%" }}
+                    onChange={(e) => {
+                        let toDate = new Date(e.target.value);
+                        let date2Set = toDate.setDate(toDate.getDate()+1);
+                        setEnd(new Date(date2Set).toUTCString());
+                    }}
+                    type="date"
+                />
+            </SearchBarDiv>
+          
             {!productData ? (
                 <Loading />
             ) : (
@@ -175,6 +211,63 @@ CustomLabel.defaultEvents = V.VictoryTooltip.defaultEvents;
 //        );
 //    }
 //}
+
+const MagnifyIcon = styled.div`
+    position: absolute;
+    margin-top: 20px;
+    right: 10px;
+`;
+const SearchBarDiv = styled.div`
+    position: relative;
+    margin-bottom: 40px;
+`;
+const SearchBar = styled.input`
+    padding: 5px;
+    font-size: 26px;
+    width: 100%;
+    height: 50px;
+    margin: 10px 0;
+    border: 3px solid rgba(68, 68, 68, 0.1);
+    border-radius: 10px;
+    :focus,
+    ::active,
+    :hover {
+        border: 3px solid ${theme.primary};
+    }
+    ::-webkit-input-placeholder {
+        color: rgba(68, 68, 68, 0.3);
+        letter-spacing: 0.05em;
+        margin: 30px 0 0 8px;
+        font-size: 0.8em;
+        font-weight: 700;
+    }
+
+    ::-moz-placeholder {
+        /* Firefox 19+ */
+        color: rgba(68, 68, 68, 0.3);
+        margin: 30px 0 0 8px;
+        letter-spacing: 0.05em;
+        font-size: 0.8em;
+        font-weight: 700;
+    }
+    :-ms-input-placeholder {
+        /* IE 10+ */
+        color: rgba(68, 68, 68, 0.3);
+        letter-spacing: 0.05em;
+        margin: 30px 0 0 8px;
+        font-size: 0.8em;
+        font-weight: 700;
+    }
+    :-moz-placeholder {
+        /* Firefox 18- */
+        color: rgba(68, 68, 68, 0.3);
+        letter-spacing: 0.05em;
+        margin: 30px 0 0 8px;
+        font-size: 0.8em;
+        font-weight: 700;
+    }
+`;
+
 const SBPContainer = styled.div`
     width: 100vw;
     padding: 5em 2em;
