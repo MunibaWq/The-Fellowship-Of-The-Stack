@@ -22,7 +22,7 @@ const timeSince = (time) => {
             return (diff / 3600 / 24).toFixed(0) + " days";
     }
 };
-const MessageList = ({ setThread, messages }) => {
+const MessageList = ({ selectedThread, setSelectedThread, messages }) => {
     const [messageList, setMessageList] = useState();
     const [userID, setUserID] = useState();
     useEffect(() => {
@@ -100,40 +100,62 @@ const MessageList = ({ setThread, messages }) => {
         });
     }, [messages]);
     return messageList ? (
-        <MessageGrid>
-            {messageList.map((thread) => {
-                return (
-                    <Thread
-                        onClick={() => {
-                            setThread(thread);
-                            thread.unread = 0;
-                            if (
-                                thread.messages[thread.messages.length - 1]
-                                    .to_user === userID
-                            ) {
-                                // if the latest message is to me, set message as read
-                                readMessage(thread.topic, thread.fromID);
-                            }
-                        }}>
-                        <UnreadIcon>
-                            {thread.unread > 0 && (
-                                <Circle width="16" height="16" fill="green" />
-                            )}
-                        </UnreadIcon>
-                        <ThreadInfo>
-                            <h3>{thread.topic}</h3>
-                            <p>{thread.from}</p>
-                            <p>
-                                {timeSince(
+        <>
+            <div
+                style={{
+                    padding: "5px",
+                    color: theme.secondary,
+                    backgroundColor: theme.primary,
+                    gridColumn: "1 / 3",
+                }}>
+                {messageList.reduce((count, thread) => {
+                    count += thread.unread;
+                    return count;
+                }, 0)}{" "}
+                unread message(s)
+            </div>
+            <MessageGrid>
+                {messageList.map((thread) => {
+                    return (
+                        <Thread
+                            selected={selectedThread === thread}
+                            onClick={() => {
+                                setSelectedThread(thread);
+                                thread.unread = 0;
+                                if (
                                     thread.messages[thread.messages.length - 1]
-                                        .time
-                                )}{" "}
-                            </p>
-                        </ThreadInfo>
-                    </Thread>
-                );
-            })}
-        </MessageGrid>
+                                        .to_user === userID
+                                ) {
+                                    // if the latest message is to me, set message as read
+                                    readMessage(thread.topic, thread.fromID);
+                                }
+                            }}>
+                            <UnreadIcon>
+                                {thread.unread > 0 && (
+                                    <Circle
+                                        width="16"
+                                        height="16"
+                                        fill={theme.primaryHover}
+                                        stroke={theme.primary}
+                                    />
+                                )}
+                            </UnreadIcon>
+                            <ThreadInfo>
+                                <h3>{thread.topic}</h3>
+                                <p>{thread.from}</p>
+                                <p>
+                                    {timeSince(
+                                        thread.messages[
+                                            thread.messages.length - 1
+                                        ].time
+                                    )}{" "}
+                                </p>
+                            </ThreadInfo>
+                        </Thread>
+                    );
+                })}
+            </MessageGrid>
+        </>
     ) : (
         <></>
     );
@@ -142,26 +164,47 @@ const MessageList = ({ setThread, messages }) => {
 export default MessageList;
 const ThreadInfo = styled.div`
     grid-column: 2;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    h3 {
+        grid-column: 1;
+        font-weight: 700;
+    }
+    p {
+        grid-column: 1;
+        :last-of-type {
+            grid-column: 2;
+            place-self: flex-end;
+            margin-right: 10px;
+            color: ${theme.primary + "77"};
+        }
+    }
 `;
 const UnreadIcon = styled.div`
     grid-column: 1;
+    justify-self: end;
+    margin: 10px;
 `;
 const Thread = styled.div`
     display: grid;
     grid-template-columns: 14% 86%;
-    border-bottom: black 1px solid;
+    border-bottom: ${theme.primary}44 1px solid;
     align-items: center;
+    background-color: ${(props) =>
+        props.selected ? theme.primary + "45" : theme.secondary};
     p {
         margin-bottom: 0px;
     }
-    :nth-child(even){
-        background-color:${theme.primary+'17'};
+    :nth-child(even) {
+        background-color: ${(props) =>
+            props.selected ? theme.primary + "45" : theme.primary + "17"};
+    }
+    :last-child {
+        border-bottom: ${theme.primary} 1px solid;
     }
 `;
 const MessageGrid = styled.div`
     display: grid;
-    grid-auto-rows: 100px;
-  
-        
-   
+    grid-auto-rows: 80px;
+    overflow-y: auto;
 `;
