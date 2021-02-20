@@ -204,3 +204,10 @@ export const getMessages = async () => {
     console.log(response);
     return response.data;
 };
+
+export const getUserByToken = async () => {
+    const response = await Axios.get(`/api/users/me`)
+    return response.data
+}
+
+

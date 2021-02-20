@@ -135,4 +135,7 @@ router.post("/newsletter-signup", (req, res) => {
     }
 });
 
+router.get('/me', auth, (req, res) => {
+    res.send(req.user)
+})
 module.exports = router;
