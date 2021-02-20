@@ -1,5 +1,123 @@
 import theme from "../components/Reusable/Colors";
 
+export const DriverReceived = ({ width, height, stroke }) => {
+    return (
+        <svg
+            width={width || "24"}
+            height={height || "24"}
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path
+                d="M19.5 20.25H4.5C4.30109 20.25 4.11032 20.171 3.96967 20.0303C3.82902 19.8897 3.75 19.6989 3.75 19.5V6.75L5.25 3.75H18.75L20.25 6.75V19.5C20.25 19.6989 20.171 19.8897 20.0303 20.0303C19.8897 20.171 19.6989 20.25 19.5 20.25Z"
+                stroke={stroke || "#F3F6FF"}
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            />
+            <path
+                d="M8.81836 14.0681L12.0003 17.2501L15.1823 14.0681"
+                stroke={stroke || "#F3F6FF"}
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            />
+            <path
+                d="M12 9.75V17.25"
+                stroke={stroke || "#F3F6FF"}
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            />
+            <path
+                d="M3.75 6.75H20.25"
+                stroke={stroke || "#F3F6FF"}
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            />
+        </svg>
+    );
+};
+
+export const DriverPicked = ({ width, height, stroke }) => {
+    return (
+        <svg
+            width={width || "24"}
+            height={height || "24"}
+            viewBox="0 0 26 26"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path
+                d="M21.9375 7.31299L10.5625 18.6875L4.875 13.0005"
+                stroke={stroke || "#1c1c1c"}
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            />
+        </svg>
+    );
+};
+
+export const DriverAdd = ({ width, height, stroke }) => {
+    return (
+        <svg
+            width={width || "24"}
+            height={height || "24"}
+            viewBox="0 0 26 26"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path
+                d="M4.0625 13H21.9375"
+                stroke={stroke || "#F3F6FF"}
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            />
+            <path
+                d="M13 4.0625V21.9375"
+                stroke={stroke || "#F3F6FF"}
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            />
+        </svg>
+    );
+};
+
+export const ShoppingBagIcon = ({ width, height, stroke }) => {
+    return (
+        <svg
+            width={width || "33"}
+            height={height || "32"}
+            viewBox="0 0 32 32"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path
+                d="M27 6H5C4.44772 6 4 6.44772 4 7V25C4 25.5523 4.44772 26 5 26H27C27.5523 26 28 25.5523 28 25V7C28 6.44772 27.5523 6 27 6Z"
+                stroke={stroke || "#444"}
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            />
+            <path
+                d="M4 10H28"
+                stroke={stroke || "#444"}
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            />
+            <path
+                d="M21 14C21 15.3261 20.4732 16.5979 19.5355 17.5355C18.5979 18.4732 17.3261 19 16 19C14.6739 19 13.4021 18.4732 12.4645 17.5355C11.5268 16.5979 11 15.3261 11 14"
+                stroke={stroke || "#444"}
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            />
+        </svg>
+    );
+};
+
 export const InventoryIcon = ({ width, height, stroke }) => {
     return (
         <svg
@@ -11,23 +129,23 @@ export const InventoryIcon = ({ width, height, stroke }) => {
             <path
                 d="M27 6H5C4.44771 6 4 6.44771 4 7V11C4 11.5523 4.44771 12 5 12H27C27.5523 12 28 11.5523 28 11V7C28 6.44771 27.5523 6 27 6Z"
                 stroke={stroke || "#444"}
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
             />
             <path
                 d="M26 12V25C26 25.2652 25.8946 25.5196 25.7071 25.7071C25.5196 25.8946 25.2652 26 25 26H7C6.73478 26 6.48043 25.8946 6.29289 25.7071C6.10536 25.5196 6 25.2652 6 25V12"
                 stroke={stroke || "#444"}
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
             />
             <path
                 d="M13 17H19"
                 stroke={stroke || "#444"}
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
             />
         </svg>
     );

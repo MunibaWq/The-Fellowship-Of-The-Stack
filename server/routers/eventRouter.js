@@ -257,6 +257,7 @@ router.post("/create", auth, async (req, res) => {
         VALUES ($1, $2, $3, $4 )`,
                 [req.user.id, eventInfo.rows[0].id, "attending", true]
             );
+            console.log(eventInfo.rows[0].id);
             res.json(eventInfo.rows[0].id);
         } catch (err) {
             res.send(err);
@@ -422,7 +423,7 @@ router.post("/join", auth, async (req, res) => {
             req.user.id
     );
     attendee = attResponse.rows[0];
-        console.log('this is what Im looking for',attendee, collabs.rows)
+    console.log("this is what Im looking for", attendee, collabs.rows);
     goingToEvent(attendee, collabs.rows);
 
     res.send("joined");

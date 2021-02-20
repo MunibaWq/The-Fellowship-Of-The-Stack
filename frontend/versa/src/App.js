@@ -17,6 +17,7 @@ import NotFound from "./pages/NotFound";
 import Footer from "./components/Footer";
 import ComingSoon from "./pages/Shared/ComingSoon";
 
+import Contact from "./pages/Contact";
 if (!window.localStorage.getItem("session")) {
     window.localStorage.setItem(
         "session",
@@ -34,6 +35,7 @@ function App() {
                     <Route path="/shop" exact component={SearchResults} />
                     <Route path="/events" exact component={Events} />
                     <Route path="/account" exact component={Account} />
+                    <Route path="/contact" exact component={Contact} />
                     <PrivateRoute path="/wishlist" exact component={Wishlist} />
                     <Route
                         path="/shopping-cart"

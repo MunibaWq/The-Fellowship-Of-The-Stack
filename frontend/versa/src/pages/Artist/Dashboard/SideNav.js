@@ -16,6 +16,7 @@ import {
     CarIcon,
     AccountIcon,
     InventoryIcon,
+    DriverReceived,
 } from "../../../images/icons";
 import theme from "../../../components/Reusable/Colors";
 // import Pill from "../../../components/Reusable/Pill";
@@ -281,6 +282,19 @@ const SideNav = ({ navWidth, setNavWidth }) => {
                                         </MenuLink>
                                     </li>
                                 </Link>
+                                <Link to="/dashboard/shopper/">
+                                    <li>
+                                        <MenuLink>
+                                            <HomeIcon />
+                                            {/*<NotiCount>
+                                                <p>3</p>
+                                            </NotiCount>*/}
+                                            <h3>Overview</h3>
+
+                                            <RightIcon stroke={theme.primary} />
+                                        </MenuLink>
+                                    </li>
+                                </Link>
 
                                 <Link to="/dashboard/shopper/events-attending">
                                     <li>
@@ -368,6 +382,21 @@ const SideNav = ({ navWidth, setNavWidth }) => {
                                                 </Link>
                                             </SubMenu>
                                         )}
+                                        <Link to="/dashboard/driver/assigned-pickups/">
+                                            <li>
+                                                <MenuLink>
+                                                    <DriverReceived stroke="#444" />
+                                                    {/*<NotiCount>
+                                                    <p>3</p>
+                                                </NotiCount>*/}
+                                                    <h3>Pickups</h3>
+
+                                                    <RightIcon
+                                                        stroke={theme.primary}
+                                                    />
+                                                </MenuLink>
+                                            </li>
+                                        </Link>
                                         <Link to="/dashboard/driver/assigned-deliveries/">
                                             <li>
                                                 <MenuLink>

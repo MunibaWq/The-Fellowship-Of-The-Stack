@@ -34,7 +34,7 @@ const DriversDropDown = ({ order }) => {
         },
         {
             value: "Driver Assigned",
-            label: "Available in Delivery Page",
+            label: "Available in Pickups",
         },
         {
             value: "Remove from Deliveries",

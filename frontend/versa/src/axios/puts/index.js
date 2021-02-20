@@ -138,20 +138,68 @@ export const updateEventStatus = async (status, id) => {
     }
 };
 
-export const editEvent = async (event) => {
+export const editEvent = async (event, images, id, thumbImg) => {
     try {
         const response = await Axios.put("/api/events/edit/" + event.id, {
             data: event,
         });
+        let eventID = +event.idid;
+        images.forEach(async (image, index) => {
+            if (index === thumbImg) {
+                image.size = "thumb";
+            }
 
-        if (response.status === 201) {
-            return true;
-        }
+            if (image.imageFile === "update") {
+                let { label, size, filename } = image;
+                let res = await updateImage(label, size, id, filename);
+                if (!res) {
+                    alert("failed to update thumbnail choice");
+                }
+            } else if (image.imageFile === "delete") {
+                let { filename } = image;
+                //let res = await deleteImage(filename)
+                //if (!res) {
+                //    alert(`Failed to delete image ${index}`)
+                //}
+            } else {
+                let { imageFile, label, size } = image;
+                let res = await addImage(imageFile, label, size, eventID);
+                if (!res)
+                    alert(
+                        JSON.stringify(imageFile) +
+                            " failed to upload, go to edit event to try to add picture again"
+                    );
+            }
+        });
+        return eventID;
+        // if (response.status === 201) {
+        //     return true;
+        // }
     } catch (err) {
         console.log(err);
         return false;
     }
 };
+
+export const updateEventImage = async (label, imageSize, eventID, filename) => {
+    try {
+        const response = await Axios.put("/api/eventImages/update", {
+            imageSize,
+            eventID,
+            label,
+            filename,
+        });
+        if (response.status === 201) {
+            return true;
+        }
+
+        return false;
+    } catch (err) {
+        console.error(err);
+        return false;
+    }
+};
+
 export const modifyCart = async (
     cartProduct,
     colour,
