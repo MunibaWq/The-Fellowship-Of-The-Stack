@@ -526,8 +526,8 @@ export const ShapesLogo = ({ width, height, triangle, circle, rectangle }) => {
 export const Dashboard = ({ width, height, stroke, fill }) => {
     return (
         <svg
-            width={width || "32"}
-            height={height || "32"}
+            width={width || "24"}
+            height={height || "24"}
             viewBox="0 0 32 32"
             fill={fill || "none"}
             xmlns="http://www.w3.org/2000/svg">
@@ -559,8 +559,8 @@ export const Dashboard = ({ width, height, stroke, fill }) => {
 export const WishListIcon = ({ width, height, stroke, fill }) => {
     return (
         <svg
-            width={width || "32"}
-            height={height || "32"}
+            width={width || "24"}
+            height={height || "24"}
             viewBox="0 0 28 24"
             fill={fill || "none"}
             xmlns="http://www.w3.org/2000/svg">
@@ -685,8 +685,8 @@ export const CategoriesIcon = ({ width, height, stroke, fill }) => {
 export const Magnifying = ({ width, height, stroke, fill, strokeWidth }) => {
     return (
         <svg
-            width={width || "32"}
-            height={height || "32"}
+            width={width || "24"}
+            height={height || "24"}
             viewBox="0 0 32 32"
             fill={fill || "none"}
             xmlns="http://www.w3.org/2000/svg">
@@ -900,8 +900,8 @@ export const HomeIcon = ({ width, height, stroke, fill }) => {
 export const EventsIcon = ({ width, height, stroke, fill }) => {
     return (
         <svg
-            width={width || "32"}
-            height={height || "32"}
+            width={width || "24"}
+            height={height || "24"}
             viewBox="0 0 32 32"
             fill={fill || "none"}
             xmlns="http://www.w3.org/2000/svg">
@@ -947,8 +947,8 @@ export const EventsIcon = ({ width, height, stroke, fill }) => {
 export const AccountIcon = ({ width, height, stroke, fill }) => {
     return (
         <svg
-            width={width || "32"}
-            height={height || "32"}
+            width={width || "24"}
+            height={height || "24"}
             viewBox="0 0 32 32"
             fill={fill || "none"}
             xmlns="http://www.w3.org/2000/svg">
@@ -973,8 +973,8 @@ export const AccountIcon = ({ width, height, stroke, fill }) => {
 export const CartIcon = ({ width, height, stroke, fill }) => {
     return (
         <svg
-            width={width || "32"}
-            height={height || "32"}
+            width={width || "24"}
+            height={height || "24"}
             viewBox="0 0 32 32"
             fill={fill || "none"}
             xmlns="http://www.w3.org/2000/svg">
