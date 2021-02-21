@@ -1,6 +1,6 @@
 import React from "react";
 import { ThemeProvider } from "styled-components";
-import SearchResults from "./pages/UserBuyer/SearchResults";
+// import SearchResults from "./pages/UserBuyer/SearchResults";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Events from "./pages/Events";
@@ -36,7 +36,8 @@ function App() {
 
                 <div style={{ minHeight: "49vh" }}>
                     <Switch>
-                        <Route exact path="/" component={SearchResults} />
+                        <Route exact path="/" component={Shop} />
+                        <Route exact path="/home" component={Shop} />
                         <Route exact path="/shop" component={Shop} />
                         <Route exact path="/events" component={Events} />
                         <Route exact path="/account" component={Account} />

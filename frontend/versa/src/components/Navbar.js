@@ -260,7 +260,7 @@ const NavLink = styled(Link)`
     &:hover::after {
         content: "";
         position: absolute;
-        top: 38px;
+        top: 32px;
         position: absolute;
         left: 12%;
         width: 80%;
