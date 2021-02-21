@@ -15,9 +15,11 @@ import {
     Magnifying,
     ShapesLogo,
     Dashboard,
+    ShoppingBag,
 } from "../images/icons";
 import { useDispatch } from "react-redux";
 import { login } from "../redux/actions/actions";
+import { getUser } from "../axios/gets/index";
 const cookies = new Cookies();
 const Navbar = () => {
     const dispatch = useDispatch();
@@ -28,14 +30,25 @@ const Navbar = () => {
     const [events, setEvents] = useState("#1C1C1C");
     const [dashboard, setDashboard] = useState("#1C1C1C");
     const [account, setAccount] = useState("#1C1C1C");
-    const [modalHover, setModalHover] = useState("#FBFCFF");
+    const [rightModal, setRightModal] = useState("#FBFCFF");
+    const [leftModal, setLeftModal] = useState("#FBFCFF");
+    const [leftText, setLeftText] = useState("#FBFCFF");
+    const [rightText, setRightText] = useState("#FBFCFF");
     const [regular, setRegular] = useState("#1C1C1C");
     const [onHover, setOnHover] = useState("#E0B8FF");
-
+    const [username, setUsername] = useState("");
+    const [modal, setModal] = useState(false);
     useEffect(() => {
         dispatch(login);
     }, [loggedIn, dispatch]);
 
+    useEffect(() => {
+        const findUser = async () => {
+            const response = await getUser();
+            setUsername(response.name.split(" ")[0]);
+        };
+        findUser();
+    }, []);
     useEffect(() => {
         function getScrollHeight() {
             if (window.scrollY > 100) {
@@ -45,7 +58,6 @@ const Navbar = () => {
                 setAccount("#FBFCFF");
                 setDashboard("#FBFCFF");
                 setEvents("#FBFCFF");
-
                 setRegular("#FBFCFF");
                 setOnHover("#B4FFC6");
             }
@@ -56,7 +68,6 @@ const Navbar = () => {
                 setAccount("#1C1C1C");
                 setDashboard("#1C1C1C");
                 setEvents("#1C1C1C");
-
                 setRegular("#1C1C1C");
                 setOnHover("#E0B8FF");
             }
@@ -108,7 +119,7 @@ const Navbar = () => {
                         onMouseLeave={() => {
                             setShop(regular);
                         }}>
-                        <Magnifying stroke={shop} />
+                        <ShoppingBag stroke={shop} />
                         <WordLink color={shop} hover={onHover}>
                             Shop
                         </WordLink>
@@ -148,37 +159,63 @@ const Navbar = () => {
                         to="/account"
                         onMouseEnter={() => {
                             setAccount(onHover);
+                            setModal(true);
                         }}
                         onMouseLeave={() => {
                             setAccount(regular);
                         }}>
                         <AccountIcon stroke={account} />
                         <WordLink color={account} hover={onHover}>
-                            {cookies.username}
+                            {username}
                         </WordLink>
                     </NavLink>
                 </NavMenu>
             </Nav>
-            <AccountMenu>
-                <SubContainer>
-                    <SubIcon to="/edit">
-                        <img src={SignOut} />
-                    </SubIcon>
-                    <SubText>settings</SubText>
-                </SubContainer>
-                <SubContainer
-                    onMouseEnter={() => {
-                        setModalHover(gradient);
-                    }}
+            {modal ? (
+                <AccountMenu
                     onMouseLeave={() => {
-                        setModalHover("#FBFCFF");
+                        setModal(false);
                     }}>
-                    <SubIcon background={modalHover} to="/logout">
-                        <img src={GearSix} />
-                    </SubIcon>
-                    <SubText colors={modalHover}>logout</SubText>
-                </SubContainer>
-            </AccountMenu>
+                    <SubMenu>
+                        <SubContainer
+                            onMouseEnter={() => {
+                                setLeftModal(gradient);
+                                setLeftText("#E0B8FF");
+                            }}
+                            onMouseLeave={() => {
+                                setLeftModal("#FBFCFF");
+                                setLeftText("#FBFCFF");
+                            }}>
+                            <SubIcon background={leftModal} to="/edit">
+                                <img
+                                    src={SignOut}
+                                    style={{ padding: "10px" }}
+                                />
+                            </SubIcon>
+                            <SubText colors={leftText}>settings</SubText>
+                        </SubContainer>
+                        <SubContainer
+                            onMouseEnter={() => {
+                                setRightModal(gradient);
+                                setRightText("#E0B8FF");
+                            }}
+                            onMouseLeave={() => {
+                                setRightModal("#FBFCFF");
+                                setRightText("#FBFCFF");
+                            }}>
+                            <SubIcon background={rightModal} to="/logout">
+                                <img
+                                    src={GearSix}
+                                    style={{ padding: "10px" }}
+                                />
+                            </SubIcon>
+                            <SubText colors={rightText}>logout</SubText>
+                        </SubContainer>
+                    </SubMenu>
+                </AccountMenu>
+            ) : (
+                ""
+            )}
         </>
     );
 };
@@ -224,7 +261,8 @@ const NavLink = styled(Link)`
         position: absolute;
         top: 28px;
         position: absolute;
-        width: 150px;
+        left: 12%;
+        width: 80%;
         height: 4px;
         background: linear-gradient(
                 123.35deg,
@@ -275,12 +313,10 @@ const NavLink = styled(Link)`
     }
     @keyframes expand {
         0% {
-            left: 50%;
-            width: 0%;
+            opacity: 0;
         }
         100% {
-            left: 0%;
-            width: 100%;
+            opacity: 100;
         }
     }
 
@@ -326,29 +362,35 @@ const Versa = styled.h1`
 const AccountMenu = styled.div`
     position: fixed;
     z-index: 10;
-    width: 200px;
-    height: 100px;
+    width: 234px;
+    height: 125px;
     background: #1c1c1c;
     right: 0;
-    display: flex;
-    justify-content: space-around;
-
     border-radius: 0 0 20px 20px;
+    padding: 20px;
+`;
+const SubMenu = styled.div`
+    width: 194px;
+    height: 85px;
+    display: flex;
+    justify-content: space-between;
 `;
 const SubContainer = styled.div`
+    height: 100%;
+    width: 91px;
     display: flex;
     flex-direction: column;
+    align-items: center;
 `;
 const SubIcon = styled(Link)`
     background: ${(props) => props.background};
-    height: 50px;
-    width: 50px;
     border-radius: 10px;
+    width: 44px;
+    height: 44px;
 `;
 const SubText = styled.p`
     font-size: 14px;
-    margin-top: 10px;
-    color: ${(props) => props.colors || "FBFCFF"};
+    color: ${(props) => props.colors};
 `;
 
 const gradient = `linear-gradient(
