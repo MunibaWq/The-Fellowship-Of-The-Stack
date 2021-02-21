@@ -70,6 +70,8 @@ const DropDown = ({ order }) => {
             ? updateOrderShipDate(e.target.value, new Date(), order.id)
             : e.target.value === "Ready for Pickup"
             ? updateOrderStatus(e.target.value, order.id)
+            : e.target.value === "Ready for Delivery"
+            ? updateOrderStatus(e.target.value, order.id)
             : updateOrderStatus(order.status, order.id);
     };
 
