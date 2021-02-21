@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {
     getAssignedPickups,
-    getOrdersReadyForDelivery,
+    getOrdersForDriver,
     getPastDeliveries,
 } from "../../../axios/gets";
 import styled from "styled-components";
@@ -11,20 +11,27 @@ const DriverDashboardMain = () => {
     const [ordersToFulfill, setOrdersToFulfill] = useState();
     const [assignedPickups, setAssignedPickups] = useState();
     const [pastDeliveries, setPastDeliveries] = useState();
-
+    const [uniquePickup, setUniquePickup] = useState();
     useEffect(() => {
         const fetchData = async () => {
-            let toFulfillData = await getOrdersReadyForDelivery();
+            let toFulfillData = await getOrdersForDriver();
             setOrdersToFulfill(toFulfillData);
             let assignedData = await getAssignedPickups();
             setAssignedPickups(assignedData);
             let pastData = await getPastDeliveries();
             setPastDeliveries(pastData);
+            setUniquePickup(
+                Array.from(new Set(assignedData.map((a) => a.username))).map(
+                    (name) => {
+                        return assignedData.find((a) => a.username === name);
+                    }
+                )
+            );
         };
+
         fetchData();
     }, []);
 
-    console.log(assignedPickups);
     let ordersToFulfillTableData = {};
     ordersToFulfill
         ? (ordersToFulfillTableData = {
@@ -51,11 +58,6 @@ const DriverDashboardMain = () => {
               },
           });
 
-    const uniquePickup = Array.from(
-        new Set(assignedPickups.map((a) => a.name))
-    ).map((name) => {
-        return assignedPickups.find((a) => a.name === name);
-    });
     let assignedPickupsTableData = {};
     uniquePickup
         ? (assignedPickupsTableData = {
@@ -120,7 +122,7 @@ const DriverDashboardMain = () => {
                             : "Delivery To Do"
                     }
                     title="Today's Deliveries"
-                    link="/dashboard/driver/assigned-deliveries"
+                    link="/dashboard/driver/assigned-pickups/"
                 />
                 <RecentOrders
                     buttonText="View"
@@ -142,7 +144,7 @@ const DriverDashboardMain = () => {
                             : "Delivery"
                     }
                     title="Value of Past Deliveries"
-                    link="/dashboard/driver/order-history"
+                    link="/dashboard/driver/delivery-history"
                 />
             </StoreDash>
         </DashboardContainer>

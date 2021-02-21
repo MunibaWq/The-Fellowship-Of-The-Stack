@@ -4,14 +4,13 @@ import { Modal, ModalTitle } from "../Reusable/Modal";
 import axios from "axios";
 import styled from "styled-components";
 
-const deleteItem = async (id) => {
+const deleteItem = (id) => {
     let url = `/api/products/delete/${id}`;
-    const resp = await axios.delete(url, {
+    axios.delete(url, {
         headers: {
             "Access-Control-Allow-Origin": "*",
         },
     });
-    console.log(resp);
 };
 
 export function DeleteProductModal({ display, value, setter, id }) {

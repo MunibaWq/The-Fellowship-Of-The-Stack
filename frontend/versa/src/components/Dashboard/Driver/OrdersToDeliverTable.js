@@ -34,7 +34,6 @@ const OrdersToDeliverTable = ({ user, orderData }) => {
             };
             const sortProperty = types[type];
             const sorted = [...orderData].sort(sortProperty);
-            console.log(sorted);
             setData(sorted);
         };
 

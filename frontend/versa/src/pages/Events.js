@@ -80,9 +80,6 @@ const Events = () => {
                         .sort((event1, event2) => {
                             let eventDate1 = new Date(event1.start_time);
                             let eventDate2 = new Date(event2.start_time);
-
-                            // console.log("eventTime " + eventDate1);
-
                             if (new Date() - eventDate1 > 0) {
                                 return 1;
                             } else if (new Date() - eventDate2 > 0) {

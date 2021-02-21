@@ -7,7 +7,7 @@ import { deleteUserFromEventByID } from "../../axios/deletes";
 import imageTest from "../../images/imageTest.png";
 import Button from "../Reusable/Button";
 import theme from "../Reusable/Colors";
-import { amIGoing, getUser } from "../../axios/gets";
+import { amIGoing, getUserByToken } from "../../axios/gets";
 
 const EventCard = ({ theEvent }) => {
     //const [interested, setInterested] = useState(false);
@@ -23,14 +23,12 @@ const EventCard = ({ theEvent }) => {
     const routeChange = () => {
         let path = `/account`;
         history.push(path);
-        // console.log(history);
     };
 
     useEffect(() => {
         const findUser = async () => {
-            const response = await getUser();
+            const response = await getUserByToken();
             setIsUser(response);
-            // console.log(response);
         };
         findUser();
     }, []);
@@ -38,7 +36,6 @@ const EventCard = ({ theEvent }) => {
     useEffect(() => {
         const attendStatus = async () => {
             const response = await amIGoing(currentEvent);
-            // console.log(reponse);
             if (response) {
                 setGoing(true);
             } else setGoing(false);
@@ -46,17 +43,6 @@ const EventCard = ({ theEvent }) => {
         attendStatus();
     }, [currentEvent]);
 
-    // useEffect(() => {
-    //     if (going !== "unset") {
-    //         if (!going) {
-    //             deleteUserFromEventByID(currentEvent);
-    //         } else {
-    //             userGoing(currentEvent);
-    //         }
-    //     }
-    // }, [going, currentEvent]);
-
-    // console.log("results", theEvent);
     let options = {
         weekday: "long",
         year: "numeric",

@@ -25,7 +25,6 @@ const DashboardEvents = () => {
         getMyEvents();
     }, []);
 
-    console.log(eventsData);
     return (
         <EventsContainer>
             <StyledLink

@@ -21,11 +21,9 @@ const EventsTable = ({ eventsData }) => {
         "Edit",
         "Delete",
     ];
-    console.log(eventsData);
 
     const showModal = (id) => {
         setVisible(!visible);
-        console.log(`showing screen x`, window.innerWidth);
         setCurrentId(id);
     };
 

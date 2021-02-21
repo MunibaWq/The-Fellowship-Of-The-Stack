@@ -7,12 +7,12 @@ import {
 } from "react-router-dom";
 import DashboardMain from "./DashboardMain";
 import ShopperDashboardMain from "../../UserBuyer/Dashboard/DashboardMain";
+import Messages from '../../Shared/Messages'
 import SideNav from "./SideNav";
 import Orders from "./Orders";
 import Categories from "./Categories";
 import Inventory from "./Inventory";
 import AvgOrderValue from "./AvgOrderValue";
-import Messages from "./Messages";
 import Notifications from "./Notifications";
 import SalesByProduct from "./SalesByProduct";
 import Settings from "./Settings";
@@ -39,6 +39,7 @@ import PastDeliveryDetails from "../../Driver/Dashboard/PastDeliveryDetails";
 import AssignedPickups from "../../Driver/Dashboard/AssignedPickups";
 import ShopperOrderItems from "../../UserBuyer/Dashboard/OrderItems";
 import AssignedPickupDetails from "../../Driver/Dashboard/AssignedPickupDetails";
+import Deliveries from "../../Driver/Dashboard/Deliveries";
 const cookies = new Cookies();
 const Redirecter = () => {
     window.location = "/account";
@@ -171,7 +172,7 @@ const Dashboard = () => {
                         component={OrdersToFulfillDetails}
                     />
                     <PrivateRoute
-                        path="/dashboard/driver/order-history"
+                        path="/dashboard/driver/delivery-history"
                         component={PastDeliveries}
                     />
                     <PrivateRoute
@@ -182,6 +183,11 @@ const Dashboard = () => {
                         exact
                         path="/dashboard/driver/assigned-pickups/"
                         component={AssignedPickups}
+                    />
+                    <PrivateRoute
+                        exact
+                        path="/dashboard/driver/deliveries/"
+                        component={Deliveries}
                     />
                     <PrivateRoute
                         path="/dashboard/driver/assigned-pickups/:artistid"
@@ -204,6 +210,10 @@ const Dashboard = () => {
                     <PrivateRoute
                         path="/dashboard/shopper/order-tracking/:orderid"
                         component={ShopperOrderItems}
+                    />
+                    <PrivateRoute
+                        path="/dashboard/messages"
+                        component={Messages}
                     />
                     <PrivateRoute component={NotFound} />
                 </Switch>

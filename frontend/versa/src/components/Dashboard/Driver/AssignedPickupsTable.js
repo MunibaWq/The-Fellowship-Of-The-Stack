@@ -3,15 +3,14 @@ import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 import theme from "../../Reusable/Colors";
 import Loading from "../../Reusable/Loading";
-import Button from "../../Reusable/Button";
 import { StyledLink } from "../../Reusable/Link";
 import { RightIcon } from "../../../images/icons";
 
-const DriversAssignedPickupTable = ({ orderData }) => {
+const AssignedPickupTable = ({ orderData }) => {
     const [data, setData] = useState(orderData);
     const [sortType, setSortType] = useState();
     const [query, setQuery] = useState();
-    console.log("p", orderData);
+
     const sortOptions = [
         {
             value: "id",
@@ -22,8 +21,6 @@ const DriversAssignedPickupTable = ({ orderData }) => {
             label: "Buyer Name",
         },
     ];
-
-    const handleClick = () => {};
 
     useEffect(() => {
         const sortArray = (type) => {
@@ -37,7 +34,6 @@ const DriversAssignedPickupTable = ({ orderData }) => {
             };
             const sortProperty = types[type];
             const sorted = [...orderData].sort(sortProperty);
-            console.log(sorted);
             setData(sorted);
         };
 
@@ -66,9 +62,9 @@ const DriversAssignedPickupTable = ({ orderData }) => {
     const filteredData = filterData(data, query);
 
     const uniqueArtist = Array.from(
-        new Set(filteredData.map((a) => a.name))
+        new Set(filteredData.map((a) => a.username))
     ).map((name) => {
-        return filteredData.find((a) => a.name === name);
+        return filteredData.find((a) => a.username === name);
     });
     return (
         <TableContainer>
@@ -122,7 +118,7 @@ const DriversAssignedPickupTable = ({ orderData }) => {
                                         </td>
                                         <td>
                                             <StatusButton
-                                                to={`/dashboard/driver/assigned-deliveries/${order.artist_id}`}>
+                                                to={`/dashboard/driver/assigned-pickups/${order.artist_id}`}>
                                                 START PICKUP{" "}
                                                 <RightIcon
                                                     stroke={theme.primary}
@@ -133,7 +129,9 @@ const DriversAssignedPickupTable = ({ orderData }) => {
                                 ))}
                             {filteredData.length === 0 && (
                                 <BodyRows key="no row">
-                                    <td key="No results">No Results Found</td>
+                                    <td key="No results">
+                                        No Deliveries Found.
+                                    </td>
                                 </BodyRows>
                             )}
                         </tbody>
@@ -144,7 +142,7 @@ const DriversAssignedPickupTable = ({ orderData }) => {
     );
 };
 
-export default DriversAssignedPickupTable;
+export default AssignedPickupTable;
 
 const TableContainer = styled.div`
     justify-self: center;

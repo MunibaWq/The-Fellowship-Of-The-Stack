@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import { getAssignedPickups } from "../../../axios/gets";
 import Loading from "../../../components/Reusable/Loading";
-import AssignedPickupsTable from "../../../components/Dashboard/Driver/AssignedPickupstable";
+import AssignedPickupsTable from "../../../components/Dashboard/Driver/AssignedPickupsTable";
 
 const AssignedPickups = () => {
     const [orderData, setOrderData] = useState();

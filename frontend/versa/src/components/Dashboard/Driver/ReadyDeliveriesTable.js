@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from "react";
-import styled from "styled-components";
 import { useHistory } from "react-router-dom";
+import styled from "styled-components";
 import theme from "../../Reusable/Colors";
 import Loading from "../../Reusable/Loading";
-import DropDown from "./DropDown";
+import { driverUpdateStatus } from "../../../axios/puts";
+import { DriverPicked, RightIcon } from "../../../images/icons";
 
-const OrdersTable = ({ user, orderData }) => {
+const ReadyDeliveriesTable = ({ orderData }) => {
+    let history = useHistory();
     const [data, setData] = useState(orderData);
     const [sortType, setSortType] = useState();
     const [query, setQuery] = useState();
-
+    const [status, setStatus] = useState("Ready to Deliver");
+    const [id, setID] = useState();
     const sortOptions = [
         {
             value: "id",
@@ -20,15 +23,25 @@ const OrdersTable = ({ user, orderData }) => {
             label: "Buyer Name",
         },
     ];
+    useEffect(() => {
+        if (status === "Delivery in Progress") {
+            driverUpdateStatus("Delivery in Progress", id);
+            history.go(0);
+        }
+        if (status === "Delivered") {
+            driverUpdateStatus("Delivered", id);
+            history.go(0);
+        }
+    }, [status]);
 
     useEffect(() => {
         const sortArray = (type) => {
             const types = {
-                ordername: (a, b) => {
-                    return a.name.localeCompare(b.name);
-                },
                 id: (a, b) => {
                     return a.id - b.id;
+                },
+                ordername: (a, b) => {
+                    return a.name.localeCompare(b.name);
                 },
             };
             const sortProperty = types[type];
@@ -39,16 +52,7 @@ const OrdersTable = ({ user, orderData }) => {
         sortArray(sortType);
     }, [sortType]);
 
-    let headers = [
-        "Order ID",
-        "Buyer Name",
-        "Buyer Address",
-        "Order Date",
-        "Status",
-        "Date Received by Buyer",
-    ];
-
-    const history = useHistory();
+    let headers = ["Customer Name", "Shipping Address", "Actions"];
 
     const handleChange = (e) => {
         e.preventDefault();
@@ -65,9 +69,13 @@ const OrdersTable = ({ user, orderData }) => {
             return dataValue.includes(query.toLowerCase());
         });
     };
-
     const filteredData = filterData(data, query);
 
+    const uniqueArtist = Array.from(
+        new Set(filteredData.map((a) => a.name))
+    ).map((name) => {
+        return filteredData.find((a) => a.name === name);
+    });
     return (
         <TableContainer>
             {!orderData ? (
@@ -83,7 +91,9 @@ const OrdersTable = ({ user, orderData }) => {
                             onChange={(e) => setSortType(e.target.value)}>
                             {sortOptions.map((option) => (
                                 <>
-                                    <option value={option.value}>
+                                    <option
+                                        value={option.value}
+                                        key={option.value}>
                                         {option.label}
                                     </option>
                                 </>
@@ -106,75 +116,61 @@ const OrdersTable = ({ user, orderData }) => {
                                 ))}
                             </Headers>
                         </thead>
-                        {filteredData &&
-                            filteredData.map((order, index) => (
-                                <BodyRows key={order.name + index}>
-                                    <td
-                                        onClick={() =>
-                                            history.push(
-                                                `/dashboard/artist/recent-orders/${order.id}`
-                                            )
-                                        }>
-                                        <p>{order.id}</p>
-                                    </td>
-                                    <td
-                                        onClick={() =>
-                                            history.push(
-                                                `/dashboard/artist/recent-orders/${order.id}`
-                                            )
-                                        }>
-                                        <p>{order.name}</p>
-                                    </td>
-                                    <td
-                                        onClick={() =>
-                                            history.push(
-                                                `/dashboard/artist/recent-orders/${order.id}`
-                                            )
-                                        }>
-                                        <p>{order.shipping_address}</p>
-                                    </td>
-                                    <td
-                                        onClick={() =>
-                                            history.push(
-                                                `/dashboard/artist/recent-orders/${order.id}`
-                                            )
-                                        }
-                                        data-title="Date">
-                                        <p>
-                                            {order.orderDate === null
-                                                ? "Error Loading Order Date"
-                                                : order.orderDate}
-                                        </p>
-                                    </td>
-                                    <td>
-                                        <DropDown order={order} />
-                                    </td>
-                                    <td
-                                        onClick={() =>
-                                            history.push(
-                                                `/dashboard/artist/recent-orders/${order.id}`
-                                            )
-                                        }>
-                                        <p>
-                                            {order.orderShipDate === null
-                                                ? "Not Received Yet"
-                                                : order.status !== "Picked Up"
-                                                ? "Not Received Yet"
-                                                : order.orderShipDate}
-                                        </p>
-                                    </td>
+                        <tbody>
+                            {uniqueArtist &&
+                                uniqueArtist.map((order, index) => (
+                                    <BodyRows key={order.name + order.status}>
+                                        <td key={order.name + order.id}>
+                                            <p>{order.name}</p>
+                                        </td>
+                                        <td key={order.name + order.id + 34}>
+                                            <p>{order.shipping_address}</p>
+                                        </td>
+                                        {order.status ===
+                                        "Delivery in Progress" ? (
+                                            <td>
+                                                <SetAsDelivered
+                                                    onClick={(e) => {
+                                                        setID(order.id);
+                                                        setStatus("Delivered");
+                                                    }}>
+                                                    <DriverPicked
+                                                        stroke={theme.primary}
+                                                    />
+                                                    <p>
+                                                        Set Order as Delivered
+                                                    </p>
+                                                </SetAsDelivered>
+                                            </td>
+                                        ) : (
+                                            <td>
+                                                <Directions
+                                                    onClick={(e) => {
+                                                        setID(order.id);
+                                                        setStatus(
+                                                            "Delivery in Progress"
+                                                        );
+                                                    }}>
+                                                    <a
+                                                        rel={"noreferrer"}
+                                                        target="_blank"
+                                                        href={`https://www.google.com/maps?saddr&daddr=${order.shipping_address}`}>
+                                                        <p>Start Delivery </p>
+                                                    </a>
+                                                    <RightIcon
+                                                        stroke={theme.primary}
+                                                    />
+                                                </Directions>
+                                            </td>
+                                        )}
+                                    </BodyRows>
+                                ))}
+                            {filteredData.length === 0 && (
+                                <BodyRows key="no row">
+                                    <td key="No results">No Results Found</td>
                                 </BodyRows>
-                            ))}
-                        {!filteredData && (
-                            <BodyRows>
-                                <td>
-                                    <p>
-                                        No orders found. Please try searching
-                                        again.
-                                    </p>
-                                </td>
-                            </BodyRows>
-                        )}
+                            )}
+                        </tbody>
                     </Table>
                 </>
             )}
@@ -182,7 +178,7 @@ const OrdersTable = ({ user, orderData }) => {
     );
 };
 
-export default OrdersTable;
+export default ReadyDeliveriesTable;
 
 const TableContainer = styled.div`
     justify-self: center;
@@ -241,7 +237,7 @@ const Table = styled.table`
     border-collapse: collapse;
     margin: 0 1em 2em 1em;
     font-size: 0.9em;
-
+    min-width: 955px;
     box-shadow: 3px 3px 10px rgba(27, 49, 66, 0.13);
     border-radius: 15px 15px 0px 0px;
     thead th {
@@ -252,28 +248,28 @@ const Table = styled.table`
     td {
         padding: 12px 15px;
         :nth-of-type(1) {
-            min-width: 50px;
+            min-width: 80px;
             @media screen and (max-width: 600px) {
                 display: none;
             }
         }
         :nth-of-type(2) {
-            min-width: 130px;
+            min-width: 170px;
         }
         :nth-of-type(3) {
-            min-width: 120px;
+            min-width: 20px;
             @media screen and (max-width: 600px) {
                 display: none;
             }
         }
         :nth-of-type(4) {
-            min-width: 250px;
+            min-width: 190px;
             @media screen and (max-width: 600px) {
                 display: none;
             }
         }
         :nth-of-type(5) {
-            min-width: 230px;
+            min-width: 250px;
         }
         :nth-of-type(6) {
             min-width: 190px;
@@ -297,7 +293,7 @@ const Headers = styled.tr`
 `;
 const BodyRows = styled.tr`
     border-bottom: thin solid #dddddd;
-    cursor: pointer;
+    transition: all 0.2s ease;
     p {
         color: ${theme.tertiary};
         margin-bottom: 0;
@@ -334,5 +330,75 @@ const SortChoice = styled.select`
             props.border === true
                 ? `2px solid ${theme.primaryHover}`
                 : `2px solid ${theme.primaryHover}`};
+    }
+`;
+
+const Directions = styled.button.attrs((props) => ({
+    type: props.type || "button",
+}))`
+    outline: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background: none;
+    cursor: pointer;
+    border-radius: 8px;
+    border: none;
+    transition: background 0.3s ease;
+    a {
+        p {
+            color: ${theme.primary};
+            font-weight: bold;
+            margin: 0;
+            padding: 0;
+        }
+    }
+    :hover {
+        a {
+            p {
+                color: ${theme.primaryHover};
+            }
+        }
+        svg {
+            path {
+                stroke: ${theme.primaryHover};
+            }
+        }
+    }
+`;
+
+const SetAsDelivered = styled.button.attrs((props) => ({
+    type: props.type || "button",
+}))`
+    outline: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 8px;
+    background: none;
+    cursor: pointer;
+    border-radius: 8px;
+    border: none;
+    transition: background 0.3s ease;
+    svg {
+        margin-right: 8px;
+    }
+    :hover {
+        svg {
+            path {
+                stroke: ${theme.primaryHover};
+            }
+        }
+        p {
+            color: ${theme.primaryHover};
+        }
+    }
+    p {
+        color: ${theme.primary};
+        font-weight: bold;
+        margin: 0;
+        padding: 0;
     }
 `;

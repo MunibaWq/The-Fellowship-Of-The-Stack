@@ -10,14 +10,6 @@ export const getProductByID = async (currentProduct) => {
     const response = await Axios.get(`/api/products/get/${currentProduct}`);
     return response.data;
 };
-export const getUser = async () => {
-    try {
-        const response = await Axios.get("/api/users/get");
-        return response.data;
-    } catch {
-        return false;
-    }
-};
 
 export const getAllProducts = async () => {
     let res = await Axios.get("/api/products/allProducts/", {
@@ -161,16 +153,14 @@ export const getCart = async (session) => {
     }
 };
 
-export const getOrdersReadyForDelivery = async () => {
-    const response = await Axios.get(
-        `/api/dashboard/driver/ready-for-delivery`
-    );
+export const getOrdersForDriver = async () => {
+    const response = await Axios.get(`/api/dashboard/driver/order-to-fulfill`);
     return response.data;
 };
 
-export const getOneDelivery = async (orderid) => {
+export const getOneOrderForDriver = async (orderid) => {
     const response = await Axios.get(
-        `/api/dashboard/driver/ready-for-delivery/${orderid}`
+        `/api/dashboard/driver/order-to-fulfill/${orderid}`
     );
     return response.data;
 };
@@ -194,5 +184,22 @@ export const getOneAssignedPickup = async (artistid) => {
     const response = await Axios.get(
         `/api/dashboard/driver/assigned-pickups/${artistid}`
     );
+    return response.data;
+};
+
+export const getMessages = async () => {
+    const response = await Axios.get(`/api/messages/get/`);
+    console.log(response);
+    return response.data;
+};
+
+export const getUserByToken = async () => {
+    const response = await Axios.get(`/api/users/me`)
+    return response.data
+}
+
+
+export const getReadyDeliveries = async () => {
+    const response = await Axios.get(`/api/dashboard/driver/ready-deliveries`);
     return response.data;
 };

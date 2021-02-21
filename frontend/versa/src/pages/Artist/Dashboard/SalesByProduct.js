@@ -17,7 +17,6 @@ const sorters = {
         return one.size.localeCompare(two.size);
     },
     "Price": (one, two) => {
-        console.log(one,two)
         return +one.sale_price - +two.sale_price;
     },
     "# Sold": (one, two) => {
@@ -35,9 +34,7 @@ const SalesByProduct = () => {
     const [start, setStart] = useState("01-01-1900");
     const [end, setEnd] = useState(new Date().toUTCString());
     const [sortBy, setSortBy] = useState('# Sold')
-    console.log('productData',productData)
     useEffect(() => {
-        console.log("term,start,end", term, start, end);
         const fetchData = async (query) => {
             const data = await getSalesByProduct(query);
 
@@ -140,7 +137,6 @@ const SalesByProduct = () => {
                                     return array;
                                 }, [])
                                 .map((product) => {
-                                    console.log(product);
                                     return {
                                         x:
                                             product.title
@@ -176,7 +172,6 @@ const SalesByProduct = () => {
                         </thead>
                         <tbody>
                                 {productData && productData.sort(sorters[sortBy]).map((product, index) => {
-                                    console.log(typeof sortBy, sortBy, sorters[sortBy])
                                     return (
                                         <tr key={product.title + index}>
                                             <td>{product.title}</td>

@@ -48,7 +48,7 @@ function App() {
 
                     <Route path="/create-account" component={CreateAccount} />
 
-                    <Route path="/edit-account" component={EditAccount} />
+                    <PrivateRoute path="/edit-account" component={EditAccount} />
 
                     <Route path="/log-in" component={Login} />
 
