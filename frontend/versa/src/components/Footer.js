@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import theme from "./Reusable/Colors";
 import Button from "./Redesign/Reusable/Button";
 import Input from "./Redesign/Reusable/Input";
 import { addToNewsletterList } from "../axios/posts";

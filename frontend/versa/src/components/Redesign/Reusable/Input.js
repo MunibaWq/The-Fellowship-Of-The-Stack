@@ -12,7 +12,6 @@ const Input = styled.input`
     :focus {
         border: 2px solid ${(props) => props.theme.purple};
     }
-    ]
 `;
 
 export default Input;
