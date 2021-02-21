@@ -20,8 +20,6 @@ const OrdersToDeliver = () => {
         fetchData();
     }, []);
 
-    // console.log("o", orderData);
-
     return (
         <OrderContainer>
             <h1>Orders to Deliver</h1>
