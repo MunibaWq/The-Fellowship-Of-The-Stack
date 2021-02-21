@@ -119,6 +119,8 @@ const Scrollable = styled(ScrollableFeed)`
     background-color: ${theme.primary};
     outline: 1px solid ${theme.primary};
 }
+display: flex;
+flex-direction: column;
 `
 const Message = styled.div``;
 const Time = styled.div`
@@ -167,6 +169,8 @@ const ThreadDiv = styled.div`
             font-weight: 300;
         }
     }
+    grid-row:2;
+    grid-column:2;
 `;
 const MessageDiv = styled.div`
     display: flex;

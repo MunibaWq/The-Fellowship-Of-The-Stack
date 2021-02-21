@@ -22,6 +22,7 @@ const OrderItemCard = ({ order }) => {
                     <p>{size}</p>
                 </Variation>
             </ItemDetails>
+            
         </Card>
     );
 };
@@ -29,6 +30,7 @@ const OrderItemCard = ({ order }) => {
 export default OrderItemCard;
 
 const Card = styled.article`
+ 
     border-radius: 15px;
     padding: 1em;
     height: fit-content;

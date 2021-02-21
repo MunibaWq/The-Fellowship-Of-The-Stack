@@ -6,7 +6,9 @@ import OrderItemCard from "../../../components/Dashboard/AnalyticsTables/OrderIt
 import Loading from "../../../components/Reusable/Loading";
 import theme from "../../../components/Reusable/Colors";
 import { StyledLink } from "../../../components/Reusable/Link";
-import { LeftIcon } from "../../../images/icons";
+import { LeftIcon, SendIcon } from "../../../images/icons";
+import Button from "../../../components/Reusable/Button";
+import { sendMessage } from "../../../axios/posts";
 
 const OrderItems = () => {
     let params = useParams();
@@ -14,6 +16,8 @@ const OrderItems = () => {
 
     const [orderData, setOrderData] = useState();
     const [buyerDetails, setBuyerDetails] = useState();
+    const [message, setMessage] = useState()
+    const [sent, setSent] = useState()
     useEffect(() => {
         const fetchData = async () => {
             const data = await getOneOrder(orderID);
@@ -22,6 +26,7 @@ const OrderItems = () => {
         };
         fetchData();
     }, [orderID]);
+
     return (
         <Container>
             {!orderData ? (
@@ -61,17 +66,37 @@ const OrderItems = () => {
                                     </>
                                 )}
                             </Buyer>
-                        </BuyerDetails>
-                        {orderData.map((order) => {
-                            return (
+                            </BuyerDetails>
+                            {orderData[0].buyer_id !== 9999 &&
+                                <Message>
                                 <div>
+                                <h2>Message</h2>
+                                Send the customer a message about this order
+                            <div><textarea value={message} onChange={(e) => {
+                                    setMessage(e.target.value)
+                                    }} /></div>
+                                    {!sent ?
+                                        <Button secondary onClick={() => {
+                                            let order = orderData[0]
+                                            setSent(true)
+                                            sendMessage(`Order #${order.id}`, order.buyer_id, 'A2B', message, new Date().toUTCString())
+                                        }}>
+                                            <SendIcon />Send
+                                </Button> : "Message Sent, check dashboard for responses"}</div>
+                            </Message>
+                        }
+                            {orderData.map((order) => {
+                            return (
+                           
                                     <OrderItemCard
                                         order={order}
                                         key={order.orderID}
                                     />
-                                </div>
+                     
                             );
                         })}
+                            
+                        
                     </OrderItemContainer>
                 </>
             )}
@@ -80,7 +105,30 @@ const OrderItems = () => {
 };
 
 export default OrderItems;
-
+const Message = styled.article`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background: #6495ed60;
+    grid-column:1;
+    grid-row:2;
+    padding: 2em;
+    box-shadow: 3px 3px 10px rgba(27, 49, 66, 0.13);
+    border-radius: 15px;
+    :hover {
+        box-shadow: 7px 7px 30px rgba(27, 49, 66, 0.13);
+    }
+    h2 {
+        margin-bottom: 0.8em;
+        font-weight: 700;
+        letter-spacing: 0.03em;
+    }
+    textarea {
+        height: 200px;
+        width: 330px;
+        resize: none;
+    }
+`;
 const Container = styled.div`
     background: ${theme.background};
     display: flex;
