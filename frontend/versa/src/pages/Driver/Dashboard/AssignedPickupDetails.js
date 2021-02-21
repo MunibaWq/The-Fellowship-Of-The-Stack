@@ -40,8 +40,8 @@ const AssignedPickupDetails = () => {
                             <p>
                                 These are the products that you need to pick up
                                 from this artist for all your deliveries today.
-                                Mark them as received so that you can track of
-                                your progress.
+                                Mark them as received so that you can track your
+                                progress.
                             </p>
                             <Address>
                                 <Artist>
