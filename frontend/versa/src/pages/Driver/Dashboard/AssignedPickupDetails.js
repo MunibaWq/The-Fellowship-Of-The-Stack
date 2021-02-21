@@ -104,12 +104,24 @@ const AssignedPickupDetails = () => {
                                                 <Quantity>
                                                     {order.quantity}
                                                 </Quantity>
-                                                {itemReceived ? (
-                                                    <SetAsPicked>
+                                                {order.driver_status ===
+                                                "Picked" ? (
+                                                    <SetAsPicked
+                                                        onClick={() =>
+                                                            setItemReceived(
+                                                                false
+                                                            )
+                                                        }
+                                                        status={itemReceived}>
                                                         <DriverPicked />
                                                     </SetAsPicked>
                                                 ) : (
-                                                    <SetAsPicked onClick={}>
+                                                    <SetAsPicked
+                                                        onClick={() =>
+                                                            setItemReceived(
+                                                                true
+                                                            )
+                                                        }>
                                                         <DriverReceived />
                                                     </SetAsPicked>
                                                 )}
