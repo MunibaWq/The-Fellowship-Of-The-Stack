@@ -33,7 +33,6 @@ if (isArtist) {
 if (isDriver) {
     userTypes.push("Driver");
 }
-console.log(isArtist);
 const SideNav = ({ navWidth, setNavWidth }) => {
     const [visiblePSub, setVisiblePSub] = useState(false);
     const [visibleASub, setVisibleASub] = useState(false);

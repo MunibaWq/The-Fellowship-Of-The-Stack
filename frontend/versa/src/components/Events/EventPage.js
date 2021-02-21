@@ -6,7 +6,6 @@ import {
     getCollabsByEventID,
     getEventByID,
     getUserByToken,
-    getImagesByEID,
 } from "../../axios/gets";
 import { userGoing } from "../../axios/posts";
 import theme from "../Reusable/Colors";
@@ -15,7 +14,6 @@ import { deleteUserFromEventByID } from "../../axios/deletes";
 import { amIGoing } from "../../axios/gets";
 import ImageTest from "../../images/imageTest.png";
 // import { clearChoices, setChoices } from "../../redux/actions/EventPage";
-import { useSelector } from "react-redux";
 
 const EventPage = () => {
     const [going, setGoing] = useState("false");
@@ -59,18 +57,8 @@ const EventPage = () => {
             setAttending(data.num_attending);
             const collaborators = await getCollabsByEventID(currentEvent);
             setCollabs(collaborators);
-            console.log(collaborators);
-            console.log(image);
-
             return data;
         };
-        // const fetchEventImages = async () => {
-        //     let response = await getImagesByEID(currentEvent);
-        //     setImage(response);
-        //     console.log(images);
-        // };
-
-        // fetchEventImages();
 
         fetchEvent().then((data) => {
             let options = {
@@ -108,7 +96,6 @@ const EventPage = () => {
     const routeChange = () => {
         let path = `/account`;
         history.push(path);
-        console.log(history);
     };
 
     return (
@@ -212,7 +199,6 @@ const EventPage = () => {
                                     deleteUserFromEventByID(currentEvent);
                                     setAttending(attending - 1);
 
-                                    console.log("true");
                                 } else {
                                     routeChange();
                                 }

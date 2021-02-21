@@ -26,8 +26,6 @@ router.post("/stripe/payment", (req, res) => {
 
 router.post("/paid", optionalAuth, async (req, res) => {
     const buyerID = req.user.id || 9999;
-    console.log("success", req.body.success);
-    console.log("payment", req.body.payment);
     const { email } = req.body.success;
     const {
         name,
@@ -39,7 +37,6 @@ router.post("/paid", optionalAuth, async (req, res) => {
     } = req.body.success.card;
     const { deliveryType, deliveryNote } = req.body.payment;
     const pickup = deliveryType === "pickup";
-    console.log(new Date().toLocaleString().replace(/\./g, ""));
     const { items, payment } = req.body;
     let orderResponse = await pool.query(
         `INSERT INTO orders
@@ -75,7 +72,6 @@ router.post("/paid", optionalAuth, async (req, res) => {
                 item.size,
             ]
         );
-        console.log(new Date().toLocaleString().replace(/\./g, ""));
         const artistIDRes = await pool.query(
             "SELECT artist_id FROM products where id = " + item.id
         );
@@ -103,14 +99,12 @@ router.post("/paid", optionalAuth, async (req, res) => {
             [item.itemQuantity, item.id, item.colour, item.size]
         );
         item.itemPrice = item.itemPrice.toFixed(2);
-        console.log(item);
         item.itemTotal = (item.itemPrice * item.itemQuantity).toFixed(2);
     }
 
     const orderID = orderResponse.rows[0].id;
 
     const total = payment.amount / 100;
-    console.log(items, name, email, orderID, deliveryType);
     orderConfirmation(items, name, email, orderID, deliveryType);
     res.status(200).send("payment complete");
 });

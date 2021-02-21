@@ -23,8 +23,6 @@ const AssignedPickupDetails = () => {
         };
         fetchData();
     }, []);
-    console.log("od", orderData);
-    console.log("bd", artistDetails);
 
     return (
         <Container>

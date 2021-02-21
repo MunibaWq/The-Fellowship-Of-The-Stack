@@ -32,7 +32,6 @@ const DriverDashboardMain = () => {
         fetchData();
     }, []);
 
-    console.log(assignedPickups);
     let ordersToFulfillTableData = {};
     ordersToFulfill
         ? (ordersToFulfillTableData = {

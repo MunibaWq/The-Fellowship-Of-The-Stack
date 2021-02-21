@@ -22,8 +22,6 @@ const OrdersToFulFillDetails = () => {
         };
         fetchData();
     }, []);
-    console.log("od", orderData);
-    console.log("bd", buyerDetails);
 
     return (
         <Container>

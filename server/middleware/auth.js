@@ -13,7 +13,6 @@ const auth = async (req, res, next) => {
         }
         req.user = user.rows[0]; //attaches a user property onto the req, and that user is the obj that it got from the db
         delete req.user.password; //we dont want to pass the password on so we delete it from req.user object
-        console.log(req.user);
         res.cookie("isArtist", `${req.user.is_artist}`, {
             maxAge: Infinity + 1,
         });

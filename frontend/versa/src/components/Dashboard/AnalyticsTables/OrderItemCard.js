@@ -4,7 +4,6 @@ import styled from "styled-components";
 const OrderItemCard = ({ order }) => {
     const { title, color, quantity, size } = order;
 
-    console.log("c", order);
     return (
         <Card>
             <Quantity>

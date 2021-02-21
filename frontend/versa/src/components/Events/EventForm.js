@@ -36,7 +36,6 @@ const EventForm = (props) => {
     const params = useParams();
     //this is event id
     const id = params.id;
-    console.log(id);
     const formError = useSelector((state) => state.formErrors.event.form);
     const input = useSelector((state) => state.formInputs.event);
     const images = useSelector((state) => state.images.eventForm);
@@ -46,7 +45,6 @@ const EventForm = (props) => {
     useEffect(() => {
         const getUserData = async () => {
             let data = await getEventByID(id);
-            console.log(data);
             dispatch(setFormInputs("event", "name", data.name));
             dispatch(setFormInputs("event", "description", data.description));
             dispatch(setFormInputs("event", "capacity", data.capacity));
@@ -70,7 +68,6 @@ const EventForm = (props) => {
             dispatch(setFormInputs("event", "type", data.type));
 
             let img = await getImagesByEID(id);
-            console.log(img);
             dispatch(setImages("eventForm", img.images));
         };
 
@@ -94,17 +91,10 @@ const EventForm = (props) => {
             location: input.location,
             status: input.status,
         };
-        console.log(eventInfo.status);
-        console.log(id);
 
-        const sendData = async () => {
+        const sendData = () => {
             if (props.type === "Add") {
-                const response = await createEvent(eventInfo, images, thumbImg);
-                console.log(response);
-                const eventID = response.data;
-
-                console.log(eventID);
-                // await userGoing(eventID);
+                createEvent(eventInfo, images, thumbImg);
             } else {
                 axios.put(
                     "/api/events/edit/" + id,
@@ -122,7 +112,6 @@ const EventForm = (props) => {
             dispatch(setFormErrors("event", "Please check all input is valid"));
         }
     };
-    // console.log("starttime", input);
     return redirect ? (
         <Redirect to={redirect} />
     ) : (

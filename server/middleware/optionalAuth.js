@@ -19,7 +19,6 @@ const optionalAuth = async (req, res, next) => {
         }
         next(); //next just means that we are done here so send it off to the endpoint function, so this fxn goes to the next router fxn
     } catch (e) {
-        console.log("optional auth", e);
         res
             .status(401)
             .send({ error: "Optional Authentication Error: ", details: e });

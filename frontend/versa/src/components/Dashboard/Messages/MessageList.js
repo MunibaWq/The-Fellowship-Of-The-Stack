@@ -7,10 +7,7 @@ import { Circle } from "../../../images/icons";
 import theme from "../../Reusable/Colors";
 const cookies = new Cookies();
 const timeSince = (time) => {
-    console.log(new Date(time));
-    console.log(new Date());
     const diff = (new Date() - new Date(time)) / 1000;
-    console.log(diff);
     switch (true) {
         case diff < 60:
             return diff.toFixed(0) + " seconds";

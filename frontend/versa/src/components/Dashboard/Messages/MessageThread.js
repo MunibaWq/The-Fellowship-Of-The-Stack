@@ -26,7 +26,6 @@ const MessageThread = ({ thread }) => {
             </Header>
             <MessageDiv>
                 {thread.messages.map((message) => {
-                    console.log(message);
                     return message.from_user === userID ? (
                         <ToMessage>
                             <Message>

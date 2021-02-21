@@ -25,7 +25,6 @@ const TotalOrders = () => {
     const [sortBy, setSortBy] = useState("Order Total");
     
     useEffect(() => {
-        console.log("term,start,end", start, end);
         const fetchData = async (query) => {
             const data = await getTotalOrders(query);
             let temp = [];
@@ -35,7 +34,6 @@ const TotalOrders = () => {
                     y: parseFloat(sales.sum),
                 });
             });
-            console.log(temp);
             setGraphData(temp);
             setSalesData(data);
         };
@@ -43,21 +41,7 @@ const TotalOrders = () => {
         fetchData(query);
     }, [start, end]);
 
-    
-
-    // salesData
-    //     ? salesData.map((sales) => {
-    //           return temp.push({
-    //               x: sales.day,
-    //               y: parseFloat(sales.sum),
-    //           });
-    //       })
-    //     : console.log(salesData);
-
-    // console.log(graphData);
     let headers = ["Date", "Order Total"];
-
-    console.log("to sd", salesData);
 
     return (
         <SBPContainer>
@@ -190,7 +174,6 @@ const TotalOrders = () => {
                         </thead>
                         <tbody>
                             {salesData.sort(sorters[sortBy]).map((sales, index) => {
-                                console.log(sales);
                                 return (
                                     <tr key={sales.sum + index}>
                                         <td>

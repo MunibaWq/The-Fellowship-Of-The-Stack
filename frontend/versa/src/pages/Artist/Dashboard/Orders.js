@@ -21,7 +21,6 @@ const Orders = () => {
         fetchData();
     }, []);
 
-    console.log("o", orderData);
 
     return (
         <OrderContainer>

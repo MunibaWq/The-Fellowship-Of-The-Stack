@@ -2,7 +2,6 @@ const router = require("express").Router();
 const pool = require("../db");
 router.post("/read", async (req, res) => {
     const { topic, to } = req.body;
-    console.log(req.body);
     pool.query(
         `UPDATE messages SET read=true 
         WHERE topic='${topic}'

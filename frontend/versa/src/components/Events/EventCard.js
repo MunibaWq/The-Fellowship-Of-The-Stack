@@ -23,14 +23,12 @@ const EventCard = ({ theEvent }) => {
     const routeChange = () => {
         let path = `/account`;
         history.push(path);
-        // console.log(history);
     };
 
     useEffect(() => {
         const findUser = async () => {
             const response = await getUserByToken();
             setIsUser(response);
-            // console.log(response);
         };
         findUser();
     }, []);
@@ -38,7 +36,6 @@ const EventCard = ({ theEvent }) => {
     useEffect(() => {
         const attendStatus = async () => {
             const response = await amIGoing(currentEvent);
-            // console.log(reponse);
             if (response) {
                 setGoing(true);
             } else setGoing(false);
@@ -46,17 +43,6 @@ const EventCard = ({ theEvent }) => {
         attendStatus();
     }, [currentEvent]);
 
-    // useEffect(() => {
-    //     if (going !== "unset") {
-    //         if (!going) {
-    //             deleteUserFromEventByID(currentEvent);
-    //         } else {
-    //             userGoing(currentEvent);
-    //         }
-    //     }
-    // }, [going, currentEvent]);
-
-    // console.log("results", theEvent);
     let options = {
         weekday: "long",
         year: "numeric",

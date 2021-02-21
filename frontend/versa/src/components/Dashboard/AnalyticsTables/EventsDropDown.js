@@ -43,11 +43,8 @@ const EventsDropDown = ({ eventStatus, eventID }) => {
     const handleChange = (e) => {
         setStatus(e.target.value);
         setConfirmation(true);
-        console.log(status);
         updateEventStatus(e.target.value, eventID);
     };
-    console.log("s", status);
-    console.log("c", confirmation);
     return (
         <Status
             name="status"
