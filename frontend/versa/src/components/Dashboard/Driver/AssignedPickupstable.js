@@ -122,7 +122,7 @@ const DriversAssignedPickupTable = ({ orderData }) => {
                                         </td>
                                         <td>
                                             <StatusButton
-                                                to={`/dashboard/driver/assigned-deliveries/${order.artist_id}`}>
+                                                to={`/dashboard/driver/assigned-pickups/${order.artist_id}`}>
                                                 START PICKUP{" "}
                                                 <RightIcon
                                                     stroke={theme.primary}
