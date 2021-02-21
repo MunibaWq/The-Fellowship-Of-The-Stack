@@ -17,7 +17,6 @@ const DashboardMain = () => {
             let data = await getAttendingEvents();
             setEventsData(data);
             let orders = await getCustomerOrders();
-            console.log("this is orders", orders);
             setOrdersData(orders);
         };
         fetchData();

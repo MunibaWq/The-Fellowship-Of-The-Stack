@@ -6,8 +6,6 @@ import theme from "../Reusable/Colors";
 
 const WishButton = ({ productID }) => {
     const [clicked, setClicked] = useState(false);
-    console.log({ clicked });
-
     const addToWish = async () => {
         // const resp = await addToWishList(productID);
         // if (resp) {
@@ -26,7 +24,6 @@ const WishButton = ({ productID }) => {
         // }
     };
 
-    console.log(productID);
     return (
         <ActionButton
             onClick={() => {

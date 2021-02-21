@@ -58,7 +58,6 @@ const DriversDropDown = ({ order }) => {
         }
         setStatus(e.target.value);
         setConfirmation(true);
-        console.log(status);
     };
 
     return (

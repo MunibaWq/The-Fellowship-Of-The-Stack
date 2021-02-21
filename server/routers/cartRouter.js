@@ -72,7 +72,6 @@ router.put("/edit", optionalAuth, async (req, res) => {
         `SELECT id from carts WHERE user_id = '${userID}'`
     );
     let cartID = checkForCart.rows[0].id;
-    console.log(cartID);
     const update = await pool.query(`UPDATE cart_items SET quantity = ${quantity}
     WHERE product_id=${cartProduct} AND colour='${colour}' 
     AND size='${size}' AND cart_id='${cartID}'`);

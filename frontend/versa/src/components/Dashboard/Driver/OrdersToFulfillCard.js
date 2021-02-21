@@ -12,7 +12,6 @@ const OrdersToFulfillCard = ({ order }) => {
         driver_status,
     } = order;
 
-    console.log("c", order);
     return (
         <Card>
             <Quantity>

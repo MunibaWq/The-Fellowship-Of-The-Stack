@@ -11,7 +11,6 @@ const AssignedPickupTable = ({ orderData }) => {
     const [data, setData] = useState(orderData);
     const [sortType, setSortType] = useState();
     const [query, setQuery] = useState();
-    console.log("p", orderData);
     const sortOptions = [
         {
             value: "id",
@@ -37,7 +36,6 @@ const AssignedPickupTable = ({ orderData }) => {
             };
             const sortProperty = types[type];
             const sorted = [...orderData].sort(sortProperty);
-            console.log(sorted);
             setData(sorted);
         };
 

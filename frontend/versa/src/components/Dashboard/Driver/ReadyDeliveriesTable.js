@@ -13,7 +13,6 @@ const ReadyDeliveriesTable = ({ orderData }) => {
     const [query, setQuery] = useState();
     const [status, setStatus] = useState("Ready to Deliver");
     const [id, setID] = useState();
-    console.log("p", orderData);
     const sortOptions = [
         {
             value: "id",
@@ -47,7 +46,6 @@ const ReadyDeliveriesTable = ({ orderData }) => {
             };
             const sortProperty = types[type];
             const sorted = [...orderData].sort(sortProperty);
-            console.log(sorted);
             setData(sorted);
         };
 

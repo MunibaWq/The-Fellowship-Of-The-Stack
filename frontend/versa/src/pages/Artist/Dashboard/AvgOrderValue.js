@@ -25,7 +25,6 @@ const AvgOrderValue = () => {
     const [end, setEnd] = useState(new Date().toUTCString());
     const [sortBy, setSortBy] = useState("Average Order Value");
     useEffect(() => {
-        console.log("term,start,end", start, end);
         const fetchData = async (query) => {
             const data = await getAvgOrderValue(query);
             let temp = [];
@@ -35,7 +34,6 @@ const AvgOrderValue = () => {
                     y: parseFloat(sales.average),
                 });
             });
-            console.log(temp);
             setGraphData(temp);
             setSalesData(data);
         };

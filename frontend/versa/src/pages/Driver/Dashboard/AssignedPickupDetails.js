@@ -24,9 +24,6 @@ const AssignedPickupDetails = () => {
         fetchData();
     }, []);
 
-    console.log("od", orderData);
-    console.log("bd", artistDetails);
-
     return (
         <Container>
             {!orderData ? (
@@ -95,49 +92,6 @@ const AssignedPickupDetails = () => {
                                             order.size
                                         }
                                     />
-                                    /*<ProductCard
-                                        key={
-                                            order.id + order.title + order.size
-                                        }>
-                                        <img
-                                            src={`https://versabucket.s3.us-east-2.amazonaws.com/images/${order.thumbnail}.jpeg`}
-                                            alt={order.title}
-                                        />
-                                        <Details>
-                                            <h4>{order.title}</h4>
-                                            <RowContainer>
-                                                <Size>{order.size}</Size>
-                                                <p>{order.color}</p>
-                                            </RowContainer>
-                                            <QuantityStatus>
-                                                <Quantity>
-                                                    {order.quantity}
-                                                </Quantity>
-
-                                                {order.driver_status ===
-                                                "Picked" ? (
-                                                    <SetAsPicked
-                                                        onClick={() =>
-                                                            setItemReceived(
-                                                                false
-                                                            )
-                                                        }
-                                                        status={itemReceived}>
-                                                        <DriverPicked />
-                                                    </SetAsPicked>
-                                                ) : (
-                                                    <SetAsPicked
-                                                        onClick={() =>
-                                                            setItemReceived(
-                                                                true
-                                                            )
-                                                        }>
-                                                        <DriverReceived />
-                                                    </SetAsPicked>
-                                                )}
-                                            </QuantityStatus>
-                                        </Details>
-                                                    </ProductCard>*/
                                 );
                             })}
                         </OrderItemContainer>

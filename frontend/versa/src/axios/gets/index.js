@@ -10,14 +10,6 @@ export const getProductByID = async (currentProduct) => {
     const response = await Axios.get(`/api/products/get/${currentProduct}`);
     return response.data;
 };
-export const getUser = async () => {
-    try {
-        const response = await Axios.get("/api/users/get");
-        return response.data;
-    } catch {
-        return false;
-    }
-};
 
 export const getAllProducts = async () => {
     let res = await Axios.get("/api/products/allProducts/", {
@@ -194,6 +186,18 @@ export const getOneAssignedPickup = async (artistid) => {
     );
     return response.data;
 };
+
+export const getMessages = async () => {
+    const response = await Axios.get(`/api/messages/get/`);
+    console.log(response);
+    return response.data;
+};
+
+export const getUserByToken = async () => {
+    const response = await Axios.get(`/api/users/me`)
+    return response.data
+}
+
 
 export const getReadyDeliveries = async () => {
     const response = await Axios.get(`/api/dashboard/driver/ready-deliveries`);

@@ -239,7 +239,6 @@ const ProductPage = ({
                         clicked={clicked}
                         primary
                         onClick={() => {
-                            console.log(clicked);
                             setClicked((curr) => !curr);
                             addToCart(
                                 id,

@@ -14,15 +14,12 @@ export function mapImages(images, dispatch) {
                 <UploadedImage key={index} alt="" src={image.image} />
                 <DeleteImage
                     onClick={() => {
-                        console.log("hello");
                         if (image.id) {
                             deleteEventImage(image.id);
                         }
                         let newImages = images.filter((i, ind) => {
                             return ind !== index;
                         });
-                        console.log(newImages, images);
-
                         dispatch(setImages("eventForm", newImages));
                     }}>
                     <LineCloseIcon stroke={theme.primary} />

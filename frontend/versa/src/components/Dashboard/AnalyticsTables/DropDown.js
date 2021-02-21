@@ -63,7 +63,6 @@ const DropDown = ({ order }) => {
     const handleChange = (e) => {
         setStatus(e.target.value);
         setConfirmation(true);
-        console.log(status);
         e.target.value === "Picked Up"
             ? updateOrderShipDate(e.target.value, new Date(), order.id)
             : e.target.value === "Delivered"

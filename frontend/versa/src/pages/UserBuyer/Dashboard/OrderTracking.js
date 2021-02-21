@@ -17,7 +17,6 @@ const OrderTracking = () => {
 
             setOrderData(
                 data.map((order) => {
-                    console.log(order);
                     return {
                         ...order,
                         status:
@@ -30,8 +29,6 @@ const OrderTracking = () => {
         };
         fetchData();
     }, []);
-
-    console.log("o", orderData);
 
     return (
         <OrderContainer>

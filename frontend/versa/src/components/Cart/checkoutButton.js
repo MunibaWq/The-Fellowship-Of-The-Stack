@@ -4,14 +4,7 @@ import axios from "axios";
 import styled from "styled-components";
 import Button from "../Reusable/Button";
 
-let onOpened = (message) => {
-    // console.log(message)
-};
-let onClosed = (message) => {
-    // console.log(message)
-};
 const CheckoutButton = ({ price, artistName, items, custPref, custNote }) => {
-    console.log('checkoutbutton', items, price, custPref);
     
     const totalPrice = +price + +(price < 105 && custPref === 'delivery' ? 10 : 0)
     const priceForStripe = totalPrice * 100;
@@ -27,7 +20,6 @@ const CheckoutButton = ({ price, artistName, items, custPref, custNote }) => {
             const purchaseInfo = res.data.success;
             purchaseInfo.deliveryType = custPref;
             purchaseInfo.deliveryNote = custNote;
-            console.log(purchaseInfo);
             axios.post("/api/orders/paid", {
                 success: token,
                 items: items,
@@ -80,8 +72,7 @@ const CheckoutButton = ({ price, artistName, items, custPref, custNote }) => {
                 // cause zipCheck to be pulled from billing address (set to shipping if none provided).
                 zipCode
                 token={onToken} // submit callback
-                opened={onOpened} // called when the checkout popin is opened (no IE6/7)
-                closed={onClosed} // called when the checkout popin is closed (no IE6/7)
+                
             >
                 <Button primary>Pay</Button>
             </Stripe>

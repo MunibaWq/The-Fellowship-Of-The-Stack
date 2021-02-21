@@ -75,7 +75,6 @@ router.get("/get", auth, (req, res) => {
 //put the auth middleware which will get the user
 
 router.put("/update", auth, async (req, res, next) => {
-    console.log(req.body);
     const user = req.user; //this is where the user is, looking at auth.js
     const updatedUser = {}; //this is what we're going to send into the query
     //now we have the user obj,
@@ -99,7 +98,6 @@ router.put("/update", auth, async (req, res, next) => {
             : req.body.data.isDriver === true
             ? true
             : user.is_driver;
-    console.log(updatedUser);
     //now we need to change whats in the updatedUser array, this does the update
     const data = await pool.query(
         `UPDATE users SET username=$1, email=$2, address=$3, store_address=$4, is_artist=$5, is_driver=$6, name=$7 WHERE id=$8 RETURNING username  `,
@@ -126,7 +124,6 @@ router.post("/newsletter-signup", (req, res) => {
 
         pool.query(`INSERT INTO newsletter(email) VALUES ($1)`, [email]);
         res.json("Added to newsletter sign ups!");
-        console.log(email);
         addToNewsletter(email);
     } catch (e) {
         console.log("error", e);
@@ -135,4 +132,7 @@ router.post("/newsletter-signup", (req, res) => {
     }
 });
 
+router.get('/me', auth, (req, res) => {
+    res.send(req.user)
+})
 module.exports = router;

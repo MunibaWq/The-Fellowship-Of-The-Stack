@@ -9,7 +9,6 @@ export const setInputErrors = (form, textField, value) => {
 
 export const setFormErrors = (form, value) => {
     return async (dispatch) => {
-        console.log({ form, value })
         dispatch({
             type: "SET_FORM_ERRORS",
             

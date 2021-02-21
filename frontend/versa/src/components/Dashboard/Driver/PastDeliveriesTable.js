@@ -8,7 +8,6 @@ const DriverPastDeliveriesTable = ({ user, orderData }) => {
     const [data, setData] = useState(orderData);
     const [sortType, setSortType] = useState();
     const [query, setQuery] = useState();
-    console.log("p", orderData);
     const sortOptions = [
         {
             value: "id",
@@ -32,7 +31,6 @@ const DriverPastDeliveriesTable = ({ user, orderData }) => {
             };
             const sortProperty = types[type];
             const sorted = [...orderData].sort(sortProperty);
-            console.log(sorted);
             setData(sorted);
         };
 
@@ -65,11 +63,7 @@ const DriverPastDeliveriesTable = ({ user, orderData }) => {
     };
     const filteredData = filterData(data, query);
 
-    console.log(
-        "sorted",
-        [...orderData].sort((a, b) => a.name.localeCompare(b.name))
-    );
-    // console.log(filteredData, "f");
+    
     return (
         <TableContainer>
             {!orderData ? (

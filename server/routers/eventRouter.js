@@ -205,7 +205,6 @@ router.get("/allEvents", async (req, res) => {
 //create event
 
 router.post("/create", auth, async (req, res) => {
-    console.log(req.user.is_artist);
     if (!req.user.is_artist) {
         res.status(501).send("Not Authorized");
     } else {
@@ -220,17 +219,6 @@ router.post("/create", auth, async (req, res) => {
                 location,
                 type,
             } = req.body.data;
-            console.log(
-                name,
-                req.user.id,
-                description,
-                status,
-                capacity,
-                startTime,
-                endTime,
-                location,
-                type
-            );
             let eventInfo = await pool.query(
                 `
             INSERT INTO events(
@@ -257,7 +245,6 @@ router.post("/create", auth, async (req, res) => {
         VALUES ($1, $2, $3, $4 )`,
                 [req.user.id, eventInfo.rows[0].id, "attending", true]
             );
-            console.log(eventInfo.rows[0].id);
             res.json(eventInfo.rows[0].id);
         } catch (err) {
             res.send(err);
@@ -269,7 +256,6 @@ router.post("/create", auth, async (req, res) => {
 
 router.put("/edit/:eventId", auth, async (req, res) => {
     const { eventId } = req.params;
-    console.log(eventId);
     if (!req.user.is_artist) {
         res.status(500).send("Not Authorized");
     } else {
@@ -296,21 +282,6 @@ router.put("/edit/:eventId", auth, async (req, res) => {
                 location,
                 type,
             } = req.body.data;
-
-            console.log(
-                name,
-
-                req.user.id,
-                description,
-                status,
-                capacity,
-                startTime,
-                endTime,
-                location,
-                type,
-                eventId
-            );
-            console.log(eventId);
 
             let current = await pool.query(
                 `SELECT * FROM events WHERE id = $1 `,
@@ -423,7 +394,6 @@ router.post("/join", auth, async (req, res) => {
             req.user.id
     );
     attendee = attResponse.rows[0];
-    console.log("this is what Im looking for", attendee, collabs.rows);
     goingToEvent(attendee, collabs.rows);
 
     res.send("joined");
@@ -455,26 +425,6 @@ router.delete("/not-attending/:event", auth, async (req, res) => {
     }
 });
 
-// router.get("/attend/email/:eventid/:id", async (req, res) => {
-//     try {
-//         attendees = await pool.query(
-//             `SELECT h.username as host_name, e.name as event_name, e.description, e.start_time, e.end_time, e.location, a.event_id, u.email, u.name from events_attendees a INNER JOIN users u ON a.attendee = u.id INNER JOIN events e ON e.id=a.event_id INNER JOIN users h ON h.id=e.host WHERE a.event_id = ${req.params.eventid}`
-//         );
-//         collabs = await pool.query(
-//             `SELECT u.username FROM users u INNER JOIN events_attendees a ON u.id = a.attendee WHERE a.type = 'collab' AND a.event_id = ${req.params.eventid}`
-//         );
-//         for (attendee of attendees.rows) {
-//             console.log(attendee);
-//             goingToEvent(attendee, collabs.rows);
-//         }
-
-//         res.status(200).send("Successssssssssss");
-//     } catch (e) {
-//         console.log(e);
-//         res.send("error");
-//     }
-// });
-
 router.get("/not-attending/email/:eventid/:id", async (req, res) => {
     try {
         attendees = await pool.query(
@@ -482,7 +432,6 @@ router.get("/not-attending/email/:eventid/:id", async (req, res) => {
         );
 
         for (attendee of attendees.rows) {
-            console.log(attendee);
             notGoingToEvent(attendee);
         }
 
@@ -500,7 +449,6 @@ router.get("/amIGoing/:eventid", auth, async (req, res) => {
             [req.params.eventid, req.user.id]
         );
         const going = response.rows.length === 1;
-        console.log("this is going " + going);
         res.send(going);
     } catch (e) {
         console.log(e, "/amIGoing/:eventid");
@@ -517,7 +465,6 @@ router.get("/collabs/:eventid", async (req, res) => {
         // collabs.rows.map((collab) => collaborators.push(collab.username));
 
         res.json(collabs.rows);
-        console.log(collabs.rows);
     } catch (e) {
         console.log(e, "collabs");
         res.send("error");

@@ -16,7 +16,6 @@ const EventsAttending = () => {
             try {
                 
                 let data = await getAttendingEvents();
-                console.log('here it is', data)
                 setEventsData(data);
             } catch (e) {
                 console.log(e);
@@ -25,7 +24,6 @@ const EventsAttending = () => {
         getEvents();
     }, []);
 
-    console.log(eventsData);
     return (
         <EventsContainer>
             
