@@ -130,20 +130,14 @@ router.put("/edit/:orderid", auth, async (req, res) => {
     const order = response.rows[0];
     const updatedOrder = {};
 
-    req.body === "Ready for Pickup"
-        ? updatedOrder.status === orderStatus
-        : updatedOrder.status === order.status;
-
-    updatedOrder.status = req.body.shipDate
-        ? "Picked Up"
-        : orderStatus || order.status;
+    updatedOrder.status = orderStatus;
 
     updatedOrder.ship_date = req.body.shipDate || order.ship_date;
 
     try {
         const order = await pool.query(
             `UPDATE orders SET status = $1, ship_date = $2 WHERE id = $3`,
-            [updatedOrder.status, updatedOrder.ship_date, req.params.id]
+            [updatedOrder.status, updatedOrder.ship_date, req.params.orderid]
         );
 
         const infoToEmail = await pool.query(
