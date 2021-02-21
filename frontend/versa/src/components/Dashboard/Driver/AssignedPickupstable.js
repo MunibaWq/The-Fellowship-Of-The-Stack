@@ -70,6 +70,7 @@ const DriversAssignedPickupTable = ({ orderData }) => {
     ).map((name) => {
         return filteredData.find((a) => a.name === name);
     });
+
     return (
         <TableContainer>
             {!orderData ? (
