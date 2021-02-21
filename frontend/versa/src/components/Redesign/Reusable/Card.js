@@ -1,12 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import EventCard from "../../Events/EventCard";
 import { calcTotalStock } from "../../../functions/calcTotalStock";
-// import { ShoppingCart } from "../../../images/icons";
+import OutOfStock from "./OutOfStock";
+import { Going, ShoppingCart } from "../../../images/icons";
 const bigDetails = { shop: { prefix: "$", detail: "price" }, "event": {detail:""}};
 const details = {shop: "artist"}
-const Card = ({ type, item, link, awsFolder }) => {
+const Card = ({ type, item, link, awsFolder, action, featured }) => {
     return (
         <Link to={`/${link}/${item.id}`} style={{ position: "relative" }}>
             {type === "shop" && (
@@ -28,9 +28,14 @@ const Card = ({ type, item, link, awsFolder }) => {
                             {bigDetails[type].prefix}
                             {item[bigDetails[type].detail]}
                         </BigDetail>
-                        {/*<Action stock={calcTotalStock(item)}>
-                                <ShoppingCart />
-                            </Action>*/}
+                        {action && (
+                                <Action stock={calcTotalStock(item)}>
+                                    {type === "shop" && <ShoppingCart />}
+                                    {type === "attend" && (
+                                        <Going width="18" height="18" />
+                                    )}
+                                </Action>
+                            )}
                     </ImportantDetail>
                 </ItemInfo>
             </CardContainer>
@@ -47,9 +52,10 @@ const CardContainer = styled.div`
     flex-direction: column;
     align-items: flex-start;
     padding: 20px;
-    filter: ${(props) => (props.stock === 0 ? "blur(2px)" : "blur(0)")};
+    filter: ${(props) => (props.stock === 0 ? "grayscale(1)" : "grayscale(0)")};
     cursor: pointer;
-    background: ${(props) => props.theme.blue};
+    background: ${(props) =>
+        props.featured ? props.theme.Blue : props.theme.lightBlue};
     :hover {
         background: ${(props) =>
             props.stock === 0 ? props.theme.blue : props.theme.orange};
@@ -97,53 +103,34 @@ const BigDetail = styled.p`
     letter-spacing: 0.03em;
     text-transform: capitalize;
 `;
-// const Action = styled.button.attrs((props) => ({
-//     type: props.type || "button",
-// }))`
-//     outline: none;
-//     display: flex;
-//     flex-direction: column;
-//     justify-content: center;
-//     align-items: center;
-//     padding: 8px;
-//     background: ${(props) =>
-//         props.stock === 0 ? props.theme.blue : props.theme.purple};
-//     cursor: ${(props) => (props.stock === 0 ? "default" : "pointer")};
-//     border-radius: 8px;
-//     border: none;
-//     transition: background 0.3s ease;
-//     :hover {
-//         background: ${(props) =>
-//             props.stock === 0 ? props.theme.blue : props.theme.holo};
-//         svg {
-//             path {
-//                 stroke: ${(props) =>
-//                     props.stock === 0 ? props.theme.blue : props.theme.black};
-//             }
-//         }
-//     }
-//     svg {
-//         path {
-//             stroke: ${(props) => props.theme.blue};
-//         }
-//     }
-// `;
-
-const OutOfStock = styled.div`
+const Action = styled.button.attrs((props) => ({
+    type: props.type || "button",
+}))`
+    outline: none;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    z-index: 1000;
-    position: absolute;
-    transform: translate(25%, 150%);
-    background-color: ${(props) => props.theme.lightBlack + 90};
-    padding: 8px 16px;
+    padding: 8px;
+    background: ${(props) =>
+        props.stock === 0 ? props.theme.blue : props.theme.purple};
+    cursor: ${(props) => (props.stock === 0 ? "default" : "pointer")};
     border-radius: 8px;
-    filter: ${(props) => (props.stock === 0 ? "opacity(100%)" : "opacity(0%)")};
-    p {
-        text-transform: uppercase;
-        color: ${(props) => props.theme.blue};
-        font-weight: bold;
-        margin-right: 8px;
+    border: none;
+    transition: background 0.3s ease;
+    :hover {
+        background: ${(props) =>
+            props.stock === 0 ? props.theme.blue : props.theme.holo};
+        svg {
+            path {
+                stroke: ${(props) =>
+                    props.stock === 0 ? props.theme.blue : props.theme.black};
+            }
+        }
+    }
+    svg {
+        path {
+            stroke: ${(props) => props.theme.blue};
+        }
     }
 `;

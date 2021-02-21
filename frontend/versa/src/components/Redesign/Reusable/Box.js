@@ -2,15 +2,16 @@ import React from "react";
 import styled from "styled-components";
 import Card from "./Card";
 
-const Box = ({ awsFolder, link, dataToMap, boxTitle, boxDescription, type }) => {
-    console.log("dt", dataToMap.length);
+const Box = ({ awsFolder, link, dataToMap, boxTitle, boxDescription, type, action, featured }) => {
     return (
-        <Container>
-            <Title>
-                <h2>{boxTitle}</h2>
-            </Title>
-            <Spotlight>
-                <p>{boxDescription}</p>
+        <Container featured={featured}>
+            {boxTitle && (
+                <Title>
+                    <h2>{boxTitle}</h2>
+                </Title>
+            )}
+            <Spotlight featured={featured}>
+                {boxDescription && <p>{boxDescription}</p>}
                 <CardList>
                     {dataToMap.length > 0 ? (
                         dataToMap.map((item, index) => (
@@ -21,6 +22,8 @@ const Box = ({ awsFolder, link, dataToMap, boxTitle, boxDescription, type }) => 
                                 item={item}
                                 type={type}
                                 awsFolder={awsFolder}
+                                action
+                                featured={featured}
                             />
                         ))
                     ) : (
@@ -40,8 +43,10 @@ const Container = styled.article`
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    margin: Clamp(8px 0px, 2vw, 60px 0);
+    margin: 2em 1em;
     border-radius: 15px 15px 0px 0px;
+    background: ${(props) =>
+        props.featured ? props.theme.lightBlue : "transparent"};
 `;
 
 const Title = styled.div`
@@ -64,8 +69,9 @@ const Spotlight = styled.section`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 40px 20px;
-    background: ${(props) => props.theme.lightBlue};
+    padding: calc(40px + 1em) 20px 40px 20px;
+    background: ${(props) =>
+        props.featured ? props.theme.lightBlue : "transparent"};
     p {
         font-weight: 500;
     }

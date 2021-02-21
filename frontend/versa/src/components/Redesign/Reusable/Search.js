@@ -6,7 +6,7 @@ import Button from "./Button";
 //          USE
 // <Search placeholder="Your desired placeholder" />
 
-const Search = ({ placeholder, onClick, type, onChange, onKeyPress }) => {
+const Search = ({ placeholder, onClick, onChange, onKeyPress }) => {
     return (
         <SearchContainer>
             <SearchIcon />
