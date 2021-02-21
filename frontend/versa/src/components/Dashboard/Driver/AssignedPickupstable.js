@@ -7,7 +7,7 @@ import Button from "../../Reusable/Button";
 import { StyledLink } from "../../Reusable/Link";
 import { RightIcon } from "../../../images/icons";
 
-const DriversAssignedPickupTable = ({ orderData }) => {
+const AssignedPickupTable = ({ orderData }) => {
     const [data, setData] = useState(orderData);
     const [sortType, setSortType] = useState();
     const [query, setQuery] = useState();
@@ -66,10 +66,11 @@ const DriversAssignedPickupTable = ({ orderData }) => {
     const filteredData = filterData(data, query);
 
     const uniqueArtist = Array.from(
-        new Set(filteredData.map((a) => a.name))
+        new Set(filteredData.map((a) => a.username))
     ).map((name) => {
-        return filteredData.find((a) => a.name === name);
+        return filteredData.find((a) => a.username === name);
     });
+    console.log(uniqueArtist)
     return (
         <TableContainer>
             {!orderData ? (
@@ -144,7 +145,7 @@ const DriversAssignedPickupTable = ({ orderData }) => {
     );
 };
 
-export default DriversAssignedPickupTable;
+export default AssignedPickupTable;
 
 const TableContainer = styled.div`
     justify-self: center;

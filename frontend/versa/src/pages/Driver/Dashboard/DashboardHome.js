@@ -11,7 +11,7 @@ const DriverDashboardMain = () => {
     const [ordersToFulfill, setOrdersToFulfill] = useState();
     const [assignedPickups, setAssignedPickups] = useState();
     const [pastDeliveries, setPastDeliveries] = useState();
-
+    const [uniquePickup, setUniquePickup] = useState()
     useEffect(() => {
         const fetchData = async () => {
             let toFulfillData = await getOrdersForDriver();
@@ -20,7 +20,13 @@ const DriverDashboardMain = () => {
             setAssignedPickups(assignedData);
             let pastData = await getPastDeliveries();
             setPastDeliveries(pastData);
+            setUniquePickup(Array.from(
+                new Set(assignedData.map((a) => a.username))
+            ).map((name) => {
+                return assignedData.find((a) => a.username === name);
+            }));
         };
+       
         fetchData();
     }, []);
 
@@ -49,13 +55,8 @@ const DriverDashboardMain = () => {
                   headers: ["Orders to Fulfill"],
                   values: [["No orders yet"]],
               },
-          });
+        });
 
-    const uniquePickup = Array.from(
-        new Set(assignedPickups.map((a) => a.name))
-    ).map((name) => {
-        return assignedPickups.find((a) => a.name === name);
-    });
     let assignedPickupsTableData = {};
     uniquePickup
         ? (assignedPickupsTableData = {
