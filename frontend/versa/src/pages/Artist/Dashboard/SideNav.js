@@ -366,7 +366,7 @@ const SideNav = ({ navWidth, setNavWidth }) => {
                                                         </SubMenuLink>
                                                     </li>
                                                 </Link>
-                                                <Link to="/dashboard/driver/order-history">
+                                                <Link to="/dashboard/driver/delivery-history">
                                                     <li>
                                                         <SubMenuLink>
                                                             <h4>
@@ -397,7 +397,7 @@ const SideNav = ({ navWidth, setNavWidth }) => {
                                                 </MenuLink>
                                             </li>
                                         </Link>
-                                        <Link to="/dashboard/driver/assigned-deliveries/">
+                                        <Link to="/dashboard/driver/deliveries/">
                                             <li>
                                                 <MenuLink>
                                                     <Orders />

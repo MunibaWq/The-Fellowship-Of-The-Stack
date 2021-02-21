@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {
     getAssignedPickups,
-    getOrdersReadyForDelivery,
+    getOrdersForDriver,
     getPastDeliveries,
 } from "../../../axios/gets";
 import styled from "styled-components";
@@ -14,7 +14,7 @@ const DriverDashboardMain = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            let toFulfillData = await getOrdersReadyForDelivery();
+            let toFulfillData = await getOrdersForDriver();
             setOrdersToFulfill(toFulfillData);
             let assignedData = await getAssignedPickups();
             setAssignedPickups(assignedData);

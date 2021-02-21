@@ -351,7 +351,7 @@ router.get("/order/:orderid", auth, async (req, res) => {
 //     }
 // });
 
-router.get("/driver/ready-for-delivery", auth, async (req, res) => {
+router.get("/driver/order-to-fulfill", auth, async (req, res) => {
     try {
         let deliveries = await pool.query(
             `SELECT o.id, o.name, o.shipping_address, o.deliverer_id, o. status FROM orders o INNER JOIN order_items i ON i.order_id = o.id WHERE o.status = 'Ready for Delivery' OR (o.status = 'Driver Assigned' AND o.deliverer_id = ${req.user.id}) GROUP BY i.order_id, o.id`
@@ -396,7 +396,7 @@ router.get("/driver/past-deliveries", auth, async (req, res) => {
     }
 });
 
-router.put("/driver/ready-for-delivery/add/:orderid", auth, (req, res) => {
+router.put("/driver/order-to-fulfill/add/:orderid", auth, (req, res) => {
     try {
         pool.query(
             `UPDATE orders SET deliverer_id = ${req.user.id}, status = 'Driver Assigned' WHERE id = ${req.params.orderid}`
@@ -410,7 +410,7 @@ router.put("/driver/ready-for-delivery/add/:orderid", auth, (req, res) => {
         });
     }
 });
-router.put("/driver/ready-for-delivery/remove/:orderid", auth, (req, res) => {
+router.put("/driver/order-to-fulfill/remove/:orderid", auth, (req, res) => {
     try {
         pool.query(
             `UPDATE orders SET deliverer_id = null, status = 'Ready for Delivery' WHERE id = ${req.params.orderid}`
@@ -425,11 +425,11 @@ router.put("/driver/ready-for-delivery/remove/:orderid", auth, (req, res) => {
     }
 });
 
-router.get("/driver/ready-for-delivery/:orderid", async (req, res) => {
+router.get("/driver/order-to-fulfill/:orderid", async (req, res) => {
     console.log(req.params.orderid);
     try {
         const singleDelivery = await pool.query(`
-        SELECT o.id, o.name, o.phone, o.email, o.delivery_notes, o.shipping_address, i.order_id, i.quantity, i.color, i.size, i.driver_status, u.username, u.address, p.title
+        SELECT o.id, o.name, o.phone, o.email, o.delivery_notes, o.shipping_address, i.order_id, i.quantity, i.color, i.size, i.driver_status, u.username, u.address, p.title, p.thumbnail
         FROM orders o 
         INNER JOIN order_items i ON o.id = i.order_id 
         INNER JOIN products p ON p.id = i.product_id 
@@ -450,7 +450,7 @@ router.get("/driver/past/:orderid", auth, async (req, res) => {
     try {
         const pastDeliveryItems = await pool.query(
             `
-            SELECT o.id, o.name, o.phone, o.email, o.delivery_notes, o.shipping_address, i.order_id, i.quantity, i.color,
+            SELECT o.id, o.name, o.phone, o.email, o.delivery_notes, o.shipping_address, i.order_id, i.quantity, i.color, p.thumbnail,
             i.size, p.title, i.driver_status, u.username, u.address 
             FROM orders o 
             INNER JOIN order_items i ON o.id = i.order_id 
@@ -495,7 +495,7 @@ router.get("/driver/assigned-pickups/:artistid", auth, async (req, res) => {
     try {
         const assignedDeliveries = await pool.query(
             `
-            SELECT o.id, o.name, o.phone, o.email, o.delivery_notes, o.shipping_address, i.order_id, i.quantity, i.color, p.thumbnail,
+            SELECT o.id, o.name, o.phone, o.email, o.delivery_notes, o.shipping_address, i.order_id, i.quantity, i.color, p.thumbnail, i.id as single_id,
             i.size, p.title, i.driver_status, u.username, u.address 
             FROM orders o 
             INNER JOIN order_items i ON o.id = i.order_id 
@@ -505,6 +505,93 @@ router.get("/driver/assigned-pickups/:artistid", auth, async (req, res) => {
             `
         );
         res.json(assignedDeliveries.rows);
+    } catch (err) {
+        console.error(err.message);
+        res.send({
+            message: "error",
+        });
+    }
+});
+
+router.get("/driver/ready-deliveries", auth, async (req, res) => {
+    try {
+        const resDeliveries = await pool.query(
+            `
+            SELECT o.id, o.name, o.phone, o.email, o.delivery_notes, o.shipping_address, i.order_id, i.quantity, i.color, p.artist_id, o.status,
+            i.size, p.title, i.driver_status, u.username, u.address 
+            FROM orders o 
+            INNER JOIN order_items i ON o.id = i.order_id 
+            INNER JOIN products p ON p.id = i.product_id 
+            inner join users u ON p.artist_id = u.id
+            WHERE (o.status = 'Driver Assigned' or o.status = 'Delivery in Progress') AND o.deliverer_id = ${req.user.id}
+            `
+        );
+
+        const resIncompleteOrders = await pool.query(
+            `SELECT o.* FROM orders o INNER JOIN (SELECT order_id FROM order_items WHERE driver_status IS NULL GROUP BY order_id) p ON p.order_id=o.id  WHERE deliverer_id=${req.user.id} AND status='Driver Assigned'  ORDER BY order_id`
+        );
+
+        let incompleteOrders = resIncompleteOrders.rows;
+        let deliveries = resDeliveries.rows;
+
+        let incompleteOrdersIDs = incompleteOrders.map((order) => {
+            return order.id;
+        });
+        let deliveriesIDs = deliveries.map((order) => {
+            return order.id;
+        });
+
+        // console.log("ioid", incompleteOrdersIDs);
+        // console.log("did", deliveriesIDs);
+
+        const completedDeliveries = (incompleteOrdersIDs, deliveriesIDs) => {
+            const diff = (deliveriesIDs, incompleteOrdersIDs) => {
+                return deliveriesIDs.filter(
+                    (item) => incompleteOrdersIDs.indexOf(item) === -1
+                );
+            };
+            return Array.from(
+                new Set([...diff(deliveriesIDs, incompleteOrdersIDs)])
+            );
+        };
+
+        completedDeliveriesResults = completedDeliveries(
+            incompleteOrdersIDs,
+            deliveriesIDs
+        );
+
+        // console.log("cd", completedDeliveriesResults);
+
+        let readyForDelivery = completedDeliveriesResults.map((id) => {
+            return deliveries.filter((delivery) => delivery.id === id)[0];
+        });
+        // console.log("r", readyForDelivery);
+
+        res.json(readyForDelivery);
+    } catch (err) {
+        console.error(err.message);
+        res.send({
+            message: "error",
+        });
+    }
+});
+
+router.put("/driver/deliveries/update/:orderid", auth, (req, res) => {
+    try {
+        if (req.body.status === "Delivered") {
+            let shipDate = new Date();
+            pool.query(
+                `UPDATE orders SET status = $1, ship_date = $2 WHERE deliverer_id = $3 AND id = $4 `,
+                [req.body.status, shipDate, req.user.id, req.params.orderid]
+            );
+            res.send("Updated");
+        } else {
+            pool.query(
+                `UPDATE orders SET status = $1 WHERE deliverer_id = $2 AND id = $3`,
+                [req.body.status, req.user.id, req.params.orderid]
+            );
+            res.send("Updated");
+        }
     } catch (err) {
         console.error(err.message);
         res.send({

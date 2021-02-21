@@ -39,6 +39,7 @@ import PastDeliveryDetails from "../../Driver/Dashboard/PastDeliveryDetails";
 import AssignedPickups from "../../Driver/Dashboard/AssignedPickups";
 import ShopperOrderItems from "../../UserBuyer/Dashboard/OrderItems";
 import AssignedPickupDetails from "../../Driver/Dashboard/AssignedPickupDetails";
+import Deliveries from "../../Driver/Dashboard/Deliveries";
 const cookies = new Cookies();
 const Redirecter = () => {
     window.location = "/account";
@@ -171,7 +172,7 @@ const Dashboard = () => {
                         component={OrdersToFulfillDetails}
                     />
                     <PrivateRoute
-                        path="/dashboard/driver/order-history"
+                        path="/dashboard/driver/delivery-history"
                         component={PastDeliveries}
                     />
                     <PrivateRoute
@@ -182,6 +183,11 @@ const Dashboard = () => {
                         exact
                         path="/dashboard/driver/assigned-pickups/"
                         component={AssignedPickups}
+                    />
+                    <PrivateRoute
+                        exact
+                        path="/dashboard/driver/deliveries/"
+                        component={Deliveries}
                     />
                     <PrivateRoute
                         path="/dashboard/driver/assigned-pickups/:artistid"

@@ -52,7 +52,7 @@ const AssignedPickupDetails = () => {
 
                                 <Directions>
                                     <a
-                                        rel={"external"}
+                                        rel={"noreferrer"}
                                         target="_blank"
                                         href={`https://www.google.com/maps?saddr&daddr=${artistDetails.address}`}>
                                         Directions
