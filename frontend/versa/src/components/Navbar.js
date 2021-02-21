@@ -19,7 +19,7 @@ import {
 } from "../images/icons";
 import { useDispatch } from "react-redux";
 import { login } from "../redux/actions/actions";
-import { getUser } from "../axios/gets/index";
+import { getUserByToken } from "../axios/gets/index";
 const cookies = new Cookies();
 const Navbar = () => {
     const dispatch = useDispatch();
@@ -44,8 +44,12 @@ const Navbar = () => {
 
     useEffect(() => {
         const findUser = async () => {
-            const response = await getUser();
-            setUsername(response.name.split(" ")[0]);
+            const response = await getUserByToken();
+            try {
+                setUsername(response.name.split(" ")[0]);
+            } catch {
+                setUsername("Account");
+            }
         };
         findUser();
     }, []);
