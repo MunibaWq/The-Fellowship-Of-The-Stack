@@ -12,12 +12,13 @@ const Search = ({ placeholder, onClick, type, onChange, onKeyPress }) => {
             <SearchIcon />
             <SearchBox
                 placeholder={placeholder}
-                onClick={onClick}
                 type="text"
                 onChange={onChange}
                 onKeyPress={onKeyPress}
             />
-            <Button secondarySmall>Search</Button>
+            <Button onClick={onClick} secondarySmall>
+                Search
+            </Button>
         </SearchContainer>
     );
 };

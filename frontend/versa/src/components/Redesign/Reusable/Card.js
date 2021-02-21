@@ -1,43 +1,41 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import EventCard from "../../Events/EventCard";
+import { calcTotalStock } from "../../../functions/calcTotalStock";
 // import { ShoppingCart } from "../../../images/icons";
-
-const Card = ({ type, item }) => {
-    console.log("i", item);
-    const calcTotalStock = (item) => {
-        return item.stock.reduce((total, curr) => {
-            total += curr.quantity;
-            return total;
-        }, 0);
-    };
-    if (type === "shop") {
-        return (
-            <Link
-                to={`/product-item/${item.id}`}
-                style={{ position: "relative" }}>
+const bigDetails = { shop: { prefix: "$", detail: "price" }, "event": {detail:""}};
+const details = {shop: "artist"}
+const Card = ({ type, item, link, awsFolder }) => {
+    return (
+        <Link to={`/${link}/${item.id}`} style={{ position: "relative" }}>
+            {type === "shop" && (
                 <OutOfStock stock={calcTotalStock(item)}>
                     <p>Out of Stock</p> 🙁
                 </OutOfStock>
-                <CardContainer stock={calcTotalStock(item)}>
-                    <Image
-                        src={`https://versabucket.s3.us-east-2.amazonaws.com/images/${item.thumbnail}.jpeg`}
-                        alt={item.title}
-                    />
-                    <ItemInfo>
-                        <Title>{item.title}</Title>
-                        <Detail>{item.artist}</Detail>
-                        <ImportantDetail>
-                            <BigDetail>${item.price}</BigDetail>
-                            {/*<Action stock={calcTotalStock(item)}>
+            )}
+            <CardContainer
+                stock={type === "shop" ? calcTotalStock(item) : null}>
+                <Image
+                    src={`https://versabucket.s3.us-east-2.amazonaws.com/${awsFolder}/${item.thumbnail}.jpeg`}
+                    alt={item.title}
+                />
+                <ItemInfo>
+                    <Title>{item.title}</Title>
+                    <Detail>{item[details[type]]}</Detail>
+                    <ImportantDetail>
+                        <BigDetail>
+                            {bigDetails[type].prefix}
+                            {item[bigDetails[type].detail]}
+                        </BigDetail>
+                        {/*<Action stock={calcTotalStock(item)}>
                                 <ShoppingCart />
                             </Action>*/}
-                        </ImportantDetail>
-                    </ItemInfo>
-                </CardContainer>
-            </Link>
-        );
-    }
+                    </ImportantDetail>
+                </ItemInfo>
+            </CardContainer>
+        </Link>
+    );
 };
 
 export default Card;

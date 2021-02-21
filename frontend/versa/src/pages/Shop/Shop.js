@@ -60,7 +60,9 @@ const Shop = () => {
                     dataToMap={products}
                     boxTitle="Artist Spotlight: Wonderland"
                     boxDescription="Shop the creations of this month’s featured local artist."
-                    type="shop"
+                        type="shop"
+                        link="product-item"
+                        awsFolder="images"
                 />
             )}
         </PageContainer>

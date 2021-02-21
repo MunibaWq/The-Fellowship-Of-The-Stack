@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Card from "./Card";
 
-const Box = ({ dataToMap, boxTitle, boxDescription, type }) => {
+const Box = ({ awsFolder, link, dataToMap, boxTitle, boxDescription, type }) => {
     console.log("dt", dataToMap.length);
     return (
         <Container>
@@ -14,7 +14,14 @@ const Box = ({ dataToMap, boxTitle, boxDescription, type }) => {
                 <CardList>
                     {dataToMap.length > 0 ? (
                         dataToMap.map((item, index) => (
-                            <Card shop key={index} item={item} type={type} />
+                            <Card
+                                link={link}
+                                shop
+                                key={index}
+                                item={item}
+                                type={type}
+                                awsFolder={awsFolder}
+                            />
                         ))
                     ) : (
                         <NoResults>
