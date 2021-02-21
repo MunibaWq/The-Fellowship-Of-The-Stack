@@ -5,7 +5,7 @@ import OutOfStock from "./OutOfStock";
 import { Going, ShoppingCart } from "../../../images/icons";
 import theme from "../../Reusable/Colors";
 
-const Card = ({ type, item, action }) => {
+const Card = ({ type, item, action, featured }) => {
     console.log("i", item);
     const calcTotalStock = (item) => {
         return item.stock.reduce((total, curr) => {
@@ -56,9 +56,10 @@ const CardContainer = styled.div`
     flex-direction: column;
     align-items: flex-start;
     padding: 20px;
-    filter: ${(props) => (props.stock === 0 ? "blur(2px)" : "blur(0)")};
+    filter: ${(props) => (props.stock === 0 ? "grayscale(1)" : "grayscale(0)")};
     cursor: pointer;
-    background: ${(props) => props.theme.blue};
+    background: ${(props) =>
+        props.featured ? props.theme.Blue : props.theme.lightBlue};
     :hover {
         background: ${(props) =>
             props.stock === 0 ? props.theme.blue : props.theme.orange};

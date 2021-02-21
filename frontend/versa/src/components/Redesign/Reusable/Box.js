@@ -2,21 +2,34 @@ import React from "react";
 import styled from "styled-components";
 import Card from "./Card";
 
-const Box = ({ dataToMap, boxTitle, boxDescription, type, action }) => {
-    console.log("dt", dataToMap.length);
+const Box = ({
+    dataToMap,
+    boxTitle,
+    boxDescription,
+    type,
+    action,
+    featured,
+}) => {
     return (
-        <Container>
+        <Container featured={featured}>
             {boxTitle && (
                 <Title>
                     <h2>{boxTitle}</h2>
                 </Title>
             )}
-            <Spotlight boxTitle>
+            <Spotlight featured={featured}>
                 {boxDescription && <p>{boxDescription}</p>}
                 <CardList>
                     {dataToMap.length > 0 ? (
                         dataToMap.map((item, index) => (
-                            <Card shop key={index} item={item} type={type} />
+                            <Card
+                                shop
+                                key={index}
+                                item={item}
+                                type={type}
+                                action
+                                featured={featured}
+                            />
                         ))
                     ) : (
                         <NoResults>
@@ -35,9 +48,10 @@ const Container = styled.article`
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    margin: Clamp(8px 0px, 2vw, 60px 0);
+    margin: 2em 1em;
     border-radius: 15px 15px 0px 0px;
-    background: none;
+    background: ${(props) =>
+        props.featured ? props.theme.lightBlue : "transparent"};
 `;
 
 const Title = styled.div`
@@ -49,7 +63,6 @@ const Title = styled.div`
     padding: 16px 30px;
     border-radius: 15px 15px 0px 0px;
     background: ${(props) => props.theme.black};
-    margin-bottom: 2em;
     h2 {
         font-size: 36px;
         color: ${(props) => props.theme.blue};
@@ -61,9 +74,9 @@ const Spotlight = styled.section`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 40px 20px;
+    padding: calc(40px + 1em) 20px 40px 20px;
     background: ${(props) =>
-        props.boxTitle > 0 ? props.theme.lightBlue : "none"};
+        props.featured ? props.theme.lightBlue : "transparent"};
     p {
         font-weight: 500;
     }

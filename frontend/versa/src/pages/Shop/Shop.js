@@ -88,9 +88,10 @@ const Shop = () => {
                 <>
                     <Box
                         dataToMap={featured}
-                        boxTitle="Artist Spotlight: Wonderland"
+                        boxTitle={`Artist Spotlight: ${featured[0].artist}`}
                         boxDescription="Shop the creations of this month’s featured local artist."
                         type="shop"
+                        featured
                     />
                     <Box dataToMap={notFeatured} type="shop" />
                 </>
