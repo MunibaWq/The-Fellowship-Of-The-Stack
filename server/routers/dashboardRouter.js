@@ -57,7 +57,7 @@ router.get("/total-sales/:query", auth, async (req, res) => {
     const [start, end] = req.params.query.split("&");
     try {
         const result = await pool.query(
-            `SELECT sum(sale_price), EXTRACT(day FROM DATE) AS DAY, EXTRACT(month FROM DATE) AS month, EXTRACT(year FROM DATE) AS YEAR
+            `SELECT sum(sale_price*quantity), EXTRACT(day FROM DATE) AS DAY, EXTRACT(month FROM DATE) AS month, EXTRACT(year FROM DATE) AS YEAR
             FROM sales_by_product
             WHERE artist_id = ${req.user.id}
             AND '${end}'::DATE >= DATE 
@@ -84,9 +84,9 @@ router.get("/average-order-value/:query", auth, async (req, res) => {
     try {
         const result = await pool.query(
             `SELECT AVG(SUM) as average, day, MONTH, YEAR FROM 
-            (SELECT SUM(sale_price), extract(day from DATE) AS DAY, 
+            (SELECT SUM(sale_price*quantity), extract(day from DATE) AS DAY, 
             EXTRACT(month FROM DATE) AS month, EXTRACT(year FROM DATE) AS YEAR 
-            FROM sales_by_product WHERE artist_id = ${req.user.id} 
+            FROM sales_by_product WHERE artist_id = ${req.user.id}
             AND '${end}'::DATE >= DATE 
             AND DATE >= '${start}'::DATE
             GROUP BY order_id, 
