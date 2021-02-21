@@ -1,16 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import { SearchIcon } from "../../images/icons";
-import Button from "../Redesign/Reusable/Button";
+import { searchProducts } from "../../../axios/gets";
+import { SearchIcon } from "../../../images/icons";
+import Button from "./Button";
 
 //          USE
 // <Search placeholder="Your desired placeholder" />
 
-const Search = ({ placeholder }) => {
+const Search = ({ placeholder, onClick, type, onChange, onKeyPress }) => {
     return (
         <SearchContainer>
             <SearchIcon />
-            <SearchBox placeholder={placeholder} />
+            <SearchBox
+                placeholder={placeholder}
+                onClick={onClick}
+                type="text"
+                onChange={onChange}
+                onKeyPress={onKeyPress}
+            />
             <Button secondarySmall>Search</Button>
         </SearchContainer>
     );
@@ -24,7 +31,7 @@ const SearchContainer = styled.div`
     justify-content: flex-start;
     align-items: center;
     padding: 0px;
-    margin: 60px 0px;
+    margin: 30px 0px;
     svg {
         position: absolute;
         transform: translateX(50%);

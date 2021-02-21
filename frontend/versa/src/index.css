@@ -20,8 +20,15 @@ background: blue;
 
 html,
 body {
-    min-height: 100%;
-    background: linear-gradient(180deg, rgba(243, 246, 255, 0) 15%, #f3f6ff 85%),
+    background-size: 60vh 100%;
+    background-repeat: no-repeat;
+    background-color: #f3f6ff;
+    background: linear-gradient(
+            179deg,
+            rgba(243, 246, 255, 0) -3.09%,
+            rgba(243, 246, 255, 0.587712) 32.33%,
+            #f3f6ff 54.59%
+        ),
         linear-gradient(
             203.74deg,
             rgba(152, 126, 255, 0.352) 17.54%,
@@ -48,9 +55,9 @@ body {
             86.83deg,
             rgba(33, 255, 169, 0.4) 26.09%,
             rgba(205, 249, 232, 0) 42.6%
-        );
+        ),
+        #f3f6ff;
     background-repeat: no-repeat;
-    height: 100%;
 }
 
 * {
@@ -58,7 +65,7 @@ body {
     padding: 0;
     box-sizing: border-box;
     font-size: 18px;
-    color: #444444;
+    color: #1c1c1c;
     text-decoration: none;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -72,7 +79,7 @@ body {
 }
 
 p {
-    margin-bottom: 1rem;
+    /* margin-bottom: 1rem; */
 }
 
 h1,
@@ -80,7 +87,7 @@ h2,
 h3,
 h4,
 h5 {
-    margin: 3rem 0 1.38rem;
+    /* margin: 3rem 0 1.38rem; */
     font-family: "Inter", sans-serif;
     font-weight: 700;
     line-height: 1.3;
@@ -143,7 +150,8 @@ caption {
 
 @media (max-width: 990px) {
     h1 {
-        font-size: 23.51px;
+        font-size: 36px;
+        font-weight: 700;
         line-height: 106%;
         /* or 25px */
         margin-bottom: 20px;

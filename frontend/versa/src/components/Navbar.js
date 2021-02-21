@@ -19,7 +19,7 @@ import {
 } from "../images/icons";
 import { useDispatch } from "react-redux";
 import { login } from "../redux/actions/actions";
-import { getUser } from "../axios/gets/index";
+import { getUser, getUserByToken } from "../axios/gets/index";
 const cookies = new Cookies();
 const Navbar = () => {
     const dispatch = useDispatch();
@@ -44,7 +44,7 @@ const Navbar = () => {
 
     useEffect(() => {
         const findUser = async () => {
-            const response = await getUser();
+            const response = await getUserByToken();
             setUsername(response.name.split(" ")[0]);
         };
         findUser();
@@ -173,6 +173,7 @@ const Navbar = () => {
             </Nav>
             {modal ? (
                 <AccountMenu
+                    colors={nav}
                     onMouseLeave={() => {
                         setModal(false);
                     }}>
@@ -187,10 +188,7 @@ const Navbar = () => {
                                 setLeftText("#FBFCFF");
                             }}>
                             <SubIcon background={leftModal} to="/edit">
-                                <img
-                                    src={SignOut}
-                                    style={{ padding: "10px" }}
-                                />
+                                <img src={SignOut} alt="sign-out" />
                             </SubIcon>
                             <SubText colors={leftText}>settings</SubText>
                         </SubContainer>
@@ -204,10 +202,7 @@ const Navbar = () => {
                                 setRightText("#FBFCFF");
                             }}>
                             <SubIcon background={rightModal} to="/logout">
-                                <img
-                                    src={GearSix}
-                                    style={{ padding: "10px" }}
-                                />
+                                <img src={GearSix} alt="setting" />
                             </SubIcon>
                             <SubText colors={rightText}>logout</SubText>
                         </SubContainer>
@@ -255,8 +250,12 @@ const NavLink = styled(Link)`
     align-items: center;
     text-decoration: none;
     cursor: pointer;
-    padding: 0 10px 0 10px;
+    padding: 0 10px;
     text-transform: uppercase;
+    svg {
+        width: 18px;
+        height: 18px;
+    }
 
     &:hover::after {
         content: "";
@@ -268,7 +267,6 @@ const NavLink = styled(Link)`
         height: 4px;
         border-radius: 50px;
         background: ${(props) => props.theme.holo};
-        box-shadow: ${(props) => props.theme.shadow};
         animation: expand 0.4s forwards;
     }
     @keyframes expand {
@@ -296,7 +294,7 @@ const WordLink = styled.h2`
 
     letter-spacing: 0.08em;
     margin: 0 0 0 8px;
-    font-size: 24px;
+    font-size: 18px;
     color: ${(props) => props.color};
     &:hover {
         ${(props) => props.hover};
@@ -322,35 +320,42 @@ const Versa = styled.h1`
 const AccountMenu = styled.div`
     position: fixed;
     z-index: 10;
-    width: 234px;
-    height: 125px;
-    background: #1c1c1c;
+    // width: 234px;
+    // height: 125px;
+    background: ${(props) =>
+        props.colors === "#FBFCFF" ? "none" : props.colors};
     right: 0;
-    border-radius: 0 0 20px 20px;
-    padding: 20px;
+    border-radius: 0 0 15px 15px;
+    padding: 10px;
 `;
 const SubMenu = styled.div`
-    width: 194px;
-    height: 85px;
+    width: 100%;
     display: flex;
     justify-content: space-between;
 `;
 const SubContainer = styled.div`
-    height: 100%;
-    width: 91px;
+    // height: 100%;
+    // width: 91px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 4px;
 `;
 const SubIcon = styled(Link)`
     background: ${(props) => props.background};
-    border-radius: 10px;
-    width: 44px;
-    height: 44px;
+    border-radius: 8px;
+    padding: 5px 10px;
+    img {
+        width: 18px;
+        height: 18px;
+    }
 `;
 const SubText = styled.p`
+    margin-top: 8px;
     font-size: 14px;
     color: ${(props) => props.colors};
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
 `;
 
 const gradient = `linear-gradient(

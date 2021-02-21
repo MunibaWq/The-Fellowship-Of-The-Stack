@@ -20,7 +20,7 @@ import ComingSoon from "./pages/Shared/ComingSoon";
 
 import Contact from "./pages/Contact";
 import Shop from "./pages/Shop/Shop";
-import LightTheme from "./components/Reusable/Theme";
+import LightTheme from "./components/Redesign/Reusable/Theme";
 if (!window.localStorage.getItem("session")) {
     window.localStorage.setItem(
         "session",

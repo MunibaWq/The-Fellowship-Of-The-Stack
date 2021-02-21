@@ -1,27 +1,40 @@
 import React from "react";
 import styled from "styled-components";
-import Search from "../../Reusable/Search";
+import Search from "../Reusable/Search";
 
 //              USE
 //  add 'search' prop if you want it to include search bar
-// Header with search bar included
+// HEADER WITH SEARCH
 // <Header
 //      title="Shop"
 //      sub ="Support your favourite talented artists and buy presents for loved ones."
 //       search />
-// Header without search bar
+// HEADER NO SEARCH
 //  <Header
 //      title="Shop"
 //      sub ="Support your favourite talented artists and buy presents for loved ones."
 //       />
 
-const Header = ({ sub, title, search }) => {
+const Header = ({
+    sub,
+    title,
+    search,
+    onClick,
+    onChange,
+    onKeyPress,
+    placeholder,
+}) => {
     return (
         <HeaderContainer>
             <h1>{title}</h1>
             <Subheading>{sub}</Subheading>
             {search && (
-                <Search placeholder="Try searching for plant pots, or sweatshirts" />
+                <Search
+                    placeholder={placeholder}
+                    onClick={onClick}
+                    onChange={onChange}
+                    onKeyPress={onKeyPress}
+                />
             )}
         </HeaderContainer>
     );
@@ -37,6 +50,6 @@ const HeaderContainer = styled.header`
 const Subheading = styled.p`
     font-style: normal;
     font-weight: 500;
-    font-size: 30px;
-    margin-top: 60px;
+    font-size: 24px;
+    margin-top: 20px;
 `;
