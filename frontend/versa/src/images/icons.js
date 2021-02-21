@@ -1,5 +1,125 @@
 import theme from "../components/Reusable/Colors";
 
+export const Email = () => {
+    return (
+        <svg
+            width="26"
+            height="26"
+            viewBox="0 0 26 26"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path
+                d="M22.75 5.6875L13 14.625L3.25 5.6875"
+                stroke="#F3F6FF"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            />
+            <path
+                d="M3.25 5.6875H22.75V19.5C22.75 19.7155 22.6644 19.9222 22.512 20.0745C22.3597 20.2269 22.153 20.3125 21.9375 20.3125H4.0625C3.84701 20.3125 3.64035 20.2269 3.48798 20.0745C3.3356 19.9222 3.25 19.7155 3.25 19.5V5.6875Z"
+                stroke="#F3F6FF"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            />
+            <path
+                d="M11.2267 13L3.5 20.0829"
+                stroke="#F3F6FF"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            />
+            <path
+                d="M22.4984 20.0829L14.7715 13"
+                stroke="#F3F6FF"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            />
+        </svg>
+    );
+};
+
+export const Instagram = () => {
+    return (
+        <svg
+            width="26"
+            height="26"
+            viewBox="0 0 26 26"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path
+                d="M13 17.0625C15.2437 17.0625 17.0625 15.2437 17.0625 13C17.0625 10.7563 15.2437 8.9375 13 8.9375C10.7563 8.9375 8.9375 10.7563 8.9375 13C8.9375 15.2437 10.7563 17.0625 13 17.0625Z"
+                stroke="#F3F6FF"
+                strokeWidth="2"
+                strokeMiterlimit="10"
+            />
+            <path
+                d="M17.4688 3.65625H8.53125C5.83886 3.65625 3.65625 5.83886 3.65625 8.53125V17.4688C3.65625 20.1611 5.83886 22.3438 8.53125 22.3438H17.4688C20.1611 22.3438 22.3438 20.1611 22.3438 17.4688V8.53125C22.3438 5.83886 20.1611 3.65625 17.4688 3.65625Z"
+                stroke="#F3F6FF"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            />
+            <path
+                d="M18.2812 8.9375C18.9543 8.9375 19.5 8.39185 19.5 7.71875C19.5 7.04565 18.9543 6.5 18.2812 6.5C17.6082 6.5 17.0625 7.04565 17.0625 7.71875C17.0625 8.39185 17.6082 8.9375 18.2812 8.9375Z"
+                fill="#F3F6FF"
+            />
+        </svg>
+    );
+};
+
+export const Twitter = () => {
+    return (
+        <svg
+            width="26"
+            height="26"
+            viewBox="0 0 26 26"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path
+                d="M24.3758 6.16087C23.4913 7.4272 22.3877 8.52539 21.1171 9.40372L21.1171 9.40371C21.0367 11.625 20.3883 13.7885 19.2338 15.6879C18.0793 17.5873 16.4572 19.159 14.5224 20.2531C12.5876 21.3472 10.4047 21.9271 8.18201 21.9374C5.95932 21.9478 3.77108 21.3882 1.82617 20.3122L1.82683 20.311C4.36655 20.2758 6.83972 19.4938 8.93792 18.0624L8.93784 18.0625C6.6918 16.5316 4.98113 14.3363 4.04569 11.7842C3.11024 9.23212 2.99691 6.45128 3.7216 3.83154L3.72156 3.83157C4.75949 5.43002 6.13623 6.78067 7.75425 7.78783C9.37226 8.795 11.192 9.43404 13.0844 9.65968L13.0841 9.65974C12.8848 8.70973 13.0322 7.71976 13.4996 6.869C13.967 6.01824 14.7235 5.36289 15.6322 5.02157C16.5409 4.68024 17.5417 4.67548 18.4536 5.00816C19.3655 5.34084 20.1282 5.98897 20.6036 6.83525L20.6036 6.8357C21.8874 6.79739 23.1584 6.57 24.3758 6.16087"
+                stroke="#F3F6FF"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            />
+        </svg>
+    );
+};
+export const Facebook = () => {
+    return (
+        <svg
+            width="26"
+            height="26"
+            viewBox="0 0 26 26"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path
+                d="M13 22.75C18.3848 22.75 22.75 18.3848 22.75 13C22.75 7.61522 18.3848 3.25 13 3.25C7.61522 3.25 3.25 7.61522 3.25 13C3.25 18.3848 7.61522 22.75 13 22.75Z"
+                stroke="#F3F6FF"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            />
+            <path
+                d="M17.0625 8.9375H15.4375C14.791 8.9375 14.171 9.19431 13.7139 9.65143C13.2568 10.1085 13 10.7285 13 11.375V22.75"
+                stroke="#F3F6FF"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            />
+            <path
+                d="M9.75 14.625H16.25"
+                stroke="#F3F6FF"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            />
+        </svg>
+    );
+};
+
 export const Loading = () => {
     return (
         <svg

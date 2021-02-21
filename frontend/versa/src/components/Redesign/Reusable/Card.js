@@ -49,7 +49,6 @@ const CardContainer = styled.div`
     flex-direction: column;
     align-items: flex-start;
     padding: 20px;
-
     filter: ${(props) => (props.stock === 0 ? "blur(2px)" : "blur(0)")};
     cursor: pointer;
     background: ${(props) => props.theme.blue};

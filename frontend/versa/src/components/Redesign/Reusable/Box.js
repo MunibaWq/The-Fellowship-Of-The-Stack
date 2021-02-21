@@ -33,8 +33,7 @@ const Container = styled.article`
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    margin: 60px 0px;
-
+    margin: Clamp(8px 0px, 2vw, 60px 0);
     border-radius: 15px 15px 0px 0px;
 `;
 
