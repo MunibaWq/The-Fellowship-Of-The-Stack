@@ -517,4 +517,19 @@ router.put("/driver/deliveries/update/:orderid", auth, (req, res) => {
     }
 });
 
+router.put("/driver/assigned-pickups/", auth, async (req, res) => {
+    try {
+        await pool.query(
+            `update order_items SET driver_status = $1 WHERE id = $2`,
+            [req.body.driverStatus, req.body.singleID]
+        );
+        res.send("Updated");
+    } catch (err) {
+        console.error(err.message);
+        res.send({
+            message: "error",
+        });
+    }
+});
+
 module.exports = router;

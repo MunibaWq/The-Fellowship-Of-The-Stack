@@ -6,13 +6,13 @@ import Loading from "../../../components/Reusable/Loading";
 import theme from "../../../components/Reusable/Colors";
 import { DriverPicked, DriverReceived, LeftIcon } from "../../../images/icons";
 import { StyledLink } from "../../../components/Reusable/Link";
+import ProductPickup from "../../../components/Dashboard/Driver/ProductPickup";
 
 const AssignedPickupDetails = () => {
     let params = useParams();
     let artistID = params.artistid;
     const [orderData, setOrderData] = useState();
     const [artistDetails, setArtistDetails] = useState();
-    const [itemReceived, setItemReceived] = useState();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -40,8 +40,8 @@ const AssignedPickupDetails = () => {
                             <p>
                                 These are the products that you need to pick up
                                 from this artist for all your deliveries today.
-                                Mark them as received so that you can track of
-                                your progress.
+                                Mark them as received so that you can track your
+                                progress.
                             </p>
                             <Address>
                                 <Artist>
@@ -84,48 +84,14 @@ const AssignedPickupDetails = () => {
                         <OrderItemContainer>
                             {orderData.map((order) => {
                                 return (
-                                    <ProductCard
+                                    <ProductPickup
+                                        order={order}
                                         key={
-                                            order.id + order.title + order.size
-                                        }>
-                                        <img
-                                            src={`https://versabucket.s3.us-east-2.amazonaws.com/images/${order.thumbnail}.jpeg`}
-                                            alt={order.title}
-                                        />
-                                        <Details>
-                                            <h4>{order.title}</h4>
-                                            <RowContainer>
-                                                <Size>{order.size}</Size>
-                                                <p>{order.color}</p>
-                                            </RowContainer>
-                                            <QuantityStatus>
-                                                <Quantity>
-                                                    {order.quantity}
-                                                </Quantity>
-                                                {order.driver_status ===
-                                                "Picked" ? (
-                                                    <SetAsPicked
-                                                        onClick={() =>
-                                                            setItemReceived(
-                                                                false
-                                                            )
-                                                        }
-                                                        status={itemReceived}>
-                                                        <DriverPicked />
-                                                    </SetAsPicked>
-                                                ) : (
-                                                    <SetAsPicked
-                                                        onClick={() =>
-                                                            setItemReceived(
-                                                                true
-                                                            )
-                                                        }>
-                                                        <DriverReceived />
-                                                    </SetAsPicked>
-                                                )}
-                                            </QuantityStatus>
-                                        </Details>
-                                    </ProductCard>
+                                            order.single_id +
+                                            order.title +
+                                            order.size
+                                        }
+                                    />
                                 );
                             })}
                         </OrderItemContainer>
@@ -316,13 +282,19 @@ const SetAsPicked = styled.button.attrs((props) => ({
     justify-content: center;
     align-items: center;
     padding: 8px;
-    background: ${theme.primary};
+    background: ${(props) =>
+        props.status === true ? "#00D100" : theme.primary};
     cursor: pointer;
     border-radius: 8px;
     border: none;
     transition: background 0.3s ease;
     :hover {
         background: ${theme.primaryHover};
+    }
+    svg {
+        path {
+            stroke: ${theme.secondary};
+        }
     }
 `;
 

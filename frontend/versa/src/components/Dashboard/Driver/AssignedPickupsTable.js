@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 import theme from "../../Reusable/Colors";
 import Loading from "../../Reusable/Loading";
-import Button from "../../Reusable/Button";
 import { StyledLink } from "../../Reusable/Link";
 import { RightIcon } from "../../../images/icons";
 
@@ -11,6 +10,7 @@ const AssignedPickupTable = ({ orderData }) => {
     const [data, setData] = useState(orderData);
     const [sortType, setSortType] = useState();
     const [query, setQuery] = useState();
+
     const sortOptions = [
         {
             value: "id",
@@ -21,8 +21,6 @@ const AssignedPickupTable = ({ orderData }) => {
             label: "Buyer Name",
         },
     ];
-
-    const handleClick = () => {};
 
     useEffect(() => {
         const sortArray = (type) => {
@@ -131,7 +129,9 @@ const AssignedPickupTable = ({ orderData }) => {
                                 ))}
                             {filteredData.length === 0 && (
                                 <BodyRows key="no row">
-                                    <td key="No results">No Results Found</td>
+                                    <td key="No results">
+                                        No Deliveries Found.
+                                    </td>
                                 </BodyRows>
                             )}
                         </tbody>
