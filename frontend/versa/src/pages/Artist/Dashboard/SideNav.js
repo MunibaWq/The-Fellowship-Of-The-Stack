@@ -17,6 +17,7 @@ import {
     AccountIcon,
     InventoryIcon,
     MessageIcon,
+    DriverReceived,
 } from "../../../images/icons";
 import theme from "../../../components/Reusable/Colors";
 // import Pill from "../../../components/Reusable/Pill";
@@ -375,7 +376,7 @@ const SideNav = ({ navWidth, setNavWidth }) => {
                                                         </SubMenuLink>
                                                     </li>
                                                 </Link>
-                                                <Link to="/dashboard/driver/order-history">
+                                                <Link to="/dashboard/driver/delivery-history">
                                                     <li>
                                                         <SubMenuLink>
                                                             <h4>
@@ -391,7 +392,22 @@ const SideNav = ({ navWidth, setNavWidth }) => {
                                                 </Link>
                                             </SubMenu>
                                         )}
-                                        <Link to="/dashboard/driver/assigned-deliveries/">
+                                        <Link to="/dashboard/driver/assigned-pickups/">
+                                            <li>
+                                                <MenuLink>
+                                                    <DriverReceived stroke="#444" />
+                                                    {/*<NotiCount>
+                                                    <p>3</p>
+                                                </NotiCount>*/}
+                                                    <h3>Pickups</h3>
+
+                                                    <RightIcon
+                                                        stroke={theme.primary}
+                                                    />
+                                                </MenuLink>
+                                            </li>
+                                        </Link>
+                                        <Link to="/dashboard/driver/deliveries/">
                                             <li>
                                                 <MenuLink>
                                                     <Orders />

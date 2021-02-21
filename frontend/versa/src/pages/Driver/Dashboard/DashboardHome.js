@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {
-    getAssignedDeliveries,
-    getOrdersReadyForDelivery,
+    getAssignedPickups,
+    getOrdersForDriver,
     getPastDeliveries,
 } from "../../../axios/gets";
 import styled from "styled-components";
@@ -9,22 +9,30 @@ import DashCard from "./DashCard";
 
 const DriverDashboardMain = () => {
     const [ordersToFulfill, setOrdersToFulfill] = useState();
-    const [assignedDeliveries, setAssignedDeliveries] = useState();
+    const [assignedPickups, setAssignedPickups] = useState();
     const [pastDeliveries, setPastDeliveries] = useState();
-
+    const [uniquePickup, setUniquePickup] = useState();
     useEffect(() => {
         const fetchData = async () => {
-            let toFulfillData = await getOrdersReadyForDelivery();
+            let toFulfillData = await getOrdersForDriver();
             setOrdersToFulfill(toFulfillData);
-            let assignedData = await getAssignedDeliveries();
-            setAssignedDeliveries(assignedData);
+            let assignedData = await getAssignedPickups();
+            setAssignedPickups(assignedData);
             let pastData = await getPastDeliveries();
             setPastDeliveries(pastData);
+            setUniquePickup(
+                Array.from(new Set(assignedData.map((a) => a.username))).map(
+                    (name) => {
+                        return assignedData.find((a) => a.username === name);
+                    }
+                )
+            );
         };
+
         fetchData();
     }, []);
 
-    console.log(assignedDeliveries);
+    console.log(assignedPickups);
     let ordersToFulfillTableData = {};
     ordersToFulfill
         ? (ordersToFulfillTableData = {
@@ -50,23 +58,24 @@ const DriverDashboardMain = () => {
                   values: [["No orders yet"]],
               },
           });
-    let assignedDeliveriesTableData = {};
-    assignedDeliveries
-        ? (assignedDeliveriesTableData = {
+
+    let assignedPickupsTableData = {};
+    uniquePickup
+        ? (assignedPickupsTableData = {
               table: {
                   headers: ["Artist", "Pickup Address"],
                   values: [],
               },
           }) &&
-          assignedDeliveries
+          uniquePickup
               .slice(0, 5)
               .map((order) =>
-                  assignedDeliveriesTableData.table.values.push([
+                  assignedPickupsTableData.table.values.push([
                       order.username,
                       order.address,
                   ])
               )
-        : (assignedDeliveriesTableData = {
+        : (assignedPickupsTableData = {
               table: {
                   headers: ["Orders to Deliver"],
                   values: [["No orders yet"]],
@@ -105,16 +114,16 @@ const DriverDashboardMain = () => {
                 </History> */}
                 <RecentOrders
                     buttonText="View"
-                    dataTitle="Ready To Pickup & Deliver"
-                    tableData={assignedDeliveriesTableData}
-                    total={assignedDeliveriesTableData.table.values.length}
+                    dataTitle="Ready To Pickup"
+                    tableData={assignedPickupsTableData}
+                    total={assignedPickupsTableData.table.values.length}
                     totalLabel={
-                        assignedDeliveriesTableData.table.values.length > 1
+                        assignedPickupsTableData.table.values.length > 1
                             ? "Deliveries To Do"
                             : "Delivery To Do"
                     }
                     title="Today's Deliveries"
-                    link="/dashboard/driver/assigned-deliveries"
+                    link="/dashboard/driver/assigned-pickups/"
                 />
                 <RecentOrders
                     buttonText="View"
@@ -136,7 +145,7 @@ const DriverDashboardMain = () => {
                             : "Delivery"
                     }
                     title="Value of Past Deliveries"
-                    link="/dashboard/driver/order-history"
+                    link="/dashboard/driver/delivery-history"
                 />
             </StoreDash>
         </DashboardContainer>
@@ -144,7 +153,8 @@ const DriverDashboardMain = () => {
 };
 export default DriverDashboardMain;
 const DashboardContainer = styled.div`
-    padding: 2em 2em 2em calc(2em + 66px);
+    width: 100%;
+    padding: 4em 2em 2em calc(2em + 66px);
     background-color: #eff3fe;
 `;
 
@@ -160,8 +170,8 @@ const MonthlySales = styled(DashCard)``;
 // const Wishlist = styled(DashCard)``;
 const StoreDash = styled.div`
     display: grid;
-    width: 100vw;
     margin: 1em;
+
     grid-row-gap: 30px;
     grid-column-gap: 50px;
     grid-template-columns: repeat(auto-fit, minmax(250px, 250px));

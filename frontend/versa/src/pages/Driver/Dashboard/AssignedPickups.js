@@ -1,21 +1,18 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
-import { getAssignedDeliveries } from "../../../axios/gets";
+import { getAssignedPickups } from "../../../axios/gets";
 import Loading from "../../../components/Reusable/Loading";
-import AssignedDeliveriesTable from "../../../components/Dashboard/Driver/AssignedDeliveriestable";
-import Button from "../../../components/Reusable/Button";
-import { LeftIcon } from "../../../images/icons";
-import theme from "../../../components/Reusable/Colors";
+import AssignedPickupsTable from "../../../components/Dashboard/Driver/AssignedPickupsTable";
 
-const AssignedDeliveries = () => {
+const AssignedPickups = () => {
     const [orderData, setOrderData] = useState();
     let params = useParams();
     const artist = params.artistid;
 
     useEffect(() => {
         const fetchData = async () => {
-            const data = await getAssignedDeliveries();
+            const data = await getAssignedPickups();
             setOrderData(data);
         };
         fetchData();
@@ -27,13 +24,13 @@ const AssignedDeliveries = () => {
             {!orderData ? (
                 <Loading />
             ) : (
-                <AssignedDeliveriesTable orderData={orderData} />
+                <AssignedPickupsTable orderData={orderData} />
             )}
         </OrderContainer>
     );
 };
 
-export default AssignedDeliveries;
+export default AssignedPickups;
 
 const OrderContainer = styled.div`
     margin-top: 2em;

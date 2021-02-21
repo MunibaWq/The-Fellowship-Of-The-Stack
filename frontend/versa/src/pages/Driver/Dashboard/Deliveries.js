@@ -1,39 +1,46 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
-import { getPastDeliveries } from "../../../axios/gets";
+import { getReadyDeliveries } from "../../../axios/gets";
 import Loading from "../../../components/Reusable/Loading";
-import PastDeliveriesTable from "../../../components/Dashboard/Driver/PastDeliveriesTable";
+import OrdersToDeliverTable from "../../../components/Dashboard/Driver/OrdersToDeliverTable";
+import ReadyDeliveriesTable from "../../../components/Dashboard/Driver/ReadyDeliveriesTable";
 
-const PastDeliveries = () => {
+const Deliveries = () => {
     const [orderData, setOrderData] = useState();
     let params = useParams();
     const currentUser = params.id;
+    const [buyerDetails, setBuyerDetails] = useState();
 
     useEffect(() => {
         const fetchData = async () => {
-            const data = await getPastDeliveries();
+            const data = await getReadyDeliveries();
 
             setOrderData(data);
         };
         fetchData();
     }, []);
 
+    // console.log("o", orderData);
+
     return (
-        <OrderContainer>
-            <h1>Delivery History</h1>
+        <DeliveryContainer>
+            <h1>Ready to Deliver</h1>
             {!orderData ? (
                 <Loading />
             ) : (
-                <PastDeliveriesTable orderData={orderData} user={currentUser} />
+                <ReadyDeliveriesTable
+                    orderData={orderData}
+                    user={currentUser}
+                />
             )}
-        </OrderContainer>
+        </DeliveryContainer>
     );
 };
 
-export default PastDeliveries;
+export default Deliveries;
 
-const OrderContainer = styled.div`
+const DeliveryContainer = styled.div`
     padding: 4em 2em 2em calc(2em + 66px);
     display: grid;
     grid-template-rows: 60px auto;

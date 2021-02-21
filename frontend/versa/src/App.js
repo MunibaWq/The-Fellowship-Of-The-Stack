@@ -15,13 +15,13 @@ import EventPage from "./components/Events/EventPage";
 import { PrivateRoute } from "./components/Reusable/PrivateRoute";
 import NotFound from "./pages/NotFound";
 import Footer from "./components/Footer";
-import Contact from './pages/Contact'
+import ComingSoon from "./pages/Shared/ComingSoon";
+
+import Contact from "./pages/Contact";
 if (!window.localStorage.getItem("session")) {
     window.localStorage.setItem(
         "session",
-        Math.random()
-            .toString(36)
-            .substr(2, 9)
+        Math.random().toString(36).substr(2, 9)
     );
 }
 function App() {
@@ -35,7 +35,7 @@ function App() {
                     <Route path="/shop" exact component={SearchResults} />
                     <Route path="/events" exact component={Events} />
                     <Route path="/account" exact component={Account} />
-                    <Route path="/contact" exact component={Contact}/>
+                    <Route path="/contact" exact component={Contact} />
                     <PrivateRoute path="/wishlist" exact component={Wishlist} />
                     <Route
                         path="/shopping-cart"
@@ -53,6 +53,7 @@ function App() {
                     <Route path="/log-in" component={Login} />
 
                     <Route path="/dashboard" component={Dashboard} />
+                    <Route path="/coming-soon" component={ComingSoon} />
                     <Route component={NotFound} />
                 </Switch>
             </div>

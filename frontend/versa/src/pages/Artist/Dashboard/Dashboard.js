@@ -36,9 +36,10 @@ import NotFound from "../../NotFound";
 import EventsAttending from "../../UserBuyer/Dashboard/EventsAttending";
 import OrderTracking from "../../UserBuyer/Dashboard/OrderTracking";
 import PastDeliveryDetails from "../../Driver/Dashboard/PastDeliveryDetails";
-import AssignedDeliveries from "../../Driver/Dashboard/AssignedDeliveries";
-import AssignedDeliveryDetails from "../../Driver/Dashboard/AssignedDeliveryDetails";
+import AssignedPickups from "../../Driver/Dashboard/AssignedPickups";
 import ShopperOrderItems from "../../UserBuyer/Dashboard/OrderItems";
+import AssignedPickupDetails from "../../Driver/Dashboard/AssignedPickupDetails";
+import Deliveries from "../../Driver/Dashboard/Deliveries";
 const cookies = new Cookies();
 const Redirecter = () => {
     window.location = "/account";
@@ -171,7 +172,7 @@ const Dashboard = () => {
                         component={OrdersToFulfillDetails}
                     />
                     <PrivateRoute
-                        path="/dashboard/driver/order-history"
+                        path="/dashboard/driver/delivery-history"
                         component={PastDeliveries}
                     />
                     <PrivateRoute
@@ -180,12 +181,17 @@ const Dashboard = () => {
                     />
                     <PrivateRoute
                         exact
-                        path="/dashboard/driver/assigned-deliveries/"
-                        component={AssignedDeliveries}
+                        path="/dashboard/driver/assigned-pickups/"
+                        component={AssignedPickups}
                     />
                     <PrivateRoute
-                        path="/dashboard/driver/assigned-deliveries/:artistid"
-                        component={AssignedDeliveryDetails}
+                        exact
+                        path="/dashboard/driver/deliveries/"
+                        component={Deliveries}
+                    />
+                    <PrivateRoute
+                        path="/dashboard/driver/assigned-pickups/:artistid"
+                        component={AssignedPickupDetails}
                     />
                     <PrivateRoute
                         path="/dashboard/shopper/events-attending"

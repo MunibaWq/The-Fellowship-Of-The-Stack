@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from "react";
-import styled from "styled-components";
 import { useHistory } from "react-router-dom";
+import styled from "styled-components";
 import theme from "../../Reusable/Colors";
 import Loading from "../../Reusable/Loading";
-import Button from "../../Reusable/Button";
-import { StyledLink } from "../../Reusable/Link";
-import { RightIcon } from "../../../images/icons";
+import { driverUpdateStatus } from "../../../axios/puts";
+import { DriverPicked, RightIcon } from "../../../images/icons";
 
-const DriversAssignedDeliveriesTable = ({ orderData }) => {
+const ReadyDeliveriesTable = ({ orderData }) => {
+    let history = useHistory();
     const [data, setData] = useState(orderData);
     const [sortType, setSortType] = useState();
     const [query, setQuery] = useState();
+    const [status, setStatus] = useState("Ready to Deliver");
+    const [id, setID] = useState();
     console.log("p", orderData);
     const sortOptions = [
         {
@@ -22,8 +24,16 @@ const DriversAssignedDeliveriesTable = ({ orderData }) => {
             label: "Buyer Name",
         },
     ];
-
-    const handleClick = () => {};
+    useEffect(() => {
+        if (status === "Delivery in Progress") {
+            driverUpdateStatus("Delivery in Progress", id);
+            history.go(0);
+        }
+        if (status === "Delivered") {
+            driverUpdateStatus("Delivered", id);
+            history.go(0);
+        }
+    }, [status]);
 
     useEffect(() => {
         const sortArray = (type) => {
@@ -44,9 +54,7 @@ const DriversAssignedDeliveriesTable = ({ orderData }) => {
         sortArray(sortType);
     }, [sortType]);
 
-    let headers = ["Artist Name", "Pickup Address", "Status"];
-
-    const history = useHistory();
+    let headers = ["Customer Name", "Shipping Address", "Actions"];
 
     const handleChange = (e) => {
         e.preventDefault();
@@ -115,20 +123,48 @@ const DriversAssignedDeliveriesTable = ({ orderData }) => {
                                 uniqueArtist.map((order, index) => (
                                     <BodyRows key={order.name + order.status}>
                                         <td key={order.name + order.id}>
-                                            <p>{order.username}</p>
+                                            <p>{order.name}</p>
                                         </td>
                                         <td key={order.name + order.id + 34}>
-                                            <p>{order.address}</p>
+                                            <p>{order.shipping_address}</p>
                                         </td>
-                                        <td>
-                                            <StatusButton
-                                                to={`/dashboard/driver/assigned-deliveries/${order.artist_id}`}>
-                                                START PICKUP{" "}
-                                                <RightIcon
-                                                    stroke={theme.primary}
-                                                />
-                                            </StatusButton>
-                                        </td>
+                                        {order.status ===
+                                        "Delivery in Progress" ? (
+                                            <td>
+                                                <SetAsDelivered
+                                                    onClick={(e) => {
+                                                        setID(order.id);
+                                                        setStatus("Delivered");
+                                                    }}>
+                                                    <DriverPicked
+                                                        stroke={theme.primary}
+                                                    />
+                                                    <p>
+                                                        Set Order as Delivered
+                                                    </p>
+                                                </SetAsDelivered>
+                                            </td>
+                                        ) : (
+                                            <td>
+                                                <Directions
+                                                    onClick={(e) => {
+                                                        setID(order.id);
+                                                        setStatus(
+                                                            "Delivery in Progress"
+                                                        );
+                                                    }}>
+                                                    <a
+                                                        rel={"noreferrer"}
+                                                        target="_blank"
+                                                        href={`https://www.google.com/maps?saddr&daddr=${order.shipping_address}`}>
+                                                        <p>Start Delivery </p>
+                                                    </a>
+                                                    <RightIcon
+                                                        stroke={theme.primary}
+                                                    />
+                                                </Directions>
+                                            </td>
+                                        )}
                                     </BodyRows>
                                 ))}
                             {filteredData.length === 0 && (
@@ -144,7 +180,7 @@ const DriversAssignedDeliveriesTable = ({ orderData }) => {
     );
 };
 
-export default DriversAssignedDeliveriesTable;
+export default ReadyDeliveriesTable;
 
 const TableContainer = styled.div`
     justify-self: center;
@@ -299,9 +335,72 @@ const SortChoice = styled.select`
     }
 `;
 
-const StatusButton = styled(StyledLink)`
+const Directions = styled.button.attrs((props) => ({
+    type: props.type || "button",
+}))`
+    outline: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
     background: none;
-    padding: 0;
-    margin: 0;
+    cursor: pointer;
+    border-radius: 8px;
     border: none;
+    transition: background 0.3s ease;
+    a {
+        p {
+            color: ${theme.primary};
+            font-weight: bold;
+            margin: 0;
+            padding: 0;
+        }
+    }
+    :hover {
+        a {
+            p {
+                color: ${theme.primaryHover};
+            }
+        }
+        svg {
+            path {
+                stroke: ${theme.primaryHover};
+            }
+        }
+    }
+`;
+
+const SetAsDelivered = styled.button.attrs((props) => ({
+    type: props.type || "button",
+}))`
+    outline: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 8px;
+    background: none;
+    cursor: pointer;
+    border-radius: 8px;
+    border: none;
+    transition: background 0.3s ease;
+    svg {
+        margin-right: 8px;
+    }
+    :hover {
+        svg {
+            path {
+                stroke: ${theme.primaryHover};
+            }
+        }
+        p {
+            color: ${theme.primaryHover};
+        }
+    }
+    p {
+        color: ${theme.primary};
+        font-weight: bold;
+        margin: 0;
+        padding: 0;
+    }
 `;

@@ -121,6 +121,17 @@ export const updateOrderShipDate = async (orderStatus, shipDate, id) => {
     }
 };
 
+export const driverUpdateStatus = async (orderStatus, orderid) => {
+    try {
+        await Axios.put("/api/dashboard/driver/deliveries/update/" + orderid, {
+            status: orderStatus,
+        });
+    } catch (err) {
+        console.log(err);
+        return false;
+    }
+};
+
 //update event status
 
 export const updateEventStatus = async (status, id) => {
@@ -220,7 +231,7 @@ export const modifyCart = async (
 export const addDriverID = (orderid) => {
     try {
         let response = Axios.put(
-            `/api/dashboard/driver/ready-for-delivery/add/${orderid}`
+            `/api/dashboard/driver/order-to-fulfill/add/${orderid}`
         );
         return response.status;
     } catch (err) {
@@ -231,7 +242,7 @@ export const addDriverID = (orderid) => {
 export const removeDriverID = (orderid) => {
     try {
         let response = Axios.put(
-            `/api/dashboard/driver/ready-for-delivery/remove/${orderid}`
+            `/api/dashboard/driver/order-to-fulfill/remove/${orderid}`
         );
         return response.status;
     } catch (err) {

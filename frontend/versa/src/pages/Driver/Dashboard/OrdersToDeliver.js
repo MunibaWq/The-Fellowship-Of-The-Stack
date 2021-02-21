@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
-import { getOrdersReadyForDelivery } from "../../../axios/gets";
+import { getOrdersForDriver } from "../../../axios/gets";
 import Loading from "../../../components/Reusable/Loading";
 import OrdersToDeliverTable from "../../../components/Dashboard/Driver/OrdersToDeliverTable";
 
@@ -13,7 +13,7 @@ const OrdersToDeliver = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const data = await getOrdersReadyForDelivery();
+            const data = await getOrdersForDriver();
 
             setOrderData(data);
         };
@@ -40,7 +40,7 @@ const OrdersToDeliver = () => {
 export default OrdersToDeliver;
 
 const OrderContainer = styled.div`
-    padding: 2em 2em 2em calc(2em + 66px);
+    padding: 4em 2em 2em calc(2em + 66px);
     display: grid;
     grid-template-rows: 60px auto;
 
