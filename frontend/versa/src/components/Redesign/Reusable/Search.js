@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import { searchProducts } from "../../../axios/gets";
 import { SearchIcon } from "../../../images/icons";
 import Button from "./Button";
 

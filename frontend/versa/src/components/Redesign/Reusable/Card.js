@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { ShoppingCart } from "../../../images/icons";
+// import { ShoppingCart } from "../../../images/icons";
 
 const Card = ({ type, item }) => {
     console.log("i", item);
@@ -29,9 +29,9 @@ const Card = ({ type, item }) => {
                         <Detail>{item.artist}</Detail>
                         <ImportantDetail>
                             <BigDetail>${item.price}</BigDetail>
-                            <Action stock={calcTotalStock(item)}>
+                            {/*<Action stock={calcTotalStock(item)}>
                                 <ShoppingCart />
-                            </Action>
+                            </Action>*/}
                         </ImportantDetail>
                     </ItemInfo>
                 </CardContainer>
@@ -100,37 +100,37 @@ const BigDetail = styled.p`
     letter-spacing: 0.03em;
     text-transform: capitalize;
 `;
-const Action = styled.button.attrs((props) => ({
-    type: props.type || "button",
-}))`
-    outline: none;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 8px;
-    background: ${(props) =>
-        props.stock === 0 ? props.theme.blue : props.theme.purple};
-    cursor: ${(props) => (props.stock === 0 ? "default" : "pointer")};
-    border-radius: 8px;
-    border: none;
-    transition: background 0.3s ease;
-    :hover {
-        background: ${(props) =>
-            props.stock === 0 ? props.theme.blue : props.theme.holo};
-        svg {
-            path {
-                stroke: ${(props) =>
-                    props.stock === 0 ? props.theme.blue : props.theme.black};
-            }
-        }
-    }
-    svg {
-        path {
-            stroke: ${(props) => props.theme.blue};
-        }
-    }
-`;
+// const Action = styled.button.attrs((props) => ({
+//     type: props.type || "button",
+// }))`
+//     outline: none;
+//     display: flex;
+//     flex-direction: column;
+//     justify-content: center;
+//     align-items: center;
+//     padding: 8px;
+//     background: ${(props) =>
+//         props.stock === 0 ? props.theme.blue : props.theme.purple};
+//     cursor: ${(props) => (props.stock === 0 ? "default" : "pointer")};
+//     border-radius: 8px;
+//     border: none;
+//     transition: background 0.3s ease;
+//     :hover {
+//         background: ${(props) =>
+//             props.stock === 0 ? props.theme.blue : props.theme.holo};
+//         svg {
+//             path {
+//                 stroke: ${(props) =>
+//                     props.stock === 0 ? props.theme.blue : props.theme.black};
+//             }
+//         }
+//     }
+//     svg {
+//         path {
+//             stroke: ${(props) => props.theme.blue};
+//         }
+//     }
+// `;
 
 const OutOfStock = styled.div`
     display: flex;

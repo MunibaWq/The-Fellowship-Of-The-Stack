@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
 import { getAllProducts, searchProducts } from "../../axios/gets";
 import Box from "../../components/Redesign/Reusable/Box";
 import PageContainer from "../../components/Redesign/Reusable/PageContainer";

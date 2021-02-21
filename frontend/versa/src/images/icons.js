@@ -1,5 +1,30 @@
 import theme from "../components/Reusable/Colors";
 
+export const Loading = () => {
+    return (
+        <svg
+            width="512"
+            height="512"
+            viewBox="0 0 512 512"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <circle cx="256" cy="256" r="256" fill="url(#paint0_radial)" />
+            <defs>
+                <radialGradient
+                    id="paint0_radial"
+                    cx="0"
+                    cy="0"
+                    r="1"
+                    gradientUnits="userSpaceOnUse"
+                    gradientTransform="translate(256 256) rotate(90) scale(256)">
+                    <stop stopColor="#6B45FF" />
+                    <stop offset="1" stopColor="#C4C4C4" stopOpacity="0" />
+                </radialGradient>
+            </defs>
+        </svg>
+    );
+};
+
 export const DriverReceived = ({ width, height, stroke }) => {
     return (
         <svg
