@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
-import { getOrdersForDriver } from "../../../axios/gets";
+import { getReadyDeliveries } from "../../../axios/gets";
 import Loading from "../../../components/Reusable/Loading";
 import OrdersToDeliverTable from "../../../components/Dashboard/Driver/OrdersToDeliverTable";
+import ReadyDeliveriesTable from "../../../components/Dashboard/Driver/ReadyDeliveriesTable";
 
-const OrdersToDeliver = () => {
+const Deliveries = () => {
     const [orderData, setOrderData] = useState();
     let params = useParams();
     const currentUser = params.id;
@@ -13,7 +14,7 @@ const OrdersToDeliver = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const data = await getOrdersForDriver();
+            const data = await getReadyDeliveries();
 
             setOrderData(data);
         };
@@ -21,23 +22,23 @@ const OrdersToDeliver = () => {
     }, []);
 
     return (
-        <OrderContainer>
-            <h1>Orders to Deliver</h1>
+        <DeliveryContainer>
+            <h1>Ready to Deliver</h1>
             {!orderData ? (
                 <Loading />
             ) : (
-                <OrdersToDeliverTable
+                <ReadyDeliveriesTable
                     orderData={orderData}
                     user={currentUser}
                 />
             )}
-        </OrderContainer>
+        </DeliveryContainer>
     );
 };
 
-export default OrdersToDeliver;
+export default Deliveries;
 
-const OrderContainer = styled.div`
+const DeliveryContainer = styled.div`
     padding: 4em 2em 2em calc(2em + 66px);
     display: grid;
     grid-template-rows: 60px auto;

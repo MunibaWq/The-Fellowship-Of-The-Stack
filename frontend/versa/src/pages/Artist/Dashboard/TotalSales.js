@@ -20,12 +20,10 @@ const sorters = {
 const TotalSales = () => {
     const [salesData, setSalesData] = useState();
     const [graphData, setGraphData] = useState();
-    const currentUser = 1;
     const [start, setStart] = useState("01-01-1900");
     const [end, setEnd] = useState(new Date().toUTCString());
     const [sortBy, setSortBy] = useState("Total Sales");
     useEffect(() => {
-        console.log("term,start,end", start, end);
         const fetchData = async (query) => {
             const data = await getTotalSales(query);
             let temp = [];
@@ -35,7 +33,6 @@ const TotalSales = () => {
                     y: parseFloat(sales.sum),
                 });
             });
-            console.log(temp);
             setGraphData(temp);
             setSalesData(data);
         };

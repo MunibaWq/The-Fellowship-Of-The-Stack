@@ -6,7 +6,7 @@ import Button from "./Reusable/Button";
 import axios from "axios";
 import { setFormErrors } from "../redux/actions/Errors";
 import { setFormInputs } from "../redux/actions/Forms";
-import { getUser } from "../axios/gets";
+import { getUserByToken } from "../axios/gets";
 import Cookies from "universal-cookie";
 import { Redirect } from "react-router";
 import { StyledLink } from "./Reusable/Link";
@@ -19,7 +19,7 @@ const AccountForm = (props) => {
     const dispatch = useDispatch();
     useEffect(() => {
         const getUserData = async () => {
-            let data = await getUser();
+            let data = await getUserByToken();
             dispatch(setFormInputs("account", "name", data.name));
             dispatch(
                 setFormInputs("account", "storeAddress", data.store_address)

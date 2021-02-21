@@ -24,7 +24,6 @@ const DashboardMain = () => {
         };
         fetchData();
     }, []);
-    console.log(eventsData);
     let eventsTableData = {};
     eventsData
         ? (eventsTableData = {

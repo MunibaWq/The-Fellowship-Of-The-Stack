@@ -17,15 +17,12 @@ export function mapImages(images,dispatch) {
                 <UploadedImage key={index} alt="" src={image.image} />
                 <DeleteImage
                     onClick={() => {
-                        console.log('hello')
                         if (image.id) {
                             deleteImage(image.id);
                         }
                         let newImages = images.filter((i, ind) => {
                             return ind !== index;
                         });
-                        console.log(newImages, images)
-                        
                         dispatch(setImages('productForm',newImages))
                     }}>
                     

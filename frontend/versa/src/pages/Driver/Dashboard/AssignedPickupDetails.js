@@ -4,8 +4,9 @@ import styled from "styled-components";
 import { getOneAssignedPickup } from "../../../axios/gets";
 import Loading from "../../../components/Reusable/Loading";
 import theme from "../../../components/Reusable/Colors";
-import { DriverReceived, LeftIcon } from "../../../images/icons";
+import { DriverPicked, DriverReceived, LeftIcon } from "../../../images/icons";
 import { StyledLink } from "../../../components/Reusable/Link";
+import ProductPickup from "../../../components/Dashboard/Driver/ProductPickup";
 
 const AssignedPickupDetails = () => {
     let params = useParams();
@@ -22,8 +23,6 @@ const AssignedPickupDetails = () => {
         };
         fetchData();
     }, []);
-    console.log("od", orderData);
-    console.log("bd", artistDetails);
 
     return (
         <Container>
@@ -31,9 +30,9 @@ const AssignedPickupDetails = () => {
                 <Loading />
             ) : (
                 <>
-                    <BackToOrder to="/dashboard/driver/assigned-deliveries">
+                    <BackToOrder to="/dashboard/driver/assigned-pickups">
                         <LeftIcon stroke={theme.primary} />
-                        Deliveries
+                        Pickups
                     </BackToOrder>
                     <ArtistDetails>
                         <Artist>
@@ -41,8 +40,8 @@ const AssignedPickupDetails = () => {
                             <p>
                                 These are the products that you need to pick up
                                 from this artist for all your deliveries today.
-                                Mark them as received so that you can track of
-                                your progress.
+                                Mark them as received so that you can track your
+                                progress.
                             </p>
                             <Address>
                                 <Artist>
@@ -52,7 +51,7 @@ const AssignedPickupDetails = () => {
 
                                 <Directions>
                                     <a
-                                        rel={"external"}
+                                        rel={"noreferrer"}
                                         target="_blank"
                                         href={`https://www.google.com/maps?saddr&daddr=${artistDetails.address}`}>
                                         Directions
@@ -85,30 +84,14 @@ const AssignedPickupDetails = () => {
                         <OrderItemContainer>
                             {orderData.map((order) => {
                                 return (
-                                    <ProductCard
+                                    <ProductPickup
+                                        order={order}
                                         key={
-                                            order.id + order.title + order.size
-                                        }>
-                                        <img
-                                            src={`https://versabucket.s3.us-east-2.amazonaws.com/images/${order.thumbnail}.jpeg`}
-                                            alt={order.title}
-                                        />
-                                        <Details>
-                                            <h4>{order.title}</h4>
-                                            <RowContainer>
-                                                <Size>{order.size}</Size>
-                                                <p>{order.color}</p>
-                                            </RowContainer>
-                                            <QuantityStatus>
-                                                <Quantity>
-                                                    {order.quantity}
-                                                </Quantity>
-                                                <SetAsPicked>
-                                                    <DriverReceived />
-                                                </SetAsPicked>
-                                            </QuantityStatus>
-                                        </Details>
-                                    </ProductCard>
+                                            order.single_id +
+                                            order.title +
+                                            order.size
+                                        }
+                                    />
                                 );
                             })}
                         </OrderItemContainer>
@@ -299,13 +282,19 @@ const SetAsPicked = styled.button.attrs((props) => ({
     justify-content: center;
     align-items: center;
     padding: 8px;
-    background: ${theme.primary};
+    background: ${(props) =>
+        props.status === true ? "#00D100" : theme.primary};
     cursor: pointer;
     border-radius: 8px;
     border: none;
     transition: background 0.3s ease;
     :hover {
         background: ${theme.primaryHover};
+    }
+    svg {
+        path {
+            stroke: ${theme.secondary};
+        }
     }
 `;
 

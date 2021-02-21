@@ -22,7 +22,6 @@ const OrderItems = () => {
         };
         fetchData();
     }, [orderID]);
-    console.log("bD", buyerDetails);
     return (
         <Container>
             {!orderData ? (

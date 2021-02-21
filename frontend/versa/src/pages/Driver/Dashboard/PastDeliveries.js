@@ -34,7 +34,7 @@ const PastDeliveries = () => {
 export default PastDeliveries;
 
 const OrderContainer = styled.div`
-    padding: 2em 2em 2em calc(2em + 66px);
+    padding: 4em 2em 2em calc(2em + 66px);
     display: grid;
     grid-template-rows: 60px auto;
 
