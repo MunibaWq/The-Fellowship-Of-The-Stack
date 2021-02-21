@@ -35,11 +35,13 @@ const MessageList = ({ selectedThread, setSelectedThread, messages }) => {
             let threads = [];
             for (const message of messages) {
                 if (id === message.to_user) {
-                    let fromUser = `User ${message.from_user}`;
+                    let fromUser = message.from_name;
+                    let fromUsername = `${
+                        message.from_username
+                            ? message.from_username
+                            : "User " + message.from_user
+                    }`;
 
-                    if (message.type === "A2A") {
-                        fromUser = message.from_username;
-                    }
                     let threadIndex = threadlist.indexOf(
                         `${fromUser}-${message.topic}`
                     );
@@ -55,29 +57,31 @@ const MessageList = ({ selectedThread, setSelectedThread, messages }) => {
                             unread,
                             topic: message.topic,
                             from: fromUser,
+                            fromUsername,
                             fromID: message.from_user,
                             messages: [message],
                         });
                         threadlist.push(`${fromUser}-${message.topic}`);
                     }
                 } else {
-                    let toUser = `User ${message.to_user}`;
-
-                    if (message.type === "A2A") {
-                        toUser = message.to_username;
-                    }
+                    let toUser = message.to_name;
+                    let toUsername = `${
+                        message.to_username
+                            ? message.to_username
+                            : "User " + message.to_user
+                    }`;
                     let threadIndex = threadlist.indexOf(
                         `${toUser}-${message.topic}`
                     );
                     if (threadIndex > -1) {
                         threads[threadIndex].messages.push(message);
                     } else {
-                        let unread = message.read ? 0 : 1;
                         threads.push({
                             type: message.type,
-                            unread,
+                            unread: 0,
                             topic: message.topic,
                             from: toUser,
+                            fromUsername: toUsername,
                             fromID: message.to_user,
                             messages: [message],
                         });
@@ -100,7 +104,7 @@ const MessageList = ({ selectedThread, setSelectedThread, messages }) => {
         <>
             <div
                 style={{
-                    padding: "5px",
+                    padding: "12px 24px",
                     color: theme.secondary,
                     backgroundColor: theme.primary,
                     gridColumn: "1 / 3",
@@ -109,7 +113,12 @@ const MessageList = ({ selectedThread, setSelectedThread, messages }) => {
                     count += thread.unread;
                     return count;
                 }, 0)}{" "}
-                unread message(s)
+                unread message{
+                    messageList.reduce((count, thread) => {
+                        count += thread.unread;
+                        return count;
+                    }, 0)
+                 > 1 ? "s" : ""}
             </div>
             <MessageGrid>
                 {messageList.map((thread) => {
@@ -139,7 +148,10 @@ const MessageList = ({ selectedThread, setSelectedThread, messages }) => {
                             </UnreadIcon>
                             <ThreadInfo>
                                 <h3>{thread.topic}</h3>
-                                <p>{thread.from}</p>
+                                <From>
+                                    <p>{thread.from}</p>
+                                    <p>{thread.fromUsername}</p>
+                                </From>
                                 <p>
                                     {timeSince(
                                         thread.messages[
@@ -162,20 +174,26 @@ export default MessageList;
 const ThreadInfo = styled.div`
     grid-column: 2;
     display: grid;
-    grid-template-columns: 50% 50%;
+    grid-auto-columns: auto;
     h3 {
         grid-column: 1;
         font-weight: 700;
     }
+    
     p {
-        grid-column: 1;
-        :last-of-type {
+        :last-child {
+            margin-left: 5px;
             grid-column: 2;
             place-self: flex-end;
             margin-right: 10px;
             color: ${theme.primary + "77"};
         }
     }
+`;
+const From = styled.div`
+    display: flex;
+    flex-direction: row;
+    grid-column: 1;
 `;
 const UnreadIcon = styled.div`
     grid-column: 1;
@@ -184,8 +202,9 @@ const UnreadIcon = styled.div`
 `;
 const Thread = styled.div`
     display: grid;
-    grid-template-columns: 14% 86%;
-    border-bottom: ${theme.primary}44 1px solid;
+    padding: 8px 16px;
+    grid-template-columns: 26px calc(100% - 26px);
+    border-bottom: #ddd thin solid;
     align-items: center;
     background-color: ${(props) =>
         props.selected ? theme.primary + "45" : theme.secondary};
@@ -197,7 +216,7 @@ const Thread = styled.div`
             props.selected ? theme.primary + "45" : theme.primary + "17"};
     }
     :last-child {
-        border-bottom: ${theme.primary} 1px solid;
+        border-bottom: ${theme.primary} 2px solid;
     }
 `;
 const MessageGrid = styled.div`

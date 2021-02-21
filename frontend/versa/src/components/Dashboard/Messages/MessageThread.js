@@ -125,13 +125,14 @@ const ThreadDiv = styled.div`
 const MessageDiv = styled.div`
     display: flex;
     flex-direction: column;
+    background-color: #eff3fe60;
     overflow-y: auto;
     ::-webkit-scrollbar {
         width: 0.1em;
     }
 
     ::-webkit-scrollbar-track {
-        box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+        
     }
 
     ::-webkit-scrollbar-thumb {
@@ -139,7 +140,7 @@ const MessageDiv = styled.div`
         outline: 1px solid ${theme.primary};
     }
     height: 60vh;
-    border-top: ${theme.primary}33 1px solid;
+    border-top: ${theme.primary} 2px solid;
 `;
 const ToMessage = styled.div`
     display: flex;
@@ -172,4 +173,5 @@ const FromMessage = styled.div`
 `;
 const Header = styled.div`
     height: 69px;
+    
 `;

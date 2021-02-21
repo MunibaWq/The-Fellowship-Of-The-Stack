@@ -2,16 +2,26 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Button from "../Reusable/Button";
 import Pill from "../Reusable/Pill";
+import { Input } from "../Reusable/Input";
 import { Link, useParams } from "react-router-dom";
 import theme from "../Reusable/Colors";
-import { LeftIcon, Star, LineCloseIcon, EditIcon, CheckedBoxIcon, CheckMarkIcon, AddIcon } from "../../images/icons";
+import {
+    LeftIcon,
+    Star,
+    LineCloseIcon,
+    EditIcon,
+    CheckedBoxIcon,
+    CheckMarkIcon,
+    AddIcon,
+    SendIcon
+} from "../../images/icons";
 import ImageTest from "../../images/imageTest.png";
 import { useDispatch, useSelector } from "react-redux";
 import { clearChoices, setChoices } from "../../redux/actions/ProductPage";
 import { setRedirect } from "../../redux/actions/Redirects";
-import { addToCart } from "../../axios/posts";
+import { addToCart, sendMessage } from "../../axios/posts";
 import WishButton from "../WishList/WishButton";
-// import { addToCart } from "../../redux/actions/Cart";
+import { getUserByToken } from "../../axios/gets";
 
 const ProductPage = ({
     images,
@@ -25,20 +35,27 @@ const ProductPage = ({
     image,
     stock,
     id,
+    artist_id
 }) => {
     const choices = useSelector((state) => state.productChoices);
     const [clicked, setClicked] = useState(false);
-
+    const [question, setQuestion] = useState()
+    const [user, setUser] = useState();
     const dispatch = useDispatch();
     const cart = useSelector((state) => state.cart);
-    let params = useParams();
     useEffect(() => {
+        const getUser = async () => {
+            const res = await getUserByToken();
+            setUser(res);
+        };
         dispatch(setRedirect("productForm", ""));
+        getUser();
         return () => {
             dispatch(clearChoices());
         };
     }, [dispatch]);
     const showProductTotal = () => {
+        // this doesn't do anything, need to refactor to use db cart or get rid of it
         return (
             cart &&
             cart[id] &&
@@ -248,9 +265,8 @@ const ProductPage = ({
                                 window.localStorage.getItem("session")
                             );
                             setTimeout(() => {
-                                
-                            setClicked((curr) => !curr);
-                            },1000)
+                                setClicked((curr) => !curr);
+                            }, 1000);
                             // dispatch(
                             //     addToCart(
                             //         id,
@@ -259,9 +275,25 @@ const ProductPage = ({
                             //         1
                             //     )
                             // );
-                        }}>{clicked? <CheckMarkIcon height="20px" stroke={theme.secondary}/>:<AddIcon height="20px" stroke={theme.secondary}/>}</AddToCart>
-
+                        }}>
+                        {clicked ? (
+                            <CheckMarkIcon
+                                height="20px"
+                                stroke={theme.secondary}
+                            />
+                        ) : (
+                            <AddIcon height="20px" stroke={theme.secondary} />
+                        )}
+                    </AddToCart>
                     {showProductTotal()}
+                    <Question>
+                        <h3>Ask the artist about this product</h3>
+                        <Input value={question} onChange={(e) => {
+                            setQuestion(e.target.value)
+                        } }/><Button onClick={() => {
+                            sendMessage(`Question about ${title}`,artist_id,'B2A',question,new Date())
+                        } } secondary><SendIcon  />Send </Button>
+                    </Question>
                 </ProductDetail>
             </MainInfo>
         </Container>
@@ -270,12 +302,12 @@ const ProductPage = ({
 
 export default ProductPage;
 const AddToCart = styled(Button)`
-
-   ::after {
-       content: " ${props=>props.clicked ? "Added Item": "Add to Cart"}";
-}
- 
+    ::after {
+        content: " ${(props) =>
+            props.clicked ? "Added Item" : "Add to Cart"}";
+    }
 `;
+const Question = styled.div``;
 const Container = styled.div`
     display: flex;
     flex-direction: column;

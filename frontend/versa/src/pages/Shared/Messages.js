@@ -41,7 +41,7 @@ export default Messages;
 const MessageSection = styled.div`
     display: grid;
     grid-template-columns: 40% 60%;
-    grid-template-rows: 30px auto;
+    grid-template-rows: 45px auto;
 `;
 const Container = styled.div`
     width: 100vw;
