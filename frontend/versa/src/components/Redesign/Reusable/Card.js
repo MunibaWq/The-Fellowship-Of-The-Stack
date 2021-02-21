@@ -14,7 +14,7 @@ const Card = ({ type, item, link, awsFolder, action, featured }) => {
                     <p>Out of Stock</p> 🙁
                 </OutOfStock>
             )}
-            <CardContainer
+            <CardContainer featured={featured}
                 stock={type === "shop" ? calcTotalStock(item) : null}>
                 <Image
                     src={`https://versabucket.s3.us-east-2.amazonaws.com/${awsFolder}/${item.thumbnail}.jpeg`}
@@ -55,7 +55,7 @@ const CardContainer = styled.div`
     filter: ${(props) => (props.stock === 0 ? "grayscale(1)" : "grayscale(0)")};
     cursor: pointer;
     background: ${(props) =>
-        props.featured ? props.theme.Blue : props.theme.lightBlue};
+        props.featured ? props.theme.blue : props.theme.lightBlue};
     :hover {
         background: ${(props) =>
             props.stock === 0 ? props.theme.blue : props.theme.orange};

@@ -85,16 +85,29 @@ const Shop = () => {
                 <Loading />
             ) : (
                 <>
-                    <Box
-                        dataToMap={featured}
-                        boxTitle={`Artist Spotlight: ${featured[0].artist}`}
-                        boxDescription="Shop the creations of this month’s featured local artist."
-                        type="shop"
-                        featured
-                        link="product-item"
-                        awsFolder="images"
-                    />
-                    <Box dataToMap={notFeatured} type="shop" />
+                        {featured.length > 0 && <Box
+                            dataToMap={featured}
+                            boxTitle={`Artist Spotlight: ${featured[0].artist}`}
+                            boxDescription="Shop the creations of this month’s featured local artist."
+                            type="shop"
+                            featured
+                            link="product-item"
+                            awsFolder="images"
+                        />}
+                        {notFeatured.length > 0 &&
+                            <Box
+                                dataToMap={notFeatured}
+                                type="shop"
+                                link="product-item"
+                                awsFolder="images"
+                            />
+                        }
+                        {notFeatured.length === 0 && featured.length === 0 && <Box
+                                dataToMap={[]}
+                                type="shop"
+                                link="product-item"
+                                awsFolder="images"
+                            />}
                 </>
             )}
         </PageContainer>
