@@ -20,7 +20,7 @@ import {
 } from "../images/icons";
 import { useDispatch } from "react-redux";
 import { login } from "../redux/actions/actions";
-import { getUserByToken } from "../axios/gets/index";
+import { getUser, getUserByToken } from "../axios/gets/index";
 const cookies = new Cookies();
 const Navbar = () => {
     const dispatch = useDispatch();
@@ -74,7 +74,7 @@ const Navbar = () => {
                 setDashboard("#1C1C1C");
                 setEvents("#1C1C1C");
                 setRegular("#1C1C1C");
-                setOnHover("#E0B8FF");
+                setOnHover("#6B45FF");
             }
         }
 
@@ -182,6 +182,7 @@ const Navbar = () => {
             </Nav>
             {modal ? (
                 <AccountMenu
+                    colors={nav}
                     onMouseLeave={() => {
                         setModal(false);
                     }}>
@@ -197,10 +198,7 @@ const Navbar = () => {
                                 setLeftText("#FBFCFF");
                             }}>
                             <SubIcon background={leftModal} to="/edit">
-                                <img
-                                    src={SignOut}
-                                    style={{ padding: "10px" }}
-                                />
+                                <img src={SignOut} alt="sign-out" />
                             </SubIcon>
                             <SubText colors={leftText}>settings</SubText>
                         </SubContainer>
@@ -215,10 +213,7 @@ const Navbar = () => {
                                 setRightText("#FBFCFF");
                             }}>
                             <SubIcon background={rightModal} to="/logout">
-                                <img
-                                    src={GearSix}
-                                    style={{ padding: "10px" }}
-                                />
+                                <img src={GearSix} alt="setting" />
                             </SubIcon>
                             <SubText colors={rightText}>logout</SubText>
                         </SubContainer>
@@ -241,11 +236,13 @@ export default Navbar;
 // `;
 
 export const Nav = styled.nav`
-    background: ${(props) => props.colors};
+    background: ${(props) =>
+        props.colors === "#FBFCFF" ? "none" : props.colors};
     display: flex;
     justify-content: space-between;
-    padding: 10px 20px;
+    padding: 20px 40px;
     z-index: 10;
+    transition: all 0.3s ease;
     position: -webkit-sticky; /* for Safari */
     position: sticky;
     top: 0;
@@ -264,63 +261,24 @@ const NavLink = styled(Link)`
     align-items: center;
     text-decoration: none;
     cursor: pointer;
-    padding: 0 10px 0 10px;
+    padding: 0 10px;
     text-transform: uppercase;
+    svg {
+        width: 18px;
+        height: 18px;
+    }
 
     &:hover::after {
         content: "";
         position: absolute;
-        top: 28px;
+        top: 32px;
         position: absolute;
         left: 12%;
         width: 80%;
         height: 4px;
-        background: linear-gradient(
-                123.35deg,
-                #ebf3d0 0%,
-                rgba(235, 243, 208, 0) 18.4%
-            ),
-            radial-gradient(
-                29.9% 70.94% at 44.25% 86.96%,
-                #dc8ddc 0%,
-                rgba(220, 141, 220, 0) 100%
-            ),
-            radial-gradient(
-                63.18% 75.75% at 35.87% 100%,
-                #dc8ddc 0%,
-                rgba(220, 141, 220, 0) 100%
-            ),
-            radial-gradient(
-                42.66% 49.72% at 45.56% 44.65%,
-                #cbadeb 0%,
-                rgba(194, 166, 241, 0) 100%
-            ),
-            radial-gradient(
-                44.37% 103.98% at 75.16% 33.54%,
-                #fffdb1 0%,
-                #fee4bf 46.6%,
-                #f0bdd0 69.5%,
-                rgba(255, 129, 38, 0) 100%
-            ),
-            linear-gradient(
-                86.83deg,
-                #cdf9e8 26.09%,
-                rgba(205, 249, 232, 0) 42.6%
-            ),
-            linear-gradient(
-                216.44deg,
-                rgba(192, 169, 240, 0) -16.52%,
-                #c0a9f0 -1.04%,
-                rgba(192, 169, 240, 0) 16.99%
-            ),
-            linear-gradient(
-                128.53deg,
-                rgba(192, 169, 240, 0) 28.63%,
-                #c0a9f0 38.5%,
-                rgba(192, 169, 240, 0) 50.26%
-            ),
-            #c2a6f1;
-        animation: expand 0.8s forwards;
+        border-radius: 50px;
+        background: ${(props) => props.theme.holo};
+        animation: expand 0.4s forwards;
     }
     @keyframes expand {
         0% {
@@ -347,7 +305,7 @@ const WordLink = styled.h2`
 
     letter-spacing: 0.08em;
     margin: 0 0 0 8px;
-    font-size: 24px;
+    font-size: 18px;
     color: ${(props) => props.color};
     &:hover {
         ${(props) => props.hover};
@@ -373,15 +331,16 @@ const Versa = styled.h1`
 const AccountMenu = styled.div`
     position: fixed;
     z-index: 10;
-    width: 234px;
-    background: #1c1c1c;
+    // width: 234px;
+    // height: 125px;
+    background: ${(props) =>
+        props.colors === "#FBFCFF" ? "none" : props.colors};
     right: 0;
-    border-radius: 0 0 20px 20px;
-    padding: 20px;
+    border-radius: 0 0 15px 15px;
+    padding: 10px;
 `;
 const SubMenu = styled.div`
-    width: 194px;
-    height: 85px;
+    width: 100%;
     display: flex;
     justify-content: space-between;
 `;
@@ -391,17 +350,24 @@ const SubContainer = styled(Link)`
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 4px;
 `;
 const SubIcon = styled.div`
     background: ${(props) => props.background};
-    border-radius: 10px;
-    width: 44px;
-    height: 44px;
+    border-radius: 8px;
+    padding: 5px 10px;
+    img {
+        width: 18px;
+        height: 18px;
+    }
 `;
 const SubText = styled.p`
+    margin-top: 8px;
     font-size: 14px;
     color: ${(props) => props.colors};
     padding: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
 `;
 
 const gradient = `linear-gradient(
