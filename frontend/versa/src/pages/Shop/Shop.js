@@ -36,7 +36,6 @@ const Shop = () => {
         let data = await searchProducts(query);
         setProducts(data);
     };
-    console.log(products, "raw");
 
     useEffect(() => {
         const partition = (array, featuredArtistID) => {

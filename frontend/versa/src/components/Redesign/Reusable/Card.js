@@ -6,7 +6,6 @@ import { Going, ShoppingCart } from "../../../images/icons";
 import theme from "../../Reusable/Colors";
 
 const Card = ({ type, item, action, featured }) => {
-    console.log("i", item);
     const calcTotalStock = (item) => {
         return item.stock.reduce((total, curr) => {
             total += curr.quantity;
