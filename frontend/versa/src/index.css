@@ -18,6 +18,41 @@ background: blue;
         url(./fonts//Inter-Regular.woff) format("woff");
 }
 
+html,
+body {
+    min-height: 100%;
+    background: linear-gradient(180deg, rgba(243, 246, 255, 0) 15%, #f3f6ff 85%),
+        linear-gradient(
+            203.74deg,
+            rgba(152, 126, 255, 0.352) 17.54%,
+            rgba(235, 243, 208, 0) 57.49%
+        ),
+        radial-gradient(
+            20.51% 51.48% at 95.21% 39.87%,
+            rgba(220, 141, 220, 0.6) 0%,
+            rgba(220, 141, 220, 0) 100%
+        ),
+        radial-gradient(
+            41.09% 79.83% at 54.1% 43.63%,
+            rgba(203, 173, 235, 0.6) 0%,
+            rgba(194, 166, 241, 0) 100%
+        ),
+        radial-gradient(
+            68.33% 65.03% at 24.38% 40.71%,
+            rgba(255, 253, 177, 0.6) 0%,
+            rgba(254, 228, 191, 0.6) 46.6%,
+            rgba(240, 189, 208, 0.6) 69.5%,
+            rgba(255, 129, 38, 0) 100%
+        ),
+        linear-gradient(
+            86.83deg,
+            rgba(33, 255, 169, 0.4) 26.09%,
+            rgba(205, 249, 232, 0) 42.6%
+        );
+    background-repeat: no-repeat;
+    height: 100%;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -26,70 +61,55 @@ background: blue;
     color: #444444;
     text-decoration: none;
     -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    -moz-osx-font-smoothing: grayscale;
 }
 
-h1 {
+body {
     font-family: "Inter", sans-serif;
-    font-weight: 800;
-    font-size: 28.83px;
-    line-height: 112%;
-    /* or 32px */
-    margin-bottom: 16px;
-    letter-spacing: -0.2px;
-    /* identical to box height */
-    letter-spacing: -1.5px;
-}
-
-h2 {
-    font-family: "Inter", sans-serif;
-    font-weight: 500;
-    font-size: 22.78px;
-    line-height: 112%;
-    /* or 26px */
-    margin-bottom: 16px;
-}
-
-h3 {
-    font-family: "Inter", sans-serif;
-    font-weight: 500;
-    font-size: 20.25px;
-    line-height: 112%;
-    /* or 23px */
-}
-h4 {
-    font-family: "Inter", sans-serif;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 18px;
-    line-height: 112%;
-    /* or 20px */
-}
-h5 {
-    font-family: "Inter", sans-serif;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 112%;
-    /* or 18px */
-}
-h6 {
-    font-family: "Inter", sans-serif;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 12px;
-    line-height: 112%;
-    /* or 13px */
-    letter-spacing: 1.6px;
-    text-transform: uppercase;
+    font-weight: 400;
+    line-height: 1.75;
+    color: #1c1c1c;
 }
 
 p {
+    margin-bottom: 1rem;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+    margin: 3rem 0 1.38rem;
     font-family: "Inter", sans-serif;
-    line-height: 125%;
-    font-size: 16px;
-    margin-bottom: 16px;
-    max-width: 75ch;
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+h1 {
+    margin-top: 0;
+    font-size: 4.209rem;
+}
+
+h2 {
+    font-size: 3.157rem;
+}
+
+h3 {
+    font-size: 2.369rem;
+}
+
+h4 {
+    font-size: 1.777rem;
+}
+
+h5 {
+    font-size: 1.333rem;
+}
+
+small,
+.text_small {
+    font-size: 0.75rem;
 }
 
 body {
@@ -99,7 +119,7 @@ body {
 
 body::-webkit-scrollbar {
     width: 1em;
-    background-color:#d5e2fa;
+    background-color: #d5e2fa;
 }
 
 body::-webkit-scrollbar-track {
@@ -107,7 +127,6 @@ body::-webkit-scrollbar-track {
 }
 
 body::-webkit-scrollbar-thumb {
-
     background-color: #6495ed;
     border-radius: 10px;
 }
