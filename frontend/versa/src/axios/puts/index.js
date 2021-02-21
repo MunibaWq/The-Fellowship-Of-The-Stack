@@ -250,3 +250,22 @@ export const removeDriverID = (orderid) => {
         return false;
     }
 };
+
+export const setProductAsPicked = async (status, single_id) => {
+    try {
+        const response = await Axios.put(
+            "/api/dashboard/driver/assigned-pickups/",
+            {
+                driverStatus: status,
+                singleID: single_id,
+            }
+        );
+
+        if (response.status === 201) {
+            return true;
+        }
+    } catch (err) {
+        console.log(err);
+        return false;
+    }
+};

@@ -6,13 +6,13 @@ import Loading from "../../../components/Reusable/Loading";
 import theme from "../../../components/Reusable/Colors";
 import { DriverPicked, DriverReceived, LeftIcon } from "../../../images/icons";
 import { StyledLink } from "../../../components/Reusable/Link";
+import ProductPickup from "../../../components/Dashboard/Driver/ProductPickup";
 
 const AssignedPickupDetails = () => {
     let params = useParams();
     let artistID = params.artistid;
     const [orderData, setOrderData] = useState();
     const [artistDetails, setArtistDetails] = useState();
-    const [itemReceived, setItemReceived] = useState();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -23,6 +23,7 @@ const AssignedPickupDetails = () => {
         };
         fetchData();
     }, []);
+
     console.log("od", orderData);
     console.log("bd", artistDetails);
 
@@ -86,7 +87,15 @@ const AssignedPickupDetails = () => {
                         <OrderItemContainer>
                             {orderData.map((order) => {
                                 return (
-                                    <ProductCard
+                                    <ProductPickup
+                                        order={order}
+                                        key={
+                                            order.single_id +
+                                            order.title +
+                                            order.size
+                                        }
+                                    />
+                                    /*<ProductCard
                                         key={
                                             order.id + order.title + order.size
                                         }>
@@ -104,18 +113,31 @@ const AssignedPickupDetails = () => {
                                                 <Quantity>
                                                     {order.quantity}
                                                 </Quantity>
-                                                {itemReceived ? (
-                                                    <SetAsPicked>
+
+                                                {order.driver_status ===
+                                                "Picked" ? (
+                                                    <SetAsPicked
+                                                        onClick={() =>
+                                                            setItemReceived(
+                                                                false
+                                                            )
+                                                        }
+                                                        status={itemReceived}>
                                                         <DriverPicked />
                                                     </SetAsPicked>
                                                 ) : (
-                                                    <SetAsPicked onClick={}>
+                                                    <SetAsPicked
+                                                        onClick={() =>
+                                                            setItemReceived(
+                                                                true
+                                                            )
+                                                        }>
                                                         <DriverReceived />
                                                     </SetAsPicked>
                                                 )}
                                             </QuantityStatus>
                                         </Details>
-                                    </ProductCard>
+                                                    </ProductCard>*/
                                 );
                             })}
                         </OrderItemContainer>
@@ -306,13 +328,19 @@ const SetAsPicked = styled.button.attrs((props) => ({
     justify-content: center;
     align-items: center;
     padding: 8px;
-    background: ${theme.primary};
+    background: ${(props) =>
+        props.status === true ? "#00D100" : theme.primary};
     cursor: pointer;
     border-radius: 8px;
     border: none;
     transition: background 0.3s ease;
     :hover {
         background: ${theme.primaryHover};
+    }
+    svg {
+        path {
+            stroke: ${theme.secondary};
+        }
     }
 `;
 
