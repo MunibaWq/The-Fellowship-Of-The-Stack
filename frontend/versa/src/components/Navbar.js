@@ -16,6 +16,7 @@ import {
     ShapesLogo,
     Dashboard,
     ShoppingBag,
+    HomeIcon,
 } from "../images/icons";
 import { useDispatch } from "react-redux";
 import { login } from "../redux/actions/actions";
@@ -88,35 +89,28 @@ const Navbar = () => {
         <>
             <Nav colors={nav}>
                 <NavLink color={theme.secondary} to="/">
-                    {/* <ShapesLogo
-                    circle={theme.logoCircle}
-                    rectangle={theme.logoRect}
-                    triangle={theme.logoTriangle}
-                    alt="Versa Logo"
-                /> */}
                     <Versa colors={regular} hover={onHover}>
                         Versa
                     </Versa>
                 </NavLink>
-
                 <NavMenu>
                     <NavLink
                         color={theme.secondary}
-                        to="/home"
+                        to="/"
                         onMouseEnter={() => {
                             setHome(onHover);
                         }}
                         onMouseLeave={() => {
                             setHome(regular);
                         }}>
-                        <Magnifying stroke={home} />
+                        <HomeIcon stroke={home} />
                         <WordLink color={home} hover={onHover}>
                             Home
                         </WordLink>
                     </NavLink>
                     <NavLink
                         color={theme.secondary}
-                        to="/shop"
+                        to="/"
                         onMouseEnter={() => {
                             setShop(onHover);
                         }}
@@ -145,7 +139,7 @@ const Navbar = () => {
                     {loggedIn && (
                         <NavLink
                             color={theme.secondary}
-                            to={"/dashboard"}
+                            to="/dashboard"
                             onMouseEnter={() => {
                                 setDashboard(onHover);
                             }}
@@ -173,6 +167,17 @@ const Navbar = () => {
                             {username}
                         </WordLink>
                     </NavLink>
+                    <NavLink
+                        color={theme.secondary}
+                        to="/shopping-cart"
+                        onMouseEnter={() => {
+                            setHome(onHover);
+                        }}
+                        onMouseLeave={() => {
+                            setHome(regular);
+                        }}>
+                        <CartIcon stroke={home} />
+                    </NavLink>
                 </NavMenu>
             </Nav>
             {modal ? (
@@ -182,6 +187,7 @@ const Navbar = () => {
                     }}>
                     <SubMenu>
                         <SubContainer
+                            to="/settings"
                             onMouseEnter={() => {
                                 setLeftModal(gradient);
                                 setLeftText("#E0B8FF");
@@ -199,6 +205,7 @@ const Navbar = () => {
                             <SubText colors={leftText}>settings</SubText>
                         </SubContainer>
                         <SubContainer
+                            to="/log-out"
                             onMouseEnter={() => {
                                 setRightModal(gradient);
                                 setRightText("#E0B8FF");
@@ -367,7 +374,6 @@ const AccountMenu = styled.div`
     position: fixed;
     z-index: 10;
     width: 234px;
-    height: 125px;
     background: #1c1c1c;
     right: 0;
     border-radius: 0 0 20px 20px;
@@ -379,14 +385,14 @@ const SubMenu = styled.div`
     display: flex;
     justify-content: space-between;
 `;
-const SubContainer = styled.div`
+const SubContainer = styled(Link)`
     height: 100%;
     width: 91px;
     display: flex;
     flex-direction: column;
     align-items: center;
 `;
-const SubIcon = styled(Link)`
+const SubIcon = styled.div`
     background: ${(props) => props.background};
     border-radius: 10px;
     width: 44px;
@@ -395,6 +401,7 @@ const SubIcon = styled(Link)`
 const SubText = styled.p`
     font-size: 14px;
     color: ${(props) => props.colors};
+    padding: 10px;
 `;
 
 const gradient = `linear-gradient(
