@@ -897,6 +897,39 @@ export const HomeIcon = ({ width, height, stroke, fill }) => {
     );
 };
 
+export const ShoppingBag = ({ width, height, stroke, fill }) => {
+    return (
+        <svg
+            width={width || "24"}
+            height={height || "24"}
+            viewBox="0 0 24 25"
+            fill={fill || "none"}
+            xmlns="http://www.w3.org/2000/svg">
+            <path
+                d="M20.25 5H3.75C3.33579 5 3 5.33579 3 5.75V19.25C3 19.6642 3.33579 20 3.75 20H20.25C20.6642 20 21 19.6642 21 19.25V5.75C21 5.33579 20.6642 5 20.25 5Z"
+                stroke={stroke || "#444444"}
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            />
+            <path
+                d="M3 8H21"
+                stroke={stroke || "#444444"}
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            />
+            <path
+                d="M15.75 11C15.75 11.9946 15.3549 12.9484 14.6517 13.6517C13.9484 14.3549 12.9946 14.75 12 14.75C11.0054 14.75 10.0516 14.3549 9.34835 13.6517C8.64509 12.9484 8.25 11.9946 8.25 11"
+                stroke={stroke || "#444444"}
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            />
+        </svg>
+    );
+};
+
 export const EventsIcon = ({ width, height, stroke, fill }) => {
     return (
         <svg
