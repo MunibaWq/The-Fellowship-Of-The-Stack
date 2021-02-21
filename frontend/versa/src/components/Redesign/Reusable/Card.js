@@ -2,7 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import OutOfStock from "./OutOfStock";
-import { ShoppingCart } from "../../../images/icons";
+import { Going, ShoppingCart } from "../../../images/icons";
+import theme from "../../Reusable/Colors";
 
 const Card = ({ type, item, action }) => {
     console.log("i", item);
@@ -33,6 +34,9 @@ const Card = ({ type, item, action }) => {
                             {action && (
                                 <Action stock={calcTotalStock(item)}>
                                     {type === "shop" && <ShoppingCart />}
+                                    {type === "attend" && (
+                                        <Going width="18" height="18" />
+                                    )}
                                 </Action>
                             )}
                         </ImportantDetail>
