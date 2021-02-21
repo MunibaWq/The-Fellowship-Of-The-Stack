@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { getOneAssignedPickup } from "../../../axios/gets";
 import Loading from "../../../components/Reusable/Loading";
 import theme from "../../../components/Reusable/Colors";
-import { DriverReceived, LeftIcon } from "../../../images/icons";
+import { DriverPicked, DriverReceived, LeftIcon } from "../../../images/icons";
 import { StyledLink } from "../../../components/Reusable/Link";
 
 const AssignedPickupDetails = () => {
@@ -12,6 +12,7 @@ const AssignedPickupDetails = () => {
     let artistID = params.artistid;
     const [orderData, setOrderData] = useState();
     const [artistDetails, setArtistDetails] = useState();
+    const [itemReceived, setItemReceived] = useState();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -103,9 +104,15 @@ const AssignedPickupDetails = () => {
                                                 <Quantity>
                                                     {order.quantity}
                                                 </Quantity>
-                                                <SetAsPicked>
-                                                    <DriverReceived />
-                                                </SetAsPicked>
+                                                {itemReceived ? (
+                                                    <SetAsPicked>
+                                                        <DriverPicked />
+                                                    </SetAsPicked>
+                                                ) : (
+                                                    <SetAsPicked onClick={}>
+                                                        <DriverReceived />
+                                                    </SetAsPicked>
+                                                )}
                                             </QuantityStatus>
                                         </Details>
                                     </ProductCard>

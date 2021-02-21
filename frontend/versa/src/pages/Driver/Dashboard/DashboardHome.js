@@ -11,7 +11,7 @@ const DriverDashboardMain = () => {
     const [ordersToFulfill, setOrdersToFulfill] = useState();
     const [assignedPickups, setAssignedPickups] = useState();
     const [pastDeliveries, setPastDeliveries] = useState();
-    const [uniquePickup, setUniquePickup] = useState()
+    const [uniquePickup, setUniquePickup] = useState();
     useEffect(() => {
         const fetchData = async () => {
             let toFulfillData = await getOrdersForDriver();
@@ -20,13 +20,15 @@ const DriverDashboardMain = () => {
             setAssignedPickups(assignedData);
             let pastData = await getPastDeliveries();
             setPastDeliveries(pastData);
-            setUniquePickup(Array.from(
-                new Set(assignedData.map((a) => a.username))
-            ).map((name) => {
-                return assignedData.find((a) => a.username === name);
-            }));
+            setUniquePickup(
+                Array.from(new Set(assignedData.map((a) => a.username))).map(
+                    (name) => {
+                        return assignedData.find((a) => a.username === name);
+                    }
+                )
+            );
         };
-       
+
         fetchData();
     }, []);
 
@@ -55,7 +57,7 @@ const DriverDashboardMain = () => {
                   headers: ["Orders to Fulfill"],
                   values: [["No orders yet"]],
               },
-        });
+          });
 
     let assignedPickupsTableData = {};
     uniquePickup
@@ -121,7 +123,7 @@ const DriverDashboardMain = () => {
                             : "Delivery To Do"
                     }
                     title="Today's Deliveries"
-                    link="/dashboard/driver/assigned-deliveries"
+                    link="/dashboard/driver/assigned-pickups/"
                 />
                 <RecentOrders
                     buttonText="View"
@@ -143,7 +145,7 @@ const DriverDashboardMain = () => {
                             : "Delivery"
                     }
                     title="Value of Past Deliveries"
-                    link="/dashboard/driver/order-history"
+                    link="/dashboard/driver/delivery-history"
                 />
             </StoreDash>
         </DashboardContainer>
