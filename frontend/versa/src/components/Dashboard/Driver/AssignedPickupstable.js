@@ -70,7 +70,6 @@ const AssignedPickupTable = ({ orderData }) => {
     ).map((name) => {
         return filteredData.find((a) => a.username === name);
     });
-    console.log(uniqueArtist)
     return (
         <TableContainer>
             {!orderData ? (

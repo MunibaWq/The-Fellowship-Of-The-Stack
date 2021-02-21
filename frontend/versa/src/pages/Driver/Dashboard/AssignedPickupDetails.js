@@ -31,9 +31,9 @@ const AssignedPickupDetails = () => {
                 <Loading />
             ) : (
                 <>
-                    <BackToOrder to="/dashboard/driver/assigned-deliveries">
+                    <BackToOrder to="/dashboard/driver/assigned-pickups">
                         <LeftIcon stroke={theme.primary} />
-                        Deliveries
+                        Pickups
                     </BackToOrder>
                     <ArtistDetails>
                         <Artist>
