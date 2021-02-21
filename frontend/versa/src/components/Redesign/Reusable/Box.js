@@ -2,15 +2,17 @@ import React from "react";
 import styled from "styled-components";
 import Card from "./Card";
 
-const Box = ({ dataToMap, boxTitle, boxDescription, type }) => {
+const Box = ({ dataToMap, boxTitle, boxDescription, type, action }) => {
     console.log("dt", dataToMap.length);
     return (
         <Container>
-            <Title>
-                <h2>{boxTitle}</h2>
-            </Title>
-            <Spotlight>
-                <p>{boxDescription}</p>
+            {boxTitle && (
+                <Title>
+                    <h2>{boxTitle}</h2>
+                </Title>
+            )}
+            <Spotlight boxTitle>
+                {boxDescription && <p>{boxDescription}</p>}
                 <CardList>
                     {dataToMap.length > 0 ? (
                         dataToMap.map((item, index) => (
@@ -35,6 +37,7 @@ const Container = styled.article`
     align-items: flex-start;
     margin: Clamp(8px 0px, 2vw, 60px 0);
     border-radius: 15px 15px 0px 0px;
+    background: none;
 `;
 
 const Title = styled.div`
@@ -46,6 +49,7 @@ const Title = styled.div`
     padding: 16px 30px;
     border-radius: 15px 15px 0px 0px;
     background: ${(props) => props.theme.black};
+    margin-bottom: 2em;
     h2 {
         font-size: 36px;
         color: ${(props) => props.theme.blue};
@@ -58,7 +62,8 @@ const Spotlight = styled.section`
     justify-content: center;
     align-items: center;
     padding: 40px 20px;
-    background: ${(props) => props.theme.lightBlue};
+    background: ${(props) =>
+        props.boxTitle > 0 ? props.theme.lightBlue : "none"};
     p {
         font-weight: 500;
     }

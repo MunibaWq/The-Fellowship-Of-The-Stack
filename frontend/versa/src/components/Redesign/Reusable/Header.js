@@ -45,6 +45,7 @@ export default Header;
 const HeaderContainer = styled.header`
     flex-direction: column;
     align-items: flex-start;
+    align-self: flex-start;
 `;
 
 const Subheading = styled.p`

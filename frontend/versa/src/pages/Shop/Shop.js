@@ -6,7 +6,10 @@ import Header from "../../components/Redesign/Reusable/Header";
 import Loading from "../../components/Redesign/Reusable/Loading";
 
 const Shop = () => {
+    let featuredArtistID = 44;
     const [products, setProducts] = useState();
+    const [notFeatured, setNotFeatured] = useState();
+    const [featured, setFeatured] = useState();
     const [query, setQuery] = useState();
     const calcTotalStock = (product1) => {
         return product1.stock.reduce((total, curr) => {
@@ -33,6 +36,32 @@ const Shop = () => {
         let data = await searchProducts(query);
         setProducts(data);
     };
+    console.log(products, "raw");
+
+    useEffect(() => {
+        const partition = (array, featuredArtistID) => {
+            let pass = [],
+                fail = [];
+            array.forEach((e) => {
+                if (e.artist_id === featuredArtistID) {
+                    pass.push(e);
+                } else {
+                    fail.push(e);
+                }
+            });
+            return [pass, fail];
+        };
+
+        if (products) {
+            const [featured, notFeatured] = partition(
+                products,
+                featuredArtistID
+            );
+            setFeatured(featured);
+            setNotFeatured(notFeatured);
+        }
+    }, [products, featuredArtistID]);
+
     return (
         <PageContainer>
             <Header
@@ -53,15 +82,18 @@ const Shop = () => {
                 }}
                 onChange={(e) => setQuery(e.target.value.replace(/[.?]/g, ""))}
             />
-            {!products ? (
+            {!featured && !notFeatured ? (
                 <Loading />
             ) : (
-                <Box
-                    dataToMap={products}
-                    boxTitle="Artist Spotlight: Wonderland"
-                    boxDescription="Shop the creations of this month’s featured local artist."
-                    type="shop"
-                />
+                <>
+                    <Box
+                        dataToMap={featured}
+                        boxTitle="Artist Spotlight: Wonderland"
+                        boxDescription="Shop the creations of this month’s featured local artist."
+                        type="shop"
+                    />
+                    <Box dataToMap={notFeatured} type="shop" />
+                </>
             )}
         </PageContainer>
     );
