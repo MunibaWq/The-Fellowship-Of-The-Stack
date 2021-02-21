@@ -5,7 +5,7 @@ import { Link, useParams, useHistory } from "react-router-dom";
 import {
     getCollabsByEventID,
     getEventByID,
-    getUser,
+    getUserByToken,
     getImagesByEID,
 } from "../../axios/gets";
 import { userGoing } from "../../axios/posts";
@@ -34,7 +34,7 @@ const EventPage = () => {
 
     useEffect(() => {
         const findUser = async () => {
-            const response = await getUser();
+            const response = await getUserByToken();
             setIsUser(response);
         };
         findUser();

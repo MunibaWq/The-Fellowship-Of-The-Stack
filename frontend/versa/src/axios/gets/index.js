@@ -10,14 +10,6 @@ export const getProductByID = async (currentProduct) => {
     const response = await Axios.get(`/api/products/get/${currentProduct}`);
     return response.data;
 };
-export const getUser = async () => {
-    try {
-        const response = await Axios.get("/api/users/get");
-        return response.data;
-    } catch {
-        return false;
-    }
-};
 
 export const getAllProducts = async () => {
     let res = await Axios.get("/api/products/allProducts/", {

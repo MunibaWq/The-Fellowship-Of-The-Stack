@@ -7,7 +7,7 @@ import { deleteUserFromEventByID } from "../../axios/deletes";
 import imageTest from "../../images/imageTest.png";
 import Button from "../Reusable/Button";
 import theme from "../Reusable/Colors";
-import { amIGoing, getUser } from "../../axios/gets";
+import { amIGoing, getUserByToken } from "../../axios/gets";
 
 const EventCard = ({ theEvent }) => {
     //const [interested, setInterested] = useState(false);
@@ -28,7 +28,7 @@ const EventCard = ({ theEvent }) => {
 
     useEffect(() => {
         const findUser = async () => {
-            const response = await getUser();
+            const response = await getUserByToken();
             setIsUser(response);
             // console.log(response);
         };
