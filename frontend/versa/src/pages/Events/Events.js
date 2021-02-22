@@ -12,18 +12,29 @@ import Loading from "../../components/Redesign/Reusable/Loading";
 const Events = () => {
     const [events, setEvents] = useState();
     const [searchQuery, setSearchQuery] = useState();
-    const [date1, setDate1] = useState();
-    const [date2, setDate2] = useState();
+    const [date1, setDate1] = useState(new Date('Jan 1 1900'));
+    const [date2, setDate2] = useState(new Date('Dec 31 2999'));
+    const [filteredEvents, setFilteredEvents] = useState();
 
     useEffect(() => {
         const getEvents = async () => {
             let data = await getAllEvents();
-            console.log(data)
+            console.log(data);
             setEvents(data);
         };
         getEvents();
     }, []);
-
+    useEffect(() => {
+        if (events) {
+            let tempEvents = events.filter((event) => {
+                return (
+                    new Date(event.end_time) - date1 > 0 &&
+                    date2 - new Date(event.start_time) > 0
+                );
+            });
+            setFilteredEvents(tempEvents);
+        }
+    }, [events, date1, date2]);
     const search = async () => {
         let data = await searchEvents(searchQuery);
         setEvents(data);
@@ -50,7 +61,7 @@ const Events = () => {
                     style={{ width: "20%" }}
                     onChange={(e) => {
                         let toDate = new Date(e.target.value);
-                        let date1Set = toDate.setDate(toDate.getDate() + 1);
+                        let date1Set = toDate.setDate(toDate.getDate());
                         setDate1(new Date(date1Set));
                     }}
                     type="date"
@@ -67,31 +78,44 @@ const Events = () => {
                     type="date"
                 />
             </SearchBarDiv>
-            {!events ? (
+            {!filteredEvents ? (
                 <Loading />
             ) : (
                 <Box
-                    dataToMap={events.sort((event1, event2) => {
-                        let eventDate1 = new Date(event1.start_time);
-                        let eventDate2 = new Date(event2.start_time);
-                        if (new Date() - eventDate1 > 0) {
-                            return 1;
-                        } else if (new Date() - eventDate2 > 0) {
-                            return -1;
-                        }
-                        return eventDate1 - eventDate2;
-                    }).map((event) => {
-                        const mappedEvent = {
-                            ...event, startTime: new Date(event.start_time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-                            startDate: new Date(event.start_time).toLocaleDateString([], {year: 'numeric', month: 'long', day: 'numeric' })
-                        }
-                        return mappedEvent;
-                    })}
-                        type="event"
-                        
-                        link="events"
-                        awsFolder="eventImages"
-                        action
+                    dataToMap={filteredEvents
+                        .sort((event1, event2) => {
+                            let eventDate1 = new Date(event1.start_time);
+                            let eventDate2 = new Date(event2.start_time);
+                            if (new Date() - eventDate1 > 0) {
+                                return 1;
+                            } else if (new Date() - eventDate2 > 0) {
+                                return -1;
+                            }
+                            return eventDate1 - eventDate2;
+                        })
+                        .map((event) => {
+                            const mappedEvent = {
+                                ...event,
+                                startTime: new Date(
+                                    event.start_time
+                                ).toLocaleTimeString([], {
+                                    hour: "2-digit",
+                                    minute: "2-digit",
+                                }),
+                                startDate: new Date(
+                                    event.start_time
+                                ).toLocaleDateString([], {
+                                    year: "numeric",
+                                    month: "long",
+                                    day: "numeric",
+                                }),
+                            };
+                            return mappedEvent;
+                        })}
+                    type="event"
+                    link="events"
+                    awsFolder="eventImages"
+                    action
                 />
             )}
         </PageContainer>
