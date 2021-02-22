@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import MessageList from "../../components/Dashboard/Messages/MessageList";
-import { getMessages } from "../../axios/gets";
-import MessageThread from "../../components/Dashboard/Messages/MessageThread";
+import MessageList from "../components/Dashboard/Messages/MessageList";
+import { getMessages } from "../axios/gets";
+import MessageThread from "../components/Dashboard/Messages/MessageThread";
 
 const Messages = () => {
     const [messages, setMessages] = useState();
