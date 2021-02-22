@@ -171,7 +171,10 @@ const Navbar = () => {
                     )}
                     <NavLink
                         color={theme.secondary}
-                        to="/account"
+                        onClick={() => {
+                            setAccount(onHover);
+                            setModal(!modal);
+                        }}
                         onMouseEnter={() => {
                             setAccount(onHover);
                             setModal(true);
@@ -398,7 +401,7 @@ const SubContainer = styled(Link)`
 const SubIcon = styled.div`
     background: ${(props) => props.background};
     border-radius: 8px;
-    padding: 10px 10px;
+    padding: 10px 10px 4px 10px;
 `;
 
 const SubText = styled.p`
