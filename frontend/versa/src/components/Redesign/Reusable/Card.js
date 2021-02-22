@@ -4,8 +4,13 @@ import { Link } from "react-router-dom";
 import { calcTotalStock } from "../../../functions/calcTotalStock";
 import OutOfStock from "./OutOfStock";
 import { Going, ShoppingCart } from "../../../images/icons";
-const bigDetails = { shop: { first: "$", second: "price" }, "event": {second:"num_attending", third: " attending"}};
-const details = {shop: "artist", event: "location"}
+const bigDetails = {
+    shop: { first: "$", second: "price" },
+    event: { second: "num_attending", third: " attending" },
+};
+const details = { shop: "artist", event: "location" };
+const barDetailsL = { event: "startDate" };
+const barDetailsR = { event: "startTime" };
 const Card = ({ type, item, link, awsFolder, action, featured }) => {
     return (
         <Link to={`/${link}/${item.id}`} style={{ position: "relative" }}>
@@ -14,9 +19,16 @@ const Card = ({ type, item, link, awsFolder, action, featured }) => {
                     <p>Out of Stock</p> 🙁
                 </OutOfStock>
             )}
+
             <CardContainer
                 featured={featured}
                 stock={type === "shop" ? calcTotalStock(item) : null}>
+                {type === "event" && (
+                    <Bar>
+                        <p>{item[barDetailsL[type]]}</p>
+                        <p>{item[barDetailsR[type]]}</p>
+                    </Bar>
+                )}
                 <Image
                     src={`https://versabucket.s3.us-east-2.amazonaws.com/${awsFolder}/${item.thumbnail}.jpeg`}
                     alt={item.title}
@@ -31,9 +43,14 @@ const Card = ({ type, item, link, awsFolder, action, featured }) => {
                             {bigDetails[type].third}
                         </BigDetail>
                         {action && (
-                            <Action stock={calcTotalStock(item)}>
+                            <Action
+                                stock={
+                                    type === "shop"
+                                        ? calcTotalStock(item)
+                                        : null
+                                }>
                                 {type === "shop" && <ShoppingCart />}
-                                {type === "attend" && (
+                                {type === "event" && (
                                     <Going width="18" height="18" />
                                 )}
                             </Action>
@@ -46,14 +63,29 @@ const Card = ({ type, item, link, awsFolder, action, featured }) => {
 };
 
 export default Card;
-
+const Bar = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* height: 39px; */
+    background-color: ${(props) => props.theme.black};
+    width: calc(100% + 50px);
+    margin: -25px -25px 25px -25px;
+    padding: 10px 20px;
+    border-radius: 16px 16px 0 0;
+    p {
+        color: white;
+        font-size: 14px;
+    }
+`;
 const CardContainer = styled.div`
     border-radius: 16px;
     margin: 16px 8px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    padding: 20px;
+    width: 350px;
+    padding: 25px;
     filter: ${(props) => (props.stock === 0 ? "grayscale(1)" : "grayscale(0)")};
     cursor: pointer;
     background: ${(props) =>
@@ -65,8 +97,8 @@ const CardContainer = styled.div`
 `;
 
 const Image = styled.img`
-    width: 250px;
-    height: 250px;
+    width: 300px;
+    height: 300px;
     margin-top: 8px;
     filter: ${(props) =>
         props.stock === 0 ? "grayscale(100%)" : "grayscale(0%)"};

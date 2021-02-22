@@ -80,11 +80,18 @@ const Events = () => {
                             return -1;
                         }
                         return eventDate1 - eventDate2;
+                    }).map((event) => {
+                        const mappedEvent = {
+                            ...event, startTime: new Date(event.start_time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+                            startDate: new Date(event.start_time).toLocaleDateString([], {year: 'numeric', month: 'long', day: 'numeric' })
+                        }
+                        return mappedEvent;
                     })}
                         type="event"
                         
-                        link="product-item"
+                        link="events"
                         awsFolder="eventImages"
+                        action
                 />
             )}
         </PageContainer>
