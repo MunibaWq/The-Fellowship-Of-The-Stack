@@ -6,7 +6,7 @@ const PageContainer = styled.div`
     align-items: center;
     padding: 0px;
     min-height: 60vh;
-    margin: 8vh clamp(1em, 5vw, 6em);
+    margin: clamp(24px, 2vh, 5vh) clamp(16px, 8vh, 12vh);
 `;
 
 export default PageContainer;

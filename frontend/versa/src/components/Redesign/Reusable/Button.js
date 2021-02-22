@@ -4,9 +4,8 @@ import GradientMove from "./Animations";
 const Button = styled.button.attrs((props) => ({
     type: props.type || "button",
 }))`
-    display: flex;
+    display: inline-flex;
     flex-direction: row;
-    align-items: center;
     padding: 20px 40px;
     text-transform: uppercase;
     font-weight: 700;
@@ -22,7 +21,19 @@ const Button = styled.button.attrs((props) => ({
     max-width: fit-content;
     outline: none;
     cursor: pointer;
+    svg {
+        path {
+            stroke: ${(props) => props.theme.blue};
+            fill: ${(props) => props.theme.blue};
+        }
+    }
     :hover {
+        svg {
+            path {
+                fill: ${(props) => props.theme.black};
+                stroke: ${(props) => props.theme.black};
+            }
+        }
         background: ${(props) => props.theme.holo};
         color: ${(props) => props.theme.black};
     }
@@ -47,6 +58,11 @@ const Button = styled.button.attrs((props) => ({
             :hover {
                 background: ${(props) => props.theme.purple};
                 color: ${(props) => props.theme.blue};
+                svg {
+                    path {
+                        stroke: ${(props) => props.theme.blue};
+                    }
+                }
             }
         `}
     ${(props) =>
