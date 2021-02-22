@@ -136,7 +136,7 @@ router.delete("/delete/:id", auth, async (req, res) => {
         res.status(500).send("Not Authorized");
     } else {
         let checkOwner = await pool.query(
-            "SELECT p.artist_id from products p INNER JOIN images i ON i.product_id = p.product_id WHERE i.id = " +
+            "SELECT p.artist_id from products p INNER JOIN images i ON i.product_id = p.id WHERE i.id = " +
                 id
         );
         if (checkOwner.rows[0].artist_id !== req.user.id) {

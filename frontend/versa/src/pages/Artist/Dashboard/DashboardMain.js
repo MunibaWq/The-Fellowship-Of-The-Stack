@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 // import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
@@ -11,13 +11,44 @@ import {
     salesByProductData,
     recentOrders,
 } from "./data";
+import Cookies from "universal-cookie";
+import { getMyArtistEvents } from "../../../axios/gets";
+const cookies = new Cookies();
 const DashboardMain = () => {
-    // const dispatch = useDispatch();
-    // const user = useSelector((state) => state.user);
-    console.log(salesData);
+    const [eventsData, setEventsData] = useState();
+
+    useEffect(() => {
+        const fetchData = async (currentUser) => {
+            let data = await getMyArtistEvents();
+            setEventsData(data);
+        };
+        fetchData();
+    }, []);
+    let eventsTableData = {};
+    eventsData
+        ? (eventsTableData = {
+              table: {
+                  headers: ["Event", "Date", "Location"],
+                  values: [],
+              },
+          }) &&
+          eventsData.map((event) =>
+              eventsTableData.table.values.push([
+                  event.name,
+                  event.start_time,
+                  event.location,
+              ])
+          )
+        : (eventsTableData = {
+              table: {
+                  headers: ["Events"],
+                  values: [["No upcoming events"]],
+              },
+          });
+
     return (
         <DashboardContainer>
-            <Greeting>Hello, Danielle</Greeting>
+            <Greeting>Hello, {cookies.get("name")}</Greeting>
             <StoreDash>
                 {/* <History>
                     They can toggle the date to go to past day version of
@@ -30,7 +61,7 @@ const DashboardMain = () => {
                     total="123"
                     totalLabel="orders"
                     title="Orders"
-                    link="/dashboard/total-orders"></Orders>
+                    link="/dashboard/artist/total-orders"></Orders>
                 <RecentOrders
                     buttonText="View"
                     dataTitle="5 most recent"
@@ -38,7 +69,7 @@ const DashboardMain = () => {
                     total="12"
                     totalLabel="Unfulfilled"
                     title="Recent Orders"
-                    link="/dashboard/recent-orders"></RecentOrders>
+                    link="/dashboard/artist/recent-orders"></RecentOrders>
                 <SalesPerOrder
                     buttonText="Reports"
                     dataTitle="Average per week"
@@ -46,7 +77,7 @@ const DashboardMain = () => {
                     totalLabel="Average"
                     graphData={avgOrderData}
                     title={`Sales Per Order`}
-                    link="/dashboard/average-order-value"></SalesPerOrder>
+                    link="/dashboard/artist/average-order-value"></SalesPerOrder>
                 <Inventory
                     buttonText="View"
                     dataTitle="5 lowest in stock"
@@ -54,7 +85,7 @@ const DashboardMain = () => {
                     totalLabel="Low stock"
                     tableData={productData}
                     title="Inventory"
-                    link="/dashboard/inventory"></Inventory>
+                    link="/dashboard/artist/inventory"></Inventory>
                 <SalesByProduct
                     buttonText="Reports"
                     dataTitle="Top 5 products"
@@ -62,7 +93,7 @@ const DashboardMain = () => {
                     totalLabel="Top Product Sales"
                     pieData={salesByProductData}
                     title="Sales By Product"
-                    link="/dashboard/sales-by-products"
+                    link="/dashboard/artist/sales-by-products"
                 />
                 {/* <Profit>Small Card with number of total profit</Profit> */}
                 <MonthlySales
@@ -72,8 +103,15 @@ const DashboardMain = () => {
                     totalLabel="Total"
                     title="Monthly Sales"
                     graphData={salesData}
-                    link="/dashboard/total-sales"></MonthlySales>
-                {/* <Events>card showing 5 cards inside of upcoming events</Events> */}
+                    link="/dashboard/artist/total-sales"></MonthlySales>
+                <DashCard
+                    buttonText="Manage"
+                    dataTitle="Hosted Events"
+                    total={eventsTableData.table.values.length}
+                    totalLabel="Upcoming"
+                    title="Events"
+                    tableData={eventsTableData}
+                    link="/dashboard/artist/manage-events"></DashCard>
             </StoreDash>
         </DashboardContainer>
     );
@@ -82,6 +120,7 @@ export default DashboardMain;
 const DashboardContainer = styled.div`
     padding: 2em 2em 2em calc(2em + 66px);
     background-color: #eff3fe;
+    width: 100vw;
 `;
 
 const Orders = styled(DashCard)``;

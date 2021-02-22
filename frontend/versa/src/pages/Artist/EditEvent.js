@@ -20,4 +20,5 @@ const Container = styled.div`
     flex-direction: column;
     /* height: calc(84vh - 4em); */
     text-align: center;
+    width:90vw;
 `;

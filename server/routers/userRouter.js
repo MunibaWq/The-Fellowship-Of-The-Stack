@@ -7,7 +7,10 @@ const {
     generateAuthToken,
     findByCredentials,
 } = require("../helperFunctions/index");
-const { newAccount } = require("../helperFunctions/sendGridFunctions");
+const {
+    newAccount,
+    addToNewsletter,
+} = require("../helperFunctions/sendGridFunctions");
 
 router.post("/create", async (req, res, next) => {
     const user = req.body.data;
@@ -72,7 +75,6 @@ router.get("/get", auth, (req, res) => {
 //put the auth middleware which will get the user
 
 router.put("/update", auth, async (req, res, next) => {
-    console.log(req.body);
     const user = req.user; //this is where the user is, looking at auth.js
     const updatedUser = {}; //this is what we're going to send into the query
     //now we have the user obj,
@@ -96,7 +98,6 @@ router.put("/update", auth, async (req, res, next) => {
             : req.body.data.isDriver === true
             ? true
             : user.is_driver;
-    console.log(updatedUser);
     //now we need to change whats in the updatedUser array, this does the update
     const data = await pool.query(
         `UPDATE users SET username=$1, email=$2, address=$3, store_address=$4, is_artist=$5, is_driver=$6, name=$7 WHERE id=$8 RETURNING username  `,
@@ -117,4 +118,21 @@ router.put("/update", auth, async (req, res, next) => {
     res.json(data.rows[0]);
 });
 
+router.post("/newsletter-signup", (req, res) => {
+    try {
+        const { email } = req.body;
+
+        pool.query(`INSERT INTO newsletter(email) VALUES ($1)`, [email]);
+        res.json("Added to newsletter sign ups!");
+        addToNewsletter(email);
+    } catch (e) {
+        console.log("error", e);
+
+        res.send(e);
+    }
+});
+
+router.get('/me', auth, (req, res) => {
+    res.send(req.user)
+})
 module.exports = router;

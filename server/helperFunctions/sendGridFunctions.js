@@ -286,7 +286,7 @@ const notGoingToEvent = (attendee) => {
         });
 };
 
-const orderConfirmation = ( items, name, email, orderID, deliveryType) => {
+const orderConfirmation = (items, name, email, orderID, deliveryType) => {
     let options = {
         weekday: "long",
         year: "numeric",
@@ -300,11 +300,11 @@ const orderConfirmation = ( items, name, email, orderID, deliveryType) => {
         minute: "2-digit",
     });
     let subtotal = items.reduce((total, curr) => {
-        total += curr.itemQuantity * curr.itemPrice
-        return total
-    }, 0)
-    let delivery
-    if (subtotal < 100 && deliveryType === 'delivery') {
+        total += curr.itemQuantity * curr.itemPrice;
+        return total;
+    }, 0);
+    let delivery;
+    if (subtotal < 100 && deliveryType === "delivery") {
         delivery = 10;
     } else {
         delivery = 0;
@@ -320,15 +320,15 @@ const orderConfirmation = ( items, name, email, orderID, deliveryType) => {
                     },
                 ],
                 dynamic_template_data: {
-                    username:name,
+                    username: name,
                     email,
                     orderDate: startDate,
                     orderTime: startTime,
                     items,
-                    total: ((subtotal + (delivery ? 10 : 0))* 1.05).toFixed(2) ,
+                    total: ((subtotal + (delivery ? 10 : 0)) * 1.05).toFixed(2),
                     subtotal: subtotal.toFixed(2),
-                    gst: ((subtotal+(delivery ? 10 : 0 )) * 0.05).toFixed(2),
-                    delivery:delivery.toFixed(2),
+                    gst: ((subtotal + (delivery ? 10 : 0)) * 0.05).toFixed(2),
+                    delivery: delivery.toFixed(2),
                     orderID,
                 },
             },
@@ -436,6 +436,40 @@ const newAccount = (name, email) => {
         });
 };
 
+const addToNewsletter = (email) => {
+    let data = {
+        personalizations: [
+            {
+                to: [
+                    {
+                        email: email,
+                    },
+                ],
+                dynamic_template_data: {
+                    email: email,
+                },
+            },
+        ],
+        from: {
+            email: "versayyc@gmail.com",
+            name: "Versa",
+        },
+        reply_to: {
+            email: "versayyc@gmail.com",
+            name: "Versa",
+        },
+        template_id: "d-8b31cb31447b4294a2139bd787f15a2c",
+    };
+    sgMail
+        .send(data)
+        .then(() => {
+            console.log("Email sent");
+        })
+        .catch((error) => {
+            console.error(error);
+        });
+};
+
 module.exports = {
     sendReminder,
     emailsSent,
@@ -445,4 +479,5 @@ module.exports = {
     orderConfirmation,
     orderReadyForPickup,
     newAccount,
+    addToNewsletter,
 };

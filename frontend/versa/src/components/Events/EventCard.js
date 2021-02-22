@@ -1,18 +1,37 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { Going, NotGoing } from "../../images/icons";
 import { userGoing } from "../../axios/posts";
 import { deleteUserFromEventByID } from "../../axios/deletes";
 import imageTest from "../../images/imageTest.png";
 import Button from "../Reusable/Button";
 import theme from "../Reusable/Colors";
-import { amIGoing } from "../../axios/gets";
+import { amIGoing, getUserByToken } from "../../axios/gets";
 
 const EventCard = ({ theEvent }) => {
     //const [interested, setInterested] = useState(false);
-    const [going, setGoing] = useState("unset");
+    const [going, setGoing] = useState(false);
+    const [isUser, setIsUser] = useState();
+
+    //state to update attending number when user attends/unattends event
+    const [attending, setAttending] = useState(Number(theEvent.num_attending));
+
     let currentEvent = theEvent.id;
+    const history = useHistory();
+
+    const routeChange = () => {
+        let path = `/account`;
+        history.push(path);
+    };
+
+    useEffect(() => {
+        const findUser = async () => {
+            const response = await getUserByToken();
+            setIsUser(response);
+        };
+        findUser();
+    }, []);
 
     useEffect(() => {
         const attendStatus = async () => {
@@ -24,17 +43,6 @@ const EventCard = ({ theEvent }) => {
         attendStatus();
     }, [currentEvent]);
 
-    // useEffect(() => {
-    //     if (going !== "unset") {
-    //         if (!going) {
-    //             deleteUserFromEventByID(currentEvent);
-    //         } else {
-    //             userGoing(currentEvent);
-    //         }
-    //     }
-    // }, [going, currentEvent]);
-
-    console.log("results", theEvent);
     let options = {
         weekday: "long",
         year: "numeric",
@@ -59,7 +67,9 @@ const EventCard = ({ theEvent }) => {
         <CardContainer>
             {theEvent.thumbnail ? (
                 <Link to={`/events/${theEvent.id}`}>
-                    <Thumbnail src={theEvent.thumbnail} />
+                    <Thumbnail
+                        src={`https://versabucket.s3.us-east-2.amazonaws.com/eventImages/${theEvent.thumbnail}.jpeg`}
+                    />
                 </Link>
             ) : (
                 <Link to={`/events/${theEvent.id}`}>
@@ -77,12 +87,7 @@ const EventCard = ({ theEvent }) => {
                         : "Loading"}
                 </EventDate>
                 <Time>{startTime ? startTime + "-" + endTime : "Loading"}</Time>
-                <Stats>
-                    <NumInterested>
-                        {theEvent.num_interested} Interested
-                    </NumInterested>
-                    <NumGoing>{theEvent.num_attending} Going</NumGoing>
-                </Stats>
+                <Stats></Stats>
             </Link>
             <Actions>
                 {/**<ActionButton
@@ -111,9 +116,19 @@ const EventCard = ({ theEvent }) => {
                 <ActionButton
                     onClick={() => {
                         if (going) {
-                            deleteUserFromEventByID(currentEvent);
+                            if (isUser) {
+                                deleteUserFromEventByID(currentEvent);
+                                setAttending(attending - 1);
+                            } else {
+                                routeChange();
+                            }
                         } else {
-                            userGoing(currentEvent);
+                            if (isUser) {
+                                userGoing(currentEvent);
+                                setAttending(attending + 1);
+                            } else {
+                                routeChange();
+                            }
                         }
                         setGoing((curr) => !curr);
                     }}>
@@ -124,6 +139,7 @@ const EventCard = ({ theEvent }) => {
                     )}
                     {going && <NotGoing />}
                 </ActionButton>
+                <NumGoing>{attending} Going</NumGoing>
                 {/**} <ActionButton>
                     <Share stroke={theme.primary} />
                     </ActionButton>**/}

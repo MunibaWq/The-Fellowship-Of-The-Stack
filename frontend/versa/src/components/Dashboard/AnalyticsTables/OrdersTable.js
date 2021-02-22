@@ -12,22 +12,20 @@ const OrdersTable = ({ user, orderData }) => {
 
     const sortOptions = [
         {
-            value: "orderdate",
-            label: "Order Date",
-        },
-        {
             value: "id",
             label: "Order ID",
+        },
+        {
+            value: "ordername",
+            label: "Buyer Name",
         },
     ];
 
     useEffect(() => {
         const sortArray = (type) => {
             const types = {
-                orderdate: (a, b) => {
-                    if (a.orderDate < b.orderDate) {
-                        return -1;
-                    }
+                ordername: (a, b) => {
+                    return a.name.localeCompare(b.name);
                 },
                 id: (a, b) => {
                     return a.id - b.id;
@@ -35,7 +33,6 @@ const OrdersTable = ({ user, orderData }) => {
             };
             const sortProperty = types[type];
             const sorted = [...orderData].sort(sortProperty);
-            console.log(sorted);
             setData(sorted);
         };
 
@@ -115,7 +112,7 @@ const OrdersTable = ({ user, orderData }) => {
                                     <td
                                         onClick={() =>
                                             history.push(
-                                                `/dashboard/recent-orders/${order.id}`
+                                                `/dashboard/artist/recent-orders/${order.id}`
                                             )
                                         }>
                                         <p>{order.id}</p>
@@ -123,7 +120,7 @@ const OrdersTable = ({ user, orderData }) => {
                                     <td
                                         onClick={() =>
                                             history.push(
-                                                `/dashboard/recent-orders/${order.id}`
+                                                `/dashboard/artist/recent-orders/${order.id}`
                                             )
                                         }>
                                         <p>{order.name}</p>
@@ -131,7 +128,7 @@ const OrdersTable = ({ user, orderData }) => {
                                     <td
                                         onClick={() =>
                                             history.push(
-                                                `/dashboard/recent-orders/${order.id}`
+                                                `/dashboard/artist/recent-orders/${order.id}`
                                             )
                                         }>
                                         <p>{order.shipping_address}</p>
@@ -139,7 +136,7 @@ const OrdersTable = ({ user, orderData }) => {
                                     <td
                                         onClick={() =>
                                             history.push(
-                                                `/dashboard/recent-orders/${order.id}`
+                                                `/dashboard/artist/recent-orders/${order.id}`
                                             )
                                         }
                                         data-title="Date">
@@ -155,7 +152,7 @@ const OrdersTable = ({ user, orderData }) => {
                                     <td
                                         onClick={() =>
                                             history.push(
-                                                `/dashboard/recent-orders/${order.id}`
+                                                `/dashboard/artist/recent-orders/${order.id}`
                                             )
                                         }>
                                         <p>
@@ -255,28 +252,28 @@ const Table = styled.table`
     td {
         padding: 12px 15px;
         :nth-of-type(1) {
-            min-width: 80px;
+            min-width: 50px;
             @media screen and (max-width: 600px) {
                 display: none;
             }
         }
         :nth-of-type(2) {
-            min-width: 170px;
+            min-width: 130px;
         }
         :nth-of-type(3) {
-            min-width: 300px;
+            min-width: 120px;
             @media screen and (max-width: 600px) {
                 display: none;
             }
         }
         :nth-of-type(4) {
-            min-width: 190px;
+            min-width: 250px;
             @media screen and (max-width: 600px) {
                 display: none;
             }
         }
         :nth-of-type(5) {
-            min-width: 180px;
+            min-width: 230px;
         }
         :nth-of-type(6) {
             min-width: 190px;

@@ -1,25 +1,47 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Button from "../Reusable/Button";
-import { Link, useParams } from "react-router-dom";
-import { getEventByID } from "../../axios/gets";
-import { userGoing } from "../../axios/posts";
+import { Link, useParams, useHistory } from "react-router-dom";
+import {
+    getCollabsByEventID,
+    getEventByID,
+    getUserByToken,
+} from "../../axios/gets";
+import { sendMessage, userGoing } from "../../axios/posts";
 import theme from "../Reusable/Colors";
-import { LeftIcon, Going, NotGoing } from "../../images/icons";
+import { LeftIcon, Going, NotGoing, SendIcon } from "../../images/icons";
 import { deleteUserFromEventByID } from "../../axios/deletes";
 import { amIGoing } from "../../axios/gets";
-import imageTest from "../../images/imageTest.png";
+import ImageTest from "../../images/imageTest.png";
+// import { clearChoices, setChoices } from "../../redux/actions/EventPage";
 
 const EventPage = () => {
-    const [going, setGoing] = useState("unset");
+    const [going, setGoing] = useState("false");
     let params = useParams();
     const currentEvent = params.id;
+
     const [eventData, setEventData] = useState([]);
     const [dateTime, setDateTime] = useState();
+    const [collabs, setCollabs] = useState();
+    const [question, setQuestion] = useState();
+    //state to update attending number when user attends/unattends event
+    const [attending, setAttending] = useState();
+    const [sent, setSent] = useState();
+    const [image, setImage] = useState();
+    
+    const [isUser, setIsUser] = useState();
+    useEffect(() => {
+        const findUser = async () => {
+            const response = await getUserByToken();
+            setIsUser(response);
+        };
+        findUser();
+    }, []);
 
     useEffect(() => {
         const attendStatus = async () => {
             const response = await amIGoing(currentEvent);
+
             if (response) {
                 setGoing(true);
             } else setGoing(false);
@@ -28,20 +50,17 @@ const EventPage = () => {
     }, [currentEvent]);
 
     useEffect(() => {
-        if (going === false) {
-            deleteUserFromEventByID(currentEvent);
-        } else {
-            userGoing(currentEvent);
-        }
-    }, []);
-
-    useEffect(() => {
         const fetchEvent = async () => {
             const data = await getEventByID(currentEvent);
-            setEventData(data);
             console.log(data);
+            setEventData(data);
+            setImage(data.thumbnail);
+            setAttending(data.num_attending);
+            const collaborators = await getCollabsByEventID(currentEvent);
+            setCollabs(collaborators);
             return data;
         };
+
         fetchEvent().then((data) => {
             let options = {
                 weekday: "long",
@@ -63,6 +82,7 @@ const EventPage = () => {
                 hour: "2-digit",
                 minute: "2-digit",
             });
+
             setDateTime({
                 startDate,
                 endDate,
@@ -71,6 +91,13 @@ const EventPage = () => {
             });
         });
     }, [currentEvent]);
+
+    const history = useHistory();
+
+    const routeChange = () => {
+        let path = `/account`;
+        history.push(path);
+    };
 
     return (
         <Container>
@@ -82,7 +109,13 @@ const EventPage = () => {
             </Link>
             <MainInfo>
                 <EventImages>
-                    <MainImage src={imageTest} alt={"image"}></MainImage>
+                    <MainImage
+                        src={
+                            image
+                                ? `https://versabucket.s3.us-east-2.amazonaws.com/eventImages/${image}.jpeg`
+                                : ImageTest
+                        }
+                        alt={"image"}></MainImage>
                 </EventImages>
 
                 <EventDetail>
@@ -98,7 +131,16 @@ const EventPage = () => {
                             ? "  " + eventData.username
                             : "Loading Host Name"}
                     </h2>
-
+                    <Collabs>
+                        {collabs && collabs.length > 0 && (
+                            <h3>In collaboration with: </h3>
+                        )}
+                        {collabs &&
+                            collabs.length > 0 &&
+                            collabs.map((collab, index) => {
+                                return <p key={index}>{collab.username}</p>;
+                            })}
+                    </Collabs>
                     <Details>
                         <h3>Date: </h3>
                         <p>
@@ -116,18 +158,15 @@ const EventPage = () => {
                         </p>
                     </Details>
                     <Details>
-                        <h3>Interested: </h3>
-                        <Stats>
-                            <p>{eventData ? eventData.num_interested : "0"} </p>
-                        </Stats>
-                    </Details>
-                    <Details>
-                        <h3>Attending: </h3>
-                        <Stats>
-                            <p>{eventData ? eventData.num_attending : "0"} </p>
-                        </Stats>
+                        <h3>Location:</h3>
+                        <p>{eventData.location}</p>
                     </Details>
 
+                    <Details>
+                        <h3>Attending: </h3>
+
+                        <p>{eventData ? attending : "0"} </p>
+                    </Details>
                     <Description>
                         <h3>Description</h3>
                         <p>
@@ -136,27 +175,73 @@ const EventPage = () => {
                                 : "Loading description..."}
                         </p>
                     </Description>
-
-                    {going === "unset" && (
+                    {!going && (
                         <Button
                             primary
                             onClick={() => {
-                                setGoing(true);
+                                if (isUser) {
+                                    userGoing(currentEvent);
+                                    setAttending(attending + 1);
+                                } else {
+                                    routeChange();
+                                }
+
+                                setGoing((curr) => !curr);
                             }}>
                             <Going stroke={theme.secondary} />
                             Attend Event
                         </Button>
                     )}
-
-                    {going === true && (
+                    {going && (
                         <Button
                             primary
                             onClick={() => {
-                                setGoing(false);
+                                if (isUser) {
+                                    deleteUserFromEventByID(currentEvent);
+                                    setAttending(attending - 1);
+                                } else {
+                                    routeChange();
+                                }
+
+                                setGoing((curr) => !curr);
                             }}>
                             <NotGoing stroke={theme.secondary} />
-                            Not Going
+                            Unattend Event
                         </Button>
+                    )}
+                    {isUser && (
+                        <Question>
+                            <h3>Ask the host about this event:</h3>
+                            <Send>
+                                {!sent ? (
+                                    <>
+                                        <Message
+                                            value={question}
+                                            onChange={(e) => {
+                                                setQuestion(e.target.value);
+                                            }}
+                                        />
+                                        <Button
+                                            onClick={() => {
+                                                sendMessage(
+                                                    `Event: ${eventData.name}`,
+                                                    eventData.host,
+                                                    "B2A",
+                                                    question,
+                                                    new Date()
+                                                );
+                                                setSent(true);
+                                            }}
+                                            secondary>
+                                            <SendIcon />
+                                            Send
+                                        </Button>
+                                    </>
+                                ) : (
+                                    "Message Sent, check dashboard for responses"
+                                )}
+                            </Send>
+                        </Question>
                     )}
                 </EventDetail>
             </MainInfo>
@@ -166,6 +251,18 @@ const EventPage = () => {
 
 export default EventPage;
 
+const Message = styled.textarea`
+    resize: none;
+    width: 100%;
+    height: 100%;
+    margin: 5px;
+`;
+const Send = styled.div``;
+const Question = styled.div`
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+`;
 const Container = styled.div`
     display: flex;
     flex-direction: column;
@@ -271,22 +368,45 @@ const Details = styled.div`
     flex-direction: row;
     align-items: center;
     justify-content: center;
-`;
-
-const Stats = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 2em;
-    height: 2em;
-    margin: 0 0px 20px 0px;
-    padding: 20px;
-    border: ${theme.tertiary};
-    border-radius: 50px;
-    background-color: ${theme.tertiary};
+    margin-bottom: 1em;
+    h3,
     p {
-        margin: 0;
-        font-size: 0.8em;
-        color: white;
+        margin-bottom: 0;
+    }
+
+    p {
+        font-size: 0.9em;
     }
 `;
+
+const Collabs = styled(Details)`
+    p {
+        :first-of-type {
+            ::before {
+                content: "";
+            }
+        }
+
+        ::before {
+            content: ", ";
+        }
+    }
+`;
+
+// const Stats = styled.div`
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//     width: 2em;
+//     height: 2em;
+//     margin: 0 0px 20px 0px;
+//     padding: 20px;
+//     border: ${theme.tertiary};
+//     border-radius: 50px;
+//     background-color: ${theme.tertiary};
+//     p {
+//         margin: 0;
+//         font-size: 0.8em;
+//         color: white;
+//     }
+// `;

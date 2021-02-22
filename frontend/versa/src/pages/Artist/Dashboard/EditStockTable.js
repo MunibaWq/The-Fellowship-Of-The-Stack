@@ -23,7 +23,9 @@ const EditStockTable = ({ item, setter }) => {
                     id: id,
                     color: color.label,
                     size: size.label,
+                    price: size.price,
                     quantity: 0,
+                    cost: size.cost,
                 };
                 for (let el of stock) {
                     if (el.color === color.label && el.size === size.label) {
@@ -44,19 +46,21 @@ const EditStockTable = ({ item, setter }) => {
             setStock(res.data);
         };
         getProductStock();
-        
-    }, [id]);
+    }, []);
 
     useEffect(() => {
         if (item.length !== 0 && stock.length > 0) {
             setTimeout(() => {
-                
                 mapColorsAndSizes(stock);
-            }, 1000)
+            }, 1000);
         }
-    }, [item,stock.length]);
-
-
+    }, [item, stock.length]);
+    function calcMargin(base, price, cost) {
+        if (cost && price && base) {
+            return parseFloat(base) + parseFloat(price) - cost;
+        }
+        return "N/A";
+    }
     function mapTable(arr) {
         if (arr.length > 0) {
             return arr.map((unit) => {
@@ -76,11 +80,13 @@ const EditStockTable = ({ item, setter }) => {
                                 }}
                             />
                         </td>
+                        <td>{unit.cost}</td>
+                        <td>{calcMargin(item.price, unit.price, unit.cost)}</td>
                     </tr>
                 );
             });
         } else {
-            return <tr />;
+            return <tr></tr>;
         }
     }
 
@@ -92,6 +98,8 @@ const EditStockTable = ({ item, setter }) => {
                     <th>Color </th>
                     <th>Size </th>
                     <th>Quantity </th>
+                    <th>Cost </th>
+                    <th>Margin </th>
                 </thead>
                 {mapTable(stock)}
             </TableStyle>
@@ -111,7 +119,7 @@ const EditStockTable = ({ item, setter }) => {
     );
 };
 const TableStyle = styled.table`
-    width:100%;
+    width: 100%;
     text-align: left;
     padding: 1%;
     margin-top: 10%;
@@ -130,6 +138,8 @@ const TableStyle = styled.table`
         padding: 1%;
         border-collapse: collapse;
     }
-    input { width: 100%; }
+    input {
+        width: 100%;
+    }
 `;
 export default EditStockTable;

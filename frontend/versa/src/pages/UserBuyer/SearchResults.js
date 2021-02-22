@@ -53,7 +53,6 @@ const SearchResults = () => {
             </SearchBarDiv>
             <div></div>
             <Products>
-                {console.log(typeof products)}
                 {!products ? (
                     <Loading />
                 ) : products.length > 0 ? (

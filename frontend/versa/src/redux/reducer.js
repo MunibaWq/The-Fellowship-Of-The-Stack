@@ -144,7 +144,6 @@ const productReducer = (state = initState, action) => {
             newState.productData = action.payload;
             return newState;
         case "SELECT_PRODUCT":
-            console.log("selecting product reducer", action.payload);
             newState.selectedProduct = action.payload;
             return newState;
         case "SET_REDIRECT":

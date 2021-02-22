@@ -1,5 +1,5 @@
 import Axios from "axios";
-import { addImage } from "../posts";
+import { addEventImage, addImage } from "../posts";
 
 export const editProduct = async (productInfo, images, id, thumbImg) => {
     await Axios.put("/api/products/edit/" + id, {
@@ -13,7 +13,7 @@ export const editProduct = async (productInfo, images, id, thumbImg) => {
 
         if (image.imageFile === "update") {
             let { label, size, filename } = image;
-            let res = await updateImage(label, size, id, filename);
+            let res = await updateProductImage(label, size, id, filename);
             if (!res) {
                 alert("failed to update thumbnail choice");
             }
@@ -35,7 +35,7 @@ export const editProduct = async (productInfo, images, id, thumbImg) => {
     });
     return productID;
 };
-export const updateImage = async (label, imageSize, productID, filename) => {
+export const updateProductImage = async (label, imageSize, productID, filename) => {
     try {
         const response = await Axios.put("/api/images/update", {
             imageSize,
@@ -53,6 +53,7 @@ export const updateImage = async (label, imageSize, productID, filename) => {
         return false;
     }
 };
+
 // created a put request for editStock part of product form and passed stock prop from productForm to submitData to sendProductData to here
 export const editStock = async (id, quant) => {
     try {
@@ -121,6 +122,17 @@ export const updateOrderShipDate = async (orderStatus, shipDate, id) => {
     }
 };
 
+export const driverUpdateStatus = async (orderStatus, orderid) => {
+    try {
+        await Axios.put("/api/dashboard/driver/deliveries/update/" + orderid, {
+            status: orderStatus,
+        });
+    } catch (err) {
+        console.log(err);
+        return false;
+    }
+};
+
 //update event status
 
 export const updateEventStatus = async (status, id) => {
@@ -138,11 +150,111 @@ export const updateEventStatus = async (status, id) => {
     }
 };
 
-export const editEvent = async (event) => {
+export const editEvent = async (event, images, id, thumbImg) => {
     try {
         const response = await Axios.put("/api/events/edit/" + event.id, {
             data: event,
         });
+        let eventID = +event.id;
+        images.forEach(async (image, index) => {
+            if (index === thumbImg) {
+                image.size = "thumb";
+            }
+
+            if (image.imageFile === "update") {
+                let { label, size, filename } = image;
+                let res = await updateEventImage(label, size, id, filename);
+                if (!res) {
+                    alert("failed to update thumbnail choice");
+                }
+            } else {
+                let { imageFile, label, size } = image;
+                let res = await addEventImage(imageFile, label, size, eventID);
+                if (!res)
+                    alert(
+                        JSON.stringify(imageFile) +
+                            " failed to upload, go to edit event to try to add picture again"
+                    );
+            }
+        });
+        return eventID;
+        // if (response.status === 201) {
+        //     return true;
+        // }
+    } catch (err) {
+        console.log(err);
+        return false;
+    }
+};
+
+export const updateEventImage = async (label, imageSize, eventID, filename) => {
+    try {
+        const response = await Axios.put("/api/eventImages/update", {
+            imageSize,
+            eventID,
+            label,
+            filename,
+        });
+        if (response.status === 201) {
+            return true;
+        }
+
+        return false;
+    } catch (err) {
+        console.error(err);
+        return false;
+    }
+};
+
+export const modifyCart = async (
+    cartProduct,
+    colour,
+    size,
+    quantity,
+    session
+) => {
+    const modCartResponse = await Axios.put("/api/cart/edit", {
+        cartProduct,
+        colour,
+        size,
+        quantity,
+        session,
+    });
+    return modCartResponse.data;
+};
+
+export const addDriverID = (orderid) => {
+    try {
+        let response = Axios.put(
+            `/api/dashboard/driver/order-to-fulfill/add/${orderid}`
+        );
+        return response.status;
+    } catch (err) {
+        console.log(err);
+        return false;
+    }
+};
+export const removeDriverID = (orderid) => {
+    try {
+        let response = Axios.put(
+            `/api/dashboard/driver/order-to-fulfill/remove/${orderid}`
+        );
+        return response.status;
+    } catch (err) {
+        console.log(err);
+        return false;
+    }
+};
+
+export const setProductAsPicked = async (status, single_id) => {
+    try {
+        const response = await Axios.put(
+            "/api/dashboard/driver/assigned-pickups/",
+            {
+                driverStatus: status,
+                singleID: single_id,
+            }
+        );
 
         if (response.status === 201) {
             return true;
@@ -152,7 +264,3 @@ export const editEvent = async (event) => {
         return false;
     }
 };
-export const modifyCart = async (cartProduct, colour, size, quantity, session) => {
-    const modCartResponse = await Axios.put('/api/cart/edit', { cartProduct, colour, size, quantity, session })
-    return modCartResponse.data
-}

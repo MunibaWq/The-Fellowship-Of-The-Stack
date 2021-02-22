@@ -4,16 +4,13 @@ import styled from "styled-components";
 import { getCart, getProductByID } from "../../axios/gets";
 import CheckoutButton from "../../components/Cart/checkoutButton";
 import { Error } from "../../components/Reusable/Input";
-import { updateCart } from '../../redux/actions/Cart'
-import axios from "axios";
+import { updateCart } from "../../redux/actions/Cart";
 import { setFormErrors } from "../../redux/actions/Errors";
-import Button from "../../components/Reusable/Button";
-import { AddIcon,MinusIcon} from "../../images/icons";
-import theme from "../../components/Reusable/Colors";
+import { AddIcon, MinusIcon } from "../../images/icons";
 import RadioButton from "../../components/Reusable/RadioButton";
 import FreeDelivery from "../../components/Cart/FreeDelivery";
 import { modifyCart } from "../../axios/puts";
-const session = window.localStorage.getItem('session')
+const session = window.localStorage.getItem("session");
 const ShoppingCart = () => {
     // const dispatch = useDispatch();
     const [preference, setPreference] = useState("delivery");
@@ -29,29 +26,37 @@ const ShoppingCart = () => {
         }, 0);
         return total.toFixed(2);
     };
-    console.log(preference, "this is the preference");
     const changeQuantity = (cartItem, quantity) => {
-        console.log('changeQ', cartItem, quantity)
-        
-        let { id: productID, colour, size } = cartItem
-       
-        console.log(productID, colour, size, )
-        modifyCart(productID, colour, size, quantity, localStorage.getItem('session')).then(() => { dispatch(updateCart()) })
-       
-    }
+
+        let { id: productID, colour, size } = cartItem;
+
+        modifyCart(
+            productID,
+            colour,
+            size,
+            quantity,
+            localStorage.getItem("session")
+        ).then(() => {
+            dispatch(updateCart());
+        });
+    };
     useEffect(() => {
-        console.log('hey')
         const getCartContents = async () => {
             const cartContents = await getCart(session);
+
             let cc = cartContents.map((item) => {
-                console.log(item)
                 let sizePrice = item.sizes
                     .filter((size) => {
                         return size.label === item.size;
                     })
                     .map((size) => size.price);
-                console.log(sizePrice)
+                if (item.num_left < item.quantity) {
+                    item.quantity = item.num_left
+                    dispatch(setFormErrors("cart", "Some quantities in your cart have been adjusted due to available stock levels"));
+                    modifyCart(item.product_id,item.colour,item.size,item.quantity,session)
+                } 
                 return {
+                    numLeft: item.num_left,
                     itemPrice: +item.price + +sizePrice[0],
                     itemQuantity: item.quantity,
                     colour: item.colour,
@@ -70,11 +75,8 @@ const ShoppingCart = () => {
             dispatch(setFormErrors("cart", ""));
         };
     }, [dispatch]);
-    
-
     function deliveryFee() {
         const total = calcCartTotal();
-        console.log(total, "this is the total");
         if (isNaN(total)) {
             return;
         }
@@ -115,13 +117,40 @@ const ShoppingCart = () => {
                                         <div>{cartItem.variation}</div>
 
                                         <QuantityInput>
-                                            <ChangeButton onClick={()=>{changeQuantity(cartItem, cartItem.itemQuantity-1)}}>
-                                                <MinusIcon width={21} height={21} stroke="#444"/>
-                                        </ChangeButton>
+                                            {cartItem.itemQuantity >= 2 && (
+                                                <ChangeButton
+                                                    onClick={() => {
+                                                        changeQuantity(
+                                                            cartItem,
+                                                            cartItem.itemQuantity -
+                                                                1
+                                                        );
+                                                    }}>
+                                                    <MinusIcon
+                                                        width={21}
+                                                        height={21}
+                                                        stroke="#444"
+                                                    />
+                                                </ChangeButton>
+                                            )}
                                             {cartItem.itemQuantity}
-                                            <ChangeButton onClick={()=>{changeQuantity(cartItem, cartItem.itemQuantity+1)}}>
-                                            <AddIcon width={21} height={21} stroke="#444"/>
-                                            </ChangeButton>
+                                            {cartItem.itemQuantity <
+                                                cartItem.numLeft && (
+                                                <ChangeButton
+                                                    onClick={() => {
+                                                        changeQuantity(
+                                                            cartItem,
+                                                            cartItem.itemQuantity +
+                                                                1
+                                                        );
+                                                    }}>
+                                                    <AddIcon
+                                                        width={21}
+                                                        height={21}
+                                                        stroke="#444"
+                                                    />
+                                                </ChangeButton>
+                                            )}
                                         </QuantityInput>
                                         <Price>
                                             {cartItem.itemPrice.toLocaleString(
@@ -225,21 +254,19 @@ const ShoppingCart = () => {
     );
 };
 const ChangeButton = styled.div`
-    cursor:pointer;
-    `
+    cursor: pointer;
+`;
 const QuantityInput = styled.div`
-    display: flex;
-    justify-content: space-around;
-    `
+    display: grid;
+    grid-template-columns: 33% 33% 33%;
+`;
 const TooMany = styled(Error)`
-    margin: 0;
     padding: 0;
-    `;
+`;
 const Price = styled.div`
     text-align: right;
-    `;
+`;
 const Cart = styled.div`
-    
     margin: 5px;
     display: grid;
     grid-auto-rows: auto;
@@ -249,7 +276,7 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     padding: 2em;
-    `;
+`;
 const CartItem = styled.div`
     display: grid;
     grid-template-columns: 60px auto 15% 15% 15%;
@@ -261,5 +288,5 @@ const CartItem = styled.div`
 `;
 const Delivery = styled(CartItem)`
     grid-template-columns: 160px auto 15% 15% 15%;
-`
+`;
 export default ShoppingCart;

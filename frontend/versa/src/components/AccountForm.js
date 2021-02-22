@@ -6,23 +6,28 @@ import Button from "./Reusable/Button";
 import axios from "axios";
 import { setFormErrors } from "../redux/actions/Errors";
 import { setFormInputs } from "../redux/actions/Forms";
-import { getUser } from "../axios/gets";
-import Cookies from 'universal-cookie'
+import { getUserByToken } from "../axios/gets";
+import Cookies from "universal-cookie";
 import { Redirect } from "react-router";
-const cookies = new Cookies()
+import { StyledLink } from "./Reusable/Link";
+import { LineCloseIcon } from "../images/icons";
+import theme from "./Reusable/Colors";
+const cookies = new Cookies();
 const AccountForm = (props) => {
     const formError = useSelector((state) => state.formErrors.account.form);
     const input = useSelector((state) => state.formInputs.account);
     const dispatch = useDispatch();
     useEffect(() => {
         const getUserData = async () => {
-            let data = await getUser();
+            let data = await getUserByToken();
             dispatch(setFormInputs("account", "name", data.name));
-            dispatch(setFormInputs("account", "storeAddress", data.store_address));
+            dispatch(
+                setFormInputs("account", "storeAddress", data.store_address)
+            );
             dispatch(setFormInputs("account", "email", data.email));
             dispatch(setFormInputs("account", "storeName", data.username));
-            dispatch(setFormInputs('account', 'isArtist', data.is_artist))
-            dispatch(setFormInputs('account', 'address', data.address))
+            dispatch(setFormInputs("account", "isArtist", data.is_artist));
+            dispatch(setFormInputs("account", "address", data.address));
         };
         if (props.type === "Edit") {
             getUserData();
@@ -38,7 +43,7 @@ const AccountForm = (props) => {
             password: input.password,
             address: input.address,
             isArtist: input.isArtist,
-            storeAddress: input.storeAddress
+            storeAddress: input.storeAddress,
         };
         const sendData = async () => {
             if (props.type === "Add") {
@@ -54,7 +59,7 @@ const AccountForm = (props) => {
                     { withCredentials: true }
                 );
             }
-            window.location = "/dashboard"
+            window.location = "/dashboard";
             // window.location.href = "/";
         };
         let error = document.getElementById("error");
@@ -69,8 +74,11 @@ const AccountForm = (props) => {
 
     return (
         <Form onSubmit={submitData}>
-            
-            <Instruction>{props.type === 'Edit' ? "Change the name on your account" : "Hello, what is your name?"}</Instruction>
+            <Instruction>
+                {props.type === "Edit"
+                    ? "Change the name on your account"
+                    : "Hello, what is your name?"}
+            </Instruction>
             <RowContainer>
                 <TextField
                     multi={false}
@@ -90,61 +98,76 @@ const AccountForm = (props) => {
                     name="name"
                 />
             </RowContainer>
-            <Instruction>Are you an artist?  Want to sell your products on Versa?</Instruction>
+            <Instruction>
+                Are you an artist? Want to sell your products on Versa?
+            </Instruction>
             <RowContainer>
                 <FieldContainer>
                     <Label>Sign up as an artist?</Label>
                 </FieldContainer>
                 <CheckedContainer>
-                    <input checked={input.isArtist} onChange={(e) => {
-                        dispatch(setFormInputs('account','isArtist',e.target.checked))
-                    } } id="artist" type='checkbox' />
+                    <input
+                        checked={input.isArtist}
+                        onChange={(e) => {
+                            dispatch(
+                                setFormInputs(
+                                    "account",
+                                    "isArtist",
+                                    e.target.checked
+                                )
+                            );
+                        }}
+                        id="artist"
+                        type="checkbox"
+                    />
                     <label htmlFor="artist">Yes</label>
-                    </CheckedContainer>
+                </CheckedContainer>
             </RowContainer>
-            {input.isArtist && <><Instruction>
-                What is your store called?
-                <br /> <br />
-                Which address will you be shipping your products from? Include
-                the postal code
+            {input.isArtist && (
+                <>
+                    <Instruction>
+                        What is your store called?
+                        <br /> <br />
+                        Which address will you be shipping your products from?
+                        Include the postal code
+                        <br />
+                        <br />
+                    </Instruction>
+                    <RowContainer>
+                        <TextField
+                            multi={false}
+                            tests={[
+                                {
+                                    test: (input) => input.length < 3,
+                                    error: "Minimum 2 characters",
+                                },
+                            ]}
+                            label="Store Name"
+                            form="account"
+                            name="storeName"
+                        />
+                        <TextField
+                            multi={true}
+                            tests={[
+                                {
+                                    test: (input) => input.length < 10,
+                                    error: "Minimum 10 characters",
+                                },
+                            ]}
+                            label="Address"
+                            form="account"
+                            name="storeAddress"
+                        />
+                    </RowContainer>
+                </>
+            )}
+            <Instruction>
+                Where would you like products that you purchase to go to?
+                Include the postal code
                 <br />
                 <br />
             </Instruction>
             <RowContainer>
-                <TextField
-                    multi={false}
-                    tests={[
-                        {
-                            test: (input) => input.length < 3,
-                            error: "Minimum 2 characters",
-                        },
-                    ]}
-                    label="Store Name"
-                    form="account"
-                    name="storeName"
-                />
-                <TextField
-                    multi={true}
-                    tests={[
-                        {
-                            test: (input) => input.length < 10,
-                            error: "Minimum 10 characters",
-                        },
-                    ]}
-                    label="Address"
-                    form="account"
-                    name="storeAddress"
-                />
-                </RowContainer></>}
-                <Instruction>
-                
-                Where would you like products that you purchase to go to? Include
-                the postal code
-                <br />
-                <br />
-            </Instruction>
-            <RowContainer>
-                
                 <TextField
                     multi={true}
                     tests={[
@@ -159,9 +182,12 @@ const AccountForm = (props) => {
                 />
             </RowContainer>
             <Instruction>
-                    {props.type === 'Edit' ? "Change your accounts email address" : "Enter the email address for you account"}
+                {props.type === "Edit"
+                    ? "Change your accounts email address"
+                    : "Enter the email address for you account"}
                 <br /> <br />
-                {props.type !== 'Edit' && `
+                {props.type !== "Edit" &&
+                    `
                 Your password must be at least 8 characters long and include a
                 number and an upper case letter`}
             </Instruction>
@@ -183,7 +209,7 @@ const AccountForm = (props) => {
                     form="account"
                     name="email"
                 />
-                {props.type !== 'Edit' &&
+                {props.type !== "Edit" && (
                     <TextField
                         multi={false}
                         password={true}
@@ -202,13 +228,24 @@ const AccountForm = (props) => {
                         label="Password"
                         form="account"
                         name="password"
-                    />}
+                    />
+                )}
             </RowContainer>
             <Instruction>
-                {input.isArtist ? "Get started adding products to your store" :  "Head over to your dashboard to set up some preferences"}
+                {input.isArtist
+                    ? "Get started adding products to your store"
+                    : "Head over to your dashboard to set up some preferences"}
             </Instruction>
             <RowContainer>
                 <Container>
+                    <StyledLink to="/">
+                        <LineCloseIcon
+                            width="32"
+                            height="32"
+                            stroke={theme.primary}
+                        />
+                        Cancel
+                    </StyledLink>
                     <Button primary onClick={submitData}>
                         Submit
                     </Button>
@@ -222,16 +259,16 @@ const AccountForm = (props) => {
 export default AccountForm;
 const CheckedContainer = styled.div`
     margin-top: 5px;
-    display:flex;
+    display: flex;
     align-items: center;
     label {
-        margin-bottom:0px;
+        margin-bottom: 0px;
         margin-left: 8px;
     }
     input {
         margin-left: 3px;
     }
-`
+`;
 const Form = styled.form`
     margin-top: 40px;
     grid-template-columns: 30% 65%;
