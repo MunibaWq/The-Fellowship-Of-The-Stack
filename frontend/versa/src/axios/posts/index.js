@@ -119,7 +119,7 @@ export const createEvent = async (eventInfo, images, thumbImg) => {
                         " failed to upload, go to edit event to try to add picture again"
                 );
         });
-        window.location = "/dashboard";
+        // window.location = "/dashboard";
         return res;
     } catch (e) {
         console.log(e);

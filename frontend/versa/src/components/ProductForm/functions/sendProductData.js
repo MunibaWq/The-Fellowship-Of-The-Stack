@@ -10,12 +10,17 @@ export async function sendProductData(
     props,
     productInfo,
     id,
-    quant,
+    quant
 ) {
     if (images.length === 0) {
         dispatch(setFormErrors("product", "Please add at least 1 image"));
     } else if (!quant) {
-        dispatch(setFormErrors('product','Please choose some initial stock values for your products'))
+        dispatch(
+            setFormErrors(
+                "product",
+                "Please choose some initial stock values for your products"
+            )
+        );
     } else {
         if (props.type === "Add") {
             const test = async () => {
@@ -28,6 +33,6 @@ export async function sendProductData(
             editProduct(productInfo, images, id, thumbImg);
         }
 
-        dispatch(setRedirect("productForm", "/dashboard/inventory"));
+        dispatch(setRedirect("productForm", "/dashboard/artist/inventory"));
     }
 }

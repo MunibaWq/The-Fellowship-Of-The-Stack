@@ -13,11 +13,11 @@ router.get("/search/:searchQuery", async (req, res) => {
     let queryString = "";
     query.forEach((term, index) => {
         if (index == 0) {
-            queryString = `(UPPER (e.name) LIKE '%${term}%' 
+            queryString = `(UPPER (e.title) LIKE '%${term}%' 
             OR UPPER (e.description) LIKE '%${term}%' 
             OR UPPER (u.username) LIKE '%${term}%')`;
         } else {
-            queryString += ` AND (UPPER (e.name) LIKE '%${term}%' 
+            queryString += ` AND (UPPER (e.title) LIKE '%${term}%' 
             OR UPPER (e.description) LIKE '%${term}%'
             OR UPPER (u.username) LIKE '%${term}%')`;
         }
@@ -219,10 +219,11 @@ router.post("/create", auth, async (req, res) => {
                 location,
                 type,
             } = req.body.data;
+            console.log(req.body)
             let eventInfo = await pool.query(
                 `
             INSERT INTO events(
-                name, host, description, status, capacity, 
+                title, host, description, status, capacity, 
                 start_time, end_time, location, type
                 ) 
             VALUES 
@@ -230,24 +231,27 @@ router.post("/create", auth, async (req, res) => {
             `,
                 [
                     name,
-                    req.user.id,
+                    +req.user.id,
                     description,
                     status,
-                    capacity,
+                    +capacity,
                     startTime,
                     endTime,
                     location,
                     type,
                 ]
             );
+            console.log(eventInfo)
             pool.query(
                 `INSERT INTO events_attendees(attendee, event_id, status, reminder )
         VALUES ($1, $2, $3, $4 )`,
                 [req.user.id, eventInfo.rows[0].id, "attending", true]
             );
+            console.log(eventInfo.rows[0])
             res.json(eventInfo.rows[0].id);
         } catch (err) {
-            res.send(err);
+            console.log(err)
+            res.status(400).send(err);
         }
     }
 });
@@ -289,7 +293,7 @@ router.put("/edit/:eventId", auth, async (req, res) => {
             );
             const currentEvent = current.rows[0];
 
-            name = name || currentEvent.name;
+            name = name || currentEvent.title;
             // host = host || currentEvent.host;
             description = description || currentEvent.description;
             status = status || currentEvent.status;
@@ -301,7 +305,7 @@ router.put("/edit/:eventId", auth, async (req, res) => {
 
             let response = await pool.query(
                 `UPDATE events SET 
-            name = $1, host = $2, description = $3, 
+            title = $1, host = $2, description = $3, 
             status = $4, capacity = $5, start_time = $6, 
             end_time = $7, location = $8, type = $9 
             WHERE id = $10 RETURNING id`,
@@ -390,7 +394,7 @@ router.post("/join", auth, async (req, res) => {
         `SELECT u.username FROM users u INNER JOIN events_attendees a ON u.id = a.attendee WHERE a.type = 'collab' AND a.event_id = ${eventID}`
     );
     const attResponse = await pool.query(
-        `SELECT h.username as host_name, e.name as event_name, e.description, e.start_time, e.end_time, e.location, a.event_id, u.email, u.name from events_attendees a INNER JOIN users u ON a.attendee = u.id INNER JOIN events e ON e.id=a.event_id INNER JOIN users h ON h.id=e.host WHERE a.event_id = ${eventID} and u.id = ` +
+        `SELECT h.username as host_name, e.title as event_name, e.description, e.start_time, e.end_time, e.location, a.event_id, u.email, u.name from events_attendees a INNER JOIN users u ON a.attendee = u.id INNER JOIN events e ON e.id=a.event_id INNER JOIN users h ON h.id=e.host WHERE a.event_id = ${eventID} and u.id = ` +
             req.user.id
     );
     attendee = attResponse.rows[0];
@@ -428,7 +432,7 @@ router.delete("/not-attending/:event", auth, async (req, res) => {
 router.get("/not-attending/email/:eventid/:id", async (req, res) => {
     try {
         attendees = await pool.query(
-            `SELECT h.username as host_name, e.name as event_name, e.description, e.start_time, e.end_time, e.location, a.event_id, u.email, u.name from events_attendees a INNER JOIN users u ON a.attendee = u.id INNER JOIN events e ON e.id=a.event_id INNER JOIN users h ON h.id=e.host WHERE a.event_id = ${req.params.eventid}`
+            `SELECT h.username as host_name, e.title as event_name, e.description, e.start_time, e.end_time, e.location, a.event_id, u.email, u.name from events_attendees a INNER JOIN users u ON a.attendee = u.id INNER JOIN events e ON e.id=a.event_id INNER JOIN users h ON h.id=e.host WHERE a.event_id = ${req.params.eventid}`
         );
 
         for (attendee of attendees.rows) {

@@ -124,7 +124,7 @@ const EventPage = () => {
                             ? eventData.type
                             : "Loading event categories"}
                     </h4>
-                    <h1>{eventData ? eventData.name : "Loading Event  "}</h1>
+                    <h1>{eventData ? eventData.title : "Loading Event  "}</h1>
                     <h2>
                         by
                         {eventData
@@ -224,7 +224,7 @@ const EventPage = () => {
                                         <Button
                                             onClick={() => {
                                                 sendMessage(
-                                                    `Event: ${eventData.name}`,
+                                                    `Event: ${eventData.title}`,
                                                     eventData.host,
                                                     "B2A",
                                                     question,

@@ -152,10 +152,10 @@ export const updateEventStatus = async (status, id) => {
 
 export const editEvent = async (event, images, id, thumbImg) => {
     try {
-        const response = await Axios.put("/api/events/edit/" + event.id, {
+        const response = await Axios.put("/api/events/edit/" + id, {
             data: event,
         });
-        let eventID = +event.id;
+        let eventID = id;
         images.forEach(async (image, index) => {
             if (index === thumbImg) {
                 image.size = "thumb";

@@ -5,7 +5,7 @@ import { getUserByToken } from "../../../axios/gets";
 import { readMessage } from "../../../axios/posts";
 import { Circle } from "../../../images/icons";
 import theme from "../../Reusable/Colors";
-import { Input } from "../../Reusable/Input";
+import Input from "../../Redesign/Reusable/Input";
 const timeSince = (time) => {
     const diff = (new Date() - new Date(time)) / 1000;
     switch (true) {
@@ -116,13 +116,7 @@ const MessageList = ({ selectedThread, setSelectedThread, messages }) => {
     }, [messages]);
     return filteredList ? (
         <>
-            <div
-                style={{
-                    padding: "12px 24px",
-                    color: theme.secondary,
-                    backgroundColor: theme.primary,
-                    gridColumn: "1 / 3",
-                }}>
+            <MessageListHeader>
                 {filteredList.reduce((count, thread) => {
                     count += thread.unread;
                     return count;
@@ -134,12 +128,12 @@ const MessageList = ({ selectedThread, setSelectedThread, messages }) => {
                 }, 0) > 1
                     ? "s"
                     : ""}
-            </div>
+            </MessageListHeader>
 
             <MessageGrid>
                 <Search>
-                    <h2>Search</h2>
-                    <Input
+                    <ChatInput
+                        placeholder="Search Messages"
                         value={filter}
                         onChange={(e) => {
                             setFilter(e.target.value);
@@ -202,10 +196,20 @@ const MessageList = ({ selectedThread, setSelectedThread, messages }) => {
 };
 
 export default MessageList;
-
+const ChatInput = styled(Input)`
+    margin-bottom: 0px;
+    width: 100%;
+`;
+const MessageListHeader = styled.div`
+    border-radius: 16px 16px 0 0;
+    padding: 12px 24px;
+    color: ${(props) => props.theme.lightBlue};
+    background-color: ${(props) => props.theme.black};
+    grid-column: 1 / 3;
+`;
 const Threads = styled.div`
     height: 56vh;
-    padding-right:1px;
+    padding-right: 1px;
     overflow: auto;
     ::-webkit-scrollbar {
         width: 0.1em;
@@ -215,17 +219,17 @@ const Threads = styled.div`
     }
 
     ::-webkit-scrollbar-thumb {
-        background-color: ${theme.primary};
-        outline: 1px solid ${theme.primary};
+        background-color: ${(props) => props.theme.purple};
+        outline: 1px solid ${(props) => props.theme.purple};
     }
 `;
 
 const Search = styled.div`
-    h2 {
-        font-weight: 700;
-    }
     padding: 24px 24px;
-    border-bottom: ${theme.primary} 2px solid;
+    display: flex;
+    justify-content: center;
+    background-color: ${(props) => props.theme.black};
+    border-bottom: ${(props) => props.theme.purple} 2px solid;
 `;
 const ThreadInfo = styled.div`
     grid-column: 2;
@@ -243,7 +247,7 @@ const ThreadInfo = styled.div`
             grid-column: 2;
             place-self: flex-end;
             margin-right: 10px;
-            color: ${theme.primary + "77"};
+            color: ${(props) => props.theme.lightPurple};
         }
     }
 `;
@@ -265,16 +269,16 @@ const Thread = styled.div`
     border-bottom: #ddd thin solid;
     align-items: center;
     background-color: ${(props) =>
-        props.selected ? theme.primary + "45" : theme.secondary};
+        props.selected ? "#e2e5ee" : props.theme.lightBlue};
     p {
         margin-bottom: 0px;
     }
-    :nth-child(even) {
+    :nth-child(odd) {
         background-color: ${(props) =>
-            props.selected ? theme.primary + "45" : theme.primary + "17"};
+            props.selected ? "#e2e5ee" : props.theme.blue};
     }
     :last-child {
-        border-bottom: ${theme.primary} 2px solid;
+        box-shadow: 0px 4px 1px 0px 182, 219, 255, 0.6;
     }
 `;
 const MessageGrid = styled.div`

@@ -7,7 +7,7 @@ import {
 } from "react-router-dom";
 import DashboardMain from "./DashboardMain";
 import ShopperDashboardMain from "../../UserBuyer/Dashboard/DashboardMain";
-import Messages from '../../Shared/Messages'
+import Messages from '../../Messages'
 import SideNav from "./SideNav";
 import Orders from "./Orders";
 import Categories from "./Categories";

@@ -88,7 +88,7 @@ export const getEventByID = async (id) => {
 
 export const getImagesByEID = async (currentEvent) => {
     const response = await Axios.get(`/api/eventImages/byEID/${currentEvent}`);
-    let images = await response.data;
+    let images = response.data;
     return images;
 };
 

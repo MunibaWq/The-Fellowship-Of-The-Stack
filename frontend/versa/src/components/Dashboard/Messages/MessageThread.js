@@ -116,8 +116,8 @@ const Scrollable = styled(ScrollableFeed)`
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: ${theme.primary};
-    outline: 1px solid ${theme.primary};
+    background-color: ${props=>props.theme.purple};
+    outline: 1px solid ${props=>props.theme.purple};
 }
 display: flex;
 flex-direction: column;
@@ -133,30 +133,30 @@ const SendButton = styled.div`
     display: flex;
     margin-right: 10px;
     align-items: center;
-    background-color: ${theme.primary};
+    background-color: ${props=>props.theme.purple};
     width: 29px;
     height: 29px;
     cursor: pointer;
     svg {
         :hover {
             path {
-                stroke: ${theme.primaryHover};
+                stroke: ${props=>props.theme.purple};
             }
         }
     }
 `;
 const Send = styled.div`
-    padding: 10px;
-    background-color: ${theme.primary};
+    padding: 24px;
+    background-color: ${props=>props.theme.black};
     display: flex;
     flex-direction: row;
     align-items: center;
     margin-top: 10px;
     input {
-        background-color: white;
+        background-color: ${props=>props.theme.lightBlue};
         margin-right: 20px;
         :hover,:active,:focus {
-            border: 3px solid ${theme.secondary};
+            border: 3px solid  ${props=>props.theme.lightBlue};
         }
     }
 `;
@@ -171,6 +171,7 @@ const ThreadDiv = styled.div`
     }
     grid-row:2;
     grid-column:2;
+    background-color: ${props=>props.theme.lightBlue};
 `;
 const MessageDiv = styled.div`
     display: flex;
@@ -178,7 +179,7 @@ const MessageDiv = styled.div`
     background-color: #eff3fe60;
     overflow-y: auto;
     height: 60vh;
-    border-top: ${theme.primary} 2px solid;
+    
 `;
 const ToMessage = styled.div`
     display: flex;
@@ -188,10 +189,10 @@ const ToMessage = styled.div`
     border-radius: 10px;
 
     p {
-        color: ${theme.tertiary};
+        color: ${props=>props.theme.black};
         margin-bottom: 0px;
     }
-    background-color: ${theme.tertiary + "10"};
+    background-color: ${props=>props.theme.black + "10"};
     align-self: flex-end;
     width: 70%;
 `;
@@ -202,12 +203,12 @@ const FromMessage = styled.div`
     margin: 20px;
     padding: 10px;
     p {
-        color: ${theme.secondary};
+        color: ${props=>props.theme.black};
         margin-bottom: 0px;
     }
     width: 70%;
 
-    background-color: ${theme.primary};
+    background-color: ${props=>props.theme.lightPurple};
 `;
 const Header = styled.div`
     height: 69px;
