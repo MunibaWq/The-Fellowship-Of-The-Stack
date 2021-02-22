@@ -4,7 +4,7 @@ import GradientMove from "./Animations";
 const Button = styled.button.attrs((props) => ({
     type: props.type || "button",
 }))`
-    display: inline-flex;
+    display: flex;
     flex-direction: row;
     padding: 20px 40px;
     text-transform: uppercase;
@@ -18,7 +18,7 @@ const Button = styled.button.attrs((props) => ({
     border-radius: 15px;
     font-family: "Inter", sans-serif;
     margin: 0;
-    max-width: fit-content;
+
     outline: none;
     cursor: pointer;
     svg {

@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { updateOrderStatus, updateOrderShipDate } from "../../../axios/puts";
-import theme from "../../Reusable/Colors";
+// import theme from "../../Reusable/Colors";
+import theme from "../../Redesign/Reusable/Theme";
 
 const Status = styled.select`
     padding: 8px;
@@ -10,15 +11,15 @@ const Status = styled.select`
     cursor: pointer;
     border: ${(props) =>
         props.border === true
-            ? `2px solid #77dd77`
-            : `2px solid ${theme.primary}`};
+            ? `2px solid #B4FFC6`
+            : `2px solid ${theme.lightPurple}`};
     :active,
     :hover,
     :focus {
         border: ${(props) =>
             props.border === true
-                ? `2px solid #77dd77`
-                : `2px solid ${theme.primaryHover}`};
+                ? `2px solid #B4FFC6`
+                : `2px solid ${theme.purple}`};
     }
 `;
 
