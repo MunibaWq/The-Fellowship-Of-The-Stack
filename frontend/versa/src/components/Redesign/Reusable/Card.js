@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import OutOfStock from "./OutOfStock";
 import { Going, ShoppingCart } from "../../../images/icons";
-import theme from "../../Reusable/Colors";
 
 const Card = ({ type, item, action, featured }) => {
     const calcTotalStock = (item) => {
