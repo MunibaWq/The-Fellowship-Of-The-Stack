@@ -68,7 +68,21 @@ const EventForm = (props) => {
             dispatch(setFormInputs("event", "type", data.type));
 
             let img = await getImagesByEID(id);
-            dispatch(setImages("eventForm", img.images));
+            dispatch(
+                setImages(
+                    "productForm",
+                    img.images.map((picture) => {
+                        return {
+                            image: `https://versabucket.s3.us-east-2.amazonaws.com/images/${picture.filename}.jpeg`,
+                            label: picture.label,
+                            imageFile: "update",
+                            size: "full",
+                            filename: picture.filename,
+                            id: picture.id
+                        };
+                    })
+                )
+            );
         };
 
         if (props.type === "Edit") {

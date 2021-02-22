@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+import { sendMessage } from "../../../axios/posts";
+import { SendIcon } from "../../../images/icons";
+import Button from "../../Reusable/Button";
 
 const UserOrderItemCard = ({ order }) => {
-    const { title, color, quantity, size, sale_price } = order;
-
+    console.log(order)
+    const { artist_id, title, color, quantity, size, sale_price } = order;
+    const [sent, setSent] = useState()
+    const [message,setMessage] = useState()
     return (
         <Card>
             <Quantity>
@@ -32,12 +37,57 @@ const UserOrderItemCard = ({ order }) => {
                     <p>${(+sale_price * +quantity).toFixed(2)}</p>
                 </Variation>
             </ItemDetails>
+            <Message>
+                <div>
+                    <h2>Message</h2>
+                    Send the artist a message about this order
+                    <div>
+                        <textarea
+                            value={message}
+                            onChange={(e) => {
+                                setMessage(e.target.value);
+                            }}
+                        />
+                    </div>
+                    {!sent ? (
+                        <Button
+                            secondary
+                            onClick={() => {
+                                // let order = orderData[0];
+                                setSent(true);
+                                
+                                sendMessage(
+                                    `Order #${order.id}`,
+                                    order.artist_id,
+                                    "B2A",
+                                    message,
+                                    new Date().toUTCString()
+                                );
+                            }}>
+                            <SendIcon />
+                            Send
+                        </Button>
+                    ) : (
+                        "Message Sent, check dashboard for responses"
+                    )}
+                </div>
+            </Message> 
         </Card>
     );
-};
+}; 
 
 export default UserOrderItemCard;
-
+const Message = styled.div`
+padding: 1em 1em 1em 2em;
+textarea {
+    width: 100%;
+    height: 100px;
+    resize:none;
+}
+h2 {
+    font-weight: 700;
+}
+`;
 const Card = styled.article`
     border-radius: 15px;
     padding: 1em;
@@ -77,7 +127,6 @@ const Variation = styled.div`
     :last-of-type {
         margin-bottom: 0;
     }
-    
 
     h4 {
         margin-right: 8px;
@@ -86,5 +135,6 @@ const Variation = styled.div`
     p {
         margin: 0;
         line-height: 0;
+        width: max-content;
     }
 `;
