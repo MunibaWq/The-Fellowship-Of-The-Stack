@@ -5,8 +5,9 @@ import { userGoing } from "../../axios/posts";
 import { Going, NotGoing } from "../../images/icons";
 import Button from "../Redesign/Reusable/Button";
 import { useHistory } from "react-router";
+import styled from "styled-components";
 
-const AttendButton = ({ event, changeAttending }) => {
+const Attend = ({ event, changeAttending }) => {
     const [going, setGoing] = useState();
     const [user, setUser] = useState();
     const history = useHistory();
@@ -24,7 +25,7 @@ const AttendButton = ({ event, changeAttending }) => {
         }
     }, [event]);
     return (
-        <div
+        <IconContainer
             onClick={() => {
                 if (user) {
                     if (going) {
@@ -42,8 +43,14 @@ const AttendButton = ({ event, changeAttending }) => {
 
             }}>
             {going ? <NotGoing /> : <Going />}
-        </div>
+        </IconContainer>
     );
 };
 
-export default AttendButton;
+export default Attend;
+ 
+const IconContainer = styled.div`
+    margin: 0;
+    width:32px;
+    height:32px;
+`
