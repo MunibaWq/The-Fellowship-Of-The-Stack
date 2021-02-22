@@ -13,7 +13,7 @@ import {
     CheckedBoxIcon,
     CheckMarkIcon,
     AddIcon,
-    SendIcon
+    SendIcon,
 } from "../../images/icons";
 import ImageTest from "../../images/imageTest.png";
 import { useDispatch, useSelector } from "react-redux";
@@ -35,14 +35,17 @@ const ProductPage = ({
     image,
     stock,
     id,
-    artist_id
+    artist_id,
 }) => {
     const choices = useSelector((state) => state.productChoices);
     const [clicked, setClicked] = useState(false);
-    const [question, setQuestion] = useState()
+    const [question, setQuestion] = useState();
+    const [sent, setSent] = useState();
     const [user, setUser] = useState();
     const dispatch = useDispatch();
     const cart = useSelector((state) => state.cart);
+    const [isUser, setIsUser] = useState();
+    
     useEffect(() => {
         const getUser = async () => {
             const res = await getUserByToken();
@@ -286,14 +289,40 @@ const ProductPage = ({
                         )}
                     </AddToCart>
                     {showProductTotal()}
-                    <Question>
-                        <h3>Ask the artist about this product</h3>
-                        <Input value={question} onChange={(e) => {
-                            setQuestion(e.target.value)
-                        } }/><Button onClick={() => {
-                            sendMessage(`Question about ${title}`,artist_id,'B2A',question,new Date())
-                        } } secondary><SendIcon  />Send </Button>
-                    </Question>
+                    {user && (
+                        <Question>
+                            <h3>Ask the artist about this product:</h3>
+                            <Send>
+                                {!sent ? (
+                                    <>
+                                        <Message
+                                            value={question}
+                                            onChange={(e) => {
+                                                setQuestion(e.target.value);
+                                            }}
+                                        />
+                                        <Button
+                                            onClick={() => {
+                                                sendMessage(
+                                                    `Product: ${title}`,
+                                                    artist_id,
+                                                    "B2A",
+                                                    question,
+                                                    new Date()
+                                                );
+                                                setSent(true);
+                                            }}
+                                            secondary>
+                                            <SendIcon />
+                                            Send
+                                        </Button>
+                                    </>
+                                ) : (
+                                    "Message Sent, check dashboard for responses"
+                                )}
+                            </Send>
+                        </Question>
+                    )}
                 </ProductDetail>
             </MainInfo>
         </Container>
@@ -301,13 +330,24 @@ const ProductPage = ({
 };
 
 export default ProductPage;
+const Message = styled.textarea`
+    resize: none;
+    width: 100%;
+    height: 100%;
+    margin: 5px;
+`;
 const AddToCart = styled(Button)`
     ::after {
         content: " ${(props) =>
             props.clicked ? "Added Item" : "Add to Cart"}";
     }
 `;
-const Question = styled.div``;
+const Send = styled.div``;
+const Question = styled.div`
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+`;
 const Container = styled.div`
     display: flex;
     flex-direction: column;

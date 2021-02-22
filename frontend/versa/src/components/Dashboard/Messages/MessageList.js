@@ -5,7 +5,7 @@ import { getUserByToken } from "../../../axios/gets";
 import { readMessage } from "../../../axios/posts";
 import { Circle } from "../../../images/icons";
 import theme from "../../Reusable/Colors";
-const cookies = new Cookies();
+import { Input } from "../../Reusable/Input";
 const timeSince = (time) => {
     const diff = (new Date() - new Date(time)) / 1000;
     switch (true) {
@@ -21,7 +21,21 @@ const timeSince = (time) => {
 };
 const MessageList = ({ selectedThread, setSelectedThread, messages }) => {
     const [messageList, setMessageList] = useState();
+    const [filteredList, setFilteredList] = useState();
     const [userID, setUserID] = useState();
+    const [filter, setFilter] = useState("");
+    useEffect(() => {
+        if (messageList) {
+            const regex = new RegExp(filter.toUpperCase());
+            const newList = messageList.filter((message) => {
+                console.log(message, Object.values(message));
+                return Object.values(message).some((value) =>
+                    regex.test(`${value}`.toUpperCase())
+                );
+            });
+            setFilteredList(newList);
+        }
+    }, [filter, messageList]);
     useEffect(() => {
         const getUser = async () => {
             const response = await getUserByToken();
@@ -100,7 +114,7 @@ const MessageList = ({ selectedThread, setSelectedThread, messages }) => {
             setMessageList(threads);
         });
     }, [messages]);
-    return messageList ? (
+    return filteredList ? (
         <>
             <div
                 style={{
@@ -109,60 +123,77 @@ const MessageList = ({ selectedThread, setSelectedThread, messages }) => {
                     backgroundColor: theme.primary,
                     gridColumn: "1 / 3",
                 }}>
-                {messageList.reduce((count, thread) => {
+                {filteredList.reduce((count, thread) => {
                     count += thread.unread;
                     return count;
                 }, 0)}{" "}
-                unread message{
-                    messageList.reduce((count, thread) => {
-                        count += thread.unread;
-                        return count;
-                    }, 0)
-                 > 1 ? "s" : ""}
+                unread message
+                {filteredList.reduce((count, thread) => {
+                    count += thread.unread;
+                    return count;
+                }, 0) > 1
+                    ? "s"
+                    : ""}
             </div>
+
             <MessageGrid>
-                {messageList.map((thread) => {
-                    return (
-                        <Thread
-                            selected={selectedThread === thread}
-                            onClick={() => {
-                                setSelectedThread(thread);
-                                thread.unread = 0;
-                                if (
-                                    thread.messages[thread.messages.length - 1]
-                                        .to_user === userID
-                                ) {
-                                    // if the latest message is to me, set message as read
-                                    readMessage(thread.topic, thread.fromID);
-                                }
-                            }}>
-                            <UnreadIcon>
-                                {thread.unread > 0 && (
-                                    <Circle
-                                        width="16"
-                                        height="16"
-                                        fill={theme.primaryHover}
-                                        stroke={theme.primary}
-                                    />
-                                )}
-                            </UnreadIcon>
-                            <ThreadInfo>
-                                <h3>{thread.topic}</h3>
-                                <From>
-                                    <p>{thread.from}</p>
-                                    <p>{thread.fromUsername}</p>
-                                </From>
-                                <p>
-                                    {timeSince(
+                <Search>
+                    <h2>Search</h2>
+                    <Input
+                        value={filter}
+                        onChange={(e) => {
+                            setFilter(e.target.value);
+                        }}
+                    />
+                </Search>
+                <Threads>
+                    {filteredList.map((thread) => {
+                        return (
+                            <Thread
+                                selected={selectedThread === thread}
+                                onClick={() => {
+                                    setSelectedThread(thread);
+                                    thread.unread = 0;
+                                    if (
                                         thread.messages[
                                             thread.messages.length - 1
-                                        ].time
-                                    )}{" "}
-                                </p>
-                            </ThreadInfo>
-                        </Thread>
-                    );
-                })}
+                                        ].to_user === userID
+                                    ) {
+                                        // if the latest message is to me, set message as read
+                                        readMessage(
+                                            thread.topic,
+                                            thread.fromID
+                                        );
+                                    }
+                                }}>
+                                <UnreadIcon>
+                                    {thread.unread > 0 && (
+                                        <Circle
+                                            width="16"
+                                            height="16"
+                                            fill={theme.primaryHover}
+                                            stroke={theme.primary}
+                                        />
+                                    )}
+                                </UnreadIcon>
+                                <ThreadInfo>
+                                    <h3>{thread.topic}</h3>
+                                    <From>
+                                        <p>{thread.from}</p>
+                                        <p>{thread.fromUsername}</p>
+                                    </From>
+                                    <p>
+                                        {timeSince(
+                                            thread.messages[
+                                                thread.messages.length - 1
+                                            ].time
+                                        )}{" "}
+                                    </p>
+                                </ThreadInfo>
+                            </Thread>
+                        );
+                    })}
+                </Threads>
             </MessageGrid>
         </>
     ) : (
@@ -171,15 +202,41 @@ const MessageList = ({ selectedThread, setSelectedThread, messages }) => {
 };
 
 export default MessageList;
+
+const Threads = styled.div`
+    height: 56vh;
+    padding-right:1px;
+    overflow: auto;
+    ::-webkit-scrollbar {
+        width: 0.1em;
+    }
+
+    ::-webkit-scrollbar-track {
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background-color: ${theme.primary};
+        outline: 1px solid ${theme.primary};
+    }
+`;
+
+const Search = styled.div`
+    h2 {
+        font-weight: 700;
+    }
+    padding: 24px 24px;
+    border-bottom: ${theme.primary} 2px solid;
+`;
 const ThreadInfo = styled.div`
     grid-column: 2;
+
     display: grid;
     grid-auto-columns: auto;
     h3 {
         grid-column: 1;
         font-weight: 700;
     }
-    
+
     p {
         :last-child {
             margin-left: 5px;
@@ -202,7 +259,8 @@ const UnreadIcon = styled.div`
 `;
 const Thread = styled.div`
     display: grid;
-    padding: 8px 16px;
+
+    padding: 24px 24px;
     grid-template-columns: 26px calc(100% - 26px);
     border-bottom: #ddd thin solid;
     align-items: center;
@@ -221,6 +279,8 @@ const Thread = styled.div`
 `;
 const MessageGrid = styled.div`
     display: grid;
-    grid-auto-rows: 80px;
+    grid-auto-rows: min-content;
     overflow-y: auto;
+    grid-column: 1;
+    grid-row: 2;
 `;

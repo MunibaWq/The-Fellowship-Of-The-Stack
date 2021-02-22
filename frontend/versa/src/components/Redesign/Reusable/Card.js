@@ -14,7 +14,8 @@ const Card = ({ type, item, link, awsFolder, action, featured }) => {
                     <p>Out of Stock</p> 🙁
                 </OutOfStock>
             )}
-            <CardContainer featured={featured}
+            <CardContainer
+                featured={featured}
                 stock={type === "shop" ? calcTotalStock(item) : null}>
                 <Image
                     src={`https://versabucket.s3.us-east-2.amazonaws.com/${awsFolder}/${item.thumbnail}.jpeg`}
@@ -30,13 +31,13 @@ const Card = ({ type, item, link, awsFolder, action, featured }) => {
                             {bigDetails[type].third}
                         </BigDetail>
                         {action && (
-                                <Action stock={calcTotalStock(item)}>
-                                    {type === "shop" && <ShoppingCart />}
-                                    {type === "attend" && (
-                                        <Going width="18" height="18" />
-                                    )}
-                                </Action>
-                            )}
+                            <Action stock={calcTotalStock(item)}>
+                                {type === "shop" && <ShoppingCart />}
+                                {type === "attend" && (
+                                    <Going width="18" height="18" />
+                                )}
+                            </Action>
+                        )}
                     </ImportantDetail>
                 </ItemInfo>
             </CardContainer>

@@ -7,9 +7,9 @@ import {
     getEventByID,
     getUserByToken,
 } from "../../axios/gets";
-import { userGoing } from "../../axios/posts";
+import { sendMessage, userGoing } from "../../axios/posts";
 import theme from "../Reusable/Colors";
-import { LeftIcon, Going, NotGoing } from "../../images/icons";
+import { LeftIcon, Going, NotGoing, SendIcon } from "../../images/icons";
 import { deleteUserFromEventByID } from "../../axios/deletes";
 import { amIGoing } from "../../axios/gets";
 import ImageTest from "../../images/imageTest.png";
@@ -22,14 +22,14 @@ const EventPage = () => {
 
     const [eventData, setEventData] = useState([]);
     const [dateTime, setDateTime] = useState();
-    const [isUser, setIsUser] = useState();
     const [collabs, setCollabs] = useState();
-
+    const [question, setQuestion] = useState();
     //state to update attending number when user attends/unattends event
     const [attending, setAttending] = useState();
-
+    const [sent, setSent] = useState();
     const [image, setImage] = useState();
-
+    
+    const [isUser, setIsUser] = useState();
     useEffect(() => {
         const findUser = async () => {
             const response = await getUserByToken();
@@ -52,6 +52,7 @@ const EventPage = () => {
     useEffect(() => {
         const fetchEvent = async () => {
             const data = await getEventByID(currentEvent);
+            console.log(data);
             setEventData(data);
             setImage(data.thumbnail);
             setAttending(data.num_attending);
@@ -198,7 +199,6 @@ const EventPage = () => {
                                 if (isUser) {
                                     deleteUserFromEventByID(currentEvent);
                                     setAttending(attending - 1);
-
                                 } else {
                                     routeChange();
                                 }
@@ -209,6 +209,40 @@ const EventPage = () => {
                             Unattend Event
                         </Button>
                     )}
+                    {isUser && (
+                        <Question>
+                            <h3>Ask the host about this event:</h3>
+                            <Send>
+                                {!sent ? (
+                                    <>
+                                        <Message
+                                            value={question}
+                                            onChange={(e) => {
+                                                setQuestion(e.target.value);
+                                            }}
+                                        />
+                                        <Button
+                                            onClick={() => {
+                                                sendMessage(
+                                                    `Event: ${eventData.name}`,
+                                                    eventData.host,
+                                                    "B2A",
+                                                    question,
+                                                    new Date()
+                                                );
+                                                setSent(true);
+                                            }}
+                                            secondary>
+                                            <SendIcon />
+                                            Send
+                                        </Button>
+                                    </>
+                                ) : (
+                                    "Message Sent, check dashboard for responses"
+                                )}
+                            </Send>
+                        </Question>
+                    )}
                 </EventDetail>
             </MainInfo>
         </Container>
@@ -217,6 +251,18 @@ const EventPage = () => {
 
 export default EventPage;
 
+const Message = styled.textarea`
+    resize: none;
+    width: 100%;
+    height: 100%;
+    margin: 5px;
+`;
+const Send = styled.div``;
+const Question = styled.div`
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+`;
 const Container = styled.div`
     display: flex;
     flex-direction: column;

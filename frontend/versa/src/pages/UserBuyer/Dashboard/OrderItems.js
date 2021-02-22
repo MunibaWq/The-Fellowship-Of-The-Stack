@@ -145,7 +145,7 @@ const OrderItemContainer = styled.div`
     display: grid;
     grid-row-gap: 30px;
     grid-column-gap: 50px;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 400px));
+    grid-template-columns: repeat(auto-fit, minmax(250px, 600px));
     h1 {
         margin: 0 1em 2em 1em;
         font-size: 100px;
