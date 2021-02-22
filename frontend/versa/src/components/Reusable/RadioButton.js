@@ -12,20 +12,16 @@ const RadioButton = ({
         if (preference === "pickup") {
             return (
                 <>
-                    <h3>
-                        Your order will be processed by the artist and you will
-                        be notified by email with pickup information.
-                    </h3><div></div>
+                    Your order will be processed by the artist and you will be
+                    notified by email with pickup information.
                     <TextArea setter={setInstructions} getter={instructions} />
                 </>
             );
         } else if (preference === "delivery") {
             return (
                 <>
-                    <h3>
-                        Your order will be processed by the artist and delivered
-                        in 24-48 hours
-                    </h3><div></div>
+                    Your order will be processed by the artist and delivered in
+                    24-48 hours
                     <TextArea setter={setInstructions} getter={instructions} />
                 </>
             );
@@ -64,12 +60,12 @@ const RadioButton = ({
 export default RadioButton;
 const ChoiceContainer = styled.div`
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
 `;
 const Choice = styled.div`
     display: flex;
     align-items: baseline;
-    input{
-        margin:5px;
+    input {
+        margin: 5px;
     }
 `;
