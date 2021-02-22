@@ -1,48 +1,50 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { calcTotalStock } from "../../../functions/calcTotalStock";
 import OutOfStock from "./OutOfStock";
 import { Going, ShoppingCart } from "../../../images/icons";
-
-const Card = ({ type, item, action, featured }) => {
-    const calcTotalStock = (item) => {
-        return item.stock.reduce((total, curr) => {
-            total += curr.quantity;
-            return total;
-        }, 0);
-    };
-    if (type === "shop") {
-        return (
-            <Link
-                to={`/product-item/${item.id}`}
-                style={{ position: "relative" }}>
+const bigDetails = {
+    shop: { prefix: "$", detail: "price" },
+    event: { detail: "" },
+};
+const details = { shop: "artist" };
+const Card = ({ type, item, link, awsFolder, action, featured }) => {
+    return (
+        <Link to={`/${link}/${item.id}`} style={{ position: "relative" }}>
+            {type === "shop" && (
                 <OutOfStock stock={calcTotalStock(item)}>
                     <p>Out of Stock</p> 🙁
                 </OutOfStock>
-                <CardContainer stock={calcTotalStock(item)}>
-                    <Image
-                        src={`https://versabucket.s3.us-east-2.amazonaws.com/images/${item.thumbnail}.jpeg`}
-                        alt={item.title}
-                    />
-                    <ItemInfo>
-                        <Title>{item.title}</Title>
-                        <Detail>{item.artist}</Detail>
-                        <ImportantDetail>
-                            <BigDetail>${item.price}</BigDetail>
-                            {action && (
-                                <Action stock={calcTotalStock(item)}>
-                                    {type === "shop" && <ShoppingCart />}
-                                    {type === "attend" && (
-                                        <Going width="18" height="18" />
-                                    )}
-                                </Action>
-                            )}
-                        </ImportantDetail>
-                    </ItemInfo>
-                </CardContainer>
-            </Link>
-        );
-    }
+            )}
+            <CardContainer
+                featured={featured}
+                stock={type === "shop" ? calcTotalStock(item) : null}>
+                <Image
+                    src={`https://versabucket.s3.us-east-2.amazonaws.com/${awsFolder}/${item.thumbnail}.jpeg`}
+                    alt={item.title}
+                />
+                <ItemInfo>
+                    <Title>{item.title}</Title>
+                    <Detail>{item[details[type]]}</Detail>
+                    <ImportantDetail>
+                        <BigDetail>
+                            {bigDetails[type].prefix}
+                            {item[bigDetails[type].detail]}
+                        </BigDetail>
+                        {action && (
+                            <Action stock={calcTotalStock(item)}>
+                                {type === "shop" && <ShoppingCart />}
+                                {type === "attend" && (
+                                    <Going width="18" height="18" />
+                                )}
+                            </Action>
+                        )}
+                    </ImportantDetail>
+                </ItemInfo>
+            </CardContainer>
+        </Link>
+    );
 };
 
 export default Card;
@@ -57,7 +59,7 @@ const CardContainer = styled.div`
     filter: ${(props) => (props.stock === 0 ? "grayscale(1)" : "grayscale(0)")};
     cursor: pointer;
     background: ${(props) =>
-        props.featured ? props.theme.Blue : props.theme.lightBlue};
+        props.featured ? props.theme.blue : props.theme.lightBlue};
     :hover {
         background: ${(props) =>
             props.stock === 0 ? props.theme.blue : props.theme.orange};

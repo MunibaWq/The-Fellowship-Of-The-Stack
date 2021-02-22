@@ -3,7 +3,7 @@ import { ThemeProvider } from "styled-components";
 // import SearchResults from "./pages/UserBuyer/SearchResults";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Navbar from "./components/Navbar";
-import Events from "./pages/Events";
+import Events from "./pages/Events/Events";
 import Account from "./pages/Account";
 import Wishlist from "./pages/UserBuyer/Wishlist";
 import ShoppingCart from "./pages/UserBuyer/ShoppingCart";

@@ -16,7 +16,7 @@ router.get("/search/:searchQuery", async (req, res) => {
     });
     const client = await pool.connect();
     const result = await client.query(
-        `SELECT * FROM products WHERE ${queryString}`
+        `SELECT p.*, a.username AS artist FROM products p INNER JOIN users a ON a.id=p.artist_id WHERE ${queryString}`
     );
     const products = result.rows;
     for (product of products) {

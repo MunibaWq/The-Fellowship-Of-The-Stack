@@ -3,6 +3,8 @@ import styled from "styled-components";
 import Card from "./Card";
 
 const Box = ({
+    awsFolder,
+    link,
     dataToMap,
     boxTitle,
     boxDescription,
@@ -19,24 +21,25 @@ const Box = ({
             )}
             <Spotlight featured={featured}>
                 {boxDescription && <p>{boxDescription}</p>}
-                <CardList>
-                    {dataToMap.length > 0 ? (
-                        dataToMap.map((item, index) => (
+
+                {dataToMap.length > 0 ? (
+                    <CardList>
+                        {dataToMap.map((item, index) => (
                             <Card
+                                link={link}
                                 shop
                                 key={index}
                                 item={item}
                                 type={type}
-                                action
+                                awsFolder={awsFolder}
+                                action={action}
                                 featured={featured}
                             />
-                        ))
-                    ) : (
-                        <NoResults>
-                            <p>No results found 🙁</p>
-                        </NoResults>
-                    )}
-                </CardList>
+                        ))}
+                    </CardList>
+                ) : (
+                    <NoResults>No results found 😢</NoResults>
+                )}
             </Spotlight>
         </Container>
     );
@@ -48,7 +51,7 @@ const Container = styled.article`
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    margin: 2em 1em;
+    margin: 1em;
     border-radius: 15px 15px 0px 0px;
     background: ${(props) =>
         props.featured ? props.theme.lightBlue : "transparent"};
@@ -74,7 +77,7 @@ const Spotlight = styled.section`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: calc(40px + 1em) 20px 40px 20px;
+    padding: 40px 20px 40px 20px;
     background: ${(props) =>
         props.featured ? props.theme.lightBlue : "transparent"};
     p {
@@ -82,7 +85,7 @@ const Spotlight = styled.section`
     }
 `;
 
-const CardList = styled.ul`
+const CardList = styled.div`
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
