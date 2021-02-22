@@ -5,6 +5,7 @@ import { useHistory } from "react-router-dom";
 import theme from "../../Redesign/Reusable/Theme";
 import Loading from "../../Reusable/Loading";
 import DropDown from "./DropDown";
+import PageContainer from "../../Redesign/Reusable/PageContainer";
 
 const OrdersTable = ({ user, orderData }) => {
     const [data, setData] = useState(orderData);
@@ -70,11 +71,11 @@ const OrdersTable = ({ user, orderData }) => {
     const filteredData = filterData(data, query);
 
     return (
-        <TableContainer>
+        <>
             {!orderData ? (
                 <Loading />
             ) : (
-                <>
+                <TableContainer>
                     <Sort>
                         <h2>Sort by: </h2>
                         <SortChoice
@@ -98,15 +99,15 @@ const OrdersTable = ({ user, orderData }) => {
                             value={query || ""}></input>
                     </Sort>
                     <Table>
-                        {/* <thead> */}
-                        <Headers>
-                            {headers.map((header, index) => (
-                                <th key={`header${index}`}>
-                                    <h2>{header}</h2>
-                                </th>
-                            ))}
-                        </Headers>
-                        {/* </thead> */}
+                        <thead>
+                            <Headers>
+                                {headers.map((header, index) => (
+                                    <th key={`header${index}`}>
+                                        <h2>{header}</h2>
+                                    </th>
+                                ))}
+                            </Headers>
+                        </thead>
                         {filteredData &&
                             filteredData.map((order, index) => (
                                 <BodyRows key={order.name + index}>
@@ -177,9 +178,9 @@ const OrdersTable = ({ user, orderData }) => {
                             </BodyRows>
                         )}
                     </Table>
-                </>
+                </TableContainer>
             )}
-        </TableContainer>
+        </>
     );
 };
 
@@ -191,14 +192,15 @@ const TableContainer = styled.div`
     flex-direction: column;
     justify-content: flex-start;
     min-height: 600px;
-    overflow: hidden;
 `;
 
 const Sort = styled.div`
+    align-self: flex-start;
     display: flex;
     flex-direction: row;
     align-items: center;
     margin: 1em;
+
     h2 {
         margin: 0 16px 0 0;
         font-size: 1em;
@@ -246,13 +248,16 @@ const Table = styled.table`
     font-size: 0.9em;
 
     box-shadow: 3px 3px 10px rgba(27, 49, 66, 0.13);
-    table tr:first-of-type {
-        border-radius: 15px 15px 0px 0px;
-    }
-    thead th {
+    thead > tr > th {
         position: sticky;
         top: 0;
         background-color: ${(props) => props.theme.black};
+        :first-of-type {
+            border-radius: 15px 0 0 0;
+        }
+        :last-of-type {
+            border-radius: 0 15px 0 0;
+        }
     }
     th,
     td {
@@ -290,9 +295,6 @@ const Table = styled.table`
     }
 `;
 const Headers = styled.tr`
-    background-color: ${theme.black};
-    border-radius: 15px 15px 0px 0px;
-
     h2 {
         color: #f3f6ff;
         text-align: left;

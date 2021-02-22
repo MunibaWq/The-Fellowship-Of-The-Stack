@@ -42,11 +42,8 @@ const Orders = () => {
 export default Orders;
 
 const OrderContainer = styled.div`
-    padding: 5em 2em;
-    display: grid;
-    grid-template-rows: 80px auto;
-    min-height: 100vh;
-    width: 90vw;
+    display: flex;
+    flex-direction: column;
 
     h1 {
         /* margin: 0 0 0 1.3em; */
