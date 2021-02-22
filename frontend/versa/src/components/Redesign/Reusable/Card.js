@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { calcTotalStock } from "../../../functions/calcTotalStock";
 import OutOfStock from "./OutOfStock";
 import { Going, ShoppingCart } from "../../../images/icons";
 import imageTest from "../../../images/imageTest.png";
+import Attend from "../../Events/Attend";
 const bigDetails = {
     shop: { first: "$", second: "price" },
     event: { second: "num_attending", third: " attending" },
@@ -13,6 +14,7 @@ const details = { shop: "artist", event: "location" };
 const barDetailsL = { event: "startDate" };
 const barDetailsR = { event: "startTime" };
 const Card = ({ type, item, link, awsFolder, action, featured }) => {
+    const [adder, setAdder] = useState(0);
     return (
         <>
             <CardContainer
@@ -51,7 +53,7 @@ const Card = ({ type, item, link, awsFolder, action, featured }) => {
                         <Link to={`/${link}/${item.id}`}>
                             <BigDetail>
                                 {bigDetails[type].first}
-                                {item[bigDetails[type].second]}
+                                {+item[bigDetails[type].second] + adder}
                                 {bigDetails[type].third}
                             </BigDetail>
                         </Link>
@@ -64,7 +66,10 @@ const Card = ({ type, item, link, awsFolder, action, featured }) => {
                                 }>
                                 {type === "shop" && <ShoppingCart />}
                                 {type === "event" && (
-                                    <Going width="18" height="18" />
+                                    <Attend
+                                        changeAttending={setAdder}
+                                        event={item}
+                                    />
                                 )}
                             </Action>
                         )}
