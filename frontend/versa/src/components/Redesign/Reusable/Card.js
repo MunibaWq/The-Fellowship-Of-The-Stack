@@ -150,7 +150,7 @@ const ImportantDetail = styled.div`
 
 const BigDetail = styled.p`
     font-size: 1.1em;
-    font-weight: 700;
+    font-weight: 700 !important;
     letter-spacing: 0.03em;
     text-transform: capitalize;
 `;
