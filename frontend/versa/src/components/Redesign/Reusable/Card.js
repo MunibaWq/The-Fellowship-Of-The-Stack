@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { calcTotalStock } from "../../../functions/calcTotalStock";
 import OutOfStock from "./OutOfStock";
 import { Going, ShoppingCart } from "../../../images/icons";
+import imageTest from "../../../images/imageTest.png";
 const bigDetails = {
     shop: { first: "$", second: "price" },
     event: { second: "num_attending", third: " attending" },
@@ -13,35 +14,47 @@ const barDetailsL = { event: "startDate" };
 const barDetailsR = { event: "startTime" };
 const Card = ({ type, item, link, awsFolder, action, featured }) => {
     return (
-        <Link to={`/${link}/${item.id}`} style={{ position: "relative" }}>
-            {type === "shop" && (
-                <OutOfStock stock={calcTotalStock(item)}>
-                    <p>Out of Stock</p> 🙁
-                </OutOfStock>
-            )}
-
+        <>
             <CardContainer
                 featured={featured}
                 stock={type === "shop" ? calcTotalStock(item) : null}>
-                {type === "event" && (
-                    <Bar>
-                        <p>{item[barDetailsL[type]]}</p>
-                        <p>{item[barDetailsR[type]]}</p>
-                    </Bar>
-                )}
-                <Image
-                    src={`https://versabucket.s3.us-east-2.amazonaws.com/${awsFolder}/${item.thumbnail}.jpeg`}
-                    alt={item.title}
-                />
+                <Link
+                    to={`/${link}/${item.id}`}
+                    style={{ position: "relative" }}>
+                    {type === "shop" && (
+                        <OutOfStock stock={calcTotalStock(item)}>
+                            <p>Out of Stock</p> 🙁
+                        </OutOfStock>
+                    )}
+                    {type === "event" && (
+                        <Bar>
+                            <p>{item[barDetailsL[type]]}</p>
+                            <p>{item[barDetailsR[type]]}</p>
+                        </Bar>
+                    )}
+
+                    <Image
+                        src={
+                            item.thumbnail
+                                ? `https://versabucket.s3.us-east-2.amazonaws.com/${awsFolder}/${item.thumbnail}.jpeg`
+                                : imageTest
+                        }
+                        alt={item.title}
+                    />
+                </Link>
                 <ItemInfo>
-                    <Title>{item.title}</Title>
-                    <Detail>{item[details[type]]}</Detail>
+                    <Link to={`/${link}/${item.id}`}>
+                        <Title>{item.title}</Title>
+                        <Detail>{item[details[type]]}</Detail>
+                    </Link>
                     <ImportantDetail>
-                        <BigDetail>
-                            {bigDetails[type].first}
-                            {item[bigDetails[type].second]}
-                            {bigDetails[type].third}
-                        </BigDetail>
+                        <Link to={`/${link}/${item.id}`}>
+                            <BigDetail>
+                                {bigDetails[type].first}
+                                {item[bigDetails[type].second]}
+                                {bigDetails[type].third}
+                            </BigDetail>
+                        </Link>
                         {action && (
                             <Action
                                 stock={
@@ -58,7 +71,7 @@ const Card = ({ type, item, link, awsFolder, action, featured }) => {
                     </ImportantDetail>
                 </ItemInfo>
             </CardContainer>
-        </Link>
+        </>
     );
 };
 
@@ -67,7 +80,6 @@ const Bar = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    /* height: 39px; */
     background-color: ${(props) => props.theme.black};
     width: calc(100% + 50px);
     margin: -25px -25px 25px -25px;
