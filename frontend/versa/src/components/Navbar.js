@@ -37,12 +37,12 @@ const Navbar = () => {
     const [leftModal, setLeftModal] = useState("#F3F6FF");
     const [leftText, setLeftText] = useState("#F3F6FF");
     const [rightText, setRightText] = useState("#F3F6FF");
-    const [stroke, setStroke] = useState();
+    const [stroke, setStroke] = useState("#F3F6FF");
     const [regular, setRegular] = useState("#1C1C1C");
-    const [onHover, setOnHover] = useState("#E0B8FF");
+    const [onHover, setOnHover] = useState("#6B45FF");
     const [username, setUsername] = useState("");
     const [modal, setModal] = useState(false);
-    const [altColor, setAltColor] = useState("white");
+    const [altColor, setAltColor] = useState(false);
 
     useEffect(() => {
         dispatch(login);
@@ -216,7 +216,7 @@ const Navbar = () => {
                             }}>
                             <SubIcon
                                 className="leftModal"
-                                background={altColor ? "white" : "black"}
+                                background={altColor ? "#F3F6FF" : "#1C1C1C"}
                                 to="/edit">
                                 <GearSix
                                     className="strokeColor"
@@ -226,7 +226,7 @@ const Navbar = () => {
                                 />
                             </SubIcon>
                             <SubText
-                                colors={altColor ? "white" : "black"}
+                                colors={altColor ? "#F3F6FF" : "#1C1C1C"}
                                 className="testing">
                                 settings
                             </SubText>
@@ -300,7 +300,6 @@ const NavLink = styled(Link)`
         width: 18px;
         height: 18px;
     }
-
     &:hover::after {
         content: "";
         position: absolute;
@@ -341,7 +340,7 @@ const WordLink = styled.h2`
     font-size: 18px;
     color: ${(props) => props.color};
     &:hover {
-        ${(props) => props.hover};
+        color: ${(props) => props.hover};
     }
 
     @media (max-width: 600px) {
