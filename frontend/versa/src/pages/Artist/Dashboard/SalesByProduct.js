@@ -31,8 +31,8 @@ const sorters = {
 const SalesByProduct = () => {
     const [productData, setProductData] = useState();
     const [term, setTerm] = useState("");
-    const [start, setStart] = useState("01-01-1900");
-    const [end, setEnd] = useState(new Date().toUTCString());
+    const [start, setStart] = useState(new Date("01-01-1998").toUTCString());
+    const [end, setEnd] = useState(new Date('2999').toUTCString());
     const [sortBy, setSortBy] = useState('# Sold')
     useEffect(() => {
         const fetchData = async (query) => {
