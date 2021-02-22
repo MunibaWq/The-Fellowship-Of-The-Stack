@@ -7,9 +7,10 @@ import {
 } from "react-router-dom";
 import DashboardMain from "./DashboardMain";
 import ShopperDashboardMain from "../../UserBuyer/Dashboard/DashboardMain";
-import Messages from '../../Messages'
+import Messages from "../../Messages";
 import SideNav from "./SideNav";
-import Orders from "./Orders";
+// import Orders from "./Orders";
+import Orders from "../ArtistOrders/Orders";
 import Categories from "./Categories";
 import Inventory from "./Inventory";
 import AvgOrderValue from "./AvgOrderValue";
