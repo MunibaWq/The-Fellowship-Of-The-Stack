@@ -14,6 +14,8 @@ import Search from "../Reusable/Search";
 //      title="Shop"
 //      sub ="Support your favourite talented artists and buy presents for loved ones."
 //       />
+// add onClick prop for the specific function you want the search button to do,
+// add onChange prop for the specific function you want the input box to do
 
 const Header = ({
     sub,

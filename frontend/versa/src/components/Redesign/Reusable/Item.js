@@ -245,22 +245,6 @@ const Row = styled.div`
         padding: 0;
     }
 `;
-const StarsWish = styled.div`
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    width: 100%;
-    align-items: center;
-    height: fit-content;
-
-    svg {
-        padding: 0;
-        path {
-            stroke: ${(props) => props.theme.lightBlack};
-            fill: ${(props) => props.theme.lightPurple};
-        }
-    }
-`;
 
 const OtherImages = styled.div`
     display: flex;
@@ -276,8 +260,8 @@ const MainImage = styled.img`
     background: ${(props) => props.theme.lightBlue};
 `;
 const Image = styled.img`
-    height: clamp(100px, 150px, 200px);
-    width: clamp(100px, 150px, 200px);
+    height: clamp(100px, 120px, 200px);
+    width: clamp(100px, 120px, 200px);
     padding: 10px;
     cursor: pointer;
     background: ${(props) =>
