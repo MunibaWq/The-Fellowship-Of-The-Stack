@@ -2,7 +2,7 @@ import React from "react";
 import StripeCheckout from "react-stripe-checkout";
 import axios from "axios";
 import styled from "styled-components";
-import Button from "../Reusable/Button";
+import Button from "../Redesign/Reusable/Button";
 
 const CheckoutButton = ({ price, artistName, items, custPref, custNote }) => {
     

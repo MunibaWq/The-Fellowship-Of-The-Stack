@@ -6,7 +6,7 @@ import Navbar from "./components/Navbar";
 import Events from "./pages/Events/Events";
 import Account from "./pages/Account";
 import Wishlist from "./pages/UserBuyer/Wishlist";
-import ShoppingCart from "./pages/UserBuyer/ShoppingCart";
+import ShoppingCart from "./pages/ShoppingCart";
 import CreateAccount from "./pages/Shared/CreateAccount";
 import EditAccount from "./pages/Shared/EditAccount";
 import Login from "./pages/Shared/Login";
