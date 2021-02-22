@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 import { calcTotalStock } from "../../../functions/calcTotalStock";
 import OutOfStock from "./OutOfStock";
 import { Going, ShoppingCart } from "../../../images/icons";
-const bigDetails = { shop: { prefix: "$", detail: "price" }, "event": {detail:""}};
-const details = {shop: "artist"}
+const bigDetails = { shop: { first: "$", second: "price" }, "event": {second:"num_attending", third: " attending"}};
+const details = {shop: "artist", event: "location"}
 const Card = ({ type, item, link, awsFolder, action, featured }) => {
     return (
         <Link to={`/${link}/${item.id}`} style={{ position: "relative" }}>
@@ -25,8 +25,9 @@ const Card = ({ type, item, link, awsFolder, action, featured }) => {
                     <Detail>{item[details[type]]}</Detail>
                     <ImportantDetail>
                         <BigDetail>
-                            {bigDetails[type].prefix}
-                            {item[bigDetails[type].detail]}
+                            {bigDetails[type].first}
+                            {item[bigDetails[type].second]}
+                            {bigDetails[type].third}
                         </BigDetail>
                         {action && (
                                 <Action stock={calcTotalStock(item)}>
