@@ -7,6 +7,8 @@ import { setChoices } from "../../../redux/actions/ProductPage";
 import { AddIcon, CheckMarkIcon, LineCloseIcon } from "../../../images/icons";
 import { addToCart } from "../../../axios/posts";
 import Pill from "../../Reusable/Pill";
+import Box from "./Box";
+import TopBar from "./TopBar";
 const Item = ({ product, images }) => {
     const choices = useSelector((state) => state.productChoices);
     const [chosen, setChosen] = useState();
@@ -263,7 +265,7 @@ const Image = styled.img`
 const ClearSelection = styled(Button)`
     color: ${(props) => props.theme.lightPurple};
     align-items: center;
-    margin-bottom: 0.5em;
+    margin-bottom: 1em;
     svg {
         path {
             stroke: ${(props) => props.theme.lightPurple};

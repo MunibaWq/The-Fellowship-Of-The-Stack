@@ -1,6 +1,12 @@
 import styled from "styled-components";
 
 const PageContainer = styled.div`
+    :nth-child(-n + 2) {
+        align-self: flex-start;
+    }
+    ::nth-child(n + 4) {
+        justify-content: center;
+    }
     display: flex;
     flex-direction: column;
     align-items: center;
