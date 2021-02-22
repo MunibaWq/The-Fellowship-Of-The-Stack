@@ -119,9 +119,10 @@ router.get("/byEID/:id", async (req, res) => {
     try {
         //make a query to insert the image info into the db
         let result = await pool.query(
-            "SELECT * from EVENT_IMAGES WHERE event_id =" + req.params.id
+            "SELECT * FROM event_images WHERE event_id =" + req.params.id
         );
         res.send(result.rows);
+        console.log(result.rows)
     } catch (e) {
         console.log(e);
         res.sendStatus(400);

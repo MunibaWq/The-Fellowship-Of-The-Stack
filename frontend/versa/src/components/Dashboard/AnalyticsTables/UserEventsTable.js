@@ -40,9 +40,9 @@ const UserEventsTable = ({ eventsData }) => {
 
                     {events &&
                         events.map((event, index) => (
-                            <BodyRows key={event.name + index}>
+                            <BodyRows key={event.title + index}>
                                 <td data-title="Event Name">
-                                    <p>{event.name}</p>
+                                    <p>{event.title}</p>
                                 </td>
                                 <td data-title="Hosted By">
                                     <p>{event.host_name}</p>

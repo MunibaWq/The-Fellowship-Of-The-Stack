@@ -20,6 +20,7 @@ const Button = styled.button.attrs((props) => ({
     font-family: "Inter", sans-serif;
     margin: 0;
     max-width: fit-content;
+    outline: none;
     cursor: pointer;
     :hover {
         background: ${(props) => props.theme.holo};
@@ -53,7 +54,7 @@ const Button = styled.button.attrs((props) => ({
         css`
             color: ${(props) => props.theme.purple};
             padding: 10px 20px;
-            background: none;
+            background: transparent;
             position: relative;
             border-bottom: 3px solid transparent;
             svg {
@@ -69,8 +70,8 @@ const Button = styled.button.attrs((props) => ({
                 svg {
                     margin-right: 8px;
                     path {
-                        stroke: ${(props) => props.theme.black};
-                        fill: ${(props) => props.theme.black};
+                        stroke: ${(props) => props.theme.purple};
+                        fill: ${(props) => props.theme.purple};
                     }
                 }
 

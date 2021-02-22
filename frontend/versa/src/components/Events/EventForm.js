@@ -21,6 +21,7 @@ import { userGoing, createEvent } from "../../axios/posts";
 import { StyledLink } from "../Reusable/Link";
 import { LineCloseIcon } from "../../images/icons";
 import theme from "../Reusable/Colors";
+import { editEvent } from "../../axios/puts";
 
 const options = [
     "Select one:",
@@ -45,7 +46,7 @@ const EventForm = (props) => {
     useEffect(() => {
         const getUserData = async () => {
             let data = await getEventByID(id);
-            dispatch(setFormInputs("event", "name", data.name));
+            dispatch(setFormInputs("event", "name", data.title));
             dispatch(setFormInputs("event", "description", data.description));
             dispatch(setFormInputs("event", "capacity", data.capacity));
             dispatch(
@@ -68,7 +69,22 @@ const EventForm = (props) => {
             dispatch(setFormInputs("event", "type", data.type));
 
             let img = await getImagesByEID(id);
-            dispatch(setImages("eventForm", img.images));
+            console.log(img)
+            dispatch(
+                setImages(
+                    "eventForm",
+                    img.map((picture) => {
+                        return {
+                            image: `https://versabucket.s3.us-east-2.amazonaws.com/eventImages/${picture.filename}.jpeg`,
+                            label: picture.label,
+                            imageFile: "update",
+                            size: "full",
+                            filename: picture.filename,
+                            id: picture.id
+                        };
+                    })
+                )
+            );
         };
 
         if (props.type === "Edit") {
@@ -96,13 +112,7 @@ const EventForm = (props) => {
             if (props.type === "Add") {
                 createEvent(eventInfo, images, thumbImg);
             } else {
-                axios.put(
-                    "/api/events/edit/" + id,
-                    {
-                        data: eventInfo,
-                    },
-                    { withCredentials: true }
-                );
+                editEvent(eventInfo,images,id,thumbImg)
             }
         };
         let error = document.getElementById("error");

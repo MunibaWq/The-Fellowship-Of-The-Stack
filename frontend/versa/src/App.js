@@ -3,11 +3,10 @@ import { ThemeProvider } from "styled-components";
 // import SearchResults from "./pages/UserBuyer/SearchResults";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Navbar from "./components/Navbar";
-import Events from "./pages/Events";
+import Events from "./pages/Events/Events";
 import Account from "./pages/Account";
 import Wishlist from "./pages/UserBuyer/Wishlist";
 import ShoppingCart from "./pages/UserBuyer/ShoppingCart";
-import ProductItem from "./pages/UserBuyer/ProductItem";
 import CreateAccount from "./pages/Shared/CreateAccount";
 import EditAccount from "./pages/Shared/EditAccount";
 import Login from "./pages/Shared/Login";
@@ -17,10 +16,10 @@ import { PrivateRoute } from "./components/Reusable/PrivateRoute";
 import NotFound from "./pages/NotFound";
 import Footer from "./components/Footer";
 import ComingSoon from "./pages/Shared/ComingSoon";
-
 import Contact from "./pages/Contact";
 import Shop from "./pages/Shop/Shop";
 import LightTheme from "./components/Redesign/Reusable/Theme";
+import ProductPage from "./pages/Shop/ProductPage";
 if (!window.localStorage.getItem("session")) {
     window.localStorage.setItem(
         "session",
@@ -55,7 +54,7 @@ function App() {
 
                         <Route
                             path="/product-item/:id"
-                            component={ProductItem}
+                            component={ProductPage}
                         />
                         <Route path="/events/:id" component={EventPage} />
 

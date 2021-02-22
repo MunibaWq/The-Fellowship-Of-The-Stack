@@ -16,7 +16,7 @@ const Search = ({ placeholder, onClick, onChange, onKeyPress }) => {
                 onChange={onChange}
                 onKeyPress={onKeyPress}
             />
-            <Button secondarySmall onClick={onClick}>
+            <Button onClick={onClick} secondarySmall>
                 Search
             </Button>
         </SearchContainer>
