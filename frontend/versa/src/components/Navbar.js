@@ -170,6 +170,7 @@ const Navbar = () => {
                         </NavLink>
                     )}
                     <NavLink
+                        to="/account"
                         color={theme.secondary}
                         onClick={() => {
                             setAccount(onHover);
