@@ -42,7 +42,7 @@ const DashboardMain = () => {
                 .forEach((event, index) => {
                     if (index < 5) {
                         tempEventsTableData.table.values.push([
-                            event.name,
+                            event.title,
                             new Date(event.start_time).toLocaleDateString(),
                             event.location,
                         ]);

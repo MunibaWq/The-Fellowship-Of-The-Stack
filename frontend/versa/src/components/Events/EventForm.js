@@ -46,7 +46,7 @@ const EventForm = (props) => {
     useEffect(() => {
         const getUserData = async () => {
             let data = await getEventByID(id);
-            dispatch(setFormInputs("event", "name", data.name));
+            dispatch(setFormInputs("event", "name", data.title));
             dispatch(setFormInputs("event", "description", data.description));
             dispatch(setFormInputs("event", "capacity", data.capacity));
             dispatch(
@@ -69,12 +69,13 @@ const EventForm = (props) => {
             dispatch(setFormInputs("event", "type", data.type));
 
             let img = await getImagesByEID(id);
+            console.log(img)
             dispatch(
                 setImages(
-                    "productForm",
-                    img.images.map((picture) => {
+                    "eventForm",
+                    img.map((picture) => {
                         return {
-                            image: `https://versabucket.s3.us-east-2.amazonaws.com/images/${picture.filename}.jpeg`,
+                            image: `https://versabucket.s3.us-east-2.amazonaws.com/eventImages/${picture.filename}.jpeg`,
                             label: picture.label,
                             imageFile: "update",
                             size: "full",
@@ -111,7 +112,7 @@ const EventForm = (props) => {
             if (props.type === "Add") {
                 createEvent(eventInfo, images, thumbImg);
             } else {
-                editEvent(eventInfo,images,thumbImg)
+                editEvent(eventInfo,images,id,thumbImg)
             }
         };
         let error = document.getElementById("error");

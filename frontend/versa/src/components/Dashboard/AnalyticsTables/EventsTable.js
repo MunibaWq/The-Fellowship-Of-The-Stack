@@ -45,9 +45,9 @@ const EventsTable = ({ eventsData }) => {
 
                     {eventsData &&
                         eventsData.map((event, index) => (
-                            <BodyRows key={event.name + index}>
+                            <BodyRows key={event.title + index}>
                                 <td>
-                                    <p>{event.name}</p>
+                                    <p>{event.title}</p>
                                 </td>
                                 <td>
                                     <p>{event.start_time}</p>

@@ -20,7 +20,7 @@ const sendReminder = async () => {
 
         if (new Date(event.start_time).getDate() === tomorrow.getDate()) {
             attendees = await pool.query(
-                "SELECT h.username as host_name, e.name as event_name, e.description, e.start_time, e.end_time, e.location, a.event_id, u.email, u.name from events_attendees a INNER JOIN users u ON a.attendee = u.id INNER JOIN events e ON e.id=a.event_id INNER JOIN users h ON h.id=e.host WHERE a.event_id = " +
+                "SELECT h.username as host_name, e.title as event_name, e.description, e.start_time, e.end_time, e.location, a.event_id, u.email, u.name from events_attendees a INNER JOIN users u ON a.attendee = u.id INNER JOIN events e ON e.id=a.event_id INNER JOIN users h ON h.id=e.host WHERE a.event_id = " +
                     event.id
             );
             collabs = await pool.query(

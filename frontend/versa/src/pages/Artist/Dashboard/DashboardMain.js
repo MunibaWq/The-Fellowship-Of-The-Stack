@@ -34,7 +34,7 @@ const DashboardMain = () => {
           }) &&
           eventsData.map((event) =>
               eventsTableData.table.values.push([
-                  event.name,
+                  event.title,
                   event.start_time,
                   event.location,
               ])

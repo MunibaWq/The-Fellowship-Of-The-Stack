@@ -77,7 +77,7 @@ const EventCard = ({ theEvent }) => {
                 </Link>
             )}
             <Link to={`/events/${theEvent.id}`}>
-                <Name>{theEvent.name}</Name>
+                <Name>{theEvent.title}</Name>
                 <Host>{theEvent.host_name}</Host>
                 <EventDate>
                     {startDate
