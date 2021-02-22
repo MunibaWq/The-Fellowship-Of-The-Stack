@@ -34,7 +34,9 @@ export const DateRangeSearch = ({ setDate1, setDate2 }) => {
 const DateContainer = styled.div`
     display: flex;
     flex-direction: column;
+    margin-right: 20px;
 `;
 export const SearchBarDiv = styled.div`
     display: flex;
+    width:100%;
 `;

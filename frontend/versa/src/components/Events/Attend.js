@@ -3,7 +3,6 @@ import { amIGoing, getUserByToken } from "../../axios/gets";
 import { deleteUserFromEventByID } from "../../axios/deletes";
 import { userGoing } from "../../axios/posts";
 import { Going, NotGoing } from "../../images/icons";
-import Button from "../Redesign/Reusable/Button";
 import { useHistory } from "react-router";
 import styled from "styled-components";
 
