@@ -5,8 +5,7 @@ import styled from "styled-components";
 // import Icon from "../Reusable/Icons";
 import theme from "./Reusable/Colors";
 import Cookies from "universal-cookie";
-import SignOut from "../images/SignOut.svg";
-import GearSix from "../images/GearSix.svg";
+
 import {
     EventsIcon,
     AccountIcon,
@@ -17,6 +16,8 @@ import {
     Dashboard,
     ShoppingBag,
     HomeIcon,
+    GearSix,
+    SignOut,
 } from "../images/icons";
 import { useDispatch } from "react-redux";
 import { login } from "../redux/actions/actions";
@@ -25,20 +26,24 @@ const cookies = new Cookies();
 const Navbar = () => {
     const dispatch = useDispatch();
     const loggedIn = cookies.get("token");
-    const [nav, setNav] = useState("#FBFCFF");
+    const [nav, setNav] = useState("#F3F6FF");
     const [home, setHome] = useState("#1C1C1C");
     const [shop, setShop] = useState("#1C1C1C");
     const [events, setEvents] = useState("#1C1C1C");
     const [dashboard, setDashboard] = useState("#1C1C1C");
     const [account, setAccount] = useState("#1C1C1C");
-    const [rightModal, setRightModal] = useState("#FBFCFF");
-    const [leftModal, setLeftModal] = useState("#FBFCFF");
-    const [leftText, setLeftText] = useState("#FBFCFF");
-    const [rightText, setRightText] = useState("#FBFCFF");
+    const [cart, setCart] = useState("#1C1C1C");
+    const [rightModal, setRightModal] = useState("#F3F6FF");
+    const [leftModal, setLeftModal] = useState("#F3F6FF");
+    const [leftText, setLeftText] = useState("#F3F6FF");
+    const [rightText, setRightText] = useState("#F3F6FF");
+    const [stroke, setStroke] = useState();
     const [regular, setRegular] = useState("#1C1C1C");
     const [onHover, setOnHover] = useState("#E0B8FF");
     const [username, setUsername] = useState("");
     const [modal, setModal] = useState(false);
+    const [altColor, setAltColor] = useState("white");
+
     useEffect(() => {
         dispatch(login);
     }, [loggedIn, dispatch]);
@@ -58,23 +63,35 @@ const Navbar = () => {
         function getScrollHeight() {
             if (window.scrollY > 100) {
                 setNav("#1C1C1C");
-                setHome("#FBFCFF");
-                setShop("#FBFCFF");
-                setAccount("#FBFCFF");
-                setDashboard("#FBFCFF");
-                setEvents("#FBFCFF");
-                setRegular("#FBFCFF");
+                setHome("#F3F6FF");
+                setShop("#F3F6FF");
+                setAccount("#F3F6FF");
+                setDashboard("#F3F6FF");
+                setEvents("#F3F6FF");
+                setRegular("#F3F6FF");
                 setOnHover("#B4FFC6");
+                setCart("#F3F6FF");
+                setLeftModal("#F3F6FF");
+                setRightModal("#F3F6FF");
+                setLeftText("#F3F6FF");
+                setRightText("#F3F6FF");
+                setAltColor(true);
             }
             if (window.scrollY < 100) {
-                setNav("#FBFCFF");
+                setNav("#F3F6FF");
                 setHome("#1C1C1C");
                 setShop("#1C1C1C");
                 setAccount("#1C1C1C");
                 setDashboard("#1C1C1C");
                 setEvents("#1C1C1C");
+                setCart("#1C1C1C");
                 setRegular("#1C1C1C");
                 setOnHover("#6B45FF");
+                setLeftModal("1C1C1C");
+                setRightModal("1C1C1C");
+                setLeftText("1C1C1C");
+                setRightText("1C1C1C");
+                setAltColor(false);
             }
         }
 
@@ -171,12 +188,12 @@ const Navbar = () => {
                         color={theme.secondary}
                         to="/shopping-cart"
                         onMouseEnter={() => {
-                            setHome(onHover);
+                            setCart(onHover);
                         }}
                         onMouseLeave={() => {
-                            setHome(regular);
+                            setCart(regular);
                         }}>
-                        <CartIcon stroke={home} />
+                        <CartIcon stroke={cart} />
                     </NavLink>
                 </NavMenu>
             </Nav>
@@ -189,33 +206,49 @@ const Navbar = () => {
                     <SubMenu>
                         <SubContainer
                             to="/settings"
+                            hoverText={onHover}
+                            modal={gradient}
                             onMouseEnter={() => {
-                                setLeftModal(gradient);
-                                setLeftText("#E0B8FF");
+                                setStroke("#6B45FF");
                             }}
                             onMouseLeave={() => {
-                                setLeftModal("#FBFCFF");
-                                setLeftText("#FBFCFF");
+                                setStroke("#F3F6FF");
                             }}>
-                            <SubIcon background={leftModal} to="/edit">
-                                <img src={SignOut} alt="sign-out" />
+                            <SubIcon
+                                className="leftModal"
+                                background={altColor ? "white" : "black"}
+                                to="/edit">
+                                <GearSix
+                                    className="strokeColor"
+                                    strokeColor={stroke}
+                                    stroke={altColor ? "#474747" : stroke}
+                                    alt="setting"
+                                />
                             </SubIcon>
-                            <SubText colors={leftText}>settings</SubText>
+                            <SubText
+                                colors={altColor ? "white" : "black"}
+                                className="testing">
+                                settings
+                            </SubText>
                         </SubContainer>
                         <SubContainer
                             to="/log-out"
-                            onMouseEnter={() => {
-                                setRightModal(gradient);
-                                setRightText("#E0B8FF");
-                            }}
-                            onMouseLeave={() => {
-                                setRightModal("#FBFCFF");
-                                setRightText("#FBFCFF");
-                            }}>
-                            <SubIcon background={rightModal} to="/logout">
-                                <img src={GearSix} alt="setting" />
+                            hoverText={onHover}
+                            modal={altColor ? gradient : "#6B45FF"}>
+                            <SubIcon
+                                className="rightModal"
+                                background={altColor ? "#F3F6FF" : "#1C1C1C"}
+                                to="/logout">
+                                <SignOut
+                                    stroke={altColor ? "#474747" : "#F3F6FF"}
+                                    alt="sign-out"
+                                />
                             </SubIcon>
-                            <SubText colors={rightText}>logout</SubText>
+                            <SubText
+                                className="testing"
+                                colors={altColor ? "#F3F6FF" : "#1C1C1C"}>
+                                logout
+                            </SubText>
                         </SubContainer>
                     </SubMenu>
                 </AccountMenu>
@@ -237,7 +270,7 @@ export default Navbar;
 
 export const Nav = styled.nav`
     background: ${(props) =>
-        props.colors === "#FBFCFF" ? "none" : props.colors};
+        props.colors === "#F3F6FF" ? "none" : props.colors};
     display: flex;
     justify-content: space-between;
     padding: 20px 40px;
@@ -331,36 +364,44 @@ const Versa = styled.h1`
 const AccountMenu = styled.div`
     position: fixed;
     z-index: 10;
-    // width: 234px;
-    // height: 125px;
+
     background: ${(props) =>
-        props.colors === "#FBFCFF" ? "none" : props.colors};
+        props.colors === "#F3F6FF" ? "none" : props.colors};
     right: 0;
     border-radius: 0 0 15px 15px;
     padding: 10px;
 `;
 const SubMenu = styled.div`
-    width: 100%;
     display: flex;
     justify-content: space-between;
 `;
 const SubContainer = styled(Link)`
-    height: 100%;
     width: 91px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 4px;
+
+    &:hover {
+        .testing {
+            color: ${(props) => props.hoverText};
+        }
+        .rightModal {
+            background: ${(props) => props.modal};
+        }
+        .leftModal {
+            background: ${(props) => props.modal};
+        }
+        .strokeColor {
+            stroke: ${(props) => props.strokeColor};
+        }
+    }
 `;
 const SubIcon = styled.div`
     background: ${(props) => props.background};
     border-radius: 8px;
-    padding: 5px 10px;
-    img {
-        width: 18px;
-        height: 18px;
-    }
+    padding: 10px 10px;
 `;
+
 const SubText = styled.p`
     margin-top: 8px;
     font-size: 14px;
