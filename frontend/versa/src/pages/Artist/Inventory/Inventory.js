@@ -87,7 +87,10 @@ const Inventory = (currentProduct) => {
 
     return (
         <PageContainer>
-            <Header title="Inventory" />
+            <Header
+                title="Inventory"
+                sub="Manage your stock and quickly update the status of your products."
+            />
             <TableContainer>
                 <Link
                     to="/dashboard/artist/products/create"
@@ -201,12 +204,12 @@ const Inventory = (currentProduct) => {
 export default Inventory;
 
 const TableContainer = styled.div`
-    width: 100%;
     justify-self: center;
     display: flex;
     flex-direction: column;
     justify-content: center;
     min-height: 600px;
+    margin: 20px 60px;
 `;
 
 const DeleteButton = styled.button.attrs(() => ({
