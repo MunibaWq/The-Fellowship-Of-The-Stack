@@ -18,6 +18,7 @@ const Button = styled.button.attrs((props) => ({
     border-radius: 15px;
     font-family: "Inter", sans-serif;
     margin: 0;
+    width: fit-content;
 
     outline: none;
     cursor: pointer;

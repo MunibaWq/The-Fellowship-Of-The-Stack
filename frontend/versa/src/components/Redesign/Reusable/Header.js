@@ -48,7 +48,7 @@ const HeaderContainer = styled.header`
     align-self: flex-start;
     flex-direction: column;
     align-items: flex-start;
-    margin-bottom: 60px;
+    /* margin-bottom: 60px; */
 `;
 
 const Subheading = styled.p`
