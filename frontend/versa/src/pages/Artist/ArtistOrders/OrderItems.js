@@ -60,22 +60,23 @@ const OrderItems = () => {
                                     {/* <p>{buyerDetails.phone}</p> */}
                                     {buyerDetails.pickup === false ? (
                                         <>
-                                            <h4>Shipping Address</h4>
+                                            <h3>Delivery Address</h3>
                                             <p>
                                                 {buyerDetails.shipping_address}
                                             </p>
                                         </>
                                     ) : (
                                         <>
-                                            <h4>Note</h4>
+                                            <h3>Delivery Notes</h3>
                                             <p>
-                                                Customer will pick this order up
+                                                Customer will pick this order
+                                                up.
                                             </p>
                                         </>
                                     )}
                                     {buyerDetails.delivery_notes && (
                                         <>
-                                            <h2>Note</h2>
+                                            <h3>Delivery Notes</h3>
                                             <p>{buyerDetails.delivery_notes}</p>
                                         </>
                                     )}
@@ -240,18 +241,25 @@ const Buyer = styled.div`
     border-radius: 15px;
 `;
 const BuyerLeft = styled.div`
-    margin-right: 1em;
+    h2 {
+        color: ${(props) => props.theme.black};
+        margin-bottom: 0.8em;
+        letter-spacing: 0.03em;
+        line-height: 1em;
+    }
     p {
-        :last-of-type {
-            margin-bottom: 0;
-        }
+        margin: 1em 0 1em 0;
     }
 `;
 const BuyerRight = styled.div`
+    h2 {
+        color: ${(props) => props.theme.black};
+        margin-bottom: 0.8em;
+        letter-spacing: 0.03em;
+        line-height: 1em;
+    }
     p {
-        :last-of-type {
-            margin-bottom: 0;
-        }
+        margin: 1em 0 1em 0;
     }
 `;
 
@@ -273,6 +281,7 @@ const OrderItemContainer = styled.div`
 `;
 
 const BuyerNameBar = styled.div`
+    margin-top: 1em;
     display: flex;
     flex-direction: column;
     justify-content: center;
