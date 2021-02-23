@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import Button from "../Reusable/Button";
+import Button from "../Redesign/Reusable/Button";
 import { Link, useParams, useHistory } from "react-router-dom";
 import {
     getCollabsByEventID,
@@ -14,6 +14,7 @@ import { deleteUserFromEventByID } from "../../axios/deletes";
 import { amIGoing } from "../../axios/gets";
 import ImageTest from "../../images/imageTest.png";
 import PageContainer from "../../components/Redesign/Reusable/PageContainer";
+import BackLink from "../../components/Redesign/Reusable/BackLink";
 // import { clearChoices, setChoices } from "../../redux/actions/EventPage";
 
 const EventPage = () => {
@@ -102,181 +103,178 @@ const EventPage = () => {
 
     return (
         <PageContainer>
+            <BackLink to="/events">
+                <LeftIcon />
+                Back to Events
+            </BackLink>
             <Container>
-                <Link to="/events">
-                    <Button>
-                        <LeftIcon stroke={(props) => props.theme.primary} />
-                        Back to Events
-                    </Button>
-                </Link>
-                <MainInfo>
-                    <Column>
-                        <MainImage
-                            src={
-                                image
-                                    ? `https://versabucket.s3.us-east-2.amazonaws.com/eventImages/${image}.jpeg`
-                                    : ImageTest
-                            }
-                            alt={"image"}
-                        />
-                    </Column>
-                    <Column>
-                        <EventDetail>
-                            <h4>
-                                {eventData
-                                    ? eventData.type
-                                    : "Loading event categories"}
-                            </h4>
-                            <h1>
-                                {eventData
-                                    ? eventData.title
-                                    : "Loading Event  "}
-                            </h1>
-                            <h2>
-                                by
-                                {eventData
-                                    ? "  " + eventData.username
-                                    : "Loading Host Name"}
-                            </h2>
-                            <Collabs>
-                                {collabs && collabs.length > 0 && (
-                                    <h3>In collaboration with: </h3>
+                <Column>
+                    <MainImage
+                        src={
+                            image
+                                ? `https://versabucket.s3.us-east-2.amazonaws.com/eventImages/${image}.jpeg`
+                                : ImageTest
+                        }
+                        alt={"image"}
+                    />
+                </Column>
+                <Column>
+                    <h4>
+                        {eventData
+                            ? eventData.type
+                            : "Loading event categories"}
+                    </h4>
+                    <h2>{eventData ? eventData.title : "Loading Event  "}</h2>
+                    <h3>
+                        by
+                        {eventData
+                            ? "  " + eventData.username
+                            : "Loading Host Name"}
+                    </h3>
+                    <Row>
+                        {collabs && collabs.length > 0 && (
+                            <h3>In collaboration with: </h3>
+                        )}
+                        {collabs &&
+                            collabs.length > 0 &&
+                            collabs.map((collab, index) => {
+                                return <p key={index}>{collab.username}</p>;
+                            })}
+                    </Row>
+                    <Row>
+                        <h3>Date: </h3>
+                        <p>
+                            {dateTime
+                                ? dateTime.startDate + "-" + dateTime.endDate
+                                : "Loading dates"}
+                        </p>
+                    </Row>
+                    <Row>
+                        <h3>Time: </h3>
+                        <p>
+                            {dateTime
+                                ? dateTime.startTime + "-" + dateTime.endTime
+                                : "Loading times"}
+                        </p>
+                    </Row>
+                    <Row>
+                        <h3>Location:</h3>
+                        <p>{eventData.location}</p>
+                    </Row>
+
+                    <Row>
+                        <h3>Attending: </h3>
+
+                        <p>{eventData ? attending : "0"} </p>
+                    </Row>
+                    <Row>
+                        <h3>Description</h3>
+                        <p>
+                            {eventData
+                                ? eventData.description
+                                : "Loading description..."}
+                        </p>
+                    </Row>
+                    {!going && (
+                        <Button
+                            onClick={() => {
+                                if (isUser) {
+                                    userGoing(currentEvent);
+                                    setAttending(attending + 1);
+                                } else {
+                                    routeChange();
+                                }
+
+                                setGoing((curr) => !curr);
+                            }}>
+                            <Going />
+                            Attend Event
+                        </Button>
+                    )}
+                    {going && (
+                        <Button
+                            secondarySmall
+                            onClick={() => {
+                                if (isUser) {
+                                    deleteUserFromEventByID(currentEvent);
+                                    setAttending(attending - 1);
+                                } else {
+                                    routeChange();
+                                }
+
+                                setGoing((curr) => !curr);
+                            }}>
+                            <NotGoing />
+                            Unattend Event
+                        </Button>
+                    )}
+                    {isUser && (
+                        <Question>
+                            <h3>Ask the host about this event:</h3>
+                            <Send>
+                                {!sent ? (
+                                    <>
+                                        <Message
+                                            value={question}
+                                            onChange={(e) => {
+                                                setQuestion(e.target.value);
+                                            }}
+                                        />
+                                        <Button
+                                            onClick={() => {
+                                                sendMessage(
+                                                    `Event: ${eventData.title}`,
+                                                    eventData.host,
+                                                    "B2A",
+                                                    question,
+                                                    new Date()
+                                                );
+                                                setSent(true);
+                                            }}
+                                            secondary>
+                                            <SendIcon />
+                                            Send
+                                        </Button>
+                                    </>
+                                ) : (
+                                    "Message Sent, check dashboard for responses"
                                 )}
-                                {collabs &&
-                                    collabs.length > 0 &&
-                                    collabs.map((collab, index) => {
-                                        return (
-                                            <p key={index}>{collab.username}</p>
-                                        );
-                                    })}
-                            </Collabs>
-                            <Details>
-                                <h3>Date: </h3>
-                                <p>
-                                    {dateTime
-                                        ? dateTime.startDate +
-                                          "-" +
-                                          dateTime.endDate
-                                        : "Loading dates"}
-                                </p>
-                            </Details>
-                            <Details>
-                                <h3>Time: </h3>
-                                <p>
-                                    {dateTime
-                                        ? dateTime.startTime +
-                                          "-" +
-                                          dateTime.endTime
-                                        : "Loading times"}
-                                </p>
-                            </Details>
-                            <Details>
-                                <h3>Location:</h3>
-                                <p>{eventData.location}</p>
-                            </Details>
-
-                            <Details>
-                                <h3>Attending: </h3>
-
-                                <p>{eventData ? attending : "0"} </p>
-                            </Details>
-                            <Description>
-                                <h3>Description</h3>
-                                <p>
-                                    {eventData
-                                        ? eventData.description
-                                        : "Loading description..."}
-                                </p>
-                            </Description>
-                            {!going && (
-                                <Button
-                                    primary
-                                    onClick={() => {
-                                        if (isUser) {
-                                            userGoing(currentEvent);
-                                            setAttending(attending + 1);
-                                        } else {
-                                            routeChange();
-                                        }
-
-                                        setGoing((curr) => !curr);
-                                    }}>
-                                    <Going
-                                        stroke={(props) =>
-                                            props.theme.secondary
-                                        }
-                                    />
-                                    Attend Event
-                                </Button>
-                            )}
-                            {going && (
-                                <Button
-                                    primary
-                                    onClick={() => {
-                                        if (isUser) {
-                                            deleteUserFromEventByID(
-                                                currentEvent
-                                            );
-                                            setAttending(attending - 1);
-                                        } else {
-                                            routeChange();
-                                        }
-
-                                        setGoing((curr) => !curr);
-                                    }}>
-                                    <NotGoing
-                                        stroke={(props) =>
-                                            props.theme.secondary
-                                        }
-                                    />
-                                    Unattend Event
-                                </Button>
-                            )}
-                            {isUser && (
-                                <Question>
-                                    <h3>Ask the host about this event:</h3>
-                                    <Send>
-                                        {!sent ? (
-                                            <>
-                                                <Message
-                                                    value={question}
-                                                    onChange={(e) => {
-                                                        setQuestion(
-                                                            e.target.value
-                                                        );
-                                                    }}
-                                                />
-                                                <Button
-                                                    onClick={() => {
-                                                        sendMessage(
-                                                            `Event: ${eventData.title}`,
-                                                            eventData.host,
-                                                            "B2A",
-                                                            question,
-                                                            new Date()
-                                                        );
-                                                        setSent(true);
-                                                    }}
-                                                    secondary>
-                                                    <SendIcon />
-                                                    Send
-                                                </Button>
-                                            </>
-                                        ) : (
-                                            "Message Sent, check dashboard for responses"
-                                        )}
-                                    </Send>
-                                </Question>
-                            )}
-                        </EventDetail>
-                    </Column>
-                </MainInfo>
+                            </Send>
+                        </Question>
+                    )}
+                </Column>
             </Container>
         </PageContainer>
     );
 };
 
 export default EventPage;
+
+// const AttendButton = styled(Button)`
+//     ::after {
+//         content: " ${(props) =>
+//             props.clicked ? "Unattend Event" : "Attend Event"}";
+//     }
+// `;
+
+const Row = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    height: fit-content;
+    h3 {
+        font-size: 0.9em;
+        text-transform: uppercase;
+        font-weight: 700;
+        color: ${(props) => props.theme.lightBlack};
+        margin-right: 8px;
+    }
+    p {
+        padding: 0;
+        font-size: 1em;
+    }
+`;
 
 const Column = styled.div`
     :nth-of-type(2) {
@@ -325,18 +323,6 @@ const Container = styled.div`
     background: ${(props) => props.theme.blue};
     padding: clamp(16px, 40px, 60px);
     border-radius: 15px;
-`;
-
-const MainInfo = styled.div`
-    display: flex;
-    margin: 40px;
-    flex-direction: row;
-    justify-content: flex-start;
-    @media (max-width: 1000px) {
-        flex-wrap: wrap;
-        margin: 20px;
-        justify-content: center;
-    }
 `;
 
 const EventImages = styled.div`
