@@ -52,72 +52,94 @@ const OrderItems = () => {
                         </BuyerNameBar>
                         <OrderItemContainer>
                             <BuyerDetails>
-                                <NumItems>
+                                {/* <NumItems>
                                     <p>Profile Image</p>
-                                </NumItems>
+                                </NumItems> */}
                                 <Buyer>
-                                    <h4>Phone Number</h4>
-                                    <p>{buyerDetails.phone}</p>
-                                    {buyerDetails.pickup === false ? (
-                                        <>
-                                            <h4>Shipping Address</h4>
-                                            <p>
-                                                {buyerDetails.shipping_address}
-                                            </p>
-                                        </>
-                                    ) : (
-                                        <>
-                                            <h4>Note</h4>
-                                            <p>
-                                                Customer will pick this order up
-                                            </p>
-                                        </>
-                                    )}
-                                    {buyerDetails.delivery_notes && (
-                                        <>
-                                            <h2>Note</h2>
-                                            <p>{buyerDetails.delivery_notes}</p>
-                                        </>
-                                    )}
+                                    <BuyerLeft>
+                                        {/* <h4>Phone Number</h4> */}
+                                        {/* <p>{buyerDetails.phone}</p> */}
+                                        {buyerDetails.pickup === false ? (
+                                            <>
+                                                <h4>Shipping Address</h4>
+                                                <p>
+                                                    {
+                                                        buyerDetails.shipping_address
+                                                    }
+                                                </p>
+                                            </>
+                                        ) : (
+                                            <>
+                                                <h4>Note</h4>
+                                                <p>
+                                                    Customer will pick this
+                                                    order up
+                                                </p>
+                                            </>
+                                        )}
+                                        {buyerDetails.delivery_notes && (
+                                            <>
+                                                <h2>Note</h2>
+                                                <p>
+                                                    {
+                                                        buyerDetails.delivery_notes
+                                                    }
+                                                </p>
+                                            </>
+                                        )}
+                                    </BuyerLeft>
+                                    <BuyerRight>
+                                        {orderData[0].buyer_id !== 9999 && (
+                                            <Message>
+                                                <div>
+                                                    <h2>
+                                                        Connect with{" "}
+                                                        {
+                                                            buyerDetails.name.split(
+                                                                " "
+                                                            )[0]
+                                                        }
+                                                    </h2>
+                                                    Got any questions about this
+                                                    order? Get in touch!
+                                                    <MessageBox>
+                                                        <textarea
+                                                            value={message}
+                                                            onChange={(e) => {
+                                                                setMessage(
+                                                                    e.target
+                                                                        .value
+                                                                );
+                                                            }}
+                                                        />
+                                                    </MessageBox>
+                                                    {!sent ? (
+                                                        <Button
+                                                            secondary
+                                                            onClick={() => {
+                                                                let order =
+                                                                    orderData[0];
+                                                                setSent(true);
+                                                                sendMessage(
+                                                                    `Order #${order.id}`,
+                                                                    order.buyer_id,
+                                                                    "A2B",
+                                                                    message,
+                                                                    new Date().toUTCString()
+                                                                );
+                                                            }}>
+                                                            <SendIcon />
+                                                            Send
+                                                        </Button>
+                                                    ) : (
+                                                        "Message Sent, check dashboard for responses"
+                                                    )}
+                                                </div>
+                                            </Message>
+                                        )}
+                                    </BuyerRight>
                                 </Buyer>
                             </BuyerDetails>
-                            {orderData[0].buyer_id !== 9999 && (
-                                <Message>
-                                    <div>
-                                        <h2>Message</h2>
-                                        Send the customer a message about this
-                                        order
-                                        <div>
-                                            <textarea
-                                                value={message}
-                                                onChange={(e) => {
-                                                    setMessage(e.target.value);
-                                                }}
-                                            />
-                                        </div>
-                                        {!sent ? (
-                                            <Button
-                                                secondary
-                                                onClick={() => {
-                                                    let order = orderData[0];
-                                                    setSent(true);
-                                                    sendMessage(
-                                                        `Order #${order.id}`,
-                                                        order.buyer_id,
-                                                        "A2B",
-                                                        message,
-                                                        new Date().toUTCString()
-                                                    );
-                                                }}>
-                                                <SendIcon />
-                                                Send
-                                            </Button>
-                                        ) : (
-                                            "Message Sent, check dashboard for responses"
-                                        )}
-                                    </div>
-                                </Message>
-                            )}
                             {orderData.map((order) => {
                                 return (
                                     <OrderItemCard
@@ -139,23 +161,35 @@ const Message = styled.article`
     display: flex;
     flex-direction: row;
     align-items: center;
-    background: #6495ed60;
+
     grid-column: 1;
     grid-row: 2;
-    padding: 2em;
-    box-shadow: 3px 3px 10px rgba(27, 49, 66, 0.13);
+    /* margin: 2em; */
+
     border-radius: 15px;
-    :hover {
-        box-shadow: 7px 7px 30px rgba(27, 49, 66, 0.13);
+    div {
+        h2 {
+            color: ${(props) => props.theme.black};
+            margin-bottom: 0.8em;
+            letter-spacing: 0.03em;
+            line-height: 1em;
+        }
     }
-    h2 {
-        margin-bottom: 0.8em;
-        font-weight: 700;
-        letter-spacing: 0.03em;
-    }
+
     textarea {
         height: 200px;
-        width: 330px;
+        width: 100%;
+        resize: none;
+    }
+`;
+const MessageBox = styled.article`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    textarea {
+        height: 200px;
+        width: 100%;
         resize: none;
     }
 `;
@@ -200,20 +234,6 @@ const BackToOrder = styled(StyledLink)`
     border-bottom: none;
 `;
 
-const BuyerDetails = styled.article`
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    background: #6495ed60;
-
-    padding: 2em;
-    box-shadow: 3px 3px 10px rgba(27, 49, 66, 0.13);
-    border-radius: 15px;
-    :hover {
-        box-shadow: 7px 7px 30px rgba(27, 49, 66, 0.13);
-    }
-`;
-
 const NumItems = styled.div`
     display: grid;
     place-items: center;
@@ -229,8 +249,35 @@ const NumItems = styled.div`
     margin: 0 1em 0 0;
 `;
 
+const BuyerDetails = styled.article`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 2em;
+    justify-content: center;
+`;
+
 const Buyer = styled.div`
-    h2 {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    padding: 40px;
+
+    width: 80%;
+
+    background: ${(props) => props.theme.blue};
+    border-radius: 15px;
+
+    /* Inside Auto Layout */
+
+    /* flex: none;
+    order: 1;
+    flex-grow: 0;
+    margin: 40px 0px; */
+`;
+const BuyerLeft = styled.div`
+    /* h2 {
         margin-bottom: 0.8em;
         font-weight: 700;
         letter-spacing: 0.03em;
@@ -238,7 +285,25 @@ const Buyer = styled.div`
     h4 {
         font-weight: 700;
         margin-bottom: 0.3em;
+    } */
+    margin-right: 1em;
+    p {
+        :last-of-type {
+            margin-bottom: 0;
+        }
     }
+`;
+const BuyerRight = styled.div`
+    /* margin: 2em; */
+    /* h2 {
+        margin-bottom: 0.8em;
+        font-weight: 700;
+        letter-spacing: 0.03em;
+    }
+    h4 {
+        font-weight: 700;
+        margin-bottom: 0.3em;
+    } */
     p {
         :last-of-type {
             margin-bottom: 0;
@@ -247,18 +312,17 @@ const Buyer = styled.div`
 `;
 
 const OrderItemContainer = styled.div`
-    border-radius: 15px 15px 0px 0px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     padding: 0px;
-    /* background: ${(props) => props.theme.black}; */
+    background: ${(props) => props.theme.lightBlue};
     h2 {
         color: ${(props) => props.theme.lightBlue};
         margin-bottom: 0;
         font-weight: 700;
-        text-transform: uppercase;
+
         letter-spacing: 0.03em;
     }
 `;
