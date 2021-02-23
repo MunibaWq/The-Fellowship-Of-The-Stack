@@ -188,7 +188,6 @@ const Item = ({ product, images }) => {
                     </AddToCart>
                 </Row>
             </Column>
-            <AboutArtist artist={product?.artist} />
         </Container>
     );
 };
@@ -372,21 +371,9 @@ const SizeOption = styled.button.attrs({
     }
 `;
 
-const Message = styled.textarea`
-    resize: none;
-    width: 100%;
-    height: 100%;
-    margin: 5px;
-`;
 const AddToCart = styled(Button)`
     ::after {
         content: " ${(props) =>
             props.clicked ? "Added Item" : "Add to Cart"}";
     }
-`;
-const Send = styled.div``;
-const Question = styled.div`
-    display: flex;
-    flex-direction: column;
-    margin-top: 20px;
 `;
