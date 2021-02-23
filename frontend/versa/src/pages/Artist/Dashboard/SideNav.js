@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import DashNav from "./DashNav";
@@ -56,6 +56,12 @@ const SideNav = ({ navWidth, setNavWidth }) => {
     const [toggleIconFill, setToggleIconFill] = useState(newPurp);
     const [shrinkStroke, setShrinkStroke] = useState(black);
     const [shrinkFill, setShrinkFill] = useState(white);
+
+    useEffect(() => {
+        if (!expanded) {
+            setToggleIconStroke(white);
+        }
+    }, [expanded]);
     return (
         <Container navWidth={navWidth}>
             {!expanded && (
@@ -91,12 +97,12 @@ const SideNav = ({ navWidth, setNavWidth }) => {
                                 setExpanded(false);
                             }}
                             onMouseEnter={() => {
-                                setToggleIconFill("none");
-                                setToggleIconStroke(black);
+                                setShrinkFill("none");
+                                setShrinkStroke(black);
                             }}
                             onMouseLeave={() => {
-                                setToggleIconFill(white);
-                                setToggleIconStroke(black);
+                                setShrinkFill(white);
+                                setShrinkStroke(black);
                             }}>
                             <CaretDoubleLeft
                                 stroke={shrinkStroke}
