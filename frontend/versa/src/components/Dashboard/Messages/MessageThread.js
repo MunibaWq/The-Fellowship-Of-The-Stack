@@ -108,7 +108,7 @@ const MessageThread = ({ thread }) => {
             </Send>
         </ThreadDiv>
     ) : (
-        <></>
+        <ThreadDiv></ThreadDiv>
     );
 };
 export default MessageThread;
@@ -210,7 +210,8 @@ const ThreadDiv = styled.div`
     }
     grid-row:2;
     grid-column:2;
-    background-color: ${props=>props.theme.lightBlue};
+    background-color: ${props => props.theme.lightBlue};
+ 
 `;
 const MessageDiv = styled.div`
     display: flex;

@@ -28,7 +28,11 @@ let artist = [
         item: <Archive />,
         to: "/dashboard/artist/inventory",
     },
-    { label: "ANALYTICS", item: <Chartbar />, to: "/" },
+    {
+        label: "ANALYTICS",
+        item: <Chartbar />,
+        to: "/dashboard/artist/analytics",
+    },
     {
         label: "MANAGE EVENTS",
         item: <Calender />,
@@ -142,6 +146,6 @@ const DashNav = ({ type }) => {
 const LinkContainer = styled.div`
     display: flex;
     flex-direction: column;
-    margin: 20px 0;
+    margin: 0px 20px;
 `;
 export default DashNav;
