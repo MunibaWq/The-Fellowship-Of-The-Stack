@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { LeftIcon } from "../../../images/icons";
 import Search from "../Reusable/Search";
 import { StyledLink } from "./Link";
 
@@ -33,6 +34,7 @@ const Header = ({
         <HeaderContainer>
             {link && (
                 <StyledLink to={link} tertiary>
+                    <LeftIcon />
                     {linkText}
                 </StyledLink>
             )}

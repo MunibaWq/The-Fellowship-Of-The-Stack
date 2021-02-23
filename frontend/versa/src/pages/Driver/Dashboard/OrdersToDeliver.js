@@ -27,6 +27,8 @@ const OrdersToDeliver = () => {
             <Header
                 title="Orders to Deliver"
                 sub="Add orders to your delivery list and view the items you need to pick up for that order."
+                link="/dashboard/driver"
+                linkText="Dashboard"
             />
             {!orderData ? (
                 <Loading />

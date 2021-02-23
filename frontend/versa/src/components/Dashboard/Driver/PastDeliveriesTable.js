@@ -63,7 +63,6 @@ const DriverPastDeliveriesTable = ({ user, orderData }) => {
     };
     const filteredData = filterData(data, query);
 
-    
     return (
         <TableContainer>
             {!orderData ? (
@@ -168,6 +167,7 @@ const DriverPastDeliveriesTable = ({ user, orderData }) => {
 export default DriverPastDeliveriesTable;
 
 const TableContainer = styled.div`
+    margin-top: 2em;
     justify-self: center;
     display: flex;
     flex-direction: column;
@@ -185,23 +185,24 @@ const Sort = styled.div`
         font-size: 1em;
         font-weight: 700;
         text-transform: uppercase;
-        color: ${theme.primary};
+        color: ${(props) => props.theme.black};
     }
     input {
         padding: 8px;
         outline: none;
         min-width: 150px;
-        border: ${(props) =>
-            props.border === true
-                ? `2px solid ${theme.primaryHover}`
-                : `2px solid ${theme.primary}`};
+        border-radius: 8px;
+        border: 2px solid
+            ${(props) =>
+                props.border === true ? props.theme.green : props.theme.black};
         :active,
         :hover,
         :focus {
-            border: ${(props) =>
-                props.border === true
-                    ? `2px solid #77dd77`
-                    : `2px solid ${theme.primaryHover}`};
+            border: 2px solid
+                ${(props) =>
+                    props.border === true
+                        ? props.theme.green
+                        : props.theme.purple};
         }
     }
     @media screen and (max-width: 600px) {
@@ -220,20 +221,26 @@ const Sort = styled.div`
 `;
 
 const Table = styled.table`
-    position: relative;
     border-collapse: collapse;
     margin: 0 1em 2em 1em;
     font-size: 0.9em;
     min-width: 955px;
     box-shadow: 3px 3px 10px rgba(27, 49, 66, 0.13);
     border-radius: 15px 15px 0px 0px;
-    thead th {
+    thead > tr > th {
         position: sticky;
         top: 0;
+        background-color: ${(props) => props.theme.black};
+        :first-of-type {
+            border-radius: 16px 0 0 0;
+        }
+        :last-of-type {
+            border-radius: 0 16px 0 0;
+        }
     }
     th,
     td {
-        padding: 12px 15px;
+        padding: 20px 40px;
         :nth-of-type(1) {
             min-width: 80px;
             @media screen and (max-width: 600px) {
@@ -267,19 +274,16 @@ const Table = styled.table`
     }
 `;
 const Headers = styled.tr`
-    background-color: ${theme.primary};
-
     h2 {
-        color: ${theme.secondary};
+        color: ${(props) => props.theme.blue};
         text-align: left;
         margin-bottom: 0;
         text-transform: uppercase;
         font-size: 0.8em;
-        /* letter-spacing: 0.03em; */
     }
 `;
 const BodyRows = styled.tr`
-    border-bottom: thin solid #dddddd;
+    border-bottom: thin solid ${(props) => props.theme.blue};
     transition: all 0.2s ease;
 
     cursor: pointer;
@@ -288,17 +292,17 @@ const BodyRows = styled.tr`
         margin-bottom: 0;
     }
     :hover {
-        background-color: ${theme.primary + "40"};
+        background-color: ${(props) => props.theme.blueHover};
     }
     :nth-of-type(even) {
-        background-color: #eff3fe60;
+        background-color: ${(props) => props.theme.lightBlue};
         :hover {
-            background-color: ${theme.primary + "40"};
+            background-color: ${(props) => props.theme.blueHover};
         }
     }
 
     :last-of-type {
-        border-bottom: 2px solid ${theme.primary};
+        border-bottom: 2px solid ${(props) => props.theme.lightPurple};
     }
 `;
 
@@ -307,17 +311,16 @@ const SortChoice = styled.select`
     outline: none;
     min-width: 150px;
     cursor: pointer;
+    border-radius: 8px;
     margin-right: 32px;
-    border: ${(props) =>
-        props.border === true
-            ? `2px solid ${theme.primaryHover}`
-            : `2px solid ${theme.primary}`};
+    border: 2px solid
+        ${(props) =>
+            props.border === true ? props.theme.green : props.theme.black};
     :active,
     :hover,
     :focus {
-        border: ${(props) =>
-            props.border === true
-                ? `2px solid ${theme.primaryHover}`
-                : `2px solid ${theme.primaryHover}`};
+        border: 2px solid
+            ${(props) =>
+                props.border === true ? props.theme.green : props.theme.purple};
     }
 `;
