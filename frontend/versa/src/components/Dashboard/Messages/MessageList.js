@@ -34,6 +34,7 @@ const MessageList = ({ selectedThread, setSelectedThread, messages }) => {
                 );
             });
             setFilteredList(newList);
+            setSelectedThread(newList[0])
         }
     }, [filter, messageList]);
     useEffect(() => {

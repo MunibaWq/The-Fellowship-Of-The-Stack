@@ -14,12 +14,9 @@ import Orders from "../ArtistOrders/Orders";
 import Categories from "./Categories";
 // import Inventory from "./Inventory";
 import Inventory from "../Inventory/Inventory";
-import AvgOrderValue from "./AvgOrderValue";
 import Notifications from "./Notifications";
-import SalesByProduct from "./SalesByProduct";
+
 import Settings from "./Settings";
-import TotalOrders from "./TotalOrders";
-import TotalSales from "./TotalSales";
 import DashboardEvents from "./DashboardEvents";
 import { useState } from "react";
 import AddProduct from "../AddProduct";
@@ -43,6 +40,7 @@ import AssignedPickups from "../../Driver/Dashboard/AssignedPickups";
 import ShopperOrderItems from "../../UserBuyer/Dashboard/OrderItems";
 import AssignedPickupDetails from "../../Driver/Dashboard/AssignedPickupDetails";
 import Deliveries from "../../Driver/Dashboard/Deliveries";
+import Analytics from './Analytics'
 import SideMenu from "../../../components/SideMenu";
 const cookies = new Cookies();
 const Redirecter = () => {
@@ -89,6 +87,12 @@ const Dashboard = () => {
                         exact
                         component={Inventory}
                     />
+                    <PrivateRoute
+                        path="/dashboard/artist/analytics"
+                        exact
+                        component={Analytics}
+                    />
+
 
                     <PrivateRoute
                         path="/dashboard/driver"
@@ -125,26 +129,6 @@ const Dashboard = () => {
                         path="/dashboard/artist/manage-events"
                         exact
                         component={DashboardEvents}
-                    />
-                    <PrivateRoute
-                        path="/dashboard/artist/total-sales/"
-                        exact
-                        component={TotalSales}
-                    />
-                    <PrivateRoute
-                        path="/dashboard/artist/total-orders/"
-                        exact
-                        component={TotalOrders}
-                    />
-                    <PrivateRoute
-                        path="/dashboard/artist/average-order-value/"
-                        exact
-                        component={AvgOrderValue}
-                    />
-                    <PrivateRoute
-                        path="/dashboard/artist/sales-by-products/"
-                        exact
-                        component={SalesByProduct}
                     />
 
                     <PrivateRoute
