@@ -149,15 +149,15 @@ const Inventory = (currentProduct) => {
                                             )}
                                         </td> */}
                                         <td>
-                                            <Link
-                                                to={
-                                                    "/dashboard/artist/products/edit/" +
-                                                    result.id
-                                                }>
-                                                <UnfillPencilIcon
-                                                    stroke={theme.black}
-                                                />
-                                            </Link>
+                                            <PencilIcon>
+                                                <Link
+                                                    to={
+                                                        "/dashboard/artist/products/edit/" +
+                                                        result.id
+                                                    }>
+                                                    <UnfillPencilIcon />
+                                                </Link>
+                                            </PencilIcon>
                                         </td>
                                         <td>
                                             <DeleteButton
@@ -201,7 +201,7 @@ const Inventory = (currentProduct) => {
 export default Inventory;
 
 const TableContainer = styled.div`
-    width: 100%;
+    width: 65%;
     justify-self: center;
     display: flex;
     flex-direction: column;
@@ -209,6 +209,20 @@ const TableContainer = styled.div`
     min-height: 600px;
 `;
 
+const PencilIcon = styled.button.attrs(() => ({
+    type: "button",
+}))`
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin: 3px;
+    padding: 2px;
+    svg {
+        path {
+            stroke: ${theme.black};
+        }
+    }
+`;
 const DeleteButton = styled.button.attrs(() => ({
     type: "button",
 }))`
@@ -216,6 +230,7 @@ const DeleteButton = styled.button.attrs(() => ({
     border: none;
     cursor: pointer;
     padding: 2px;
+    margin: 3px;
     svg {
         path {
             stroke: ${theme.black};
@@ -265,7 +280,7 @@ const Table = styled.table`
             min-width: 130px;
         }
         :nth-of-type(3) {
-            min-width: 250px;
+            min-width: 220px;
             @media screen and (max-width: 600px) {
                 display: none;
             }
