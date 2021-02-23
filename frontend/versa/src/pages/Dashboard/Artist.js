@@ -7,11 +7,10 @@ import Header from "../../components/Redesign/Reusable/Header";
 const Artist = () => {
     const cookies = new Cookies();
     return (
-    <PageContainer>
-        <Header  
-        title={"Hello, "+ cookies.get("name")}/>
-    </PageContainer>;
-    )
+        <PageContainer>
+            <Header title={`Hello, ${cookies.get("name")}`} />
+        </PageContainer>
+    );
 };
 
 export default Artist;

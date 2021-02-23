@@ -40,8 +40,9 @@ import AssignedPickups from "../../Driver/Dashboard/AssignedPickups";
 import ShopperOrderItems from "../../UserBuyer/Dashboard/OrderItems";
 import AssignedPickupDetails from "../../Driver/Dashboard/AssignedPickupDetails";
 import Deliveries from "../../Driver/Dashboard/Deliveries";
-import Analytics from './Analytics'
+import Analytics from "./Analytics";
 import SideMenu from "../../../components/SideMenu";
+import Artist from "../../Dashboard/Artist";
 const cookies = new Cookies();
 const Redirecter = () => {
     window.location = "/account";
@@ -75,7 +76,7 @@ const Dashboard = () => {
                     <PrivateRoute
                         path="/dashboard/artist"
                         exact
-                        component={DashboardMain}
+                        component={Artist}
                     />
                     <PrivateRoute
                         path="/dashboard/artist/orders"
@@ -92,7 +93,6 @@ const Dashboard = () => {
                         exact
                         component={Analytics}
                     />
-
 
                     <PrivateRoute
                         path="/dashboard/driver"
