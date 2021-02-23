@@ -81,6 +81,7 @@ const Button = styled.button.attrs((props) => ({
             padding: 10px 20px;
             background: transparent;
             position: relative;
+            align-items: center;
             border-bottom: 3px solid transparent;
             svg {
                 margin-right: 8px;

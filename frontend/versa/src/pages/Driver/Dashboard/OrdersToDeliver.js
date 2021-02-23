@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import { getOrdersForDriver } from "../../../axios/gets";
-import Loading from "../../../components/Reusable/Loading";
+import Loading from "../../../components/Redesign/Reusable/Loading";
 import OrdersToDeliverTable from "../../../components/Dashboard/Driver/OrdersToDeliverTable";
+import Header from "../../../components/Redesign/Reusable/Header";
+import PageContainer from "../../../components/Redesign/Reusable/PageContainer";
 
 const OrdersToDeliver = () => {
     const [orderData, setOrderData] = useState();
@@ -21,8 +23,11 @@ const OrdersToDeliver = () => {
     }, []);
 
     return (
-        <OrderContainer>
-            <h1>Orders to Deliver</h1>
+        <PageContainer>
+            <Header
+                title="Orders to Deliver"
+                sub="Add orders to your delivery list and view the items you need to pick up for that order."
+            />
             {!orderData ? (
                 <Loading />
             ) : (
@@ -31,23 +36,8 @@ const OrdersToDeliver = () => {
                     user={currentUser}
                 />
             )}
-        </OrderContainer>
+        </PageContainer>
     );
 };
 
 export default OrdersToDeliver;
-
-const OrderContainer = styled.div`
-    padding: 4em 2em 2em calc(2em + 66px);
-    display: grid;
-    grid-template-rows: 60px auto;
-
-    h1 {
-        margin: 0 1em 2em 1em;
-        justify-self: start;
-    }
-    :last-of-type {
-        place-self: start;
-        align-self: center;
-    }
-`;

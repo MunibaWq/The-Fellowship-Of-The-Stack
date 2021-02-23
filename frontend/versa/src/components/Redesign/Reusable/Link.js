@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import styled, { css } from "styled-components";
 import GradientMove from "./Animations";
 
-
 export const StyledLink = styled(Link)`
     display: inline-flex;
     flex-direction: row;
@@ -56,6 +55,7 @@ export const StyledLink = styled(Link)`
             background: ${(props) => props.theme.black};
             border-radius: 8px;
             padding: 10px 20px;
+            color: ${(props) => props.theme.blue};
             :hover {
                 background: ${(props) => props.theme.purple};
                 color: ${(props) => props.theme.blue};
@@ -99,7 +99,7 @@ export const StyledLink = styled(Link)`
                 content: "";
                 position: absolute;
                 width: 0%;
-                transform: translate(-15%, 500%);
+                transform: translate(-15%, 800%);
                 height: 4px;
                 border-radius: 50px;
                 opacity: 0;
