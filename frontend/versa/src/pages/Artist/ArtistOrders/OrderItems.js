@@ -66,6 +66,17 @@ const OrderItems = () => {
                                             <p>
                                                 {buyerDetails.shipping_address}
                                             </p>
+
+                                            {buyerDetails.delivery_notes && (
+                                                <>
+                                                    <h3>Delivery Notes</h3>
+                                                    <p>
+                                                        {
+                                                            buyerDetails.delivery_notes
+                                                        }
+                                                    </p>
+                                                </>
+                                            )}
                                         </>
                                     ) : (
                                         <>
@@ -75,12 +86,6 @@ const OrderItems = () => {
                                                 Customer will pick this order
                                                 up.
                                             </p>
-                                        </>
-                                    )}
-                                    {buyerDetails.delivery_notes && (
-                                        <>
-                                            <h3>Delivery Notes</h3>
-                                            <p>{buyerDetails.delivery_notes}</p>
                                         </>
                                     )}
                                 </BuyerLeft>
