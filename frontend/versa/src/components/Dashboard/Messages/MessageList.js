@@ -125,7 +125,7 @@ const MessageList = ({ selectedThread, setSelectedThread, messages }) => {
                 {filteredList.reduce((count, thread) => {
                     count += thread.unread;
                     return count;
-                }, 0) > 1
+                }, 0) !== 1
                     ? "s"
                     : ""}
             </MessageListHeader>
@@ -171,7 +171,7 @@ const MessageList = ({ selectedThread, setSelectedThread, messages }) => {
                                     )}
                                 </UnreadIcon>
                                 <ThreadInfo>
-                                    <h3>{thread.topic}</h3>
+                                    <h4>{thread.topic}</h4>
                                     <From>
                                         <p>{thread.from}</p>
                                         <p>{thread.fromUsername}</p>
@@ -212,15 +212,16 @@ const Threads = styled.div`
     padding-right: 1px;
     overflow: auto;
     ::-webkit-scrollbar {
-        width: 0.1em;
+        width: 0.5em;
     }
 
     ::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 2px rgb(0, 0, 0);
     }
 
     ::-webkit-scrollbar-thumb {
         background-color: ${(props) => props.theme.purple};
-        outline: 1px solid ${(props) => props.theme.purple};
+        border-radius: 8px;
     }
 `;
 
@@ -247,7 +248,7 @@ const ThreadInfo = styled.div`
             grid-column: 2;
             place-self: flex-end;
             margin-right: 10px;
-            color: ${(props) => props.theme.lightPurple};
+            color: ${(props) => props.theme.purple};
         }
     }
 `;
