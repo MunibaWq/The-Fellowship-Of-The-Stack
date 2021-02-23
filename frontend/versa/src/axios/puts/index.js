@@ -35,7 +35,12 @@ export const editProduct = async (productInfo, images, id, thumbImg) => {
     });
     return productID;
 };
-export const updateProductImage = async (label, imageSize, productID, filename) => {
+export const updateProductImage = async (
+    label,
+    imageSize,
+    productID,
+    filename
+) => {
     try {
         const response = await Axios.put("/api/images/update", {
             imageSize,
@@ -52,6 +57,15 @@ export const updateProductImage = async (label, imageSize, productID, filename) 
         console.error(err);
         return false;
     }
+};
+export const updateInventoryStatus = async (result, status) => {
+    result.status = status;
+    await Axios.put("/api/products/edit/" + result.id, {
+        headers: {
+            "Access-Control-Allow-Origin": "*",
+        },
+        data: result,
+    });
 };
 
 // created a put request for editStock part of product form and passed stock prop from productForm to submitData to sendProductData to here
