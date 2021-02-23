@@ -269,12 +269,16 @@ const BuyerNameBar = styled.div`
     justify-content: center;
     align-items: center;
     width: 100%;
+    padding: 20px 40px;
 
     background: ${(props) => props.theme.black};
 
     border-radius: 15px 15px 0px 0px;
     h2 {
         color: ${(props) => props.theme.lightBlue};
+        font-size: 36;
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
     }
 `;
 
