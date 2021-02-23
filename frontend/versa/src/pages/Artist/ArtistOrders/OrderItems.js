@@ -31,19 +31,21 @@ const OrderItems = () => {
     }, [orderID]);
 
     return (
-        <PageContainer>
+        <PageContainer style>
             {!orderData ? (
                 <Loading />
             ) : (
                 <>
-                    <BackToOrder to="/dashboard/artist/recent-orders/">
+                    {/* <BackToOrder to="/dashboard/artist/recent-orders/">
                         <LeftIcon />
                         Back to Orders
-                    </BackToOrder>
+                    </BackToOrder> */}
 
                     <Header
                         title={`Order #${orderID}`}
                         sub="These are the products that you need to fulfill your order. Mark them as fulfilled so that you can track of your progress."
+                        link="/dashboard/artist/recent-orders/"
+                        linkText="Orders"
                     />
 
                     <BuyerNameBar>
@@ -67,6 +69,7 @@ const OrderItems = () => {
                                         </>
                                     ) : (
                                         <>
+                                            <h3>For Pickup</h3>
                                             <h3>Delivery Notes</h3>
                                             <p>
                                                 Customer will pick this order
@@ -279,14 +282,18 @@ const Buyer = styled.div`
 const BuyerLeft = styled.div`
     h3 {
         color: ${(props) => props.theme.black};
-        margin-top: 0.5em;
-        margin-bottom: 0.5em;
-        letter-spacing: 0.03em;
-        line-height: 1em;
+        /* margin-top: 0.5em; */
+        /* margin-bottom: 0.5em; */
+        /* letter-spacing: 0.03em;
+        /* line-height: 1em; */
+
+        line-height: 3em;
+
+        letter-spacing: 0.05em;
         text-transform: uppercase;
     }
     p {
-        margin: 1em 0 1em 0;
+        margin: -1.2em 0 1em 0;
     }
 `;
 const BuyerRight = styled.div`
