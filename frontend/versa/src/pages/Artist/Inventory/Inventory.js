@@ -88,27 +88,27 @@ const Inventory = (currentProduct) => {
     return (
         <PageContainer>
             <Header title="Inventory" />
-            <TableContainer>
-                <Link
-                    to="/dashboard/artist/products/create"
-                    style={{ alignSelf: "flex-end" }}>
-                    <CreateProductButton>
-                        Create a new product
-                    </CreateProductButton>
-                </Link>
-                <Table>
-                    <thead>
-                        <Headers>
-                            {headers.map((header, index) => (
-                                <th key={`header${index}`}>
-                                    <h2>{header}</h2>
-                                </th>
-                            ))}
-                        </Headers>
-                    </thead>
-                    <tbody>
-                        {results.length > 0 && inventory.length > 0 ? (
-                            results.map((result, index) => {
+            {results.length > 0 && inventory.length > 0 ? (
+                <TableContainer>
+                    <Link
+                        to="/dashboard/artist/products/create"
+                        style={{ alignSelf: "flex-end" }}>
+                        <CreateProductButton>
+                            Create a new product
+                        </CreateProductButton>
+                    </Link>
+                    <Table>
+                        <thead>
+                            <Headers>
+                                {headers.map((header, index) => (
+                                    <th key={`header${index}`}>
+                                        <h2>{header}</h2>
+                                    </th>
+                                ))}
+                            </Headers>
+                        </thead>
+                        <tbody>
+                            {results.map((result, index) => {
                                 return (
                                     <BodyRows key={result.title + index}>
                                         {/* <tr
@@ -170,30 +170,29 @@ const Inventory = (currentProduct) => {
                                         {/* </tr> */}
                                     </BodyRows>
                                 );
-                            })
-                        ) : (
-                            <td>
-                                <Loading />
-                            </td>
-                        )}
-                    </tbody>
-                </Table>
-                {visible ? (
-                    <DeleteProductModal
-                        value={visible}
-                        setter={setVisible}
-                        id={currentId}
-                        display="flex"
-                    />
-                ) : (
-                    <DeleteProductModal
-                        value={visible}
-                        setter={setVisible}
-                        id={currentId}
-                        display="none"
-                    />
-                )}
-            </TableContainer>
+                            })}
+                        </tbody>
+                    </Table>
+
+                    {visible ? (
+                        <DeleteProductModal
+                            value={visible}
+                            setter={setVisible}
+                            id={currentId}
+                            display="flex"
+                        />
+                    ) : (
+                        <DeleteProductModal
+                            value={visible}
+                            setter={setVisible}
+                            id={currentId}
+                            display="none"
+                        />
+                    )}
+                </TableContainer>
+            ) : (
+                <Loading />
+            )}
         </PageContainer>
     );
 };
