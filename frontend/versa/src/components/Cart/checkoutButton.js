@@ -74,7 +74,7 @@ const CheckoutButton = ({ price, artistName, items, custPref, custNote }) => {
                 token={onToken} // submit callback
                 
             >
-                <Button primary>Pay</Button>
+                <Button primary>Proceed To Pay</Button>
             </Stripe>
         </StripeContainer>
     );

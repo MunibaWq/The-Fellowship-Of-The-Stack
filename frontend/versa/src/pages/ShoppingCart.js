@@ -119,7 +119,16 @@ const ShoppingCart = () => {
             />
             <Cart>
                 <BasketList>
-                    <p>Items in cart ({calcNumItems()})</p>
+                    <Bar>
+                        <ColumnHeaders>
+                            <div><p>Item</p></div>
+                            <div></div>
+                            <div><p>Quantity</p></div>
+                            <Price><p>Price</p></Price>
+                            <Price><p>Total</p></Price>
+                        </ColumnHeaders>
+                    </Bar>
+
                     <Items>
                         {calcNumItems() === 0 ? (
                             <NoItems>
@@ -134,7 +143,7 @@ const ShoppingCart = () => {
                                     cartItems.map((cartItem) => {
                                         return (
                                             <CartItem>
-                                                <img
+                                                <img width="100" height="100"
                                                     src={
                                                         cartItem.thumbnail
                                                             ? "https://versabucket.s3.us-east-2.amazonaws.com/images/" +
@@ -144,7 +153,7 @@ const ShoppingCart = () => {
                                                     }
                                                     alt={cartItem.variation}
                                                 />
-                                                <div>{cartItem.variation}</div>
+                                                <Variation>{cartItem.variation}</Variation>
 
                                                 <QuantityInput>
                                                     {cartItem.itemQuantity >=
@@ -210,92 +219,105 @@ const ShoppingCart = () => {
                                             </CartItem>
                                         );
                                     })}
-                                <div>
-                                    <Delivery>
-                                        <RadioButton
-                                            preference={preference}
-                                            setPreference={setPreference}
-                                            instructions={extraInstructions}
-                                            setInstructions={
-                                                setExtraInstructions
-                                            }
-                                        />
-                                    </Delivery>
-                                </div>
                             </>
                         )}
                     </Items>
                 </BasketList>
                 <BasketOrderSummary>
-                    <p>Checkout</p>
+                    <Bar>
+                        <p>PLACE YOUR ORDER</p>
+                        <NumItems>Items in cart ({calcNumItems()})</NumItems>
+                    </Bar>
                     <Items>
+                        <DeliveryChoice>
+                            <Delivery>
+                                <RadioButton
+                                    preference={preference}
+                                    setPreference={setPreference}
+                                    instructions={extraInstructions}
+                                    setInstructions={setExtraInstructions}
+                                />
+                            </Delivery>
+                        </DeliveryChoice>
                         <div>
-                            <Pay>
-                                <div>Merchandise subtotal</div>
-                                <Price>
-                                    {calcCartTotal().toLocaleString("us-US", {
-                                        style: "currency",
-                                        currency: "USD",
-                                    })}
-                                </Price>
-                            </Pay>
-                            <Pay>
-                                <div>GST</div>
-                                <div>
+                            <div>
+                                <Pay>
+                                    <div>Merchandise subtotal</div>
                                     <Price>
-                                        {(
-                                            calcCartTotal() * 0.05
-                                        ).toLocaleString("us-US", {
-                                            style: "currency",
-                                            currency: "USD",
-                                        })}
+                                        {calcCartTotal().toLocaleString(
+                                            "us-US",
+                                            {
+                                                style: "currency",
+                                                currency: "USD",
+                                            }
+                                        )}
                                     </Price>
-                                </div>
-                            </Pay>
-                            <Pay>
-                                <div>Delivery</div>
-                                <div>
-                                    {preference === "delivery" && (
-                                        <Price>{deliveryFee()}</Price>
-                                    )}
-                                </div>
-                            </Pay>
-                            <Divider />
-                            <Pay>
-                                <div>Total</div>
-                                <EstimatedTotalSpan>
+                                </Pay>
+                                <Pay>
+                                    <div>GST</div>
                                     <div>
                                         <Price>
-                                            {preference !== "delivery"
-                                                ? (
-                                                      calcCartTotal() * 1.05
-                                                  ).toLocaleString("us-US", {
-                                                      style: "currency",
-                                                      currency: "USD",
-                                                  })
-                                                : (
-                                                      calcCartTotal() * 1.05 +
-                                                      deliveryFee()
-                                                  ).toLocaleString("us-US", {
-                                                      style: "currency",
-                                                      currency: "USD",
-                                                  })}
+                                            {(
+                                                calcCartTotal() * 0.05
+                                            ).toLocaleString("us-US", {
+                                                style: "currency",
+                                                currency: "USD",
+                                            })}
                                         </Price>
                                     </div>
-                                </EstimatedTotalSpan>
-                            </Pay>
-                        </div>
-                        <div>
-                            {cartItems && cartItems.length > 0 && (
-                                <CheckoutButton
-                                    items={cartItems}
-                                    artistName="Versa"
-                                    custPref={preference}
-                                    custNote={extraInstructions}
-                                    price={(calcCartTotal() * 1.05).toFixed(
-                                        2
-                                    )}></CheckoutButton>
-                            )}
+                                </Pay>
+                                <Pay>
+                                    <div>Delivery</div>
+                                    <div>
+                                        {preference === "delivery" && (
+                                            <Price>{deliveryFee()}</Price>
+                                        )}
+                                    </div>
+                                </Pay>
+                                <Divider />
+                                <Pay>
+                                    <div>Total</div>
+                                    <EstimatedTotalSpan>
+                                        <div>
+                                            <Price>
+                                                {preference !== "delivery"
+                                                    ? (
+                                                          calcCartTotal() * 1.05
+                                                      ).toLocaleString(
+                                                          "us-US",
+                                                          {
+                                                              style: "currency",
+                                                              currency: "USD",
+                                                          }
+                                                      )
+                                                    : (
+                                                          calcCartTotal() *
+                                                              1.05 +
+                                                          deliveryFee()
+                                                      ).toLocaleString(
+                                                          "us-US",
+                                                          {
+                                                              style: "currency",
+                                                              currency: "USD",
+                                                          }
+                                                      )}
+                                            </Price>
+                                        </div>
+                                    </EstimatedTotalSpan>
+                                </Pay>
+                            </div>
+                            <div>
+                                {cartItems && cartItems.length > 0 && (
+                                    <CheckoutButton
+                                        items={cartItems}
+                                        artistName="Versa"
+                                        custPref={preference}
+                                        custNote={extraInstructions}
+                                        price={(calcCartTotal() * 1.05).toFixed(
+                                            2
+                                        )}></CheckoutButton>
+                                )}
+                            </div>
                         </div>
                     </Items>
                 </BasketOrderSummary>
@@ -311,9 +333,40 @@ const NoItems = styled.div`
         color: ${(props) => props.theme.black};
     }
 `;
+const DeliveryChoice = styled.div`
+    
+`
+const Bar = styled.div`
+    padding: 20px 40px;
+    text-align: center;
+    p {
+        
+        font-weight: 700;
+    }
+    display: flex;
+    justify-content: space-between;
+`;
+
 const Items = styled.div`
     display: flex;
     flex-direction: column;
+    background-color: ${(props) => props.theme.lightBlue};
+    padding: 20px 40px;
+    min-height: calc(100% - 24px);
+    justify-content: space-between;
+`;
+const NumItems = styled.div`
+    color: ${(props) => props.theme.lightBlue};
+`
+const ColumnHeaders = styled.div`
+    display: grid;
+    grid-template-columns: 100px auto 15% 15% 15%;
+    width: 100%;
+
+`
+const HItems = styled.div`
+    display: flex;
+    flex-direction: row;
     background-color: ${(props) => props.theme.lightBlue};
     padding: 24px;
     min-height: calc(100% - 24px);
@@ -334,22 +387,22 @@ const Divider = styled.div`
 const EstimatedTotalSpan = styled.span``;
 const BasketOrderSummary = styled.div`
     background: ${(props) => props.theme.black};
-    padding: 12px 24px 24px 12px;
+
     p {
         color: ${(props) => props.theme.lightBlue};
     }
-    border-radius: 0 16px 0 0;
+    border-radius: 16px 16px 0 0;
 `;
 const EmptyBasketP = styled.p`
     color: ${(props) => props.theme.black};
 `;
 const BasketList = styled.div`
     background: ${(props) => props.theme.black};
-    padding: 12px 12px 24px 24px;
+
     p {
         color: ${(props) => props.theme.lightBlue};
     }
-    border-radius: 16px 0 0 0;
+    border-radius: 16px 16px 0 0;
 `;
 const ChangeButton = styled.div`
     cursor: pointer;
@@ -369,7 +422,9 @@ const Price = styled.span`
 `;
 const Cart = styled.div`
     display: grid;
-    grid-template-columns: 60% 40%;
+    grid-template-columns:55% 40%;
+    grid-gap: 5%;
+    margin-bottom: 2em;
     place-self: stretch;
     margin-top: 24px;
     border-radius: 16px 16px 0 0;
@@ -379,13 +434,17 @@ const Container = styled.div`
     flex-direction: column;
     padding: 2em;
 `;
+
 const CartItem = styled.div`
     display: grid;
-    grid-template-columns: 60px auto 15% 15% 15%;
-    align-items: self-end;
+    grid-template-columns: 100px auto 15% 15% 15%;
+    align-items: center;
+    border-bottom: ${props => props.theme.blue} thin solid;
+    padding-bottom: 20px;
+    
     /* border-bottom: black solid 1px; */
     img {
-        width: 50px;
+        width: 100px;
     }
     background-color: ${(props) => props.theme.lightBlue};
 `;
@@ -393,4 +452,7 @@ const Delivery = styled.div`
     display: flex;
     flex-direction: column;
 `;
+const Variation = styled.div`
+    text-align:center;
+`
 export default ShoppingCart;

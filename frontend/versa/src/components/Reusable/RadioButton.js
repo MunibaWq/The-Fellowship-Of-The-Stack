@@ -1,5 +1,7 @@
 import React from "react";
 import styled from "styled-components";
+import { SendIcon } from "../../images/icons";
+import Button from "../Redesign/Reusable/Button";
 import TextArea from "./TextArea";
 
 const RadioButton = ({
@@ -31,25 +33,10 @@ const RadioButton = ({
         <>
             <ChoiceContainer>
                 <Choice>
-                    <input
-                        id="pickup"
-                        name="orderPref"
-                        type="radio"
-                        value="pickup"
-                        onChange={(e) => setPreference(e.target.value)}
-                    />
-                    <label htmlFor="pickup">Pickup</label>
+                    <DeliveryButton chosen={preference === 'pickup'} secondarySmall onClick={(e) => setPreference("pickup")} >Pickup</DeliveryButton>
                 </Choice>
                 <Choice>
-                    <input
-                        checked={preference === "pickup" ? false : true}
-                        id="delivery"
-                        name="orderPref"
-                        type="radio"
-                        value="delivery"
-                        onChange={(e) => setPreference(e.target.value)}
-                    />
-                    <label htmlFor="delivery">Delivery</label>
+                    <DeliveryButton chosen={preference === 'delivery'} secondarySmall onClick={(e) => setPreference("delivery")} >Delivery</DeliveryButton>
                 </Choice>
             </ChoiceContainer>
             {selectActive()}
@@ -61,7 +48,12 @@ export default RadioButton;
 const ChoiceContainer = styled.div`
     display: flex;
     flex-direction: row;
+    margin-bottom: 20px;
 `;
+const DeliveryButton = styled(Button)`
+    background-color: ${props=>props.chosen ? props.theme.purple : props.theme.black};
+    margin-right: 16px;
+`
 const Choice = styled.div`
     display: flex;
     align-items: baseline;
