@@ -117,8 +117,393 @@ const ShoppingCart = () => {
                 title="Cart"
                 sub={<FreeDelivery total={calcCartTotal()} />}
             />
-            
-            <div data-comp="BasketList "><h2 class="css-mpdjkv eanm77i0" data-comp="StyledComponent BaseComponent ">Items in basket (<span data-at="bsk_items_count">2</span>)</h2><div class="css-mqaoeo eanm77i0" data-comp="StyledComponent BaseComponent "><div><div data-at="product_refinement" data-comp="TestTarget BasketListItem BasketListItem " class="undefined tt-0"><div class="css-qchw6g eanm77i0" data-comp="StyledComponent BaseComponent "><a href="/product/silk-pillowcase-standard-queen-P402944" data-at="product_img_link" class="css-13o7eu2 eanm77i0" data-comp="StyledComponent BaseComponent "><div class="css-8drrpk eanm77i0" data-comp="ProductImage StyledComponent BaseComponent "><picture class="css-yq9732"><source media="(min-width: 768px)" srcset="/productimages/sku/s1771260-main-zoom.jpg?imwidth=97 1x, /productimages/sku/s1771260-main-zoom.jpg?imwidth=194 2x"/><img class="css-1rovmyu eanm77i0" src="/productimages/sku/s1771260-main-zoom.jpg?imwidth=80" srcset="/productimages/sku/s1771260-main-zoom.jpg?imwidth=80 1x, /productimages/sku/s1771260-main-zoom.jpg?imwidth=160 2x" alt="Slip Silk Pillowcase - Standard/Queen Pink" data-comp="Image StyledComponent BaseComponent "/></picture></div></a><div class="css-qtocz6 eanm77i0" data-comp="StyledComponent BaseComponent "><div><p class="css-1ubh8j3 eanm77i0" data-comp="StyledComponent BaseComponent "><a href="/product/silk-pillowcase-standard-queen-P402944" class="css-7c97or eanm77i0" data-comp="StyledComponent BaseComponent "><strong data-at="bsk_sku_brand">Slip</strong><br /><span data-at="bsk_sku_name">Silk Pillowcase - Standard/Queen</span></a></p><div class="css-1p4nz1q eanm77i0" data-comp="StyledComponent BaseComponent "><div data-at="sku_size" class="css-1ehg1jw eanm77i0" data-comp="SizeAndItemNumber StyledComponent BaseComponent ">ITEM 1771260</div><span data-at="item_variation_type" class="css-v1yfvi eanm77i0" data-comp="ProductVariation StyledComponent BaseComponent ">COLOR: Pink</span></div></div><div class="css-12h1t8r eanm77i0" data-comp="Flex StyledComponent BaseComponent "><div class="css-uw9fwm eanm77i0" data-comp="StyledComponent BaseComponent "><div><label for="qty_1771260" class="css-vkf4am">Quantity</label><div class="css-br0dac" data-comp="Select "><div class="css-1w7kjyz"><select data-at="sku_qty" id="qty_1771260" class="css-mjt39o"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option></select><span class="css-1t1fsr0 eanm77i0" direction="down" data-comp="Arrow StyledComponent "></span><svg aria-hidden="true" viewBox="0 0 24 24" class="css-169auvb eanm77i0" data-comp="Icon StyledComponent " style="display: none;"><g><circle fill="#fff" cx="12" cy="18.667" r="1.333"></circle><path d="M12 5.333c-.8 0-1.333.534-1.333 1.334v8c0 .8.533 1.333 1.333 1.333.8 0 1.333-.533 1.333-1.333v-8c0-.8-.533-1.334-1.333-1.334z" fill="#fff"></path><path d="M12 0C5.333 0 0 5.333 0 12s5.333 12 12 12 12-5.333 12-12S18.667 0 12 0zm0 20c-.8 0-1.333-.533-1.333-1.333 0-.8.533-1.334 1.333-1.334.8 0 1.333.534 1.333 1.334S12.8 20 12 20zm1.333-5.333c0 .8-.533 1.333-1.333 1.333-.8 0-1.333-.533-1.333-1.333v-8c0-.8.533-1.334 1.333-1.334.8 0 1.333.534 1.333 1.334v8z" fill="currentColor"></path></g></svg></div></div></div><div><div class="css-0" data-at="bsk_sku_price">$119.00</div></div></div><div class="css-1ynwnhy eanm77i0" data-comp="StyledComponent BaseComponent "><button data-at="bsk_sku_love" type="button" class="css-pjvscc eanm77i0" data-comp="StyledComponent BaseComponent ">Move to Loves</button><span class="css-184dof0 eanm77i0" data-comp="StyledComponent BaseComponent ">|</span><button data-at="bsk_sku_remove" type="button" class="css-pjvscc eanm77i0" data-comp="StyledComponent BaseComponent ">Remove</button></div></div></div></div></div></div><div><div class="css-1up1km7 eanm77i0" data-comp="Divider StyledComponent "></div><div data-at="product_refinement" data-comp="TestTarget BasketListItem BasketListItem " class="undefined tt-1"><div class="css-qchw6g eanm77i0" data-comp="StyledComponent BaseComponent "><a href="/product/squalane-vitamin-c-rose-oil-P416563" data-at="product_img_link" class="css-13o7eu2 eanm77i0" data-comp="StyledComponent BaseComponent "><div class="css-8drrpk eanm77i0" data-comp="ProductImage StyledComponent BaseComponent "><picture class="css-yq9732"><source media="(min-width: 768px)" srcset="/productimages/sku/s2382166-main-zoom.jpg?pb=2020-03-sephora-clean-2019&amp;imwidth=97 1x, /productimages/sku/s2382166-main-zoom.jpg?pb=2020-03-sephora-clean-2019&amp;imwidth=194 2x" /><img class="css-1rovmyu eanm77i0" src="/productimages/sku/s2382166-main-zoom.jpg?pb=2020-03-sephora-clean-2019&amp;imwidth=80" srcset="/productimages/sku/s2382166-main-zoom.jpg?pb=2020-03-sephora-clean-2019&amp;imwidth=80 1x, /productimages/sku/s2382166-main-zoom.jpg?pb=2020-03-sephora-clean-2019&amp;imwidth=160 2x" alt="Biossance Squalane + Vitamin C Rose Oil Original 1.01 oz/ 30 mL Clean at Sephora Clean at Sephora" data-comp="Image StyledComponent BaseComponent "/></picture></div></a><div class="css-qtocz6 eanm77i0" data-comp="StyledComponent BaseComponent "><div><p class="css-1ubh8j3 eanm77i0" data-comp="StyledComponent BaseComponent "><a href="/product/squalane-vitamin-c-rose-oil-P416563" class="css-7c97or eanm77i0" data-comp="StyledComponent BaseComponent "><strong data-at="bsk_sku_brand">Biossance</strong><br /><span data-at="bsk_sku_name">Squalane + Vitamin C Rose Oil</span></a></p><div class="css-1p4nz1q eanm77i0" data-comp="StyledComponent BaseComponent "><div data-at="sku_size" class="css-1ehg1jw eanm77i0" data-comp="SizeAndItemNumber StyledComponent BaseComponent ">SIZE 1.01 oz/ 30 mL<span data-at="sku_size_separator" class="css-10b3y5z">•</span>ITEM 2382166</div><span data-at="item_variation_type" class="css-v1yfvi eanm77i0" data-comp="ProductVariation StyledComponent BaseComponent ">COLOR: Original</span></div></div><div class="css-12h1t8r eanm77i0" data-comp="Flex StyledComponent BaseComponent "><div class="css-uw9fwm eanm77i0" data-comp="StyledComponent BaseComponent "><div><label for="qty_2382166" class="css-vkf4am">Quantity</label><div class="css-br0dac" data-comp="Select "><div class="css-1w7kjyz"><select data-at="sku_qty" id="qty_2382166" class="css-mjt39o"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option></select><span class="css-1t1fsr0 eanm77i0" direction="down" data-comp="Arrow StyledComponent "></span><svg aria-hidden="true" viewBox="0 0 24 24" class="css-169auvb eanm77i0" data-comp="Icon StyledComponent " style="display: none;"><g><circle fill="#fff" cx="12" cy="18.667" r="1.333"></circle><path d="M12 5.333c-.8 0-1.333.534-1.333 1.334v8c0 .8.533 1.333 1.333 1.333.8 0 1.333-.533 1.333-1.333v-8c0-.8-.533-1.334-1.333-1.334z" fill="#fff"></path><path d="M12 0C5.333 0 0 5.333 0 12s5.333 12 12 12 12-5.333 12-12S18.667 0 12 0zm0 20c-.8 0-1.333-.533-1.333-1.333 0-.8.533-1.334 1.333-1.334.8 0 1.333.534 1.333 1.334S12.8 20 12 20zm1.333-5.333c0 .8-.533 1.333-1.333 1.333-.8 0-1.333-.533-1.333-1.333v-8c0-.8.533-1.334 1.333-1.334.8 0 1.333.534 1.333 1.334v8z" fill="currentColor"></path></g></svg></div></div></div><div><div class="css-0" data-at="bsk_sku_price">$95.00</div></div></div><div class="css-1ynwnhy eanm77i0" data-comp="StyledComponent BaseComponent "><button data-at="bsk_sku_love" type="button" class="css-pjvscc eanm77i0" data-comp="StyledComponent BaseComponent ">Move to Loves</button><span class="css-184dof0 eanm77i0" data-comp="StyledComponent BaseComponent ">|</span><button data-at="bsk_sku_remove" type="button" class="css-pjvscc eanm77i0" data-comp="StyledComponent BaseComponent ">Remove</button></div></div></div></div></div></div></div></div>
+
+            <div data-comp="BasketList ">
+                <h2
+                    class="css-mpdjkv eanm77i0"
+                    data-comp="StyledComponent BaseComponent ">
+                    Items in basket (<span data-at="bsk_items_count">2</span>)
+                </h2>
+                <div
+                    class="css-mqaoeo eanm77i0"
+                    data-comp="StyledComponent BaseComponent ">
+                    <div>
+                        <div
+                            data-at="product_refinement"
+                            data-comp="TestTarget BasketListItem BasketListItem "
+                            class="undefined tt-0">
+                            <div
+                                class="css-qchw6g eanm77i0"
+                                data-comp="StyledComponent BaseComponent ">
+                                <a
+                                    href="/product/silk-pillowcase-standard-queen-P402944"
+                                    data-at="product_img_link"
+                                    class="css-13o7eu2 eanm77i0"
+                                    data-comp="StyledComponent BaseComponent ">
+                                    <div
+                                        class="css-8drrpk eanm77i0"
+                                        data-comp="ProductImage StyledComponent BaseComponent ">
+                                        <picture class="css-yq9732">
+                                            <source
+                                                media="(min-width: 768px)"
+                                                srcset="/productimages/sku/s1771260-main-zoom.jpg?imwidth=97 1x, /productimages/sku/s1771260-main-zoom.jpg?imwidth=194 2x"
+                                            />
+                                            <img
+                                                class="css-1rovmyu eanm77i0"
+                                                src="/productimages/sku/s1771260-main-zoom.jpg?imwidth=80"
+                                                srcset="/productimages/sku/s1771260-main-zoom.jpg?imwidth=80 1x, /productimages/sku/s1771260-main-zoom.jpg?imwidth=160 2x"
+                                                alt="Slip Silk Pillowcase - Standard/Queen Pink"
+                                                data-comp="Image StyledComponent BaseComponent "
+                                            />
+                                        </picture>
+                                    </div>
+                                </a>
+                                <div
+                                    class="css-qtocz6 eanm77i0"
+                                    data-comp="StyledComponent BaseComponent ">
+                                    <div>
+                                        <p
+                                            class="css-1ubh8j3 eanm77i0"
+                                            data-comp="StyledComponent BaseComponent ">
+                                            <a
+                                                href="/product/silk-pillowcase-standard-queen-P402944"
+                                                class="css-7c97or eanm77i0"
+                                                data-comp="StyledComponent BaseComponent ">
+                                                <strong data-at="bsk_sku_brand">
+                                                    Slip
+                                                </strong>
+                                                <br />
+                                                <span data-at="bsk_sku_name">
+                                                    Silk Pillowcase -
+                                                    Standard/Queen
+                                                </span>
+                                            </a>
+                                        </p>
+                                        <div
+                                            class="css-1p4nz1q eanm77i0"
+                                            data-comp="StyledComponent BaseComponent ">
+                                            <div
+                                                data-at="sku_size"
+                                                class="css-1ehg1jw eanm77i0"
+                                                data-comp="SizeAndItemNumber StyledComponent BaseComponent ">
+                                                ITEM 1771260
+                                            </div>
+                                            <span
+                                                data-at="item_variation_type"
+                                                class="css-v1yfvi eanm77i0"
+                                                data-comp="ProductVariation StyledComponent BaseComponent ">
+                                                COLOR: Pink
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="css-12h1t8r eanm77i0"
+                                        data-comp="Flex StyledComponent BaseComponent ">
+                                        <div
+                                            class="css-uw9fwm eanm77i0"
+                                            data-comp="StyledComponent BaseComponent ">
+                                            <div>
+                                                <label
+                                                    for="qty_1771260"
+                                                    class="css-vkf4am">
+                                                    Quantity
+                                                </label>
+                                                <div
+                                                    class="css-br0dac"
+                                                    data-comp="Select ">
+                                                    <div class="css-1w7kjyz">
+                                                        <select
+                                                            data-at="sku_qty"
+                                                            id="qty_1771260"
+                                                            class="css-mjt39o">
+                                                            <option value="1">
+                                                                1
+                                                            </option>
+                                                            <option value="2">
+                                                                2
+                                                            </option>
+                                                            <option value="3">
+                                                                3
+                                                            </option>
+                                                            <option value="4">
+                                                                4
+                                                            </option>
+                                                            <option value="5">
+                                                                5
+                                                            </option>
+                                                            <option value="6">
+                                                                6
+                                                            </option>
+                                                            <option value="7">
+                                                                7
+                                                            </option>
+                                                            <option value="8">
+                                                                8
+                                                            </option>
+                                                            <option value="9">
+                                                                9
+                                                            </option>
+                                                            <option value="10">
+                                                                10
+                                                            </option>
+                                                        </select>
+                                                        <span
+                                                            class="css-1t1fsr0 eanm77i0"
+                                                            direction="down"
+                                                            data-comp="Arrow StyledComponent "></span>
+                                                        <svg
+                                                            aria-hidden="true"
+                                                            viewBox="0 0 24 24"
+                                                            class="css-169auvb eanm77i0"
+                                                            data-comp="Icon StyledComponent "
+                                                            style="display: none;">
+                                                            <g>
+                                                                <circle
+                                                                    fill="#fff"
+                                                                    cx="12"
+                                                                    cy="18.667"
+                                                                    r="1.333"></circle>
+                                                                <path
+                                                                    d="M12 5.333c-.8 0-1.333.534-1.333 1.334v8c0 .8.533 1.333 1.333 1.333.8 0 1.333-.533 1.333-1.333v-8c0-.8-.533-1.334-1.333-1.334z"
+                                                                    fill="#fff"></path>
+                                                                <path
+                                                                    d="M12 0C5.333 0 0 5.333 0 12s5.333 12 12 12 12-5.333 12-12S18.667 0 12 0zm0 20c-.8 0-1.333-.533-1.333-1.333 0-.8.533-1.334 1.333-1.334.8 0 1.333.534 1.333 1.334S12.8 20 12 20zm1.333-5.333c0 .8-.533 1.333-1.333 1.333-.8 0-1.333-.533-1.333-1.333v-8c0-.8.533-1.334 1.333-1.334.8 0 1.333.534 1.333 1.334v8z"
+                                                                    fill="currentColor"></path>
+                                                            </g>
+                                                        </svg>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <div
+                                                    class="css-0"
+                                                    data-at="bsk_sku_price">
+                                                    $119.00
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="css-1ynwnhy eanm77i0"
+                                            data-comp="StyledComponent BaseComponent ">
+                                            <button
+                                                data-at="bsk_sku_love"
+                                                type="button"
+                                                class="css-pjvscc eanm77i0"
+                                                data-comp="StyledComponent BaseComponent ">
+                                                Move to Loves
+                                            </button>
+                                            <span
+                                                class="css-184dof0 eanm77i0"
+                                                data-comp="StyledComponent BaseComponent ">
+                                                |
+                                            </span>
+                                            <button
+                                                data-at="bsk_sku_remove"
+                                                type="button"
+                                                class="css-pjvscc eanm77i0"
+                                                data-comp="StyledComponent BaseComponent ">
+                                                Remove
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div
+                            class="css-1up1km7 eanm77i0"
+                            data-comp="Divider StyledComponent "></div>
+                        <div
+                            data-at="product_refinement"
+                            data-comp="TestTarget BasketListItem BasketListItem "
+                            class="undefined tt-1">
+                            <div
+                                class="css-qchw6g eanm77i0"
+                                data-comp="StyledComponent BaseComponent ">
+                                <a
+                                    href="/product/squalane-vitamin-c-rose-oil-P416563"
+                                    data-at="product_img_link"
+                                    class="css-13o7eu2 eanm77i0"
+                                    data-comp="StyledComponent BaseComponent ">
+                                    <div
+                                        class="css-8drrpk eanm77i0"
+                                        data-comp="ProductImage StyledComponent BaseComponent ">
+                                        <picture class="css-yq9732">
+                                            <source
+                                                media="(min-width: 768px)"
+                                                srcset="/productimages/sku/s2382166-main-zoom.jpg?pb=2020-03-sephora-clean-2019&amp;imwidth=97 1x, /productimages/sku/s2382166-main-zoom.jpg?pb=2020-03-sephora-clean-2019&amp;imwidth=194 2x"
+                                            />
+                                            <img
+                                                class="css-1rovmyu eanm77i0"
+                                                src="/productimages/sku/s2382166-main-zoom.jpg?pb=2020-03-sephora-clean-2019&amp;imwidth=80"
+                                                srcset="/productimages/sku/s2382166-main-zoom.jpg?pb=2020-03-sephora-clean-2019&amp;imwidth=80 1x, /productimages/sku/s2382166-main-zoom.jpg?pb=2020-03-sephora-clean-2019&amp;imwidth=160 2x"
+                                                alt="Biossance Squalane + Vitamin C Rose Oil Original 1.01 oz/ 30 mL Clean at Sephora Clean at Sephora"
+                                                data-comp="Image StyledComponent BaseComponent "
+                                            />
+                                        </picture>
+                                    </div>
+                                </a>
+                                <div
+                                    class="css-qtocz6 eanm77i0"
+                                    data-comp="StyledComponent BaseComponent ">
+                                    <div>
+                                        <p
+                                            class="css-1ubh8j3 eanm77i0"
+                                            data-comp="StyledComponent BaseComponent ">
+                                            <a
+                                                href="/product/squalane-vitamin-c-rose-oil-P416563"
+                                                class="css-7c97or eanm77i0"
+                                                data-comp="StyledComponent BaseComponent ">
+                                                <strong data-at="bsk_sku_brand">
+                                                    Biossance
+                                                </strong>
+                                                <br />
+                                                <span data-at="bsk_sku_name">
+                                                    Squalane + Vitamin C Rose
+                                                    Oil
+                                                </span>
+                                            </a>
+                                        </p>
+                                        <div
+                                            class="css-1p4nz1q eanm77i0"
+                                            data-comp="StyledComponent BaseComponent ">
+                                            <div
+                                                data-at="sku_size"
+                                                class="css-1ehg1jw eanm77i0"
+                                                data-comp="SizeAndItemNumber StyledComponent BaseComponent ">
+                                                SIZE 1.01 oz/ 30 mL
+                                                <span
+                                                    data-at="sku_size_separator"
+                                                    class="css-10b3y5z">
+                                                    •
+                                                </span>
+                                                ITEM 2382166
+                                            </div>
+                                            <span
+                                                data-at="item_variation_type"
+                                                class="css-v1yfvi eanm77i0"
+                                                data-comp="ProductVariation StyledComponent BaseComponent ">
+                                                COLOR: Original
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="css-12h1t8r eanm77i0"
+                                        data-comp="Flex StyledComponent BaseComponent ">
+                                        <div
+                                            class="css-uw9fwm eanm77i0"
+                                            data-comp="StyledComponent BaseComponent ">
+                                            <div>
+                                                <label
+                                                    for="qty_2382166"
+                                                    class="css-vkf4am">
+                                                    Quantity
+                                                </label>
+                                                <div
+                                                    class="css-br0dac"
+                                                    data-comp="Select ">
+                                                    <div class="css-1w7kjyz">
+                                                        <select
+                                                            data-at="sku_qty"
+                                                            id="qty_2382166"
+                                                            class="css-mjt39o">
+                                                            <option value="1">
+                                                                1
+                                                            </option>
+                                                            <option value="2">
+                                                                2
+                                                            </option>
+                                                            <option value="3">
+                                                                3
+                                                            </option>
+                                                            <option value="4">
+                                                                4
+                                                            </option>
+                                                            <option value="5">
+                                                                5
+                                                            </option>
+                                                            <option value="6">
+                                                                6
+                                                            </option>
+                                                            <option value="7">
+                                                                7
+                                                            </option>
+                                                            <option value="8">
+                                                                8
+                                                            </option>
+                                                            <option value="9">
+                                                                9
+                                                            </option>
+                                                            <option value="10">
+                                                                10
+                                                            </option>
+                                                        </select>
+                                                        <span
+                                                            class="css-1t1fsr0 eanm77i0"
+                                                            direction="down"
+                                                            data-comp="Arrow StyledComponent "></span>
+                                                        <svg
+                                                            aria-hidden="true"
+                                                            viewBox="0 0 24 24"
+                                                            class="css-169auvb eanm77i0"
+                                                            data-comp="Icon StyledComponent "
+                                                            style="display: none;">
+                                                            <g>
+                                                                <circle
+                                                                    fill="#fff"
+                                                                    cx="12"
+                                                                    cy="18.667"
+                                                                    r="1.333"></circle>
+                                                                <path
+                                                                    d="M12 5.333c-.8 0-1.333.534-1.333 1.334v8c0 .8.533 1.333 1.333 1.333.8 0 1.333-.533 1.333-1.333v-8c0-.8-.533-1.334-1.333-1.334z"
+                                                                    fill="#fff"></path>
+                                                                <path
+                                                                    d="M12 0C5.333 0 0 5.333 0 12s5.333 12 12 12 12-5.333 12-12S18.667 0 12 0zm0 20c-.8 0-1.333-.533-1.333-1.333 0-.8.533-1.334 1.333-1.334.8 0 1.333.534 1.333 1.334S12.8 20 12 20zm1.333-5.333c0 .8-.533 1.333-1.333 1.333-.8 0-1.333-.533-1.333-1.333v-8c0-.8.533-1.334 1.333-1.334.8 0 1.333.534 1.333 1.334v8z"
+                                                                    fill="currentColor"></path>
+                                                            </g>
+                                                        </svg>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <div
+                                                    class="css-0"
+                                                    data-at="bsk_sku_price">
+                                                    $95.00
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="css-1ynwnhy eanm77i0"
+                                            data-comp="StyledComponent BaseComponent ">
+                                            <button
+                                                data-at="bsk_sku_love"
+                                                type="button"
+                                                class="css-pjvscc eanm77i0"
+                                                data-comp="StyledComponent BaseComponent ">
+                                                Move to Loves
+                                            </button>
+                                            <span
+                                                class="css-184dof0 eanm77i0"
+                                                data-comp="StyledComponent BaseComponent ">
+                                                |
+                                            </span>
+                                            <button
+                                                data-at="bsk_sku_remove"
+                                                type="button"
+                                                class="css-pjvscc eanm77i0"
+                                                data-comp="StyledComponent BaseComponent ">
+                                                Remove
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div>
                 <BasketOrderSummary>
                     <div>
@@ -311,9 +696,9 @@ const ShoppingCart = () => {
         </PageContainer>
     );
 };
-const Divider = styled.div``
-const EstimatedTotalSpan = styled.span``
-const BasketOrderSummary = styled.div``
+const Divider = styled.div``;
+const EstimatedTotalSpan = styled.span``;
+const BasketOrderSummary = styled.div``;
 const EmptyBasketP = styled.p``;
 const ItemCountSpan = styled.span``;
 const BasketList = styled.div``;
