@@ -10,6 +10,8 @@ import { AddIcon, UnfillPencilIcon, BinIcon } from "../../../images/icons";
 import axios from "axios";
 import { DeleteProductModal } from "../../../components/Dashboard/DeleteProductModal";
 import Cookies from "universal-cookie";
+import InventoryDropDown from "../../../components/Dashboard/AnalyticsTables/InventoryDropDown";
+
 const cookies = new Cookies();
 
 const Inventory = (currentProduct) => {
@@ -132,28 +134,9 @@ const Inventory = (currentProduct) => {
                                             <p>{result.title}</p>
                                         </td>
                                         <td>
-                                            {result.status}
-                                            <select
-                                                onChange={(e) => {
-                                                    updateStatus(
-                                                        result,
-                                                        e.target.value
-                                                    );
-                                                    // setStatus(newStatus);
-                                                }}>
-                                                <option value={result.status}>
-                                                    Select Status
-                                                </option>
-                                                <option label="Active">
-                                                    Active
-                                                </option>
-                                                <option label="Backorder">
-                                                    Backorder
-                                                </option>
-                                                <option label="Discontinue">
-                                                    Discontinue
-                                                </option>
-                                            </select>
+                                            <InventoryDropDown
+                                                result={result}
+                                            />
                                         </td>
                                         {/* <td>
                                             {countInv(
@@ -245,6 +228,7 @@ const DeleteButton = styled.button.attrs(() => ({
     background: none;
     border: none;
     cursor: pointer;
+    padding: 2px;
     svg {
         path {
             stroke: ${theme.black};
@@ -252,9 +236,9 @@ const DeleteButton = styled.button.attrs(() => ({
     }
 `;
 const Table = styled.table`
-    position: relative;
+    /* position: relative; */
     border-collapse: collapse;
-    margin: 0 1em 2em 1em;
+    /* margin: 0 1em 2em 1em; */
     font-size: 0.9em;
 
     box-shadow: 3px 3px 10px rgba(27, 49, 66, 0.13);
@@ -282,26 +266,26 @@ const Table = styled.table`
             min-width: 130px;
         }
         :nth-of-type(3) {
-            min-width: 120px;
-            @media screen and (max-width: 600px) {
-                display: none;
-            }
-        }
-        :nth-of-type(4) {
             min-width: 250px;
             @media screen and (max-width: 600px) {
                 display: none;
             }
         }
-        :nth-of-type(5) {
-            min-width: 230px;
-        }
-        :nth-of-type(6) {
-            min-width: 190px;
+        :nth-of-type(4) {
+            min-width: 110px;
             @media screen and (max-width: 600px) {
                 display: none;
             }
         }
+        :nth-of-type(5) {
+            min-width: 110px;
+        }
+        /* :nth-of-type(6) {
+            min-width: 190px;
+            @media screen and (max-width: 600px) {
+                display: none;
+            }
+        } */
     }
 `;
 
