@@ -57,13 +57,19 @@ const Button = styled.button.attrs((props) => ({
             background: ${(props) => props.theme.black};
             border-radius: 8px;
             padding: 10px 20px;
+            svg {
+                path {
+                    stroke: ${(props) => props.theme.blue};
+                    fill: ${(props) => props.theme.black};
+                }
+            }
             :hover {
                 background: ${(props) => props.theme.purple};
                 color: ${(props) => props.theme.blue};
                 svg {
                     path {
                         stroke: ${(props) => props.theme.blue};
-                        fill: ${(props) => props.theme.blue};
+                        fill: ${(props) => props.theme.purple};
                     }
                 }
             }
