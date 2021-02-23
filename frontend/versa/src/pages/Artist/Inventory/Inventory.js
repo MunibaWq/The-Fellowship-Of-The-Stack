@@ -204,12 +204,12 @@ const Inventory = (currentProduct) => {
 export default Inventory;
 
 const TableContainer = styled.div`
+    align-self: center;
+    width: 100%;
     justify-self: center;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    min-height: 600px;
-    margin: 20px 60px;
 `;
 
 const DeleteButton = styled.button.attrs(() => ({
@@ -242,6 +242,7 @@ const Table = styled.table`
     border-collapse: collapse;
     /* margin: 0 1em 2em 1em; */
     font-size: 0.9em;
+    width: 100%;
 
     box-shadow: 3px 3px 10px rgba(27, 49, 66, 0.13);
     thead > tr > th {

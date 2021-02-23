@@ -9,11 +9,11 @@ const PageContainer = styled.div`
     }
     display: flex;
     flex-direction: column;
-    /* width: 100%; */
     align-items: center;
-    padding: 0px;
+    width: 100%;
+    padding: clamp(24px, 2vh, 5vh) clamp(16px, 8vh, 12vh);
     min-height: 60vh;
-    margin: clamp(24px, 2vh, 5vh) clamp(16px, 8vh, 12vh);
+    margin: 0;
 `;
 
 export default PageContainer;
