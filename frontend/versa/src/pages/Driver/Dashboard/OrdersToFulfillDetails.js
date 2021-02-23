@@ -254,7 +254,7 @@ const SetAsPicked = styled.button.attrs((props) => ({
     justify-content: center;
     align-items: center;
     padding: 8px;
-    background: ${(props) => props.theme.black};
+    background: ${(props) => props.theme.purple};
     cursor: pointer;
     border-radius: 8px;
     border: none;
