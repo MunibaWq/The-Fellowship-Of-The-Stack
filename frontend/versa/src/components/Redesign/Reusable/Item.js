@@ -199,7 +199,6 @@ const Container = styled.div`
     flex-direction: row;
     justify-content: flex-start;
     align-items: flex-start;
-
     background: ${(props) => props.theme.blue};
     padding: clamp(16px, 40px, 60px);
     border-radius: 15px;

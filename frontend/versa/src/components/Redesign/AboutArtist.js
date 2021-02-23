@@ -23,7 +23,7 @@ const AboutArtist = ({ product }) => {
 
     return (
         <Container>
-            <TopBar title={`Meet the Artist: ${product?.artist} `} />
+            <TopBar title={`Meet the Artist: ${product?.artist}`} />
             <ArtistBlurb>
                 <Image
                     src={"https://source.unsplash.com/350x300/?portrait, man"}
@@ -63,7 +63,7 @@ const AboutArtist = ({ product }) => {
                                             );
                                             setSent(true);
                                         }}
-                                        secondary>
+                                        secondarySmall>
                                         <SendIcon />
                                     </Button>
                                 </>
@@ -86,6 +86,7 @@ const Container = styled.div`
     flex-wrap: wrap;
     height: fit-content;
     justify-content: center;
+
     @media (max-width: 768px) {
         justify-content: flex-start;
     }
@@ -98,7 +99,8 @@ const ArtistBlurb = styled.div`
     flex-direction: column;
 
     p {
-        width: 100%;
+        width: 350px;
+        padding: 8px;
     }
 `;
 
@@ -109,22 +111,32 @@ const Image = styled.img`
 
 const Messaging = styled.div`
     height: 100%;
-    ::nth-last-child(-n + 2) {
-        align-self: flex-end;
-    }
+    display: flex;
+    justify-content: flex-start;
+
     p {
         margin-bottom: 1em;
+    }
+    button {
+        svg {
+            path {
+                :hover {
+                    fill: ${(props) => props.theme.lightBlue};
+                }
+            }
+        }
     }
 `;
 
 const Message = styled.textarea`
     resize: none;
     width: 100%;
-    height: 100%;
+    height: 200px;
     padding: 8px;
     outline: none;
     border-radius: 8px;
     font-family: inherit;
+    margin-bottom: 1em;
     ::placeholder {
         color: ${(props) => props.theme.lightBlack};
     }
