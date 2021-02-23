@@ -338,6 +338,7 @@ const BasketOrderSummary = styled.div`
     p {
         color: ${(props) => props.theme.lightBlue};
     }
+    border-radius: 0 16px 0 0;
 `;
 const EmptyBasketP = styled.p`
     color: ${(props) => props.theme.black};
@@ -348,6 +349,7 @@ const BasketList = styled.div`
     p {
         color: ${(props) => props.theme.lightBlue};
     }
+    border-radius: 16px 0 0 0;
 `;
 const ChangeButton = styled.div`
     cursor: pointer;
@@ -370,6 +372,7 @@ const Cart = styled.div`
     grid-template-columns: 60% 40%;
     place-self: stretch;
     margin-top: 24px;
+    border-radius: 16px 16px 0 0;
 `;
 const Container = styled.div`
     display: flex;

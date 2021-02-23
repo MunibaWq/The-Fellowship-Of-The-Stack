@@ -9,12 +9,13 @@ import { addToCart } from "../../../axios/posts";
 import Pill from "../../Reusable/Pill";
 import Box from "./Box";
 import TopBar from "./TopBar";
+import AboutArtist from "../AboutArtist";
 const Item = ({ product, images }) => {
     const choices = useSelector((state) => state.productChoices);
     const [chosen, setChosen] = useState();
     let dispatch = useDispatch();
     const [clicked, setClicked] = useState();
-    console.log(images);
+    console.log(product);
     return (
         <Container>
             <Column>
@@ -187,6 +188,7 @@ const Item = ({ product, images }) => {
                     </AddToCart>
                 </Row>
             </Column>
+            <AboutArtist artist={product?.artist} />
         </Container>
     );
 };
