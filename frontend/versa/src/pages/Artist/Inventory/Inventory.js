@@ -205,7 +205,7 @@ export default Inventory;
 
 const TableContainer = styled.div`
     align-self: center;
-    width: 100%;
+    width: 80%;
     justify-self: center;
     display: flex;
     flex-direction: column;
