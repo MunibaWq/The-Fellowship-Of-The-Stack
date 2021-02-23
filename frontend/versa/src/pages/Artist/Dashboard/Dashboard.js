@@ -43,6 +43,8 @@ import Deliveries from "../../Driver/Dashboard/Deliveries";
 import Analytics from "./Analytics";
 import SideMenu from "../../../components/SideMenu";
 import Artist from "../../Dashboard/Artist";
+import Shopper from "../../Dashboard/Shopper";
+import Driver from "../../Dashboard/Driver";
 const cookies = new Cookies();
 const Redirecter = () => {
     window.location = "/account";
@@ -97,7 +99,7 @@ const Dashboard = () => {
                     <PrivateRoute
                         path="/dashboard/driver"
                         exact
-                        component={DashboardHome}
+                        component={Driver}
                     />
 
                     <PrivateRoute
@@ -194,7 +196,7 @@ const Dashboard = () => {
                     <PrivateRoute
                         exact
                         path="/dashboard/shopper/"
-                        component={ShopperDashboardMain}
+                        component={Shopper}
                     />
                     <PrivateRoute
                         path="/dashboard/shopper/order-tracking/:orderid"
