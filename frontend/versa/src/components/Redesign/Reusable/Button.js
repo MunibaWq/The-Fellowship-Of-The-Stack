@@ -26,14 +26,12 @@ const Button = styled.button.attrs((props) => ({
     svg {
         path {
             stroke: ${(props) => props.theme.blue};
-            fill: ${(props) => props.theme.blue};
         }
         margin-right: 8px;
     }
     :hover {
         svg {
             path {
-                fill: ${(props) => props.theme.black};
                 stroke: ${(props) => props.theme.black};
             }
         }

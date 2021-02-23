@@ -41,6 +41,7 @@ import ShopperOrderItems from "../../UserBuyer/Dashboard/OrderItems";
 import AssignedPickupDetails from "../../Driver/Dashboard/AssignedPickupDetails";
 import Deliveries from "../../Driver/Dashboard/Deliveries";
 import Analytics from './Analytics'
+import SideMenu from "../../../components/SideMenu";
 const cookies = new Cookies();
 const Redirecter = () => {
     window.location = "/account";
@@ -64,6 +65,7 @@ const Dashboard = () => {
                 <SideNavDiv>
                     <SideNav navWidth={navWidth} setNavWidth={setNavWidth} />
                 </SideNavDiv>
+                {/* <SideMenu /> */}
                 <Switch>
                     <PrivateRoute
                         path="/dashboard"
