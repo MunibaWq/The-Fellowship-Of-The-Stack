@@ -113,36 +113,45 @@ const SideNav = ({ navWidth, setNavWidth }) => {
                     <BodyContainer>
                         {/* icon row */}
                         <IconRow>
-                            <IconDiv
-                                onClick={() => {
-                                    setLinks("artist");
-                                }}>
-                                <IconBorder>
-                                    <PaintBrushIcon width="24" height="24" />
-                                </IconBorder>
+                            <Link to="/dashboard/artist">
+                                <IconDiv
+                                    onClick={() => {
+                                        setLinks("artist");
+                                    }}>
+                                    <IconBorder>
+                                        <PaintBrushIcon
+                                            width="24"
+                                            height="24"
+                                        />
+                                    </IconBorder>
 
-                                <IconLabel>ARTIST</IconLabel>
-                            </IconDiv>
-                            <IconDiv
-                                onClick={() => {
-                                    setLinks("buyer");
-                                }}>
-                                <IconBorder>
-                                    <Products width="24" height="24" />
-                                </IconBorder>
+                                    <IconLabel>ARTIST</IconLabel>
+                                </IconDiv>
+                            </Link>
+                            <Link to="/dashboard/buyer">
+                                <IconDiv
+                                    onClick={() => {
+                                        setLinks("buyer");
+                                    }}>
+                                    <IconBorder>
+                                        <Products width="24" height="24" />
+                                    </IconBorder>
 
-                                <IconLabel>SHOPPER</IconLabel>
-                            </IconDiv>
-                            <IconDiv
-                                onClick={() => {
-                                    setLinks("driver");
-                                }}>
-                                <IconBorder>
-                                    <CarIcon width="24" height="24" />
-                                </IconBorder>
+                                    <IconLabel>SHOPPER</IconLabel>
+                                </IconDiv>
+                            </Link>
+                            <Link to="/dashboard/driver">
+                                <IconDiv
+                                    onClick={() => {
+                                        setLinks("driver");
+                                    }}>
+                                    <IconBorder>
+                                        <CarIcon width="24" height="24" />
+                                    </IconBorder>
 
-                                <IconLabel>DRIVER</IconLabel>
-                            </IconDiv>
+                                    <IconLabel>DRIVER</IconLabel>
+                                </IconDiv>
+                            </Link>
                         </IconRow>
                         {/* message row */}
                         <MessageRow>
@@ -319,13 +328,6 @@ const NavBar = styled.div`
     border-left: none;
 `;
 
-// const Close = styled.div`
-//     :hover {
-//         transform: scale(1.05);
-//     }
-//     cursor: pointer;
-// `;
-
 const Header = styled.div`
     display: flex;
     flex-direction: row;
@@ -334,114 +336,6 @@ const Header = styled.div`
     margin-bottom: 40px;
 `;
 
-// const UserInfo = styled.div`
-//     -webkit-transition: all 0.3s ease;
-//     -moz-transition: all 0.3s ease;
-//     -ms-transition: all 0.3s ease;
-//     -o-transition: all 0.3s ease;
-//     transition: all 0.3s ease;
-//     margin: 5px 15px;
-// `;
-
-// const Name = styled.h2`
-//     margin: 0 0 8px 0;
-// `;
-// const UserType = styled.p`
-//     margin: 0 0 8px 0;
-// `;
-// const Menu = styled.ul`
-//     list-style: none;
-
-//     -webkit-transition: all 0.3s ease;
-//     -moz-transition: all 0.3s ease;
-//     -ms-transition: all 0.3s ease;
-//     -o-transition: all 0.3s ease;
-//     transition: all 0.3s ease;
-// `;
-// const MenuLink = styled.button`
-//     margin: 2px 0;
-//     border: none;
-//     background-color: white;
-//     width: 100%;
-
-//     padding: 10px;
-//     display: flex;
-//     flex-direction: row;
-//     justify-content: space-between;
-//     align-items: center;
-//     cursor: pointer;
-//     -webkit-transition: all 0.3s ease;
-//     -moz-transition: all 0.3s ease;
-//     -ms-transition: all 0.3s ease;
-//     -o-transition: all 0.3s ease;
-//     transition: all 0.3s ease;
-//     border-radius: 15px;
-//     :hover,
-//     :focus,
-//     :active {
-//         background-color: #d0dfff;
-//         outline: none;
-//     }
-//     h3 {
-//         font-size: 0.9em;
-//     }
-//     h4 {
-//         text-transform: uppercase;
-//         font-weight: 700;
-//         font-size: 0.8em;
-//     }
-// `;
-// const SubMenu = styled.div`
-//     -webkit-transition: all 0.3s ease;
-//     -moz-transition: all 0.3s ease;
-//     -ms-transition: all 0.3s ease;
-//     -o-transition: all 0.3s ease;
-//     transition: all 0.3s ease;
-//     background: ${theme.secondary};
-//     min-width: 300px;
-//     li {
-//         display: flex;
-//         align-items: center;
-//         padding-left: 30px;
-//         /* ::before {
-//             content: "-";
-//             place-content: center;
-//         } */
-//     }
-// `;
-// const SubMenuLink = styled.button`
-//     border: none;
-//     margin: 3px 0;
-//     background-color: white;
-//     width: 100%;
-//     padding: 8px 8px 8px 10px;
-
-//     display: flex;
-//     flex-direction: row;
-//     justify-content: space-between;
-//     align-items: center;
-
-//     -webkit-transition: all 0.3s ease;
-//     -moz-transition: all 0.3s ease;
-//     -ms-transition: all 0.3s ease;
-//     -o-transition: all 0.3s ease;
-//     cursor: pointer;
-//     transition: all 0.3s ease;
-//     border-radius: 10px;
-//     :hover,
-//     :focus,
-//     :active {
-//         background-color: #d0dfff;
-
-//         outline: none;
-//         h4 {
-//             font-weight: bold;
-//         }
-//     }
-//     h4 {
-//         font-size: 0.8em;
-//     }
-// `;
 const BodyContainer = styled.div`
     width: 100%;
     height: 100%;

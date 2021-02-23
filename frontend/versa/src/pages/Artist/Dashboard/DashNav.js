@@ -28,7 +28,11 @@ let artist = [
         item: <Archive />,
         to: "/dashboard/artist/inventory",
     },
-    { label: "ANALYTICS", item: <Chartbar />, to: "/" },
+    {
+        label: "ANALYTICS",
+        item: <Chartbar />,
+        to: "/dashboard/artist/analytics",
+    },
     {
         label: "MANAGE EVENTS",
         item: <Calender />,
