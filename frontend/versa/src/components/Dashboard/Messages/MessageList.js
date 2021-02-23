@@ -208,7 +208,7 @@ const MessageListHeader = styled.div`
     grid-column: 1 / 3;
 `;
 const Threads = styled.div`
-    height: 68vh;
+    height: 900px;
     padding-right: 1px;
     overflow: auto;
     ::-webkit-scrollbar {
@@ -280,11 +280,14 @@ const Thread = styled.div`
     :last-child {
         box-shadow: 0px 4px 1px 0px 182, 219, 255, 0.6;
     }
+    
+    
 `;
 const MessageGrid = styled.div`
     display: grid;
     grid-auto-rows: min-content;
-    overflow-y: auto;
+    overflow-y: hidden;
     grid-column: 1;
     grid-row: 2;
+
 `;
