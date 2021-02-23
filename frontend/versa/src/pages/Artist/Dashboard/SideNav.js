@@ -162,10 +162,6 @@ const SideNav = ({ navWidth, setNavWidth }) => {
 
 export default SideNav;
 
-// const NotiCount = styled(Pill)`
-//     position: absolute;
-//     transform: translate(20px, -10px);
-// `;
 const holo = `linear-gradient(
     123.35deg,
     #ebf3d0 0%,
@@ -214,13 +210,14 @@ linear-gradient(
 
 const Container = styled.div`
     background: white;
-    height: fit-content;
+    /* height: fit-content; */
     border-radius: 0 15px 15px 0;
 `;
 const CaretBorder = styled.div`
     background: ${newPurp};
     padding: 8px;
     border-radius: 8px;
+    cursor: pointer;
     &:hover {
         background: ${holo};
         SVG {
@@ -241,6 +238,7 @@ const CaretBorderAlt = styled.div`
     padding: 8px;
     border-radius: 8px;
     height: 40px;
+    cursor: pointer;
     &:hover {
         background: ${holo};
         SVG {
@@ -264,7 +262,8 @@ const ClosedTitle = styled.div`
     letter-spacing: 0.05em;
     text-transform: uppercase;
     color: ${white};
-    margin: 20px;
+    transform: rotatez(180deg);
+    /* margin: 20px; */
 `;
 const OpenTitle = styled.p`
     font-family: Inter;
@@ -320,12 +319,12 @@ const NavBar = styled.div`
     border-left: none;
 `;
 
-const Close = styled.div`
-    :hover {
-        transform: scale(1.05);
-    }
-    cursor: pointer;
-`;
+// const Close = styled.div`
+//     :hover {
+//         transform: scale(1.05);
+//     }
+//     cursor: pointer;
+// `;
 
 const Header = styled.div`
     display: flex;
@@ -335,114 +334,114 @@ const Header = styled.div`
     margin-bottom: 40px;
 `;
 
-const UserInfo = styled.div`
-    -webkit-transition: all 0.3s ease;
-    -moz-transition: all 0.3s ease;
-    -ms-transition: all 0.3s ease;
-    -o-transition: all 0.3s ease;
-    transition: all 0.3s ease;
-    margin: 5px 15px;
-`;
+// const UserInfo = styled.div`
+//     -webkit-transition: all 0.3s ease;
+//     -moz-transition: all 0.3s ease;
+//     -ms-transition: all 0.3s ease;
+//     -o-transition: all 0.3s ease;
+//     transition: all 0.3s ease;
+//     margin: 5px 15px;
+// `;
 
-const Name = styled.h2`
-    margin: 0 0 8px 0;
-`;
-const UserType = styled.p`
-    margin: 0 0 8px 0;
-`;
-const Menu = styled.ul`
-    list-style: none;
+// const Name = styled.h2`
+//     margin: 0 0 8px 0;
+// `;
+// const UserType = styled.p`
+//     margin: 0 0 8px 0;
+// `;
+// const Menu = styled.ul`
+//     list-style: none;
 
-    -webkit-transition: all 0.3s ease;
-    -moz-transition: all 0.3s ease;
-    -ms-transition: all 0.3s ease;
-    -o-transition: all 0.3s ease;
-    transition: all 0.3s ease;
-`;
-const MenuLink = styled.button`
-    margin: 2px 0;
-    border: none;
-    background-color: white;
-    width: 100%;
+//     -webkit-transition: all 0.3s ease;
+//     -moz-transition: all 0.3s ease;
+//     -ms-transition: all 0.3s ease;
+//     -o-transition: all 0.3s ease;
+//     transition: all 0.3s ease;
+// `;
+// const MenuLink = styled.button`
+//     margin: 2px 0;
+//     border: none;
+//     background-color: white;
+//     width: 100%;
 
-    padding: 10px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    cursor: pointer;
-    -webkit-transition: all 0.3s ease;
-    -moz-transition: all 0.3s ease;
-    -ms-transition: all 0.3s ease;
-    -o-transition: all 0.3s ease;
-    transition: all 0.3s ease;
-    border-radius: 15px;
-    :hover,
-    :focus,
-    :active {
-        background-color: #d0dfff;
-        outline: none;
-    }
-    h3 {
-        font-size: 0.9em;
-    }
-    h4 {
-        text-transform: uppercase;
-        font-weight: 700;
-        font-size: 0.8em;
-    }
-`;
-const SubMenu = styled.div`
-    -webkit-transition: all 0.3s ease;
-    -moz-transition: all 0.3s ease;
-    -ms-transition: all 0.3s ease;
-    -o-transition: all 0.3s ease;
-    transition: all 0.3s ease;
-    background: ${theme.secondary};
-    min-width: 300px;
-    li {
-        display: flex;
-        align-items: center;
-        padding-left: 30px;
-        /* ::before {
-            content: "-";
-            place-content: center;
-        } */
-    }
-`;
-const SubMenuLink = styled.button`
-    border: none;
-    margin: 3px 0;
-    background-color: white;
-    width: 100%;
-    padding: 8px 8px 8px 10px;
+//     padding: 10px;
+//     display: flex;
+//     flex-direction: row;
+//     justify-content: space-between;
+//     align-items: center;
+//     cursor: pointer;
+//     -webkit-transition: all 0.3s ease;
+//     -moz-transition: all 0.3s ease;
+//     -ms-transition: all 0.3s ease;
+//     -o-transition: all 0.3s ease;
+//     transition: all 0.3s ease;
+//     border-radius: 15px;
+//     :hover,
+//     :focus,
+//     :active {
+//         background-color: #d0dfff;
+//         outline: none;
+//     }
+//     h3 {
+//         font-size: 0.9em;
+//     }
+//     h4 {
+//         text-transform: uppercase;
+//         font-weight: 700;
+//         font-size: 0.8em;
+//     }
+// `;
+// const SubMenu = styled.div`
+//     -webkit-transition: all 0.3s ease;
+//     -moz-transition: all 0.3s ease;
+//     -ms-transition: all 0.3s ease;
+//     -o-transition: all 0.3s ease;
+//     transition: all 0.3s ease;
+//     background: ${theme.secondary};
+//     min-width: 300px;
+//     li {
+//         display: flex;
+//         align-items: center;
+//         padding-left: 30px;
+//         /* ::before {
+//             content: "-";
+//             place-content: center;
+//         } */
+//     }
+// `;
+// const SubMenuLink = styled.button`
+//     border: none;
+//     margin: 3px 0;
+//     background-color: white;
+//     width: 100%;
+//     padding: 8px 8px 8px 10px;
 
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+//     display: flex;
+//     flex-direction: row;
+//     justify-content: space-between;
+//     align-items: center;
 
-    -webkit-transition: all 0.3s ease;
-    -moz-transition: all 0.3s ease;
-    -ms-transition: all 0.3s ease;
-    -o-transition: all 0.3s ease;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    border-radius: 10px;
-    :hover,
-    :focus,
-    :active {
-        background-color: #d0dfff;
+//     -webkit-transition: all 0.3s ease;
+//     -moz-transition: all 0.3s ease;
+//     -ms-transition: all 0.3s ease;
+//     -o-transition: all 0.3s ease;
+//     cursor: pointer;
+//     transition: all 0.3s ease;
+//     border-radius: 10px;
+//     :hover,
+//     :focus,
+//     :active {
+//         background-color: #d0dfff;
 
-        outline: none;
-        h4 {
-            font-weight: bold;
-        }
-    }
-    h4 {
-        font-size: 0.8em;
-    }
-`;
+//         outline: none;
+//         h4 {
+//             font-weight: bold;
+//         }
+//     }
+//     h4 {
+//         font-size: 0.8em;
+//     }
+// `;
 const BodyContainer = styled.div`
     width: 100%;
     height: 100%;
@@ -459,14 +458,14 @@ const IconRow = styled.div`
     display: flex;
     flex-direction: row;
     width: 100%;
-    padding: 10px 30px;
+    padding: 10px 20px;
     justify-content: space-between;
     background: ${black};
 `;
 const ButtonLabel = styled.h2`
     font-family: Inter;
     font-style: normal;
-    font-weight: 500;
+    font-weight: 700;
     font-size: 17px;
     line-height: 17px;
     letter-spacing: 0.05em;
@@ -474,14 +473,15 @@ const ButtonLabel = styled.h2`
     color: ${black};
 `;
 const MessageDiv = styled(Link)`
-    width: 238px;
-    height: 46px;
+    width: 250px;
+    height: 50px;
     border-radius: 8px;
     background: ${white};
     display: flex;
-    fled-direction: row;
-    padding: 0 50px;
-    justify-content: space-around;
+    flex-direction: row;
+    padding: 20px 50px;
+    /* width: 60%; */
+    justify-content: space-evenly;
     align-items: center;
     svg {
         stroke: ${black};

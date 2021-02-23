@@ -142,6 +142,6 @@ const DashNav = ({ type }) => {
 const LinkContainer = styled.div`
     display: flex;
     flex-direction: column;
-    margin: 20px 0;
+    margin: 0px 20px;
 `;
 export default DashNav;
