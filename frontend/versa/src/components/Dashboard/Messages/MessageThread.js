@@ -151,7 +151,7 @@ const Send = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin-top: 10px;
+    
     input {
         background-color: ${props=>props.theme.lightBlue};
         margin-right: 20px;
@@ -176,9 +176,9 @@ const ThreadDiv = styled.div`
 const MessageDiv = styled.div`
     display: flex;
     flex-direction: column;
-    background-color: #eff3fe60;
+    background-color: ${props=>props.theme.blue};
     overflow-y: auto;
-    height: 60vh;
+    height: 830px;
     
 `;
 const ToMessage = styled.div`
@@ -211,5 +211,9 @@ const FromMessage = styled.div`
     background-color: ${props=>props.theme.lightPurple};
 `;
 const Header = styled.div`
+    background-color: ${props=>props.theme.blue};
     height: 69px;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px 0 20px;
 `;
