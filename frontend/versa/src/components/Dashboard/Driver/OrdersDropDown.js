@@ -6,19 +6,18 @@ import theme from "../../Reusable/Colors";
 const Status = styled.select`
     padding: 8px;
     outline: none;
-    width: 100%;
+    min-width: 150px;
+    border-radius: 8px;
     cursor: pointer;
-    border: ${(props) =>
-        props.border === true
-            ? `2px solid #77dd77`
-            : `2px solid ${theme.primary}`};
+    border: 2px solid
+        ${(props) =>
+            props.border === true ? props.theme.green : props.theme.black};
     :active,
     :hover,
     :focus {
-        border: ${(props) =>
-            props.border === true
-                ? `2px solid #77dd77`
-                : `2px solid ${theme.primaryHover}`};
+        border: 2px solid
+            ${(props) =>
+                props.border === true ? props.theme.green : props.theme.purple};
     }
 `;
 

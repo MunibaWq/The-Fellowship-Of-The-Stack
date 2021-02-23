@@ -2,11 +2,12 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { getOnePastDelivery } from "../../../axios/gets";
-import OrderItemCard from "../../../components/Dashboard/AnalyticsTables/OrderItemCard";
-import Loading from "../../../components/Reusable/Loading";
+import Loading from "../../../components/Redesign/Reusable/Loading";
 import theme from "../../../components/Reusable/Colors";
-import { DriverPicked, DriverReceived, LeftIcon } from "../../../images/icons";
-import { StyledLink } from "../../../components/Reusable/Link";
+import { DriverPicked } from "../../../images/icons";
+import Header from "../../../components/Redesign/Reusable/Header";
+import PageContainer from "../../../components/Redesign/Reusable/PageContainer";
+import TopBar from "../../../components/Redesign/Reusable/TopBar";
 
 const PastDeliveryDetails = () => {
     let params = useParams();
@@ -25,34 +26,26 @@ const PastDeliveryDetails = () => {
     }, []);
 
     return (
-        <Container>
+        <PageContainer>
             {!orderData ? (
                 <Loading />
             ) : (
                 <>
-                    <BackToOrder to="/dashboard/driver/delivery-history">
-                        <LeftIcon stroke={theme.primary} />
-                        Past Deliveries
-                    </BackToOrder>
+                    <Header
+                        title={buyerDetails.name}
+                        sub="These are the products that you delivered for
+                this order."
+                        link="/dashboard/driver/delivery-history"
+                        linkText="Past Deliveries"
+                    />
+
                     <CustomerDetails>
-                        <Customer>
-                            <h1>{buyerDetails.name}</h1>
-                            <p>
-                                These are the products that you delivered for
-                                this order.
-                            </p>
-                            <Address>
-                                <Customer>
-                                    <h3>Delivery Address</h3>
-                                    <p>{buyerDetails.shipping_address}</p>
-                                </Customer>
-                            </Address>
-                        </Customer>
+                        <h3>Delivery Address</h3>
+                        <p>{buyerDetails.shipping_address}</p>
                     </CustomerDetails>
                     <ArtistContainer>
-                        <ArtistNameBar>
-                            <h2>{buyerDetails.username}</h2>
-                        </ArtistNameBar>
+                        <TopBar title={buyerDetails.username} />
+
                         <RowContainer>
                             <ArtistOrder>
                                 <h3>Delivery Notes</h3>
@@ -112,66 +105,40 @@ const PastDeliveryDetails = () => {
                     </ArtistContainer>
                 </>
             )}
-        </Container>
+        </PageContainer>
     );
 };
 
 export default PastDeliveryDetails;
 
-const BackToOrder = styled(StyledLink)`
-    margin-left: -0.5em;
-    margin-bottom: 1em;
-
-    background: none;
-    border-bottom: none;
-`;
-
-const Container = styled.div`
-    background: ${theme.background};
-    display: flex;
-    width: 100%;
-    flex-direction: column;
-    padding: 4em 2em 2em calc(2em + 66px);
-    h1 {
-        margin: 0 1em 1em 0em;
-    }
-
-    p {
-        ::first-of-type {
-            margin-bottom: 1em;
-        }
-    }
-    h3 {
-        text-transform: uppercase;
-        font-weight: bold;
-        letter-spacing: 0.01em;
-        margin-bottom: 0.5em;
-    }
-`;
-
 const CustomerDetails = styled.article`
     display: flex;
-    flex-direction: row;
-    align-items: center;
-
+    flex-direction: column;
+    justify-content: flex-start;
+    align-self: flex-start;
+    width: 50%;
     padding: 2em 0;
-`;
 
-const Address = styled.div`
-    margin: 20px 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    h3 {
+        font-weight: 700;
+        margin-bottom: 0.3em;
+        text-transform: uppercase;
+        font-size: 1.1em;
+    }
+    p {
+        :last-of-type {
+            margin-bottom: 0;
+        }
+    }
 `;
 
 const ArtistContainer = styled.div`
     border-radius: 15px 15px 0px 0px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     padding: 0px;
-    background: ${theme.secondary};
+    background: ${(props) => props.theme.lightBlue};
     h2 {
         color: ${theme.secondary};
         margin-bottom: 0;
@@ -181,40 +148,11 @@ const ArtistContainer = styled.div`
     }
 `;
 
-const ArtistNameBar = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    padding: 20px 40px;
-    background: ${theme.primary};
-    border-radius: 15px 15px 0px 0px;
-`;
-
 const ArtistOrder = styled.div`
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     padding: 60px 0;
-`;
-
-const Customer = styled.div`
-    h2 {
-        margin-bottom: 0.8em;
-        font-weight: 700;
-        letter-spacing: 0.03em;
-    }
-    h3 {
-        font-weight: 700;
-        margin-bottom: 0.3em;
-        text-transform: uppercase;
-    }
-    p {
-        :last-of-type {
-            margin-bottom: 0;
-        }
-    }
 `;
 
 const OrderItemContainer = styled.div`
@@ -233,17 +171,21 @@ const OrderItemContainer = styled.div`
 
 const ProductCard = styled.div`
     border-radius: 16px;
-    background: ${theme.background};
+    margin: 16px 8px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    margin: 0 60px 60px 0;
-    padding: 0px;
+    width: 350px;
+    padding: 25px;
+    background: ${(props) => props.theme.blue};
+    :hover {
+        background: ${(props) => props.theme.orange};
+    }
     transition: background 0.3s ease;
     img {
-        height: 300px;
         width: 300px;
-        padding: 20px;
+        height: 300px;
+        margin-top: 16px;
     }
     h4 {
         font-weight: 700;
@@ -252,28 +194,23 @@ const ProductCard = styled.div`
         text-transform: capitalize;
         margin-bottom: 8px;
     }
-
-    :hover {
-        background: ${theme.primary + 60};
-    }
 `;
 
 const Details = styled.div`
-    width: 100%;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    padding: 0 20px 20px 20px;
+    justify-items: flex-start;
+    padding: 8px 8px 0 8px;
+    width: 100%;
 `;
 
 const RowContainer = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: space-evenly;
     padding: 0px;
-    margin-bottom: 8px;
-    width: 80%;
-    justify-content: space-around;
+    width: 100%;
 `;
 
 const Size = styled.p`
@@ -283,9 +220,11 @@ const Size = styled.p`
 `;
 const Quantity = styled.p`
     font-size: 2em;
-    :after {
-        content: none;
-    }
+    font-weight: 700 !important;
+    letter-spacing: 0.03em;
+    text-transform: capitalize;
+
+    margin: 0;
 `;
 
 const SetAsPicked = styled.button.attrs((props) => ({
@@ -297,13 +236,13 @@ const SetAsPicked = styled.button.attrs((props) => ({
     justify-content: center;
     align-items: center;
     padding: 8px;
-    background: ${theme.primaryHover};
+    background: ${(props) => props.theme.green};
     border-radius: 8px;
     border: none;
     transition: background 0.3s ease;
     svg {
         path {
-            stroke: ${theme.secondary};
+            stroke: ${(props) => props.theme.black};
         }
     }
 `;
@@ -311,14 +250,4 @@ const SetAsPicked = styled.button.attrs((props) => ({
 const QuantityStatus = styled(RowContainer)`
     justify-content: space-between;
     width: 100%;
-`;
-
-const Directions = styled(SetAsPicked)`
-    margin-top: 60px;
-    a {
-        color: white;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-    }
 `;

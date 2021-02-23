@@ -285,7 +285,7 @@ export const Nav = styled.nav`
         props.colors === "#F3F6FF" ? "none" : props.colors};
     display: flex;
     justify-content: space-between;
-    padding: 20px 40px;
+    padding: 10px 40px;
     z-index: 10;
     transition: all 0.3s ease;
     position: -webkit-sticky; /* for Safari */

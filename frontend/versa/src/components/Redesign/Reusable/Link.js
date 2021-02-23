@@ -1,13 +1,11 @@
+import { Link } from "react-router-dom";
 import styled, { css } from "styled-components";
 import GradientMove from "./Animations";
 
-const Button = styled.button.attrs((props) => ({
-    type: props.type || "button",
-}))`
-    display: flex;
+export const StyledLink = styled(Link)`
+    display: inline-flex;
     flex-direction: row;
-    align-items: center;
-    padding: 20px 40px;
+    padding: 15px 40px;
     text-transform: uppercase;
     font-weight: 700;
     color: ${(props) => props.theme.blue};
@@ -19,16 +17,15 @@ const Button = styled.button.attrs((props) => ({
     border-radius: 15px;
     font-family: "Inter", sans-serif;
     margin: 0;
-    width: fit-content;
-
+    max-width: fit-content;
     outline: none;
     cursor: pointer;
+
     svg {
         path {
             stroke: ${(props) => props.theme.blue};
             fill: ${(props) => props.theme.blue};
         }
-        margin-right: 8px;
     }
     :hover {
         svg {
@@ -55,25 +52,16 @@ const Button = styled.button.attrs((props) => ({
     ${(props) =>
         props.secondarySmall &&
         css`
-            a {
-                color: ${(props) => props.theme.lightBlue};
-            }
             background: ${(props) => props.theme.black};
             border-radius: 8px;
             padding: 10px 20px;
-            svg {
-                path {
-                    stroke: ${(props) => props.theme.blue};
-                    fill: ${(props) => props.theme.black};
-                }
-            }
+            color: ${(props) => props.theme.blue};
             :hover {
                 background: ${(props) => props.theme.purple};
                 color: ${(props) => props.theme.blue};
                 svg {
                     path {
                         stroke: ${(props) => props.theme.blue};
-                        fill: ${(props) => props.theme.purple};
                     }
                 }
             }
@@ -85,7 +73,6 @@ const Button = styled.button.attrs((props) => ({
             padding: 10px 20px;
             background: transparent;
             position: relative;
-            align-items: center;
             border-bottom: 3px solid transparent;
             svg {
                 margin-right: 8px;
@@ -112,7 +99,7 @@ const Button = styled.button.attrs((props) => ({
                 content: "";
                 position: absolute;
                 width: 0%;
-                transform: translate(-15%, 500%);
+                transform: translate(-15%, 800%);
                 height: 4px;
                 border-radius: 50px;
                 opacity: 0;
@@ -125,5 +112,3 @@ const Button = styled.button.attrs((props) => ({
             }
         `}
 `;
-
-export default Button;

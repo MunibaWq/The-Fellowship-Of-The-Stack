@@ -2779,3 +2779,75 @@ export const DeleteIcon = ({ width, height, stroke, fill }) => {
         </svg>
     );
 };
+
+export const BinIcon = ({ width, height, stroke, fill }) => {
+    return (
+        <svg
+            width={width || "32"}
+            height={height || "32"}
+            viewBox="0 0 32 32"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path
+                d="M26.9995 7L4.99951 7.00001"
+                stroke={stroke || "#444"}
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            />
+            <path
+                d="M13 13V21"
+                stroke={stroke || "#444"}
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            />
+            <path
+                d="M19 13V21"
+                stroke={stroke || "#444"}
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            />
+            <path
+                d="M24.9995 7.00001V26C24.9995 26.2652 24.8942 26.5196 24.7066 26.7071C24.5191 26.8946 24.2647 27 23.9995 27H7.99951C7.7343 27 7.47994 26.8946 7.29241 26.7071C7.10487 26.5196 6.99951 26.2652 6.99951 26V7"
+                stroke={stroke || "#444"}
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            />
+            <path
+                d="M21 7V5C21 4.46957 20.7893 3.96086 20.4142 3.58579C20.0391 3.21071 19.5304 3 19 3H13C12.4696 3 11.9609 3.21071 11.5858 3.58579C11.2107 3.96086 11 4.46957 11 5V7"
+                stroke={stroke || "#444"}
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            />
+        </svg>
+    );
+};
+export const UnfillPencilIcon = ({ width, height, stroke, fill }) => {
+    return (
+        <svg
+            width={width || "32"}
+            height={height || "32"}
+            viewBox="0 0 32 32"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path
+                d="M12 27H6C5.73478 27 5.48043 26.8946 5.29289 26.7071C5.10536 26.5195 5 26.2652 5 26V20.4142C5 20.2829 5.02587 20.1528 5.07612 20.0315C5.12638 19.9102 5.20004 19.7999 5.29289 19.7071L20.2929 4.70708C20.4804 4.51954 20.7348 4.41418 21 4.41418C21.2652 4.41418 21.5196 4.51954 21.7071 4.70708L27.2929 10.2929C27.4804 10.4804 27.5858 10.7348 27.5858 11C27.5858 11.2652 27.4804 11.5195 27.2929 11.7071L12 27Z"
+                stroke={stroke || "#444"}
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            />
+            <path
+                d="M17 8L24 15"
+                stroke={stroke || "#444"}
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            />
+        </svg>
+    );
+};

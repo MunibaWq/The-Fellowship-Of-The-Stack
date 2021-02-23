@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
+import { LeftIcon } from "../../../images/icons";
 import Search from "../Reusable/Search";
+import { StyledLink } from "./Link";
 
 //              USE
 //  add 'search' prop if you want it to include search bar
@@ -25,9 +27,17 @@ const Header = ({
     onChange,
     onKeyPress,
     placeholder,
+    link,
+    linkText,
 }) => {
     return (
         <HeaderContainer>
+            {link && (
+                <StyledLink to={link} tertiary>
+                    <LeftIcon />
+                    {linkText}
+                </StyledLink>
+            )}
             <h1>{title}</h1>
             <Subheading>{sub}</Subheading>
             {search && (
@@ -45,9 +55,10 @@ const Header = ({
 export default Header;
 
 const HeaderContainer = styled.header`
+    align-self: flex-start;
     flex-direction: column;
     align-items: flex-start;
-    align-self: flex-start;
+    /* margin-bottom: 60px; */
 `;
 
 const Subheading = styled.p`

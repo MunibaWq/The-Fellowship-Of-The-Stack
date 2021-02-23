@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
-import theme from "../../Reusable/Colors";
+// import theme from "../../Reusable/Colors";
+import theme from "../../Redesign/Reusable/Theme";
 import Loading from "../../Reusable/Loading";
 import DropDown from "./DropDown";
+import PageContainer from "../../Redesign/Reusable/PageContainer";
 
 const OrdersTable = ({ user, orderData }) => {
     const [data, setData] = useState(orderData);
@@ -69,11 +71,11 @@ const OrdersTable = ({ user, orderData }) => {
     const filteredData = filterData(data, query);
 
     return (
-        <TableContainer>
+        <>
             {!orderData ? (
                 <Loading />
             ) : (
-                <>
+                <TableContainer>
                     <Sort>
                         <h2>Sort by: </h2>
                         <SortChoice
@@ -176,9 +178,9 @@ const OrdersTable = ({ user, orderData }) => {
                             </BodyRows>
                         )}
                     </Table>
-                </>
+                </TableContainer>
             )}
-        </TableContainer>
+        </>
     );
 };
 
@@ -193,32 +195,35 @@ const TableContainer = styled.div`
 `;
 
 const Sort = styled.div`
+    align-self: flex-start;
     display: flex;
     flex-direction: row;
     align-items: center;
     margin: 1em;
+
     h2 {
         margin: 0 16px 0 0;
         font-size: 1em;
         font-weight: 700;
         text-transform: uppercase;
-        color: ${theme.primary};
+        color: ${(props) => props.theme.black};
     }
     input {
         padding: 8px;
         outline: none;
         min-width: 150px;
+        border-radius: 8px;
         border: ${(props) =>
             props.border === true
-                ? `2px solid ${theme.primaryHover}`
-                : `2px solid ${theme.primary}`};
+                ? `2px solid ${theme.green}`
+                : `2px solid ${theme.black}`};
         :active,
         :hover,
         :focus {
             border: ${(props) =>
                 props.border === true
-                    ? `2px solid #77dd77`
-                    : `2px solid ${theme.primaryHover}`};
+                    ? `2px solid ${theme.green}`
+                    : `2px solid ${theme.purple}`};
         }
     }
     @media screen and (max-width: 600px) {
@@ -243,10 +248,16 @@ const Table = styled.table`
     font-size: 0.9em;
 
     box-shadow: 3px 3px 10px rgba(27, 49, 66, 0.13);
-    border-radius: 15px 15px 0px 0px;
-    thead th {
+    thead > tr > th {
         position: sticky;
         top: 0;
+        background-color: ${(props) => props.theme.black};
+        :first-of-type {
+            border-radius: 15px 0 0 0;
+        }
+        :last-of-type {
+            border-radius: 0 15px 0 0;
+        }
     }
     th,
     td {
@@ -284,10 +295,8 @@ const Table = styled.table`
     }
 `;
 const Headers = styled.tr`
-    background-color: ${theme.primary};
-
     h2 {
-        color: ${theme.secondary};
+        color: #f3f6ff;
         text-align: left;
         margin-bottom: 0;
         text-transform: uppercase;
@@ -299,21 +308,27 @@ const BodyRows = styled.tr`
     border-bottom: thin solid #dddddd;
     cursor: pointer;
     p {
-        color: ${theme.tertiary};
+        color: ${theme.black};
         margin-bottom: 0;
     }
     :hover {
-        background-color: ${theme.primary + "40"};
+        background-color: ${theme.blueHover};
     }
     :nth-of-type(even) {
-        background-color: #eff3fe60;
+        background-color: ${theme.lightBlue};
         :hover {
-            background-color: ${theme.primary + "40"};
+            background-color: ${theme.blueHover};
+        }
+    }
+    :nth-of-type(odd) {
+        background-color: ${theme.blue};
+        :hover {
+            background-color: ${theme.blueHover};
         }
     }
 
     :last-of-type {
-        border-bottom: 2px solid ${theme.primary};
+        border-bottom: 3px solid ${theme.lightPurple};
     }
 `;
 
@@ -323,16 +338,17 @@ const SortChoice = styled.select`
     min-width: 150px;
     cursor: pointer;
     margin-right: 32px;
+    border-radius: 8px;
     border: ${(props) =>
         props.border === true
-            ? `2px solid ${theme.primaryHover}`
-            : `2px solid ${theme.primary}`};
+            ? `2px solid ${theme.green}`
+            : `2px solid ${theme.black}`};
     :active,
     :hover,
     :focus {
         border: ${(props) =>
             props.border === true
-                ? `2px solid ${theme.primaryHover}`
-                : `2px solid ${theme.primaryHover}`};
+                ? `2px solid ${theme.purple}`
+                : `2px solid ${theme.purple}`};
     }
 `;

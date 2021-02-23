@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { updateOrderStatus, updateOrderShipDate } from "../../../axios/puts";
-// import theme from "../../Reusable/Colors";
+import { updateInventoryStatus } from "../../../axios/puts";
 import theme from "../../Redesign/Reusable/Theme";
 
 const Status = styled.select`
@@ -23,53 +22,35 @@ const Status = styled.select`
     }
 `;
 
-const DropDown = ({ order }) => {
+const InventoryDropDown = ({ result }) => {
     const statusOptions = [
         {
-            value: "Unfulfilled",
-            label: "Unfulfilled",
+            value: "Active",
+            label: "Active",
         },
         {
-            value: "Processing",
-            label: "Processing",
+            value: "Backorder",
+            label: "Backorder",
         },
         {
-            value: "Picked Up",
-            label: "Picked Up",
-        },
-        {
-            value: "Ready for Pickup",
-            label: "Ready for Pickup",
-        },
-        {
-            value: "Ready for Delivery",
-            label: "Ready for Delivery",
-        },
-        {
-            value: "On Hold",
-            label: "On Hold",
-        },
-        {
-            value: "Cancelled",
-            label: "Cancelled",
-        },
-        {
-            value: "Refunded",
-            label: "Refunded",
+            value: "Discontinue",
+            label: "Discontinue",
         },
     ];
-    const [status, setStatus] = useState(order.status);
+    const [status, setStatus] = useState(result.status);
     const [confirmation, setConfirmation] = useState(false);
 
+    console.log(status);
     const handleChange = (e) => {
         setStatus(e.target.value);
         setConfirmation(true);
-        e.target.value === "Picked Up"
-            ? updateOrderShipDate(e.target.value, new Date(), order.id)
-            : e.target.value === "Delivered"
-            ? updateOrderShipDate(e.target.value, new Date(), order.id)
-            : updateOrderStatus(e.target.value, order.id);
+        e.target.value === "Active"
+            ? updateInventoryStatus(result, e.target.value)
+            : e.target.value === "Backorder"
+            ? updateInventoryStatus(result, e.target.value)
+            : updateInventoryStatus(result, e.target.value);
     };
+    console.log(status);
 
     return (
         <Status
@@ -87,4 +68,4 @@ const DropDown = ({ order }) => {
     );
 };
 
-export default DropDown;
+export default InventoryDropDown;

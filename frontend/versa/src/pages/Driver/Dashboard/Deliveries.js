@@ -2,9 +2,10 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import { getReadyDeliveries } from "../../../axios/gets";
-import Loading from "../../../components/Reusable/Loading";
-import OrdersToDeliverTable from "../../../components/Dashboard/Driver/OrdersToDeliverTable";
+import Loading from "../../../components/Redesign/Reusable/Loading";
 import ReadyDeliveriesTable from "../../../components/Dashboard/Driver/ReadyDeliveriesTable";
+import PageContainer from "../../../components/Redesign/Reusable/PageContainer";
+import Header from "../../../components/Redesign/Reusable/Header";
 
 const Deliveries = () => {
     const [orderData, setOrderData] = useState();
@@ -22,8 +23,13 @@ const Deliveries = () => {
     }, []);
 
     return (
-        <DeliveryContainer>
-            <h1>Ready to Deliver</h1>
+        <PageContainer>
+            <Header
+                title="Ready to Deliver"
+                sub="These are orders that you have completed pickups for and are ready to deliver. "
+                link="/dashboard/driver/assigned-pickups"
+                linkText="Pickups"
+            />
             {!orderData ? (
                 <Loading />
             ) : (
@@ -32,23 +38,8 @@ const Deliveries = () => {
                     user={currentUser}
                 />
             )}
-        </DeliveryContainer>
+        </PageContainer>
     );
 };
 
 export default Deliveries;
-
-const DeliveryContainer = styled.div`
-    padding: 4em 2em 2em calc(2em + 66px);
-    display: grid;
-    grid-template-rows: 60px auto;
-
-    h1 {
-        margin: 0 1em 2em 1em;
-        justify-self: start;
-    }
-    :last-of-type {
-        place-self: start;
-        align-self: center;
-    }
-`;

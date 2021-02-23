@@ -3,6 +3,8 @@ import styled from "styled-components";
 import MessageList from "../components/Dashboard/Messages/MessageList";
 import { getMessages } from "../axios/gets";
 import MessageThread from "../components/Dashboard/Messages/MessageThread";
+import PageContainer from "../components/Redesign/Reusable/PageContainer";
+import Header from "../components/Redesign/Reusable/Header";
 
 const Messages = () => {
     const [messages, setMessages] = useState();
@@ -21,8 +23,8 @@ const Messages = () => {
     }, []);
 
     return (
-        <Container>
-            <h1>Messages</h1>
+        <PageContainer>
+            <Header title="Messages"/>
             {messages && (
                 <MessageSection>
                     <MessageList
@@ -33,7 +35,7 @@ const Messages = () => {
                     <MessageThread thread={thread} />
                 </MessageSection>
             )}
-        </Container>
+        </PageContainer>
     );
 };
 
@@ -42,6 +44,9 @@ const MessageSection = styled.div`
     display: grid;
     grid-template-columns: 40% 60%;
     grid-template-rows: 45px auto;
+    width: 100%;
+    margin-bottom: 2em;
+    overflow-y:hidden;
 `;
 const Container = styled.div`
     width: 100vw;
