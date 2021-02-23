@@ -931,6 +931,33 @@ export const MinusIcon = ({ width, height, stroke, fill }) => {
         </svg>
     );
 };
+export const CaretDoubleLeft = ({ width, height, stroke, fill }) => {
+    return (
+        <svg
+            width={width || "24"}
+            height={height || "24"}
+            viewBox="0 0 24 24"
+            fill={fill || "none"}
+            xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 26H26V0H0V26Z" fill="#C4C4C4" />
+            <path
+                d="M5.6875 4.875L13.8125 13L5.6875 21.125"
+                stroke={stroke || "#444"}
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            />
+            <path
+                d="M13.8125 4.875L21.9375 13L13.8125 21.125"
+                stroke={stroke || "#444"}
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            />
+        </svg>
+    );
+};
+
 export const ShoppingCart = ({ width, height, stroke, fill }) => {
     return (
         <svg

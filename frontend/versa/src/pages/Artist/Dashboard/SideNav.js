@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import DashNav from "./DashNav";
 import {
     LineCloseIcon,
     Dashboard,
@@ -18,6 +19,7 @@ import {
     InventoryIcon,
     MessageIcon,
     DriverReceived,
+    CaretDoubleLeft,
 } from "../../../images/icons";
 import theme from "../../../components/Reusable/Colors";
 // import Pill from "../../../components/Reusable/Pill";
@@ -49,61 +51,55 @@ const SideNav = ({ navWidth, setNavWidth }) => {
                         setNavWidth(300);
                         setExpanded(true);
                     }}>
-                    <HamburgerIcon stroke={theme.secondary} />
-                    MENU
+                    <CaretBorder>
+                        <CaretDoubleLeft stroke={theme.secondary} />
+                    </CaretBorder>
+                    <h4>MENU</h4>
                 </Toggle>
             )}
             {expanded && (
                 <NavBar>
                     <Header>
                         <UserInfo>
-                            <Name>{cookies.get("name")}</Name>
-                            <UserType>{userTypes.join(", ")}</UserType>
+                            <h4>DASHBOARD MENU</h4>
                         </UserInfo>
                         <Close
                             onClick={() => {
                                 setNavWidth(0);
                                 setExpanded(false);
                             }}>
-                            <LineCloseIcon
-                                stroke={theme.primary}
-                                width="40"
-                                height="40"
-                            />
+                            <CaretBorder>
+                                <CaretDoubleLeft stroke={theme.secondary} />
+                            </CaretBorder>
                         </Close>
                     </Header>
+                    <BodyContainer>
+                        {/* icon row */}
+                        <IconRow>
+                            <IconDiv>
+                                <PaintBrushIcon />
+                                <h4>ARTIST</h4>
+                            </IconDiv>
+                            <IconDiv>
+                                <Products />
+                                <h4>SHOPPER</h4>
+                            </IconDiv>
+                            <IconDiv>
+                                <CarIcon />
+                                <h4>DRIVER</h4>
+                            </IconDiv>
+                        </IconRow>
+                        {/* message row */}
+                        <MessageRow>
+                            <MessageDiv>
+                                <MessageIcon />
+                                <h4>MESSAGES</h4>
+                            </MessageDiv>
+                        </MessageRow>
+                        {/* map rows here */}
+                        <DashNav type={"artist"} />
+                    </BodyContainer>
 
-                    {/*<ToolBar>
-                        <Menu>
-                            <Link to="/dashboard/notifications">
-                                <li>
-                                    <MenuLink>
-                                        <NotiCount>
-                                            <p>9</p>
-                                        </NotiCount>
-                                        <Notification stroke={theme.primary} />
-                                    </MenuLink>
-                                </li>
-                            </Link>
-                            <Link to="/dashboard/messages">
-                                <li>
-                                    <MenuLink>
-                                        <NotiCount>
-                                            <p>3</p>
-                                        </NotiCount>
-                                        <Message stroke={theme.primary} />
-                                    </MenuLink>
-                                </li>
-                            </Link>
-                            <Link to="/dashboard/settings">
-                                <li>
-                                    <MenuLink>
-                                        <Setting stroke={theme.primary} />
-                                    </MenuLink>
-                                </li>
-                            </Link>
-                        </Menu>
-                        </ToolBar>*/}
                     <Menu>
                         <Link to="/dashboard">
                             <li>
@@ -440,7 +436,6 @@ export default SideNav;
 // `;
 
 const Container = styled.div`
-    padding: ${(props) => (props.navWidth !== 300 ? "0px" : "1em")};
     background: white;
     height: fit-content;
 `;
@@ -455,24 +450,28 @@ const Toggle = styled.div`
     padding: 6px 10px;
     width: auto;
     color: ${theme.secondary};
-    border-radius: 15px;
+    top: 200px;
+    border-radius: 0 15px 15px 0;
     position: absolute;
-    margin: 10px;
+
     :hover {
         transform: scale(1.05);
     }
     cursor: pointer;
     display: flex;
+    writing-mode: tb-rl;
     align-items: center;
-    svg {
-        margin-right: 8px;
-    }
+
     :last-child {
         font-weight: 700;
         letter-spacing: 0.05em;
     }
 `;
-
+const CaretBorder = styled.div`
+    background: white;
+    padding: 8px;
+    border-radius: 8px;
+`;
 const NavBar = styled.div`
     -webkit-transition: all 0.3s ease;
     -moz-transition: all 0.3s ease;
@@ -481,7 +480,7 @@ const NavBar = styled.div`
     transition: all 0.3s ease;
     background: white;
     position: sticky;
-    min-width: 300px;
+    width: 405px;
     left: -300px;
 `;
 
@@ -611,16 +610,38 @@ const SubMenuLink = styled.button`
         font-size: 0.8em;
     }
 `;
-// const ToolBar = styled.div`
-//     ul {
-//         display: flex;
-//         flex-direction: row;
-//         justify-content: space-between;
-//     }
-
-//     -webkit-transition: all 0.3s ease;
-//     -moz-transition: all 0.3s ease;
-//     -ms-transition: all 0.3s ease;
-//     -o-transition: all 0.3s ease;
-//     transition: all 0.3s ease;
-// `;
+const BodyContainer = styled.div`
+    width: 100%;
+    height: 100%;
+`;
+const MessageRow = styled.div`
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    background: red;
+    justify-content: center;
+`;
+const IconRow = styled.div`
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    padding: 10px 50px;
+    justify-content: space-between;
+    background: green;
+`;
+const MessageDiv = styled.div`
+    width: 238px;
+    height: 46px;
+    border-radius: 8px;
+    background: blue;
+    display: flex;
+    fled-direction: row;
+    padding: 0 40px;
+    justify-content: space-around;
+    align-items: center;
+`;
+const IconDiv = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+`;

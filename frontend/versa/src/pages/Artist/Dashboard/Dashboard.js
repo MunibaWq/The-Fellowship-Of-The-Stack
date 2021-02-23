@@ -7,7 +7,7 @@ import {
 } from "react-router-dom";
 import DashboardMain from "./DashboardMain";
 import ShopperDashboardMain from "../../UserBuyer/Dashboard/DashboardMain";
-import Messages from '../../Messages'
+import Messages from "../../Messages";
 import SideNav from "./SideNav";
 import Orders from "./Orders";
 import Categories from "./Categories";
@@ -40,6 +40,7 @@ import AssignedPickups from "../../Driver/Dashboard/AssignedPickups";
 import ShopperOrderItems from "../../UserBuyer/Dashboard/OrderItems";
 import AssignedPickupDetails from "../../Driver/Dashboard/AssignedPickupDetails";
 import Deliveries from "../../Driver/Dashboard/Deliveries";
+import SideMenu from "../../../components/SideMenu";
 const cookies = new Cookies();
 const Redirecter = () => {
     window.location = "/account";
@@ -63,6 +64,7 @@ const Dashboard = () => {
                 <SideNavDiv>
                     <SideNav navWidth={navWidth} setNavWidth={setNavWidth} />
                 </SideNavDiv>
+                {/* <SideMenu /> */}
                 <Switch>
                     <PrivateRoute
                         path="/dashboard"
