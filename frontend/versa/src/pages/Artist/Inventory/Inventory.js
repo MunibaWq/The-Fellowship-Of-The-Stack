@@ -96,7 +96,7 @@ const Inventory = (currentProduct) => {
                         Create a new product
                     </CreateProductButton>
                 </Link>
-                <Table style={{ alignSelf: "center" }}>
+                <Table>
                     <thead>
                         <Headers>
                             {headers.map((header, index) => (
@@ -205,7 +205,7 @@ const TableContainer = styled.div`
     justify-self: center;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: center;
     min-height: 600px;
 `;
 
