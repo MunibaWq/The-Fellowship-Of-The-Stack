@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import { getOneOrder } from "../../../axios/gets";
+import { getOneOrderForDriver } from "../../../axios/gets";
 import OrderItemCard from "../../../components/Dashboard/AnalyticsTables/OrderItemCard";
 import Loading from "../../../components/Redesign/Reusable/Loading";
-// import theme from "../../../components/Redesign/Reusable/Theme";
 import { StyledLink } from "../../../components/Reusable/Link";
 import { LeftIcon, SendIcon } from "../../../images/icons";
 import Button from "../../../components/Redesign/Reusable/Button";
 import { sendMessage } from "../../../axios/posts";
 import PageContainer from "../../../components/Redesign/Reusable/PageContainer";
-import TopBar from "../../../components/Redesign/Reusable/TopBar";
+
 import Header from "../../../components/Redesign/Reusable/Header";
 
 const OrderItems = () => {
@@ -21,9 +20,10 @@ const OrderItems = () => {
     const [buyerDetails, setBuyerDetails] = useState();
     const [message, setMessage] = useState();
     const [sent, setSent] = useState();
+
     useEffect(() => {
         const fetchData = async () => {
-            const data = await getOneOrder(orderID);
+            const data = await getOneOrderForDriver(orderID);
             setBuyerDetails(data[0]);
             setOrderData(data);
         };
@@ -135,14 +135,23 @@ const OrderItems = () => {
                                 </BuyerRight>
                             </Buyer>
                         </BuyerDetails>
-                        {orderData.map((order) => {
-                            return (
-                                <OrderItemCard
-                                    order={order}
-                                    key={order.orderID}
-                                />
-                            );
-                        })}
+                        <OrderDataContainer>
+                            {orderData.map((order) => {
+                                console.log(order);
+                                return (
+                                    <ProductCard key={order.id + order.key}>
+                                        <img
+                                            src={`https://versabucket.s3.us-east-2.amazonaws.com/images/${order.thumbnail}.jpeg`}
+                                            alt={order.title}
+                                        />
+                                        <OrderItemCard
+                                            order={order}
+                                            key={order.orderID}
+                                        />
+                                    </ProductCard>
+                                );
+                            })}
+                        </OrderDataContainer>
                     </OrderItemContainer>
                 </>
             )}
@@ -151,6 +160,33 @@ const OrderItems = () => {
 };
 
 export default OrderItems;
+
+const ProductCard = styled.div`
+    border-radius: 16px;
+    background: ${(props) => props.theme.blue};
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 0 60px 60px 0;
+    padding: 0px;
+    transition: background 0.3s ease;
+    img {
+        height: 300px;
+        width: 300px;
+        padding: 20px;
+    }
+    h4 {
+        font-weight: 700;
+        font-size: 18px;
+        letter-spacing: 0.03em;
+        text-transform: capitalize;
+        margin-bottom: 8px;
+    }
+
+    :hover {
+        background: ${(props) => props.theme.orange};
+    }
+`;
 
 const SendButton = styled(Button).attrs((props) => ({
     type: props.type || "button",
@@ -241,11 +277,13 @@ const Buyer = styled.div`
     border-radius: 15px;
 `;
 const BuyerLeft = styled.div`
-    h2 {
+    h3 {
         color: ${(props) => props.theme.black};
-        margin-bottom: 0.8em;
+        margin-top: 0.5em;
+        margin-bottom: 0.5em;
         letter-spacing: 0.03em;
         line-height: 1em;
+        text-transform: uppercase;
     }
     p {
         margin: 1em 0 1em 0;
@@ -300,15 +338,16 @@ const BuyerNameBar = styled.div`
     }
 `;
 
-// const OrderItemContainer = styled.div`
-//     position: relative;
-//     padding: 2em 0;
-//     display: grid;
-//     grid-row-gap: 30px;
-//     grid-column-gap: 50px;
-//     grid-template-columns: repeat(auto-fit, minmax(250px, 400px));
-//     h1 {
-//         margin: 0 1em 2em 1em;
-//         font-size: 100px;
-//     }
-// `;
+const OrderDataContainer = styled.div`
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 60px 60px;
+    h1 {
+        margin: 0 1em 2em 1em;
+        font-size: 100px;
+    }
+`;

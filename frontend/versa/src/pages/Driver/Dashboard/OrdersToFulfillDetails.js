@@ -95,6 +95,7 @@ const OrdersToFulFillDetails = () => {
 
                         <OrderItemContainer>
                             {orderData.map((order) => {
+                                console.log(order);
                                 return (
                                     <ProductCard
                                         key={
@@ -109,7 +110,7 @@ const OrdersToFulFillDetails = () => {
                                             <RowContainer>
                                                 <Size>
                                                     {order.size === "O"
-                                                        ? "One Colour"
+                                                        ? "One Size"
                                                         : order.size}
                                                 </Size>
                                                 <p>
