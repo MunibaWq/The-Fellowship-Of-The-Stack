@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { getOnePastDelivery } from "../../../axios/gets";
 import Loading from "../../../components/Redesign/Reusable/Loading";
 import theme from "../../../components/Reusable/Colors";
-import { DriverPicked, DriverReceived, LeftIcon } from "../../../images/icons";
+import { DriverPicked } from "../../../images/icons";
 import Header from "../../../components/Redesign/Reusable/Header";
 import PageContainer from "../../../components/Redesign/Reusable/PageContainer";
 import TopBar from "../../../components/Redesign/Reusable/TopBar";
