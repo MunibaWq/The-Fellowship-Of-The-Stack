@@ -59,7 +59,6 @@ const Card = styled.article`
     display: flex;
     flex-direction: row;
     align-items: center;
-    background: #fff;
     box-shadow: 3px 3px 10px rgba(27, 49, 66, 0.13);
     border-radius: 15px;
     :hover {

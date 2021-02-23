@@ -98,6 +98,7 @@ const ArtistBlurb = styled.div`
     width: 40%;
     justify-content: flex-start;
     flex-direction: column;
+    background: ${(props) => props.lightBlue};
 
     p {
         width: 350px;
@@ -107,7 +108,7 @@ const ArtistBlurb = styled.div`
 
 const Image = styled.img`
     padding: 10px;
-    background: ${(props) => props.theme.lightBlue};
+    background: ${(props) => props.theme.blue};
 `;
 
 const Messaging = styled.div`
@@ -116,6 +117,7 @@ const Messaging = styled.div`
     height: 100%;
     display: flex;
     justify-content: flex-start;
+    background: ${(props) => props.lightBlue};
 
     p {
         margin-bottom: 1em;

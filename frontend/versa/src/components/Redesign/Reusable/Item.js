@@ -160,7 +160,7 @@ const Item = ({ product, images }) => {
                                 // setChosenSize(0);
                                 // setPriceDiff(0);
                             }}>
-                            <LineCloseIcon width="18" height="18" />
+                            <LineCloseIcon />
                             Clear Selection
                         </ClearSelection>
                     )}
