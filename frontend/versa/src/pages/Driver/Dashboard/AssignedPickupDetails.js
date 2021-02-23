@@ -7,6 +7,8 @@ import theme from "../../../components/Reusable/Colors";
 import { DriverPicked, DriverReceived, LeftIcon } from "../../../images/icons";
 import { StyledLink } from "../../../components/Reusable/Link";
 import ProductPickup from "../../../components/Dashboard/Driver/ProductPickup";
+import Header from "../../../components/Redesign/Reusable/Header";
+import PageContainer from "../../../components/Redesign/Reusable/PageContainer";
 
 const AssignedPickupDetails = () => {
     let params = useParams();
@@ -25,40 +27,34 @@ const AssignedPickupDetails = () => {
     }, []);
 
     return (
-        <Container>
+        <PageContainer>
             {!orderData ? (
                 <Loading />
             ) : (
                 <>
-                    <BackToOrder to="/dashboard/driver/assigned-pickups">
-                        <LeftIcon stroke={theme.primary} />
-                        Pickups
-                    </BackToOrder>
-                    <ArtistDetails>
-                        <Artist>
-                            <h1>{artistDetails.username}</h1>
-                            <p>
-                                These are the products that you need to pick up
-                                from this artist for all your deliveries today.
-                                Mark them as received so that you can track your
-                                progress.
-                            </p>
-                            <Address>
-                                <Artist>
-                                    <h3>Pickup Address</h3>
-                                    <p>{artistDetails.address}</p>
-                                </Artist>
+                    <Header
+                        title={artistDetails.username}
+                        sub="These are the products that you need to pick up
+                        from this artist for all your deliveries today.
+                        Mark them as received so that you can track your
+                        progress."
+                        link="/dashboard/driver/assigned-pickups"
+                        linkText="Pickups"
+                    />
 
-                                <Directions>
-                                    <a
-                                        rel={"noreferrer"}
-                                        target="_blank"
-                                        href={`https://www.google.com/maps?saddr&daddr=${artistDetails.address}`}>
-                                        Directions
-                                    </a>
-                                </Directions>
-                            </Address>
-                        </Artist>
+                    <ArtistDetails>
+                        <Address>
+                            <h3>Pickup Address</h3>
+                            <p>{artistDetails.address}</p>
+                        </Address>
+                        <Directions>
+                            <a
+                                rel={"noreferrer"}
+                                target="_blank"
+                                href={`https://www.google.com/maps?saddr&daddr=${artistDetails.address}`}>
+                                Directions
+                            </a>
+                        </Directions>
                     </ArtistDetails>
                     <BuyerContainer>
                         <BuyerNameBar>
@@ -98,42 +94,11 @@ const AssignedPickupDetails = () => {
                     </BuyerContainer>
                 </>
             )}
-        </Container>
+        </PageContainer>
     );
 };
 
 export default AssignedPickupDetails;
-
-const BackToOrder = styled(StyledLink)`
-    margin-left: -0.5em;
-    margin-bottom: 1em;
-
-    background: none;
-    border-bottom: none;
-`;
-
-const Container = styled.div`
-    background: ${theme.background};
-    display: flex;
-    width: 100vw;
-    flex-direction: column;
-    padding: 4em 2em 2em calc(2em + 66px);
-    h1 {
-        margin: 0 1em 1em 0em;
-    }
-
-    p {
-        ::first-of-type {
-            margin-bottom: 1em;
-        }
-    }
-    h3 {
-        text-transform: uppercase;
-        font-weight: bold;
-        letter-spacing: 0.01em;
-        margin-bottom: 0.5em;
-    }
-`;
 
 const ArtistDetails = styled.article`
     display: flex;
@@ -144,11 +109,21 @@ const ArtistDetails = styled.article`
 `;
 
 const Address = styled.div`
-    margin: 20px 0;
-    width: 50%;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
+    h2 {
+        margin-bottom: 0.8em;
+        font-weight: 700;
+        letter-spacing: 0.03em;
+    }
+    h3 {
+        font-weight: 700;
+        margin-bottom: 0.3em;
+        text-transform: uppercase;
+    }
+    p {
+        :last-of-type {
+            margin-bottom: 0;
+        }
+    }
 `;
 
 const BuyerContainer = styled.div`
@@ -184,24 +159,6 @@ const BuyerOrder = styled.div`
     flex-direction: column;
     align-items: flex-start;
     padding: 60px 60px 0 60px;
-`;
-
-const Artist = styled.div`
-    h2 {
-        margin-bottom: 0.8em;
-        font-weight: 700;
-        letter-spacing: 0.03em;
-    }
-    h3 {
-        font-weight: 700;
-        margin-bottom: 0.3em;
-        text-transform: uppercase;
-    }
-    p {
-        :last-of-type {
-            margin-bottom: 0;
-        }
-    }
 `;
 
 const OrderItemContainer = styled.div`

@@ -262,7 +262,12 @@ const SetAsPicked = styled.button.attrs((props) => ({
     color: ${(props) => props.theme.blue};
     transition: background 0.3s ease;
     :hover {
-        background: ${(props) => props.theme.purple};
+        background: ${(props) => props.theme.holo};
+        svg {
+            path {
+                stroke: ${(props) => props.theme.black};
+            }
+        }
     }
 `;
 
