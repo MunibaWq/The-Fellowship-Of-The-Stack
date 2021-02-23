@@ -135,20 +135,7 @@ const OrdersToDeliverTable = ({ user, orderData }) => {
                                         key={order.name + order.id + 34}>
                                         <p>{order.shipping_address}</p>
                                     </td>
-                                    {/* <td
-                                        onClick={() =>
-                                            history.push(
-                                                `/dashboard/driver/orders/${order.id}`
-                                            )
-                                        }>
-                                        <p>
-                                            {!order.delivery_notes
-                                                ? "No delivery notes"
-                                                : order.delivery_notes === null
-                                                ? "No delivery notes"
-                                                : order.delivery_notes}
-                                        </p>
-                                            </td>*/}
+
                                     <td key="driver drop down">
                                         <OrdersDropDown order={order} />
                                     </td>
@@ -278,16 +265,15 @@ const Table = styled.table`
 `;
 const Headers = styled.tr`
     h2 {
-        color: ${theme.secondary};
+        color: ${(props) => props.theme.blue};
         text-align: left;
         margin-bottom: 0;
         text-transform: uppercase;
         font-size: 0.8em;
-        /* letter-spacing: 0.03em; */
     }
 `;
 const BodyRows = styled.tr`
-    border-bottom: thin solid #dddddd;
+    border-bottom: thin solid ${(props) => props.theme.blue};
     transition: all 0.2s ease;
 
     cursor: pointer;

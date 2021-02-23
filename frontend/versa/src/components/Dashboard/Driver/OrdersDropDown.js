@@ -8,6 +8,7 @@ const Status = styled.select`
     outline: none;
     min-width: 150px;
     border-radius: 8px;
+    cursor: pointer;
     border: 2px solid
         ${(props) =>
             props.border === true ? props.theme.green : props.theme.black};

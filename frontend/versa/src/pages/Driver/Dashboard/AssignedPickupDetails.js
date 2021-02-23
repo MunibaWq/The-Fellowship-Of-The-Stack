@@ -2,14 +2,13 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { getOneAssignedPickup } from "../../../axios/gets";
-import Loading from "../../../components/Reusable/Loading";
+import Loading from "../../../components/Redesign/Reusable/Loading";
 import theme from "../../../components/Reusable/Colors";
-import { DriverPicked, DriverReceived, LeftIcon } from "../../../images/icons";
-import { StyledLink } from "../../../components/Reusable/Link";
 import ProductPickup from "../../../components/Dashboard/Driver/ProductPickup";
 import Header from "../../../components/Redesign/Reusable/Header";
 import PageContainer from "../../../components/Redesign/Reusable/PageContainer";
 import TopBar from "../../../components/Redesign/Reusable/TopBar";
+import Button from "../../../components/Redesign/Reusable/Button";
 
 const AssignedPickupDetails = () => {
     let params = useParams();
@@ -48,14 +47,14 @@ const AssignedPickupDetails = () => {
                             <h3>Pickup Address</h3>
                             <p>{artistDetails.address}</p>
                         </Address>
-                        <Directions>
+                        <Button secondarySmall>
                             <a
                                 rel={"noreferrer"}
                                 target="_blank"
                                 href={`https://www.google.com/maps?saddr&daddr=${artistDetails.address}`}>
                                 Directions
                             </a>
-                        </Directions>
+                        </Button>
                     </ArtistDetails>
                     <BuyerContainer>
                         <TopBar title={artistDetails.name} />
@@ -112,6 +111,12 @@ const ArtistDetails = styled.article`
         text-transform: uppercase;
         font-weight: 700;
     }
+    a {
+        color: white;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
 `;
 
 const Address = styled.div`
@@ -155,17 +160,6 @@ const BuyerContainer = styled.div`
     }
 `;
 
-const BuyerNameBar = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    padding: 20px 40px;
-    background: ${theme.primary};
-    border-radius: 15px 15px 0px 0px;
-`;
-
 const BuyerOrder = styled.div`
     display: flex;
     flex-direction: column;
@@ -193,55 +187,4 @@ const RowContainer = styled.div`
     align-items: flex-start;
     padding: 0px;
     margin-bottom: 8px;
-`;
-
-const Size = styled.p`
-    :after {
-        content: ", ";
-    }
-`;
-const Quantity = styled.p`
-    font-size: 2em;
-    :after {
-        content: none;
-    }
-`;
-
-const SetAsPicked = styled.button.attrs((props) => ({
-    type: props.type || "button",
-}))`
-    outline: none;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 8px;
-    background: ${(props) =>
-        props.status === true ? "#00D100" : theme.primary};
-    cursor: pointer;
-    border-radius: 8px;
-    border: none;
-    transition: background 0.3s ease;
-    :hover {
-        background: ${theme.primaryHover};
-    }
-    svg {
-        path {
-            stroke: ${theme.secondary};
-        }
-    }
-`;
-
-const QuantityStatus = styled(RowContainer)`
-    justify-content: space-between;
-    width: 100%;
-`;
-
-const Directions = styled(SetAsPicked)`
-    a {
-        color: white;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-    }
 `;

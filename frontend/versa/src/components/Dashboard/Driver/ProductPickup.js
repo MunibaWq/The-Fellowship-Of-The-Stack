@@ -24,8 +24,8 @@ const ProductPickup = ({ order }) => {
             <Details>
                 <h4>{order.title}</h4>
                 <RowContainer>
-                    <Size>{order.size}</Size>
-                    <p>{order.color}</p>
+                    <Size>{order.size === "O" ? "One Size" : order.size}</Size>
+                    <p>{order.color === "O" ? "One Colour" : order.color}</p>
                 </RowContainer>
                 <QuantityStatus>
                     <Quantity>{order.quantity}</Quantity>

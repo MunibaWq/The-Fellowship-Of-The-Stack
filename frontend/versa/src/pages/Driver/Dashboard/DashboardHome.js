@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Cookies from "universal-cookie";
 import {
     getAssignedPickups,
     getOrdersForDriver,
@@ -6,8 +7,12 @@ import {
 } from "../../../axios/gets";
 import styled from "styled-components";
 import DashCard from "./DashCard";
+import Header from "../../../components/Redesign/Reusable/Header";
+import PageContainer from "../../../components/Redesign/Reusable/PageContainer";
 
 const DriverDashboardMain = () => {
+    const cookies = new Cookies();
+
     const [ordersToFulfill, setOrdersToFulfill] = useState();
     const [assignedPickups, setAssignedPickups] = useState();
     const [pastDeliveries, setPastDeliveries] = useState();
@@ -104,8 +109,8 @@ const DriverDashboardMain = () => {
           });
 
     return (
-        <DashboardContainer>
-            <Greeting>Hello, Driver</Greeting>
+        <PageContainer>
+            <Header title={`Hello, ${cookies.get("name")}`} />
             <StoreDash>
                 {/* <History>
                     They can toggle the date to go to past day version of
@@ -147,26 +152,13 @@ const DriverDashboardMain = () => {
                     link="/dashboard/driver/delivery-history"
                 />
             </StoreDash>
-        </DashboardContainer>
+        </PageContainer>
     );
 };
 export default DriverDashboardMain;
-const DashboardContainer = styled.div`
-    width: 100%;
-    padding: 4em 2em 2em calc(2em + 66px);
-    background-color: #eff3fe;
-`;
 
-const Orders = styled(DashCard)``;
 const RecentOrders = styled(DashCard)``;
-const Inventory = styled(DashCard)``;
-const SalesPerOrder = styled(DashCard)``;
-const SalesByProduct = styled(DashCard)``;
-// const Events = styled(DashCard)``;
-const MonthlySales = styled(DashCard)``;
-// const Profit = styled(DashCard)``;
-// const History = styled(DashCard)``;
-// const Wishlist = styled(DashCard)``;
+
 const StoreDash = styled.div`
     display: grid;
     margin: 1em;
@@ -174,7 +166,4 @@ const StoreDash = styled.div`
     grid-row-gap: 30px;
     grid-column-gap: 50px;
     grid-template-columns: repeat(auto-fit, minmax(250px, 250px));
-`;
-const Greeting = styled.h1`
-    margin: 0 1em 2em 1em;
 `;
