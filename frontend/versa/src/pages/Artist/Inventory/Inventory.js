@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { getAllMyProducts } from "../../../axios/gets";
 import { Link } from "react-router-dom";
-import Button from "../../../components/Reusable/Button";
+import Button from "../../../components/Redesign/Reusable/Button";
 // import theme from "../../../components/Reusable/Colors";
 import theme from "../../../components/Redesign/Reusable/Theme";
 import PageContainer from "../../../components/Redesign/Reusable/PageContainer";
@@ -11,6 +11,8 @@ import axios from "axios";
 import { DeleteProductModal } from "../../../components/Dashboard/DeleteProductModal";
 import Cookies from "universal-cookie";
 import InventoryDropDown from "../../../components/Dashboard/AnalyticsTables/InventoryDropDown";
+import Loading from "../../../components/Redesign/Reusable/Loading";
+import Header from "../../../components/Redesign/Reusable/Header";
 
 const cookies = new Cookies();
 
@@ -84,15 +86,15 @@ const Inventory = (currentProduct) => {
     ];
 
     return (
-        <PageContainer title={Inventory}>
+        <PageContainer>
+            <Header title="Inventory" />
             <TableContainer>
                 <Link
                     to="/dashboard/artist/products/create"
                     style={{ alignSelf: "flex-end" }}>
-                    <Button secondary>
+                    <CreateProductButton>
                         Create a new product
-                        <AddIcon stroke={theme.black} />
-                    </Button>
+                    </CreateProductButton>
                 </Link>
                 <Table style={{ alignSelf: "center" }}>
                     <thead>
@@ -170,9 +172,9 @@ const Inventory = (currentProduct) => {
                                 );
                             })
                         ) : (
-                            <tr>
-                                <td>Loading...</td>
-                            </tr>
+                            <td>
+                                <Loading />
+                            </td>
                         )}
                     </tbody>
                 </Table>
@@ -206,22 +208,6 @@ const TableContainer = styled.div`
     min-height: 600px;
 `;
 
-// export const Table = styled.table`
-//     min-width: 655px;
-//     text-align: left;
-//     padding: 1%;
-//     margin-top: 10%;
-//     width: 100%;
-//     /* border: 1px solid black; */
-//     border-collapse: collapse;
-//     th {
-//         padding: 1%;
-//     }
-//     td {
-//         padding: 1%;
-//         border-collapse: collapse;
-//     }
-// `;
 const DeleteButton = styled.button.attrs(() => ({
     type: "button",
 }))`
@@ -234,6 +220,18 @@ const DeleteButton = styled.button.attrs(() => ({
             stroke: ${theme.black};
         }
     }
+`;
+const CreateProductButton = styled(Button).attrs((props) => ({
+    type: props.type || "button",
+}))`
+    /* border: none; */
+    cursor: pointer;
+    margin-bottom: 40px;
+    /* svg {
+        path {
+            stroke: ${theme.black};
+        }
+    } */
 `;
 const Table = styled.table`
     /* position: relative; */
