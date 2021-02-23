@@ -208,40 +208,42 @@ const EventPage = () => {
                             Unattend Event
                         </Button>
                     )}
-                    {isUser && (
-                        <Question>
-                            <h3>Ask the host about this event:</h3>
-                            <Send>
-                                {!sent ? (
-                                    <>
-                                        <Message
-                                            value={question}
-                                            onChange={(e) => {
-                                                setQuestion(e.target.value);
-                                            }}
-                                        />
-                                        <Button
-                                            onClick={() => {
-                                                sendMessage(
-                                                    `Event: ${eventData.title}`,
-                                                    eventData.host,
-                                                    "B2A",
-                                                    question,
-                                                    new Date()
-                                                );
-                                                setSent(true);
-                                            }}
-                                            secondary>
-                                            <SendIcon />
-                                            Send
-                                        </Button>
-                                    </>
-                                ) : (
-                                    "Message Sent, check dashboard for responses"
-                                )}
-                            </Send>
-                        </Question>
-                    )}
+                    <Messaging>
+                        {isUser && (
+                            <Question>
+                                <p>Ask the host about this event:</p>
+                                <Send>
+                                    {!sent ? (
+                                        <>
+                                            <Message
+                                                value={question}
+                                                onChange={(e) => {
+                                                    setQuestion(e.target.value);
+                                                }}
+                                            />
+                                            <Button
+                                                onClick={() => {
+                                                    sendMessage(
+                                                        `Event: ${eventData.title}`,
+                                                        eventData.host,
+                                                        "B2A",
+                                                        question,
+                                                        new Date()
+                                                    );
+                                                    setSent(true);
+                                                }}
+                                                secondary>
+                                                <SendIcon />
+                                                Send
+                                            </Button>
+                                        </>
+                                    ) : (
+                                        "Message Sent, check dashboard for responses"
+                                    )}
+                                </Send>
+                            </Question>
+                        )}
+                    </Messaging>
                 </Column>
             </Container>
         </PageContainer>
@@ -256,6 +258,60 @@ export default EventPage;
 //             props.clicked ? "Unattend Event" : "Attend Event"}";
 //     }
 // `;
+
+const Messaging = styled.div`
+    margin: 2em 16px;
+    padding: 10px;
+    height: 100%;
+    display: flex;
+    justify-content: flex-start;
+    background: ${(props) => props.lightBlue};
+
+    p {
+        margin-bottom: 1em;
+    }
+    button {
+        svg {
+            path {
+                :hover {
+                    fill: ${(props) => props.theme.lightBlue};
+                }
+            }
+        }
+    }
+`;
+
+const Message = styled.textarea`
+    resize: none;
+    width: 100%;
+    height: 200px;
+    padding: 8px;
+    outline: none;
+    border-radius: 8px;
+    font-family: inherit;
+    margin-bottom: 1em;
+    ::placeholder {
+        color: ${(props) => props.theme.lightBlack};
+    }
+    border: ${(props) =>
+        props.border === true
+            ? `2px solid ${props.theme.green}`
+            : `2px solid ${props.theme.black}`};
+    :active,
+    :hover,
+    :focus {
+        border: ${(props) =>
+            props.border === true
+                ? `2px solid ${props.theme.green}`
+                : `2px solid ${props.theme.purple}`};
+    }
+`;
+const Send = styled.div``;
+const Question = styled.div`
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+`;
 
 const Row = styled.div`
     display: flex;
@@ -273,6 +329,7 @@ const Row = styled.div`
     p {
         padding: 0;
         font-size: 1em;
+        color: ${(props) => props.theme.black};
     }
 `;
 
@@ -287,7 +344,7 @@ const Column = styled.div`
     align-items: flex-start;
 
     h3 {
-        color: ${(props) => props.theme.purple};
+        color: ${(props) => props.theme.lightBlack};
         margin-bottom: 16px;
     }
     p {
@@ -295,18 +352,18 @@ const Column = styled.div`
     }
 `;
 
-const Message = styled.textarea`
-    resize: none;
-    width: 100%;
-    height: 100%;
-    margin: 5px;
-`;
-const Send = styled.div``;
-const Question = styled.div`
-    display: flex;
-    flex-direction: column;
-    margin-top: 20px;
-`;
+// const Message = styled.textarea`
+//     resize: none;
+//     width: 100%;
+//     height: 100%;
+//     margin: 5px;
+// `;
+// const Send = styled.div``;
+// const Question = styled.div`
+//     display: flex;
+//     flex-direction: column;
+//     margin-top: 20px;
+// `;
 // const Container = styled.div`
 //     display: flex;
 //     flex-direction: column;
