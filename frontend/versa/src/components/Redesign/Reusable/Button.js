@@ -6,6 +6,7 @@ const Button = styled.button.attrs((props) => ({
 }))`
     display: flex;
     flex-direction: row;
+    align-items: center;
     padding: 20px 40px;
     text-transform: uppercase;
     font-weight: 700;
