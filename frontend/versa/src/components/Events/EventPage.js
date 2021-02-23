@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import Button from "../Reusable/Button";
+import Button from "../Redesign/Reusable/Button";
 import { Link, useParams, useHistory } from "react-router-dom";
 import {
     getCollabsByEventID,
@@ -8,11 +8,13 @@ import {
     getUserByToken,
 } from "../../axios/gets";
 import { sendMessage, userGoing } from "../../axios/posts";
-import theme from "../Reusable/Colors";
+// import theme from "../Reusable/Colors";
 import { LeftIcon, Going, NotGoing, SendIcon } from "../../images/icons";
 import { deleteUserFromEventByID } from "../../axios/deletes";
 import { amIGoing } from "../../axios/gets";
 import ImageTest from "../../images/imageTest.png";
+import PageContainer from "../../components/Redesign/Reusable/PageContainer";
+import BackLink from "../../components/Redesign/Reusable/BackLink";
 // import { clearChoices, setChoices } from "../../redux/actions/EventPage";
 
 const EventPage = () => {
@@ -28,7 +30,7 @@ const EventPage = () => {
     const [attending, setAttending] = useState();
     const [sent, setSent] = useState();
     const [image, setImage] = useState();
-    
+
     const [isUser, setIsUser] = useState();
     useEffect(() => {
         const findUser = async () => {
@@ -100,38 +102,36 @@ const EventPage = () => {
     };
 
     return (
-        <Container>
-            <Link to="/events">
-                <Button>
-                    <LeftIcon stroke={theme.primary} />
-                    Back to Events
-                </Button>
-            </Link>
-            <MainInfo>
-                <EventImages>
+        <PageContainer>
+            <BackLink to="/events">
+                <LeftIcon />
+                Back to Events
+            </BackLink>
+            <Container>
+                <Column>
                     <MainImage
                         src={
                             image
                                 ? `https://versabucket.s3.us-east-2.amazonaws.com/eventImages/${image}.jpeg`
                                 : ImageTest
                         }
-                        alt={"image"}></MainImage>
-                </EventImages>
-
-                <EventDetail>
+                        alt={"image"}
+                    />
+                </Column>
+                <Column>
                     <h4>
                         {eventData
                             ? eventData.type
                             : "Loading event categories"}
                     </h4>
-                    <h1>{eventData ? eventData.title : "Loading Event  "}</h1>
-                    <h2>
+                    <h2>{eventData ? eventData.title : "Loading Event  "}</h2>
+                    <h3>
                         by
                         {eventData
                             ? "  " + eventData.username
                             : "Loading Host Name"}
-                    </h2>
-                    <Collabs>
+                    </h3>
+                    <Row>
                         {collabs && collabs.length > 0 && (
                             <h3>In collaboration with: </h3>
                         )}
@@ -140,44 +140,43 @@ const EventPage = () => {
                             collabs.map((collab, index) => {
                                 return <p key={index}>{collab.username}</p>;
                             })}
-                    </Collabs>
-                    <Details>
+                    </Row>
+                    <Row>
                         <h3>Date: </h3>
                         <p>
                             {dateTime
                                 ? dateTime.startDate + "-" + dateTime.endDate
                                 : "Loading dates"}
                         </p>
-                    </Details>
-                    <Details>
+                    </Row>
+                    <Row>
                         <h3>Time: </h3>
                         <p>
                             {dateTime
                                 ? dateTime.startTime + "-" + dateTime.endTime
                                 : "Loading times"}
                         </p>
-                    </Details>
-                    <Details>
+                    </Row>
+                    <Row>
                         <h3>Location:</h3>
                         <p>{eventData.location}</p>
-                    </Details>
+                    </Row>
 
-                    <Details>
+                    <Row>
                         <h3>Attending: </h3>
 
                         <p>{eventData ? attending : "0"} </p>
-                    </Details>
-                    <Description>
+                    </Row>
+                    <Row>
                         <h3>Description</h3>
                         <p>
                             {eventData
                                 ? eventData.description
                                 : "Loading description..."}
                         </p>
-                    </Description>
+                    </Row>
                     {!going && (
                         <Button
-                            primary
                             onClick={() => {
                                 if (isUser) {
                                     userGoing(currentEvent);
@@ -188,13 +187,13 @@ const EventPage = () => {
 
                                 setGoing((curr) => !curr);
                             }}>
-                            <Going stroke={theme.secondary} />
+                            <Going />
                             Attend Event
                         </Button>
                     )}
                     {going && (
                         <Button
-                            primary
+                            secondarySmall
                             onClick={() => {
                                 if (isUser) {
                                     deleteUserFromEventByID(currentEvent);
@@ -205,7 +204,7 @@ const EventPage = () => {
 
                                 setGoing((curr) => !curr);
                             }}>
-                            <NotGoing stroke={theme.secondary} />
+                            <NotGoing />
                             Unattend Event
                         </Button>
                     )}
@@ -243,13 +242,58 @@ const EventPage = () => {
                             </Send>
                         </Question>
                     )}
-                </EventDetail>
-            </MainInfo>
-        </Container>
+                </Column>
+            </Container>
+        </PageContainer>
     );
 };
 
 export default EventPage;
+
+// const AttendButton = styled(Button)`
+//     ::after {
+//         content: " ${(props) =>
+//             props.clicked ? "Unattend Event" : "Attend Event"}";
+//     }
+// `;
+
+const Row = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    height: fit-content;
+    h3 {
+        font-size: 0.9em;
+        text-transform: uppercase;
+        font-weight: 700;
+        color: ${(props) => props.theme.lightBlack};
+        margin-right: 8px;
+    }
+    p {
+        padding: 0;
+        font-size: 1em;
+    }
+`;
+
+const Column = styled.div`
+    :nth-of-type(2) {
+        margin-left: 16px;
+    }
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+
+    h3 {
+        color: ${(props) => props.theme.purple};
+        margin-bottom: 16px;
+    }
+    p {
+        margin-bottom: 16px;
+    }
+`;
 
 const Message = styled.textarea`
     resize: none;
@@ -263,25 +307,22 @@ const Question = styled.div`
     flex-direction: column;
     margin-top: 20px;
 `;
+// const Container = styled.div`
+//     display: flex;
+//     flex-direction: column;
+//     margin: 1em 0;
+//     h3 {
+//         font-weight: 700;
+//     }
+// `;
 const Container = styled.div`
     display: flex;
-    flex-direction: column;
-    margin: 1em 0;
-    h3 {
-        font-weight: 700;
-    }
-`;
-
-const MainInfo = styled.div`
-    display: flex;
-    margin: 40px;
     flex-direction: row;
     justify-content: flex-start;
-    @media (max-width: 1000px) {
-        flex-wrap: wrap;
-        margin: 20px;
-        justify-content: center;
-    }
+    align-items: flex-start;
+    background: ${(props) => props.theme.blue};
+    padding: clamp(16px, 40px, 60px);
+    border-radius: 15px;
 `;
 
 const EventImages = styled.div`
@@ -296,21 +337,28 @@ const EventImages = styled.div`
     }
 `;
 
-const MainImage = styled.img`
-    width: 600px;
-    height: 600px;
-    margin: 10px;
-    border: 2px solid rgba(68, 68, 68, 0.1);
-    padding: 1em;
+// const MainImage = styled.img`
+//     width: 600px;
+//     height: 600px;
+//     margin: 10px;
+//     border: 2px solid rgba(68, 68, 68, 0.1);
+//     padding: 1em;
 
-    @media (max-width: 1000px) {
-        width: 300px;
-        height: 300px;
-        margin: 5px;
-    }
-    @media (max-width: 350px) {
-        width: 85vw;
-    }
+//     @media (max-width: 1000px) {
+//         width: 300px;
+//         height: 300px;
+//         margin: 5px;
+//     }
+//     @media (max-width: 350px) {
+//         width: 85vw;
+//     }
+// `;
+
+const MainImage = styled.img`
+    height: clamp(250px, 600px, 800px);
+    height: clamp(250px, 600px, 800px);
+    padding: 10px;
+    background: ${(props) => props.theme.lightBlue};
 `;
 
 const EventDetail = styled.div`
@@ -335,7 +383,7 @@ const EventDetail = styled.div`
     }
     h4 {
         margin: 0 1em 1em 0;
-        color: ${theme.primary};
+        color: ${(props) => props.theme.primary};
     }
     p {
         margin: 0 0 8px 0;

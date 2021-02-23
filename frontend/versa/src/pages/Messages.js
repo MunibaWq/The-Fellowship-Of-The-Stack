@@ -46,6 +46,7 @@ const MessageSection = styled.div`
     grid-template-rows: 45px auto;
     width: 100%;
     margin-bottom: 2em;
+    overflow-y:hidden;
 `;
 const Container = styled.div`
     width: 100vw;
