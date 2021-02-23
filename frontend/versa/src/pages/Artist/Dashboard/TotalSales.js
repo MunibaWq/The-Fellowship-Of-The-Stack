@@ -5,8 +5,10 @@ import { getTotalSales } from "../../../axios/gets";
 import Loading from "../../../components/Reusable/Loading";
 import theme from "../../../components/Reusable/Colors";
 import { Circle } from "../../../images/icons";
+import { DateRangeSearch } from "../../../components/Redesign/Reusable/DateRangeSearch";
 import { Input, Label } from "../../../components/Reusable/Input";
-const sorters = {
+import { AnalyticsTable } from "../../../components/Redesign/Reusable/AnalyticsTable";
+export const sorters = {
     "Date": (one, two) => {
         return (
             new Date(`${one.month}/${one.day}/${one.year}`) -
@@ -21,7 +23,7 @@ const TotalSales = () => {
     const [salesData, setSalesData] = useState();
     const [graphData, setGraphData] = useState();
     const [start, setStart] = useState(new Date("01-01-1999").toUTCString());
-    const [end, setEnd] = useState(new Date('01-01-2999').toUTCString());
+    const [end, setEnd] = useState(new Date("01-01-2999").toUTCString());
     const [sortBy, setSortBy] = useState("Total Sales");
     useEffect(() => {
         const fetchData = async (query) => {
@@ -44,33 +46,10 @@ const TotalSales = () => {
 
     return (
         <SBPContainer>
-            <h1>Total Sales Per Day</h1>
             <SearchBarDiv>
-                <Label>Date Range</Label>
                 <br />
                 <br />
-                <Label>From:</Label>
-
-                <Input
-                    style={{ width: "20%" }}
-                    onChange={(e) => {
-                        let toDate = new Date(e.target.value);
-                        let date1Set = toDate.setDate(toDate.getDate());
-                        setStart(new Date(date1Set).toUTCString());
-                    }}
-                    type="date"
-                />
-
-                <Label style={{ paddingLeft: "3%" }}>To:</Label>
-                <Input
-                    style={{ width: "20%" }}
-                    onChange={(e) => {
-                        let toDate = new Date(e.target.value);
-                        let date2Set = toDate.setDate(toDate.getDate() + 1);
-                        setEnd(new Date(date2Set).toUTCString());
-                    }}
-                    type="date"
-                />
+                <DateRangeSearch></DateRangeSearch>
             </SearchBarDiv>
 
             {!salesData ? (
@@ -178,30 +157,8 @@ const TotalSales = () => {
                                 Days with highest sales
                             </div>
                         </Legend>
-                    </PieContainer>
-                    <SBPTable>
-                        <thead>
-                            {headers.map((header, index) => (
-                                <th
-                                    onClick={() => {
-                                        setSortBy(header);
-                                    }}
-                                    key={header + index}>
-                                    {header}
-                                </th>
-                            ))}
-                        </thead>
-                        <tbody>
-                            {salesData
-                                .sort(sorters[sortBy])
-                                .map((sales, index) => (
-                                    <tr key={sales.sum + index}>
-                                        <td>{`${sales.day}/${sales.month}/${sales.year}`}</td>
-                                        <td>${(+sales.sum).toFixed(2)}</td>
-                                    </tr>
-                                ))}
-                        </tbody>
-                    </SBPTable>
+                        </PieContainer>
+                        <AnalyticsTable headers={headers} setSortBy={setSortBy} tableData={salesData} sortBy={sortBy}/>
                 </Data>
             )}
         </SBPContainer>
@@ -218,16 +175,15 @@ const Data = styled.div`
 
     flex-wrap: wrap;
 `;
-const SBPContainer = styled.div`
-    width: 100vw;
-    padding: 5em 2em;
+const Container = styled.div``;
+const TableContainer = styled(Container)`
 
-    h1 {
-        margin: 0 1em 2em 1em;
-    }
+`
+const SBPContainer = styled.div`
+    place-self: flex-start;
 `;
 
-const SBPTable = styled.table`
+export const SBPTable = styled.table`
     width: 400px;
 
     margin: 5px;
@@ -258,12 +214,12 @@ const SBPTable = styled.table`
         }
     }
 `;
-const GraphContainer = styled.div`
+const GraphContainer = styled(Container)`
     display: flex;
     flex-direction: column;
     width: 450px;
 `;
-const PieContainer = styled.div`
+const PieContainer = styled(Container)`
     display: flex;
     flex-direction: column;
     width: 400px;
@@ -282,3 +238,4 @@ const Legend = styled.div`
         margin: 5px;
     }
 `;
+
