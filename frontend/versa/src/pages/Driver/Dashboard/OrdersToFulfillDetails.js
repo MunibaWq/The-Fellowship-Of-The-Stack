@@ -2,8 +2,9 @@ import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { getOneOrderForDriver } from "../../../axios/gets";
-import Loading from "../../../components/Reusable/Loading";
+import Loading from "../../../components/Redesign/Reusable/Loading";
 import theme from "../../../components/Reusable/Colors";
+// import theme from "../../../components/Redesign/Reusable/Theme";
 import { DriverReceived, LeftIcon } from "../../../images/icons";
 import { StyledLink } from "../../../components/Reusable/Link";
 

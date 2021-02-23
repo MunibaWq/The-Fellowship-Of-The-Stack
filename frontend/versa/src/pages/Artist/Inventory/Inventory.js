@@ -91,27 +91,27 @@ const Inventory = (currentProduct) => {
                 title="Inventory"
                 sub="Manage your stock and quickly update the status of your products."
             />
-            <TableContainer>
-                <Link
-                    to="/dashboard/artist/products/create"
-                    style={{ alignSelf: "flex-end" }}>
-                    <CreateProductButton>
-                        Create a new product
-                    </CreateProductButton>
-                </Link>
-                <Table>
-                    <thead>
-                        <Headers>
-                            {headers.map((header, index) => (
-                                <th key={`header${index}`}>
-                                    <h2>{header}</h2>
-                                </th>
-                            ))}
-                        </Headers>
-                    </thead>
-                    <tbody>
-                        {results.length > 0 && inventory.length > 0 ? (
-                            results.map((result, index) => {
+            {results.length > 0 && inventory.length > 0 ? (
+                <TableContainer>
+                    <Link
+                        to="/dashboard/artist/products/create"
+                        style={{ alignSelf: "flex-end" }}>
+                        <CreateProductButton>
+                            Create a new product
+                        </CreateProductButton>
+                    </Link>
+                    <Table>
+                        <thead>
+                            <Headers>
+                                {headers.map((header, index) => (
+                                    <th key={`header${index}`}>
+                                        <h2>{header}</h2>
+                                    </th>
+                                ))}
+                            </Headers>
+                        </thead>
+                        <tbody>
+                            {results.map((result, index) => {
                                 return (
                                     <BodyRows key={result.title + index}>
                                         {/* <tr
@@ -152,15 +152,15 @@ const Inventory = (currentProduct) => {
                                             )}
                                         </td> */}
                                         <td>
-                                            <Link
-                                                to={
-                                                    "/dashboard/artist/products/edit/" +
-                                                    result.id
-                                                }>
-                                                <UnfillPencilIcon
-                                                    stroke={theme.black}
-                                                />
-                                            </Link>
+                                            <PencilIcon>
+                                                <Link
+                                                    to={
+                                                        "/dashboard/artist/products/edit/" +
+                                                        result.id
+                                                    }>
+                                                    <UnfillPencilIcon />
+                                                </Link>
+                                            </PencilIcon>
                                         </td>
                                         <td>
                                             <DeleteButton
@@ -173,30 +173,29 @@ const Inventory = (currentProduct) => {
                                         {/* </tr> */}
                                     </BodyRows>
                                 );
-                            })
-                        ) : (
-                            <td>
-                                <Loading />
-                            </td>
-                        )}
-                    </tbody>
-                </Table>
-                {visible ? (
-                    <DeleteProductModal
-                        value={visible}
-                        setter={setVisible}
-                        id={currentId}
-                        display="flex"
-                    />
-                ) : (
-                    <DeleteProductModal
-                        value={visible}
-                        setter={setVisible}
-                        id={currentId}
-                        display="none"
-                    />
-                )}
-            </TableContainer>
+                            })}
+                        </tbody>
+                    </Table>
+
+                    {visible ? (
+                        <DeleteProductModal
+                            value={visible}
+                            setter={setVisible}
+                            id={currentId}
+                            display="flex"
+                        />
+                    ) : (
+                        <DeleteProductModal
+                            value={visible}
+                            setter={setVisible}
+                            id={currentId}
+                            display="none"
+                        />
+                    )}
+                </TableContainer>
+            ) : (
+                <Loading />
+            )}
         </PageContainer>
     );
 };
@@ -205,13 +204,27 @@ export default Inventory;
 
 const TableContainer = styled.div`
     align-self: center;
-    width: 80%;
+    width: 65%;
     justify-self: center;
     display: flex;
     flex-direction: column;
     justify-content: center;
 `;
 
+const PencilIcon = styled.button.attrs(() => ({
+    type: "button",
+}))`
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin: 3px;
+    padding: 2px;
+    svg {
+        path {
+            stroke: ${theme.black};
+        }
+    }
+`;
 const DeleteButton = styled.button.attrs(() => ({
     type: "button",
 }))`
@@ -219,6 +232,7 @@ const DeleteButton = styled.button.attrs(() => ({
     border: none;
     cursor: pointer;
     padding: 2px;
+    margin: 3px;
     svg {
         path {
             stroke: ${theme.black};
@@ -269,7 +283,7 @@ const Table = styled.table`
             min-width: 130px;
         }
         :nth-of-type(3) {
-            min-width: 250px;
+            min-width: 220px;
             @media screen and (max-width: 600px) {
                 display: none;
             }
