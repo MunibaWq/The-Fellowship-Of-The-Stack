@@ -37,7 +37,10 @@ const Size = styled.p`
     }
 `;
 const Quantity = styled.p`
-    font-size: 2em;
+    font-size: 24px;
+    line-height: 29px;
+    letter-spacing: 0.05em;
+    text-transform: capitalize;
     :after {
         content: none;
     }
@@ -72,6 +75,8 @@ const Variation = styled.div`
 
     h4 {
         margin-right: 8px;
+        /* text-transform: capitalize; */
+
         font-weight: 700;
     }
     p {
