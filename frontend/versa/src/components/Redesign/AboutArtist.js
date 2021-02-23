@@ -65,6 +65,7 @@ const AboutArtist = ({ product }) => {
                                         }}
                                         secondarySmall>
                                         <SendIcon />
+                                        Send
                                     </Button>
                                 </>
                             ) : (
@@ -110,6 +111,8 @@ const Image = styled.img`
 `;
 
 const Messaging = styled.div`
+    margin: 2em 16px;
+    padding: 10px;
     height: 100%;
     display: flex;
     justify-content: flex-start;
