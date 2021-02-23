@@ -1,31 +1,82 @@
 import React from "react";
-import { CarIcon } from "../../../images/icons";
+import {
+    CarIcon,
+    Package,
+    Calender,
+    Chartbar,
+    Archive,
+    ArchiveBox,
+    MapPin,
+} from "../../../images/icons";
 
 let artist = [
-    { ORDERS: <CarIcon /> },
-    { INVENTORY: <CarIcon /> },
-    { ANALYTICS: <CarIcon /> },
-    { "MANAGE EVENTS": <CarIcon /> },
+    {
+        label: "ORDERS",
+        item: <Package />,
+        to: "/dashboard/artist/recent-orders/",
+    },
+    {
+        label: "INVENTORY",
+        item: <Archive />,
+        to: "/dashboard/artist/inventory",
+    },
+    { label: "ANALYTICS", item: <Chartbar />, to: "/" },
+    {
+        label: "MANAGE EVENTS",
+        item: <Calender />,
+        to: "/dashboard/artist/manage-events",
+    },
 ];
 let driver = [
-    { "MANAGE-ORDERS": <CarIcon /> },
-    { PICKUPS: <CarIcon /> },
-    { DELIVERIES: <CarIcon /> },
+    {
+        label: "MANAGE-ORDERS",
+        item: <Package />,
+        to: "/dashboard/driver/orders",
+    },
+    {
+        label: "PICKUPS",
+        item: <ArchiveBox />,
+        to: "/dashboard/driver/assigned-pickups/",
+    },
+    {
+        label: "DELIVERIES",
+        item: <MapPin />,
+        to: "/dashboard/driver/delivery-history",
+    },
 ];
 
-let buyer = [{ ORDERS: <CarIcon /> }, { EVENTS: <CarIcon /> }];
+let buyer = [
+    {
+        label: "ORDERS",
+        item: <Package />,
+        to: "/dashboard/shopper/order-tracking/",
+    },
+    {
+        label: "EVENTS",
+        item: <Calender />,
+        to: "/dashboard/shopper/events-attending",
+    },
+];
 
 function mapLabel(k) {
     let result = [];
     for (const group of k) {
+        let label;
+        let item;
         for (const prop in group) {
-            result.push(
-                <div>
-                    {prop}
-                    {group[prop]}
-                </div>
-            );
+            if (prop === "label") {
+                label = group[prop];
+            }
+            if (prop === "item") {
+                item = group[prop];
+            }
         }
+        result.push(
+            <div>
+                {label}
+                {item}
+            </div>
+        );
     }
     return result;
 }

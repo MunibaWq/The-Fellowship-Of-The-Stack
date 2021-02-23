@@ -93,11 +93,11 @@ const SideNav = ({ navWidth, setNavWidth }) => {
                         <MessageRow>
                             <MessageDiv>
                                 <MessageIcon />
-                                <h4>MESSAGES</h4>
+                                <h5>MESSAGES</h5>
                             </MessageDiv>
                         </MessageRow>
                         {/* map rows here */}
-                        <DashNav type={"artist"} />
+                        <DashNav type={"driver"} />
                     </BodyContainer>
 
                     <Menu>
