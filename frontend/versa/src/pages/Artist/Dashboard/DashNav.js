@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
     CarIcon,
     Package,
@@ -8,6 +8,14 @@ import {
     ArchiveBox,
     MapPin,
 } from "../../../images/icons";
+import styled from "styled-components";
+import { Link } from "react-router-dom";
+
+const white = "#F3F6FF";
+const newPurp = "#6B45FF";
+const lightPurp = "#E0B8FF";
+const green = "#B4FFC6";
+const black = "#1C1C1C";
 
 let artist = [
     {
@@ -29,7 +37,7 @@ let artist = [
 ];
 let driver = [
     {
-        label: "MANAGE-ORDERS",
+        label: "MANAGE ORDERS",
         item: <Package />,
         to: "/dashboard/driver/orders",
     },
@@ -58,11 +66,40 @@ let buyer = [
     },
 ];
 
+const Label = styled.h4`
+    color: ${white};
+    margin-right: 30px;
+    font-family: Inter;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 29px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+`;
+const DashLink = styled(Link)`
+    display: flex;
+    justify-content: flex-end;
+    margin: 20px 0;
+    svg {
+        stroke: ${white};
+    }
+    &:hover {
+        svg {
+            stroke: ${green};
+        }
+        ${Label} {
+            color: ${green};
+        }
+    }
+`;
+
 function mapLabel(k) {
     let result = [];
     for (const group of k) {
         let label;
         let item;
+        let to;
         for (const prop in group) {
             if (prop === "label") {
                 label = group[prop];
@@ -70,12 +107,15 @@ function mapLabel(k) {
             if (prop === "item") {
                 item = group[prop];
             }
+            if (prop === "to") {
+                to = group[prop];
+            }
         }
         result.push(
-            <div>
-                {label}
+            <DashLink to={to}>
+                <Label>{label}</Label>
                 {item}
-            </div>
+            </DashLink>
         );
     }
     return result;
@@ -96,7 +136,12 @@ const DashNav = ({ type }) => {
             return <div></div>;
         }
     }
-    return <div>{matchType()}</div>;
+    return <LinkContainer>{matchType()}</LinkContainer>;
 };
 
+const LinkContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    margin: 20px 0;
+`;
 export default DashNav;
