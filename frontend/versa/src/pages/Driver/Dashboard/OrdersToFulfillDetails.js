@@ -9,6 +9,7 @@ import PageContainer from "../../../components/Redesign/Reusable/PageContainer";
 import Header from "../../../components/Redesign/Reusable/Header";
 import TopBar from "../../../components/Redesign/Reusable/TopBar";
 import { StyledLink } from "../../../components/Redesign/Reusable/Link";
+import ProductPickup from "../../../components/Dashboard/Driver/ProductPickup";
 
 const OrdersToFulFillDetails = () => {
     let params = useParams();
@@ -78,38 +79,14 @@ const OrdersToFulFillDetails = () => {
                             {orderData.map((order) => {
                                 console.log(order);
                                 return (
-                                    <ProductCard
+                                    <ProductPickup
+                                        order={order}
                                         key={
-                                            order.id + order.title + order.size
-                                        }>
-                                        <img
-                                            src={`https://versabucket.s3.us-east-2.amazonaws.com/images/${order.thumbnail}.jpeg`}
-                                            alt={order.title}
-                                        />
-                                        <Details>
-                                            <h4>{order.title}</h4>
-                                            <RowContainer>
-                                                <Size>
-                                                    {order.size === "O"
-                                                        ? "One Size"
-                                                        : order.size}
-                                                </Size>
-                                                <p>
-                                                    {order.color === "O"
-                                                        ? "One Colour"
-                                                        : order.color}
-                                                </p>
-                                            </RowContainer>
-                                            <QuantityStatus>
-                                                <Quantity>
-                                                    {order.quantity}
-                                                </Quantity>
-                                                <SetAsPicked>
-                                                    <DriverReceived />
-                                                </SetAsPicked>
-                                            </QuantityStatus>
-                                        </Details>
-                                    </ProductCard>
+                                            order.single_id +
+                                            order.title +
+                                            order.size
+                                        }
+                                    />
                                 );
                             })}
                         </OrderItemContainer>

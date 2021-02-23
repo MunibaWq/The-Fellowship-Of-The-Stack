@@ -9,6 +9,7 @@ import { StyledLink } from "../../../components/Reusable/Link";
 import ProductPickup from "../../../components/Dashboard/Driver/ProductPickup";
 import Header from "../../../components/Redesign/Reusable/Header";
 import PageContainer from "../../../components/Redesign/Reusable/PageContainer";
+import TopBar from "../../../components/Redesign/Reusable/TopBar";
 
 const AssignedPickupDetails = () => {
     let params = useParams();
@@ -57,9 +58,8 @@ const AssignedPickupDetails = () => {
                         </Directions>
                     </ArtistDetails>
                     <BuyerContainer>
-                        <BuyerNameBar>
-                            <h2>{artistDetails.name}</h2>
-                        </BuyerNameBar>
+                        <TopBar title={artistDetails.name} />
+
                         <RowContainer>
                             <BuyerOrder>
                                 <h3>Delivery Address</h3>
@@ -104,8 +104,14 @@ const ArtistDetails = styled.article`
     display: flex;
     flex-direction: row;
     align-items: center;
-
+    justify-content: space-between;
     padding: 2em 0;
+    width: 50%;
+    h3 {
+        font-size: 16px;
+        text-transform: uppercase;
+        font-weight: 700;
+    }
 `;
 
 const Address = styled.div`
@@ -133,13 +139,19 @@ const BuyerContainer = styled.div`
     justify-content: center;
     align-items: center;
     padding: 0px;
-    background: ${theme.secondary};
+    background: ${(props) => props.theme.lightBlue};
+    margin-bottom: 4em;
     h2 {
         color: ${theme.secondary};
         margin-bottom: 0;
         font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 0.03em;
+    }
+    h3 {
+        font-size: 16px;
+        text-transform: uppercase;
+        font-weight: 700;
     }
 `;
 
@@ -173,41 +185,6 @@ const OrderItemContainer = styled.div`
         margin: 0 1em 2em 1em;
         font-size: 100px;
     }
-`;
-
-const ProductCard = styled.div`
-    border-radius: 16px;
-    background: ${theme.background};
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    margin: 0 60px 60px 0;
-    padding: 0px;
-    transition: background 0.3s ease;
-    img {
-        height: 300px;
-        width: 300px;
-        padding: 20px;
-    }
-    h4 {
-        font-weight: 700;
-        font-size: 18px;
-        letter-spacing: 0.03em;
-        text-transform: capitalize;
-        margin-bottom: 8px;
-    }
-
-    :hover {
-        background: ${theme.primary + 60};
-    }
-`;
-
-const Details = styled.div`
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 0 20px 20px 20px;
 `;
 
 const RowContainer = styled.div`
