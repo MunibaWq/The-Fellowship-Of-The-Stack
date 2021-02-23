@@ -15,6 +15,7 @@ import { amIGoing } from "../../axios/gets";
 import ImageTest from "../../images/imageTest.png";
 import PageContainer from "../../components/Redesign/Reusable/PageContainer";
 import BackLink from "../../components/Redesign/Reusable/BackLink";
+import AboutArtist from "../Redesign/AboutArtist";
 // import { clearChoices, setChoices } from "../../redux/actions/EventPage";
 
 const EventPage = () => {
@@ -168,12 +169,14 @@ const EventPage = () => {
                         <p>{eventData ? attending : "0"} </p>
                     </Row>
                     <Row>
-                        <h3>Description</h3>
-                        <p>
-                            {eventData
-                                ? eventData.description
-                                : "Loading description..."}
-                        </p>
+                        <Description>
+                            <h3>Description:</h3>
+                            <p>
+                                {eventData
+                                    ? eventData.description
+                                    : "Loading description..."}
+                            </p>
+                        </Description>
                     </Row>
                     {!going && (
                         <Button
@@ -208,59 +211,17 @@ const EventPage = () => {
                             Unattend Event
                         </Button>
                     )}
-                    <Messaging>
-                        {isUser && (
-                            <Question>
-                                <p>Ask the host about this event:</p>
-                                <Send>
-                                    {!sent ? (
-                                        <>
-                                            <Message
-                                                value={question}
-                                                onChange={(e) => {
-                                                    setQuestion(e.target.value);
-                                                }}
-                                            />
-                                            <Button
-                                                onClick={() => {
-                                                    sendMessage(
-                                                        `Event: ${eventData.title}`,
-                                                        eventData.host,
-                                                        "B2A",
-                                                        question,
-                                                        new Date()
-                                                    );
-                                                    setSent(true);
-                                                }}
-                                                secondary>
-                                                <SendIcon />
-                                                Send
-                                            </Button>
-                                        </>
-                                    ) : (
-                                        "Message Sent, check dashboard for responses"
-                                    )}
-                                </Send>
-                            </Question>
-                        )}
-                    </Messaging>
                 </Column>
             </Container>
+            <AboutArtist item={eventData} />
         </PageContainer>
     );
 };
 
 export default EventPage;
 
-// const AttendButton = styled(Button)`
-//     ::after {
-//         content: " ${(props) =>
-//             props.clicked ? "Unattend Event" : "Attend Event"}";
-//     }
-// `;
-
 const Messaging = styled.div`
-    margin: 2em 16px;
+    /* margin: 2em 16px; */
     padding: 10px;
     height: 100%;
     display: flex;
@@ -282,7 +243,7 @@ const Messaging = styled.div`
 `;
 
 const Message = styled.textarea`
-    resize: none;
+    /* resize: none; */
     width: 100%;
     height: 200px;
     padding: 8px;
@@ -352,26 +313,6 @@ const Column = styled.div`
     }
 `;
 
-// const Message = styled.textarea`
-//     resize: none;
-//     width: 100%;
-//     height: 100%;
-//     margin: 5px;
-// `;
-// const Send = styled.div``;
-// const Question = styled.div`
-//     display: flex;
-//     flex-direction: column;
-//     margin-top: 20px;
-// `;
-// const Container = styled.div`
-//     display: flex;
-//     flex-direction: column;
-//     margin: 1em 0;
-//     h3 {
-//         font-weight: 700;
-//     }
-// `;
 const Container = styled.div`
     display: flex;
     flex-direction: row;
@@ -393,23 +334,6 @@ const EventImages = styled.div`
         margin: 10px;
     }
 `;
-
-// const MainImage = styled.img`
-//     width: 600px;
-//     height: 600px;
-//     margin: 10px;
-//     border: 2px solid rgba(68, 68, 68, 0.1);
-//     padding: 1em;
-
-//     @media (max-width: 1000px) {
-//         width: 300px;
-//         height: 300px;
-//         margin: 5px;
-//     }
-//     @media (max-width: 350px) {
-//         width: 85vw;
-//     }
-// `;
 
 const MainImage = styled.img`
     height: clamp(250px, 600px, 800px);
@@ -497,21 +421,3 @@ const Collabs = styled(Details)`
         }
     }
 `;
-
-// const Stats = styled.div`
-//     display: flex;
-//     align-items: center;
-//     justify-content: center;
-//     width: 2em;
-//     height: 2em;
-//     margin: 0 0px 20px 0px;
-//     padding: 20px;
-//     border: ${theme.tertiary};
-//     border-radius: 50px;
-//     background-color: ${theme.tertiary};
-//     p {
-//         margin: 0;
-//         font-size: 0.8em;
-//         color: white;
-//     }
-// `;
