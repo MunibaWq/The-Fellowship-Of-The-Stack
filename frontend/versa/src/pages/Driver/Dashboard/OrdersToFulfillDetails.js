@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { getOneOrderForDriver } from "../../../axios/gets";
 import Loading from "../../../components/Redesign/Reusable/Loading";
 import theme from "../../../components/Reusable/Colors";
-// import theme from "../../../components/Redesign/Reusable/Theme";
 import { DriverReceived, LeftIcon } from "../../../images/icons";
-import { StyledLink } from "../../../components/Reusable/Link";
+import PageContainer from "../../../components/Redesign/Reusable/PageContainer";
+import Header from "../../../components/Redesign/Reusable/Header";
+import TopBar from "../../../components/Redesign/Reusable/TopBar";
+import { StyledLink } from "../../../components/Redesign/Reusable/Link";
 
 const OrdersToFulFillDetails = () => {
     let params = useParams();
@@ -25,47 +27,26 @@ const OrdersToFulFillDetails = () => {
     }, []);
 
     return (
-        <Container>
+        <PageContainer>
             {!orderData ? (
                 <Loading />
             ) : (
                 <>
-                    <BackToOrder to="/dashboard/driver/orders">
-                        <LeftIcon stroke={theme.primary} />
-                        Deliveries
-                    </BackToOrder>
+                    <Header
+                        title={buyerDetails.name}
+                        sub="These are the products that you need to pick up to complete this order. Mark each item as received as you pick them up so that you can track your progress"
+                        link="/dashboard/driver/orders/"
+                        linkText="Orders to Deliver"
+                    />
                     <CustomerDetails>
                         <Customer>
-                            <h1>{buyerDetails.name}</h1>
-                            <p>
-                                These are the products that you need to pick up
-                                to complete this order. Go to{" "}
-                                <StyledLink
-                                    style={{
-                                        background: "none",
-                                        border: "none",
-                                        margin: 0,
-                                        padding: 0,
-                                        display: "inline-block",
-                                    }}
-                                    to="/dashboard/driver/assigned-pickups">
-                                    Pickups
-                                </StyledLink>{" "}
-                                page if you would like to pick up items from
-                                Artists in batches.
-                            </p>
-                            <Address>
-                                <Customer>
-                                    <h3>Delivery Address</h3>
-                                    <p>{buyerDetails.shipping_address}</p>
-                                </Customer>
-                            </Address>
+                            <h3>Delivery Address</h3>
+                            <p>{buyerDetails.shipping_address}</p>
                         </Customer>
                     </CustomerDetails>
                     <ArtistContainer>
-                        <ArtistNameBar>
-                            <h2>{buyerDetails.username}</h2>
-                        </ArtistNameBar>
+                        <TopBar title={buyerDetails.username} />
+
                         <RowContainer>
                             <ArtistOrder>
                                 <h3>Delivery Notes</h3>
@@ -82,9 +63,9 @@ const OrdersToFulFillDetails = () => {
                                     <h3>Pickup Address</h3>
                                     <p>{buyerDetails.address}</p>
                                 </ArtistOrder>
-                                <Directions>
+                                <Directions secondarySmall>
                                     <a
-                                        rel={"external"}
+                                        rel={"noreferrer"}
                                         target="_blank"
                                         href={`https://www.google.com/maps?saddr&daddr=${buyerDetails.address}`}>
                                         Directions
@@ -95,6 +76,7 @@ const OrdersToFulFillDetails = () => {
 
                         <OrderItemContainer>
                             {orderData.map((order) => {
+                                console.log(order);
                                 return (
                                     <ProductCard
                                         key={
@@ -109,7 +91,7 @@ const OrdersToFulFillDetails = () => {
                                             <RowContainer>
                                                 <Size>
                                                     {order.size === "O"
-                                                        ? "One Colour"
+                                                        ? "One Size"
                                                         : order.size}
                                                 </Size>
                                                 <p>
@@ -134,42 +116,11 @@ const OrdersToFulFillDetails = () => {
                     </ArtistContainer>
                 </>
             )}
-        </Container>
+        </PageContainer>
     );
 };
 
 export default OrdersToFulFillDetails;
-
-const BackToOrder = styled(StyledLink)`
-    margin-left: -0.5em;
-    margin-bottom: 1em;
-
-    background: none;
-    border-bottom: none;
-`;
-
-const Container = styled.div`
-    background: ${theme.background};
-    display: flex;
-    width: 100vw;
-    flex-direction: column;
-    padding: 4em 2em 2em calc(2em + 66px);
-    h1 {
-        margin: 0 1em 1em 0em;
-    }
-
-    p {
-        ::first-of-type {
-            margin-bottom: 1em;
-        }
-    }
-    h3 {
-        text-transform: uppercase;
-        font-weight: bold;
-        letter-spacing: 0.01em;
-        margin-bottom: 0.5em;
-    }
-`;
 
 const CustomerDetails = styled.article`
     display: flex;
@@ -188,6 +139,7 @@ const Address = styled.div`
 
 const ArtistContainer = styled.div`
     border-radius: 15px 15px 0px 0px;
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -201,17 +153,6 @@ const ArtistContainer = styled.div`
         text-transform: uppercase;
         letter-spacing: 0.03em;
     }
-`;
-
-const ArtistNameBar = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    padding: 20px 40px;
-    background: ${theme.primary};
-    border-radius: 15px 15px 0px 0px;
 `;
 
 const ArtistOrder = styled.div`
@@ -255,37 +196,34 @@ const OrderItemContainer = styled.div`
 
 const ProductCard = styled.div`
     border-radius: 16px;
-    background: ${theme.background};
+    margin: 16px 8px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    margin: 0 60px 60px 0;
-    padding: 0px;
-    transition: background 0.3s ease;
-    img {
-        height: 300px;
-        width: 300px;
-        padding: 20px;
-    }
-    h4 {
-        font-weight: 700;
-        font-size: 18px;
-        letter-spacing: 0.03em;
-        text-transform: capitalize;
-        margin-bottom: 8px;
+    width: 350px;
+    padding: 25px;
+    filter: ${(props) => (props.stock === 0 ? "grayscale(1)" : "grayscale(0)")};
+    background: ${(props) =>
+        props.featured ? props.theme.blue : props.theme.lightBlue};
+    :hover {
+        background: ${(props) =>
+            props.stock === 0 ? props.theme.blue : props.theme.orange};
     }
 
-    :hover {
-        background: ${theme.primary + 60};
+    img {
+        width: 300px;
+        height: 300px;
+        margin-top: 8px;
     }
 `;
 
 const Details = styled.div`
-    width: 100%;
+    margin: 8px 0;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    padding: 0 20px 20px 20px;
+    justify-items: flex-start;
+    padding: 8px;
+    width: 100%;
 `;
 
 const RowContainer = styled.div`
@@ -317,13 +255,14 @@ const SetAsPicked = styled.button.attrs((props) => ({
     justify-content: center;
     align-items: center;
     padding: 8px;
-    background: ${theme.primary};
+    background: ${(props) => props.theme.purple};
     cursor: pointer;
     border-radius: 8px;
     border: none;
+    color: ${(props) => props.theme.blue};
     transition: background 0.3s ease;
     :hover {
-        background: ${theme.primaryHover};
+        background: ${(props) => props.theme.purple};
     }
 `;
 
@@ -332,10 +271,11 @@ const QuantityStatus = styled(RowContainer)`
     width: 100%;
 `;
 
-const Directions = styled(SetAsPicked)`
+const Directions = styled(StyledLink)`
     margin-top: 60px;
+
     a {
-        color: white;
+        color: ${(props) => props.theme.blue};
         font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 0.05em;

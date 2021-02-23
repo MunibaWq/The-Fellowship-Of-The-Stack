@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Search from "../Reusable/Search";
+import { StyledLink } from "./Link";
 
 //              USE
 //  add 'search' prop if you want it to include search bar
@@ -25,9 +26,16 @@ const Header = ({
     onChange,
     onKeyPress,
     placeholder,
+    link,
+    linkText,
 }) => {
     return (
         <HeaderContainer>
+            {link && (
+                <StyledLink to={link} tertiary>
+                    {linkText}
+                </StyledLink>
+            )}
             <h1>{title}</h1>
             <Subheading>{sub}</Subheading>
             {search && (

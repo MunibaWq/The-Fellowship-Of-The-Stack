@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import { getOneOrder } from "../../../axios/gets";
+import { getOneOrderForDriver } from "../../../axios/gets";
 import OrderItemCard from "../../../components/Dashboard/AnalyticsTables/OrderItemCard";
 import Loading from "../../../components/Redesign/Reusable/Loading";
-// import theme from "../../../components/Redesign/Reusable/Theme";
 import { StyledLink } from "../../../components/Reusable/Link";
 import { LeftIcon, SendIcon } from "../../../images/icons";
 import Button from "../../../components/Redesign/Reusable/Button";
 import { sendMessage } from "../../../axios/posts";
 import PageContainer from "../../../components/Redesign/Reusable/PageContainer";
-import TopBar from "../../../components/Redesign/Reusable/TopBar";
+
 import Header from "../../../components/Redesign/Reusable/Header";
 
 const OrderItems = () => {
@@ -21,9 +20,10 @@ const OrderItems = () => {
     const [buyerDetails, setBuyerDetails] = useState();
     const [message, setMessage] = useState();
     const [sent, setSent] = useState();
+
     useEffect(() => {
         const fetchData = async () => {
-            const data = await getOneOrder(orderID);
+            const data = await getOneOrderForDriver(orderID);
             setBuyerDetails(data[0]);
             setOrderData(data);
         };
@@ -32,140 +32,166 @@ const OrderItems = () => {
 
     return (
         <PageContainer>
-            <Container>
-                {!orderData ? (
-                    <Loading />
-                ) : (
-                    <>
-                        <BackToOrder to="/dashboard/artist/recent-orders/">
-                            <LeftIcon />
-                            Back to Orders
-                        </BackToOrder>
+            {!orderData ? (
+                <Loading />
+            ) : (
+                <>
+                    <BackToOrder to="/dashboard/artist/recent-orders/">
+                        <LeftIcon />
+                        Back to Orders
+                    </BackToOrder>
 
-                        <Header
-                            title={`Order #${orderID}`}
-                            sub="These are the products that you need to fulfill your order. Mark them as fulfilled so that you can track of your progress."
-                        />
+                    <Header
+                        title={`Order #${orderID}`}
+                        sub="These are the products that you need to fulfill your order. Mark them as fulfilled so that you can track of your progress."
+                    />
 
-                        <BuyerNameBar>
-                            <h2>{buyerDetails.name}</h2>
-                        </BuyerNameBar>
-                        <OrderItemContainer>
-                            <BuyerDetails>
-                                {/* <NumItems>
+                    <BuyerNameBar>
+                        <h2>{buyerDetails.name}</h2>
+                    </BuyerNameBar>
+                    <OrderItemContainer>
+                        <BuyerDetails>
+                            {/* <NumItems>
                                     <p>Profile Image</p>
                                 </NumItems> */}
-                                <Buyer>
-                                    <BuyerLeft>
-                                        {/* <h4>Phone Number</h4> */}
-                                        {/* <p>{buyerDetails.phone}</p> */}
-                                        {buyerDetails.pickup === false ? (
-                                            <>
-                                                <h4>Shipping Address</h4>
-                                                <p>
+                            <Buyer>
+                                <BuyerLeft>
+                                    {/* <h4>Phone Number</h4> */}
+                                    {/* <p>{buyerDetails.phone}</p> */}
+                                    {buyerDetails.pickup === false ? (
+                                        <>
+                                            <h3>Delivery Address</h3>
+                                            <p>
+                                                {buyerDetails.shipping_address}
+                                            </p>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <h3>Delivery Notes</h3>
+                                            <p>
+                                                Customer will pick this order
+                                                up.
+                                            </p>
+                                        </>
+                                    )}
+                                    {buyerDetails.delivery_notes && (
+                                        <>
+                                            <h3>Delivery Notes</h3>
+                                            <p>{buyerDetails.delivery_notes}</p>
+                                        </>
+                                    )}
+                                </BuyerLeft>
+                                <BuyerRight>
+                                    {orderData[0].buyer_id !== 9999 && (
+                                        <Message>
+                                            <div>
+                                                <h2>
+                                                    Connect with{" "}
                                                     {
-                                                        buyerDetails.shipping_address
+                                                        buyerDetails.name.split(
+                                                            " "
+                                                        )[0]
                                                     }
-                                                </p>
-                                            </>
-                                        ) : (
-                                            <>
-                                                <h4>Note</h4>
-                                                <p>
-                                                    Customer will pick this
-                                                    order up
-                                                </p>
-                                            </>
-                                        )}
-                                        {buyerDetails.delivery_notes && (
-                                            <>
-                                                <h2>Note</h2>
-                                                <p>
-                                                    {
-                                                        buyerDetails.delivery_notes
-                                                    }
-                                                </p>
-                                            </>
-                                        )}
-                                    </BuyerLeft>
-                                    <BuyerRight>
-                                        {orderData[0].buyer_id !== 9999 && (
-                                            <Message>
-                                                <div>
-                                                    <h2>
-                                                        Connect with{" "}
-                                                        {
-                                                            buyerDetails.name.split(
-                                                                " "
-                                                            )[0]
-                                                        }
-                                                    </h2>
-                                                    Got any questions about this
-                                                    order? <br />
-                                                    Get in touch!
-                                                    <MessageBox>
-                                                        <textarea
-                                                            value={message}
-                                                            placeholder="Message"
-                                                            onChange={(e) => {
-                                                                setMessage(
-                                                                    e.target
-                                                                        .value
-                                                                );
-                                                            }}
-                                                        />
+                                                </h2>
+                                                Got any questions about this
+                                                order? <br />
+                                                Get in touch!
+                                                <MessageBox>
+                                                    <textarea
+                                                        value={message}
+                                                        placeholder="Message"
+                                                        onChange={(e) => {
+                                                            setMessage(
+                                                                e.target.value
+                                                            );
+                                                        }}
+                                                    />
 
-                                                        {!sent ? (
-                                                            <SendButton
-                                                                secondarySmall
-                                                                onClick={() => {
-                                                                    let order =
-                                                                        orderData[0];
-                                                                    setSent(
-                                                                        true
-                                                                    );
-                                                                    sendMessage(
-                                                                        `Order #${order.id}`,
-                                                                        order.buyer_id,
-                                                                        "A2B",
-                                                                        message,
-                                                                        new Date().toUTCString()
-                                                                    );
-                                                                }}>
-                                                                <SendIcon />
-                                                                Send
-                                                            </SendButton>
-                                                        ) : (
-                                                            "Message Sent, check dashboard for responses"
-                                                        )}
-                                                    </MessageBox>
-                                                </div>
-                                            </Message>
-                                        )}
-                                    </BuyerRight>
-                                </Buyer>
-                            </BuyerDetails>
+                                                    {!sent ? (
+                                                        <SendButton
+                                                            secondarySmall
+                                                            onClick={() => {
+                                                                let order =
+                                                                    orderData[0];
+                                                                setSent(true);
+                                                                sendMessage(
+                                                                    `Order #${order.id}`,
+                                                                    order.buyer_id,
+                                                                    "A2B",
+                                                                    message,
+                                                                    new Date().toUTCString()
+                                                                );
+                                                            }}>
+                                                            <SendIcon />
+                                                            Send
+                                                        </SendButton>
+                                                    ) : (
+                                                        "Message Sent, check dashboard for responses"
+                                                    )}
+                                                </MessageBox>
+                                            </div>
+                                        </Message>
+                                    )}
+                                </BuyerRight>
+                            </Buyer>
+                        </BuyerDetails>
+                        <OrderDataContainer>
                             {orderData.map((order) => {
+                                console.log(order);
                                 return (
-                                    <OrderItemCard
-                                        order={order}
-                                        key={order.orderID}
-                                    />
+                                    <ProductCard key={order.id + order.key}>
+                                        <img
+                                            src={`https://versabucket.s3.us-east-2.amazonaws.com/images/${order.thumbnail}.jpeg`}
+                                            alt={order.title}
+                                        />
+                                        <OrderItemCard
+                                            order={order}
+                                            key={order.orderID}
+                                        />
+                                    </ProductCard>
                                 );
                             })}
-                        </OrderItemContainer>
-                    </>
-                )}
-            </Container>
+                        </OrderDataContainer>
+                    </OrderItemContainer>
+                </>
+            )}
         </PageContainer>
     );
 };
 
 export default OrderItems;
 
+const ProductCard = styled.div`
+    border-radius: 16px;
+    background: ${(props) => props.theme.blue};
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 0 60px 60px 0;
+    padding: 0px;
+    transition: background 0.3s ease;
+    img {
+        height: 300px;
+        width: 300px;
+        padding: 20px;
+    }
+    h4 {
+        font-weight: 700;
+        font-size: 18px;
+        letter-spacing: 0.03em;
+        text-transform: capitalize;
+        margin-bottom: 8px;
+    }
+
+    :hover {
+        background: ${(props) => props.theme.orange};
+    }
+`;
+
 const SendButton = styled(Button).attrs((props) => ({
     type: props.type || "button",
 }))`
+    margin-top: 1em;
     cursor: pointer;
     place-self: flex-end;
 `;
@@ -207,39 +233,6 @@ const MessageBox = styled.article`
         border: none;
     }
 `;
-// const Container = styled.div`
-//     background: ${theme.background};
-//     display: flex;
-//     width: 100vw;
-
-//     flex-direction: column;
-//     padding: 2em 2em 2em calc(2em + 66px);
-//     h1 {
-//         margin: 0 1em 2em 0em;
-//     }
-// `;
-
-const Container = styled.div`
-    display: flex;
-    width: 100vw;
-    flex-direction: column;
-    padding: 4em 2em 2em calc(2em + 66px);
-    h1 {
-        margin: 0 1em 1em 0em;
-    }
-
-    p {
-        ::first-of-type {
-            margin-bottom: 1em;
-        }
-    }
-    h3 {
-        text-transform: uppercase;
-        font-weight: bold;
-        letter-spacing: 0.01em;
-        margin-bottom: 0.5em;
-    }
-`;
 
 const BackToOrder = styled(StyledLink)`
     margin-left: -0.5em;
@@ -269,59 +262,42 @@ const BuyerDetails = styled.article`
     align-items: center;
     padding: 2em;
     justify-content: center;
+    width: 80%;
 `;
 
 const Buyer = styled.div`
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-around;
 
     padding: 40px;
-
-    width: 80%;
+    width: 100%;
 
     background: ${(props) => props.theme.blue};
     border-radius: 15px;
-
-    /* Inside Auto Layout */
-
-    /* flex: none;
-    order: 1;
-    flex-grow: 0;
-    margin: 40px 0px; */
 `;
 const BuyerLeft = styled.div`
-    /* h2 {
-        margin-bottom: 0.8em;
-        font-weight: 700;
+    h3 {
+        color: ${(props) => props.theme.black};
+        margin-top: 0.5em;
+        margin-bottom: 0.5em;
         letter-spacing: 0.03em;
+        line-height: 1em;
+        text-transform: uppercase;
     }
-    h4 {
-        font-weight: 700;
-        margin-bottom: 0.3em;
-    } */
-    margin-right: 1em;
     p {
-        :last-of-type {
-            margin-bottom: 0;
-        }
+        margin: 1em 0 1em 0;
     }
 `;
 const BuyerRight = styled.div`
-    /* margin: 2em; */
-    /* h2 {
+    h2 {
+        color: ${(props) => props.theme.black};
         margin-bottom: 0.8em;
-        font-weight: 700;
         letter-spacing: 0.03em;
+        line-height: 1em;
     }
-    h4 {
-        font-weight: 700;
-        margin-bottom: 0.3em;
-    } */
     p {
-        :last-of-type {
-            margin-bottom: 0;
-        }
+        margin: 1em 0 1em 0;
     }
 `;
 
@@ -332,6 +308,7 @@ const OrderItemContainer = styled.div`
     align-items: center;
     padding: 0px;
     background: ${(props) => props.theme.lightBlue};
+    width: 100%;
     h2 {
         color: ${(props) => props.theme.lightBlue};
         margin-bottom: 0;
@@ -342,6 +319,7 @@ const OrderItemContainer = styled.div`
 `;
 
 const BuyerNameBar = styled.div`
+    margin-top: 1em;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -360,15 +338,16 @@ const BuyerNameBar = styled.div`
     }
 `;
 
-// const OrderItemContainer = styled.div`
-//     position: relative;
-//     padding: 2em 0;
-//     display: grid;
-//     grid-row-gap: 30px;
-//     grid-column-gap: 50px;
-//     grid-template-columns: repeat(auto-fit, minmax(250px, 400px));
-//     h1 {
-//         margin: 0 1em 2em 1em;
-//         font-size: 100px;
-//     }
-// `;
+const OrderDataContainer = styled.div`
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 60px 60px;
+    h1 {
+        margin: 0 1em 2em 1em;
+        font-size: 100px;
+    }
+`;

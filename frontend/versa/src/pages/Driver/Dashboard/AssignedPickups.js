@@ -4,6 +4,8 @@ import { useParams } from "react-router-dom";
 import { getAssignedPickups } from "../../../axios/gets";
 import Loading from "../../../components/Reusable/Loading";
 import AssignedPickupsTable from "../../../components/Dashboard/Driver/AssignedPickupsTable";
+import PageContainer from "../../../components/Redesign/Reusable/PageContainer";
+import Header from "../../../components/Redesign/Reusable/Header";
 
 const AssignedPickups = () => {
     const [orderData, setOrderData] = useState();
@@ -19,14 +21,17 @@ const AssignedPickups = () => {
     }, []);
 
     return (
-        <OrderContainer>
-            <h1>Deliveries</h1>
+        <PageContainer>
+            <Header
+                title="Deliveries"
+                sub="These are your orderes organised by artist address so that you can pick up products in batches."
+            />
             {!orderData ? (
                 <Loading />
             ) : (
                 <AssignedPickupsTable orderData={orderData} />
             )}
-        </OrderContainer>
+        </PageContainer>
     );
 };
 
