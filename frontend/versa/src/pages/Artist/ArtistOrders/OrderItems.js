@@ -7,7 +7,7 @@ import Loading from "../../../components/Redesign/Reusable/Loading";
 // import theme from "../../../components/Redesign/Reusable/Theme";
 import { StyledLink } from "../../../components/Reusable/Link";
 import { LeftIcon, SendIcon } from "../../../images/icons";
-import Button from "../../../components/Reusable/Button";
+import Button from "../../../components/Redesign/Reusable/Button";
 import { sendMessage } from "../../../axios/posts";
 import PageContainer from "../../../components/Redesign/Reusable/PageContainer";
 import TopBar from "../../../components/Redesign/Reusable/TopBar";
@@ -101,10 +101,12 @@ const OrderItems = () => {
                                                         }
                                                     </h2>
                                                     Got any questions about this
-                                                    order? Get in touch!
+                                                    order? <br />
+                                                    Get in touch!
                                                     <MessageBox>
                                                         <textarea
                                                             value={message}
+                                                            placeholder="Message"
                                                             onChange={(e) => {
                                                                 setMessage(
                                                                     e.target
@@ -112,28 +114,31 @@ const OrderItems = () => {
                                                                 );
                                                             }}
                                                         />
+
+                                                        {!sent ? (
+                                                            <SendButton
+                                                                secondarySmall
+                                                                onClick={() => {
+                                                                    let order =
+                                                                        orderData[0];
+                                                                    setSent(
+                                                                        true
+                                                                    );
+                                                                    sendMessage(
+                                                                        `Order #${order.id}`,
+                                                                        order.buyer_id,
+                                                                        "A2B",
+                                                                        message,
+                                                                        new Date().toUTCString()
+                                                                    );
+                                                                }}>
+                                                                <SendIcon />
+                                                                Send
+                                                            </SendButton>
+                                                        ) : (
+                                                            "Message Sent, check dashboard for responses"
+                                                        )}
                                                     </MessageBox>
-                                                    {!sent ? (
-                                                        <Button
-                                                            secondary
-                                                            onClick={() => {
-                                                                let order =
-                                                                    orderData[0];
-                                                                setSent(true);
-                                                                sendMessage(
-                                                                    `Order #${order.id}`,
-                                                                    order.buyer_id,
-                                                                    "A2B",
-                                                                    message,
-                                                                    new Date().toUTCString()
-                                                                );
-                                                            }}>
-                                                            <SendIcon />
-                                                            Send
-                                                        </Button>
-                                                    ) : (
-                                                        "Message Sent, check dashboard for responses"
-                                                    )}
                                                 </div>
                                             </Message>
                                         )}
@@ -157,14 +162,22 @@ const OrderItems = () => {
 };
 
 export default OrderItems;
+
+const SendButton = styled(Button).attrs((props) => ({
+    type: props.type || "button",
+}))`
+    cursor: pointer;
+    place-self: flex-end;
+`;
+
 const Message = styled.article`
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: flex-end;
 
     grid-column: 1;
     grid-row: 2;
-    /* margin: 2em; */
 
     border-radius: 15px;
     div {
@@ -184,13 +197,14 @@ const Message = styled.article`
 `;
 const MessageBox = styled.article`
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
 
     textarea {
         height: 200px;
         width: 100%;
         resize: none;
+        border: none;
     }
 `;
 // const Container = styled.div`
