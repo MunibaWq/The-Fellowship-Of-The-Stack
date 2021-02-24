@@ -203,7 +203,7 @@ const SideNav = ({ navWidth, setNavWidth }) => {
                                     <IconLabel>SHOPPER</IconLabel>
                                 </IconDiv>
                             </Link>
-                            <Link to="/dashboard/driver/orders">
+                            <Link to="/dashboard/driver">
                                 <IconDiv
                                     onClick={() => {
                                         setLinks("driver");
