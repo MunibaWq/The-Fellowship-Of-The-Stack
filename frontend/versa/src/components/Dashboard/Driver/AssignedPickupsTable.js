@@ -40,7 +40,7 @@ const AssignedPickupTable = ({ orderData }) => {
         sortArray(sortType);
     }, [sortType]);
 
-    let headers = ["Artist Name", "Pickup Address", "Status"];
+    let headers = ["Artist Name", "Pickup Address", "Action"];
 
     const history = useHistory();
 

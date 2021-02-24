@@ -27,8 +27,8 @@ const Deliveries = () => {
             <Header
                 title="Ready to Deliver"
                 sub="These are orders that you have completed pickups for and are ready to deliver. "
-                link="/dashboard/driver/assigned-pickups"
-                linkText="Pickups"
+                link="/dashboard/driver"
+                linkText="Dashboard"
             />
             {!orderData ? (
                 <Loading />
