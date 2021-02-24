@@ -16,6 +16,7 @@ import ImageTest from "../../images/imageTest.png";
 import PageContainer from "../../components/Redesign/Reusable/PageContainer";
 import BackLink from "../../components/Redesign/Reusable/BackLink";
 import AboutArtist from "../Redesign/AboutArtist";
+import Header from "../Redesign/Reusable/Header";
 // import { clearChoices, setChoices } from "../../redux/actions/EventPage";
 
 const EventPage = () => {
@@ -321,6 +322,7 @@ const Container = styled.div`
     background: ${(props) => props.theme.blue};
     padding: clamp(16px, 40px, 60px);
     border-radius: 15px;
+    margin-bottom: 6em;
 `;
 
 const EventImages = styled.div`
