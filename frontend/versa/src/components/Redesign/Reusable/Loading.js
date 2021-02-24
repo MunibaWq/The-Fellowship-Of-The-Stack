@@ -7,32 +7,27 @@ const Loading = () => {
         // <Circle>
         //     <p>Loading</p>
         // </Circle>
-        <Loader>
-            <img src={chicken} />
-            <blink>
-                <marquee scrollamount={50} behavior="alternate" truespeed scrolldelay={0}>
-                    <h1>
-                        LOADING LOADING LOADING LOADING LOADING LOADING LOADING
-                        LOADING LOADING LOADING LOADING LOADING LOADING LOADING
-                        LOADING LOADING LOADING LOADING LOADING LOADING LOADING
-                    </h1></marquee>
-                
-            </blink>{" "}
-        </Loader>
+        <div
+            style={{
+                width: "100%",
+                height: "0",
+                paddingBottom: "42%",
+                position: "relative",
+            }}>
+            <iframe
+                src={chicken}
+                width="100%"
+                height="100%"
+                style={{ position: "absolute" }}
+                frameBorder="0"
+                className="giphy-embed"
+                allowFullScreen></iframe>
+        </div>
     );
 };
 
 export default Loading;
-const Loader = styled.div`
-    position: relative;
-    top: 1em;
-    h1 {
-        color: rgb(${Math.random()*255},${Math.random()*255},${Math.random()*255});
-    }
-    img {
-        width: 100%;
-    }
-`;
+
 const Circle = styled.div`
     display: flex;
     justify-content: center;
