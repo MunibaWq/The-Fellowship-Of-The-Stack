@@ -156,7 +156,7 @@ const Navbar = () => {
                     {loggedIn && (
                         <NavLink
                             color={theme.secondary}
-                            to="/dashboard"
+                            to="/dashboard/artist"
                             onMouseEnter={() => {
                                 setDashboard(onHover);
                             }}
