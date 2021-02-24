@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import PageContainer from "../../../components/Redesign/Reusable/PageContainer";
 import Header from "../../../components/Redesign/Reusable/Header";
 import SalesByProduct from "../Dashboard/SalesByProduct";
@@ -19,15 +19,19 @@ const Analytics = () => {
                 }}primarySmall>Total Sales</Button>
                 <Button onClick = {()=>{
                     setNav("TO")
-                }}primarySmall>Total Orders</Button>
+                }}secondarySmall>Total Orders</Button>
                 <Button onClick = {()=>{
                     setNav("SBP")
-                }}primarySmall>Sales By Product</Button>
+                }}secondarySmall>Sales By Product</Button>
                 <Button onClick = {()=>{
                     setNav("OA")
-                }}primarySmall>Order Average</Button>
+                }}secondarySmall>Order Average</Button>
             </Nav>
-            {nav==="TS" && <TotalSales/>}
+            {nav === "TS" && <TotalSales />}
+            {nav === "TO" && <TotalOrders />}
+            {nav === "SBP" && <SalesByProduct />}
+            {nav === "OA" && <AvgOrderValue />}
+            
         </PageContainer>
         
     );
