@@ -101,9 +101,11 @@ const OrderItems = () => {
                                                         )[0]
                                                     }
                                                 </h2>
-                                                Got any questions about this
-                                                order? <br />
-                                                Get in touch!
+                                                <p>
+                                                    Got any questions about this
+                                                    order? Get in touch!
+                                                </p>
+
                                                 <MessageBox>
                                                     <textarea
                                                         value={message}
@@ -209,7 +211,8 @@ const Message = styled.article`
     flex-direction: row;
     align-items: center;
     justify-content: flex-end;
-
+    padding: 10px;
+    height: 100%;
     grid-column: 1;
     grid-row: 2;
 
@@ -224,9 +227,30 @@ const Message = styled.article`
     }
 
     textarea {
-        height: 200px;
-        width: 100%;
         resize: none;
+        /* width: 60%; */
+        height: 200px;
+        padding: 8px;
+        outline: none;
+        border-radius: 8px;
+        font-family: inherit;
+        margin-bottom: 1em;
+        width: 100%;
+        ::placeholder {
+            color: ${(props) => props.theme.lightBlack};
+        }
+        border: ${(props) =>
+            props.border === true
+                ? `2px solid ${props.theme.green}`
+                : `2px solid ${props.theme.black}`};
+        :active,
+        :hover,
+        :focus {
+            border: ${(props) =>
+                props.border === true
+                    ? `2px solid ${props.theme.green}`
+                    : `2px solid ${props.theme.purple}`};
+        }
     }
 `;
 const MessageBox = styled.article`
@@ -287,11 +311,9 @@ const Buyer = styled.div`
 const BuyerLeft = styled.div`
     h3 {
         color: ${(props) => props.theme.black};
-        /* margin-top: 0.5em; */
-        /* margin-bottom: 0.5em; */
-        /* letter-spacing: 0.03em;
-        /* line-height: 1em; */
-
+        font-size: 1.1em;
+        margin-bottom: 0.8em;
+        font-weight: 700;
         line-height: 3em;
 
         letter-spacing: 0.05em;

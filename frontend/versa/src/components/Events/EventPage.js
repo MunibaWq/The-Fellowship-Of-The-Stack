@@ -127,12 +127,12 @@ const EventPage = () => {
                             : "Loading event categories"}
                     </h4>
                     <h2>{eventData ? eventData.title : "Loading Event  "}</h2>
-                    <h3>
+                    <h5>
                         by
                         {eventData
                             ? "  " + eventData.username
                             : "Loading Host Name"}
-                    </h3>
+                    </h5>
                     <Row>
                         {collabs && collabs.length > 0 && (
                             <h3>In collaboration with: </h3>
@@ -253,7 +253,7 @@ const Message = styled.textarea`
     font-family: inherit;
     margin-bottom: 1em;
     ::placeholder {
-        color: ${(props) => props.theme.lightBlack};
+        color: ${(props) => props.theme.black};
     }
     border: ${(props) =>
         props.border === true
@@ -285,7 +285,7 @@ const Row = styled.div`
         font-size: 0.9em;
         text-transform: uppercase;
         font-weight: 700;
-        color: ${(props) => props.theme.lightBlack};
+        color: ${(props) => props.theme.black};
         margin-right: 8px;
     }
     p {
@@ -304,10 +304,13 @@ const Column = styled.div`
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
+    h2 {
+        margin-bottom: 0;
+    }
 
     h3 {
-        color: ${(props) => props.theme.lightBlack};
-        margin-bottom: 16px;
+        color: ${(props) => props.theme.black};
+        margin-bottom: 1em;
     }
     p {
         margin-bottom: 16px;

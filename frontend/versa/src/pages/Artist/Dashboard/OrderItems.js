@@ -16,8 +16,8 @@ const OrderItems = () => {
 
     const [orderData, setOrderData] = useState();
     const [buyerDetails, setBuyerDetails] = useState();
-    const [message, setMessage] = useState()
-    const [sent, setSent] = useState()
+    const [message, setMessage] = useState();
+    const [sent, setSent] = useState();
     useEffect(() => {
         const fetchData = async () => {
             const data = await getOneOrder(orderID);
@@ -66,37 +66,51 @@ const OrderItems = () => {
                                     </>
                                 )}
                             </Buyer>
-                            </BuyerDetails>
-                            {orderData[0].buyer_id !== 9999 &&
-                                <Message>
+                        </BuyerDetails>
+                        {orderData[0].buyer_id !== 9999 && (
+                            <Message>
                                 <div>
-                                <h2>Message</h2>
-                                Send the customer a message about this order
-                            <div><textarea value={message} onChange={(e) => {
-                                    setMessage(e.target.value)
-                                    }} /></div>
-                                    {!sent ?
-                                        <Button secondary onClick={() => {
-                                            let order = orderData[0]
-                                            setSent(true)
-                                            sendMessage(`Order #${order.id}`, order.buyer_id, 'A2B', message, new Date().toUTCString())
-                                        }}>
-                                            <SendIcon />Send
-                                </Button> : "Message Sent, check dashboard for responses"}</div>
+                                    <h2>Message</h2>
+                                    Send the customer a message about this order
+                                    <div>
+                                        <textarea
+                                            value={message}
+                                            onChange={(e) => {
+                                                setMessage(e.target.value);
+                                            }}
+                                        />
+                                    </div>
+                                    {!sent ? (
+                                        <Button
+                                            secondary
+                                            onClick={() => {
+                                                let order = orderData[0];
+                                                setSent(true);
+                                                sendMessage(
+                                                    `Order #${order.id}`,
+                                                    order.buyer_id,
+                                                    "A2B",
+                                                    message,
+                                                    new Date().toUTCString()
+                                                );
+                                            }}>
+                                            <SendIcon />
+                                            Send
+                                        </Button>
+                                    ) : (
+                                        "Message Sent, check dashboard for responses"
+                                    )}
+                                </div>
                             </Message>
-                        }
-                            {orderData.map((order) => {
+                        )}
+                        {orderData.map((order) => {
                             return (
-                           
-                                    <OrderItemCard
-                                        order={order}
-                                        key={order.orderID}
-                                    />
-                     
+                                <OrderItemCard
+                                    order={order}
+                                    key={order.orderID}
+                                />
                             );
                         })}
-                            
-                        
                     </OrderItemContainer>
                 </>
             )}
@@ -105,30 +119,61 @@ const OrderItems = () => {
 };
 
 export default OrderItems;
-const Message = styled.article`
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    background: #6495ed60;
-    grid-column:1;
-    grid-row:2;
-    padding: 2em;
-    box-shadow: 3px 3px 10px rgba(27, 49, 66, 0.13);
-    border-radius: 15px;
-    :hover {
-        box-shadow: 7px 7px 30px rgba(27, 49, 66, 0.13);
+const Message = styled.textarea`
+    /* resize: none; */
+    width: 100%;
+    height: 200px;
+    padding: 8px;
+    outline: none;
+    border-radius: 8px;
+    font-family: inherit;
+    margin-bottom: 1em;
+    ::placeholder {
+        color: ${(props) => props.theme.black};
     }
-    h2 {
-        margin-bottom: 0.8em;
-        font-weight: 700;
-        letter-spacing: 0.03em;
-    }
-    textarea {
-        height: 200px;
-        width: 330px;
-        resize: none;
+    border: ${(props) =>
+        props.border === true
+            ? `2px solid ${props.theme.green}`
+            : `2px solid ${props.theme.black}`};
+    :active,
+    :hover,
+    :focus {
+        border: ${(props) =>
+            props.border === true
+                ? `2px solid ${props.theme.green}`
+                : `2px solid ${props.theme.purple}`};
     }
 `;
+// const Send = styled.div``;
+// const Question = styled.div`
+//     display: flex;
+//     flex-direction: column;
+//     margin-top: 20px;
+// `;
+// const Message = styled.article`
+//     display: flex;
+//     flex-direction: row;
+//     align-items: center;
+//     background: #6495ed60;
+//     grid-column:1;
+//     grid-row:2;
+//     padding: 2em;
+//     box-shadow: 3px 3px 10px rgba(27, 49, 66, 0.13);
+//     border-radius: 15px;
+//     :hover {
+//         box-shadow: 7px 7px 30px rgba(27, 49, 66, 0.13);
+//     }
+//     h2 {
+//         margin-bottom: 0.8em;
+//         font-weight: 700;
+//         letter-spacing: 0.03em;
+//     }
+//     textarea {
+//         height: 200px;
+//         width: 330px;
+//         resize: none;
+//     }
+// `;
 const Container = styled.div`
     background: ${theme.background};
     display: flex;
