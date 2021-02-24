@@ -11,9 +11,9 @@ const PageContainer = styled.div`
     flex-direction: column;
     align-items: center;
     width: 100%;
-    padding: clamp(24px, 2vh, 5vh) clamp(16px, 8vh, 12vh);
+    padding: clamp(24px, 2vh, 5vh) clamp(16px, 6em, 12vh);
     min-height: 60vh;
-    margin: 0;
+    margin-bottom: 6em;
 `;
 
 export default PageContainer;

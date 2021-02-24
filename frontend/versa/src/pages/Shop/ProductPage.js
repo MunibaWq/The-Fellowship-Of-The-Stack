@@ -53,7 +53,7 @@ const ProductPage = () => {
                 Shop
             </BackLink>
             <Item product={productDataState} images={images} />
-            <AboutArtist product={productDataState} />
+            <AboutArtist item={productDataState} type="product" />
         </PageContainer>
     );
 };

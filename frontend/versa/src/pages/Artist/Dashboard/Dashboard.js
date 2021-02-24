@@ -14,12 +14,9 @@ import Orders from "../ArtistOrders/Orders";
 import Categories from "./Categories";
 // import Inventory from "./Inventory";
 import Inventory from "../Inventory/Inventory";
-import AvgOrderValue from "./AvgOrderValue";
 import Notifications from "./Notifications";
-import SalesByProduct from "./SalesByProduct";
+
 import Settings from "./Settings";
-import TotalOrders from "./TotalOrders";
-import TotalSales from "./TotalSales";
 import DashboardEvents from "./DashboardEvents";
 import { useState } from "react";
 import AddProduct from "../AddProduct";
@@ -43,7 +40,11 @@ import AssignedPickups from "../../Driver/Dashboard/AssignedPickups";
 import ShopperOrderItems from "../../UserBuyer/Dashboard/OrderItems";
 import AssignedPickupDetails from "../../Driver/Dashboard/AssignedPickupDetails";
 import Deliveries from "../../Driver/Dashboard/Deliveries";
+import Analytics from "./Analytics";
 import SideMenu from "../../../components/SideMenu";
+import Artist from "../../Dashboard/Artist";
+import Shopper from "../../Dashboard/Shopper";
+import Driver from "../../Dashboard/Driver";
 const cookies = new Cookies();
 const Redirecter = () => {
     window.location = "/account";
@@ -77,7 +78,7 @@ const Dashboard = () => {
                     <PrivateRoute
                         path="/dashboard/artist"
                         exact
-                        component={DashboardMain}
+                        component={Artist}
                     />
                     <PrivateRoute
                         path="/dashboard/artist/orders"
@@ -89,11 +90,16 @@ const Dashboard = () => {
                         exact
                         component={Inventory}
                     />
+                    <PrivateRoute
+                        path="/dashboard/artist/analytics"
+                        exact
+                        component={Analytics}
+                    />
 
                     <PrivateRoute
                         path="/dashboard/driver"
                         exact
-                        component={DashboardHome}
+                        component={Driver}
                     />
 
                     <PrivateRoute
@@ -125,26 +131,6 @@ const Dashboard = () => {
                         path="/dashboard/artist/manage-events"
                         exact
                         component={DashboardEvents}
-                    />
-                    <PrivateRoute
-                        path="/dashboard/artist/total-sales/"
-                        exact
-                        component={TotalSales}
-                    />
-                    <PrivateRoute
-                        path="/dashboard/artist/total-orders/"
-                        exact
-                        component={TotalOrders}
-                    />
-                    <PrivateRoute
-                        path="/dashboard/artist/average-order-value/"
-                        exact
-                        component={AvgOrderValue}
-                    />
-                    <PrivateRoute
-                        path="/dashboard/artist/sales-by-products/"
-                        exact
-                        component={SalesByProduct}
                     />
 
                     <PrivateRoute
@@ -210,7 +196,7 @@ const Dashboard = () => {
                     <PrivateRoute
                         exact
                         path="/dashboard/shopper/"
-                        component={ShopperDashboardMain}
+                        component={Shopper}
                     />
                     <PrivateRoute
                         path="/dashboard/shopper/order-tracking/:orderid"
