@@ -1,5 +1,31 @@
 import theme from "../components/Reusable/Colors";
 
+export const View = () => {
+    return (
+        <svg
+            width="25"
+            height="25"
+            viewBox="0 0 25 25"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path
+                d="M12.7676 5.43311C5.26758 5.43311 2.26758 12.1838 2.26758 12.1838C2.26758 12.1838 5.26758 18.9331 12.7676 18.9331C20.2676 18.9331 23.2676 12.1838 23.2676 12.1838C23.2676 12.1838 20.2676 5.43311 12.7676 5.43311Z"
+                stroke="#F3F6FF"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            />
+            <path
+                d="M12.7676 15.9336C14.8386 15.9336 16.5176 14.2547 16.5176 12.1836C16.5176 10.1125 14.8386 8.43359 12.7676 8.43359C10.6965 8.43359 9.01758 10.1125 9.01758 12.1836C9.01758 14.2547 10.6965 15.9336 12.7676 15.9336Z"
+                stroke="#F3F6FF"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            />
+        </svg>
+    );
+};
+
 export const Email = () => {
     return (
         <svg
