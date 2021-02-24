@@ -129,7 +129,7 @@ let driverLinks = mapLabel(driver);
 let artistLinks = mapLabel(artist);
 let buyerLinks = mapLabel(buyer);
 
-const DashNav = ({ type }) => {
+const DashNav = ({ type, close }) => {
     function matchType() {
         if (type === "driver") {
             return driverLinks;
@@ -141,7 +141,14 @@ const DashNav = ({ type }) => {
             return <div></div>;
         }
     }
-    return <LinkContainer>{matchType()}</LinkContainer>;
+    return (
+        <LinkContainer
+            onClick={() => {
+                close(false);
+            }}>
+            {matchType()}
+        </LinkContainer>
+    );
 };
 
 const LinkContainer = styled.div`
