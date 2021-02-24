@@ -136,9 +136,9 @@ const ReadyDeliveriesTable = ({ orderData }) => {
                                                         setID(order.id);
                                                         setStatus("Delivered");
                                                     }}>
-                                                    {/* <DriverPicked
+                                                    <DriverPicked
                                                         stroke={theme.primary}
-                                                    /> */}
+                                                    />
                                                     Set as Delivered
                                                 </Button>
                                             </td>
