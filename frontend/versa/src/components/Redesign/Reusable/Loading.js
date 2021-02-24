@@ -1,28 +1,11 @@
 import React from "react";
 import styled from "styled-components";
-import chicken from "../../../images/chicken.gif";
 
 const Loading = () => {
     return (
-        // <Circle>
-        //     <p>Loading</p>
-        // </Circle>
-        <div
-            style={{
-                width: "100%",
-                height: "0",
-                paddingBottom: "42%",
-                position: "relative",
-            }}>
-            <iframe
-                src={chicken}
-                width="100%"
-                height="100%"
-                style={{ position: "absolute" }}
-                frameBorder="0"
-                className="giphy-embed"
-                allowFullScreen></iframe>
-        </div>
+        <Circle>
+            <p>Loading</p>
+        </Circle>
     );
 };
 
