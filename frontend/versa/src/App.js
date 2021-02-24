@@ -20,6 +20,7 @@ import Contact from "./pages/Contact";
 import Shop from "./pages/Shop/Shop";
 import LightTheme from "./components/Redesign/Reusable/Theme";
 import ProductPage from "./pages/Shop/ProductPage";
+import Artist from "./pages/Dashboard/Artist";
 if (!window.localStorage.getItem("session")) {
     window.localStorage.setItem(
         "session",
@@ -70,7 +71,7 @@ function App() {
 
                         <Route path="/log-in" component={Login} />
 
-                        <Route path="/dashboard" component={Dashboard} />
+                        <Route path="/dashboard" component={Artist} />
                         <Route path="/coming-soon" component={ComingSoon} />
                         <Route component={NotFound} />
                     </Switch>
