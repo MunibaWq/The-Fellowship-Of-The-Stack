@@ -1,11 +1,11 @@
 import React from "react";
 import styled from "styled-components";
-import { VGraph } from "./Graph";
 import { View } from "../../../images/icons";
 import { StyledLink } from "./Link";
 import TopBar from "./TopBar";
+import Table from "./Table";
 
-const GraphCard = ({ title, statNum, statLabel, link, data }) => {
+const TableCard = ({ title, statNum, statLabel, link, data, headers }) => {
     return (
         <Container>
             <TopBar littleTitle={title} />
@@ -19,14 +19,12 @@ const GraphCard = ({ title, statNum, statLabel, link, data }) => {
                         <View /> View
                     </StyledLink>
                 </Overview>
-                <Graph>
-                    <VGraph data={data} />
-                </Graph>
+                <Table data={data} headers={headers} />
             </Card>
         </Container>
     );
 };
-export default GraphCard;
+export default TableCard;
 
 const Container = styled.div`
     display: flex;
@@ -72,9 +70,4 @@ const Stats = styled.div`
             margin-bottom: 0;
         }
     }
-`;
-
-const Graph = styled.div`
-    width: 100%;
-    margin-bottom: 40px;
 `;

@@ -72,11 +72,11 @@ const ReadyDeliveriesTable = ({ orderData }) => {
     };
     const filteredData = filterData(data, query);
 
-    const uniqueArtist = Array.from(
-        new Set(filteredData.map((a) => a.name))
-    ).map((name) => {
-        return filteredData.find((a) => a.name === name);
-    });
+    const uniqueArtist = Array.from(new Set(filteredData.map((a) => a.id))).map(
+        (name) => {
+            return filteredData.find((a) => a.id === name);
+        }
+    );
     return (
         <TableContainer>
             {!orderData ? (
@@ -139,7 +139,7 @@ const ReadyDeliveriesTable = ({ orderData }) => {
                                                     <DriverPicked
                                                         stroke={theme.primary}
                                                     />
-                                                    Set Order as Delivered
+                                                    Set as Delivered
                                                 </Button>
                                             </td>
                                         ) : (

@@ -1,11 +1,11 @@
 import React from "react";
 import styled from "styled-components";
-import { VGraph } from "./Graph";
 import { View } from "../../../images/icons";
 import { StyledLink } from "./Link";
 import TopBar from "./TopBar";
+import VPie from "./Pie";
 
-const GraphCard = ({ title, statNum, statLabel, link, data }) => {
+const PieCard = ({ title, statNum, statLabel, link, data }) => {
     return (
         <Container>
             <TopBar littleTitle={title} />
@@ -19,14 +19,14 @@ const GraphCard = ({ title, statNum, statLabel, link, data }) => {
                         <View /> View
                     </StyledLink>
                 </Overview>
-                <Graph>
-                    <VGraph data={data} />
-                </Graph>
+                <Pie>
+                    <VPie data={data} />
+                </Pie>
             </Card>
         </Container>
     );
 };
-export default GraphCard;
+export default PieCard;
 
 const Container = styled.div`
     display: flex;
@@ -74,7 +74,6 @@ const Stats = styled.div`
     }
 `;
 
-const Graph = styled.div`
+const Pie = styled.div`
     width: 100%;
-    margin-bottom: 40px;
 `;

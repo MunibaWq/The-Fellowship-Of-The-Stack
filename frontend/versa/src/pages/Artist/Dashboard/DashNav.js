@@ -53,7 +53,7 @@ let driver = [
     {
         label: "DELIVERIES",
         item: <MapPin />,
-        to: "/dashboard/driver/delivery-history",
+        to: "/dashboard/driver/deliveries",
     },
 ];
 

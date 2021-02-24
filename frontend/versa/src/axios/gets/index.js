@@ -194,10 +194,9 @@ export const getMessages = async () => {
 };
 
 export const getUserByToken = async () => {
-    const response = await Axios.get(`/api/users/me`)
-    return response.data
-}
-
+    const response = await Axios.get(`/api/users/me`);
+    return response.data;
+};
 
 export const getReadyDeliveries = async () => {
     const response = await Axios.get(`/api/dashboard/driver/ready-deliveries`);
