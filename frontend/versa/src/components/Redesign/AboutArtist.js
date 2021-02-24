@@ -37,9 +37,11 @@ const AboutArtist = ({ item, type }) => {
                         alt={"image"}
                     />
                     <p>
-                        Andy Rementer is a creative person based in Calgary. He
-                        grew up in a Victorian beach town which later informed
-                        his interest in nostalgia and color.
+                        {type === "product" ? item?.artist : item?.username} is
+                        a creative person based in Calgary. They first started
+                        their creative busines selling at local markets. They
+                        started to gain popularity when their unusual designs
+                        went viral.
                     </p>
                 </ArtistBlurb>
                 <Messaging>
