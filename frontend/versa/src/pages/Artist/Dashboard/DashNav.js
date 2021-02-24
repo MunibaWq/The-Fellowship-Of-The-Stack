@@ -85,6 +85,9 @@ const DashLink = styled(Link)`
         stroke: ${white};
     }
     &:hover {
+        transform: scale(1.1);
+    }
+    &:hover {
         svg {
             stroke: ${green};
         }
