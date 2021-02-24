@@ -5,6 +5,7 @@ import { getMessages } from "../axios/gets";
 import MessageThread from "../components/Dashboard/Messages/MessageThread";
 import PageContainer from "../components/Redesign/Reusable/PageContainer";
 import Header from "../components/Redesign/Reusable/Header";
+import Loading from "../components/Redesign/Reusable/Loading";
 
 const Messages = () => {
     const [messages, setMessages] = useState();
@@ -24,7 +25,8 @@ const Messages = () => {
 
     return (
         <PageContainer>
-            <Header title="Messages"/>
+            <Header title="Messages" />
+            {!messages && <Loading />}
             {messages && (
                 <MessageSection>
                     <MessageList
@@ -46,7 +48,7 @@ const MessageSection = styled.div`
     grid-template-rows: 45px auto;
     width: 100%;
     margin-bottom: 2em;
-    overflow-y:hidden;
+    overflow-y: hidden;
 `;
 const Container = styled.div`
     width: 100vw;

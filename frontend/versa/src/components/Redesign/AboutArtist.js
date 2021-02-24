@@ -47,7 +47,11 @@ const AboutArtist = ({ item, type }) => {
                 <Messaging>
                     {user && (
                         <Question>
-                            <h2>Connect with Brain Slush</h2>
+                            <h2>{`Connect with ${
+                                type === "product"
+                                    ? item?.artist
+                                    : item?.username
+                            }`}</h2>
 
                             <p>
                                 Got any questions about this{" "}
