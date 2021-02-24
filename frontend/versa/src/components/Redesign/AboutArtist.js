@@ -110,7 +110,7 @@ const Container = styled.div`
         flex-direction: row;
         height: fit-content;
         justify-content: space-evenly;
-        align-items: center;
+        align-items: flex-start;
         background: ${(props) => props.theme.lightBlue};
 
         @media (max-width: 768px) {
