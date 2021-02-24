@@ -13,12 +13,12 @@ const AssignedPickupTable = ({ orderData }) => {
 
     const sortOptions = [
         {
-            value: "id",
-            label: "Order ID",
+            value: "address",
+            label: "Address",
         },
         {
-            value: "ordername",
-            label: "Buyer Name",
+            value: "name",
+            label: "Name",
         },
     ];
 
@@ -26,10 +26,10 @@ const AssignedPickupTable = ({ orderData }) => {
         const sortArray = (type) => {
             const types = {
                 id: (a, b) => {
-                    return a.id - b.id;
+                    return a.address - b.address;
                 },
                 ordername: (a, b) => {
-                    return a.name.localeCompare(b.name);
+                    return a.username.localeCompare(b.username);
                 },
             };
             const sortProperty = types[type];
