@@ -43,7 +43,7 @@ const Navbar = () => {
     const [username, setUsername] = useState("");
     const [modal, setModal] = useState(false);
     const [altColor, setAltColor] = useState(false);
-
+    const [stroke2, setStroke2] = useState("#F3F6FF");
     useEffect(() => {
         dispatch(login);
     }, [loggedIn, dispatch]);
@@ -156,7 +156,7 @@ const Navbar = () => {
                     {loggedIn && (
                         <NavLink
                             color={theme.secondary}
-                            to="/dashboard"
+                            to="/dashboard/artist"
                             onMouseEnter={() => {
                                 setDashboard(onHover);
                             }}
@@ -170,6 +170,7 @@ const Navbar = () => {
                         </NavLink>
                     )}
                     <NavLink
+                        to="/account"
                         color={theme.secondary}
                         onClick={() => {
                             setAccount(onHover);
@@ -237,13 +238,21 @@ const Navbar = () => {
                         <SubContainer
                             to="/log-out"
                             hoverText={onHover}
-                            modal={altColor ? gradient : "#6B45FF"}>
+                            modal={gradient}
+                            onMouseEnter={() => {
+                                setStroke2("#6B45FF");
+                            }}
+                            onMouseLeave={() => {
+                                setStroke2("#F3F6FF");
+                            }}>
                             <SubIcon
                                 className="rightModal"
                                 background={altColor ? "#F3F6FF" : "#1C1C1C"}
                                 to="/logout">
                                 <SignOut
-                                    stroke={altColor ? "#474747" : "#F3F6FF"}
+                                    className="strokeColor"
+                                    strokeColor={stroke2}
+                                    stroke={altColor ? "#474747" : stroke2}
                                     alt="sign-out"
                                 />
                             </SubIcon>
@@ -276,7 +285,7 @@ export const Nav = styled.nav`
         props.colors === "#F3F6FF" ? "none" : props.colors};
     display: flex;
     justify-content: space-between;
-    padding: 20px 40px;
+    padding: 10px 40px;
     z-index: 10;
     transition: all 0.3s ease;
     position: -webkit-sticky; /* for Safari */

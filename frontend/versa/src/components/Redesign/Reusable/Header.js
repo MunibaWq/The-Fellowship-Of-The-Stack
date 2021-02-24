@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
+import { LeftIcon } from "../../../images/icons";
 import Search from "../Reusable/Search";
+import { StyledLink } from "./Link";
 
 //              USE
 //  add 'search' prop if you want it to include search bar
@@ -14,6 +16,8 @@ import Search from "../Reusable/Search";
 //      title="Shop"
 //      sub ="Support your favourite talented artists and buy presents for loved ones."
 //       />
+// add onClick prop for the specific function you want the search button to do,
+// add onChange prop for the specific function you want the input box to do
 
 const Header = ({
     sub,
@@ -23,9 +27,17 @@ const Header = ({
     onChange,
     onKeyPress,
     placeholder,
+    link,
+    linkText,
 }) => {
     return (
         <HeaderContainer>
+            {link && (
+                <StyledLink to={link} tertiary>
+                    <LeftIcon />
+                    {linkText}
+                </StyledLink>
+            )}
             <h1>{title}</h1>
             <Subheading>{sub}</Subheading>
             {search && (
@@ -43,9 +55,10 @@ const Header = ({
 export default Header;
 
 const HeaderContainer = styled.header`
+    align-self: flex-start;
     flex-direction: column;
     align-items: flex-start;
-    align-self: flex-start;
+    margin: 0 1em;
 `;
 
 const Subheading = styled.p`

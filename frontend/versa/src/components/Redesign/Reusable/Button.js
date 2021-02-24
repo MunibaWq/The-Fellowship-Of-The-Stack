@@ -4,8 +4,9 @@ import GradientMove from "./Animations";
 const Button = styled.button.attrs((props) => ({
     type: props.type || "button",
 }))`
-    display: inline-flex;
+    display: flex;
     flex-direction: row;
+    align-items: center;
     padding: 20px 40px;
     text-transform: uppercase;
     font-weight: 700;
@@ -18,19 +19,19 @@ const Button = styled.button.attrs((props) => ({
     border-radius: 15px;
     font-family: "Inter", sans-serif;
     margin: 0;
-    max-width: fit-content;
+    width: fit-content;
+
     outline: none;
     cursor: pointer;
     svg {
         path {
             stroke: ${(props) => props.theme.blue};
-            fill: ${(props) => props.theme.blue};
         }
+        margin-right: 8px;
     }
     :hover {
         svg {
             path {
-                fill: ${(props) => props.theme.black};
                 stroke: ${(props) => props.theme.black};
             }
         }
@@ -52,15 +53,25 @@ const Button = styled.button.attrs((props) => ({
     ${(props) =>
         props.secondarySmall &&
         css`
+            a {
+                color: ${(props) => props.theme.lightBlue};
+            }
             background: ${(props) => props.theme.black};
             border-radius: 8px;
             padding: 10px 20px;
+            svg {
+                path {
+                    stroke: ${(props) => props.theme.blue};
+                    fill: ${(props) => props.theme.black};
+                }
+            }
             :hover {
                 background: ${(props) => props.theme.purple};
                 color: ${(props) => props.theme.blue};
                 svg {
                     path {
                         stroke: ${(props) => props.theme.blue};
+                        fill: ${(props) => props.theme.purple};
                     }
                 }
             }
@@ -72,6 +83,7 @@ const Button = styled.button.attrs((props) => ({
             padding: 10px 20px;
             background: transparent;
             position: relative;
+            align-items: center;
             border-bottom: 3px solid transparent;
             svg {
                 margin-right: 8px;

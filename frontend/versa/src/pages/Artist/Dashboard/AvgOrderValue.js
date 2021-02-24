@@ -22,7 +22,7 @@ const AvgOrderValue = () => {
     const [salesData, setSalesData] = useState();
     const [graphData, setGraphData] = useState();
     const [start, setStart] = useState("01-01-1900");
-    const [end, setEnd] = useState(new Date().toUTCString());
+    const [end, setEnd] = useState(new Date('2999').toUTCString());
     const [sortBy, setSortBy] = useState("Average Order Value");
     useEffect(() => {
         const fetchData = async (query) => {

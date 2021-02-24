@@ -38,5 +38,5 @@ const DateContainer = styled.div`
 `;
 export const SearchBarDiv = styled.div`
     display: flex;
-    width:100%;
+    width: 98%;
 `;

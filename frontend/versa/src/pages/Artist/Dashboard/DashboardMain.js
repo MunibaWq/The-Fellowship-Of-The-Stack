@@ -121,6 +121,7 @@ const DashboardContainer = styled.div`
     padding: 2em 2em 2em calc(2em + 66px);
     background-color: #eff3fe;
     width: 100vw;
+    height: fit-content;
 `;
 
 const Orders = styled(DashCard)``;

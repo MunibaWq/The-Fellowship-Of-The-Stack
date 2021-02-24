@@ -1,16 +1,38 @@
 import React from "react";
 import styled from "styled-components";
+import chicken from "../../../images/chicken.gif";
 
 const Loading = () => {
     return (
-        <Circle>
-            <p>Loading</p>
-        </Circle>
+        // <Circle>
+        //     <p>Loading</p>
+        // </Circle>
+        <Loader>
+            <img src={chicken} />
+            <blink>
+                <marquee scrollamount={50} behavior="alternate" truespeed scrolldelay={0}>
+                    <h1>
+                        LOADING LOADING LOADING LOADING LOADING LOADING LOADING
+                        LOADING LOADING LOADING LOADING LOADING LOADING LOADING
+                        LOADING LOADING LOADING LOADING LOADING LOADING LOADING
+                    </h1></marquee>
+                
+            </blink>{" "}
+        </Loader>
     );
 };
 
 export default Loading;
-
+const Loader = styled.div`
+    position: relative;
+    top: 1em;
+    h1 {
+        color: rgb(${Math.random()*255},${Math.random()*255},${Math.random()*255});
+    }
+    img {
+        width: 100%;
+    }
+`;
 const Circle = styled.div`
     display: flex;
     justify-content: center;

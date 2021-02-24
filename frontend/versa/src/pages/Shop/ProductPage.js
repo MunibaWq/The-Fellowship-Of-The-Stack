@@ -13,6 +13,7 @@ import { clearChoices } from "../../redux/actions/ProductPage";
 import { useDispatch } from "react-redux";
 import Item from "../../components/Redesign/Reusable/Item";
 import { useParams } from "react-router";
+import AboutArtist from "../../components/Redesign/AboutArtist";
 const ProductPage = () => {
     const params = useParams();
     const currentProduct = params.id;
@@ -52,6 +53,7 @@ const ProductPage = () => {
                 Shop
             </BackLink>
             <Item product={productDataState} images={images} />
+            <AboutArtist item={productDataState} type="product" />
         </PageContainer>
     );
 };

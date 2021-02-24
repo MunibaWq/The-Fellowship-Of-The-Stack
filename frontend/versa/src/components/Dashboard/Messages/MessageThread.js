@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { getUserByToken } from "../../../axios/gets";
 import { sendMessage } from "../../../axios/posts";
-import { SendIcon } from "../../../images/icons";
+import { Circle, SendIcon } from "../../../images/icons";
 import theme from "../../Reusable/Colors";
 import { Input } from "../../Reusable/Input";
 import ScrollableFeed from 'react-scrollable-feed'
@@ -29,29 +29,33 @@ const MessageThread = ({ thread }) => {
     return messageList ? (
         <ThreadDiv>
             <Header>
-                <h3>{messageList.topic}</h3>
-                <h3>{messageList.from}</h3>
+                <h4>{messageList.topic}</h4>
+                <h4>{messageList.from}</h4>
             </Header>
             <MessageDiv>
                 <Scrollable>
                 {messageList.messages.map((message) => {
                     return message.from_user === userID ? (
-                        <ToMessage>
+                        <MessageHolder>
+                            <Circle stroke="none"/>
+                            <ToMessage>
                             <Message>
-                                <p>{message.message}</p>
+                                <h4>{message.message}</h4>
                             </Message>
                             <Time>
                                 <p>
                                     {new Date(
                                         message.time
                                     ).toLocaleTimeString()}
-                                </p>
-                            </Time>
-                        </ToMessage>
+                                    </p>
+                                    {message.read ? "✔✔" : "✔"}
+                                </Time>
+                                
+                        </ToMessage></MessageHolder>
                     ) : (
-                        <FromMessage>
+                        <MessageHolderFrom><Circle stroke="none"/><FromMessage>
                             <Message>
-                                <p>{message.message}</p>
+                                <h4>{message.message}</h4>
                             </Message>
                             <Time>
                                 <p>
@@ -59,8 +63,9 @@ const MessageThread = ({ thread }) => {
                                         message.time
                                     ).toLocaleTimeString()}
                                 </p>
-                            </Time>
-                        </FromMessage>
+                                </Time>
+                                
+                        </FromMessage></MessageHolderFrom>
                     );
                 })}
                     
@@ -98,15 +103,41 @@ const MessageThread = ({ thread }) => {
                         setMessageList(newList);
                         setOutgoing("");
                     }}>
-                    <SendIcon stroke="white" width="24" height="24" />
+                    <SendIcon stroke="white" width="60" height="60" />
                 </SendButton>
             </Send>
         </ThreadDiv>
     ) : (
-        <></>
+        <ThreadDiv></ThreadDiv>
     );
 };
 export default MessageThread;
+
+const MessageHolder = styled.div`
+    display:flex;
+    place-items: flex-end;
+    /* justify-content: flex-end; */
+    svg {
+        height: 18px;
+        width:18px;
+        path {
+            fill: ${props=>props.theme.black + "10"};
+        }
+    }
+    flex-direction: row-reverse;
+`
+const MessageHolderFrom = styled.div`
+    display:flex;
+    
+    place-items: flex-start;
+    svg {
+        height: 18px;
+        width:18px;
+        path {
+            fill: ${props=>props.theme.lightPurple};
+        }
+    }
+`
 const Scrollable = styled(ScrollableFeed)`
 ::-webkit-scrollbar {
     width: 0.1em;
@@ -122,22 +153,30 @@ const Scrollable = styled(ScrollableFeed)`
 display: flex;
 flex-direction: column;
 `
-const Message = styled.div``;
+const Message = styled.div`
+    h4 {
+        font-weight: 400;
+    }
+`;
 const Time = styled.div`
     align-self: flex-end;
+    display: flex;
+    align-items: flex-end;
     p {
         margin-top: 10px;
+        margin-right: 10px;
     }
 `;
 const SendButton = styled.div`
     display: flex;
-    margin-right: 10px;
+    margin: -28px -24px -28px 0px;
+    height: 85px;
+    width: 84px;
     align-items: center;
     background-color: ${props=>props.theme.purple};
-    width: 29px;
-    height: 29px;
     cursor: pointer;
     svg {
+        padding-left: 21px;
         :hover {
             path {
                 stroke: ${props=>props.theme.purple};
@@ -151,7 +190,7 @@ const Send = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin-top: 10px;
+    
     input {
         background-color: ${props=>props.theme.lightBlue};
         margin-right: 20px;
@@ -171,20 +210,22 @@ const ThreadDiv = styled.div`
     }
     grid-row:2;
     grid-column:2;
-    background-color: ${props=>props.theme.lightBlue};
+    background-color: ${props => props.theme.lightBlue};
+ 
 `;
 const MessageDiv = styled.div`
     display: flex;
     flex-direction: column;
-    background-color: #eff3fe60;
+    background-color: ${props=>props.theme.blue};
     overflow-y: auto;
-    height: 60vh;
+    height: 840px;
+    padding: 20px 40px;
     
 `;
 const ToMessage = styled.div`
     display: flex;
     flex-direction: column;
-    margin: 20px;
+    margin: 20px 0px;
     padding: 10px;
     border-radius: 10px;
 
@@ -200,7 +241,7 @@ const FromMessage = styled.div`
     display: flex;
     flex-direction: column;
     border-radius: 10px;
-    margin: 20px;
+    margin: 20px 0px;
     padding: 10px;
     p {
         color: ${props=>props.theme.black};
@@ -211,5 +252,15 @@ const FromMessage = styled.div`
     background-color: ${props=>props.theme.lightPurple};
 `;
 const Header = styled.div`
+    background-color: ${props=>props.theme.blue};
     height: 69px;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 40px;
+    h4 {
+        :last-child{
+            font-weight:400;
+        }
+    }
+    
 `;

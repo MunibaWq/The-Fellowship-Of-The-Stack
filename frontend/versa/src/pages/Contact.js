@@ -1,8 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 
-import theme from "../components/Reusable/Colors";
-
 const Contact = () => {
     return (
         <Container>
