@@ -10,6 +10,7 @@ const {
     sendReminder,
 } = require("./helperFunctions/sendGridFunctions");
 const pool = require("./db");
+const middleware = require("./middleware/middleware");
 let app = express();
 app.use(cookieParser());
 app.use(express.json());
@@ -40,10 +41,11 @@ app.use("*", async (req, res, next) => {
     next();
 });
 
-app.use('/api', apiRouter)
+app.use('/api', middleware,  apiRouter)
 
 app.get("*", (req, res) => {
     res.sendFile(
         path.resolve(__dirname, "../frontend/versa/build", "index.html")
     );
 });
+
