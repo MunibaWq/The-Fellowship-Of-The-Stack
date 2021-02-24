@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import Cookies from "universal-cookie";
 import styled from "styled-components";
 import PageContainer from "../../components/Redesign/Reusable/PageContainer";
-import Loading from "../../components/Redesign/Reusable/Loading";
 import Header from "../../components/Redesign/Reusable/Header";
 import GraphCard from "../../components/Redesign/Reusable/GraphCard";
 import { getMyArtistEvents } from "../../axios/gets";
@@ -14,6 +13,8 @@ import {
     salesByProductData,
     recentOrders,
 } from "../Artist/Dashboard/data";
+import TableCard from "../../components/Redesign/Reusable/TableCard";
+import PieCard from "../../components/Redesign/Reusable/PieCard";
 
 const Artist = () => {
     console.log();
@@ -57,53 +58,53 @@ const Artist = () => {
             <CardList>
                 <GraphCard
                     title="Total Orders This Month"
-                    statNum="123"
+                    statNum="68"
                     statLabel="Orders"
                     data={ordersData}
                     link="/dashboard/artist/analytics"
                 />
-                <GraphCard
-                    title="Total Sales This Month"
-                    statNum="$123"
-                    link="/dashboard/artist/analytics"
-                    statLabel="Orders"
-                    data={salesData}
-                />
-                {/* <GraphCard
+                <TableCard
                     title="Recent Orders"
-                    statNum="123"
-                    statLabel="Orders"
+                    statNum="12"
+                    statLabel="Unfulfilled"
                     link="/dashboard/artist/recent-orders"
                     data={recentOrders}
-                /> */}
-                {/* <GraphCard
+                />
+                <PieCard
+                    title="Top 5 Products"
+                    statNum="$1.1k"
+                    statLabel="Top Product Sales"
+                    data={salesByProductData}
+                    link="/dashboard/artist/analytics"
+                />
+                <GraphCard
+                    title="Total Sales This Month"
+                    statNum="$7.6k"
+                    link="/dashboard/artist/analytics"
+                    statLabel="Sales"
+                    data={salesData}
+                />
+                <TableCard
                     title="Inventory"
-                    statNum="123"
-                    statLabel="Orders"
+                    statNum="5"
+                    statLabel="Low Stock Products"
                     link="/dashboard/artist/inventory"
                     data={productData}
-                /> */}
+                />
                 <GraphCard
-                    title="Average Order Value"
+                    title="Average Order Value This Month"
                     statNum="$213"
                     statLabel="Average"
                     link="/dashboard/artist/analytics"
                     data={avgOrderData}
                 />
-                {/* <GraphCard
+                <TableCard
                     title="Events"
-                    statNum="123"
-                    statLabel="Orders"
+                    statNum="3"
+                    statLabel="Upcoming Events"
                     link="/dashboard/artist/manage-events"
                     data={eventsTableData}
-                /> */}
-                {/* <GraphCard
-                    title="Sales by Product"
-                    statNum="123"
-                    statLabel="Orders"
-                    data={salesByProductData}
-                    link="/dashboard/artist/analytics"
-                /> */}
+                />
             </CardList>
         </PageContainer>
     );
@@ -112,7 +113,11 @@ const Artist = () => {
 export default Artist;
 
 const CardList = styled.div`
+    margin: 2em 0;
+    align-self: flex-start;
+    width: 100%;
     display: grid;
     grid-gap: 1rem;
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(390px, 1fr));
+    height: fit-content;
 `;
