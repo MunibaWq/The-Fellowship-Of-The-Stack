@@ -418,7 +418,7 @@ router.get("/driver/assigned-pickups/:artistid", auth, async (req, res) => {
     try {
         const assignedDeliveries = await pool.query(
             `
-            SELECT o.id, o.name, o.phone, o.email, o.delivery_notes, o.shipping_address, i.order_id, i.quantity, i.color, p.thumbnail, i.id as single_id,
+            SELECT o.buyer_id, o.id, o.name, o.phone, o.email, o.delivery_notes, o.shipping_address, i.order_id, i.quantity, i.color, p.thumbnail, i.id as single_id,
             i.size, p.title, i.driver_status, u.username, u.address 
             FROM orders o 
             INNER JOIN order_items i ON o.id = i.order_id 
