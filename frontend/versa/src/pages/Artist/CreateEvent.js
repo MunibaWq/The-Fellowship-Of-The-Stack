@@ -1,24 +1,16 @@
 import React from "react";
 import styled from "styled-components";
 import EventForm from "../../components/Events/EventForm";
-
+import PageContainer from '../../components/Redesign/Reusable/PageContainer'
+import Header from '../../components/Redesign/Reusable/Header'
 const CreateEvent = () => {
     return (
-        
-        <Container>
-            <h1>Create an Event</h1>
+        <PageContainer>
+            <Header title="Create an Event" />
             <EventForm type={"Add"} />
-        </Container>
+        </PageContainer>
     );
 };
 
 export default CreateEvent;
 
-const Container = styled.div`
-    margin: 2em;
-    display: flex;
-    flex-direction: column;
-    /* height: calc(84vh - 4em); */
-    text-align: center;
-    width:90vw;
-`;
