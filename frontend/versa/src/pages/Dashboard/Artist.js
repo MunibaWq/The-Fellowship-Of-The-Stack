@@ -16,6 +16,7 @@ import {
 } from "../Artist/Dashboard/data";
 
 const Artist = () => {
+    console.log();
     const cookies = new Cookies();
     const [eventsData, setEventsData] = useState();
 
@@ -59,39 +60,50 @@ const Artist = () => {
                     statNum="123"
                     statLabel="Orders"
                     data={ordersData}
-                    link="/dashboard/analytics"
+                    link="/dashboard/artist/analytics"
                 />
                 <GraphCard
                     title="Total Sales This Month"
-                    statNum="$"
-                    link="/dashboard/analytics"
+                    statNum="$123"
+                    link="/dashboard/artist/analytics"
                     statLabel="Orders"
+                    data={salesData}
                 />
-                <GraphCard
+                {/* <GraphCard
                     title="Recent Orders"
                     statNum="123"
                     statLabel="Orders"
                     link="/dashboard/artist/recent-orders"
-                />
-                <GraphCard
+                    data={recentOrders}
+                /> */}
+                {/* <GraphCard
                     title="Inventory"
                     statNum="123"
                     statLabel="Orders"
                     link="/dashboard/artist/inventory"
-                />
+                    data={productData}
+                /> */}
                 <GraphCard
+                    title="Average Order Value"
+                    statNum="$213"
+                    statLabel="Average"
+                    link="/dashboard/artist/analytics"
+                    data={avgOrderData}
+                />
+                {/* <GraphCard
                     title="Events"
                     statNum="123"
                     statLabel="Orders"
                     link="/dashboard/artist/manage-events"
-                />
-                <GraphCard
+                    data={eventsTableData}
+                /> */}
+                {/* <GraphCard
                     title="Sales by Product"
                     statNum="123"
                     statLabel="Orders"
                     data={salesByProductData}
                     link="/dashboard/artist/analytics"
-                />
+                /> */}
             </CardList>
         </PageContainer>
     );
@@ -100,8 +112,7 @@ const Artist = () => {
 export default Artist;
 
 const CardList = styled.div`
- display: grid;
+    display: grid;
     grid-gap: 1rem;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  }
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
 `;

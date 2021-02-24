@@ -5,14 +5,14 @@ import { View } from "../../../images/icons";
 import { StyledLink } from "./Link";
 import TopBar from "./TopBar";
 
-const GraphCard = ({ title, stat, statLabel, link, data }) => {
+const GraphCard = ({ title, statNum, statLabel, link, data }) => {
     return (
-        <>
+        <Container>
             <TopBar littleTitle={title} />
             <Card>
                 <Overview>
                     <Stats>
-                        <p>{stat}</p>
+                        <p>{statNum}</p>
                         <p>{statLabel}</p>
                     </Stats>
                     <StyledLink primaryExtraSmall to={link}>
@@ -23,18 +23,24 @@ const GraphCard = ({ title, stat, statLabel, link, data }) => {
                     <VGraph data={data} />
                 </Graph>
             </Card>
-        </>
+        </Container>
     );
 };
 export default GraphCard;
+
+const Container = styled.div`
+    display: flex;
+    flex-direction: column;
+`;
 
 const Card = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 16px;
+    padding: 40px;
     background: ${(props) => props.theme.lightBlue};
+    width: 400px;
 `;
 const Overview = styled.div`
     display: flex;
@@ -42,6 +48,14 @@ const Overview = styled.div`
     align-items: center;
     width: 100%;
     justify-content: space-between;
+    button {
+        svg {
+            path {
+                stroke: ${(props) => props.theme.blue};
+                fill: none;
+            }
+        }
+    }
 `;
 const Stats = styled.div`
     display: flex;
@@ -59,4 +73,7 @@ const Stats = styled.div`
     }
 `;
 
-const Graph = styled.div``;
+const Graph = styled.div`
+    width: 100%;
+    margin-bottom: 40px;
+`;
