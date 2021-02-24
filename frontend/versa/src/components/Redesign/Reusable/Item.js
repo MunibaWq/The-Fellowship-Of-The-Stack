@@ -202,6 +202,7 @@ const Container = styled.div`
     background: ${(props) => props.theme.blue};
     padding: clamp(16px, 40px, 60px);
     border-radius: 15px;
+    margin-bottom: 12vh;
 `;
 const Column = styled.div`
     :nth-of-type(2) {

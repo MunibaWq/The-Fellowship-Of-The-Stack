@@ -22,13 +22,13 @@ const AboutArtist = ({ item, type }) => {
     }, []);
 
     return (
-        <Container>
+        <>
             <TopBar
                 title={`Meet the Artist: ${
                     type === "product" ? item?.artist : item?.username
                 }`}
             />
-            <div>
+            <Container>
                 <ArtistBlurb>
                     <Image
                         src={
@@ -89,24 +89,27 @@ const AboutArtist = ({ item, type }) => {
                         </Question>
                     )}
                 </Messaging>
-            </div>
-        </Container>
+            </Container>
+        </>
     );
 };
 
 export default AboutArtist;
 
 const Container = styled.div`
+    display: flex;
     width: 100%;
+    flex-direction: column;
+    margin-bottom: 6em;
     :first-child {
         z-index: 3;
     }
-    :nth-child(2) {
+    :last-child {
         padding: 2em 1em;
         display: flex;
         flex-direction: row;
         height: fit-content;
-        justify-content: center;
+        justify-content: space-evenly;
         align-items: center;
         background: ${(props) => props.theme.lightBlue};
 
@@ -117,7 +120,7 @@ const Container = styled.div`
 `;
 
 const ArtistBlurb = styled.div`
-    margin: 2em 0.5em;
+    /* margin: 2em 0.5em; */
     /* width: 40%; */
     justify-content: flex-start;
     flex-direction: column;
@@ -135,7 +138,7 @@ const Image = styled.img`
 `;
 
 const Messaging = styled.div`
-    margin: 2em 16px;
+    /* margin: 2em 16px; */
     /* width: 100%; */
     padding: 10px;
     height: 100%;
@@ -166,6 +169,7 @@ const Message = styled.textarea`
     border-radius: 8px;
     font-family: inherit;
     margin-bottom: 1em;
+    width: 100%;
     ::placeholder {
         color: ${(props) => props.theme.lightBlack};
     }
