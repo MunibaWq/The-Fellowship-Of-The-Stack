@@ -307,7 +307,7 @@ const CaretBorder = styled.div`
     cursor: pointer;
     &:hover {
         background: ${holo};
-        transform: scale(1.1);
+
         SVG {
             stroke: ${(props) => props.stroke};
             fill: ${(props) => props.fill};
@@ -329,7 +329,7 @@ const CaretBorderAlt = styled.div`
     cursor: pointer;
     &:hover {
         background: ${holo};
-        transform: scale(1.1);
+
         SVG {
             stroke: ${(props) => props.stroke};
             fill: ${(props) => props.fill};
@@ -428,7 +428,6 @@ const MessageRow = styled.div`
     width: 100%;
     justify-content: center;
     &:hover {
-        transform: scale(1.1);
     }
 `;
 const IconRow = styled.div`
@@ -473,7 +472,7 @@ const IconDiv = styled.div`
     align-items: center;
     &:hover {
         cursor: pointer;
-        transform: scale(1.1);
+
         h3 {
             color: ${(props) => props.color};
         }
