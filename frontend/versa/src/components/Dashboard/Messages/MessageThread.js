@@ -139,6 +139,7 @@ const MessageHolderFrom = styled.div`
     }
 `
 const Scrollable = styled(ScrollableFeed)`
+padding: 20px 40px;
 ::-webkit-scrollbar {
     width: 0.1em;
 }
@@ -219,7 +220,7 @@ const MessageDiv = styled.div`
     background-color: ${props=>props.theme.blue};
     overflow-y: auto;
     height: 840px;
-    padding: 20px 40px;
+    
     
 `;
 const ToMessage = styled.div`
