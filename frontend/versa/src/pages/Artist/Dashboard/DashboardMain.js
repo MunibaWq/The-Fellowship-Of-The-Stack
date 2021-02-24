@@ -13,6 +13,7 @@ import {
 } from "./data";
 import Cookies from "universal-cookie";
 import { getMyArtistEvents } from "../../../axios/gets";
+import PageContainer from "../../../components/Redesign/Reusable/PageContainer";
 const cookies = new Cookies();
 const DashboardMain = () => {
     const [eventsData, setEventsData] = useState();
@@ -47,7 +48,7 @@ const DashboardMain = () => {
           });
 
     return (
-        <DashboardContainer>
+        <PageContainer>
             <Greeting>Hello, {cookies.get("name")}</Greeting>
             <StoreDash>
                 {/* <History>
@@ -113,14 +114,12 @@ const DashboardMain = () => {
                     tableData={eventsTableData}
                     link="/dashboard/artist/manage-events"></DashCard>
             </StoreDash>
-        </DashboardContainer>
+        </PageContainer>
     );
 };
 export default DashboardMain;
 const DashboardContainer = styled.div`
     padding: 2em 2em 2em calc(2em + 66px);
-    background-color: #eff3fe;
-    width: 100vw;
     height: fit-content;
 `;
 

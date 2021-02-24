@@ -7,6 +7,7 @@ import Loading from "../../../components/Reusable/Loading";
 import theme from "../../../components/Reusable/Colors";
 import { StyledLink } from "../../../components/Reusable/Link";
 import { LeftIcon } from "../../../images/icons";
+import PageContainer from "../../../components/Redesign/Reusable/PageContainer";
 
 const OrderItems = () => {
     let params = useParams();
@@ -22,15 +23,16 @@ const OrderItems = () => {
         fetchData();
     }, [orderID]);
     return (
-        <Container>
+      
+        <PageContainer>
             {!orderData ? (
                 <Loading />
             ) : (
                 <>
-                    <BackToOrder to="/dashboard/shopper/order-tracking/">
+                    {/* <BackToOrder to="/dashboard/shopper/order-tracking/">
                         <LeftIcon stroke={theme.primary} />
                         Back to Orders
-                    </BackToOrder>
+                    </BackToOrder> */}
                 
 
                     <OrderItemContainer>
@@ -69,7 +71,7 @@ const OrderItems = () => {
                     </OrderItemContainer>
                 </>
             )}
-        </Container>
+        </PageContainer>
     );
 };
 

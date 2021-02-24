@@ -4,6 +4,8 @@ import { useParams } from "react-router-dom";
 import { getCustomerOrders } from "../../../axios/gets";
 import Loading from "../../../components/Reusable/Loading";
 import UserOrdersTable from "../../../components/Dashboard/AnalyticsTables/UserOrdersTable";
+import PageContainer from "../../../components/Redesign/Reusable/PageContainer";
+import Header from "../../../components/Redesign/Reusable/Header";
 
 const OrderTracking = () => {
     const [orderData, setOrderData] = useState();
@@ -31,14 +33,19 @@ const OrderTracking = () => {
     }, []);
 
     return (
-        <OrderContainer>
-            <h1>Recent Orders</h1>
-            {!orderData ? (
-                <Loading />
-            ) : (
-                <UserOrdersTable orderData={orderData} user={currentUser} />
-            )}
-        </OrderContainer>
+        <PageContainer>
+            <Header
+                title="Recent Orders"
+                sub="View your current and past orders"
+            />
+            <OrderContainer>
+                {!orderData ? (
+                    <Loading />
+                ) : (
+                    <UserOrdersTable orderData={orderData} user={currentUser} />
+                )}
+            </OrderContainer>
+        </PageContainer>
     );
 };
 
