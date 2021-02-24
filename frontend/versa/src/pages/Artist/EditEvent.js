@@ -1,14 +1,15 @@
 import React from "react";
 import styled from "styled-components";
 import EventForm from "../../components/Events/EventForm";
-
+import PageContainer from "../../components/Redesign/Reusable/PageContainer";
+import Header from '../../components/Redesign/Reusable/Header'
 const EditEvent = () => {
     return (
         
-        <Container>
-            <h1>Edit an Event</h1>
+        <PageContainer>
+            <Header title="Edit Event"/>
             <EventForm type={"Edit"} />
-        </Container>
+        </PageContainer>
     );
 };
 

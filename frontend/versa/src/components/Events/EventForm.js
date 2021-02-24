@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { FieldContainer, Input, Label, TextField } from "../Reusable/Input";
 import Button from "../Reusable/Button";
-import axios from "axios";
 import { Redirect, useParams } from "react-router";
 import { setFormErrors } from "../../redux/actions/Errors";
 import { setFormInputs } from "../../redux/actions/Forms";
@@ -17,12 +16,11 @@ import {
 } from "../ProductForm/styledComponents";
 import { ImageInput } from "../ProductForm/ImageInput";
 import { mapImages, thumbImg } from "./mapImages";
-import { userGoing, createEvent } from "../../axios/posts";
+import { createEvent } from "../../axios/posts";
 import { StyledLink } from "../Reusable/Link";
 import { LineCloseIcon } from "../../images/icons";
 import theme from "../Reusable/Colors";
 import { editEvent } from "../../axios/puts";
-
 const options = [
     "Select one:",
     "Artist showcase",
@@ -122,11 +120,14 @@ const EventForm = (props) => {
             dispatch(setFormErrors("event", "Please check all input is valid"));
         }
     };
+    
     return redirect ? (
         <Redirect to={redirect} />
     ) : (
+             
+                
         <Form onSubmit={submitData}>
-            <Instruction>Hello, what is the name of your event?</Instruction>
+                <Instruction>Hello, what is the name of your event?</Instruction>
             <RowContainer>
                 <TextField
                     multi={false}
@@ -266,7 +267,7 @@ const EventForm = (props) => {
                 </FieldContainer>
             </RowContainer>
             <Instruction>
-                Add some images of your event to be shown on the event page.
+                Add images for your event to be shown on the event page.
                 <br /> <br /> Choose one image to be the thumbnail to show up in
                 event listings. <br />
                 <br /> Images will be cropped to be 1:1{" "}

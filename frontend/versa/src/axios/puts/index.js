@@ -191,7 +191,10 @@ export const editEvent = async (event, images, id, thumbImg) => {
                     );
             }
         });
+        window.location = "/dashboard";
+
         return eventID;
+
         // if (response.status === 201) {
         //     return true;
         // }

@@ -12,7 +12,7 @@ export function mapImages(images, dispatch) {
         return (
             <div>
                 <UploadedImage key={index} alt="" src={image.image} />
-                <DeleteImage
+                {/* <DeleteImage
                     onClick={() => {
                         if (image.id) {
                             deleteEventImage(image.id);
@@ -23,7 +23,7 @@ export function mapImages(images, dispatch) {
                         dispatch(setImages("eventForm", newImages));
                     }}>
                     <LineCloseIcon stroke={theme.primary} />
-                </DeleteImage>
+                </DeleteImage> */}
                 <Radio>
                     <label htmlFor={"thumb" + index}>
                         <input
