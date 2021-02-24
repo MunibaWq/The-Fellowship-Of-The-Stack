@@ -158,7 +158,7 @@ const Sort = styled.div`
         font-size: 1em;
         font-weight: 700;
         text-transform: uppercase;
-        color: ${theme.primary};
+        color: ${props=>props.theme.black};
     }
     input {
         padding: 8px;
@@ -166,15 +166,15 @@ const Sort = styled.div`
         min-width: 150px;
         border: ${(props) =>
             props.border === true
-                ? `2px solid ${theme.primaryHover}`
-                : `2px solid ${theme.primary}`};
+                ? `2px solid ${props.theme.green}`
+                : `2px solid ${props.theme.primary}`};
         :active,
         :hover,
         :focus {
             border: ${(props) =>
                 props.border === true
-                    ? `2px solid #77dd77`
-                    : `2px solid ${theme.primaryHover}`};
+                    ? `2px solid ${props.theme.green}`
+                    : `2px solid ${props.theme.black}`};
         }
     }
     @media screen and (max-width: 600px) {
@@ -215,9 +215,16 @@ const Table = styled.table`
 
     box-shadow: 3px 3px 10px rgba(27, 49, 66, 0.13);
     border-radius: 15px 15px 0px 0px;
-    thead th {
+    thead > tr > th {
         position: sticky;
         top: 0;
+        background-color: ${(props) => props.theme.black};
+        :first-of-type {
+            border-radius: 15px 0 0 0;
+        }
+        :last-of-type {
+            border-radius: 0 15px 0 0;
+        }
     }
     th,
     td {
@@ -238,10 +245,10 @@ const Table = styled.table`
     }
 `;
 const Headers = styled.tr`
-    background-color: ${theme.primary};
+
 
     h2 {
-        color: ${theme.secondary};
+        color: #f3f6ff;
         text-align: left;
         margin-bottom: 0;
         text-transform: uppercase;
@@ -253,21 +260,26 @@ const BodyRows = styled.tr`
     border-bottom: thin solid #dddddd;
     cursor: pointer;
     p {
-        color: ${theme.tertiary};
+        color: ${props=>props.theme.black};
         margin-bottom: 0;
     }
     :hover {
-        background-color: ${theme.primary + "40"};
+        background-color: ${props=>props.theme.blueHover};
     }
     :nth-of-type(even) {
-        background-color: #eff3fe60;
+        background-color: ${props=>props.theme.lightBlue};
         :hover {
-            background-color: ${theme.primary + "40"};
+            background-color: ${props=>props.theme.blueHover};
         }
     }
-
+    :nth-of-type(odd) {
+        background-color: ${props=>props.theme.blue};
+        :hover {
+            background-color: ${props=>props.theme.blueHover};
+        }
+    }
     :last-of-type {
-        border-bottom: 2px solid ${theme.primary};
+        border-bottom: 2px solid ${props=>props.theme.blueHover};
     }
 `;
 
@@ -279,14 +291,14 @@ const SortChoice = styled.select`
     margin-right: 32px;
     border: ${(props) =>
         props.border === true
-            ? `2px solid ${theme.primaryHover}`
-            : `2px solid ${theme.primary}`};
+            ? `2px solid ${props.theme.green}`
+            : `2px solid ${props.theme.black}`};
     :active,
     :hover,
     :focus {
         border: ${(props) =>
             props.border === true
-                ? `2px solid ${theme.primaryHover}`
-                : `2px solid ${theme.primaryHover}`};
+                ? `2px solid ${props.theme.green}`
+                : `2px solid ${props.theme.black}`};
     }
 `;
