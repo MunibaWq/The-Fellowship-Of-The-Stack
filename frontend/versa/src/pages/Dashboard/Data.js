@@ -1,17 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Cookies from "universal-cookie";
-import styled from "styled-components";
-import PageContainer from "../../components/Redesign/Reusable/PageContainer";
-import Header from "../../components/Redesign/Reusable/Header";
-import TableCard from "../../components/Redesign/Reusable/TableCard";
-import {
-    getAssignedPickups,
-    getOrdersForDriver,
-    getPastDeliveries,
-} from "../../axios/gets";
-import GraphCard from "../../components/Redesign/Reusable/GraphCard";
 
-const Driver = () => {
+const Data = () => {
     const cookies = new Cookies();
 
     const [ordersToFulfill, setOrdersToFulfill] = useState();
@@ -108,56 +98,7 @@ const Driver = () => {
               graphGoal: [{ x: 0, y: 0 }],
               graphActual: [{ x: 0, y: 0 }],
           });
-    return (
-        <PageContainer>
-            <Header
-                title={`Hello, ${cookies.get("name")}`}
-                sub="Here is your summary for today."
-            />
-            <CardList>
-                <TableCard
-                    title="Today's Deliveries"
-                    statNum={assignedPickupsTableData.table.values.length}
-                    statLabel={
-                        assignedPickupsTableData.table.values.length > 1
-                            ? "Deliveries To Do"
-                            : "Delivery To Do"
-                    }
-                    link="/dashboard/driver/assigned-pickups/"
-                    data={assignedPickupsTableData}
-                />
-                <TableCard
-                    title="Orders to Fulfill"
-                    statNum={ordersToFulfillTableData.table.values.length}
-                    statLabel="Unfulfilled"
-                    link="/dashboard/driver/orders"
-                    data={ordersToFulfillTableData}
-                />
-
-                <GraphCard
-                    title="Value Delivered"
-                    statNum={pastDeliveriesGraphData.graphActual.length}
-                    statLabel={
-                        pastDeliveriesGraphData.graphActual.length > 1
-                            ? "Deliveries"
-                            : "Delivery"
-                    }
-                    link="/dashboard/driver/delivery-history"
-                    data={pastDeliveriesGraphData}
-                />
-            </CardList>
-        </PageContainer>
-    );
+    return <div></div>;
 };
 
-export default Driver;
-
-const CardList = styled.div`
-    margin: 2em 0;
-    align-self: flex-start;
-    width: 100%;
-    display: grid;
-    grid-gap: 1rem;
-    grid-template-columns: repeat(auto-fit, minmax(390px, 1fr));
-    height: fit-content;
-`;
+export default Data;

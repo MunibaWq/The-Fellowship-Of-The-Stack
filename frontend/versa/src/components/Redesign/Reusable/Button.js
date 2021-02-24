@@ -45,6 +45,12 @@ const Button = styled.button.attrs((props) => ({
             padding: 10px 20px;
         `}
     ${(props) =>
+        props.primaryExtraSmall &&
+        css`
+            border-radius: 8px;
+            padding: 8px;
+        `}
+    ${(props) =>
         props.secondary &&
         css`
             background: ${(props) => props.theme.black};

@@ -90,7 +90,7 @@ const CardList = styled.div`
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-evenly;
-    align-items: center;
+    align-items: flex-start;
     margin: 30px 0;
     width: 100%;
 `;

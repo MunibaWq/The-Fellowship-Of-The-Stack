@@ -56,12 +56,45 @@ const SideNav = ({ navWidth, setNavWidth }) => {
     const [toggleIconFill, setToggleIconFill] = useState(newPurp);
     const [shrinkStroke, setShrinkStroke] = useState(black);
     const [shrinkFill, setShrinkFill] = useState(white);
+    const [active, setActive] = useState(0);
+    const [artistFill, setArtistFill] = useState(null);
+    const [artistColor, setArtistColor] = useState(null);
+    const [buyerFill, setBuyerFill] = useState(null);
+    const [buyerColor, setBuyerColor] = useState(null);
+    const [driverColor, setDriverColor] = useState(null);
+    const [driverFill, setDriverFill] = useState(null);
 
     useEffect(() => {
         if (!expanded) {
             setToggleIconStroke(white);
         }
     }, [expanded]);
+
+    useEffect(() => {
+        if (active === 0) {
+            setArtistColor(lightPurp);
+            setArtistFill(holo);
+            setBuyerColor(null);
+            setBuyerFill(null);
+            setDriverColor(null);
+            setDriverFill(null);
+        } else if (active === 1) {
+            setBuyerColor(lightPurp);
+            setBuyerFill(holo);
+            setArtistColor(null);
+            setArtistFill(null);
+            setDriverColor(null);
+            setDriverFill(null);
+        } else if (active === 2) {
+            setDriverColor(lightPurp);
+            setDriverFill(holo);
+            setArtistColor(null);
+            setArtistFill(null);
+            setBuyerColor(null);
+            setBuyerFill(null);
+        }
+    }, [active]);
+
     return (
         <Container navWidth={navWidth}>
             {!expanded && (
@@ -115,9 +148,24 @@ const SideNav = ({ navWidth, setNavWidth }) => {
                         <IconRow>
                             <Link to="/dashboard/artist">
                                 <IconDiv
-                                    onClick={() => {
+                                    onClick={(e) => {
                                         setLinks("artist");
-                                    }}>
+                                        setActive(0);
+                                    }}
+                                    onMouseEnter={() => {
+                                        if (active !== 0) {
+                                            setArtistColor(green);
+                                            setArtistFill(green);
+                                        }
+                                    }}
+                                    onMouseLeave={() => {
+                                        if (active !== 0) {
+                                            setArtistColor(null);
+                                            setArtistFill(null);
+                                        }
+                                    }}
+                                    color={artistColor}
+                                    fill={artistFill}>
                                     <IconBorder>
                                         <PaintBrushIcon
                                             width="24"
@@ -128,11 +176,26 @@ const SideNav = ({ navWidth, setNavWidth }) => {
                                     <IconLabel>ARTIST</IconLabel>
                                 </IconDiv>
                             </Link>
-                            <Link to="/dashboard/shopper">
+                            <Link to="/dashboard/shopper/order-tracking/">
                                 <IconDiv
                                     onClick={() => {
                                         setLinks("buyer");
-                                    }}>
+                                        setActive(1);
+                                    }}
+                                    onMouseEnter={() => {
+                                        if (active !== 1) {
+                                            setBuyerColor(green);
+                                            setBuyerFill(green);
+                                        }
+                                    }}
+                                    onMouseLeave={() => {
+                                        if (active !== 1) {
+                                            setBuyerColor(null);
+                                            setBuyerFill(null);
+                                        }
+                                    }}
+                                    color={buyerColor}
+                                    fill={buyerFill}>
                                     <IconBorder>
                                         <Products width="24" height="24" />
                                     </IconBorder>
@@ -144,7 +207,22 @@ const SideNav = ({ navWidth, setNavWidth }) => {
                                 <IconDiv
                                     onClick={() => {
                                         setLinks("driver");
-                                    }}>
+                                        setActive(2);
+                                    }}
+                                    onMouseEnter={() => {
+                                        if (active !== 2) {
+                                            setDriverColor(green);
+                                            setDriverFill(green);
+                                        }
+                                    }}
+                                    onMouseLeave={() => {
+                                        if (active !== 2) {
+                                            setDriverColor(null);
+                                            setDriverFill(null);
+                                        }
+                                    }}
+                                    color={driverColor}
+                                    fill={driverFill}>
                                     <IconBorder>
                                         <CarIcon width="24" height="24" />
                                     </IconBorder>
@@ -229,6 +307,7 @@ const CaretBorder = styled.div`
     cursor: pointer;
     &:hover {
         background: ${holo};
+
         SVG {
             stroke: ${(props) => props.stroke};
             fill: ${(props) => props.fill};
@@ -250,6 +329,7 @@ const CaretBorderAlt = styled.div`
     cursor: pointer;
     &:hover {
         background: ${holo};
+
         SVG {
             stroke: ${(props) => props.stroke};
             fill: ${(props) => props.fill};
@@ -347,6 +427,8 @@ const MessageRow = styled.div`
     flex-direction: row;
     width: 100%;
     justify-content: center;
+    &:hover {
+    }
 `;
 const IconRow = styled.div`
     display: flex;
@@ -392,11 +474,17 @@ const IconDiv = styled.div`
         cursor: pointer;
 
         h3 {
-            color: ${lightPurp};
+            color: ${(props) => props.color};
         }
         div {
-            background: ${holo};
+            background: ${(props) => props.fill};
         }
+    }
+    h3 {
+        color: ${(props) => props.color};
+    }
+    div {
+        background: ${(props) => props.fill};
     }
     margin: 0 5px;
 `;

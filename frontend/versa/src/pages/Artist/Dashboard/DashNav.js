@@ -53,7 +53,7 @@ let driver = [
     {
         label: "DELIVERIES",
         item: <MapPin />,
-        to: "/dashboard/driver/delivery-history",
+        to: "/dashboard/driver/deliveries",
     },
 ];
 
@@ -88,6 +88,7 @@ const DashLink = styled(Link)`
     svg {
         stroke: ${white};
     }
+
     &:hover {
         svg {
             stroke: ${green};

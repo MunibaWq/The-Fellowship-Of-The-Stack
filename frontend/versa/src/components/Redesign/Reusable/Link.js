@@ -3,9 +3,10 @@ import styled, { css } from "styled-components";
 import GradientMove from "./Animations";
 
 export const StyledLink = styled(Link)`
-    display: inline-flex;
+    display: flex;
     flex-direction: row;
-    padding: 15px 40px;
+    align-items: center;
+    padding: 20px 40px;
     text-transform: uppercase;
     font-weight: 700;
     color: ${(props) => props.theme.blue};
@@ -17,20 +18,19 @@ export const StyledLink = styled(Link)`
     border-radius: 15px;
     font-family: "Inter", sans-serif;
     margin: 0;
-    max-width: fit-content;
+    width: fit-content;
+
     outline: none;
     cursor: pointer;
-
     svg {
         path {
             stroke: ${(props) => props.theme.blue};
-            fill: ${(props) => props.theme.blue};
         }
+        margin-right: 8px;
     }
     :hover {
         svg {
             path {
-                fill: ${(props) => props.theme.black};
                 stroke: ${(props) => props.theme.black};
             }
         }
@@ -44,6 +44,12 @@ export const StyledLink = styled(Link)`
             padding: 10px 20px;
         `}
     ${(props) =>
+        props.primaryExtraSmall &&
+        css`
+            border-radius: 8px;
+            padding: 8px;
+        `}
+    ${(props) =>
         props.secondary &&
         css`
             background: ${(props) => props.theme.black};
@@ -52,16 +58,25 @@ export const StyledLink = styled(Link)`
     ${(props) =>
         props.secondarySmall &&
         css`
+            a {
+                color: ${(props) => props.theme.lightBlue};
+            }
             background: ${(props) => props.theme.black};
             border-radius: 8px;
             padding: 10px 20px;
-            color: ${(props) => props.theme.blue};
+            svg {
+                path {
+                    stroke: ${(props) => props.theme.blue};
+                    fill: ${(props) => props.theme.black};
+                }
+            }
             :hover {
                 background: ${(props) => props.theme.purple};
                 color: ${(props) => props.theme.blue};
                 svg {
                     path {
                         stroke: ${(props) => props.theme.blue};
+                        fill: ${(props) => props.theme.purple};
                     }
                 }
             }
@@ -73,6 +88,7 @@ export const StyledLink = styled(Link)`
             padding: 10px 20px;
             background: transparent;
             position: relative;
+            align-items: center;
             border-bottom: 3px solid transparent;
             svg {
                 margin-right: 8px;
@@ -99,7 +115,7 @@ export const StyledLink = styled(Link)`
                 content: "";
                 position: absolute;
                 width: 0%;
-                transform: translate(-15%, 800%);
+                transform: translate(-15%, 500%);
                 height: 4px;
                 border-radius: 50px;
                 opacity: 0;
