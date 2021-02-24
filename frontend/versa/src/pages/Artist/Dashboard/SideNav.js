@@ -176,7 +176,7 @@ const SideNav = ({ navWidth, setNavWidth }) => {
                                     <IconLabel>ARTIST</IconLabel>
                                 </IconDiv>
                             </Link>
-                            <Link to="/dashboard/shopper">
+                            <Link to="/dashboard/shopper/order-tracking/">
                                 <IconDiv
                                     onClick={() => {
                                         setLinks("buyer");
