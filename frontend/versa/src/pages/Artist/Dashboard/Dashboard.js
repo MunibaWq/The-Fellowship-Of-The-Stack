@@ -70,11 +70,7 @@ const Dashboard = () => {
                 </SideNavDiv>
                 {/* <SideMenu /> */}
                 <Switch>
-                    <PrivateRoute
-                        path="/dashboard"
-                        exact
-                        component={DashboardLanding}
-                    />
+                    <PrivateRoute path="/dashboard" exact component={Artist} />
                     <PrivateRoute
                         path="/dashboard/artist"
                         exact

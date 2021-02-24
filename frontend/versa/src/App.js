@@ -71,7 +71,7 @@ function App() {
 
                         <Route path="/log-in" component={Login} />
 
-                        <Route path="/dashboard" component={Artist} />
+                        <Route path="/dashboard" component={Dashboard} />
                         <Route path="/coming-soon" component={ComingSoon} />
                         <Route component={NotFound} />
                     </Switch>
