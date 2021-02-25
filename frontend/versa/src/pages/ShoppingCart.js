@@ -6,7 +6,7 @@ import CheckoutButton from "../components/Cart/checkoutButton";
 import { Error } from "../components/Reusable/Input";
 import { updateCart } from "../redux/actions/Cart";
 import { setFormErrors } from "../redux/actions/Errors";
-import { AddIcon, MinusIcon } from "../images/icons";
+import { AddIcon, LineCloseIcon, MinusIcon } from "../images/icons";
 import RadioButton from "../components/Reusable/RadioButton";
 import FreeDelivery from "../components/Cart/FreeDelivery";
 import { modifyCart } from "../axios/puts";
@@ -130,6 +130,7 @@ const ShoppingCart = () => {
                             <div><p>Quantity</p></div>
                             <Price><p>Price</p></Price>
                             <Price><p>Total</p></Price>
+                            
                         </ColumnHeaders>
                     </Bar>
 

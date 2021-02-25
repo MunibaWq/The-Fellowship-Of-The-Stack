@@ -111,7 +111,7 @@ const OrderItems = () => {
                                                 </p>
 
                                                 <MessageBox>
-                                                    <textarea
+                                                {!sent ? (<><textarea
                                                         value={message}
                                                         placeholder="Message"
                                                         onChange={(e) => {
@@ -121,7 +121,7 @@ const OrderItems = () => {
                                                         }}
                                                     />
 
-                                                    {!sent ? (
+                                                    
                                                         <SendButton
                                                             secondarySmall
                                                             onClick={() => {
@@ -138,7 +138,7 @@ const OrderItems = () => {
                                                             }}>
                                                             <SendIcon />
                                                             Send
-                                                        </SendButton>
+                                                        </SendButton></>
                                                     ) : (
                                                         "Message Sent, check dashboard for responses"
                                                     )}

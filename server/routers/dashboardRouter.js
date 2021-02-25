@@ -141,8 +141,9 @@ router.get("/recent-orders", auth, async (req, res) => {
             `SELECT * FROM orders o INNER JOIN
             (SELECT order_id FROM sales_by_product
             WHERE artist_id = ${req.user.id}
-            GROUP BY order_id) x ON x.order_id = o.id`
-            // `SELECT o.order_total, o.id, o.shipping_address, o.name, o.date, o.ship_date, o.delivery_notes, o.phone, o.pickup, o.status, s.artist_id, s.product_id, s.quantity, s.color, s.size, p.title
+            GROUP BY order_id) x ON x.order_id = o.id ORDER BY o.id DESC`
+            
+       // `SELECT o.order_total, o.id, o.shipping_address, o.name, o.date, o.ship_date, o.delivery_notes, o.phone, o.pickup, o.status, s.artist_id, s.product_id, s.quantity, s.color, s.size, p.title
             // FROM orders o
             // INNER JOIN sales_by_product s
             // ON o.id = s.order_id
