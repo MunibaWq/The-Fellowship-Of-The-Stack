@@ -128,6 +128,7 @@ const SideNav = ({ navWidth, setNavWidth }) => {
                             onClick={() => {
                                 setNavWidth(0);
                                 setExpanded(false);
+                                setExpanded(false);
                             }}
                             onMouseEnter={() => {
                                 setShrinkFill("none");
@@ -151,6 +152,7 @@ const SideNav = ({ navWidth, setNavWidth }) => {
                                     onClick={(e) => {
                                         setLinks("artist");
                                         setActive(0);
+                                        setExpanded(false);
                                     }}
                                     onMouseEnter={() => {
                                         if (active !== 0) {
@@ -181,6 +183,7 @@ const SideNav = ({ navWidth, setNavWidth }) => {
                                     onClick={() => {
                                         setLinks("buyer");
                                         setActive(1);
+                                        setExpanded(false);
                                     }}
                                     onMouseEnter={() => {
                                         if (active !== 1) {
@@ -208,6 +211,7 @@ const SideNav = ({ navWidth, setNavWidth }) => {
                                     onClick={() => {
                                         setLinks("driver");
                                         setActive(2);
+                                        setExpanded(false);
                                     }}
                                     onMouseEnter={() => {
                                         if (active !== 2) {
@@ -235,11 +239,16 @@ const SideNav = ({ navWidth, setNavWidth }) => {
                         <MessageRow>
                             <MessageDiv to="/dashboard/messages">
                                 <PaperPlaneTilt />
-                                <ButtonLabel>MESSAGES</ButtonLabel>
+                                <ButtonLabel
+                                    onClick={() => {
+                                        setExpanded(false);
+                                    }}>
+                                    MESSAGES
+                                </ButtonLabel>
                             </MessageDiv>
                         </MessageRow>
                         {/* map rows here */}
-                        <DashNav type={links} />
+                        <DashNav type={links} close={setExpanded} />
                     </BodyContainer>
                 </NavBar>
             )}
@@ -299,6 +308,8 @@ const Container = styled.div`
     background: white;
     /* height: fit-content; */
     border-radius: 0 15px 15px 0;
+    top: 100px;
+    position: fixed;
 `;
 const CaretBorder = styled.div`
     background: ${newPurp};
@@ -376,7 +387,7 @@ const Toggle = styled.div`
     height: 248px;
     top: 60px;
     border-radius: 0 15px 15px 0;
-    position: absolute;
+    position: sticky;
     display: flex;
     justify-content: space-around;
     writing-mode: tb-rl;
