@@ -235,7 +235,7 @@ router.get("/shopper-order/:orderid", auth, async (req, res) => {
 router.get("/order/:orderid", auth, async (req, res) => {
     try {
         const result = await pool.query(
-            `SELECT o.buyer_id, o.order_total, o.id, o.shipping_address, o.billing_address, o.name, o.date, o.ship_date, o.delivery_notes, o.phone, o.pickup, s.artist_id, s.product_id, s.quantity, s.color, s.size, p.title
+            `SELECT p.thumbnail, o.buyer_id, o.order_total, o.id, o.shipping_address, o.billing_address, o.name, o.date, o.ship_date, o.delivery_notes, o.phone, o.pickup, s.artist_id, s.product_id, s.quantity, s.color, s.size, p.title
             FROM orders o
             INNER JOIN sales_by_product s
             ON o.id = s.order_id
@@ -355,11 +355,16 @@ router.put("/driver/order-to-fulfill/remove/:orderid", auth, (req, res) => {
 router.get("/driver/order-to-fulfill/:orderid", async (req, res) => {
     try {
         const singleDelivery = await pool.query(`
-        SELECT o.id, o.name, o.phone, o.email, o.delivery_notes, o.shipping_address, i.order_id, i.quantity, i.color, i.size, i.driver_status, u.username, u.address, p.title, p.thumbnail
+        SELECT o.id, o.name, o.phone, o.email, o.delivery_notes, o.shipping_address, 
+        i.order_id, i.quantity, i.color, i.size, i.driver_status, u.username, u.address, 
+        p.title, p.thumbnail
         FROM orders o 
-        INNER JOIN order_items i ON o.id = i.order_id 
-        INNER JOIN products p ON p.id = i.product_id 
-        inner join users u ON p.artist_id = u.id 
+        INNER JOIN order_items i 
+        ON o.id = i.order_id 
+        INNER JOIN products p 
+        ON p.id = i.product_id 
+        inner join users u 
+        ON p.artist_id = u.id 
         WHERE o.id = ${req.params.orderid}
         `);
         res.json(singleDelivery.rows);

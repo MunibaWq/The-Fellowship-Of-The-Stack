@@ -29,6 +29,10 @@ const ProductPage = () => {
             let response = await getImagesByPID(currentProduct);
             setImages(response);
         };
+        window.scrollTo({
+            top: 0,
+            left: 0,
+        });
         fetchProduct();
         fetchImages();
     }, [currentProduct]);
