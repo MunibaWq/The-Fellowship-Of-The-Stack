@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 // import logo from "../../images/logo.svg";
 import styled from "styled-components";
 // import Icon from "../Reusable/Icons";
-import theme from "./Reusable/Colors";
+
 import Cookies from "universal-cookie";
 
 import {
@@ -22,7 +22,11 @@ import {
 import { useDispatch } from "react-redux";
 import { login } from "../redux/actions/actions";
 import { getUser, getUserByToken } from "../axios/gets/index";
+import { toPlainObject } from "lodash";
+import theme from "./Redesign/Reusable/Theme";
 const cookies = new Cookies();
+const themeChoice = window.localStorage.getItem("theme") || "light";
+
 const Navbar = () => {
     const dispatch = useDispatch();
     const loggedIn = cookies.get("token");
@@ -62,36 +66,14 @@ const Navbar = () => {
     useEffect(() => {
         function getScrollHeight() {
             if (window.scrollY > 100) {
-                setNav("#1C1C1C");
-                setHome("#F3F6FF");
-                setShop("#F3F6FF");
-                setAccount("#F3F6FF");
-                setDashboard("#F3F6FF");
-                setEvents("#F3F6FF");
-                setRegular("#F3F6FF");
-                setOnHover("#B4FFC6");
-                setCart("#F3F6FF");
-                setLeftModal("#F3F6FF");
-                setRightModal("#F3F6FF");
-                setLeftText("#F3F6FF");
-                setRightText("#F3F6FF");
-                setAltColor(true);
+                setNav("scrolled");
+
+                setOnHover("scrolled");
             }
             if (window.scrollY < 100) {
-                setNav("#F3F6FF");
-                setHome("#1C1C1C");
-                setShop("#1C1C1C");
-                setAccount("#1C1C1C");
-                setDashboard("#1C1C1C");
-                setEvents("#1C1C1C");
-                setCart("#1C1C1C");
-                setRegular("#1C1C1C");
-                setOnHover("#6B45FF");
-                setLeftModal("1C1C1C");
-                setRightModal("1C1C1C");
-                setLeftText("1C1C1C");
-                setRightText("1C1C1C");
-                setAltColor(false);
+                setNav("top");
+
+                setOnHover("top");
             }
         }
 
@@ -105,99 +87,95 @@ const Navbar = () => {
     return (
         <>
             <Nav colors={nav}>
-                <NavLink color={theme.secondary} to="/">
-                    <Versa colors={regular} hover={onHover}>
+                <NavLink color={(props) => props.theme.lightBlue} to="/">
+                    <Versa colors={nav} hover={onHover}>
                         Versa
                     </Versa>
                 </NavLink>
                 <NavMenu>
                     <NavLink
-                        color={theme.secondary}
-                        to="/"
-                        onMouseEnter={() => {
-                            setHome(onHover);
-                        }}
-                        onMouseLeave={() => {
-                            setHome(regular);
-                        }}>
-                        <HomeIcon stroke={home} />
-                        <WordLink color={home} hover={onHover}>
+                        color={(props) => props.theme.lightBlue}
+                        hover={onHover}
+                        to="/">
+                        <HomeIcon stroke={
+                                nav === "scrolled"
+                                    ? theme[themeChoice].lightBlue
+                                    : theme[themeChoice].black
+                            } />
+                        <WordLink color={nav} hover={onHover}>
                             Home
                         </WordLink>
                     </NavLink>
                     <NavLink
-                        color={theme.secondary}
-                        to="/"
-                        onMouseEnter={() => {
-                            setShop(onHover);
-                        }}
-                        onMouseLeave={() => {
-                            setShop(regular);
-                        }}>
-                        <ShoppingBag stroke={shop} />
-                        <WordLink color={shop} hover={onHover}>
+                        color={(props) => props.theme.lightBlue}
+                        hover={onHover}
+                        to="/">
+                        <ShoppingBag stroke={
+                                nav === "scrolled"
+                                    ? theme[themeChoice].lightBlue
+                                    : theme[themeChoice].black
+                            } />
+                        <WordLink color={nav} hover={onHover}>
                             Shop
                         </WordLink>
                     </NavLink>
                     <NavLink
-                        color={theme.secondary}
-                        to="/events"
-                        onMouseEnter={() => {
-                            setEvents(onHover);
-                        }}
-                        onMouseLeave={() => {
-                            setEvents(regular);
-                        }}>
-                        <EventsIcon stroke={events} />
-                        <WordLink color={events} hover={onHover}>
+                        color={(props) => props.theme.lightBlue}
+                        hover={onHover}
+                        to="/events">
+                        <EventsIcon stroke={
+                                nav === "scrolled"
+                                    ? theme[themeChoice].lightBlue
+                                    : theme[themeChoice].black
+                            } />
+                        <WordLink color={nav} hover={onHover}>
                             Events
                         </WordLink>
                     </NavLink>
                     {loggedIn && (
                         <NavLink
-                            color={theme.secondary}
+                            color={(props) => props.theme.lightBlue}
                             to="/dashboard/artist"
-                            onMouseEnter={() => {
-                                setDashboard(onHover);
-                            }}
-                            onMouseLeave={() => {
-                                setDashboard(regular);
-                            }}>
-                            <Dashboard stroke={dashboard} />
-                            <WordLink color={dashboard} hover={onHover}>
+                            hover={onHover}>
+                            <Dashboard stroke={
+                                nav === "scrolled"
+                                    ? theme[themeChoice].lightBlue
+                                    : theme[themeChoice].black
+                            } />
+                            <WordLink color={nav} hover={onHover}>
                                 Dashboard
                             </WordLink>
                         </NavLink>
                     )}
                     <NavLink
                         to="/account"
-                        color={theme.secondary}
                         onClick={() => {
-                            setAccount(onHover);
                             setModal(!modal);
                         }}
                         onMouseEnter={() => {
-                            setAccount(onHover);
                             setModal(true);
                         }}
-                        onMouseLeave={() => {
-                            setAccount(regular);
-                        }}>
-                        <AccountIcon stroke={account} />
-                        <WordLink color={account} hover={onHover}>
+                       >
+                        <AccountIcon
+                            stroke={
+                                nav === "scrolled"
+                                    ? theme[themeChoice].lightBlue
+                                    : theme[themeChoice].black
+                            }
+                        />
+                        <WordLink color={nav} hover={onHover}>
                             {username}
                         </WordLink>
                     </NavLink>
                     <NavLink
-                        color={theme.secondary}
+                        color={(props) => props.theme.lightBlue}
                         to="/shopping-cart"
-                        onMouseEnter={() => {
-                            setCart(onHover);
-                        }}
-                        onMouseLeave={() => {
-                            setCart(regular);
-                        }}>
-                        <CartIcon stroke={cart} />
+                        hover={onHover}>
+                        <CartIcon stroke={
+                                nav === "scrolled"
+                                    ? theme[themeChoice].lightBlue
+                                    : theme[themeChoice].black
+                            } />
                     </NavLink>
                 </NavMenu>
             </Nav>
@@ -220,17 +198,21 @@ const Navbar = () => {
                             }}>
                             <SubIcon
                                 className="leftModal"
-                                background={altColor ? "#F3F6FF" : "#1C1C1C"}
+                                background={nav}
                                 to="/edit">
                                 <GearSix
                                     className="strokeColor"
                                     strokeColor={stroke}
-                                    stroke={altColor ? "#474747" : stroke}
+                                    stroke={
+                                nav === "scrolled"
+                                    ? theme[themeChoice].black
+                                    : theme[themeChoice].lightBlue
+                            }
                                     alt="setting"
                                 />
                             </SubIcon>
                             <SubText
-                                colors={altColor ? "#F3F6FF" : "#1C1C1C"}
+                                colors={nav}
                                 className="testing">
                                 settings
                             </SubText>
@@ -247,18 +229,22 @@ const Navbar = () => {
                             }}>
                             <SubIcon
                                 className="rightModal"
-                                background={altColor ? "#F3F6FF" : "#1C1C1C"}
+                                background={nav}
                                 to="/logout">
                                 <SignOut
                                     className="strokeColor"
                                     strokeColor={stroke2}
-                                    stroke={altColor ? "#474747" : stroke2}
+                                    stroke={
+                                nav === "scrolled"
+                                    ? theme[themeChoice].black
+                                    : theme[themeChoice].lightBlue
+                            }
                                     alt="sign-out"
                                 />
                             </SubIcon>
                             <SubText
                                 className="testing"
-                                colors={altColor ? "#F3F6FF" : "#1C1C1C"}>
+                                colors={nav}>
                                 logout
                             </SubText>
                         </SubContainer>
@@ -282,7 +268,7 @@ export default Navbar;
 
 export const Nav = styled.nav`
     background: ${(props) =>
-        props.colors === "#F3F6FF" ? "none" : props.colors};
+        props.colors === "top" ? "none" : props.theme.black};
     display: flex;
     justify-content: space-between;
     padding: 10px 40px;
@@ -301,7 +287,6 @@ export const Nav = styled.nav`
 
 const NavLink = styled(Link)`
     position: relative;
-    color: ${(props) => props.color || "#444"};
     display: flex;
     align-items: center;
     text-decoration: none;
@@ -350,9 +335,11 @@ const WordLink = styled.h2`
     letter-spacing: 0.08em;
     margin: 0 0 0 8px;
     font-size: 18px;
-    color: ${(props) => props.color};
+    color: ${(props) =>
+        props.color === "top" ? props.theme.black : props.theme.lightBlue};
     &:hover {
-        color: ${(props) => props.hover};
+        color: ${(props) =>
+            props.hover === "top" ? props.theme.green : props.theme.green};
     }
 
     @media (max-width: 600px) {
@@ -362,13 +349,15 @@ const WordLink = styled.h2`
 
 const Versa = styled.h1`
     text-transform: uppercase;
-    color: ${(props) => props.colors};
+    color: ${(props) =>
+        props.colors === "top" ? props.theme.black : props.theme.lightBlue};
     font-weight: 700;
     letter-spacing: 0.08em;
     margin: 2px 0 0 8px;
     font-size: 24px;
     &:hover {
-        color: ${(props) => props.hover};
+        color: ${(props) =>
+            props.hover === "top" ? props.theme.purple : props.theme.green};
     }
 `;
 
@@ -377,7 +366,7 @@ const AccountMenu = styled.div`
     z-index: 10;
 
     background: ${(props) =>
-        props.colors === "#F3F6FF" ? "none" : props.colors};
+        props.colors === "top" ? "none" : props.theme.black};
     right: 0;
     border-radius: 0 0 15px 15px;
     padding: 10px;
@@ -408,7 +397,7 @@ const SubContainer = styled(Link)`
     }
 `;
 const SubIcon = styled.div`
-    background: ${(props) => props.background};
+    background: ${(props) => props.background === 'top' ? props.theme.black : props.theme.lightBlue};
     border-radius: 8px;
     padding: 10px 10px 4px 10px;
 `;
@@ -416,7 +405,7 @@ const SubIcon = styled.div`
 const SubText = styled.p`
     margin-top: 8px;
     font-size: 14px;
-    color: ${(props) => props.colors};
+    color: ${(props) => props.colors === 'top' ? props.theme.black : props.theme.lightBlue};
     padding: 10px;
     text-transform: uppercase;
     letter-spacing: 0.03em;

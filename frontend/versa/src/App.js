@@ -1,5 +1,5 @@
 import React from "react";
-import { ThemeProvider } from "styled-components";
+import styled, { ThemeProvider } from "styled-components";
 // import SearchResults from "./pages/UserBuyer/SearchResults";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Navbar from "./components/Navbar";
@@ -18,7 +18,7 @@ import Footer from "./components/Footer";
 import ComingSoon from "./pages/Shared/ComingSoon";
 import Contact from "./pages/Contact";
 import Shop from "./pages/Shop/Shop";
-import LightTheme from "./components/Redesign/Reusable/Theme";
+import theme from "./components/Redesign/Reusable/Theme";
 import ProductPage from "./pages/Shop/ProductPage";
 import Artist from "./pages/Dashboard/Artist";
 if (!window.localStorage.getItem("session")) {
@@ -26,15 +26,17 @@ if (!window.localStorage.getItem("session")) {
         "session",
         Math.random().toString(36).substr(2, 9)
     );
+    window.localStorage.setItem('theme','light')
 }
-
+const themeChoice = window.localStorage.getItem('theme') || 'light'
 function App() {
     return (
-        <ThemeProvider theme={LightTheme}>
+        <ThemeProvider theme={theme[themeChoice]}>
+             <Main style={{ minHeight: "49vh" }}>
             <Router>
                 <Navbar />
 
-                <div style={{ minHeight: "49vh" }}>
+               
                     <Switch>
                         <Route exact path="/" component={Shop} />
                         <Route exact path="/home" component={Shop} />
@@ -75,11 +77,21 @@ function App() {
                         <Route path="/coming-soon" component={ComingSoon} />
                         <Route component={NotFound} />
                     </Switch>
-                </div>
+                
                 <Footer />
             </Router>
+            </Main>
         </ThemeProvider>
+            
     );
 }
 
 export default App;
+
+const Main = styled.div`
+background-size: 60vh 100%;
+    background-repeat: no-repeat;
+    background-color: #f3f6ff;
+    color: #1c1c1c;
+    background: ${props=>props.theme.background }
+`

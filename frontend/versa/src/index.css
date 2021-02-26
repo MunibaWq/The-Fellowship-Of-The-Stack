@@ -18,7 +18,7 @@ background: blue;
         url(./fonts//Inter-Regular.woff) format("woff");
 }
 
-html,
+/* html,
 body {
     background-size: 60vh 100%;
     background-repeat: no-repeat;
@@ -57,10 +57,10 @@ body {
             rgba(33, 255, 169, 0.4) 26.09%,
             rgba(205, 249, 232, 0) 42.6%
         ),
-        #f3f6ff;
-    background-repeat: no-repeat;
+        #f3f6ff; */
+    /* background-repeat: no-repeat;
     background-position: center;
-}
+} */
 
 * {
     margin: 0;
