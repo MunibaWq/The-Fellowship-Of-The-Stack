@@ -5,7 +5,9 @@ import PageContainer from "../../components/Redesign/Reusable/PageContainer";
 import Header from "../../components/Redesign/Reusable/Header";
 import Loading from "../../components/Redesign/Reusable/Loading";
 
+
 const Shop = () => {
+    
     let featuredArtistID = 44;
     const [products, setProducts] = useState();
     const [notFeatured, setNotFeatured] = useState();
@@ -30,6 +32,10 @@ const Shop = () => {
 
             setProducts(data);
         };
+        window.scrollTo({
+            top: 0,
+            left: 0,
+        });
         getProducts();
     }, []);
     const search = async () => {

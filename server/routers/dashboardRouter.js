@@ -141,8 +141,9 @@ router.get("/recent-orders", auth, async (req, res) => {
             `SELECT * FROM orders o INNER JOIN
             (SELECT order_id FROM sales_by_product
             WHERE artist_id = ${req.user.id}
-            GROUP BY order_id) x ON x.order_id = o.id`
-            // `SELECT o.order_total, o.id, o.shipping_address, o.name, o.date, o.ship_date, o.delivery_notes, o.phone, o.pickup, o.status, s.artist_id, s.product_id, s.quantity, s.color, s.size, p.title
+            GROUP BY order_id) x ON x.order_id = o.id ORDER BY o.id DESC`
+            
+       // `SELECT o.order_total, o.id, o.shipping_address, o.name, o.date, o.ship_date, o.delivery_notes, o.phone, o.pickup, o.status, s.artist_id, s.product_id, s.quantity, s.color, s.size, p.title
             // FROM orders o
             // INNER JOIN sales_by_product s
             // ON o.id = s.order_id
@@ -235,7 +236,7 @@ router.get("/shopper-order/:orderid", auth, async (req, res) => {
 router.get("/order/:orderid", auth, async (req, res) => {
     try {
         const result = await pool.query(
-            `SELECT o.buyer_id, o.order_total, o.id, o.shipping_address, o.billing_address, o.name, o.date, o.ship_date, o.delivery_notes, o.phone, o.pickup, s.artist_id, s.product_id, s.quantity, s.color, s.size, p.title
+            `SELECT p.thumbnail, o.buyer_id, o.order_total, o.id, o.shipping_address, o.billing_address, o.name, o.date, o.ship_date, o.delivery_notes, o.phone, o.pickup, s.artist_id, s.product_id, s.quantity, s.color, s.size, p.title
             FROM orders o
             INNER JOIN sales_by_product s
             ON o.id = s.order_id
@@ -355,11 +356,16 @@ router.put("/driver/order-to-fulfill/remove/:orderid", auth, (req, res) => {
 router.get("/driver/order-to-fulfill/:orderid", async (req, res) => {
     try {
         const singleDelivery = await pool.query(`
-        SELECT o.id, o.name, o.phone, o.email, o.delivery_notes, o.shipping_address, i.order_id, i.quantity, i.color, i.size, i.driver_status, u.username, u.address, p.title, p.thumbnail
+        SELECT o.id, o.name, o.phone, o.email, o.delivery_notes, o.shipping_address, 
+        i.order_id, i.quantity, i.color, i.size, i.driver_status, u.username, u.address, 
+        p.title, p.thumbnail
         FROM orders o 
-        INNER JOIN order_items i ON o.id = i.order_id 
-        INNER JOIN products p ON p.id = i.product_id 
-        inner join users u ON p.artist_id = u.id 
+        INNER JOIN order_items i 
+        ON o.id = i.order_id 
+        INNER JOIN products p 
+        ON p.id = i.product_id 
+        inner join users u 
+        ON p.artist_id = u.id 
         WHERE o.id = ${req.params.orderid}
         `);
         res.json(singleDelivery.rows);
