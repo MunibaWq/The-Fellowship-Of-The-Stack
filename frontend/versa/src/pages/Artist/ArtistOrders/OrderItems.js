@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import { getOneOrderForDriver } from "../../../axios/gets";
+import { getOneOrder } from "../../../axios/gets";
 import OrderItemCard from "../../../components/Dashboard/AnalyticsTables/OrderItemCard";
 import Loading from "../../../components/Redesign/Reusable/Loading";
 import { StyledLink } from "../../../components/Reusable/Link";
@@ -23,10 +23,14 @@ const OrderItems = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const data = await getOneOrderForDriver(orderID);
+            const data = await getOneOrder(orderID);
             setBuyerDetails(data[0]);
             setOrderData(data);
         };
+        window.scrollTo({
+            top: 0,
+            left: 0,
+        });
         fetchData();
     }, [orderID]);
 
@@ -107,7 +111,7 @@ const OrderItems = () => {
                                                 </p>
 
                                                 <MessageBox>
-                                                    <textarea
+                                                {!sent ? (<><textarea
                                                         value={message}
                                                         placeholder="Message"
                                                         onChange={(e) => {
@@ -117,7 +121,7 @@ const OrderItems = () => {
                                                         }}
                                                     />
 
-                                                    {!sent ? (
+                                                    
                                                         <SendButton
                                                             secondarySmall
                                                             onClick={() => {
@@ -134,7 +138,7 @@ const OrderItems = () => {
                                                             }}>
                                                             <SendIcon />
                                                             Send
-                                                        </SendButton>
+                                                        </SendButton></>
                                                     ) : (
                                                         "Message Sent, check dashboard for responses"
                                                     )}

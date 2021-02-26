@@ -1,24 +1,12 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import * as V from "victory";
 import { getTotalSales } from "../../../axios/gets";
 import Loading from "../../../components/Reusable/Loading";
-import theme from "../../../components/Reusable/Colors";
-import { Circle } from "../../../images/icons";
 import { DateRangeSearch } from "../../../components/Redesign/Reusable/DateRangeSearch";
-import { Input, Label } from "../../../components/Reusable/Input";
-import { AnalyticsTable } from "../../../components/Redesign/Reusable/AnalyticsTable";
-export const sorters = {
-    "Date": (one, two) => {
-        return (
-            new Date(`${one.month}/${one.day}/${one.year}`) -
-            new Date(`${two.month}/${two.day}/${two.year}`)
-        );
-    },
-    "Total Sales": (one, two) => {
-        return one.sum - two.sum;
-    },
-};
+import { AnalyticsTable } from "../../../components/Redesign/Reusable/Analytics/AnalyticsTable";
+import { Graph } from "../../../components/Redesign/Reusable/Analytics/Graph";
+import { Pie } from "../../../components/Redesign/Reusable/Analytics/Pie";
+
 const TotalSales = () => {
     const [salesData, setSalesData] = useState();
     const [graphData, setGraphData] = useState();
@@ -38,6 +26,10 @@ const TotalSales = () => {
             setGraphData(temp);
             setSalesData(data);
         };
+        window.scrollTo({
+            top: 0,
+            left: 0,
+        });
         let query = `${start}&${end}`;
         fetchData(query);
     }, [start, end]);
@@ -49,116 +41,44 @@ const TotalSales = () => {
             <SearchBarDiv>
                 <br />
                 <br />
-                <DateRangeSearch></DateRangeSearch>
+                <DateRangeSearch
+                    setDate1={setStart}
+                    setDate2={setEnd}></DateRangeSearch>
             </SearchBarDiv>
 
             {!salesData ? (
                 <Loading />
             ) : (
                 <Data>
-                    <GraphContainer>
-                        <V.VictoryChart
-                            domain={
-                                graphData && {
-                                    x: [
-                                        Math.min(
-                                            ...graphData.map(
-                                                (values) => values.x
-                                            )
-                                        ),
-                                        Math.max(
-                                            ...graphData.map(
-                                                (values) => values.x
-                                            )
-                                        ),
-                                    ],
-                                    y: [
-                                        0,
-                                        Math.max(
-                                            ...graphData.map((sales) => sales.y)
-                                        ),
-                                    ],
-                                }
-                            }
-                            theme={V.VictoryTheme.grayscale}
-                            containerComponent={
-                                <V.VictoryVoronoiContainer
-                                    labelComponent={
-                                        <V.VictoryTooltip
-                                            border={0}
-                                            cornerRadius={5}
-                                            flyoutStyle={{
-                                                stroke: "none",
-                                                fill: "none",
-                                            }}
-                                        />
-                                    }
-                                    labels={({ datum }) =>
-                                        `Day ${Math.round(
-                                            datum.x,
-                                            0
-                                        )}: $${Math.round(datum.y, 2)}`
-                                    }
-                                />
-                            }>
-                            <V.VictoryLine
-                                style={{
-                                    labels: { fill: theme.primary },
-                                    data: { stroke: theme.primary },
-                                    parent: { border: "1px solid #444" },
-                                }}
-                                data={graphData}></V.VictoryLine>
-                        </V.VictoryChart>
-                        <Legend>
-                            <div>
-                                <Circle
-                                    width="10px"
-                                    height="10px"
-                                    fill={theme.primary}
-                                />
-                                Total Orders per Day
-                            </div>
-                        </Legend>
-                    </GraphContainer>
-                    <PieContainer>
-                        <V.VictoryPie
-                            width="400"
-                            height="300"
-                            padding={{ top: 0, left: 100, right: 100 }}
-                            padAngle={2}
-                            innerRadius={25}
-                            style={{ labels: { fontSize: 15 } }}
-                            labels={({ datum }) => `${datum.x}\n $${datum.y}`}
-                            colorScale={[
-                                theme.primaryHover,
-                                theme.primaryHover + "cc",
-                                theme.primaryHover + "99",
-                                theme.primaryHover + "66",
-                                theme.primaryHover + "33",
-                            ]}
-                            data={salesData
-                                .sort((one, two) => {
-                                    return +one.sum - +two.sum;
-                                })
-                                .map((sales) => {
-                                    return {
-                                        y: +sales.sum,
-                                        x: `${sales.day}/${sales.month}/${sales.year}`,
-                                    };
-                                })}
-                        />
-                        <Legend>
-                            <div>
-                                <Circle
-                                    width="10px"
-                                    height="10px"
-                                    fill={theme.primary}
-                                />
-                                Days with highest sales
-                            </div>
-                        </Legend>
-                        </PieContainer>
-                        <AnalyticsTable headers={headers} setSortBy={setSortBy} tableData={salesData} sortBy={sortBy}/>
+                    <Left>
+                        <Card>
+                            <h4>TOTAL SALES PER DAY</h4>
+                            <Graph
+                                legendTitle="Total Sales"
+                                graphData={graphData}
+                            />
+                        </Card>
+                        <Card>
+                            <h4>DAYS WITH HIGHEST SALES</h4>
+                            <Pie
+                                data={salesData}
+                                legendText="Days with highest sales"
+                            />
+                        </Card>
+                    </Left>
+                    <Right>
+                        <Card>
+                            <h4>SALES</h4>
+
+                            <AnalyticsTable
+                                headers={headers}
+                                setSortBy={setSortBy}
+                                tableData={salesData}
+                                sortBy={sortBy}
+                            />
+                            </Card>
+                            <div></div>
+                    </Right>
                 </Data>
             )}
         </SBPContainer>
@@ -166,76 +86,35 @@ const TotalSales = () => {
 };
 
 export default TotalSales;
+const Card = styled.div`
+    background-color: black;
+    border-radius: 16px 16px 0 0;
+    margin: 24px;
+
+    h4 {
+        color: ${(props) => props.theme.lightBlue};
+        margin: 20px 40px;
+    }
+`;
+const Left = styled.div`
+    display: grid;
+    grid-template-rows: auto auto;
+`;
+const Right = styled.div`
+    display: grid;
+    grid-auto-rows: auto auto;
+`;
 const SearchBarDiv = styled.div`
     position: relative;
     margin-bottom: 40px;
 `;
 const Data = styled.div`
-    display: flex;
-
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: 60% 40%;
+    width: 100%;
 `;
-const Container = styled.div``;
-const TableContainer = styled(Container)`
 
-`
 const SBPContainer = styled.div`
     place-self: flex-start;
+    width: 100%;
 `;
-
-export const SBPTable = styled.table`
-    width: 400px;
-
-    margin: 5px;
-    /* display: flex;
-    flex-direction: column;
-    justify-content: center; */
-    padding-top: 5px;
-    td {
-        font-weight: 500;
-        padding: 6px;
-        font-size: 18px;
-    }
-    table,
-    th,
-    thead {
-        padding: 6px;
-        border-collapse: collapse;
-    }
-    thead {
-        border-bottom: 2px solid #9a9a9a;
-        td {
-            font-weight: 700;
-        }
-        text-align: left;
-        th {
-            cursor: pointer;
-            text-decoration: underline;
-        }
-    }
-`;
-const GraphContainer = styled(Container)`
-    display: flex;
-    flex-direction: column;
-    width: 450px;
-`;
-const PieContainer = styled(Container)`
-    display: flex;
-    flex-direction: column;
-    width: 400px;
-`;
-const Legend = styled.div`
-    div {
-        display: flex;
-        align-items: center;
-        font-size: 8px;
-        text-transform: uppercase;
-    }
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    div > svg {
-        margin: 5px;
-    }
-`;
-

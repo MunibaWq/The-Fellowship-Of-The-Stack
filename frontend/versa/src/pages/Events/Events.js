@@ -22,6 +22,10 @@ const Events = () => {
             console.log(data);
             setEvents(data);
         };
+        window.scrollTo({
+            top: 0,
+            left: 0,
+        });
         getEvents();
     }, []);
     useEffect(() => {
