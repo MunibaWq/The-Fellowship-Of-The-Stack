@@ -70,14 +70,14 @@ const EventsTable = ({ eventsData }) => {
                                             event.id
                                         }>
                                         <p>
-                                            <EditIcon stroke={theme.primary} />
+                                            <EditIcon />
                                         </p>
                                     </Link>
                                 </td>
                                 <td>
                                     <DeleteButton
                                         onClick={() => showModal(event.id)}>
-                                        <DeleteIcon stroke={theme.primary} />
+                                        <DeleteIcon  />
                                     </DeleteButton>
                                 </td>
                             </BodyRows>
@@ -106,21 +106,36 @@ const EventsTable = ({ eventsData }) => {
 export default EventsTable;
 
 const TableContainer = styled.div`
-    grid-column: 1 / 3;
     justify-self: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-top: 40px;
+    svg {
+        path {
+            stroke: ${props=>props.theme.purple};
+        }
+    }
 `;
 
 const Table = styled.table`
-    position: relative;
+    /* position: relative; */
     border-collapse: collapse;
-    margin: 0 1em 2em 1em;
+    /* margin: 0 1em 2em 1em; */
     font-size: 0.9em;
-    min-width: 400px;
+    width: 100%;
+
     box-shadow: 3px 3px 10px rgba(27, 49, 66, 0.13);
-    border-radius: 15px 15px 0px 0px;
-    th {
+    thead > tr > th {
         position: sticky;
         top: 0;
+        background-color: ${(props) => props.theme.black};
+        :first-of-type {
+            border-radius: 15px 0 0 0;
+        }
+        :last-of-type {
+            border-radius: 0 15px 0 0;
+        }
     }
     th,
     td {
@@ -132,10 +147,10 @@ const Table = styled.table`
     }
 `;
 const Headers = styled.tr`
-    background-color: ${theme.primary};
+    background-color: ${props=>props.theme.purple};
 
     h2 {
-        color: ${theme.secondary};
+        color: ${props=>props.theme.blue};
         text-align: left;
         margin-bottom: 0;
         text-transform: uppercase;
@@ -146,22 +161,29 @@ const Headers = styled.tr`
 const BodyRows = styled.tr`
     border-bottom: thin solid #dddddd;
     p {
-        color: ${theme.tertiary};
+        color: ${props=>props.theme.black};
         margin-bottom: 0;
     }
     :hover {
-        background-color: ${theme.primary + "40"};
+        background-color: ${props=>props.theme.blueHover};
     }
     :nth-of-type(even) {
-        background-color: #eff3fe60;
+        background-color: ${props=>props.theme.lightBlue};
         :hover {
-            background-color: ${theme.primary + "40"};
+            background-color: ${props=>props.theme.blueHover};
+        }
+    }
+    :nth-of-type(odd) {
+        background-color: ${props=>props.theme.blue};
+        :hover {
+            background-color: ${props=>props.theme.blueHover};
         }
     }
 
     :last-of-type {
-        border-bottom: 2px solid ${theme.primary};
+        border-bottom: 3px solid ${props=>props.theme.lightPurple};
     }
+    
 `;
 
 const DeleteButton = styled(Button)`
