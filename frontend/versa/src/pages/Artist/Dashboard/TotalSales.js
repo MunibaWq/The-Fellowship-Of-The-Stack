@@ -26,6 +26,10 @@ const TotalSales = () => {
             setGraphData(temp);
             setSalesData(data);
         };
+        window.scrollTo({
+            top: 0,
+            left: 0,
+        });
         let query = `${start}&${end}`;
         fetchData(query);
     }, [start, end]);

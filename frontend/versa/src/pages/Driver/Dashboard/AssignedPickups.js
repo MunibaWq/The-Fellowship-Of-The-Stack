@@ -16,6 +16,10 @@ const AssignedPickups = () => {
             const data = await getAssignedPickups();
             setOrderData(data);
         };
+        window.scrollTo({
+            top: 0,
+            left: 0,
+        });
         fetchData();
     }, []);
 

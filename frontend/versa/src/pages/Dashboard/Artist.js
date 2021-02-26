@@ -26,6 +26,10 @@ const Artist = () => {
             let data = await getMyArtistEvents();
             setEventsData(data);
         };
+        window.scrollTo({
+            top: 0,
+            left: 0,
+        });
         fetchData();
     }, []);
     let eventsTableData = {};
