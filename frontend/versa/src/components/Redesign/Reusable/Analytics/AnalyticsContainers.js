@@ -6,7 +6,7 @@ background-color: ${props => props.theme.lightBlue};
 display: flex;
 flex-direction: column;
 width: 100%;
-height: 100%;
+
 `;
 export const GraphContainer = styled(Container)`
 background-color: ${props=>props.theme.lightBlue};

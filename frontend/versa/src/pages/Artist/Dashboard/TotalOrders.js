@@ -6,6 +6,11 @@ import Loading from "../../../components/Reusable/Loading";
 import theme from "../../../components/Reusable/Colors";
 import { Circle } from "../../../images/icons";
 import { Input, Label } from "../../../components/Reusable/Input";
+import { DateRangeSearch } from "../../../components/Redesign/Reusable/DateRangeSearch";
+import { Graph } from "../../../components/Redesign/Reusable/Analytics/Graph";
+import { AnalyticsTable } from "../../../components/Redesign/Reusable/Analytics/AnalyticsTable";
+import TableTopBar from "../../../components/Redesign/Reusable/TableTopBar";
+import TopBar from "../../../components/Redesign/Reusable/TopBar";
 const sorters = {
     "Date": (one, two) => {
         return (
@@ -21,9 +26,9 @@ const TotalOrders = () => {
     const [salesData, setSalesData] = useState();
     const [graphData, setGraphData] = useState();
     const [start, setStart] = useState("01-01-1900");
-    const [end, setEnd] = useState(new Date('2999').toUTCString());
+    const [end, setEnd] = useState(new Date("2999").toUTCString());
     const [sortBy, setSortBy] = useState("Order Total");
-    
+
     useEffect(() => {
         const fetchData = async (query) => {
             const data = await getTotalOrders(query);
@@ -45,147 +50,43 @@ const TotalOrders = () => {
 
     return (
         <SBPContainer>
-            <h1>Order Totals per Day</h1>
             <SearchBarDiv>
-                <Label>Date Range</Label>
                 <br />
                 <br />
-                <Label>From:</Label>
-
-                <Input
-                    style={{ width: "20%" }}
-                    onChange={(e) => {
-                        let toDate = new Date(e.target.value);
-                        let date1Set = toDate.setDate(toDate.getDate());
-                        setStart(new Date(date1Set).toUTCString());
-                    }}
-                    type="date"
-                />
-
-                <Label style={{ paddingLeft: "3%" }}>To:</Label>
-                <Input
-                    style={{ width: "20%" }}
-                    onChange={(e) => {
-                        let toDate = new Date(e.target.value);
-                        let date2Set = toDate.setDate(toDate.getDate()+1);
-                        setEnd(new Date(date2Set).toUTCString());
-                    }}
-                    type="date"
-                />
+                <DateRangeSearch setDate1={setStart} setDate2={setEnd} />
             </SearchBarDiv>
             {!salesData ? (
                 <Loading />
             ) : (
                 <Data>
-                    <GraphContainer>
-                        <V.VictoryChart
-                            domain={
-                                graphData && {
-                                    x: [
-                                        Math.min(
-                                            ...graphData.map(
-                                                (values) => values.x
-                                            )
-                                        ),
-                                        Math.max(
-                                            ...graphData.map(
-                                                (values) => values.x
-                                            )
-                                        ),
-                                    ],
-                                    y: [
-                                        0,
-                                        Math.max(
-                                            ...graphData.map((sales) => sales.y)
-                                        ),
-                                    ],
+                    <Left>
+                        <Card>
+                            <TopBar title="Total Orders Per Day" />
+                            <Graph
+                                legendTitle="Total Orders Per Day"
+                                graphData={graphData}
+                                labels={({ datum }) =>
+                                    `Day ${Math.round(
+                                        datum.x,
+                                        0
+                                    )}: ${Math.round(datum.y, 0)}`
                                 }
-                            }
-                            theme={V.VictoryTheme.grayscale}
-                            containerComponent={
-                                <V.VictoryVoronoiContainer
-                                    labelComponent={
-                                        <V.VictoryTooltip
-                                            border={0}
-                                            cornerRadius={5}
-                                            flyoutStyle={{
-                                                stroke: "none",
-                                                fill: "none",
-                                            }}
-                                        />
-                                    }
-                                    labels={({ datum }) =>
-                                        `Day ${Math.round(
-                                            datum.x,
-                                            0
-                                        )}: ${Math.round(datum.y, 0)}`
-                                    }
-                                />
-                            }>
-                            <V.VictoryLine
-                                style={{
-                                    labels: { fill: theme.primary },
-                                    data: { stroke: theme.primary },
-                                    parent: { border: "1px solid #444" },
-                                }}
-                                data={graphData}></V.VictoryLine>
-                        </V.VictoryChart>
-
-                        <Legend>
-                            <div>
-                                <Circle
-                                    width="10px"
-                                    height="10px"
-                                    fill={theme.primary}
-                                />
-                                Total Orders per Day
-                            </div>
-                        </Legend>
-                    </GraphContainer>
-                    {/*<PieContainer>
-                        <V.VictoryPie
-                            padding={{ top: 0, left: 150, right: 150 }}
-                            padAngle={2}
-                            innerRadius={25}
-                            style={{ labels: { fontSize: 5 } }}
-                            labels={({ datum }) => `${datum.x}: $${datum.y}`}
-                            colorScale={[
-                                theme.primaryHover,
-                                theme.primaryHover + "cc",
-                                theme.primaryHover + "99",
-                                theme.primaryHover + "66",
-                                theme.primaryHover + "33",
-                            ]}
-                            data={salesData.map((sales) => {
-                                return {
-                                    x: `February ${sales.day}, ${sales.year}`,
-                                    y: sales.sum,
-                                };
-                            })}
-                        />
-                        </PieContainer>*/}
-                    <SBPTable>
-                        <thead>
-                            {headers.map((header, index) => (
-                                <th  onClick={() => {
-                                        setSortBy(header);
-                                    }} key={header + index}>{header}</th>
-                            ))}
-                        </thead>
-                        <tbody>
-                            {salesData.sort(sorters[sortBy]).map((sales, index) => {
-                                return (
-                                    <tr key={sales.sum + index}>
-                                        <td>
-                                            {sales.day}/{sales.month}/
-                                            {sales.year}
-                                        </td>
-                                        <td>{sales.sum}</td>
-                                    </tr>
-                                );
-                            })}
-                        </tbody>
-                    </SBPTable>
+                            />
+                        </Card>
+                    </Left>
+                    <Right>
+                        <Card>
+                            <TableTopBar
+                                setSortBy={setSortBy}
+                                titles={headers}
+                            />
+                            <AnalyticsTable
+                                tableData={salesData}
+                                sortBy={sortBy}
+                                sorters={sorters}
+                            />
+                        </Card>
+                    </Right>
                 </Data>
             )}
         </SBPContainer>
@@ -193,76 +94,33 @@ const TotalOrders = () => {
 };
 
 export default TotalOrders;
+const Card = styled.div`
+    border-radius: 16px 16px 0 0;
+    margin: 24px;
+
+    h4 {
+        color: ${(props) => props.theme.lightBlue};
+        margin: 20px 40px;
+    }
+`;
 const SearchBarDiv = styled.div`
     position: relative;
     margin-bottom: 40px;
 `;
 const Data = styled.div`
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    width: 100%;
 `;
 const SBPContainer = styled.div`
-    width: 100vw;
-    padding: 5em 2em;
-
-    h1 {
-        margin: 0 1em 2em 1em;
-    }
+    place-self: flex-start;
+    width: 100%;
 `;
-const Legend = styled.div`
-    div {
-        display: flex;
-        align-items: center;
-        font-size: 8px;
-        text-transform: uppercase;
-    }
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    div > svg {
-        margin: 5px;
-    }
+const Left = styled.div`
+    display: grid;
+    grid-template-rows: fit-content;
 `;
-
-const SBPTable = styled.table`
-    margin: 5px;
-    /* display: flex;
-    flex-direction: column;
-    justify-content: center; */
-    padding-top: 5px;
-    td {
-        font-weight: 500;
-        padding: 6px;
-        font-size: 18px;
-    }
-    table,
-    th,
-    thead {
-        padding: 6px;
-        border-collapse: collapse;
-    }
-    thead {
-        border-bottom: 2px solid #9a9a9a;
-        td {
-            font-weight: 700;
-        }
-        text-align: left;
-        th {
-            cursor: pointer;
-           text-decoration: underline;
-        }
-    }
+const Right = styled.div`
+    display: grid;
+    grid-template-rows: fit-content;
 `;
-
-const GraphContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    width: 450px;
-`;
-// const PieContainer = styled.div`
-//     svg {
-//         width: fit-content;
-//         height: fit-content;
-//     }
-// `;
