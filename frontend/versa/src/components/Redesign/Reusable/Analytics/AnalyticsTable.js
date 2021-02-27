@@ -36,7 +36,7 @@ const SBPTable = styled.table`
         border: none;
     }
 `;
-export const AnalyticsTable = ({ sorters, decimal, headers, setSortBy, tableData, sortBy }) => {
+export const AnalyticsTable = ({ sorters, decimal, tableData, sortBy }) => {
     return (
         <TableContainer>
             <SBPTable>

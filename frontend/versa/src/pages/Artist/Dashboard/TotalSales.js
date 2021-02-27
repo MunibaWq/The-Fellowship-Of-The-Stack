@@ -9,23 +9,23 @@ import { Pie } from "../../../components/Redesign/Reusable/Analytics/Pie";
 import TopBar from "../../../components/Redesign/Reusable/TopBar";
 import TableTopBar from "../../../components/Redesign/Reusable/TableTopBar";
 
+const sorters = {
+    "Date": (one, two) => {
+        return (
+            new Date(`${one.month}/${one.day}/${one.year}`) -
+            new Date(`${two.month}/${two.day}/${two.year}`)
+        );
+    },
+    "Total Sales": (one, two) => {
+        return one.sum - two.sum;
+    },
+};
 const TotalSales = () => {
     const [salesData, setSalesData] = useState();
     const [graphData, setGraphData] = useState();
     const [start, setStart] = useState(new Date("01-01-1999").toUTCString());
     const [end, setEnd] = useState(new Date("01-01-2999").toUTCString());
     const [sortBy, setSortBy] = useState("Total Sales");
-    const sorters = {
-        "Date": (one, two) => {
-            return (
-                new Date(`${one.month}/${one.day}/${one.year}`) -
-                new Date(`${two.month}/${two.day}/${two.year}`)
-            );
-        },
-        "Total Sales": (one, two) => {
-            return one.sum - two.sum;
-        },
-    };
     useEffect(() => {
         const fetchData = async (query) => {
             const data = await getTotalSales(query);
