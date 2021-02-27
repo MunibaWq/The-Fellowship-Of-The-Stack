@@ -35,8 +35,8 @@ const SalesByProduct = () => {
     const [productData, setProductData] = useState();
     const [pieData, setPieData] = useState();
     const [term, setTerm] = useState("");
-    const [start, setStart] = useState(new Date("01-01-1998").toUTCString());
-    const [end, setEnd] = useState(new Date("2999").toUTCString());
+    const [start, setStart] = useState(new Date("01-01-1998"));
+    const [end, setEnd] = useState(new Date("2999"));
     const [sortBy, setSortBy] = useState("# Sold");
     useEffect(() => {
         const fetchData = async (query) => {
@@ -45,7 +45,7 @@ const SalesByProduct = () => {
             setProductData(data);
             setPieData(data.sort(sorters["Total Sales"]));
         };
-        let query = `${term.toUpperCase()}&${start}&${end}`;
+        let query = `${term.toUpperCase()}&${start.toUTCString()}&${end.toUTCString()}`;
         fetchData(query);
     }, [term, start, end]);
     let headers = [

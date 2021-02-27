@@ -23,8 +23,8 @@ const sorters = {
 const TotalSales = () => {
     const [salesData, setSalesData] = useState();
     const [graphData, setGraphData] = useState();
-    const [start, setStart] = useState(new Date("01-01-1999").toUTCString());
-    const [end, setEnd] = useState(new Date("01-01-2999").toUTCString());
+    const [start, setStart] = useState(new Date("01-01-1999"));
+    const [end, setEnd] = useState(new Date("01-01-2999"));
     const [sortBy, setSortBy] = useState("Total Sales");
     useEffect(() => {
         const fetchData = async (query) => {
@@ -43,7 +43,7 @@ const TotalSales = () => {
             top: 0,
             left: 0,
         });
-        let query = `${start}&${end}`;
+        let query = `${start.toUTCString()}&${end.toUTCString()}`;
         fetchData(query);
     }, [start, end]);
 
