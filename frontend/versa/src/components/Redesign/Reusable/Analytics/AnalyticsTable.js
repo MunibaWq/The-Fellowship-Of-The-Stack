@@ -36,17 +36,25 @@ const SBPTable = styled.table`
         border: none;
     }
 `;
-export const AnalyticsTable = ({ sorters, decimal, tableData, sortBy }) => {
+export const AnalyticsTable = ({
+    avg,
+    sorters,
+    decimal,
+    tableData,
+    sortBy,
+}) => {
     return (
         <TableContainer>
             <SBPTable>
-               
                 <tbody>
                     {tableData.sort(sorters[sortBy]).map((sales, index) => (
                         <tr key={sales.sum + index}>
                             <td>{`${sales.day}/${sales.month}/${sales.year}`}</td>
                             <td style={{ textAlign: "right" }}>
-                                ${(+sales.sum).toFixed(decimal? 2 : 0)}
+                                $
+                                {avg
+                                    ? (+sales.average).toFixed(2)
+                                    : (+sales.sum).toFixed(decimal ? 2 : 0)}
                             </td>
                         </tr>
                     ))}
