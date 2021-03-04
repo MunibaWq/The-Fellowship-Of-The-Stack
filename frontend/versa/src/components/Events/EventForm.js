@@ -299,7 +299,7 @@ const EventForm = (props) => {
                             return <option value={one}>{one}</option>;
                         })}
                     </select>
-                    <Label>
+                    <p style={{placeSelf:"flex-start", textAlign: "left"}}>
                         Active: Allow people to see and register for your event
                         <br />
                         <br />
@@ -309,7 +309,7 @@ const EventForm = (props) => {
                         <br />
                         Pending: You haven't finalized the details and don't
                         want the event to be visible to others
-                    </Label>
+                    </p>
                 </FieldContainer>
             </RowContainer>
             <Instruction>

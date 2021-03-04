@@ -26,16 +26,20 @@ app.use(express.static("../frontend/versa/build"));
 //ROUTES
 
 app.use("*", async (req, res, next) => {
-    let sent = await emailsSent(
-        new Date().toLocaleDateString("en-US", {
-            year: "numeric",
-            month: "numeric",
-            day: "numeric",
-        })
-    );
+    try {
+        let sent = await emailsSent(
+            new Date().toLocaleDateString("en-US", {
+                year: "numeric",
+                month: "numeric",
+                day: "numeric",
+            })
+        );
 
-    if (!sent) {
-        sendReminder();
+        if (!sent) {
+            sendReminder();
+        }
+    } catch (e) {
+        console.log(e)
     }
     next();
 });

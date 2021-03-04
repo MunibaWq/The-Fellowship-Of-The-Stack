@@ -94,6 +94,15 @@ export default UserEventsTable;
 
 const TableContainer = styled.div`
     justify-self: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-top: 40px;
+    svg {
+        path {
+            stroke: ${(props) => props.theme.purple};
+        }
+    }
     @media only screen and (max-width: 1000px) {
         table,
         thead,
@@ -158,7 +167,7 @@ const TableContainer = styled.div`
         }
         tr {
             :hover {
-                background-color:unset;
+                background-color: unset;
             }
             :nth-of-type(even) {
                 background-color: unset;
@@ -171,16 +180,23 @@ const TableContainer = styled.div`
 `;
 
 const Table = styled.table`
-    position: relative;
+    /* position: relative; */
     border-collapse: collapse;
-    margin: 0 1em 2em 1em;
+    /* margin: 0 1em 2em 1em; */
     font-size: 0.9em;
-    min-width: 400px;
+    width: 100%;
+
     box-shadow: 3px 3px 10px rgba(27, 49, 66, 0.13);
-    border-radius: 15px 15px 0px 0px;
-    th {
+    thead > tr > th {
         position: sticky;
         top: 0;
+        background-color: ${(props) => props.theme.black};
+        :first-of-type {
+            border-radius: 15px 0 0 0;
+        }
+        :last-of-type {
+            border-radius: 0 15px 0 0;
+        }
     }
     th,
     td {
@@ -192,35 +208,40 @@ const Table = styled.table`
     }
 `;
 const Headers = styled.tr`
-    background-color: ${theme.primary};
+    background-color: ${(props) => props.theme.purple};
 
     h2 {
-        color: ${theme.secondary};
+        color: ${(props) => props.theme.blue};
         text-align: left;
         margin-bottom: 0;
         text-transform: uppercase;
         font-size: 0.8em;
-        /* letter-spacing: 0.03em; */
     }
 `;
 const BodyRows = styled.tr`
     border-bottom: thin solid #dddddd;
     p {
-        color: ${theme.tertiary};
+        color: ${props=>props.theme.black};
         margin-bottom: 0;
     }
     :hover {
-        background-color: ${theme.primary + "40"};
+        background-color: ${props=>props.theme.blueHover};
     }
     :nth-of-type(even) {
-        background-color: #eff3fe80;
+        background-color: ${props=>props.theme.lightBlue};
         :hover {
-            background-color: ${theme.primary + "40"};
+            background-color: ${props=>props.theme.blueHover};
+        }
+    }
+    :nth-of-type(odd) {
+        background-color: ${props=>props.theme.blue};
+        :hover {
+            background-color: ${props=>props.theme.blueHover};
         }
     }
 
     :last-of-type {
-        border-bottom: 2px solid ${theme.primary};
+        border-bottom: 3px solid ${props=>props.theme.lightPurple};
     }
 `;
 

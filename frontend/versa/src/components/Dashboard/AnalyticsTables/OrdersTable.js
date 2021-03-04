@@ -296,7 +296,7 @@ const Table = styled.table`
 `;
 const Headers = styled.tr`
     h2 {
-        color: #f3f6ff;
+        color: ${props=>props.theme.blue};
         text-align: left;
         margin-bottom: 0;
         text-transform: uppercase;
@@ -308,27 +308,27 @@ const BodyRows = styled.tr`
     border-bottom: thin solid #dddddd;
     cursor: pointer;
     p {
-        color: ${theme.black};
+        color: ${props=>props.theme.black};
         margin-bottom: 0;
     }
     :hover {
-        background-color: ${theme.blueHover};
+        background-color: ${props=>props.theme.blueHover};
     }
     :nth-of-type(even) {
-        background-color: ${theme.lightBlue};
+        background-color: ${props=>props.theme.lightBlue};
         :hover {
-            background-color: ${theme.blueHover};
+            background-color: ${props=>props.theme.blueHover};
         }
     }
     :nth-of-type(odd) {
-        background-color: ${theme.blue};
+        background-color: ${props=>props.theme.blue};
         :hover {
-            background-color: ${theme.blueHover};
+            background-color: ${props=>props.theme.blueHover};
         }
     }
 
     :last-of-type {
-        border-bottom: 3px solid ${theme.lightPurple};
+        border-bottom: 3px solid ${props=>props.theme.lightPurple};
     }
 `;
 

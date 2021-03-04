@@ -10,7 +10,13 @@ const emailsSent = async (day) => {
         "SELECT sent FROM sendgrid where day = $1",
         [day]
     );
-    return response.rows[0].sent;
+    if (response.rows[0]) {
+        return response.rows[0].sent
+    } else {
+        pool.query('INSERT INTO sendgrid (day, sent) VALUES ($1,$2)', [day, true]).then(() => {
+            return false
+        })
+    }
 };
 const sendReminder = async () => {
     const events = await pool.query("SELECT * from events");

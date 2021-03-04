@@ -6,12 +6,25 @@ import { DateRangeSearch } from "../../../components/Redesign/Reusable/DateRange
 import { AnalyticsTable } from "../../../components/Redesign/Reusable/Analytics/AnalyticsTable";
 import { Graph } from "../../../components/Redesign/Reusable/Analytics/Graph";
 import { Pie } from "../../../components/Redesign/Reusable/Analytics/Pie";
+import TopBar from "../../../components/Redesign/Reusable/TopBar";
+import TableTopBar from "../../../components/Redesign/Reusable/TableTopBar";
 
+const sorters = {
+    "Date": (one, two) => {
+        return (
+            new Date(`${one.month}/${one.day}/${one.year}`) -
+            new Date(`${two.month}/${two.day}/${two.year}`)
+        );
+    },
+    "Total Sales": (one, two) => {
+        return one.sum - two.sum;
+    },
+};
 const TotalSales = () => {
     const [salesData, setSalesData] = useState();
     const [graphData, setGraphData] = useState();
-    const [start, setStart] = useState(new Date("01-01-1999").toUTCString());
-    const [end, setEnd] = useState(new Date("01-01-2999").toUTCString());
+    const [start, setStart] = useState(new Date("01-01-1999"));
+    const [end, setEnd] = useState(new Date("01-01-2999"));
     const [sortBy, setSortBy] = useState("Total Sales");
     useEffect(() => {
         const fetchData = async (query) => {
@@ -30,7 +43,7 @@ const TotalSales = () => {
             top: 0,
             left: 0,
         });
-        let query = `${start}&${end}`;
+        let query = `${start.toUTCString()}&${end.toUTCString()}`;
         fetchData(query);
     }, [start, end]);
 
@@ -52,14 +65,20 @@ const TotalSales = () => {
                 <Data>
                     <Left>
                         <Card>
-                            <h4>TOTAL SALES PER DAY</h4>
+                            <TopBar title="Total Sales Per Day" />
                             <Graph
                                 legendTitle="Total Sales"
                                 graphData={graphData}
+                                labels={({ datum }) =>
+                                    `Day ${Math.round(
+                                        datum.x,
+                                        0
+                                    )}: $${Math.round(datum.y, 2)}`
+                                }
                             />
                         </Card>
                         <Card>
-                            <h4>DAYS WITH HIGHEST SALES</h4>
+                            <TopBar title="Days with highest sales" />
                             <Pie
                                 data={salesData}
                                 legendText="Days with highest sales"
@@ -68,16 +87,20 @@ const TotalSales = () => {
                     </Left>
                     <Right>
                         <Card>
-                            <h4>SALES</h4>
+                            <TableTopBar
+                                    setSortBy={setSortBy}
+                                   
+                                titles={headers}
+                            />
 
                             <AnalyticsTable
-                                headers={headers}
-                                setSortBy={setSortBy}
+                                decimal
                                 tableData={salesData}
                                 sortBy={sortBy}
+                                sorters={sorters}
                             />
-                            </Card>
-                            <div></div>
+                        </Card>
+                        
                     </Right>
                 </Data>
             )}
@@ -87,7 +110,6 @@ const TotalSales = () => {
 
 export default TotalSales;
 const Card = styled.div`
-    background-color: black;
     border-radius: 16px 16px 0 0;
     margin: 24px;
 
@@ -102,7 +124,7 @@ const Left = styled.div`
 `;
 const Right = styled.div`
     display: grid;
-    grid-auto-rows: auto auto;
+    grid-auto-rows: max-content;
 `;
 const SearchBarDiv = styled.div`
     position: relative;

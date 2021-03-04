@@ -3,7 +3,7 @@ import * as V from "victory";
 import { Circle } from "../../../../images/icons";
 import { GraphContainer, Legend } from "./AnalyticsContainers";
 import theme from '../Theme'
-export const Graph = ({ graphData }) => {
+export const Graph = ({ labels, graphData }) => {
     return <GraphContainer>
         <V.VictoryChart
             domain={graphData && {
@@ -35,10 +35,7 @@ export const Graph = ({ graphData }) => {
                         stroke: "none",
                         fill: "none",
                     }} />}
-                labels={({ datum }) => `Day ${Math.round(
-                    datum.x,
-                    0
-                )}: $${Math.round(datum.y, 2)}`} />}>
+                labels={labels} />}>
             <V.VictoryLine
                 style={{
                     labels: { fill: theme.purple },

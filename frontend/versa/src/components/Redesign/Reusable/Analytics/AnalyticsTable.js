@@ -1,17 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { TableContainer } from "./AnalyticsContainers";
-const sorters = {
-    "Date": (one, two) => {
-        return (
-            new Date(`${one.month}/${one.day}/${one.year}`) -
-            new Date(`${two.month}/${two.day}/${two.year}`)
-        );
-    },
-    "Total Sales": (one, two) => {
-        return one.sum - two.sum;
-    },
-};
+
 const SBPTable = styled.table`
     width: 100%;
 
@@ -23,7 +13,6 @@ const SBPTable = styled.table`
     padding: 6px;
     border-collapse: collapse;
     border-spacing: 0;
-   
 
     /* thead {
         border-bottom: 2px solid #9a9a9a;
@@ -37,41 +26,39 @@ const SBPTable = styled.table`
         }
     } */
     tr:nth-child(even) {
-        background-color: ${props => props.theme.blue};
+        background-color: ${(props) => props.theme.blue};
     }
     td {
         font-weight: 500;
         padding: 6px;
         font-size: 18px;
-        padding: 20px 20px;
+        padding: 20px 40px;
         border: none;
     }
 `;
-export const AnalyticsTable = ({ headers, setSortBy, tableData, sortBy }) => {
+export const AnalyticsTable = ({
+    avg,
+    sorters,
+    decimal,
+    tableData,
+    sortBy,
+}) => {
     return (
         <TableContainer>
             <SBPTable>
-                {/* <thead>
-                {headers.map((header, index) => (
-                    <th
-                        onClick={() => {
-                            setSortBy(header);
-                        }}
-                        key={header + index}>
-                        {header}
-                    </th>
-                ))}
-            </thead> */}
-                {/* <tbody> */}
-                {tableData.sort(sorters[sortBy]).map((sales, index) => (
-                    <tr key={sales.sum + index}>
-                        <td>{`${sales.day}/${sales.month}/${sales.year}`}</td>
-                        <td style={{ textAlign: "right" }}>
-                            ${(+sales.sum).toFixed(2)}
-                        </td>
-                    </tr>
-                ))}
-                {/* </tbody> */}
+                <tbody>
+                    {tableData.sort(sorters[sortBy]).map((sales, index) => (
+                        <tr key={sales.sum + index}>
+                            <td>{`${sales.day}/${sales.month}/${sales.year}`}</td>
+                            <td style={{ textAlign: "right" }}>
+                                $
+                                {avg
+                                    ? (+sales.average).toFixed(2)
+                                    : (+sales.sum).toFixed(decimal ? 2 : 0)}
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
             </SBPTable>
         </TableContainer>
     );
